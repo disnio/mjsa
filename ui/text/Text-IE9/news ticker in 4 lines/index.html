@@ -1,0 +1,144 @@
+<!doctype html>
+<head>
+<meta charset="utf-8" />
+<title>Workshop.rs: News Ticker in 4 lines of jQuery</title>
+
+<link href="resources/css/global.css" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=IM+Fell+DW+Pica+SC' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div class="bar">
+	<a href="#">« BACK TO WORKSHOP POST</a>
+
+	<a style="float: right" href="#">GO TO WORKSHOP &raquo;</a>	
+</div>
+
+<div id="page">
+	<h1>News Ticker in <span class="highlight">4</span> lines of jQuery</h1>
+
+	<h2>Example 01 [show only one news at the time]</h2>
+	<ul id="ticker_01" class="ticker">
+
+		<li>
+			<a href="#">jqBarGraph</a> is jQuery plugin that gives you freedom to easily display your data as graphs. There are three types of graphs: simple, multi and stacked.
+		</li>
+		<li>
+			Learn how to create <a href="#">image gallery in 4 lines of Jquery</a>
+		</li>
+		<li>
+
+			<a href="#">jqFancyTransitions</a> is easy-to-use jQuery plugin for displaying your photos as slideshow with fancy transition effects.
+		</li>
+		<li>
+			<a href="#">mooBarGraph</a> is AJAX graph plugin for MooTools which support two types of graphs, simple bar and stacked bar graph.
+		</li>
+	</ul>
+
+
+	<h2>Example 02 [3 news always visible]</h2>
+
+	<ul id="ticker_02" class="ticker">
+		<li>
+			<a href="#">jqBarGraph</a> is jQuery plugin that gives you freedom to easily display your data as graphs. There are three types of graphs: simple, multi and stacked.
+		</li>
+		<li>
+			Learn how to create <a href="#">image gallery in 4 lines of Jquery</a>
+		</li>
+
+		<li>
+			<a href="#">jqFancyTransitions</a> is easy-to-use jQuery plugin for displaying your photos as slideshow with fancy transition effects.
+		</li>
+		<li>
+			<a href="#">mooBarGraph</a> is AJAX graph plugin for MooTools which support two types of graphs, simple bar and stacked bar graph.
+		</li>
+	</ul>
+
+	<h2>Example 03 [changing opacity of first news]</h2>
+	<ul id="ticker_03" class="ticker">
+		<li>
+			<a href="#">jqBarGraph</a> is jQuery plugin that gives you freedom to easily display your data as graphs. There are three types of graphs: simple, multi and stacked.
+		</li>
+		<li>
+			Learn how to create <a href="#">image gallery in 4 lines of Jquery</a>
+
+		</li>
+		<li>
+			<a href="#">jqFancyTransitions</a> is easy-to-use jQuery plugin for displaying your photos as slideshow with fancy transition effects.
+		</li>
+		<li>
+			<a href="#">mooBarGraph</a> is AJAX graph plugin for MooTools which support two types of graphs, simple bar and stacked bar graph.
+		</li>
+	</ul>	
+
+	<span id="example_4">
+
+		<h2>Example 04 [live twitter data for #javascript]</h2>
+		<ul id="ticker_04" class="ticker">
+		</ul>
+	</span>
+
+
+</div>
+
+
+<script>
+
+	function tick(){
+		$('#ticker_01 li:first').slideUp( function () { $(this).appendTo($('#ticker_01')).slideDown(); });
+	}
+	setInterval(function(){ tick () }, 5000);
+
+
+	function tick2(){
+		$('#ticker_02 li:first').slideUp( function () { $(this).appendTo($('#ticker_02')).slideDown(); });
+	}
+	setInterval(function(){ tick2 () }, 3000);
+
+
+	function tick3(){
+		$('#ticker_03 li:first').animate({'opacity':0}, 200, function () { $(this).appendTo($('#ticker_03')).css('opacity', 1); });
+	}
+	setInterval(function(){ tick3 () }, 4000);	
+
+	function tick4(){
+		$('#ticker_04 li:first').slideUp( function () { $(this).appendTo($('#ticker_04')).slideDown(); });
+	}
+
+
+	/**
+	 * USE TWITTER DATA
+	 */
+
+	 $.ajax ({
+		 url: 'http://search.twitter.com/search.json',
+		 data: 'q=%23javascript',
+		 dataType: 'jsonp',
+		 timeout: 10000,
+		 success: function(data){
+		 	if (!data.results){
+		 		return false;
+		 	}
+
+		 	for( var i in data.results){
+		 		var result = data.results[i];
+		 		var $res = $("<li />");
+		 		$res.append('<img src="' + result.profile_image_url + '" />');
+		 		$res.append(result.text);
+
+		 		console.log(data.results[i]);
+		 		$res.appendTo($('#ticker_04'));
+		 	}
+			setInterval(function(){ tick4 () }, 4000);	
+
+			$('#example_4').show();
+
+		 }
+	});
+
+
+</script>
+More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a></body>
+</html>

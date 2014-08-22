@@ -1,0 +1,33 @@
+﻿.auto_height            { height:auto !important; height:100%; min-height:0px; overflow:hidden; _overflow:inherit;}
+
+#menuss {width:800px; margin:0 auto; position:relative; z-index: 2;}
+#menuss #navss li                                           { float:left; list-style:none; font:12px Arial;}
+#menuss #navss li a                                         { outline:none;}
+
+#menuss #navss li.z1                                        { width:97px;  height:36px;}
+#menuss #navss li.z1 a.x1                                   { width:97px;  height:36px; display:block; text-indent:-999em; background:url(images/sc_nav_all.gif) left top no-repeat; background-position:left 0px;}
+#menuss #navss li.hover a.x1                                { background-position:left -50px;}
+#menuss #navss li.z1 a.x1:hover                             { background-position:left -50px;}
+#menuss #navss li.z5                                        { width:129px; height:36px;}
+#menuss #navss li.z5 a.x5                                   { width:129px; height:36px; display:block; text-indent:-999em; background:url(images/sc_nav_all.gif) left top no-repeat; background-position:left -400px;}
+#menuss #navss li.hover a.x5                                { background-position:left -450px;}
+#menuss #navss li.z5 a.x5:hover                             { background-position:left -450px;}
+/* box */
+#menuss #navss li div.stair                                 { position:absolute; top:0; left:0; border-left:1px solid #cfcfcf; border-right:1px solid #cfcfcf; border-bottom:1px solid #737373;}
+#menuss #navss li div.stair .m_box                                      { margin:3px;}
+#menuss #navss li div.stair .m_box .s_s                                 { margin:3px;}
+#menuss #navss li div.stair .m_box .s_s_l                               { float:left; clear:left; width:140px; }
+#menuss #navss li div.stair .m_box .s_s_r                               { float:right; clear:right; width:190px; }
+#menuss #navss li div.stair .m_box dl.s_type1                           { margin:0; padding:0; text-align:left;}
+#menuss #navss li div.stair .m_box dl.s_type1 div.dt                    { margin:0; padding:0; margin:6px 0 2px 8px; font-weight:bold; color:#000; }
+#menuss #navss li div.stair .m_box dl.s_type1 div.dt a                  { text-decoration:none; color:#000;}
+#menuss #navss li div.stair .m_box dl.s_type1 dd                        { margin:0; padding:0; height:20px; line-height:20px; margin:3px 0 3px 0;color:#666;}
+#menuss #navss li div.stair .m_box dl.s_type1 dd a                      { text-decoration:none; color:#666; display:block; height:20px; line-height:20px; padding:0 0 0 16px;  }
+#menuss #navss li div.stair .m_box dl.s_type1 dd.ne                     { text-decoration:none; color:#666; display:block; height:20px; line-height:20px; padding:0 0 0 16px;  }
+#menuss #navss li div.stair .m_box dl.s_type1 dd a:hover                { text-decoration:none; color:#fff; }
+#menuss #navss li div.stair .m_box .sin                                 { padding:0 0 0 8px;}
+#menuss #navss li div.stair .m_box .s_s_nr                              { text-align:left; color:#666; margin:6px 0 2px 8px; *margin:6px 0 2px 8px; _margin:6px 0 2px 0px; font-weight:normal;}
+#menuss #navss li div.stair .m_box .s_s_nr a                            { color:#666; text-decoration:none; height:20px; line-height:20px; display:block;}/****************/
+#menuss #navss li div.stair .m_box .s_s_nr a:hover                      { color:#fff; text-decoration:none; background:#666;}/****************/
+
+#menuss #navss li div.stair .m_box .s_s_nr2                             { margin:0; padding:0; height:20px; line-height:20px; margin:3px 0 3px 0;color:#666; text-decoration:none; color:#666; display:block; height:20px; line-height:20px; padding:0 0 0 16px;}

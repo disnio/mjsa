@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>index</title>
+	<script type="text/javascript" charset="utf-8" src='js/jquery.js'></script>
+	<script type="text/javascript" charset="utf-8">
+		$(window).load(function(){
+			
+			//set and get some variables
+			var thumbnail = {
+				imgIncrease : 100, /* the image increase in pixels (for zoom) */
+				effectDuration : 400, /* the duration of the effect (zoom and caption) */
+				/* 
+				get the width and height of the images. Going to use those
+				for 2 things:
+					make the list items same size
+					get the images back to normal after the zoom 
+				*/
+				imgWidth : $('.thumbnailWrapper ul li').find('img').width(), 
+				imgHeight : $('.thumbnailWrapper ul li').find('img').height() 
+				
+			};
+			
+			//make the list items same size as the images
+			$('.thumbnailWrapper ul li').css({ 
+				
+				'width' : thumbnail.imgWidth, 
+				'height' : thumbnail.imgHeight 
+				
+			});
+			
+			//when mouse over the list item...
+			$('.thumbnailWrapper ul li').hover(function(){
+				
+				$(this).find('img').stop().animate({
+					
+					/* increase the image width for the zoom effect*/
+					width: parseInt(thumbnail.imgWidth) + thumbnail.imgIncrease,
+					/* we need to change the left and top position in order to 
+					have the zoom effect, so we are moving them to a negative
+					position of the half of the imgIncrease */
+					left: thumbnail.imgIncrease/2*(-1),
+					top: thumbnail.imgIncrease/2*(-1)
+					
+				},{ 
+					
+					"duration": thumbnail.effectDuration,
+					"queue": false
+					
+				});
+				
+				//show the caption using slideDown event
+				$(this).find('.caption:not(:animated)').slideDown(thumbnail.effectDuration);
+				
+			//when mouse leave...
+			}, function(){
+				
+				//find the image and animate it...
+				$(this).find('img').animate({
+					
+					/* get it back to original size (zoom out) */
+					width: thumbnail.imgWidth,
+					/* get left and top positions back to normal */
+					left: 0,
+					top: 0
+					
+				}, thumbnail.effectDuration);
+				
+				//hide the caption using slideUp event
+				$(this).find('.caption').slideUp(thumbnail.effectDuration);
+				
+			});
+			
+		});
+	</script>
+	<style type="text/css" media="screen">
+		body { background-color:#292929; color:white;text-align:center; font-family: 'georgia'; font-size: 13px; } /* not important */
+		.thumbnailWrapper { width:600px; margin:0px auto; } /* not important */
+		
+		.thumbnailWrapper ul { 
+			list-style-type: none; /* remove the default style for list items (the circles) */ 
+			margin:0px; /* remove default margin */
+			padding:0px; /* remove default padding */
+		}
+		.thumbnailWrapper ul li { 
+			float:left; /* important: left float */
+			position:relative; /* so we can use top and left positioning */
+			overflow:hidden; /* hide the content outside the boundaries (ZOOM) */
+		}
+		.thumbnailWrapper ul li a img { 
+			width:200px; /* not important, the pics we use here are too big */
+			position:relative; /* so we can use top and left positioning */
+			border:none; /* remove the default blue border */
+		}
+		.caption{
+			position:absolute; /* needed for positioning */
+			bottom:0px; /* bottom of the list item (container) */
+			left:0px; /* start from left of the list item (container) */
+			width:100%; /* stretch to the whole width of container */
+			display:none; /* hide by default */
+			/* styling bellow */
+			background:#0c4b62;
+			color:white;
+			opacity:0.9;
+		}
+		.caption .captionInside{
+			/* just styling */
+			padding:10px;
+			margin:0px;
+		}
+		.clear { clear:both; } /* to clear the float after the last item */a{ color:#FFCC00;}
+	</style>
+</head>
+<body>
+	<h4>Thumbnail Zoom and Caption Effect Demonstration from TutsValley.com</h4>
+	<p>Tutorial: "Making A Cool Thumbnail Effect With Zoom And Captions"</p>
+	<p>How to use it? Just hover over the images and you will see the effect.<br>
+	  <br>More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+	</p>
+	<!-- start thumbnailWrapper div -->
+	<div class='thumbnailWrapper'>
+		<!-- start unordered list -->
+		<ul>
+			<li>
+				<a href='#'><img src='images/1.jpg' /></a>
+				<div class='caption'>
+					<p class='captionInside'>CofeeNerd</p>
+				</div>
+			</li>
+			<li>
+				<a href='#'><img src='images/2.jpg' /></a>
+				<div class='caption'>
+					<p class='captionInside'>musiKings</p>
+				</div>
+			</li>
+			<li>
+				<a href='#'><img src='images/3.png' /></a>
+				<div class='caption'>
+					<p class='captionInside'>The Caribbean Energy Conference 2010</p>
+				</div>
+			</li>
+			<li>
+				<a href='#'><img src='images/4.jpg' /></a>
+				<div class='caption'>
+					<p class='captionInside'>Coffee</p>
+				</div>
+			</li>
+			<li>
+				<a href='#'><img src='images/5.jpg' /></a>
+				<div class='caption'>
+					<p class='captionInside'>Quantum</p>
+				</div>
+			</li>
+			<li>
+				<a href='#'><img src='images/6.png' /></a>
+				<div class='caption'>
+					<p class='captionInside'>Infinite Love</p>
+				</div>
+			</li>
+			<li>
+				<a href='#'><img src='images/7.jpg' /></a>
+				<div class='caption'>
+					<p class='captionInside'>Fathom</p>
+				</div>
+			</li>
+			<li>
+				<a href='#'><img src='images/9.PNG' /></a>
+				<div class='caption'>
+					<p class='captionInside'>Mixed Pome</p>
+				</div>
+			</li>
+			<li>
+				<a href='#'><img src='images/10.jpg' /></a>
+				<div class='caption'>
+					<p class='captionInside'>Golf Lessons Online</p>
+				</div>
+			</li>
+			
+			<div class='clear'></div><!-- clear the float -->
+			
+		</ul><!-- end unordered list -->
+		
+	</div><!-- end spolightWrapper div -->
+</body>
+</html>
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <link rel="stylesheet" type="text/css" href="css/combo.css" />
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+    <script src="js/cn.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/combo.js"></script>
+</head>
+
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+$(function(){
+    var dd = [];
+    for(var i=1;i<=5; i++)
+        dd.push({ code: i + '', name: 'Employee ' + i });
+    var cfg = {
+        keyField: 'code',
+        displayField: 'name',
+        multiSelect: false,
+        width: 200,
+        boxWidth: 200,
+        cols : [{
+            field: 'code', width: '30%'
+        },{
+            field: 'name', width: '70%'
+        }],
+        data: dd
+    };
+    var cfg1 = $.extend({}, cfg);
+    var cb1 = $('#combo1').mac('combo', cfg1);
+
+    $('#get1').click(function(){
+        alert(cb1.selected);
+    });
+    $('#set1').click(function(){
+        cb1.select(2);
+    });
+
+    var cfg2 = $.extend({}, cfg);
+    cfg2.multiSelect = true;
+    
+    var cb2 = $('#combo2').mac('combo', cfg2);
+    $('#get2').click(function(){
+        alert(cb2.selected.join(','));
+    });
+    $('#set2').click(function(){
+        cb2.select([2,4]);
+    });
+})
+
+</script>
+
+<body>
+
+<h3>multiSelect = false</h3>
+<div id="combo1" class="combo"></div><br>
+&nbsp;&nbsp;<button id="get1">get1</button>&nbsp;<button id="set1">set1</button>
+<h3>multiSelect = true</h3>
+<div id="combo2" class="combo"></div><br>
+&nbsp;&nbsp;<button id="get2">get2</button>&nbsp;<button id="set2">set2</button>
+
+
+</body>
+</html>

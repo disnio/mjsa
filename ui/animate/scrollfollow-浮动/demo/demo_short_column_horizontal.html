@@ -1,0 +1,156 @@
+<!--
+/**
+ *
+ * @author      Pierre Cassat and contributors
+ * @copyleft    Les Ateliers Pierrot <http://www.ateliers-pierrot.net>
+ * @license     GNU/GPL (see LICENSE) - Free of use as long as you cite the Ateliers ;-)
+ * @version     1.0 - 03/2012
+ * @source      https://github.com/pierowbmstr/jquery-scrollfollow (free access git repository)
+ * @see         jQuery, a free javascript library <http://jquery.com>
+ * @support     https://github.com/pierowbmstr/jquery-scrollfollow/issues
+ *
+ */
+//--><html>
+<head>
+	<title>Short column with horizontal scroll - Scroll Followers demo</title>
+<style type="text/css">
+/* Some styles for this page only */
+*{ padding:0; margin:0; }
+body{ color:#000;margin:3px 0;overflow-y:scroll;background:#fff; width: 5000px; }
+a,a:hover,a:active,.link{color:#12c}
+a:visited{color:#61c}
+ul,ol { margin: 0 3em }
+h1, h2, h3 { margin-bottom:1em; padding: 0 1em }
+h2, h3 { margin-top:1em }
+h4 { padding: 0 1.8em }
+p { margin-bottom:4px }
+.intro { margin:0;padding: 0 2em 1em 2em;font-weight:bold }
+.hr { display: block; margin: 1em 0; height: 4px; width: 100%; border-bottom: 1px solid #ccc; }
+
+.wrapper  { margin: 1em; position: relative; }
+.header   { display: block; margin: 1em 0; border-bottom: 1px solid #ccc; }
+.content  { display: block; width: 98%; margin: 1em 0; }
+.column   { display: block; width: 300px; margin: 1em 0; padding: .4em; border-right: 1px solid #ccc; }
+.footer   { clear: both; display: block; margin: 1em 0; border-top: 1px solid #ccc; }
+
+.column li { margin-bottom: 1em; }
+.column h4, .column p { margin: 1em 0; }
+
+</style>
+
+<!-- //////////////////////////////////////////
+  Inclusion of the global jQuery code
+////////////////////////////////////////// //-->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script>
+
+<!-- //////////////////////////////////////////
+  Inclusion of the plugin code
+////////////////////////////////////////// //-->
+<script type="text/javascript" src="../jquery.scrollfollow/jquery.scrollfollow.js"></script>
+<script type="text/javascript" src="../jquery.scrollfollow/jquery.scrollfollow.debugger.js"></script>
+
+<!-- //////////////////////////////////////////
+  Attach the plugin on DOM objects
+////////////////////////////////////////// //-->
+<script type="text/javascript">
+$(document).ready( function(){
+
+	// Some infos about the plugin
+	$.scrollfollow.infos(1);
+
+	// Attach the plugin on #scrollingDiv
+	$("#scrollingDiv").scrollfollow({
+		limit: '#content',
+		follow: "horizontal",
+		wrapbox: true,
+//		toptobottom: 'top',
+//		bottomtotop: 'top',
+		debug:true
+	});
+
+});
+</script>
+</head>
+<body>
+<script type="text/javascript">
+// this is not required ... just to check if jQuery is loaded :)
+if (typeof jQuery != 'function') document.write("<p style=\"margin:20px; border:2px solid red; padding: 12px;font-weight:bold;color:red\">WARNING - It seems your internet connexion is not active ! It's required to load the jQuery original script from the cloud ...<br />This demo won't work unless you include your own version of the jQuery library.</p>");
+</script>
+<div class="wrapper">
+
+	<div class="header">
+      <h1><em>jquery.scrollfollow</em> on a column shorter than screen on horizontal scrolling</h1>
+	</div>
+
+	<div class="column" id="scrollingDiv">
+
+<h4>Column Menu:</h4>
+<ul>
+	<li><a href="#">close second one</a></li>
+	<li><a href="#">open second one</a></li>
+	<li><a href="#">hide first one</a></li>
+	<li><a href="#">show first one</a></li>
+	<li><a href="#">toggle "floatingboxid1"</a></li>
+</ul>
+
+	</div>
+	<div class="hr"></div>
+	<div class="content" id="content">
+		<div class="intro">
+			These pages are demonstrations and work-helpers of the "<strong>scrollfollow</strong>" jQuery plugin, constructed to allow DOM content blocks to follow scrolling in part of or the total page.
+			<br />
+			It requires the <a href="http://jquery.com" title="Informations on jquery.com">jQuery</a> javascript library to work. A specific plugin's debugger is used in these pages, showing the different values of current scrolling and blocks positions.
+			<br />
+			To implement <em>scrollfollow</em>, just have a look in the HTML source code of these pages or see <a href="../README.md">README file</a> ...
+			<br />
+			For information, support and source code, see <a href="https://github.com/pierowbmstr/jquery-scrollfollow">https://github.com/pierowbmstr/jquery-scrollfollow</a>.
+		</div>
+
+      	<h2>The text below is a 'Lorem Ipsum' content</h2>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <a href="#">Morbi et risus</a>. Aliquam nisl. Nulla facilisi. Cras accumsan vestibulum ante. Vestibulum sed tortor. Praesent <span class="caps">SMALL CAPS</span> tempus fringilla elit. Ut elit diam, sagittis in, nonummy in, gravida non, nunc. Ut orci. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Nam egestas, orci eu imperdiet malesuada, nisl purus fringilla odio, quis commodo est orci vitae justo. Aliquam placerat odio tincidunt nulla. Cras in libero. Aenean rutrum, magna non tristique posuere, erat odio eleifend nisl, non convallis est tortor blandit ligula. Nulla id augue.</p>
+
+				<p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+        <p>Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor consectetuer felis ligula nec mauris. Vestibulum odio erat, fermentum at, commodo vitae, ultrices et, urna. Mauris vulputate, mi pulvinar sagittis condimentum, sem nulla aliquam velit, sed imperdiet mi purus eu magna. Nulla varius metus ut eros. Aenean aliquet magna eget orci. Class aptent taciti sociosqu ad litora.</p>
+        <p>Vivamus euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse vel nibh ut turpis dictum sagittis. Aliquam vel velit a elit auctor sollicitudin. Nam vel dui vel neque lacinia pretium. Quisque nunc erat, venenatis id, volutpat ut, scelerisque sed, diam. Mauris ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec mattis. Morbi dignissim sollicitudin libero. Nulla lorem.</p>
+        <h2>Header Level 2</h2>
+        <p><img src="test.jpg" class="top pull-1 left" alt="test" style="float: left;margin-right: 10px;" />Lorem ipsum dolor sit amet, <em>consectetuer adipiscing elit</em>. Nunc congue ipsum vestibulum libero. Aenean vitae justo. Nam eget tellus. Etiam convallis, est eu lobortis mattis, lectus tellus tempus felis, a ultricies erat ipsum at metus.</p>
+        <blockquote>
+          <p>Integer cursus ornare mauris. Praesent nisl arcu, imperdiet eu, ornare id, scelerisque ut, nunc. Praesent sagittis erat sed velit tempus imperdiet. Ut tristique, ante in interdum hendrerit, erat enim faucibus felis, quis rutrum mauris lorem quis sem. Vestibulum ligula nisi, mattis nec, posuere et, blandit eu, ligula. Nam suscipit placerat odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Pellentesque tortor libero, venenatis vitae, rhoncus eu, placerat ut, mi. Nulla nulla.</p>
+        </blockquote>
+        <p>Maecenas vel metus quis magna pharetra fermentum. <em>Integer sit amet tortor</em>. Maecenas porttitor, pede sed gravida auctor, nulla augue aliquet elit, at pretium urna orci ut metus. Aliquam in dolor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, tellus id ornare posuere, quam nunc accumsan turpis, at convallis tellus orci et nisl. Phasellus congue neque a lorem.</p>
+        <ol>
+           <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+           <li>Aliquam tincidunt mauris eu risus.</li>
+        </ol>
+        <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+        <h3>Header Level 3</h3>
+        <ul>
+           <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+           <li>Aliquam tincidunt mauris eu risus.</li>
+        </ul>
+        <pre><code>
+#header h1 a { 
+	display: block; 
+	width: 300px; 
+	height: 80px; 
+}
+        </code></pre>
+
+				<p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+        <p>Nullam mattis, odio ut tempus facilisis, metus nisl facilisis metus, auctor consectetuer felis ligula nec mauris. Vestibulum odio erat, fermentum at, commodo vitae, ultrices et, urna. Mauris vulputate, mi pulvinar sagittis condimentum, sem nulla aliquam velit, sed imperdiet mi purus eu magna. Nulla varius metus ut eros. Aenean aliquet magna eget orci. Class aptent taciti sociosqu ad litora.</p>
+        <p>Vivamus euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse vel nibh ut turpis dictum sagittis. Aliquam vel velit a elit auctor sollicitudin. Nam vel dui vel neque lacinia pretium. Quisque nunc erat, venenatis id, volutpat ut, scelerisque sed, diam. Mauris ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec mattis. Morbi dignissim sollicitudin libero. Nulla lorem.</p>
+	</div>
+
+	<div class="footer">
+      <p>Vivamus euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse vel nibh ut turpis dictum sagittis. Aliquam vel velit a elit auctor sollicitudin. Nam vel dui vel neque lacinia pretium. Quisque nunc erat, venenatis id, volutpat ut, scelerisque sed, diam. Mauris ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec mattis. Morbi dignissim sollicitudin libero. Nulla lorem.</p>
+      <p>Vivamus euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse vel nibh ut turpis dictum sagittis. Aliquam vel velit a elit auctor sollicitudin. Nam vel dui vel neque lacinia pretium. Quisque nunc erat, venenatis id, volutpat ut, scelerisque sed, diam. Mauris ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec mattis. Morbi dignissim sollicitudin libero. Nulla lorem.</p>
+      <p>Vivamus euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse vel nibh ut turpis dictum sagittis. Aliquam vel velit a elit auctor sollicitudin. Nam vel dui vel neque lacinia pretium. Quisque nunc erat, venenatis id, volutpat ut, scelerisque sed, diam. Mauris ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec mattis. Morbi dignissim sollicitudin libero. Nulla lorem.</p>
+      <p>Vivamus euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse vel nibh ut turpis dictum sagittis. Aliquam vel velit a elit auctor sollicitudin. Nam vel dui vel neque lacinia pretium. Quisque nunc erat, venenatis id, volutpat ut, scelerisque sed, diam. Mauris ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec mattis. Morbi dignissim sollicitudin libero. Nulla lorem.</p>
+      <p>Vivamus euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse vel nibh ut turpis dictum sagittis. Aliquam vel velit a elit auctor sollicitudin. Nam vel dui vel neque lacinia pretium. Quisque nunc erat, venenatis id, volutpat ut, scelerisque sed, diam. Mauris ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec mattis. Morbi dignissim sollicitudin libero. Nulla lorem.</p>
+      <p>Vivamus euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse vel nibh ut turpis dictum sagittis. Aliquam vel velit a elit auctor sollicitudin. Nam vel dui vel neque lacinia pretium. Quisque nunc erat, venenatis id, volutpat ut, scelerisque sed, diam. Mauris ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec mattis. Morbi dignissim sollicitudin libero. Nulla lorem.</p>
+	</div>
+
+</div>
+
+</body>
+</html>

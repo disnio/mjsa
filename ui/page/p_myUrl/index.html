@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>muUrl</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="../../js/jquery.js"></script>
+    <script type="text/javascript" src="jquery.muUrl.js"></script>
+    <script>
+    $(function() {
+        $("#demo1").click(function() {
+            var url = $.fn.getUrl();
+            alert(url);
+            return false;
+        });
+
+        $("#demo2").click(function() {
+            alert($.fn.getHost());
+            return false;
+        });
+
+        $("#btn1").click(function() {
+            var val = $("#text1").val();
+            alert($.fn.getHost(val));
+        });
+
+        $("#btn2").click(function() {
+            var val = $("#text2").val();
+            var obj = $.fn.getObj('http://www.helloweba.com/demo/jqURL/?a=1&b=2&c=3');
+            val = eval("obj." + val);
+            alert(val);
+        });
+    })
+    </script>
+</head>
+
+<body>
+
+    <h1>方法介绍</h1>
+    <div class="tip_box">
+        <h2>getUrl()</h2>
+        <p class="tips">获取当前地址栏 Url 地址</p>
+        <h2>getHost() or getObj("url")</h2>
+        <p class="tips">获取当前地址栏 Url 地址，去除参数，可传参</p>
+        <h2>getObj() or getObj("url")</h2>
+        <p class="tips">获取当前地址栏 Url 地址，组合成 Object 对象返回，可传参</p>
+    </div>
+    <h1>Demo1</h1>
+    <p>
+        <a href="#" id="demo1">单击我</a>
+        <br />$.fn.getUrl();
+        <br />
+    </p>
+    <h1>Demo2</h1>
+    <a href="#" id="demo2">单击我</a>
+    <br />$.fn.getHost();
+    <br />
+    <input value="http://www.herte.com/demo/jqURL/?a=1&b=2&c=3" id="text1" />
+    <input type="button" value="查看" id="btn1" />
+    <h1>Demo3</h1>
+    $.fn.getObj();
+    <br />地址：http://www.helfd.com/demo/jqURL/?a=1&b=2&c=3
+    <input value="a" id="text2" />
+    <input type="button" value="查看" id="btn2" />
+
+    <!-- end of main_container -->
+</body>
+
+</html>

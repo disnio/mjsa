@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/baseTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>myPagination Jquery Pagination Plug-in</title>
+<!-- InstanceEndEditable -->
+<link rel="stylesheet" href="resources/css/stylesheet.css" type="text/css" media="screen" />
+<link href="resources/js/share/images/main.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="resources/js/jquery.js"></script>
+<script type="text/javascript" src="resources/js/share/js/redstorm.js"></script>
+
+<!-- InstanceBeginEditable name="head" -->
+<link rel="stylesheet" type="text/css" href="resources/js/fancybox/fancybox/jquery.fancybox-1.3.4.css" />
+<script type="text/javascript" src="resources/js/fancybox/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<script>
+$(function(){
+	
+	$("#style").fancybox({
+				'width'				: '100%',
+				'height'			: '100%',
+				'autoScale'			: false,
+				'transitionIn'		: 'none',
+				'transitionOut'		: 'none',
+				'type'				: 'iframe'
+	});
+		
+	$("a[rel=group]").fancybox({
+		'titlePosition' : 'over',
+		'cyclic'        : true,
+		'titleFormat'	: function(title, currentArray, currentIndex, currentOpts) {
+					return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+				}
+	});
+})
+</script>
+<!-- InstanceEndEditable -->
+</head>
+
+<body>
+<div id="wrapper">
+  <!-- Begin wrapper -->
+  <div id="header">
+    <!-- Begin header -->
+    <h1><a href="#" title="Back to home">myPagination</a></h1>
+    <p>new version 6.0</p>
+  </div>
+  <hr />
+  <div id="outer-space">
+    <!-- InstanceBeginEditable name="EditRegion3" -->
+    <!-- Begin outer-space -->
+    <div id="hfeed">
+      <p id="page-info"><span>首页</span></p>
+      <div class="hentry">
+        <div class="entry-meta"> <abbr>2011 - 2013</abbr>
+          <h2 class="entry-title"><a href="#">API文档</a></h2>
+          <p><em>By</em> <span class="author vcard">LinApex</span></p>
+        </div>
+        <div class="entry-content">
+          <p>&nbsp;
+          </p><h4>&mdash; 配置参数<a id="p1" name="p1"></a> </h4>
+              <p class="fontContent"></p>
+<table width="100%" border="1">
+                <thead >
+                  <tr bgcolor="#CCCCFF">
+                    <td width="93"><strong>参数名</strong></td>
+                    <td width="94"><strong>类型</strong></td>
+                    <td width="291"><strong>说明</strong></td>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>currPage</td>
+                  <td>int</td>
+                  <td>配置当前页，默认为1.</td>
+                </tr>
+                <tr>
+                  <td>pageCount</td>
+                  <td>int</td>
+                  <td>配置总页数，默认为10.</td>
+                </tr>
+                <tr>
+                  <td>pageNumber</td>
+                  <td>int</td>
+                  <td>配置页码数量.默认为5.</td>
+                </tr>
+                <tr>
+                  <td>cssStyle</td>
+                  <td>string</td>
+                  <td>配置样式属性.</td>
+                </tr>
+                <tr>
+                  <td><a href="#ajax">ajax</a></td>
+                  <td><strong>object</strong></td>
+                  <td>配置ajax参数.</td>
+                </tr>
+                <tr>
+                  <td><a href="#panel">panel</a></td>
+                  <td><strong>object</strong></td>
+                  <td>配置显示面板参数.</td>
+                </tr>
+              </table>
+              <p></p>
+              <p class="fontContent"></p>
+              <table width="100%" border="1">
+                <thead >
+                  <tr bgcolor="#CCCCFF">
+                    <td width="91"><strong>ajax(object)</strong></td>
+                    <td width="110"><strong>类型</strong></td>
+                    <td width="439"><strong>说明</strong></td>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>on</td>
+                  <td>boolean</td>
+                  <td>配置ajax是否开启,默认为false.</td>
+                </tr>
+                <tr>
+                  <td>url</td>
+                  <td>string</td>
+                  <td>配置请求路径.</td>
+                </tr>
+                <tr>
+                  <td>type</td>
+                  <td>string</td>
+                  <td>配置请求类型,提供二种选项.&quot;POST&quot;,&quot;GET&quot;.</td>
+                </tr>
+                <tr>
+                  <td>dataType</td>
+                  <td>string</td>
+                  <td>配置请求数据类型,提供三种选项.&quot;json&quot;,&quot;xml&quot;,&quot;html&quot;.</td>
+                </tr>
+                <tr>
+                  <td>pageCountId</td>
+                  <td>string</td>
+                  <td>配置后台返回总页数的参数名.</td>
+                </tr>
+                <tr>
+                  <td>param</td>
+                  <td>string</td>
+                  <td>配置ajax请求参数,值以key-value形式.</td>
+                </tr>
+                <tr>
+                  <td>ajaxStart</td>
+                  <td>function</td>
+                  <td>配置ajax请求前调用该方法.</td>
+                </tr>
+                <tr>
+                  <td>ajaxStop</td>
+                  <td>function</td>
+                  <td>配置ajax结束后调用该方法.</td>
+                </tr>
+                <tr>
+                  <td>onClick</td>
+                  <td>function(page)</td>
+                  <td>配置点击某一页时，触发该事件.</td>
+                </tr>
+                <tr>
+                  <td>callback</td>
+                  <td>function(data)</td>
+                  <td>配置回调函数,data为回调的数据.</td>
+                </tr>
+              </table>
+              <p></p>
+              <p></p>
+              <p class="fontContent"></p>
+<table width="100%" border="1">
+                <thead >
+                  <tr bgcolor="#CCCCFF">
+                    <td width="121" bgcolor="#CCCCFF"><strong>panel(object)</strong></td>
+                    <td width="116" bgcolor="#CCCCFF"><strong>类型</strong></td>
+                    <td width="314" bgcolor="#CCCCFF"><strong>说明</strong></td>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>first</td>
+                  <td>string</td>
+                  <td>配置首页显示值.</td>
+                </tr>
+                <tr>
+                  <td>last</td>
+                  <td>string</td>
+                  <td>配置尾页显示值.</td>
+                </tr>
+                <tr>
+                  <td>next</td>
+                  <td>string</td>
+                  <td>配置下一页显示值.</td>
+                </tr>
+                <tr>
+                  <td>prev</td>
+                  <td>string</td>
+                  <td>配置上一页显示值.</td>
+                </tr>
+                <tr>
+                  <td>first_on</td>
+                  <td>boolean</td>
+                  <td>配置首页是否显示.默认true,显示.</td>
+                </tr>
+                <tr>
+                  <td>last_on</td>
+                  <td>boolean</td>
+                  <td>配置尾页是否显示.默认true,显示.</td>
+                </tr>
+                <tr>
+                  <td>next_on</td>
+                  <td>boolean</td>
+                  <td>配置下一页是否显示.默认true,显示.</td>
+                </tr>
+                <tr>
+                  <td>prev_on</td>
+                  <td>boolean</td>
+                  <td>配置上一页是否显示.默认true,显示.</td>
+                </tr>
+                <tr>
+                  <td>links</td>
+                  <td>string</td>
+                  <td>配置鼠标浮动插件上，浏览器提示.</td>
+                </tr>
+                <tr>
+                  <td>tipInfo_on</td>
+                  <td>boolean</td>
+                  <td>配置提示信息.默认false,不显示.</td>
+                </tr>
+                <tr>
+                  <td>tipInfo</td>
+                  <td>string</td>
+                  <td>配置提示信息，提供两种类型{input}{select}.</td>
+                </tr>
+                <tr>
+                  <td>tipInfo_css</td>
+                  <td>object</td>
+                  <td>配置面板中输入框样式.值以key-value形式.</td>
+                </tr>
+              </table>
+              <p>&nbsp; </p>
+          <h4>&mdash; 扩展方法<a id="p2" name="p2"></a> </h4>
+          <p class="fontContent">
+          <table width="100%" border="1">
+                <thead >
+                  <tr bgcolor="#CCCCFF">
+                    <td width="121" bgcolor="#CCCCFF"><strong>方法名称</strong></td>
+                    <td width="116" bgcolor="#CCCCFF"><strong>参数</strong></td>
+                    <td width="116" bgcolor="#CCCCFF"><strong>返回</strong></td>
+                    <td width="116" bgcolor="#CCCCFF"><strong>说明</strong></td>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>getPage()</td>
+                  <td>null</td>
+                  <td>返回当前组件的当前页数.</td>
+                  <td>得到当前页数.</td>
+                </tr>
+                <tr>
+                  <td>onReload()</td>
+                  <td>null</td>
+                  <td>null</td>
+                  <td>无条件重新刷新，适用于删除某条数据.</td>
+                </tr>
+                <tr>
+                  <td>jumpPage(page)</td>
+                  <td>string</td>
+                  <td>null</td>
+                  <td>跳转到某页.</td>
+                </tr>
+                <tr>
+                  <td>onLoad(params)</td>
+                  <td>string</td>
+                  <td>null</td>
+                  <td>加载插件,按照指定参数.<br />params值是key-value的键值对:<br />keywords=&workyear=99</td>
+                </tr>
+              </table>
+          </p>
+          <h4>&mdash; 组合插件<a id="p3" name="p3"></a> </h4>
+          <p class="fontContent">
+          目前myPagination的核心组合插件：msgbox(消息提示),jTemplates(模板引擎).<br />
+          可以扩展其他的插件：jqtransform(表单美化),fancybox(弹出层插件),都可以兼容.<br />
+          </p>
+          <h4>&mdash; 应用到项目<a id="p4" name="p4"></a> </h4>
+          <p class="fontContent">
+<a rel="group" href="resources/images/demo1.png" title="新建-空白网页"><img alt="" src="resources/images/demo1.png" width="20%" /></a>
+<a rel="group" href="resources/images/demo2.png" title="导入脚本和样式"><img alt="" src="resources/images/demo2.png" width="20%" /></a>
+<a rel="group" href="resources/images/demo3.png" title="新建DIV"><img alt="" src="resources/images/demo3.png" width="20%" /></a>
+<a rel="group" href="resources/images/demo4.png" title="使用插件"><img alt="" src="resources/images/demo4.png" width="20%" /></a>
+<a rel="group" href="resources/images/demo5.png" title="最终效果"><img alt="" src="resources/images/demo5.png" width="20%" /></a>
+          </p>
+         <div class="hentry">
+          <div class="entry-meta">
+            <h2 class="entry-title"><span>24样式</span><a name="p5" id="p5" ></a></h2>
+          </div>
+          <p class="code">24套样式.</p>
+          <p style="text-align:right; margin:10px 25px 10px 0;"><input type="button" id="style" name="style"  value="查看" class="ui-button" href="example/24Style.html"  title="24套样式" /></p>
+        </div>
+            </div>
+      </div>
+      <div class="separator"></div>
+      <div id="page-navigation">
+        <p class="previous"><a href="javascript:void(0)" class="16sucai">分享</a></p>
+        <p class="next"><a href="https://me.alipay.com/linapex" target="_blank">我愿意支持开源事业</a></p>
+      </div>
+    </div>
+    <!-- InstanceEndEditable -->
+    <hr />
+    <div id="left-sidebar">
+      <div class="widget">
+        <h3>首页</h3>
+        <ul>
+          <li><a href="index.html#f1">快速入门</a></li>
+          <li><a href="index.html#f2">使用进阶</a></li>
+          <li><a href="index.html#f3">Ajax实例</a></li>
+          <li><a href="index.html#f4">参考案例</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3>文档</h3>
+        <ul>
+          <li><a href="api.html#p1">配置参数</a></li>
+          <li><a href="api.html#p2">扩展方法</a></li>
+          <li><a href="api.html#p3">组合插件</a></li>
+          <li><a href="api.html#p4">应用到项目</a></li>
+          <li><a href="api.html#p5">24套样式</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3><a href="download.html">下载</a></h3>
+      </div>
+      <div class="widget">
+        <h3>更新</h3>
+        <ul>
+          <li><a href="update.html#v6">V6.0更新记录</a></li>
+          <li><a href="update.html#v5">V5.0更新记录</a></li>
+          <li><a href="update.html#v4">V4.0更新记录</a></li>
+          <li><a href="update.html#v3">V3.0更新记录</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3>授权</h3>
+        <ul>
+          <li><a href="license.html#lgpl">开源协议</a></li>
+          <li><a href="license.html#sy">商业授权</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!-- End outer-space -->
+  <hr />
+  <div class="clear"></div>
+  <hr />
+ 
+  <div id="footer">
+    <p>一个基于Jquery开发的分页插件，简单，易用 ，高效。</p>
+  </div>
+
+</div>
+<!-- End wrapper -->
+
+</body>
+<!-- InstanceEnd --></html>

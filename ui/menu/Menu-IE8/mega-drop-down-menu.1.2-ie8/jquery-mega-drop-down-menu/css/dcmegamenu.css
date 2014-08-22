@@ -1,0 +1,74 @@
+/* Page */
+body,html,div,blockquote,img,label,p,h1,h2,h3,h4,h5,h6,pre,ul,ol,li,dl,dt,dd,form,a,fieldset,input,th,td{ border:0; outline:none; margin:0; padding:0; }
+ul{ list-style:none; }
+
+body { font: normal 13px Arial, sans-serif; }
+h2 { font: normal 26px Arial, sans-serif; padding: 20px 0; margin: 0 0 30px 0; }
+.wrap { width: 960px; margin: 0 auto; }
+.demo-container { padding: 20px 0; }
+.demo-container h4 { font-size: 14px; margin: 0 0 5px 0; }
+
+/* Mega Menu Styles */
+.mega-menu ul, .mega-menu ul li { list-style: none; }
+.mega-menu ul { position: relative; padding: 0; margin: 0; }
+.mega-menu ul li ul { display: none; }
+.mega-menu .sub { display: none; }
+.mega-menu .sub ul { display: block; }
+
+#mega-menu-1 { font: normal 13px Arial, sans-serif; list-style: none; position: relative; padding: 0; margin: 0; }
+#mega-menu-1 .sub ul { display: block; }
+#mega-menu-1 { background: #222; width: 100%; height: 40px; position: relative; }
+#mega-menu-1 li { float: left; margin: 0; padding: 0; font-weight: bold; }
+#mega-menu-1 li a { float: left; display: block; color: #fff; padding: 12px 25px; background: #222; text-decoration: none; }
+#mega-menu-1 li.mega-hover a, #mega-menu-1 li a:hover { background: #CCC; color: #000; }
+#mega-menu-1 li .sub-container { position: absolute; }
+#mega-menu-1 li .sub { background: #efefef; padding: 15px; border: 1px solid #ccc; }
+#mega-menu-1 li .sub .row { width: 100%; overflow: hidden; clear: both; }
+#mega-menu-1 li .sub li { list-style: none; float: none; width: 170px; font-size: 1em; font-weight: normal; }
+#mega-menu-1 li .sub li.mega-hdr { margin: 0 10px 10px 0; float: left; }
+#mega-menu-1 li .sub li.mega-hdr.last { margin-right: 0; }
+#mega-menu-1 li .sub a { background: none; color: #111; padding: 7px 10px; display: block; float: none; font-size: 0.9em; }
+#mega-menu-1 li .sub li.mega-hdr a.mega-hdr-a { padding: 5px 15px; margin-bottom: 5px; background: #6B6B6B; text-transform: uppercase; font-weight: bold; color: #fff; }
+#mega-menu-1 li .sub li.mega-hdr a.mega-hdr-a:hover { color: #000; }
+#mega-menu-1 .sub li.mega-hdr li a { padding: 4px 5px; font-weight: normal; }
+#mega-menu-1 .sub li.mega-hdr li a:hover { color: #a32403; background: #efefef; }
+#mega-menu-1 .sub ul li { padding-right: 0; }
+#mega-menu-1 li .sub-container.non-mega .sub { padding: 10px; }
+#mega-menu-1 li .sub-container.non-mega li { padding: 0; width: 190px; margin: 0; }
+#mega-menu-1 li .sub-container.non-mega li a { padding: 7px 5px 7px 22px; }
+#mega-menu-1 li .sub-container.non-mega li a:hover { color: #a32403; background: #efefef; }
+
+
+
+
+/* 实际 Menu */
+.mnav { width: 100%; height: 48px; position: relative; z-index: 100; }
+.mnav ul { position: relative; z-index: 200; }
+
+.mnav .sub { display: none; }
+.mnav .sub ul { display: block; }
+
+.mnav li { float: left; font-weight: bold; }
+.mnav li a { float: left; display: block; color: #fff; padding: 14px 25px; text-decoration: none; position: relative; }
+.mnav li a:hover { background: #313133; color: #fff; }
+.mnav li.mega-hover a, a.mcur{ color:#fff; background: #333; }
+.mnav li .sub-container { position: absolute; z-index: 300; }
+
+.mnav li a .dc-mega-icon { display: block; position: absolute; top: 24px; right: 10px; width: 8px; height: 6px; background: url(img/arrow.png) no-repeat 0 0; }
+.mnav li.mega-hover a .dc-mega-icon { background-position: 0 100%; }
+
+.mnav li .sub .row { width: 100%; overflow: hidden; clear: both; }
+.mnav li .sub li { float: none; width: 100px; background:#525254; }
+
+.mnav li .sub li.mega-hdr { margin: 0 10px 10px 0; float: left; }
+.mnav li .sub li.mega-hdr.last { margin-right: 0; }
+.mnav li .sub a { background: none; color: #fff; padding: 7px 10px; display: block; float: none; }
+.mnav li .sub li.mega-hdr a.mega-hdr-a { padding: 5px 15px; margin-bottom: 5px; color: #fff; }
+.mnav li .sub li.mega-hdr a.mega-hdr-a:hover { color: #000; }
+.mnav .sub li.mega-hdr li a { padding: 4px 5px; font-weight: normal; }
+.mnav .sub li.mega-hdr li a:hover { color: #a32403; background: #efefef; }
+.mnav .sub ul li { padding-right: 0; }
+
+.mnav li .sub-container.non-mega li { padding: 0; width: 120px; margin: 0; }
+.mnav li .sub-container.non-mega li a { padding: 7px 5px 7px 22px; }
+.mnav li .sub-container.non-mega li a:hover { color: #a32403; background: #efefef; }

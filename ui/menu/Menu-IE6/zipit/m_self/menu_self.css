@@ -1,0 +1,25 @@
+a { color:#000; }
+a:hover { color:#AF2222; }
+.inner-wrapper {
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    width: 1000px;
+}
+/*nav*/
+.nav                    { background:#e9eaea;}
+.main-nav               { height:40px; width:980px; padding:0 15px 0 5px; color:#fff; background:#2b2e31;}
+.main-nav .channel-nav  { float:left; margin-top:10px;}
+.main-nav .channel-nav li       { float:left; padding-left:10px; padding-right:10px; border-right:1px solid #6b6d6f; height:20px; line-height:20px; position:relative;}
+/* 滑动指示图标， 绝对定位，left:50%; */
+.main-nav .channel-nav li span  { display:none; background:url(mbav-sicon.png) no-repeat center bottom; position:absolute; width:9px; height:5px; top:25px; _top:15px; left:50%; }
+.main-nav .channel-nav li a     { font-size:16px; color:#fff;}
+.main-nav .channel-nav li.current span{ display:block; }
+
+/* height:30; line-height:28; 为下面a 的border-bottom:2px; 留空间。a, display:inline-block; */
+.sub-nav            { height:30px; line-height:28px; border-bottom:1px solid #bbbbbb; background:#e9eaea; padding:0 15px 0 9px;}
+.sub-nav li         { float:left; color:#000;}
+.sub-nav li a       { display:inline-block; color:#000; margin-left:6px; margin-right:6px; font-size:12px;}
+.sub-nav li a:hover { border-bottom:2px solid #2b2e31; color:#000;}
+.sub-nav li a.active{ border-bottom:2px solid #2b2e31;}
+.fn-hide            { display: none;}
+

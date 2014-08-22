@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8;charset=utf-8" />
+<title>Greyscale Hover Over Trick - CSS &amp; jQuery - Tutorial by Soh Tanaka</title>
+<style type="text/css">
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font: normal 10px Verdana, Arial, Helvetica, sans-serif;
+	background: #fff;
+	position: relative;
+}
+h1 {
+	text-align: center;
+	font-weight: normal;
+	font-size: 2.5em;
+}
+h1 small {
+	display: block;
+	font-size: 0.7em;
+	color: #999;
+}
+img {border: none;}
+ul.gallery {
+	width: 708px;
+	list-style: none;
+	margin: 0 auto; padding: 0;
+}
+ul.gallery li {
+	float: left;
+	margin: 10px; padding: 0;
+	text-align: center;
+	border: 1px solid #ccc;
+	-moz-border-radius: 3px; /*--CSS3 Rounded Corners--*/
+	-khtml-border-radius: 3px; /*--CSS3 Rounded Corners--*/
+	-webkit-border-radius: 3px; /*--CSS3 Rounded Corners--*/
+	display: inline; /*--Gimp Fix aka IE6 Fix--*/
+}
+ul.gallery li a.thumb {
+	width: 204px;
+	height: 182px;
+	padding: 5px;
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+}
+ul.gallery li span { /*--Used to crop image--*/
+	width: 204px;
+	height: 182px;
+	overflow: hidden;
+	display: block;
+}
+ul.gallery li a.thumb:hover {
+	background: #333;
+}
+ul.gallery li h2 {
+	font-size: 1em;
+	font-weight: normal;
+	text-transform: uppercase;
+	margin: 0; padding: 10px;
+	background: #f0f0f0;
+	border-top: 1px solid #fff; /*--Subtle bevel effect--*/
+}
+ul.gallery li a {text-decoration: none; color: #777; display: block;}
+</style>
+<script type="text/javascript" src="images/jquery.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	$("ul.gallery li").hover(function() { //On hover...
+		
+		var thumbOver = $(this).find("img").attr("src"); //Get image url and assign it to 'thumbOver'
+		
+		//Set a background image(thumbOver) on the &lt;a&gt; tag 
+		$(this).find("a.thumb").css({'background' : 'url(' + thumbOver + ') no-repeat center bottom'});
+		//Fade the image to 0 
+		$(this).find("span").stop().fadeTo('normal', 0 , function() {
+			$(this).hide() //Hide the image after fade
+		}); 
+	} , function() { //on hover out...
+		//Fade the image to 1 
+		$(this).find("span").stop().fadeTo('normal', 1).show();
+	});
+
+});
+
+</script>
+</head>
+
+<body>
+<h1><a href="http://www.sohtanaka.com/web-design/greyscale-hover-effect-w-css-jquery/" style="color: #333; text-decoration: none;">Greyscale Hover Effect w/ CSS &amp; jQuery</a><br />
+More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a></h1>
+<ul class="gallery">
+	<li>
+		<a href="#" class="thumb"><span><img src="images/sushiand.gif" alt="" /></span></a>
+		<h2><a href="#">Sushi &amp; Robots</a></h2>
+	</li>
+	<li>
+		<a href="#" class="thumb"><span><img src="images/garysrea.gif" alt="" /></span></a>
+		<h2><a href="#">Gary's Life</a></h2>
+	</li>
+	<li>
+		<a href="#" class="thumb"><span><img src="images/cubescri.gif" alt="" /></span></a>
+		<h2><a href="#">Cube Scripts</a></h2>
+	</li>
+	<li>
+		<a href="#" class="thumb"><span><img src="images/ryankeis.gif" alt="" /></span></a>
+		<h2><a href="#">Ryan Keiser</a></h2>
+	</li>
+	<li>
+		<a href="#" class="thumb"><span><img src="images/ricardog.gif" alt="" /></span></a>
+		<h2><a href="#">Ricardo Gimenes</a></h2>
+	</li>
+	<li>
+		<a href="#" class="thumb"><span><img src="images/foodteas.gif" alt="" /></span></a>
+		<h2><a href="#">Food Tease</a></h2>
+	</li>
+	<li>
+		<a href="#" class="thumb"><span><img src="images/lemonsta.gif" alt="" /></span></a>
+		<h2><a href="#">Lemon Stand</a></h2>
+	</li>
+	<li>
+		<a href="#" class="thumb"><span><img src="images/heyindy_.gif" alt="" /></span></a>
+		<h2><a href="#">Hey Indy</a></h2>
+	</li>
+	<li>
+		<a href="#" class="thumb"><span><img src="images/ngenwork.gif" alt="" /></span></a>
+		<h2><a href="#">nGen Works</a></h2>
+	</li>
+</ul>
+</body>
+</html>
+

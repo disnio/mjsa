@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>仿浏览器页面标签切换的TAB选项卡代码 - 素材家园</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="css/tab-control.min.css" />
+</head>
+<body>
+<!-- 选项卡 -->
+<div class="tab-control">
+	<!-- 标签 -->
+	<div class="tab simple">
+		<form>
+			<input class="prev" type="button" />
+			<input class="next" type="button" />
+			<input class="find" type="button" />
+		</form>
+		<ul>
+			<!-- <li>标签<a href="javascript:;">关闭</a></li> -->
+
+		</ul>
+	</div>
+
+	<!-- 标签查找 -->
+	<div class="tab-find hidden">
+		<form>
+			<input class="text" type="text" />
+		</form>
+		<ul>
+			<!-- <li>标签<a href="javascript:;">关闭</a></li> -->
+		</ul>
+	</div>
+	<!-- 主体 -->
+	<div class="main">
+		<!-- <iframe scrolling="auto" frameborder="0"></iframe> -->
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/tab-control.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+  TabControlAppend('1', '素材家园主站', 'http://www.sucaijiayuan.com');
+  TabControlAppend('2', 'JS代码频道', 'http://www.sucaijiayuan.com/js');
+  TabControlAppend('3', 'PSD素材频道', 'http://www.sucaijiayuan.com/psd');
+  TabControlAppend('4', '矢量素材频道', 'http://www.sucaijiayuan.com/vector');
+  TabControlAppend('5', '在线音乐频道', 'http://music.zhaolezi.net');
+  TabControlAppend('6', '找乐子', 'http://www.zhaolezi.net');
+//]]>
+</script>
+</body>
+</html>

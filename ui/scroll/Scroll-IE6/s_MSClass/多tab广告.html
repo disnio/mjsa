@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<script type="text/javascript" src="js/MSClass.js"></script>
+
+<title>淘宝广告应用实例2(多TAB支持) JavaScript - MSClass应用实例演示 - Class Of Marquee Scroll通用不间断滚动JS封装类</title>
+<meta content="JavaScript淘宝广告应用实例2(多TAB支持),MSClass,不间断滚动,JS不间断滚动,通用不间断滚动,Class Of Marquee Scroll" name="keywords">
+<meta content="JavaScript淘宝广告应用实例2(多TAB支持),MSClass,不间断滚动,JS不间断滚动,通用不间断滚动,Class Of Marquee Scroll" name="description">
+<meta name="GENERATOR" content="MSHTML 6.00.6000.17097"></head>
+<body>
+<script type="text/javascript">
+function $(id){return document.getElementById(id)};
+</script>
+
+<h1>淘宝广告应用实例2(多TAB支持) JavaScript - MSClass应用实例演示 <a href="MSClass.html">下载MSClass</a></h1>
+<br><br>
+<style>
+a,body,select,td,b{font-size:12px;text-decoration:none;}
+body{background:#ffffff;}
+a,pre{color:#808080;}
+a:link,a:visited {color:#555;}
+a:hover,a:active { color:#ff4e00;}
+img{border:0}
+</style>
+<style type="text/css"> 
+.TabBaoADArea{width:300px;height:215px;background-color:#F8F8F8; border:1px solid #3A404D;position:relative;}
+.TaoBaoNav{width:52px;height:208px;overflow:hidden;top:3px;position:absolute;}
+.TaoBaoNav ul li{width:44px;height:22px;text-align:center;line-height:21px;float:left;border:2px solid  #CCCCCC;background-color: #FFFFFF;margin:2px;}
+.TaoBaoNav ul li a{color:#404040;}
+.TaoBaoNav ul li.active{background-color:#FF6600;}
+.TaoBaoNav ul li.active a{color:#fff;font-weight:bold;}
+#TaoBaoADTabBox{width:184px; height:205px; overflow:hidden;position:absolute;top:5px;left:56px;}
+#TaoBaoADTabBox li{width:184px;height:205px;overflow:hidden;}
+</style> 
+
+<div class="TabBaoADArea"> 
+    <div style="left:2px;" class="TaoBaoNav"> 
+        <ul id="TaoBaoADTabID" style="padding: 0px; margin: 0px; list-style: none outside none; font-size: 0px;"> 
+            <li><a>连衣裙</a></li>
+            <li style="font-size: 12px; overflow: hidden;" class="active"><a>雪纺</a></li>
+            <li><a>T恤</a></li>
+            <li><a>铅笔裤</a></li>
+            <li><a>婚纱</a></li>
+            <li><a>外套</a></li>
+            <li><a>衬衫</a></li>
+        </ul>
+    </div>
+    <div style="left:245px;" class="TaoBaoNav">
+        <ul id="TaoBaoADTabID1" style="padding: 0px; margin: 0px; list-style: none outside none; font-size: 0px;">
+            <li><a>包包</a></li>
+            <li><a>凉鞋</a></li>
+            <li><a>单鞋</a></li>
+            <li><a>太阳镜</a></li>
+            <li><a>丝袜</a></li>
+            <li><a>帆布鞋</a></li>
+            <li><a>情侣装</a></li>
+        </ul>
+    </div>
+    <div id="TaoBaoADTabBox" style="overflow: hidden; width: 184px; height: 205px; position: absolute;">
+        <ul id="TaoBaoADTabContent" style="padding: 0px; border: 0px none; font-size: 0px; display: inline-block; margin: 0px; list-style: none outside none; height: 205px;">
+            <li><a><img width="184" height="205" alt="连衣裙" src="images/184X205_1.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="雪纺" src="images/184X205_2.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="T恤" src="images/184X205_3.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="铅笔裤" src="images/184X205_4.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="婚纱" src="images/184X205_5.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="外套" src="images/184X205_6.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="衬衫" src="images/184X205_7.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="包包" src="images/184X205_8.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="凉鞋" src="images/184X205_9.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="单鞋" src="images/184X205_10.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="太阳镜" src="images/184X205_11.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="丝袜" src="images/184X205_12.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="帆布鞋" src="images/184X205_13.jpg"></a></li>
+            <li><a><img width="184" height="205" alt="情侣装" src="images/184X205_14.jpg"></a></li>
+        
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+new Marquee(
+{
+    MSClass   : ["TaoBaoADTabBox","TaoBaoADTabContent",["TaoBaoADTabID","TaoBaoADTabID1"]],
+    Direction : 2,
+    Step      : 0.6,
+    Width     : 184,
+    Height    : 205,
+    Timer     : 20,
+    DelayTime : 5000,
+    WaitTime  : 0,
+    ScrollStep: 0,
+    SwitchType: 0,
+    AutoStart : true
+});
+</script>
+
+
+</body></html>

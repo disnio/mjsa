@@ -1,0 +1,11 @@
+PhotoCradle is an elegant javascript widget wrapping your photo collection.
+
+Demo page: http://yevhentiurin.github.com/jsphotocradle/
+
+What is so special about PhotoCradle:
+- Original "infinite" thumbnails bar
+- On-demand image loading
+- Fast and adaptive fullpage browsing mode
+- Multiple cradles per page
+- Integration with popular services (flickr, picasa)
+- Skins based on CSS theming

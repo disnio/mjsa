@@ -1,0 +1,142 @@
+@charset "utf-8";
+html { overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-size: 100%; color: #000; background-color: #FFF; }
+* html,* html body {_background-image:url(about:blank); _background-attachment:fixed;}
+body { font-family:"Microsoft YaHei","Arial",Sans-Serif; font-size: 14px;  margin: 0;}
+div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td { margin: 0; padding: 0; }
+table { border-spacing: 0; border-collapse: collapse; }
+fieldset, img, iframe { border: 0 none; }
+iframe {display: block;}
+img { -ms-interpolation-mode: bicubic; vertical-align: middle; }
+address, caption, cite, code, dfn, em, strong, th, var { font-weight: normal; font-style: normal; }
+caption, th { text-align: left; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
+q:before, q:after { content:''; }
+input, textarea, select { font-family: inherit; font-size: inherit; font-weight: inherit; outline: none; *font-size: 100%; vertical-align: middle;}
+table { font: 100%; font-size: inherit; }
+strong { font-weight: bold; }
+a { cursor: pointer; text-decoration: none; color: #333; }
+/*a:visited { color: #000; } 这个在ie6下覆盖其它样式 */
+a:hover { color: #f60; }
+a:active { color: #000; background-color: #fff; }
+button { border: none; }
+ul, li, ol, li { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+.clear {display: inline; *zoom: 1; clear:both; line-height: 0; height: 0; font-size:0; visibility: hidden;}
+.clear:after { content:""; display: block; clear: both; line-height: 0; visibility: hidden; height: 0;font-style: 0; }
+* html .clearfix { zoom: 1; }
+*:first-child + html .clearfix { zoom: 1; }
+.space10 { font-size: 0; line-height: 0; clear: both; height: 10px; }
+br { height: 1px; line-height: 1px; }
+a { blr: expression(this.onFocus = this.blur () );}
+.textwrap, .textwrap td, .textwrap th{ word-wrap:break-word; word-break:break-all;}
+.textwrap-table{ table-layout:fixed;}
+/* validationEngine Style */
+.formError{z-index:990;}
+.formError .formErrorContent{z-index:991;}
+.formError .formErrorArrow{z-index:996;}
+.ui-dialog .formError{z-index:5000;}
+.ui-dialog .formError .formErrorContent{z-index:5001;}
+.ui-dialog .formError .formErrorArrow{z-index:5006;}
+.inputContainer{position:relative;float:left;}
+.formError{display:block;position:absolute;top:300px;left:300px;text-align:left;cursor:pointer;}
+.formError.inline{display:inline-block;position:relative;top:0;left:0;}
+.ajaxSubmit{display:none;padding:20px;border:1px solid #999;background-color:#55ea55;}
+.formError .formErrorContent{position:relative;width:100%;min-width:120px;padding:4px 10px;border:2px solid #ddd;border-radius:6px;background-color:#ee0101;box-shadow:0 0 6px #000;color:#fff;font:12px/18px "\5b8b\4f53",Tahoma;}
+.formError.inline .formErrorContent{border:0;border-radius:0;box-shadow:none;}
+.greenPopup .formErrorContent{background-color:#33be40;}
+.blackPopup .formErrorContent{background-color:#393939;color:#fff;}
+.formError .formErrorArrow{position:relative;margin:-2px 0 0 13px;width:15px;}
+body[dir='rtl'] .formError .formErrorArrow,
+body.rtl .formError .formErrorArrow{margin:-2px 13px 0 0;}
+.formError .formErrorArrowBottom{top:2px;margin:0 0 0 12px;box-shadow:none;}
+.formError .formErrorArrow div{display:block;height:1px;margin:0 auto;border-right:2px solid #ddd;border-left:2px solid #ddd;background-color:#ee0101;box-shadow:0 2px 3px #444;font-size:0;font-size:0;line-height:0;}
+.formError .formErrorArrowBottom div{box-shadow:none;}
+.greenPopup .formErrorArrow div{background-color:#33be40;}
+.blackPopup .formErrorArrow div{background-color:#393939;color:#fff;}
+.formError .formErrorArrow .line10{width:15px;border:0;}
+.formError .formErrorArrow .line9{width:13px;border:0;}
+.formError .formErrorArrow .line8{width:11px;}
+.formError .formErrorArrow .line7{width:9px;}
+.formError .formErrorArrow .line6{width:7px;}
+.formError .formErrorArrow .line5{width:5px;}
+.formError .formErrorArrow .line4{width:3px;}
+.formError .formErrorArrow .line3{width:1px;border-right:2px solid #ddd;border-bottom:0 solid #ddd;border-left:2px solid #ddd;}
+.formError .formErrorArrow .line2{width:3px;border:0;background-color:#ddd;}
+.formError .formErrorArrow .line1{width:1px;border:0;background-color:#ddd;}
+/* jquery.validationEngine 2.6.2 Style Patch */
+.formError-noArrow .formErrorArrow{display:none;}
+.formError-text .formErrorContent{padding:0;border:none;background:none;color:#ed1b23;box-shadow:none;}
+.formError-text.greenPopup .formErrorContent{color:#33be40;}
+.formError-text.blackPopup .formErrorContent{color:#393939;}
+.formError-text .formErrorArrow{display:none;}
+.formError-small .formErrorContent{padding:3px 10px;border:1px solid #333;border-radius:4px;box-shadow:inset 0 0 2px #fff,0 0 2px #333;}
+.formError-small .formErrorArrow div{display:none;border-right-color:#333;border-left-color:#333;box-shadow:none;}
+.formError-small .formErrorArrow .line7,
+.formError-small .formErrorArrow .line6,
+.formError-small .formErrorArrow .line5,
+.formError-small .formErrorArrow .line4,
+.formError-small .formErrorArrow .line3,
+.formError-small .formErrorArrow .line1{display:block;border-width:0 1px 0 1px;}
+.formError-small .formErrorArrow .line7{border:0;}
+.formError-small .formErrorArrow .line3{border-width:0 1px 0 1px;border-color:#333;}
+.formError-small .formErrorArrow .line1{background-color:#333;}
+
+.formError-white .formErrorContent{border-color:#ed1b23;background-color:#fff;color:#ed1b23;box-shadow:0 0 2px #ed1b23;}
+.formError-white.greenPopup .formErrorContent{border-color:#333;background-color:#33be40;color:#fff;box-shadow:0 0 2px #333;}
+.formError-white.blackPopup .formErrorContent{border-color:#333;background-color:#393939;color:#fff;box-shadow:0 0 2px #333;}
+.formError-white .formErrorArrow div{border-color:#ed1b23;background-color:#fff;box-shadow:none;}
+.formError-white.greenPopup .formErrorArrow div{border-color:#333;background-color:#33be40;}
+.formError-white.blackPopup .formErrorArrow div{border-color:#333;background-color:#393939;}
+.formError-white .formErrorArrow .line3{border-color:#ed1b23;}
+.formError-white .formErrorArrow .line2{background-color:#ed1b23;}
+.formError-white .formErrorArrow .line1{background-color:#ed1b23;}
+/**/
+a{color:#347ebf;text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+form.formular,
+.validationEngineContainer{margin-top:5px; padding:10px;}
+.formular fieldset{margin-bottom:15px;padding:15px;border:1px solid #B5B8C8;border-radius:3px;}
+.formular legend{color:#15428B;font-size:12px;font-weight:bold;}
+.formular label{display:block;margin-bottom:4px;}
+.formular input,
+.formular select,
+.formular textarea{display:block;/* this breaks relative positioning */}
+.formular select{margin-bottom:10px;padding:4px;border:1px solid #B5B8C8;border-radius:3px;}
+.formular .text-input{margin-bottom:10px;width:300px;padding:4px;border:1px solid #B5B8C8;border-radius:3px;background:#FFF;color:#555;font-size:14px;}
+.formular textarea{width:300px;height:70px;margin-bottom:10px;padding:4px;border:1px solid #B5B8C8;border-radius:3px;background:#FFF;color:#555;font-size:14px;}
+.formular span.checkbox,
+.formular .checkbox,
+.formular .radio{display:inline;margin:0 5px 0 0;padding:0;vertical-align:-2px;*vertical-align:middle; }
+
+/*.formular .submit{margin-top:20px;padding:4px 9px;border:none;border-radius:3px;background:#347ebf;box-shadow:0 1px 2px #347ebf;color:#fff;text-decoration:none;cursor:pointer;}*/
+
+.formular hr{clear:both;visibility:hidden;}
+.formular .fc-error{width:350px;color:#555;margin-bottom:15px;padding:4px;}
+/*.formular input[data-prompt-position="inline"]{display:inline;}*/
+.form_add{zoom:1;}
+.form_add:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.form_add dt{float:left;padding:5px;clear:left;text-align:right;display: inline}
+.form_add dd{float:left;padding:5px; display: inline;}
+.form_add span.lalogin{margin-bottom:10px;width:190px;padding:4px;color:#555;font-size:12px;line-height: 26px;}
+.form_add .tip{padding:0;color:#777;}
+.form_add b{color:red;}
+.form_login_box{width:340px;}
+.form_login{float: none; width: 340px; display: inline;}
+/**/
+.user_form dt{width:80px;line-height:26px;}
+.user_form dd{width:600px;}
+.user_form label{display:inline;margin-bottom:0;}
+.user_form select,
+.user_form .text-input{display:inline-block;margin-bottom:0;vertical-align:top;}
+.user_form .text-input{width:300px; height:30px; line-height: 30px; background: #74c9fa; border:1px solid #64acd7; }
+.user_form .formErrorContent{padding-left:10px;line-height:26px;}
+
+/* */
+.placeholderWrap{ position: relative; display: inline-block; }
+.placeholderWrap label{ color: #555; position: absolute; top: 4px; *top:4px; left: 6px; 
+    pointer-events: none; display: block; }
+.placeholder-focus label{ color: #999; }/* could use a css animation here if desired*/
+.placeholder-changed label{ display: none; }
+

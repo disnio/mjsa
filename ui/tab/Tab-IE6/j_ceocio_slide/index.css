@@ -1,0 +1,33 @@
+@charset "utf-8";
+*{margin:0; padding:0;}
+
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, p,b, form, fieldset, input, table, tr, th, td, img{margin: 0;padding: 0;border: 0;outline: 0;}
+
+body {font-size:12px; font-family: Arial, Helvetica, sans-serif; color:#666; background-color:#FFF}
+
+h1,h2,h3,h4,h5 {font-family:Arial; color:#000}
+
+ul, ol, li, dl, dt, dd, p{list-style-type: none;}
+
+a {text-decoration: none; color:#036;}
+
+a:hover {color:#CF111C; text-decoration: underline}
+/*tab slider*/
+
+ul.Slide {float:left; width:305px; overflow:hidden; margin-top:10px; background:#FFF}
+
+ul.Slide dl {width:305px; _width:305px; overflow: hidden;}
+
+ul.Slide dl dt{height:29px; margin-bottom:5px;}
+
+ul.Slide dl dt a{float:left; display:block; cursor:pointer; width:42px; height:29px; line-height:25px; text-align:center; background:url(Tab.jpg) no-repeat;color:#000; margin-right:1px;}
+
+ul.Slide dl dt a:hover {text-decoration:none}
+
+ul.Slide dl dt a.tabActive{ background:url(Tab.jpg) no-repeat -42px 0;color:#333;font-weight:bold;position:relative;color:#FFF}
+/**/
+ul.Slide dl dd {height:250px; clear:both; position:relative}
+/*-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";/* For IE 8 */
+ul.Slide dl dd p{position:absolute; top:220px; left:0; width:280px; height:30px; line-height:30px; padding:0 10px; text-align:center; background:#000; opacity: 0.6; 	/* For FF Chrome */filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);/* For IE 5-7 */display:block; cursor:pointer; color:#FFF; overflow:hidden}
+ul.Slide dl dd p a,ul.Slide dl dd p a:hover {color:#FFF; display:block; width:280px; height:30px;}
+ul.Slide dl dd  img {width:300px; height:250px;}

@@ -1,0 +1,54 @@
+/* 头部 */
+.head{width: 100%; min-width:1120px; background: url(img/head-bg.png) repeat-x; height:86px; position: relative; float: left; display: inline;}
+.head-l{background: url(img/head-l.png) left top no-repeat; float: left; display: inline; width:660px;}
+.head-r{float: right; display: inline; width:45px; height:86px; background: url(img/head-r.png) right top no-repeat;}
+.huser {float: right; display: inline; width: 140px; height:86px; margin-left:10px; line-height:82px; color:#fff; background: url(img/user-l.png) left center no-repeat; padding-left:25px;}
+.hmenu {float: right; display: inline; margin-left:10px; width:217px; height:76px; padding-left:1px; background: #81cfff; border-right:1px solid #1279c1;}
+.hmenu a{width:70px; height:76px; margin-right:1px; border-left:1px solid #1279c1; display: inline; float: left; background: url(img/hmenu-bg.png) -145px 0px no-repeat; color:#053156; font-size: 18px; line-height: 76px; text-align: center;}
+.hmenu a:active, .hmcur{background: url(img/hmenu-bg.png) -1px 0px no-repeat;}
+.hmenu a:hover{background: url(img/hmenu-bg.png) -72px 0px no-repeat;}
+/**/
+.wrap{width: 100%; min-width:1120px; height:722px; position: relative; float: left; display: inline; background: #f8f8f8;}
+.wml {float: left; display: inline; width: 16%; min-width: 190px; height:100%; border-left:1px solid #83a0b3; border-top:1px solid #83a0b3; background: url(img/ml-bg.png) #f8f8f8 left bottom no-repeat;}
+.wml ul{width:200px; margin:0px auto;}
+.wml li{width:200px; height:40px; line-height: 40px; margin-top:8px;}
+.wml a{color:#2e2e2e; text-align: left; background: url(img/wl-1.png) no-repeat; width:165px; height:40px; padding-left:35px; display: block; float: left; }
+.wml a:hover, a.wlcur{color:#fff; text-align: left; background: url(img/wl-2.png) no-repeat;}
+
+/**/
+.wmr {background: #003e66; height:98.2%; width: 82.4%; min-width: 790px; float: right; display: inline; margin-right:0.1%; position: relative;}
+.foot {width: 100%; height:70px;  background: #f8f8f8; position: absolute; bottom: 0px; left:0px;}
+.foot p{line-height:20px; text-align: center;}
+
+/* 登录 */
+.login { width:100%; height:740px; background: url(img/gsr.png) #e7eaeb repeat-x; }
+.lgc { width:990px; height:585px; margin:0px auto;  background: url(img/gsl.png) no-repeat; position: relative;}
+.lg  { position: absolute; top:358px; width:280px; left:50%; margin-left:-140px; z-index: 100;}
+.lgc p { margin:5px; text-align: center; }
+.lg-user { background: url(img/login.png) -7px -2px no-repeat; width: 212px; height:38px; border: none; padding-left:40px; }
+.lg-user:hover, .lg-user-on { background: url(img/login.png) -265px -2px no-repeat; }
+.lg-pass { background: url(img/login.png) -7px -40px no-repeat; width: 212px; height:38px; border: none; padding-left:40px; }
+.lg-pass:hover, .lg-pass-on { background: url(img/login.png) -265px -40px no-repeat; }
+
+p.isub{line-height: 38px; text-align: center;}
+.lg-dl { background: url(img/login.png) -3px -150px no-repeat; width: 120px; height:38px; border: none; color:#fff; cursor:pointer; }
+.lg-dl-on { background: url(img/login.png) -149px -150px no-repeat; }
+
+.footer { height:30px; width:100%; }
+.footer p { text-align: center; color:#163d62; font-size: 12px; line-height: 28px; }
+
+
+/* 表格 */
+table.gst {margin: 0px auto;}
+
+table.gst thead tr{background: url(img/th-bg.png) repeat-x;}
+table.gst thead th{line-height: 31px;  border: 1px solid #2c91e7; padding:0px 2px 0px 3px;}
+table.gst tbody td{line-height: 22px; border: 1px solid #2c91e7;  padding:0px 2px 0px 3px;}
+/* 分页 */
+p.page {text-align: center; line-height: 30px;}
+.page a{margin:0px 8px;}
+.page a:hover, .pcur{ color:#2890e9;}
+
+.hline {border-top:1px solid #2890e9; width:1000px; margin: 0px auto;}
+.tbtop {line-height: 30px; width: 1000px; margin: 0px auto; position: relative;}
+.tbtop p span{ position: absolute; right:10px; top:0px; line-height: 30px; color:#2890e9;}

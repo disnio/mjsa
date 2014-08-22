@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>jqExpire test</title>
+</head>
+
+<body>
+	
+	<h1>jqExpire Demo</h1>
+	
+	<div id="elem1">
+		<p>This is element 1. It has no expiry.</p>
+	</div>
+
+	<div id="elem2" data-expire="2013-12-12">
+		<p>This is element 2. This expires when 2013 ends. It should be hidden now.</p>
+	</div>
+
+	<div id="elem3">
+		<p>This is element 3. This should be also be hidden when 2014 starts, but it is done so via a jQuery call.</p>
+	</div>
+	
+	<div id="elem4">
+		<p>This is element 4. This should be visible, but the earlier two must be hidden. View source to check.</p>
+	</div>
+
+	<div id="elem5">
+		<p>This file demonstrates the use of the <a href="https://github.com/aalaap/jqExpire">jqExpire jQuery plugin</a> by <a href="http://aalaap.com">Aalaap Ghag</a>.</p>
+	</div>
+	
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="jquery.jqExpire.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// first hide the 3rd element individually
+			$('#elem3').jqExpire('2013-12-12');
+			
+			// Now hide all elements with data-attributes
+			$().jqExpire();
+		});
+	</script>
+
+</body>
+</html>

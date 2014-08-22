@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- 这个插件功能不如MSClass丰富，建议用那个。 -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script src="../../js/jquery.js" type="text/javascript">
+    </script>
+    <script src="jcarousellite_1.0.1.js" type="text/javascript">
+    </script>
+</head>
+<script type="text/javascript">
+</script>
+
+<body>
+    <script type="text/javascript">
+    $(function() {
+        $("#notice").jCarouselLite({
+            hoverPause: true,
+            btnPrev: ".previous",
+            btnNext: ".next",
+            visible: 3,
+            auto: 2000,
+            speed: 200
+        });
+    });
+    </script>
+    <div id="Content">
+        <div id="main2">
+            <div id="notice">
+                <ul>
+                    <!--注意里面的文字宽度要限定在200px之内-->
+                    <li>
+                        <a>家庭聚餐儿孙全在玩手机</a>
+                    </li>
+                    <li>
+                        <a>国考临时放弃面试将</a>
+                    </li>
+                    <li>
+                        <a>“小众保险”只赚关注不卖座</a>
+                    </li>
+                    <li>
+                        <a>上班族10件健康小事</a>
+                    </li>
+                    <li>
+                        <a>诺奖效应凸显</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+</body>
+
+</html>

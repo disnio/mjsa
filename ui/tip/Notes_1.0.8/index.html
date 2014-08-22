@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de">
+
+<head>
+
+<title>jQuery Plugin: jQuery-Notes 1.0.8</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="author" content="Lukas Rydygel - Pforzheim / Furtwangen"/>
+<meta name="publisher" content="Lukas Rydygel" />
+<meta name="copyright" content="2009-2010 - Lukas Rydygel" />
+<meta name="keywords" content="jQuery, Plugin, Notes, jQuery-Notes, JavaScript, Website, Blog, Java-Script, Ajax, PHP, Download" />
+<meta name="description" content="jQuery-Notes is a jQuery plugin. Add notes to the images in your website/blog with jQuery, Ajax and PHP. Download latest version." />
+<meta name="robots" content="index, follow" />
+
+
+
+<link rel="stylesheet" title="Standard" href="style.css" type="text/css" media="all" />
+
+<link rel="stylesheet" title="Standard" href="jquery-notes_css/style.css" type="text/css" media="all" />
+
+<!--[if lte IE 8]>
+<link rel="stylesheet" title="Standard" href="jquery-notes_css/lteIE8.css" type="text/css" media="all" />
+<![endif]-->
+
+<link rel="shortcut icon" href="favicon.ico" />
+
+<script type="text/javascript" src="jquery-notes_js/jquery.js"></script>
+<script type="text/javascript" src="jquery-notes_js/jquery-ui.js"></script>
+<script type="text/javascript" src="jquery-notes_js/jquery-notes_1.0.8.js"></script>
+
+<script type="text/javascript">
+
+$(function() {
+
+    $('.jquery-note_1-1').jQueryNotes({
+	operator: 'jquery-notes_php/notes.php',
+	maxNotes: 10
+    });
+    
+    $('.jquery-note_1-2').jQueryNotes({
+	minWidth: '10%',
+	minHeight: 20,
+	aspectRatio: true,
+	helper: 'helper-class',
+	allowLink: false,
+	dateFormat: 'D.M.Y',
+	operator: 'jquery-notes_php/notes.php'
+    });
+    
+    $('.jquery-note_2-1').jQueryNotes({
+	allowAdd: false,
+	allowEdit: false,
+	allowDelete: false,
+	allowHide: false,
+	operator: 'jquery-notes_php/notes.php'
+    });
+    
+    $('.jquery-note_2-2').jQueryNotes({
+	allowAdd: false,
+	allowEdit: false,
+	allowDelete: false,
+	allowHide: false,
+	allowLink: false,
+	operator: 'jquery-notes_php/notes.php'
+    });
+    
+    $('.jquery-note_3-1').jQueryNotes({
+	loadNotes: false,
+	operator: 'jquery-notes_php/notes.php'
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+
+    .helper-class .notes .note .border {
+	border:1px solid #0055ff;
+	outline:none;
+    }
+    .helper-class .notes .note .border .bg {
+	background:#0055ff;
+    }
+    .helper-class .notes .text {
+	color:#000;
+	background:#fff;
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+	border-radius:0;
+    }
+    .helper-class .notes .text span {
+	color:#000;
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+
+<div class="content">
+
+    <h3>PHP</h3>
+
+    <h4>Settings the notes-file:</h4>
+    <p>If you want to change the path to the notes or use another extension, you can change it in php.</p>
+
+    <div class="samples-box clearfix">
+
+	<ol>
+	    
+	    <li><pre><code>new note('[path]', [prefix], '[image]', '[extension]');</code></pre></li>
+	    
+	</ol>
+
+    </div>
+    
+    <h3>Images</h3>
+
+    <h4>Simple images:</h4>
+    <p>Using jQuery-Notes in HTML.<br />
+    If you want to add different notes to the same image, just add a parameter to the image-path.</p>
+
+    <div class="samples-box clearfix">
+
+	<ol>
+	    
+	    <li><pre><code>&lt;img src="[image-path]?[parameter]" alt="" class="[css-class]"</code></pre></li>
+
+	    <li><pre><code>	width="[width-px]" height="[height-px]" /&gt;</code></pre></li>
+	    
+	</ol>
+
+    </div>
+    
+    <h4>Linked images:</h4>
+    <p>Surrounding links will be added as a linked icon to the controls under the image.</p>
+
+    <div class="samples-box clearfix">
+
+	<ol>
+	    
+	    <li><pre><code>&lt;a href="[link]" title="[link-title]"&gt;</code></pre></li>
+	    <li><pre><code>	&lt;img src="[image-path]?[parameter]" alt="" class="[css-class]"</code></pre></li>
+	    <li><pre><code>		width="[width-px]" height="[height-px]" /&gt;</code></pre></li>
+	    <li><pre><code>&lt;/a&gt;</code></pre></li>
+
+	    
+	</ol>
+
+    </div>
+
+    <h3>Samples</h3>
+
+    <h4>Settings:</h4>
+    <p>All settings and their default values.</p>
+
+    <div class="samples-box clearfix">
+
+	<ol>
+	
+	    <li><pre><code>$(function() {</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>	$('.jquery-note').jQueryNotes({</code></pre></li>
+	    <li><pre><code>		minWidth: 50,</code></pre></li>
+
+	    <li><pre><code>		minHeight: 50,</code></pre></li>
+	    <li><pre><code>		maxWidth: '',</code></pre></li>
+	    <li><pre><code>		maxHeight: '',</code></pre></li>
+	    <li><pre><code>		aspectRatio: false,</code></pre></li>
+	    <li><pre><code>		allowAdd: true,</code></pre></li>
+
+	    <li><pre><code>		allowEdit: true,</code></pre></li>
+	    <li><pre><code>		allowDelete: true,</code></pre></li>
+	    <li><pre><code>		allowHide: true,</code></pre></li>
+	    <li><pre><code>		allowReload: true,</code></pre></li>
+	    <li><pre><code>		allowLink: true,</code></pre></li>
+
+	    <li><pre><code>		allowAuthor: true,</code></pre></li>
+	    <li><pre><code>		dateFormat: 'Y/D/M H:I',</code></pre></li>
+	    <li><pre><code>		hideNotes: false,</code></pre></li>
+	    <li><pre><code>		loadNotes: true,</code></pre></li>
+	    <li><pre><code>		helper: '',</code></pre></li>
+
+	    <li><pre><code>		maxNotes: null,</code></pre></li>
+	    <li><pre><code>		operator: 'jquery-notes_php/notes.php'</code></pre></li>
+	    <li><pre><code>	});</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>});</code></pre></li>
+
+	
+	</ol>
+
+    </div>
+    
+    <h4>Size:</h4>
+    <p>The size can be set in pixel or percent.</p>
+    
+    <div class="samples-box clearfix">
+
+	<ol>
+	    
+	    <li><pre><code>$(function() {</code></pre></li>
+
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>	$('.jquery-note').jQueryNotes({</code></pre></li>
+	    <li><pre><code>		minWidth: 50,</code></pre></li>
+	    <li><pre><code>		minHeight: 50,</code></pre></li>
+	    <li><pre><code>		maxWidth: '',</code></pre></li>
+
+	    <li><pre><code>		maxHeight: '',</code></pre></li>
+	    <li><pre><code>		aspectRatio: false,</code></pre></li>
+	    <li><pre><code>	});</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>});</code></pre></li>
+
+	    
+	</ol>
+
+    </div>
+
+    <h4>Sample:</h4>
+    <p>Images from your own server.<br />
+    Notes can be edited by right click.<br />
+    Number of notes is limited.<br />
+
+    Cause of spamming, I disabled short URLs.</p>
+
+    <div class="samples-box clearfix">
+	
+	<img src="samples/sample_1.jpg" alt="" width="333" height="500" class="jquery-note_1-1" />
+	
+	<ol>
+	    
+	    <li><pre><code>$(function() {</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>	$('.jquery-note').jQueryNotes({</code></pre></li>
+
+	    <li><pre><code>		maxNotes: 10</code></pre></li>
+	    <li><pre><code>	});</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>});</code></pre></li>
+	    
+	</ol>
+	
+    </div>
+
+    
+    <h4>Look:</h4>
+    <p>You may change the look by using a helper-class for your own css.<br />
+    Links are deactivated in this sample.<br />
+    By using a parameter, this image can contain other notes then the one above, event it's the same one.</p>
+
+    <div class="samples-box clearfix">
+	
+	<img src="samples/sample_1.jpg?v=2" alt="" width="333" height="500" class="jquery-note_1-2" />
+
+	
+	<ol>
+	    
+	    <li><pre><code>$(function() {</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>	$('.jquery-note').jQueryNotes({</code></pre></li>
+	    <li><pre><code>		minWidth: '10%',</code></pre></li>
+	    <li><pre><code>		minHeight: 20,</code></pre></li>
+
+	    <li><pre><code>		aspectRatio: true,</code></pre></li>
+	    <li><pre><code>		helper: 'helper-class',</code></pre></li>
+	    <li><pre><code>		allowLinks: false,</code></pre></li>
+	    <li><pre><code>		dateFormat: 'D.M.Y'</code></pre></li>
+	    <li><pre><code>	});</code></pre></li>
+
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>});</code></pre></li>
+	    
+	</ol>
+	
+    </div>
+    
+    <h4>Foreign images:</h4>
+    <p>You can also add notes to foreign images (for example flickr) if you place them on your website.<br />
+    All options are deactivated in this sample.</p>
+
+    <div class="samples-box clearfix">
+
+	<img src="http://farm3.static.flickr.com/2757/4216385052_ba99b525c4.jpg" alt="" width="334" height="500" class="jquery-note_2-1" />
+	
+	<ol>
+	    
+	    <li><pre><code>$(function() {</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>	$('.jquery-note').jQueryNotes({</code></pre></li>
+
+	    <li><pre><code>		allowAdd: false,</code></pre></li>
+	    <li><pre><code>		allowEdit: false,</code></pre></li>
+	    <li><pre><code>		allowDelete: false,</code></pre></li>
+	    <li><pre><code>		allowHide: false</code></pre></li>
+	    <li><pre><code>	});</code></pre></li>
+
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>});</code></pre></li>
+	    
+	</ol>
+	
+    </div>
+    
+    <h4>Image-size:</h4>
+    <p>You can use the image in any size your want to.<br />
+    Containing notes will be automatically scaled.</p>
+
+    <div class="samples-box clearfix">
+
+	<img src="http://farm3.static.flickr.com/2757/4216385052_ba99b525c4.jpg" width="167" height="250" alt="" class="jquery-note_2-2" />
+	
+	<ol>
+	    
+	    <li><pre><code>$(function() {</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>	$('.jquery-note').jQueryNotes({</code></pre></li>
+
+	    <li><pre><code>		allowAdd: false,</code></pre></li>
+	    <li><pre><code>		allowEdit: false,</code></pre></li>
+	    <li><pre><code>		allowDelete: false,</code></pre></li>
+	    <li><pre><code>		allowHide: false,</code></pre></li>
+	    <li><pre><code>		allowLinks: false</code></pre></li>
+
+	    <li><pre><code>	});</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>});</code></pre></li>
+	    
+	</ol>
+
+    </div>
+
+    <h4>Loading:</h4>
+
+    <p>Notes will not be loaded.</p>
+
+    <div class="samples-box clearfix">
+
+	<img src="samples/sample_2.jpg" alt="" width="557" height="500" class="jquery-note_3-1" />
+	
+	<ol>
+	    
+	    <li><pre><code>$(function() {</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>	$('.jquery-note').jQueryNotes({</code></pre></li>
+
+	    <li><pre><code>		loadNotes: false</code></pre></li>
+	    <li><pre><code>	});</code></pre></li>
+	    <li><pre><code></code></pre></li>
+	    <li><pre><code>});</code></pre></li>
+	    
+	</ol>
+More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+    </div>
+
+</div>
+
+</body>
+
+</html>

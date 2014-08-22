@@ -1,0 +1,574 @@
+/* This needs to be first because FF3 is now supporting this */
+.clearfix {
+	display: inline-block;
+}
+.clearfix:after {
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	font-size: 0;
+	visibility: hidden;
+}
+/* Hides from IE-mac \*/
+* html .clearfix {
+	height: 1%;
+}
+.clearfix {
+	display: block;
+}
+html {
+	color:#666;
+	background:#fff;
+	overflow:auto;
+	overflow-y:scroll;
+	height:100%;
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+	margin:0;
+	padding:0;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+fieldset, img {
+	border:0;
+}
+address, caption, cite, code, dfn, em, th, var {
+	font-style:normal;
+	font-weight:normal;
+}
+li {
+	list-style:none;
+}
+caption, th {
+	text-align:left;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size:100%;
+	font-weight:normal;
+}
+q:before, q:after {
+	content:'';
+}
+abbr, acronym {
+	border:0;
+	font-variant:normal;
+}
+sup {
+	vertical-align:text-top;
+}
+sub {
+	vertical-align:text-bottom;
+}
+input, textarea, select {
+	font-family:inherit;
+	font-size:inherit;
+	font-weight:inherit;
+*font-size:100%;
+	z-index:-1;
+}
+input.text {
+	line-height:18px;
+	height:13px;
+}
+legend {
+	color:#000;
+}
+br {
+	letter-spacing:0px;
+}
+a {
+	text-decoration:none;
+}
+p {
+	margin:0 0 20px 0;
+	line-height:22px;
+}
+.center {
+	margin:0px auto;
+}
+.central {
+	text-align:center !important;
+}
+.left {
+	float:left;
+}
+.right {
+	float:right;
+}
+.textleft {
+	text-align:left;
+}
+.textright {
+	text-align:right;
+}
+.middle {
+	vertical-align:middle;
+}
+.clear {
+	float:none;
+	clear:both;
+	font-size:0px;
+	line-height:0px;
+	height:0px;
+	min-height:0px;
+	padding:0px;
+	margin:0px;
+	overflow:hidden;
+}
+.hide {
+	display:none;
+}
+.master {
+	width:1000px;
+}
+.hr {
+	height:1px;
+	line-height:0px;
+	font-size:0px;
+	border-top:solid 1px #f1f1f1;
+	margin-top:10px;
+}
+.inline {
+	display:inline;
+}
+.hand {
+	cursor:pointer;
+}
+a {
+	outline:none;
+	color:#069;
+}
+a img {
+	border:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+body {
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#fff;
+	line-height:22px;
+}
+/* site wide */
+#wrapper {
+	background:#FFFFFF none repeat scroll 0 0;
+	width:100%;
+}
+#container {
+	width:1000px;
+	margin:0 auto;
+	padding-bottom:20px;
+}
+.bound {
+	width:980px;
+	overflow:hidden;
+	margin:0 auto;
+}
+a.expand {
+	display:block;
+	float:right;
+	font-size:12px;
+	height:18px;
+	line-height:18px;
+	vertical-align:middle;
+*width:90px;
+	width:auto !important;
+}
+img.iconTick {
+	margin-left:5px;
+	vertical-align: middle;
+}
+span.HighlightSearch {
+	font-weight:bold;
+}
+#menu {
+	background:url(../images/hw_000489.jpg) repeat-x 0 0;
+	height:33px;
+	min-width:1000px;
+	width:auto !important;
+	margin:0px auto;
+}
+#menu li {
+	float:left;
+}
+#menu a {
+	float:left;
+	display:block;
+	height:33px;
+	background-image:url(../images/hw_071977.jpg);
+	background-repeat:no-repeat;
+	background-position:0 0;
+}
+#menu li.solutions a {
+	width:117px;
+	background-position:0px 0px;
+}
+#menu li.solutions a.hover {
+	background-position:0px -33px;
+}
+#menu li.solutions a.active {
+	background-position:0px -67px;
+}
+#menu li.services a {
+	width:118px;
+	background-position:-235px 0px;
+}
+#menu li.services a.hover {
+	background-position:-235px -33px;
+}
+#menu li.services a.active {
+	background-position:-235px -67px;
+}
+#menu li.products a {
+	width:118px;
+	background-position:-117px 0px;
+}
+#menu li.products a.hover {
+	background-position:-117px -33px;
+}
+#menu li.products a.active {
+	background-position:-117px -67px;
+}
+#menu li.support a {
+	width:118px;
+	background-position:-352px 0px;
+}
+#menu li.support a.hover {
+	background-position:-352px -33px;
+}
+#menu li.support a.active {
+	background-position:-352px -67px;
+}
+#menu li.about-huawei a {
+	width:118px;
+	background-position:-471px 0px;
+}
+#menu li.about-huawei a.hover {
+	background-position:-471px -33px;
+}
+#menu li.about-huawei a.active {
+	background-position:-471px -67px;
+}
+#menu-popup {
+	z-index:99;
+	position:absolute;
+	top:-1000px;
+}
+#menu-popup .popup {
+	position:absolute;
+	background-repeat:no-repeat;
+}
+#menu-popup div.title {
+	margin-bottom:8px;
+}
+#menu-popup div.title a {
+	color:#B60005;
+	font-size:14px;
+	margin-bottom:5px;
+	font-weight:bold;
+}
+#menu-popup .solutions {
+	height:244px;
+	background:url(../images/hw_071985.png) no-repeat right -245px;
+	padding-right:10px;
+	left:2px;
+	top:2px;
+}
+#menu-popup .solutions .menu_content {
+	height:239px;
+	background:url(../images/hw_071985.png) no-repeat left -1px;
+	padding:25px 15px 15px;
+}
+#menu-popup .solutions .menu_content div {
+	padding:0 0px 0px 20px;
+	width:795px;
+}
+#menu-popup .solutions .menu_content div ul {
+	float:left;
+	padding:0;
+}
+#menu-popup .solutions .menu_content div li {
+	line-height:24px;
+	white-space:nowrap;
+}
+#menu-popup .solutions .menu_content div li a {
+	color:#333;
+}
+#menu-popup .solutions .menu_content div ul.Arpu {
+	margin:0 48px 0 0;
+}
+#menu-popup .solutions .menu_content div ul.Broader {
+	margin:0 45px 0 0;
+}
+#menu-popup .solutions .menu_content div ul.Costdown {
+	margin:0 38px 0 0;
+}
+#menu-popup .solutions .menu_content div ul.Arpu li {
+	margin-left:47px;
+}
+#menu-popup .solutions .menu_content div ul.Broader li {
+	margin-left:50px;
+}
+#menu-popup .solutions .menu_content div ul.Costdown li {
+	margin-left:42px;
+}
+#menu-popup .solutions .menu_content div ul.Gogreener li {
+	margin-left:46px;
+}
+#menu-popup .solutions .menu_content div ul li.img {
+	margin-left:0;
+	margin-bottom:7px;
+}
+#menu-popup .solutions .menu_content div p {
+	clear:both;
+	text-align:right;
+}
+#menu-popup .services {
+	height:198px;
+	background:url(../images/hw_090334.png) no-repeat right -203px;
+	padding-right:11px;
+	left:87px;
+	top:2px;
+}
+#menu-popup .services .menu_content {
+	height:163px;
+	background:url(../images/hw_090334.png) no-repeat left 0;
+	padding:25px 0 10px 40px;
+}
+#menu-popup .services .menu_content div.width {
+	height:133px;
+	padding:0;
+	width:562px;
+	clear:both;
+	margin:0;
+}
+#menu-popup .services .menu_content div.left {
+	float:left;
+}
+#menu-popup .services .menu_content div.left ul {
+	margin:0;
+	padding:0;
+}
+#menu-popup .services .menu_content div.left li {
+	line-height:24px;
+	white-space:nowrap;
+}
+#menu-popup .services .menu_content div.left li.title {
+	color:#B60005;
+	font-weight:700;
+	font-size:16px;
+	margin-bottom:10px;
+}
+#menu-popup .services .menu_content div.left li.title a, #menu-popup .services .menu_content div.width li.title a {
+	color:#B60005;
+	cursor: pointer
+}
+#menu-popup .services .menu_content div.left li a {
+	color:#333;
+}
+#menu-popup .services .menu_content div.left p {
+	clear:both;
+	text-align:right;
+	margin-top:8px;
+}
+#menu-popup .services .menu_content div.nlist {
+	width:130px;
+}
+#menu-popup .services .menu_content div.alist {
+	width:170px;
+}
+#menu-popup .services .menu_content div.lelist {
+	width:136px;
+}
+#menu-popup .services .menu_content div.glist {
+	width:125px;
+}
+#menu-popup .services .menu_content div.link {
+	height:25px;
+	line-height:35px;
+	width:562px;
+	text-align:right;
+	float:left
+}
+#menu-popup .services .menu_content div.link a {
+	color:#003399;
+	margin:0 16px 0 0;
+}
+#menu-popup .products {
+	height:244px;
+	background:url(../images/hw_000408.png) no-repeat right -246px;
+	padding-right:10px;
+	left:120px;
+	top:2px;
+}
+#menu-popup .products .menu_content {
+	height:222px;
+	background:url(../images/hw_071985.png) no-repeat left -1px;
+	padding:23px 0 20px 25px;
+	width:630px;
+}
+#menu-popup .products .menu_content div {
+	padding:0 0px 0px 10px;
+	width:630px;
+}
+#menu-popup .products .menu_content div ul {
+	float:left;
+	padding:0;
+}
+#menu-popup .products .menu_content div li {
+	line-height:16px;
+	margin-bottom:6px;
+	white-space:nowrap;
+}
+#menu-popup .products .menu_content div li a {
+	color:#333;
+}
+#menu-popup .products .menu_content div p {
+	clear:both;
+	text-align:right;
+	padding-right:18px;
+	margin-top:0;
+}
+#menu-popup .products .menu_content div ul.marginL77 li {
+	padding-left:42px;
+	margin-right:45px;
+}
+#menu-popup .products .menu_content div ul.marginL65 li {
+	padding-left:68px;
+	margin-right:70px;
+}
+#menu-popup .products .menu_content div ul.marginL60 li {
+	padding-left:62px;
+	margin-right:116px;
+}
+#menu-popup .products .menu_content div ul li.img {
+	padding-left:0;
+	font-size:0;
+	line-height:0;
+	margin-bottom:0;
+}
+#menu-popup .support {
+	background:url(../images/hw_078880.png) no-repeat right -185px;
+	padding-right:10px;
+	left:357px;
+	top:2px;
+}
+#menu-popup .support .menu_content {
+	height:380px;
+	background:url(../images/hw_078880.png) no-repeat left -1px;
+	padding:10px 15px 15px 10px;
+	_padding:10px 1px 15px 10px;
+	width:370px;
+}
+#menu-popup .menu_content .support_ico {
+	margin:30px 0 0 30px;
+}
+#menu-popup .menu_content .support_right {
+	float:left;
+	margin:23px 0 0 37px;
+}
+#menu-popup .menu_content .support_right h1 {
+	font-weight:bold;
+	font-size:14px;
+	color:#000;
+	margin-bottom:13px;
+}
+#menu-popup .menu_content .support_right h1 a {
+	color:#B60005;
+	font-size:14px;
+	font-weight:bold;
+	text-decoration:none;
+}
+#menu-popup .menu_content .support_right h1 a:hover {
+	text-decoration:underline;
+}
+#menu-popup .menu_content .support_right span {
+	color:#666666;
+	font-size:12px;
+	margin-left:4px;
+	line-height:35px;
+}
+#menu-popup .support .menu_content div.link {
+	height:30px;
+	width:385px;
+	border-top:1px #dfdfdf solid;
+	line-height:30px;
+	clear:both;
+	margin-top:137px;
+}
+#menu-popup .support .menu_content div.link a {
+	color:#003399;
+	margin:0 10px;
+}
+#menu-popup .about-huawei {
+	background:url(../images/hw_071980.png) no-repeat left -268px;
+	padding-left:10px;
+	top:2px;
+	left:157px;
+	width:600px;
+}
+#menu-popup .about-huawei .menu_content {
+	height:267px;
+	background:url(../images/hw_071980.png) no-repeat right 0px;
+	padding:25px 0px 5px 0;
+	clear:both
+}
+#menu-popup .about-huawei .menu_content div.width {
+	height:200px;
+	padding:0 0 0 20px;
+	width:670px;
+	clear:both;
+	margin:0 0 0 16px;
+	_width:560px;
+}
+#menu-popup .about-huawei .menu_content div.left {
+	float:left;
+	width:140px;
+}
+#menu-popup .about-huawei .menu_content div.left2 {
+	float:left;
+}
+#menu-popup .about-huawei .menu_content div.left ul {
+	margin:0;
+	padding:0;
+	float:left;
+}
+#menu-popup .about-huawei .menu_content div.left li {
+	line-height:24px;
+	white-space:nowrap;
+}
+#menu-popup .about-huawei .menu_content div.left li.title {
+	color:#B60005;
+	font-weight:bold;
+	font-size:16px;
+	margin-bottom:10px;
+}
+#menu-popup .about-huawei .menu_content div.left li.title a, #menu-popup .services .menu_content div.width li.title a {
+	color:#B60005;
+	cursor:pointer
+}
+#menu-popup .about-huawei .menu_content div.left li a {
+	color:#333;
+}
+#menu-popup .about-huawei .menu_content div.left p {
+	clear:both;
+	text-align:right;
+	margin-top:8px;
+}
+#menu-popup .about-huawei .menu_content div.link {
+	height:30px;
+	width:570px;
+	border-top:1px #dfdfdf solid;
+	line-height:30px;
+	clear:both;
+	margin-top:0px;
+}
+#menu-popup .about-huawei .menu_content div.link a {
+	color:#003399;
+	margin:0 8px;
+}
+/* 代码整理：懒人之家 */

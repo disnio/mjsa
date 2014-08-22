@@ -1,0 +1,87 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>np</title>
+<link href="styles.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="jquery.js"></script>
+<script language="javascript" type="text/javascript" src="jquery.bstablecrosshair.js"></script>
+</head>
+<body>
+
+<div>
+<h2 id="x">Demonstration of BS Table Crosshair</h2>
+</div>
+
+<table style="border:2px solid #444;border-collapse:collapse;" id="mytable">
+<tr>
+<td>
+Product
+</td>
+<td>
+Price
+</td>
+<td>
+ID Code
+</td>
+<td>
+Quality
+</td>
+<td>
+Exp Date
+</td>
+</tr>
+<tr>
+<td>Pro 1</td>
+<td>51 $</td>
+<td>4587</td>
+<td>Good</td>
+<td>02/01/2009</td>
+</tr>
+<tr>
+<td>Pro 2</td>
+<td>151 $</td>
+<td>4847</td>
+<td>Great</td>
+<td>10/05/2009</td>
+</tr>
+<tr>
+<td>Pro 3</td>
+<td>34 $</td>
+<td>5682</td>
+<td>Good</td>
+<td>01/08/2010</td>
+</tr>
+<tr>
+<td>Pro 4</td>
+<td>28 $</td>
+<td>5147</td>
+<td>Bad</td>
+<td>02/09/2009</td>
+</tr>
+<tr>
+<td>Pro 5</td>
+<td>151 $</td>
+<td>7874</td>
+<td>Good</td>
+<td>10/10/2009</td>
+</tr>
+<tr>
+<td>Pro 6</td>
+<td>11 $</td>
+<td>4017</td>
+<td>Good</td>
+<td>05/07/2009</td>
+</tr>
+</table>
+<br />
+<hr />
+<h4>By Behnam Soltanrezaey</h4>More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+<script type="text/javascript">
+
+$.bstablecrosshair('mytable',{color:'#444',background:'#aaa','foreground':'#fff'});
+
+</script>
+
+</body>
+</html>

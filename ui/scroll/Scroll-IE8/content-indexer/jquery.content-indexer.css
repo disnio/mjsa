@@ -1,0 +1,69 @@
+#page-contents {
+  position: absolute;
+  text-align: left;
+  top: 0;
+  right: 0;
+  width:300px;
+  border: 1px solid #ccc;
+  border-top-width: 0;
+  background-color: #B0FF9E;
+  font-family : 'Georgia';
+  font-size : 14px;
+  color : #333333;
+  filter:alpha(opacity=85);
+  opacity: 0.85;
+  -moz-opacity:0.85;
+  -khtml-opacity: 0.85;	  
+}
+#page-contents a {
+  display: block;
+  margin: .25em 0;
+  color:#333333;
+  text-decoration:none;
+}
+#page-contents a :hover{
+  display: block;
+  margin: .25em 0;
+  color:#333333;
+  text-decoration:none;
+}
+#page-contents a.toggler {
+  padding-left: 20px;
+  background: url(arrow-right.gif) no-repeat 0 0;
+  text-decoration: none;
+}
+#page-contents a.arrow-down {
+  background-image: url(arrow-down.gif);
+}
+#page-contents div {
+  padding: .25em .5em .5em;  
+  display: none;
+  background-color: #DAFFD1;
+  filter:alpha(opacity=85);
+  opacity: 0.85;
+  -moz-opacity:0.85;
+  -khtml-opacity: 0.85;
+}
+#page-contents-normal{
+  font-family : 'Georgia';
+      font-size : 14px;
+      color : #333333;
+}
+#page-contents-normal a{
+  display:block;
+}
+.content-indexer-toplink {float:right;}
+#content-indexer-pagetop {padding:0;margin:0;position:absolute;top:0;left:0;width:0;height:0;}
+p{
+font-family : 'Georgia';
+      font-size : 14px;
+      color : #333333;
+	  line-height:20px;
+	  text-align:justify;
+}
+.pageheader {
+font-family : 'Georgia';
+      font-size : 32px;
+      color : #000000;
+	  text-shadow: 1px 1px #CCCCCC;
+}

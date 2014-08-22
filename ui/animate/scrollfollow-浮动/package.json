@@ -1,0 +1,35 @@
+{
+    "name": "jquery.scrollfollow",
+    "version": "0.01",
+    "title": "jQuery Scroll Follower",
+    "author": {
+        "name": "Piero Wbmstr",
+        "url": "http://github.com/pierowbmstr"
+    },
+    "licenses": [
+        {
+            "type": "GPLv3",
+            "url": "LICENSE"
+        }
+    ],
+    "dependencies": {
+        "jquery": "1.3.0"
+    },
+    "description": "A jQuery plugin to make DOM objects follow screen scroll and be always visible",
+    "keywords": [
+        "scroll",
+        "visible",
+        "follow"
+    ],
+    "homepage": "http://github.com/pierowbmstr/jquery-scrollfollow/",
+    "demo": "http://jquery-scrollfollow.ateliers-pierrot.fr/",
+    "maintainers": [
+        {
+		        "name": "Piero Wbmstr",
+		        "url": "http://github.com/pierowbmstr"
+        }
+    ],
+    "files": [
+        "jquery.scrollfollow.js"
+    ]
+}

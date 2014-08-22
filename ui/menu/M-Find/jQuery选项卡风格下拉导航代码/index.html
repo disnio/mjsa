@@ -1,0 +1,1170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery选项卡风格下拉导航代码 - 素材家园（www.sucaijiayuan.com）</title>
+<link type="text/css" href="css/style.css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<div class="nav_menu">
+	<div class="nav">
+		<div class="list" id="navlist">
+			<ul id="navfouce">
+				<li><a href="http://www.sucaijiayuan.com/">公司概况</a></li>   
+				<li><a href="http://www.sucaijiayuan.com/">产品展示</a></li>   
+				<li><a href="http://www.sucaijiayuan.com/">新闻动态</a></li>
+				<li><a href="http://www.sucaijiayuan.com/">营销网络</a></li>
+				<li><a href="http://www.sucaijiayuan.com/">照明知识</a></li>   
+				<li><a href="http://www.sucaijiayuan.com/">人力资源</a></li>   
+				<li><a href="http://www.sucaijiayuan.com/">客服中心</a></li>   
+				<li><a href="http://www.sucaijiayuan.com/">联系我们</a></li>
+			</ul>
+		</div>		
+		<div class="box" id="navbox" style="height:0px;opacity:0;overflow:hidden;">
+			<div class="cont" style="display:none;">
+				<ul class="sublist clearfix">
+					<li>
+						<h3 class="mcate-item-hd"><span>服饰内衣</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">女装</a>
+							<a href="http://www.jq22.com">男装</a>
+							<a href="http://www.jq22.com">内衣</a>
+							<a href="http://www.jq22.com">家居服</a>
+							<a href="http://www.jq22.com">配件</a>
+							<a href="http://www.jq22.com">羽绒</a>
+							<a href="http://www.jq22.com">呢大衣</a>
+							<a href="http://www.jq22.com">毛衣</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>鞋 箱包</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">女鞋</a>
+							<a href="http://www.jq22.com">男鞋</a>
+							<a href="http://www.jq22.com">箱包</a>
+							<a href="http://www.jq22.com">女包</a>
+							<a href="http://www.jq22.com">男包</a>
+							<a href="http://www.jq22.com">旅行箱</a>
+							<a href="http://www.jq22.com">钱包 </a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>珠宝、手表</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">饰品</a>
+							<a href="http://www.jq22.com">项链</a>
+							<a href="http://www.jq22.com">珠宝</a>
+							<a href="http://www.jq22.com">钻石</a>
+							<a href="http://www.jq22.com">手表</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>化妆品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">护肤</a>
+							<a href="http://www.jq22.com">彩妆</a>
+							<a href="http://www.jq22.com">香水</a>
+							<a href="http://www.jq22.com">男士</a>
+							<a href="http://www.jq22.com">精油</a>
+							<a href="http://www.jq22.com">假发</a>
+							<a href="http://www.jq22.com">美体</a>
+							<a href="http://www.jq22.com">试用服务</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>运动 户外</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">运动鞋</a>
+							<a href="http://www.jq22.com">运动服</a>
+							<a href="http://www.jq22.com">运动用品</a>
+							<a href="http://www.jq22.com">户外</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>手机 数码</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">手机</a>
+							<a href="http://www.jq22.com">笔记本</a>
+							<a href="http://www.jq22.com">相机</a>
+							<a href="http://www.jq22.com">平板电脑</a>
+							<a href="http://www.jq22.com">配件</a>
+							<a href="http://www.jq22.com">电脑硬件</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家用电器</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">大家电</a>
+							<a href="http://www.jq22.com">影音电器</a>
+							<a href="http://www.jq22.com">生活电器</a>
+							<a href="http://www.jq22.com">厨房电器</a>
+							<a href="http://www.jq22.com">健康护理</a>
+							<a href="http://www.jq22.com">剃须刀</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家具 建材</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">家具</a>
+							<a href="http://www.jq22.com">卫浴</a>
+							<a href="http://www.jq22.com">地板</a>
+							<a href="http://www.jq22.com">灯具</a>
+							<a href="http://www.jq22.com">五金</a>
+							<a href="http://www.jq22.com">开关</a>
+							<a href="http://www.jq22.com">装修设计</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家纺 居家</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">家纺</a>
+							<a href="http://www.jq22.com">磨毛套件</a>
+							<a href="http://www.jq22.com">羽绒被</a>
+							<a href="http://www.jq22.com">枕头</a>
+							<a href="http://www.jq22.com">软饰</a>
+							<a href="http://www.jq22.com">居家</a>
+							<a href="http://www.jq22.com">厨房</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>食品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">零食</a>
+							<a href="http://www.jq22.com">进口</a>
+							<a href="http://www.jq22.com">茶叶</a>
+							<a href="http://www.jq22.com">冲饮</a>
+							<a href="http://www.jq22.com">酒水</a>
+							<a href="http://www.jq22.com">粮油</a>
+							<a href="http://www.jq22.com">干货</a>
+							<a href="http://www.jq22.com">生鲜</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>医药保健</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">保健</a>
+							<a href="http://www.jq22.com">滋补</a>
+							<a href="http://www.jq22.com">蛋白粉</a>
+							<a href="http://www.jq22.com">阿胶</a>
+							<a href="http://www.jq22.com">药品</a>
+							<a href="http://www.jq22.com">血压仪</a>
+							<a href="http://www.jq22.com">计生</a>
+							<a href="http://www.jq22.com">体检</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>母婴用品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">玩具</a>
+							<a href="http://www.jq22.com">宝宝食品</a>
+							<a href="http://www.jq22.com">用品</a>
+							<a href="http://www.jq22.com">童装</a>
+							<a href="http://www.jq22.com">孕装</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>汽车 配件</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">新车</a>
+							<a href="http://www.jq22.com">座垫</a>
+							<a href="http://www.jq22.com">脚垫</a>
+							<a href="http://www.jq22.com">GPS</a>
+							<a href="http://www.jq22.com">车衣</a>
+							<a href="http://www.jq22.com">洗车机</a>
+							<a href="http://www.jq22.com">水枪</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>文化 玩乐</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">电子凭证</a>
+							<a href="http://www.jq22.com">图书</a>
+							<a href="http://www.jq22.com">乐器</a>
+							<a href="http://www.jq22.com">旅游</a>
+							<a href="http://www.jq22.com">鲜花</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+			<div class="cont" style="display:none;">
+				<ul class="sublist clearfix">
+					<li>
+						<h3 class="mcate-item-hd"><span>服饰内衣</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">女装</a>
+							<a href="http://www.jq22.com">男装</a>
+							<a href="http://www.jq22.com">内衣</a>
+							<a href="http://www.jq22.com">家居服</a>
+							<a href="http://www.jq22.com">配件</a>
+							<a href="http://www.jq22.com">羽绒</a>
+							<a href="http://www.jq22.com">呢大衣</a>
+							<a href="http://www.jq22.com">毛衣</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>鞋 箱包</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">女鞋</a>
+							<a href="http://www.jq22.com">男鞋</a>
+							<a href="http://www.jq22.com">箱包</a>
+							<a href="http://www.jq22.com">女包</a>
+							<a href="http://www.jq22.com">男包</a>
+							<a href="http://www.jq22.com">旅行箱</a>
+							<a href="http://www.jq22.com">钱包 </a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>珠宝、手表</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">饰品</a>
+							<a href="http://www.jq22.com">项链</a>
+							<a href="http://www.jq22.com">珠宝</a>
+							<a href="http://www.jq22.com">钻石</a>
+							<a href="http://www.jq22.com">手表</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>化妆品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">护肤</a>
+							<a href="http://www.jq22.com">彩妆</a>
+							<a href="http://www.jq22.com">香水</a>
+							<a href="http://www.jq22.com">男士</a>
+							<a href="http://www.jq22.com">精油</a>
+							<a href="http://www.jq22.com">假发</a>
+							<a href="http://www.jq22.com">美体</a>
+							<a href="http://www.jq22.com">试用服务</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>运动 户外</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">运动鞋</a>
+							<a href="http://www.jq22.com">运动服</a>
+							<a href="http://www.jq22.com">运动用品</a>
+							<a href="http://www.jq22.com">户外</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>手机 数码</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">手机</a>
+							<a href="http://www.jq22.com">笔记本</a>
+							<a href="http://www.jq22.com">相机</a>
+							<a href="http://www.jq22.com">平板电脑</a>
+							<a href="http://www.jq22.com">配件</a>
+							<a href="http://www.jq22.com">电脑硬件</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家用电器</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">大家电</a>
+							<a href="http://www.jq22.com">影音电器</a>
+							<a href="http://www.jq22.com">生活电器</a>
+							<a href="http://www.jq22.com">厨房电器</a>
+							<a href="http://www.jq22.com">健康护理</a>
+							<a href="http://www.jq22.com">剃须刀</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家具 建材</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">家具</a>
+							<a href="http://www.jq22.com">卫浴</a>
+							<a href="http://www.jq22.com">地板</a>
+							<a href="http://www.jq22.com">灯具</a>
+							<a href="http://www.jq22.com">五金</a>
+							<a href="http://www.jq22.com">开关</a>
+							<a href="http://www.jq22.com">装修设计</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家纺 居家</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">家纺</a>
+							<a href="http://www.jq22.com">磨毛套件</a>
+							<a href="http://www.jq22.com">羽绒被</a>
+							<a href="http://www.jq22.com">枕头</a>
+							<a href="http://www.jq22.com">软饰</a>
+							<a href="http://www.jq22.com">居家</a>
+							<a href="http://www.jq22.com">厨房</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>食品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">零食</a>
+							<a href="http://www.jq22.com">进口</a>
+							<a href="http://www.jq22.com">茶叶</a>
+							<a href="http://www.jq22.com">冲饮</a>
+							<a href="http://www.jq22.com">酒水</a>
+							<a href="http://www.jq22.com">粮油</a>
+							<a href="http://www.jq22.com">干货</a>
+							<a href="http://www.jq22.com">生鲜</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+			<div class="cont" style="display:none;">
+				<ul class="sublist clearfix">
+					<li>
+						<h3 class="mcate-item-hd"><span>服饰内衣</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">女装</a>
+							<a href="http://www.jq22.com">男装</a>
+							<a href="http://www.jq22.com">内衣</a>
+							<a href="http://www.jq22.com">家居服</a>
+							<a href="http://www.jq22.com">配件</a>
+							<a href="http://www.jq22.com">羽绒</a>
+							<a href="http://www.jq22.com">呢大衣</a>
+							<a href="http://www.jq22.com">毛衣</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>鞋 箱包</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">女鞋</a>
+							<a href="http://www.jq22.com">男鞋</a>
+							<a href="http://www.jq22.com">箱包</a>
+							<a href="http://www.jq22.com">女包</a>
+							<a href="http://www.jq22.com">男包</a>
+							<a href="http://www.jq22.com">旅行箱</a>
+							<a href="http://www.jq22.com">钱包 </a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>珠宝、手表</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">饰品</a>
+							<a href="http://www.jq22.com">项链</a>
+							<a href="http://www.jq22.com">珠宝</a>
+							<a href="http://www.jq22.com">钻石</a>
+							<a href="http://www.jq22.com">手表</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>化妆品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">护肤</a>
+							<a href="http://www.jq22.com">彩妆</a>
+							<a href="http://www.jq22.com">香水</a>
+							<a href="http://www.jq22.com">男士</a>
+							<a href="http://www.jq22.com">精油</a>
+							<a href="http://www.jq22.com">假发</a>
+							<a href="http://www.jq22.com">美体</a>
+							<a href="http://www.jq22.com">试用服务</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>运动 户外</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">运动鞋</a>
+							<a href="http://www.jq22.com">运动服</a>
+							<a href="http://www.jq22.com">运动用品</a>
+							<a href="http://www.jq22.com">户外</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+			<div class="cont" style="display:none;">
+				<ul class="sublist clearfix">
+					<li>
+						<h3 class="mcate-item-hd"><span>服饰内衣</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">女装</a>
+							<a href="http://www.sucaijiayuan.com">男装</a>
+							<a href="http://www.sucaijiayuan.com">内衣</a>
+							<a href="http://www.sucaijiayuan.com">家居服</a>
+							<a href="http://www.sucaijiayuan.com">配件</a>
+							<a href="http://www.sucaijiayuan.com">羽绒</a>
+							<a href="http://www.sucaijiayuan.com">呢大衣</a>
+							<a href="http://www.sucaijiayuan.com">毛衣</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>鞋 箱包</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">女鞋</a>
+							<a href="http://www.sucaijiayuan.com">男鞋</a>
+							<a href="http://www.sucaijiayuan.com">箱包</a>
+							<a href="http://www.sucaijiayuan.com">女包</a>
+							<a href="http://www.sucaijiayuan.com">男包</a>
+							<a href="http://www.sucaijiayuan.com">旅行箱</a>
+							<a href="http://www.sucaijiayuan.com">钱包 </a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>珠宝、手表</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">饰品</a>
+							<a href="http://www.sucaijiayuan.com">项链</a>
+							<a href="http://www.sucaijiayuan.com">珠宝</a>
+							<a href="http://www.sucaijiayuan.com">钻石</a>
+							<a href="http://www.sucaijiayuan.com">手表</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>化妆品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">护肤</a>
+							<a href="http://www.sucaijiayuan.com">彩妆</a>
+							<a href="http://www.sucaijiayuan.com">香水</a>
+							<a href="http://www.sucaijiayuan.com">男士</a>
+							<a href="http://www.sucaijiayuan.com">精油</a>
+							<a href="http://www.sucaijiayuan.com">假发</a>
+							<a href="http://www.sucaijiayuan.com">美体</a>
+							<a href="http://www.sucaijiayuan.com">试用服务</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>运动 户外</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">运动鞋</a>
+							<a href="http://www.sucaijiayuan.com">运动服</a>
+							<a href="http://www.sucaijiayuan.com">运动用品</a>
+							<a href="http://www.sucaijiayuan.com">户外</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>手机 数码</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">手机</a>
+							<a href="http://www.sucaijiayuan.com">笔记本</a>
+							<a href="http://www.sucaijiayuan.com">相机</a>
+							<a href="http://www.sucaijiayuan.com">平板电脑</a>
+							<a href="http://www.sucaijiayuan.com">配件</a>
+							<a href="http://www.sucaijiayuan.com">电脑硬件</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家用电器</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">大家电</a>
+							<a href="http://www.sucaijiayuan.com">影音电器</a>
+							<a href="http://www.sucaijiayuan.com">生活电器</a>
+							<a href="http://www.sucaijiayuan.com">厨房电器</a>
+							<a href="http://www.sucaijiayuan.com">健康护理</a>
+							<a href="http://www.sucaijiayuan.com">剃须刀</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家具 建材</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">家具</a>
+							<a href="http://www.sucaijiayuan.com">卫浴</a>
+							<a href="http://www.sucaijiayuan.com">地板</a>
+							<a href="http://www.sucaijiayuan.com">灯具</a>
+							<a href="http://www.sucaijiayuan.com">五金</a>
+							<a href="http://www.sucaijiayuan.com">开关</a>
+							<a href="http://www.sucaijiayuan.com">装修设计</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家纺 居家</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">家纺</a>
+							<a href="http://www.sucaijiayuan.com">磨毛套件</a>
+							<a href="http://www.sucaijiayuan.com">羽绒被</a>
+							<a href="http://www.sucaijiayuan.com">枕头</a>
+							<a href="http://www.sucaijiayuan.com">软饰</a>
+							<a href="http://www.sucaijiayuan.com">居家</a>
+							<a href="http://www.sucaijiayuan.com">厨房</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>食品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">零食</a>
+							<a href="http://www.sucaijiayuan.com">进口</a>
+							<a href="http://www.sucaijiayuan.com">茶叶</a>
+							<a href="http://www.sucaijiayuan.com">冲饮</a>
+							<a href="http://www.sucaijiayuan.com">酒水</a>
+							<a href="http://www.sucaijiayuan.com">粮油</a>
+							<a href="http://www.sucaijiayuan.com">干货</a>
+							<a href="http://www.sucaijiayuan.com">生鲜</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>医药保健</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">保健</a>
+							<a href="http://www.sucaijiayuan.com">滋补</a>
+							<a href="http://www.sucaijiayuan.com">蛋白粉</a>
+							<a href="http://www.sucaijiayuan.com">阿胶</a>
+							<a href="http://www.sucaijiayuan.com">药品</a>
+							<a href="http://www.sucaijiayuan.com">血压仪</a>
+							<a href="http://www.sucaijiayuan.com">计生</a>
+							<a href="http://www.sucaijiayuan.com">体检</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>母婴用品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">玩具</a>
+							<a href="http://www.sucaijiayuan.com">宝宝食品</a>
+							<a href="http://www.sucaijiayuan.com">用品</a>
+							<a href="http://www.sucaijiayuan.com">童装</a>
+							<a href="http://www.sucaijiayuan.com">孕装</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>汽车 配件</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">新车</a>
+							<a href="http://www.sucaijiayuan.com">座垫</a>
+							<a href="http://www.sucaijiayuan.com">脚垫</a>
+							<a href="http://www.sucaijiayuan.com">GPS</a>
+							<a href="http://www.sucaijiayuan.com">车衣</a>
+							<a href="http://www.sucaijiayuan.com">洗车机</a>
+							<a href="http://www.sucaijiayuan.com">水枪</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>文化 玩乐</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">电子凭证</a>
+							<a href="http://www.sucaijiayuan.com">图书</a>
+							<a href="http://www.sucaijiayuan.com">乐器</a>
+							<a href="http://www.sucaijiayuan.com">旅游</a>
+							<a href="http://www.sucaijiayuan.com">鲜花</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+			<div class="cont" style="display:none;">
+				<ul class="sublist clearfix">
+					<li>
+						<h3 class="mcate-item-hd"><span>服饰内衣</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">女装</a>
+							<a href="http://www.jq22.com">男装</a>
+							<a href="http://www.jq22.com">内衣</a>
+							<a href="http://www.jq22.com">家居服</a>
+							<a href="http://www.jq22.com">配件</a>
+							<a href="http://www.jq22.com">羽绒</a>
+							<a href="http://www.jq22.com">呢大衣</a>
+							<a href="http://www.jq22.com">毛衣</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>鞋 箱包</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">女鞋</a>
+							<a href="http://www.jq22.com">男鞋</a>
+							<a href="http://www.jq22.com">箱包</a>
+							<a href="http://www.jq22.com">女包</a>
+							<a href="http://www.jq22.com">男包</a>
+							<a href="http://www.jq22.com">旅行箱</a>
+							<a href="http://www.jq22.com">钱包 </a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>珠宝、手表</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">饰品</a>
+							<a href="http://www.jq22.com">项链</a>
+							<a href="http://www.jq22.com">珠宝</a>
+							<a href="http://www.jq22.com">钻石</a>
+							<a href="http://www.jq22.com">手表</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>化妆品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">护肤</a>
+							<a href="http://www.jq22.com">彩妆</a>
+							<a href="http://www.jq22.com">香水</a>
+							<a href="http://www.jq22.com">男士</a>
+							<a href="http://www.jq22.com">精油</a>
+							<a href="http://www.jq22.com">假发</a>
+							<a href="http://www.jq22.com">美体</a>
+							<a href="http://www.jq22.com">试用服务</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>运动 户外</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">运动鞋</a>
+							<a href="http://www.jq22.com">运动服</a>
+							<a href="http://www.jq22.com">运动用品</a>
+							<a href="http://www.jq22.com">户外</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>手机 数码</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">手机</a>
+							<a href="http://www.jq22.com">笔记本</a>
+							<a href="http://www.jq22.com">相机</a>
+							<a href="http://www.jq22.com">平板电脑</a>
+							<a href="http://www.jq22.com">配件</a>
+							<a href="http://www.jq22.com">电脑硬件</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家用电器</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">大家电</a>
+							<a href="http://www.jq22.com">影音电器</a>
+							<a href="http://www.jq22.com">生活电器</a>
+							<a href="http://www.jq22.com">厨房电器</a>
+							<a href="http://www.jq22.com">健康护理</a>
+							<a href="http://www.jq22.com">剃须刀</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家具 建材</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">家具</a>
+							<a href="http://www.jq22.com">卫浴</a>
+							<a href="http://www.jq22.com">地板</a>
+							<a href="http://www.jq22.com">灯具</a>
+							<a href="http://www.jq22.com">五金</a>
+							<a href="http://www.jq22.com">开关</a>
+							<a href="http://www.jq22.com">装修设计</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家纺 居家</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">家纺</a>
+							<a href="http://www.jq22.com">磨毛套件</a>
+							<a href="http://www.jq22.com">羽绒被</a>
+							<a href="http://www.jq22.com">枕头</a>
+							<a href="http://www.jq22.com">软饰</a>
+							<a href="http://www.jq22.com">居家</a>
+							<a href="http://www.jq22.com">厨房</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>食品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">零食</a>
+							<a href="http://www.jq22.com">进口</a>
+							<a href="http://www.jq22.com">茶叶</a>
+							<a href="http://www.jq22.com">冲饮</a>
+							<a href="http://www.jq22.com">酒水</a>
+							<a href="http://www.jq22.com">粮油</a>
+							<a href="http://www.jq22.com">干货</a>
+							<a href="http://www.jq22.com">生鲜</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+			<div class="cont" style="display:none;">
+				<ul class="sublist clearfix">
+					<li>
+						<h3 class="mcate-item-hd"><span>服饰内衣</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">女装</a>
+							<a href="http://www.sucaijiayuan.com">男装</a>
+							<a href="http://www.sucaijiayuan.com">内衣</a>
+							<a href="http://www.sucaijiayuan.com">家居服</a>
+							<a href="http://www.sucaijiayuan.com">配件</a>
+							<a href="http://www.sucaijiayuan.com">羽绒</a>
+							<a href="http://www.sucaijiayuan.com">呢大衣</a>
+							<a href="http://www.sucaijiayuan.com">毛衣</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>鞋 箱包</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">女鞋</a>
+							<a href="http://www.sucaijiayuan.com">男鞋</a>
+							<a href="http://www.sucaijiayuan.com">箱包</a>
+							<a href="http://www.sucaijiayuan.com">女包</a>
+							<a href="http://www.sucaijiayuan.com">男包</a>
+							<a href="http://www.sucaijiayuan.com">旅行箱</a>
+							<a href="http://www.sucaijiayuan.com">钱包 </a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>珠宝、手表</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">饰品</a>
+							<a href="http://www.sucaijiayuan.com">项链</a>
+							<a href="http://www.sucaijiayuan.com">珠宝</a>
+							<a href="http://www.sucaijiayuan.com">钻石</a>
+							<a href="http://www.sucaijiayuan.com">手表</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>化妆品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">护肤</a>
+							<a href="http://www.sucaijiayuan.com">彩妆</a>
+							<a href="http://www.sucaijiayuan.com">香水</a>
+							<a href="http://www.sucaijiayuan.com">男士</a>
+							<a href="http://www.sucaijiayuan.com">精油</a>
+							<a href="http://www.sucaijiayuan.com">假发</a>
+							<a href="http://www.sucaijiayuan.com">美体</a>
+							<a href="http://www.sucaijiayuan.com">试用服务</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>运动 户外</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">运动鞋</a>
+							<a href="http://www.sucaijiayuan.com">运动服</a>
+							<a href="http://www.sucaijiayuan.com">运动用品</a>
+							<a href="http://www.sucaijiayuan.com">户外</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>手机 数码</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">手机</a>
+							<a href="http://www.sucaijiayuan.com">笔记本</a>
+							<a href="http://www.sucaijiayuan.com">相机</a>
+							<a href="http://www.sucaijiayuan.com">平板电脑</a>
+							<a href="http://www.sucaijiayuan.com">配件</a>
+							<a href="http://www.sucaijiayuan.com">电脑硬件</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家用电器</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">大家电</a>
+							<a href="http://www.sucaijiayuan.com">影音电器</a>
+							<a href="http://www.sucaijiayuan.com">生活电器</a>
+							<a href="http://www.sucaijiayuan.com">厨房电器</a>
+							<a href="http://www.sucaijiayuan.com">健康护理</a>
+							<a href="http://www.sucaijiayuan.com">剃须刀</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家具 建材</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">家具</a>
+							<a href="http://www.sucaijiayuan.com">卫浴</a>
+							<a href="http://www.sucaijiayuan.com">地板</a>
+							<a href="http://www.sucaijiayuan.com">灯具</a>
+							<a href="http://www.sucaijiayuan.com">五金</a>
+							<a href="http://www.sucaijiayuan.com">开关</a>
+							<a href="http://www.sucaijiayuan.com">装修设计</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家纺 居家</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">家纺</a>
+							<a href="http://www.sucaijiayuan.com">磨毛套件</a>
+							<a href="http://www.sucaijiayuan.com">羽绒被</a>
+							<a href="http://www.sucaijiayuan.com">枕头</a>
+							<a href="http://www.sucaijiayuan.com">软饰</a>
+							<a href="http://www.sucaijiayuan.com">居家</a>
+							<a href="http://www.sucaijiayuan.com">厨房</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>食品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">零食</a>
+							<a href="http://www.sucaijiayuan.com">进口</a>
+							<a href="http://www.sucaijiayuan.com">茶叶</a>
+							<a href="http://www.sucaijiayuan.com">冲饮</a>
+							<a href="http://www.sucaijiayuan.com">酒水</a>
+							<a href="http://www.sucaijiayuan.com">粮油</a>
+							<a href="http://www.sucaijiayuan.com">干货</a>
+							<a href="http://www.sucaijiayuan.com">生鲜</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>医药保健</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">保健</a>
+							<a href="http://www.sucaijiayuan.com">滋补</a>
+							<a href="http://www.sucaijiayuan.com">蛋白粉</a>
+							<a href="http://www.sucaijiayuan.com">阿胶</a>
+							<a href="http://www.sucaijiayuan.com">药品</a>
+							<a href="http://www.sucaijiayuan.com">血压仪</a>
+							<a href="http://www.sucaijiayuan.com">计生</a>
+							<a href="http://www.sucaijiayuan.com">体检</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>母婴用品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">玩具</a>
+							<a href="http://www.sucaijiayuan.com">宝宝食品</a>
+							<a href="http://www.sucaijiayuan.com">用品</a>
+							<a href="http://www.sucaijiayuan.com">童装</a>
+							<a href="http://www.sucaijiayuan.com">孕装</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>汽车 配件</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">新车</a>
+							<a href="http://www.sucaijiayuan.com">座垫</a>
+							<a href="http://www.sucaijiayuan.com">脚垫</a>
+							<a href="http://www.sucaijiayuan.com">GPS</a>
+							<a href="http://www.sucaijiayuan.com">车衣</a>
+							<a href="http://www.sucaijiayuan.com">洗车机</a>
+							<a href="http://www.sucaijiayuan.com">水枪</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>文化 玩乐</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">电子凭证</a>
+							<a href="http://www.sucaijiayuan.com">图书</a>
+							<a href="http://www.sucaijiayuan.com">乐器</a>
+							<a href="http://www.sucaijiayuan.com">旅游</a>
+							<a href="http://www.sucaijiayuan.com">鲜花</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+			<div class="cont" style="display:none;">
+				<ul class="sublist clearfix">
+					<li>
+						<h3 class="mcate-item-hd"><span>服饰内衣</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">女装</a>
+							<a href="http://www.jq22.com">男装</a>
+							<a href="http://www.jq22.com">内衣</a>
+							<a href="http://www.jq22.com">家居服</a>
+							<a href="http://www.jq22.com">配件</a>
+							<a href="http://www.jq22.com">羽绒</a>
+							<a href="http://www.jq22.com">呢大衣</a>
+							<a href="http://www.jq22.com">毛衣</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>鞋 箱包</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">女鞋</a>
+							<a href="http://www.jq22.com">男鞋</a>
+							<a href="http://www.jq22.com">箱包</a>
+							<a href="http://www.jq22.com">女包</a>
+							<a href="http://www.jq22.com">男包</a>
+							<a href="http://www.jq22.com">旅行箱</a>
+							<a href="http://www.jq22.com">钱包 </a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>珠宝、手表</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">饰品</a>
+							<a href="http://www.jq22.com">项链</a>
+							<a href="http://www.jq22.com">珠宝</a>
+							<a href="http://www.jq22.com">钻石</a>
+							<a href="http://www.jq22.com">手表</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>化妆品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">护肤</a>
+							<a href="http://www.jq22.com">彩妆</a>
+							<a href="http://www.jq22.com">香水</a>
+							<a href="http://www.jq22.com">男士</a>
+							<a href="http://www.jq22.com">精油</a>
+							<a href="http://www.jq22.com">假发</a>
+							<a href="http://www.jq22.com">美体</a>
+							<a href="http://www.jq22.com">试用服务</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>运动 户外</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">运动鞋</a>
+							<a href="http://www.jq22.com">运动服</a>
+							<a href="http://www.jq22.com">运动用品</a>
+							<a href="http://www.jq22.com">户外</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>手机 数码</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">手机</a>
+							<a href="http://www.jq22.com">笔记本</a>
+							<a href="http://www.jq22.com">相机</a>
+							<a href="http://www.jq22.com">平板电脑</a>
+							<a href="http://www.jq22.com">配件</a>
+							<a href="http://www.jq22.com">电脑硬件</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家用电器</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">大家电</a>
+							<a href="http://www.jq22.com">影音电器</a>
+							<a href="http://www.jq22.com">生活电器</a>
+							<a href="http://www.jq22.com">厨房电器</a>
+							<a href="http://www.jq22.com">健康护理</a>
+							<a href="http://www.jq22.com">剃须刀</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家具 建材</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">家具</a>
+							<a href="http://www.jq22.com">卫浴</a>
+							<a href="http://www.jq22.com">地板</a>
+							<a href="http://www.jq22.com">灯具</a>
+							<a href="http://www.jq22.com">五金</a>
+							<a href="http://www.jq22.com">开关</a>
+							<a href="http://www.jq22.com">装修设计</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家纺 居家</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">家纺</a>
+							<a href="http://www.jq22.com">磨毛套件</a>
+							<a href="http://www.jq22.com">羽绒被</a>
+							<a href="http://www.jq22.com">枕头</a>
+							<a href="http://www.jq22.com">软饰</a>
+							<a href="http://www.jq22.com">居家</a>
+							<a href="http://www.jq22.com">厨房</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>食品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.jq22.com">零食</a>
+							<a href="http://www.jq22.com">进口</a>
+							<a href="http://www.jq22.com">茶叶</a>
+							<a href="http://www.jq22.com">冲饮</a>
+							<a href="http://www.jq22.com">酒水</a>
+							<a href="http://www.jq22.com">粮油</a>
+							<a href="http://www.jq22.com">干货</a>
+							<a href="http://www.jq22.com">生鲜</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+			<div class="cont" style="display:none;">
+				<ul class="sublist clearfix">
+					<li>
+						<h3 class="mcate-item-hd"><span>服饰内衣</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">女装</a>
+							<a href="http://www.sucaijiayuan.com">男装</a>
+							<a href="http://www.sucaijiayuan.com">内衣</a>
+							<a href="http://www.sucaijiayuan.com">家居服</a>
+							<a href="http://www.sucaijiayuan.com">配件</a>
+							<a href="http://www.sucaijiayuan.com">羽绒</a>
+							<a href="http://www.sucaijiayuan.com">呢大衣</a>
+							<a href="http://www.sucaijiayuan.com">毛衣</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>鞋 箱包</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">女鞋</a>
+							<a href="http://www.sucaijiayuan.com">男鞋</a>
+							<a href="http://www.sucaijiayuan.com">箱包</a>
+							<a href="http://www.sucaijiayuan.com">女包</a>
+							<a href="http://www.sucaijiayuan.com">男包</a>
+							<a href="http://www.sucaijiayuan.com">旅行箱</a>
+							<a href="http://www.sucaijiayuan.com">钱包 </a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>珠宝、手表</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">饰品</a>
+							<a href="http://www.sucaijiayuan.com">项链</a>
+							<a href="http://www.sucaijiayuan.com">珠宝</a>
+							<a href="http://www.sucaijiayuan.com">钻石</a>
+							<a href="http://www.sucaijiayuan.com">手表</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>化妆品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">护肤</a>
+							<a href="http://www.sucaijiayuan.com">彩妆</a>
+							<a href="http://www.sucaijiayuan.com">香水</a>
+							<a href="http://www.sucaijiayuan.com">男士</a>
+							<a href="http://www.sucaijiayuan.com">精油</a>
+							<a href="http://www.sucaijiayuan.com">假发</a>
+							<a href="http://www.sucaijiayuan.com">美体</a>
+							<a href="http://www.sucaijiayuan.com">试用服务</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>运动 户外</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">运动鞋</a>
+							<a href="http://www.sucaijiayuan.com">运动服</a>
+							<a href="http://www.sucaijiayuan.com">运动用品</a>
+							<a href="http://www.sucaijiayuan.com">户外</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>手机 数码</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">手机</a>
+							<a href="http://www.sucaijiayuan.com">笔记本</a>
+							<a href="http://www.sucaijiayuan.com">相机</a>
+							<a href="http://www.sucaijiayuan.com">平板电脑</a>
+							<a href="http://www.sucaijiayuan.com">配件</a>
+							<a href="http://www.sucaijiayuan.com">电脑硬件</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家用电器</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">大家电</a>
+							<a href="http://www.sucaijiayuan.com">影音电器</a>
+							<a href="http://www.sucaijiayuan.com">生活电器</a>
+							<a href="http://www.sucaijiayuan.com">厨房电器</a>
+							<a href="http://www.sucaijiayuan.com">健康护理</a>
+							<a href="http://www.sucaijiayuan.com">剃须刀</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家具 建材</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">家具</a>
+							<a href="http://www.sucaijiayuan.com">卫浴</a>
+							<a href="http://www.sucaijiayuan.com">地板</a>
+							<a href="http://www.sucaijiayuan.com">灯具</a>
+							<a href="http://www.sucaijiayuan.com">五金</a>
+							<a href="http://www.sucaijiayuan.com">开关</a>
+							<a href="http://www.sucaijiayuan.com">装修设计</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>家纺 居家</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">家纺</a>
+							<a href="http://www.sucaijiayuan.com">磨毛套件</a>
+							<a href="http://www.sucaijiayuan.com">羽绒被</a>
+							<a href="http://www.sucaijiayuan.com">枕头</a>
+							<a href="http://www.sucaijiayuan.com">软饰</a>
+							<a href="http://www.sucaijiayuan.com">居家</a>
+							<a href="http://www.sucaijiayuan.com">厨房</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>食品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">零食</a>
+							<a href="http://www.sucaijiayuan.com">进口</a>
+							<a href="http://www.sucaijiayuan.com">茶叶</a>
+							<a href="http://www.sucaijiayuan.com">冲饮</a>
+							<a href="http://www.sucaijiayuan.com">酒水</a>
+							<a href="http://www.sucaijiayuan.com">粮油</a>
+							<a href="http://www.sucaijiayuan.com">干货</a>
+							<a href="http://www.sucaijiayuan.com">生鲜</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>医药保健</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">保健</a>
+							<a href="http://www.sucaijiayuan.com">滋补</a>
+							<a href="http://www.sucaijiayuan.com">蛋白粉</a>
+							<a href="http://www.sucaijiayuan.com">阿胶</a>
+							<a href="http://www.sucaijiayuan.com">药品</a>
+							<a href="http://www.sucaijiayuan.com">血压仪</a>
+							<a href="http://www.sucaijiayuan.com">计生</a>
+							<a href="http://www.sucaijiayuan.com">体检</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>母婴用品</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">玩具</a>
+							<a href="http://www.sucaijiayuan.com">宝宝食品</a>
+							<a href="http://www.sucaijiayuan.com">用品</a>
+							<a href="http://www.sucaijiayuan.com">童装</a>
+							<a href="http://www.sucaijiayuan.com">孕装</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>汽车 配件</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">新车</a>
+							<a href="http://www.sucaijiayuan.com">座垫</a>
+							<a href="http://www.sucaijiayuan.com">脚垫</a>
+							<a href="http://www.sucaijiayuan.com">GPS</a>
+							<a href="http://www.sucaijiayuan.com">车衣</a>
+							<a href="http://www.sucaijiayuan.com">洗车机</a>
+							<a href="http://www.sucaijiayuan.com">水枪</a>
+						</p>
+					</li>
+					<li>
+						<h3 class="mcate-item-hd"><span>文化 玩乐</span></h3>
+						<p class="mcate-item-bd">
+							<a href="http://www.sucaijiayuan.com">电子凭证</a>
+							<a href="http://www.sucaijiayuan.com">图书</a>
+							<a href="http://www.sucaijiayuan.com">乐器</a>
+							<a href="http://www.sucaijiayuan.com">旅游</a>
+							<a href="http://www.sucaijiayuan.com">鲜花</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+(function(){
+	var time = null;
+	var list = $("#navlist");
+	var box = $("#navbox");
+	var lista = list.find("a");	
+	for(var i=0,j=lista.length;i<j;i++){
+		if(lista[i].className == "now"){
+			var olda = i;
+		}
+	}	
+	var box_show = function(hei){
+		box.stop().animate({
+			height:hei,
+			opacity:1
+		},400);
+	}
+	var box_hide = function(){
+		box.stop().animate({
+			height:0,
+			opacity:0
+		},400);
+	}
+	lista.hover(function(){
+		lista.removeClass("now");
+		$(this).addClass("now");
+		clearTimeout(time);
+		var index = list.find("a").index($(this));
+		box.find(".cont").hide().eq(index).show();
+		var _height = box.find(".cont").eq(index).height()+54;
+		box_show(_height)
+	},function(){
+		time = setTimeout(function(){	
+			box.find(".cont").hide();
+			box_hide();
+		},50);
+		lista.removeClass("now");
+		lista.eq(olda).addClass("now");
+	});
+	
+	box.find(".cont").hover(function(){
+		var _index = box.find(".cont").index($(this));
+		lista.removeClass("now");
+		lista.eq(_index).addClass("now");
+		clearTimeout(time);
+		$(this).show();
+		var _height = $(this).height()+54;
+		box_show(_height);
+	},function(){
+		time = setTimeout(function(){		
+			$(this).hide();
+			box_hide();
+		},50);
+		lista.removeClass("now");
+		lista.eq(olda).addClass("now");
+	});
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="nl" xmlns="http://www.w3.org/1999/xhtml" lang="nl">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Gaya Design - Text with Moving Backgrounds</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="move-bg.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+		
+			moveBgAround();
+		
+		});
+		
+		function moveBgAround() {
+			var x = Math.floor(Math.random()*401);
+			var y = Math.floor(Math.random()*401);
+			
+			var time = Math.floor(Math.random()*1001) + 2000;
+		
+			$('.scrollBg').animate({
+				backgroundPosition: '(' + (x * -1) + 'px ' + (y * -1) + 'px)'
+			}, time, "swing", function() {
+				moveBgAround();
+			});
+		}
+		
+	</script>
+
+</head>
+
+<body>
+	<div class='content'>
+		<h1>Text with Moving Backgrounds</h1>
+		
+		<p>
+			This is a quick example of how the <a href='http://www.gayadesign.com/diy/text-with-moving-backgrounds-with-jquery/'>Text with Moving Backgrounds</a> would look like.<br />
+			<br />
+
+			<a href='http://www.gayadesign.com/diy/text-with-moving-backgrounds-with-jquery/'>Read the article</a>.<br />
+
+More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+		</p>
+		
+		<h2>Examples:</h2>
+		<div class='scrollBg' style='background-image: url(pattern_2.jpg)'>
+			<img src='overlay.png' alt='' />
+		</div>
+		<div class='scrollBg' style='background-image: url(pattern_3.jpg)'>
+			<img src='overlay.png' alt='' />
+
+		</div>
+		<div class='scrollBg' style='background-image: url(pattern_1.jpg)'>
+			<img src='overlay.png' alt='' />
+		</div>
+		<div class='scrollBg' style='background-image: url(pattern_4.jpg)'>
+			<img src='overlay.png' alt='' />
+		</div>
+	</div>
+</body>
+
+</html>

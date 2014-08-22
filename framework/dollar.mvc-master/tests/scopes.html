@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    
+    <title>Javascript MVC</title>
+    
+    <script type="text/javascript" src="../libs/Underscore-1.3.3.js"></script>
+    <script type="text/javascript" src="../libs/jQuery-1.7.1.js"></script>
+    
+    <script type="text/javascript" src="../src/dollar.mvc.js"></script>
+    <script type="text/javascript" src="../src/Class.js"></script>
+    <script type="text/javascript" src="../src/Mixin.js"></script>
+    
+    <script type="text/javascript">
+      
+      var Human = $.mvc.Class()
+      .statics({
+        test: function(){
+          console.log('Human static test.');
+        }
+      })
+      .members({
+        test: function(){
+          console.log('Human normal test.');
+        }
+      })
+      .finalize();
+      
+      var Programmer = $.mvc.Class().extends(Human)
+      .statics({
+        test: function(){
+          console.log('Programmer static test.');
+          this.parent.test();
+        }
+      })
+      .members({
+        test: function(){
+          console.log('Programmer normal test.');
+          this.parent.test();
+          this.static.parent.test();
+          this.parent.static.test();
+        }
+      })
+      .finalize();
+      
+      
+      Programmer.test();
+      
+      var test = new Programmer;
+      test.test();
+    
+    </script>
+    
+  </head>
+  
+  <body>
+    
+    <div id="test">
+      <p>test</p>
+    </div>
+    
+    <div id="nyerk">
+      <p>nyerk</p>
+    </div>
+    
+  </body>
+
+</html>

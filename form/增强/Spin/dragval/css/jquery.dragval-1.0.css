@@ -1,0 +1,160 @@
+    /* Default demo page CSS goes here */
+	* { margin: 0; padding: 0; list-style: none; text-decoration: none;}
+	
+	html {
+		font-family: Helvetica,Arial,sans-serif; 
+        color: #2C3E54;		
+		font-size: 13px;
+		background: #f0f0f0;
+	}
+	
+	body {
+	    width: 620px;
+		margin: 0 auto;	
+	}
+	
+	body h1 {
+	    float: left;
+		width: 520px;
+		font-size: 25px;
+		font-weight: normal;
+		color: #333;
+	}
+	
+	body h2 {
+	    float: left;
+		width: 520px;
+		font-size: 20px;
+		font-weight: normal;
+		color: #666;
+	}
+	
+	body div.Dragval {
+	    float: left;
+		width: 520px;
+		margin-bottom: 20px;
+		margin-top: 20px;
+	}
+	
+	body div.Code {
+	    float: left;
+		width:488px;
+		margin-bottom: 20px;
+		border: 1px solid #ccc;
+		background: #f0f0f0;
+		padding: 15px;
+	}
+	
+	body p {
+	    float: left;
+		width: 518px;
+	}
+	
+	body div.Code p { 
+	    float: left;
+		width: 518px;
+		line-height: 17px;
+	}
+	
+	#Container {
+	    float: left;
+		width: 520px;
+		padding: 50px;
+		background: #fff;
+	}
+	
+	a {
+	    color: #0063DC;
+		text-decoration: underline;
+	}
+	
+	a:hover { text-decoration: none; }
+	
+	ul li {
+	    float: left;
+		width: 520px;
+		margin-top: 4px;
+	}
+	
+	/* jQuery Dragval CSS goes here */
+	.Dragval {
+	    float: left;
+		width: 516px;
+	}
+	
+	.Container {
+	    float: left;
+		width: 516px;
+		height: 50px;
+	}
+	
+	.Track {
+	    float: left;
+		width: 516px;
+		height: 26px;
+		background: url('../images/dragval_bg.png');
+		position: absolute;
+		cursor: pointer;
+	}
+	
+	.Track .LeftBtn{
+	    float: left;
+		width: 21px;
+		height: 26px;
+		cursor: pointer;
+	}
+	
+	.Track .RightBtn{
+	    float: left;
+		width: 21px;
+		height: 26px;
+		cursor: pointer;
+	}
+	
+	.Track .Labels {
+	    float: left;
+		width: 474px;
+		height: 26px;
+	}
+	
+	.Track .Label{
+	    float: left;
+		width: 52px;
+		height: 26px;
+		cursor: pointer;
+	}
+
+	.Track .LabelFirst {
+	    float: left;
+		width: 29px;
+		height: 26px;
+	}
+	
+	.Track .LabelLast {
+	    float: left;
+		width: 29px;
+		height: 26px;
+	}
+	
+	.Measure {
+		width: 512px;
+		position: relative;
+		top: 31px;
+	}
+	
+	.Measure .Value {
+	    float: left;
+		width: 51px;
+		text-align: center;
+		font-size: 10px;
+	}
+
+	.Indicator {
+	    position: absolute;
+		width: 16px;
+		height: 26px;
+		background: url('../images/dragval_indicator.png') no-repeat;
+        left: 17px;
+		top: 0;
+		cursor: pointer;
+	}

@@ -1,0 +1,84 @@
+JQuery插件之autocomplete使用指南
+http://www.cnblogs.com/hyl8218/archive/2010/03/19/1688828.html
+项目中有时会用到ajax自动补全查询，就像Google的搜索框中那样，输入汉字或者字母的首个字母，则包含这个汉字或者字母的相关条目会显示出来供用户选择，该插件就是实现这样的功能的。使用此插件需要引用两个js文件和一个css文件，分别如下：
+jquery核心库文件
+<script src="./jquery-1.3.2.js"type="text/javascript"></script> 
+插件js文件
+<script src="./jquery.autocomplete.js" type="text/javascript"></script> 
+插件样式文件
+<link rel="stylesheet" href="./jquery.autocomplete.css" /> 
+插件的参数说明如下：
+?	minChars(number)
+该参数指定在触发autocomplete之前用户在查询框中输入的最小字符数，通常设置为1，即文本框值不为空的时候执行autocomplete,如果取值为0，则在用户双击查询文本框或删除文本框内容时查询
+?	width
+该参数的用途是指定下拉框的宽度，通常不用设置，默认的值为和<input>元素相同
+?	max
+查询时下拉列表框中显示的条目数，defaultValue为10
+?	delay
+
+击键后激活autoComplete的延迟时间(单位毫秒).Default: 远程为400 本地10
+
+?	autoFill(boolean)
+
+是否在用户选择时自动将用户鼠标所在的值填充到input元素中，default:false
+
+?	mustMatch(boolean)
+
+参数boolean类型，true时，如果输入的查询条件无法匹配到合适的结果，则<input>元素中输入的查询值会自动清空，否则会保留。Default:false
+?	selectFirst(boolean)
+
+参数为true时，则用户按下tab键或者return键时会自动将查询结果的第一条记录选中到input元素中
+
+?	cacheLength(number)
+
+缓存记录的条数，即从数据库中取得记录要缓存多少条，1为不缓存，defalut:10
+
+?	matchSubset(boolean)
+
+是否对从服务器的查询结果使用缓存，比如：上一次的搜索关键字为java，则下次再次输入java进行查询时不用再次连接服务器查询，而是从缓存中取得上次查询的结果，这样做可以减少访问服务器的次数，提供性能。Default:true
+
+?	matchCase(boolean)
+
+是否开启大小写敏感开关，在使用缓存时比较重要
+
+?	multiple(boolean)
+
+是否允许多值查询，如果为true,则查询到第一条结果后，再次输入查询条件则会后续的查询结果显示出来。
+
+?	multipleSeparator(string)
+
+只有在multiple属性设置为true时此属性才能生效，该属性用来控制在多条件查询时使用的分隔符，default:”,”
+
+?	scroll(boolean)
+
+设置当结果集大于默认高度时是否使用滚动条显示,default:true
+
+?	scrollHeight(number)
+
+查询结果框的显示高度，当超过该高度时会使用scroll
+
+?	formatItem(Function)
+
+对服务器返回的每一行数据都调用该函数来处理，返回值将用LI元素包含显示在下拉列表中，autocomplete会提供三个参数(row,I,max)其中row表示服务器端返回回来的结果数组，i为当前的行数(正在处理第几行数据)，max为返回的记录总数(查询到的结果总数)，default:none，不指定则直接返回服务器的结果值
+
+?	formatResult(Function)
+
+功能和formatItem基本类似，同样有三个参数作用相同，暂时没发现写该与不写该函数有什么区别
+
+?	formatMatch(Function)
+
+暂时不清楚该函数的具体功能，在我做的项目模块中写不写该函数一个样
+
+?	result(handler)return jquery
+
+此事件会在用户选中某一项后触发，参数为：event,data,formatted
+Event为事件对象
+Data为选中的数据行
+Formatted:formatResult函数的返回值
+例如：
+    $("#singleBirdRemote").result(function(event, data, formatted) {
+如选择后给其他控件赋值，触发别的事件等等
+?	extraParams (Object):
+为服务器端后台提供更多的参数，参数的形式如下：{name:lixiao},在向后台传递参数时会自动在url后追加该参数?name=lixiao
+?	使用注意事项：
+1:在使用远程地址时，它默认传入的参数是：q（输入值），limit（返回结果的最大值），可以使用extraParams传入其他的参数

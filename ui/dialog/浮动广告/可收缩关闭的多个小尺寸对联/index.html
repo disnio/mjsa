@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="keywords" content="JS代码,对联广告,JS广告代码,JS特效代码" />
+<meta name="description" content="此代码内容为可收缩关闭的多个小尺寸对联，属于站长常用代码，更多对联广告代码请访问懒人图库JS代码频道。" />
+<title>可收缩关闭的多个小尺寸对联_懒人图库</title>
+</head>
+
+<body style="text-align:center">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>
+  <SCRIPT language=JavaScript type=text/javascript>
+lastScrollY=0;
+function heartBeat(){
+var diffY;
+if (document.documentElement && document.documentElement.scrollTop)
+diffY = document.documentElement.scrollTop;
+else if (document.body)
+diffY = document.body.scrollTop
+else
+{/*Netscape stuff*/}
+
+//alert(diffY);
+percent=.1*(diffY-lastScrollY);
+if(percent>0)percent=Math.ceil(percent);
+else percent=Math.floor(percent);
+document.getElementById("ALayer1").style.top=parseInt(document.getElementById("ALayer1").style.top)+percent+"px";
+document.getElementById("ALayer2").style.top=parseInt(document.getElementById("ALayer1").style.top)+percent+"px";
+
+lastScrollY=lastScrollY+percent;
+//alert(lastScrollY);
+}
+suspendcode12="<DIV id=\"ALayer1\" style='left:0px;PosITION:absolute;TOP:200px;FILTER: alpha(opacity=85);'><div align=left><img src='images/close.gif' border=0 onclick='closeBanner();' /></div><EMBED src='flash/lanrentuku-left.swf' quality=high  WIDTH=100 HEIGHT=95 TYPE='application/x-shockwave-flash' id=EccoolAd wmode=transparent></EMBED><br /><br /><EMBED src='flash/lanrentuku-left.swf' quality=high  WIDTH=100 HEIGHT=95 TYPE='application/x-shockwave-flash' id=EccoolAd wmode=transparent></EMBED><br /><br /><EMBED src='flash/lanrentuku-left.swf' quality=high  WIDTH=100 HEIGHT=95 TYPE='application/x-shockwave-flash' id=EccoolAd wmode=transparent></EMBED></div>"
+suspendcode14="<div id=\"ALayer2\" style='right:0px;PosITION:absolute;TOP:200px;FILTER: alpha(opacity=85);'><div align=right><img src='images/close.gif' border=0 onclick='closeBanner();' /></div><EMBED src='flash/lanrentuku-right.swf' quality=high  WIDTH=100 HEIGHT=95 TYPE='application/x-shockwave-flash' id=EccoolAd wmode=transparent></EMBED><br /><br /><EMBED src='flash/lanrentuku-right.swf' quality=high  WIDTH=100 HEIGHT=95 TYPE='application/x-shockwave-flash' id=EccoolAd wmode=transparent></EMBED><br /><br /><EMBED src='flash/lanrentuku-right.swf' quality=high  WIDTH=100 HEIGHT=95 TYPE='application/x-shockwave-flash' id=EccoolAd wmode=transparent></EMBED></div>"
+document.write(suspendcode12);
+document.write(suspendcode14);
+window.setInterval("heartBeat()",1);
+function closeBanner()
+{
+document.getElementById("ALayer1").style.display= 'none';
+document.getElementById("ALayer2").style.display= 'none';
+}
+//setTimeout("closeBanner()",6000);
+  </SCRIPT>
+</p>
+<p>代码整理：<a href="http://www.lanrentuku.com/" target="_blank">懒人图库</a>　来源：<a href="http://www.jiaodong.net/" target="_blank">胶东在线</a></p>
+<p>＊尊重他人劳动成果，转载请自觉注明出处！注：此代码仅供学习交流，请勿用于商业用途。</p>
+<p></p>
+<p><p>可关闭，可设置过个小矩形，可自动收缩（需要在flash制作），详见懒人图库整理的fla格式flash文件。</p></p>
+<p></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

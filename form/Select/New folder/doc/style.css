@@ -1,0 +1,41 @@
+body {
+    font-size: 13pt;
+    padding: 20px 50px
+}
+.example {
+    float:left;
+    width:400px;
+    height: 280px;
+    border: 1px dotted #EEE;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 10px
+}
+pre {
+    font-family: Courier;
+    margin-top: 10px;
+}
+.example pre {
+    font-size: 11pt;
+    max-height:115px;
+    overflow: auto;
+    background: white
+}
+.clear {
+    clear:both
+}
+.example-row {
+    border: 1px dotted #EEE;
+    margin: 10px 0;
+    padding: 0 10px
+}
+.example-row pre {
+    font-size: 11pt;
+}
+.tab-content {
+    overflow: visible
+}
+/* our input is affected by bootstrap css*/
+input[type="checkbox"] {
+    margin: 0 3px 5px 0;
+}

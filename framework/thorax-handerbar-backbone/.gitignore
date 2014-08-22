@@ -1,0 +1,9 @@
+.DS_STORE
+.project
+node_modules
+components
+build
+dist
+*.sublime-project
+*.sublime-workspace
+sauce_connect.log

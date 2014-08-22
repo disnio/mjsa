@@ -1,0 +1,4 @@
+提供了和jquery同等的ajax功能，js实现。
+All over again. Includes support for xmlHttpRequest, JSONP, CORS, and CommonJS Promises A。
+
+都可以实现跨域的jsonp，ie6+ 。

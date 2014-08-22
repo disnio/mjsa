@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>QUnit Test Suite</title>
+	<link rel="stylesheet" href="../qunit/qunit.css" type="text/css" media="screen">
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+	<script type="text/javascript" src="../src/domify.js"></script>
+	<script type="text/javascript" src="../qunit/qunit.js"></script>
+	<script type="text/javascript" src="test.js"></script>
+
+	<style>
+		.qunit-fixture {
+			visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture1" class="qunit-fixture">
+		<noscript>
+			<span>test markup</span>
+		</noscript>
+	</div>
+
+	<div id="qunit-fixture2" class="qunit-fixture">
+		<noscript>
+			<span>test markup 2</span>
+		</noscript>
+	</div>
+
+	<div id="qunit-fixture3" class="qunit-fixture">
+		<noscript>
+			<span>test markup 3</span>
+		</noscript>
+	</div>
+
+	<div id="qunit-fixture4" class="qunit-fixture">
+		<noscript>
+			<span>test markup 4</span>
+		</noscript>
+		<noscript>
+			<span>test markup 5</span>
+		</noscript>
+		<noscript>
+			<span>test markup 6</span>
+		</noscript>
+	</div>
+
+</body>
+</html>

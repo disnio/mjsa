@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+
+    <script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+    <script type="text/javascript" src="images/jqIsoText.js"></script>
+    <link rel="stylesheet" href="images/styles.css" type="text/css" />
+
+    <title>jqIsoText: jQuery Text Effect Plugin</title>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+
+<body>
+
+    <div class="topbar" style="font-family: tahoma, verdana, arial; background-color: #333; padding: 10px; overflow: auto; zoom: 1; color: white;">
+        <div style="width: 1000px; margin: 0 auto; ">
+
+            <h2 style="float: left; margin: 0;">Workshop.rs</h2>
+
+            <h2 style="float: right; margin: 0">
+                <a href="http://workshop.rs/2010/01/jqisotext-jquery-text-effect-plugin/">This is demo page for jqIsoText plugin. Read more details on workshop.rs</a>
+            </h2>
+
+        </div>
+    </div>
+
+    <div id="page">
+
+        <div id="head">
+            <h1>JQISOTEXT</h1>
+            <h2>Pseudo-isometric text effect</h2>
+
+            <p class="headText">
+                jqIsoText is <a href="http://www.jquery.com/" target="_blank">jQuery</a> plugin for displaying your text with pseudo-isometric effect.
+            </p>
+
+            <p class="headText">
+                jqIsoText is compatible and fully tested with Safari 2+, Internet Explorer 6+, Firefox 2+, Google Chrome 3+, Opera 9+.
+            </p>
+            <br />
+
+        </div>
+
+
+        <div id="examples">
+            <h3>Examples</h3>
+            <br />
+
+            <span class='default'>This sentence will be treated with default options</span>
+            <br />
+            <code>$('.default').jqIsoText()</code>
+            <br />
+            <br />
+            <span class='split'>For this sentence words will be treated separatly</span>
+            <br />
+            <code>$('.split').jqIsoText({ split:'yes' })</code>
+            <br />
+            <br />
+            <span class='big'>Use custom sizes and start from bigger</span>
+            <br />
+            <code>$('.big').jqIsoText({ fromSize: 50, toSize: 10 })</code>
+            <br />
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+    <div class="topbar" style="font-family: tahoma, verdana, arial; background-color: #333; padding: 10px; overflow: auto; zoom: 1; color: white;">
+        <div style="width: 1000px; margin: 0 auto; ">
+
+            <h2 style="float: left; margin: 0;">Workshop.rs</h2>
+
+            <h2 style="float: right; margin: 0">
+                <a href="http://workshop.rs/2010/01/jqisotext-jquery-text-effect-plugin/">This is demo page for jqIsoText plugin. Read more details on workshop.rs</a>
+                <br />More script and css style : <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+            </h2>
+
+        </div>
+    </div>
+
+
+</body>
+<script>
+$(function() {
+    $('#head h2').jqIsoText({
+        fromSize: 25,
+        toSize: 50
+    });
+    $('#head h1').jqIsoText({
+        fromSize: 50,
+        toSize: 90
+    });
+    $('.download a').jqIsoText({
+        fromSize: 50,
+        toSize: 15
+    });
+    $('.com').jqIsoText();
+    $('.split').jqIsoText({
+        split: 'yes'
+    });
+    $('.default').jqIsoText();
+    $('.big').jqIsoText({
+        fromSize: 50,
+        toSize: 10
+    });
+})
+</script>
+
+</html>
+<!-- This document saved from http://workshop.rs/projects/jqisotext/ -->

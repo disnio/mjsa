@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<groups>		
+		<group snapToCell="true" gridPosition="CR" cellPosition="CR" orientation="horizontal" spacing="0" paddingH="0" paddingV="0">
+			<button out="assets/skins/skin2/next.png" over="assets/skins/skin2/nextOver.png" down="assets/skins/skin2/next.png" action="next" tooltip="" animate="true"/>
+		</group>
+		<group snapToCell="true" gridPosition="CL" cellPosition="CL" orientation="horizontal" spacing="0" paddingH="0" paddingV="0">
+			<button out="assets/skins/skin2/prev.png" over="assets/skins/skin2/prevOver.png" down="assets/skins/skin2/prev.png" action="prev" tooltip="" animate="true"/>
+		</group>
+	</groups>
+</data>

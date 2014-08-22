@@ -1,0 +1,96 @@
+
+/*容器居住背景logo*/
+.top_banner_sec { background: url("img/top_banner_sec.jpg") repeat-x scroll 0 0 transparent; height: 43px; width: 100%;}
+.top_banner_center { margin: 0 auto; width: 980px; height:40px; border: 1px solid #000;}
+
+
+.top_banner_sec h2         { float: left; padding-right: 30px; padding-top: 8px;}
+
+.top_brand { float: left; position: relative; width: 460px; z-index: 9999;}
+.top_brand ul.top_brand_ul    { background: url("img/top_brand_li.jpg") no-repeat scroll 0 center transparent; float: left; width: 460px;}
+
+
+
+.top_brand ul.top_brand_ul li { 
+    background: url("img/top_brand_li.jpg") no-repeat scroll right center transparent; float: left; padding-right: 2px;
+}
+/*菜单文字*/
+.top_brand ul.top_brand_ul li a.downcd {
+    color: #494949; float: left; height: 42px; line-height: 43px; margin: 1px 1px 0; overflow: hidden; padding: 0 16px; z-index: 9999;
+}
+
+.top_brand ul.top_brand_ul li a.downcd:hover {
+    background: none repeat scroll 0 0 #F6F6F6; 
+    border-color: #E50065 #E50065; 
+    border-style: solid solid none; 
+    border-width: 1px 1px 0;
+    color: #E50065; height: 42px; line-height: 43px; margin: 0; z-index: 9999;
+}
+
+/*------js用------*/
+.top_brand ul.top_brand_ul li a.downcd_on {
+    background: none repeat scroll 0 0 #F6F6F6;
+    border-color: #E50065 #E50065;
+    border-style: solid solid none;
+    border-width: 1px 1px 0;
+    color: #E50065; height: 42px; line-height: 43px; margin: 0; z-index: 9999;
+}
+.topnav {
+    position: relative;
+    z-index: 999;
+}
+
+
+div.subnav_top_style1 {/*控制显示位置1*/
+    left: -243px !important; padding: 0 40px 10px;
+}
+
+/*弹出框容器*/
+div.subnav_top {
+    background: none repeat scroll 0 0 #F6F6F6; border: 1px solid #DC1F5F;
+    display: none; float: left; left: 0; list-style: none outside none; position: absolute; top: 42px; z-index: -1;
+}
+/*弹出框图像表格容器*/
+div.subnav_top .m_pro_show {
+    float: left; padding: 23px 0 0; text-align: center; width: 100%;
+}
+div.subnav_top .m_pro_show table {
+    border-bottom: 1px solid #E0E0E0; margin: 0 auto; width: 100%;
+}
+div.subnav_top .m_pro_show a {
+    background: none repeat scroll 0 50% transparent;
+    border: 1px solid #F7F5F8; display: block; height: 162px; margin: 0 0 10px; padding: 0; width: 103px;
+}
+div.subnav_top .m_pro_show a:hover {
+    background: none repeat scroll 0 50% transparent;
+    border: 1px solid #FC5694; display: block; height: 162px; margin: 0 0 10px; padding: 0; width: 103px;
+}
+
+div.subnav_top .m_pro_show .m_pro_show_tddiv {
+    margin: 0 auto; width: 103px;
+}
+
+div.subnav_top_neiyi {
+    width: 415px;
+}
+div.subnav_top_neiyi ul.navlist_top li .navlist_top_con {
+    width: 320px;
+}
+/*显示位置2*/
+div.subnav_top_style2 {
+    height: 100px; left: auto !important; padding: 15px 40px; right: 46px; width: 400px;}
+div.subnav_top_style2 ul.navlist_top li .navlist_top_con {
+    width: 300px;
+}
+
+/*右侧大弹出框*/
+.m_brand { /*连接文字框*/
+    float: left; height: 39px; line-height: 39px; margin-top: 4px; position: relative; width: 150px; z-index: 1000;
+}
+.m_brand .m_brand_tit {
+    background: url("img/top_brand_tit_nbg.jpg") no-repeat scroll 0 0 transparent;
+    color: #4A4A4A; float: left;  font-size: 16px; height: 39px; line-height: 35px; padding: 0 0 0 6px; width: 140px;
+}
+.m_brand_hover_show {
+    height: 480px; padding: 15px; position: absolute; right: 0; top: 39px; width: 500px; border:1px solid #888;
+}

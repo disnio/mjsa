@@ -1,0 +1,50 @@
+_ = require "underscore"
+moment = require "moment"
+path = require "path"
+assert = require "better-assert"
+
+inDir = (dir) ->
+	unless dir?
+		dir = __dirname
+	(fName) ->
+		path.join(dir, fName)
+
+inSpec = inDir()
+inLib = inDir("../lib")
+
+_mstart = require inLib("enders.js")
+
+meq = (moment1, moment2) ->
+	if (moment1.valueOf() is moment2.valueOf()) then return true
+	return false
+
+
+describe "momentous", ->
+
+	now = moment()
+	if now.seconds() is 0
+		now.add("seconds", 10)
+	yesterday = {}
+	tomorrow = {}
+	
+	beforeEach ->
+		now = moment()
+		yesterday = now.clone().subtract("days", 1)
+		tomorrow = now.clone().add("days", 1)
+
+{{#each toTest}}
+	describe "{{{method}}}", ->
+
+		it "returns a clone of the passed moment, rounded up to the end of the nearest {{{unit}}}" , ->
+
+			modified = _mstart.{{{method}}} now
+			momentWay = now.clone().endOf("{{{unit}}}")
+			assert( meq(modified, momentWay) )
+
+		it "does not modify the original moment" , ->
+			cloned = now.clone()
+			modified = _mstart.{{{method}}} now
+			assert( meq(modified, now) is false )
+			assert( meq(now, cloned) )
+
+{{/each}}

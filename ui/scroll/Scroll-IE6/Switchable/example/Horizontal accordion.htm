@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Horizontal accordion - jQuery.Switchable - Tabs, Slide, Scrollable &amp; Accordion, 4 in 1</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="Horizontal%20accordion_files/screen.css">
+  <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="Horizontal%20accordion_files/ga.js" async=""></script><script>var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-16622252-4"]),_gaq.push(["_addOrganic","baidu","wd"]),_gaq.push(["_trackPageview"]),location.hostname!=="localhost"&&function(){var a=document.createElement("script");a.async=!0,a.src="http://www.google-analytics.com/ga.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)}()</script>
+<script src="Horizontal%20accordion_files/embed.js" async=""></script></head>
+
+<body>
+<header class="header">
+  <div class="logo">
+    <em class="do"></em>
+    <em class="re"></em>
+    <em class="mi"></em>
+    <strong>jQuery.Switchable</strong>
+  </div>
+</header>
+
+
+
+
+
+
+
+
+<nav>
+  <ul>
+    <li><a href="http://switchable.mrzhang.me/">HOME</a></li>
+    <li><a href="http://switchable.mrzhang.me/#demos" class="current">DEMO</a></li>
+    <li><a href="https://github.com/jsw0528/jQuery.Switchable/downloads" target="_blank">DOWNLOAD</a></li>
+  </ul>
+</nav>
+
+<section class="demo">
+
+  <!-- styles for this demo -->
+  <style>
+  #accordion {
+    width:710px;
+    height:310px;
+    overflow:hidden;
+  }
+  #accordion li {
+    position:relative;
+    float:left;
+    height:100%;
+    border:0;/* required */
+  }
+  #accordion img {
+    display:block;
+    width:550px;
+    height:310px;
+  }
+  #accordion b {
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    width:38px;
+    height:100%;
+    border-left:2px solid #323232;
+    background:url(about:blank)\9;
+    cursor:pointer;
+  }
+  :root #accordion b { background:url(about:blank); }
+
+  .demo {
+    width: 720px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  </style>
+
+  <ul class="clearfix" id="accordion">
+    
+    <li style="overflow: hidden; width: 40px; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; border-left-width: 0px; border-right-width: 0px; transition-property: none; transition-duration: 500ms; transition-timing-function: cubic-bezier(0.1, 0.5, 0.1, 1);">
+      <img src="Horizontal%20accordion_files/p1.jpg">
+      <b class=""></b>
+    </li>
+    
+    <li style="overflow: hidden; width: 40px; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; border-left-width: 0px; border-right-width: 0px; transition-property: none; transition-duration: 500ms; transition-timing-function: cubic-bezier(0.1, 0.5, 0.1, 1);">
+      <img src="Horizontal%20accordion_files/p2.jpg">
+      <b class=""></b>
+    </li>
+    
+    <li style="overflow: hidden; width: 40px; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; border-left-width: 0px; border-right-width: 0px; transition-property: none; transition-duration: 500ms; transition-timing-function: cubic-bezier(0.1, 0.5, 0.1, 1);">
+      <img src="Horizontal%20accordion_files/p3.jpg">
+      <b class=""></b>
+    </li>
+    
+    <li style="overflow: hidden; width: 550px; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; border-left-width: 0px; border-right-width: 0px; transition-property: none; transition-duration: 500ms; transition-timing-function: cubic-bezier(0.1, 0.5, 0.1, 1);">
+      <img src="Horizontal%20accordion_files/p4.jpg">
+      <b class="current"></b>
+    </li>
+    
+    <li style="overflow: hidden; width: 40px; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; border-left-width: 0px; border-right-width: 0px;">
+      <img src="Horizontal%20accordion_files/p5.jpg">
+      <b></b>
+    </li>
+    
+  </ul>
+
+</section>
+
+<section>
+  <header>
+    <h1>Usage</h1>
+  </header>
+
+  <!-- Highlight JS -->
+  <pre class="sh_javascript sh_sourcecode"><code>$<span class="sh_symbol">(</span><span class="sh_keyword">function</span><span class="sh_symbol">()</span> <span class="sh_cbracket">{</span>
+</code><code>  <span class="sh_keyword">var</span> Accordion <span class="sh_symbol">=</span> $<span class="sh_symbol">(</span><span class="sh_string">'#accordion'</span><span class="sh_symbol">);</span>
+</code><code>
+</code><code>  Accordion<span class="sh_symbol">.</span><span class="sh_function">switchable</span><span class="sh_symbol">(</span><span class="sh_cbracket">{</span>
+</code><code>    triggers<span class="sh_symbol">:</span> Accordion<span class="sh_symbol">.</span><span class="sh_function">find</span><span class="sh_symbol">(</span><span class="sh_string">'b'</span><span class="sh_symbol">),</span>
+</code><code>    triggerType<span class="sh_symbol">:</span> <span class="sh_string">'click'</span><span class="sh_symbol">,</span>
+</code><code>    effect<span class="sh_symbol">:</span> <span class="sh_string">'horizAccordion'</span><span class="sh_symbol">,</span>
+</code><code>    easing<span class="sh_symbol">:</span> <span class="sh_string">'cubic-bezier(.1, .5, .1, 1)'</span><span class="sh_symbol">,</span>
+</code><code>    customProps<span class="sh_symbol">:</span> <span class="sh_cbracket">{</span>
+</code><code>      width<span class="sh_symbol">:</span> <span class="sh_string">'40px'</span>
+</code><code>    <span class="sh_cbracket">}</span><span class="sh_symbol">,</span>
+</code><code>    autoplay<span class="sh_symbol">:</span> <span class="sh_keyword">true</span><span class="sh_symbol">,</span>
+</code><code>    beforeSwitch<span class="sh_symbol">:</span> <span class="sh_keyword">function</span><span class="sh_symbol">(</span>event<span class="sh_symbol">,</span> toIndex<span class="sh_symbol">)</span> <span class="sh_cbracket">{</span>
+</code><code>      <span class="sh_comment">// if beforeSwitch() returns 'false', the switch event stops</span>
+</code><code>      <span class="sh_keyword">return</span> <span class="sh_keyword">this</span><span class="sh_symbol">.</span>index <span class="sh_symbol">!==</span> toIndex<span class="sh_symbol">;</span>
+</code><code>    <span class="sh_cbracket">}</span>
+</code><code>  <span class="sh_cbracket">}</span><span class="sh_symbol">);</span>
+</code><code><span class="sh_cbracket">}</span><span class="sh_symbol">);</span></code></pre>
+
+  
+  <!-- Highlight CSS -->
+  <pre class="sh_css sh_sourcecode"><code><span class="sh_comment">/*</span>
+</code><code><span class="sh_comment"> * Remember to set the border-width for the accordion's panels,</span>
+</code><code><span class="sh_comment"> * even without border</span>
+</code><code><span class="sh_comment"> */</span>
+</code><code><span class="sh_selector">#accordion li </span><span class="sh_cbracket">{</span>
+</code><code>  <span class="sh_property">border:</span> <span class="sh_value">0</span>;
+</code><code><span class="sh_cbracket">}</span></code></pre>
+  
+</section>
+
+<section id="disqus_thread"><iframe verticalscrolling="no" horizontalscrolling="no" src="Horizontal%20accordion_files/a.htm" style="width: 100% ! important; border: medium none ! important; overflow: hidden ! important; height: 318px ! important;" title="Disqus" tabindex="0" allowtransparency="true" data-disqus-uid="2" id="dsq-2" frameborder="0" scrolling="no" width="100%"></iframe></section>
+
+
+<script src="Horizontal%20accordion_files/jquery-1.js"></script>
+<script src="Horizontal%20accordion_files/jquery.js"></script>
+<script>
+$(function() {
+  var Accordion = $('#accordion');
+
+  Accordion.switchable({
+    triggers: Accordion.find('b'),
+    triggerType: 'click',
+    effect: 'horizAccordion',
+    easing: 'cubic-bezier(.1, .5, .1, 1)',
+    customProps: {
+      width: '40px'
+    },
+    autoplay: true,
+    beforeSwitch: function(event, toIndex) {
+      // if beforeSwitch() returns 'false', the switch event stops
+      return this.index !== toIndex;
+    }
+  });
+});
+</script>
+<script src="Horizontal%20accordion_files/sh.js"></script>
+<script>var disqus_shortname="jsw0528",disqus_identifier=disqus_url="http://switchable.mrzhang.me/horizontal-accordion.html",disqus_script="embed.js";(function(){var a=document.createElement("script");a.async=!0,a.src="http://"+disqus_shortname+".disqus.com/"+disqus_script,document.getElementsByTagName("head")[0].appendChild(a)})()</script>
+
+
+<footer class="footer">
+  <div class="inner">
+    <p>
+      ©2010-2012 wǒ_is神仙
+      &nbsp;-&nbsp;
+      Powered by <a href="http://octopress.org/" target="_blank">Octopress</a>
+    </p>
+    <em>CSS3 and HTML5 inside.</em>
+  </div>
+</footer>
+
+<iframe src="Horizontal%20accordion_files/offline-cache.htm" style="display:none"></iframe>
+
+</body></html>

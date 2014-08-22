@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>jQuery cxMenu 垂直多级滑动导航 &raquo; 在线演示 - 前端开发仓库</title>
+<style>
+body,h1,h2,h3,ul,li,p{margin:0;padding:0;}
+body{font:14px/1.7 Arial,"\5b8b\4f53";}
+h1,h2,h3{font:bold 36px/2 "\5fae\8f6f\96c5\9ed1";}
+h1{padding:0 20px;background:#333;color:#fff;}
+h2{font-size:20px;}
+h3{font-size:16px;}
+ul{list-style-type:none;}
+
+.wrap{padding:20px;}
+
+/* 左导航
+------------------------------ */
+.nav_left{width:200px;}
+.nav_left a:focus{outline:none;}
+.nav_left li{padding:0 0 6px 0;font:bold 13px/24px "\5FAE\8F6F\96C5\9ED1";text-indent:16px;}
+.nav_left li a:link,
+.nav_left li a:visited{display:block;width:100%;height:24px;border:1px solid #ccc;border-radius:5px;background:#fff;color:#347ebf;text-decoration:none;}
+.nav_left li.selected a,
+.nav_left li a:hover{background:#eee;color:#d00;}
+
+.nav_left ul{display:none;padding:10px 0 10px 20px;}
+.nav_left ul li{padding:0;font:12px/24px Arial,"\5b8b\4f53";text-indent:12px;}
+.nav_left ul li a:link,
+.nav_left ul li a:visited{height:24px;border:none;border-bottom:1px solid #ddd;border-radius:0;background:none;color:#555;}
+.nav_left ul li a:hover{background:#eee;}
+.nav_left ul li.selected > a{background:#eee;font-weight:bold;}
+</style>
+</head>
+<body>
+<h1>jQuery cxMenu 垂直多级滑动导航</h1>
+
+<div class="wrap">
+	<h2>垂直多级滑动导航</h2>
+	<ul id="nav_left" class="nav_left">
+		<li><a href="#">一级标题</a>
+			<ul>
+				<li><a href="#">二级标题</a>
+					<ul>
+						<li><a href="#">三级标题</a>
+							<ul>
+								<li><a href="#">...</a>
+									<ul>
+										<li><a href="#">N级标题</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li><a href="#">HTML 教程</a>
+			<ul>
+				<li><a href="#">HTML 基础教程</a>
+					<ul>
+						<li><a href="#" title="HTML 首页">HTML 教程</a></li>
+						<li><a href="#" title="HTML 简介">HTML 简介</a></li>
+						<li><a href="#" title="HTML 入门">HTML 入门</a></li>
+						<li><a href="#" title="基本的 HTML 标签">HTML 标签</a></li>
+						<li><a href="#" title="HTML 元素">HTML 元素</a></li>
+						<li><a href="#" title="HTML 属性">HTML 属性</a></li>
+					</ul>
+				</li>
+				<li><a href="#">HTML 高级教程</a>
+					<ul>
+						<li><a href="#" title="HTML 布局">HTML 布局</a></li>
+						<li><a href="#" title="HTML 框架">HTML 框架</a></li>
+						<li><a href="#" title="HTML 字体">HTML 字体</a></li>
+					</ul>
+				</li>
+				<li><a href="#">实例/测验</a>
+					<ul>
+						<li><a href="#" title="HTML 实例">HTML 实例</a></li>
+						<li><a href="#" title="HTML 测验">HTML 测验</a></li>
+					</ul>
+				</li>
+				<li><a href="#">参考手册</a>
+					<ul>
+						<li><a href="#" title="HTML 4.01 / XHTML 1.0 参考手册">HTML 标签列表</a></li>
+						<li><a href="#" title="HTML 标准属性">HTML 属性</a></li>
+						<li><a href="#" title="HTML 事件属性">HTML 事件</a></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li><a href="#">CSS 教程</a>
+			<ul>
+				<li><a href="#">CSS 基础</a></li>
+				<li><a href="#">CSS 样式</a></li>
+				<li><a href="#">CSS 框模型</a></li>
+				<li><a href="#">CSS 定位</a></li>
+				<li><a href="#">CSS 选择器</a></li>
+				<li><a href="#">CSS 高级</a></li>
+				<li><a href="#">CSS 实例</a></li>
+				<li><a href="#">参考手册</a></li>
+				<li><a href="#">CSS 测验</a></li>
+			</ul>
+		</li>
+		<li><a href="javascript://">JavaScript 教程</a>
+			<ul>
+				<li><a href="#">JavaScript 基础</a></li>
+				<li><a href="#">JavaScript 对象</a></li>
+				<li><a href="#">JavaScript 高级</a></li>
+				<li><a href="#">实例/测验</a></li>
+				<li><a href="#">JS 参考手册</a></li>
+			</ul>
+		</li>
+	</ul>
+
+	<h2>文档</h2>
+	<ul>
+		<li><a target="_blank" href="http://code.ciaoca.com/jquery/cxmenu/">中文文档</a></li>
+	</ul>
+	
+	<h2>作者</h2>
+	<p><a target="_blank" href="http://ciaoca.com/">http://ciaoca.com/</a></p>
+	<p>Released under the MIT license</p>
+
+名称 	默认值 	说明
+events 	"click" 	触发按钮事件的方式
+speed 	600 	切换速度（单位：毫秒）
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script> 
+<script src="js/jquery.cxmenu.js"></script>
+<script>
+$("#nav_left").cxMenu();
+</script>
+</body>
+</html>

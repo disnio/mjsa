@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<script type="text/javascript" src="js/MSClass.js"></script>
+
+<title>京东效果,DIV + CSS实例(UL + LI)Slide幻灯片滚动 + 页码(缓动) JavaScript - MSClass应用实例演示 - Class Of Marquee Scroll通用不间断滚动JS封装类</title>
+<meta content="JavaScript京东效果,DIV + CSS实例(UL + LI)Slide幻灯片滚动 + 页码(缓动),MSClass,不间断滚动,JS不间断滚动,通用不间断滚动,Class Of Marquee Scroll" name="keywords">
+<meta content="JavaScript京东效果,DIV + CSS实例(UL + LI)Slide幻灯片滚动 + 页码(缓动),MSClass,不间断滚动,JS不间断滚动,通用不间断滚动,Class Of Marquee Scroll" name="description">
+<meta name="GENERATOR" content="MSHTML 6.00.6000.17097"></head>
+<body>
+<script type="text/javascript">
+function $(id){return document.getElementById(id)};
+</script>
+
+<h1>京东效果,DIV + CSS实例(UL + LI)Slide幻灯片滚动 + 页码(缓动) JavaScript - MSClass应用实例演示 <a href="MSClass.html">下载MSClass</a></h1>
+<br><br>
+<style>
+a,body,select,td,b{font-size:12px;text-decoration:none;}
+body{background:#ffffff;}
+a,pre{color:#808080;}
+a:link,a:visited {color:#555;}
+a:hover,a:active { color:#ff4e00;}
+img{border:0}
+</style>
+<style type="text/css">
+#JINGDONGNumID{ position:absolute; bottom:5px; right:5px;}
+#JINGDONGNumID li{list-style:none;float:left;width:18px;height:16px;FILTER:alpha(opacity=80);opacity:0.8;border:1px solid #D00000;background-color:#FFFFFF;color:#D00000;text-align:center;cursor:pointer;margin-right:4px;padding-top:2px;overflow:hidden;}
+#JINGDONGNumID li:hover,#JINGDONGNumID li.active{border:1px solid #D00000;background-color:#FF0000;color:#FFFFFF;width:22px;height:18px;font-weight:bold;font-size:13px;}
+</style>
+<div style="overflow:hidden;width:760px;height:120px;position:relative;clear:both;border:1px solid #000000;background-color:#ffffff;">
+    <div id="JINGDONGBox" style="overflow: hidden; width: 760px; height: 120px; position: relative;">
+        <ul id="JINGDONGContentID" style="padding: 0px; border: 0px none; font-size: 0px; display: inline-block; margin: 0px; list-style: none outside none;  width: 760px;">
+            <li><a ><img width="760" height="120" border="0" src="images/760X120_1.jpg"></a></li>
+            <li><a ><img width="760" height="120" border="0" src="images/760X120_2.jpg"></a></li>
+            <li><a ><img width="760" height="120" border="0" src="images/760X120_3.jpg"></a></li>
+            <li><a ><img width="760" height="120" border="0" src="images/760X120_4.jpg"></a></li>
+            <li><a ><img width="760" height="120" border="0" src="images/760X120_5.jpg"></a></li>
+            <li><a ><img width="760" height="120" border="0" src="images/760X120_6.jpg"></a></li>
+        
+        </ul>
+    </div>
+    <ul id="JINGDONGNumID" style="padding: 0px; margin: 0px; list-style: none outside none; font-size: 0px;">
+        <li class="">1</li>
+        <li class="">2</li>
+        <li class="">3</li>
+        <li class="">4</li>
+        <li class="">5</li>
+        <li class="">6</li>
+    </ul>
+</div>
+<script type="text/javascript">
+new Marquee(
+{
+    MSClassID : "JINGDONGBox",
+    ContentID : "JINGDONGContentID",
+    TabID     : "JINGDONGNumID",
+    Direction : 0,
+    Step      : 0.3,
+    Width     : 760,
+    Height    : 120,
+    Timer     : 20,
+    DelayTime : 3000,
+    WaitTime  : 0,
+    ScrollStep: 120,
+    SwitchType: 0,
+    AutoStart : 1
+})
+
+</script>
+
+
+</body></html>

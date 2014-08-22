@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+    <title></title>
+    <link href="css/lrtk.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <!-- 代码 开始 -->
+    <div style=" width:990px;height:6000px; margin:0 auto;text-align:center;background: #EEE;">
+
+    </div>
+
+    <div class="left_nav" id="left_nav">
+        <a href="http://www.lanrentuku.com/" target="_blank" style="height:117px"></a>
+        <a href="http://www.lanrentuku.com/" target="_blank" style="height:116px"></a>
+        <a href="http://www.lanrentuku.com/" target="_blank" style="height:68px"></a>
+        <a href="http://www.lanrentuku.com/" target="_blank" style="height:68px"></a>
+        <a href="http://www.lanrentuku.com/" target="_blank" style="height:68px"></a>
+        <a href="http://www.lanrentuku.com/" target="_blank" style="height:68px"></a>
+    </div>
+
+    <div class="float" id="float">
+        <a href="#1" class="an_1">导航1</a>
+        <a href="#2" class="an_2">导航2</a>
+        <a href="#3" class="an_3">导航3</a>
+        <a href="#4" class="an_4">导航4</a>
+        <a href="#5" class="an_5">导航5</a>
+        <a href="#6" class="an_6">导航6</a>
+        <a href="#7" class="an_7">导航7</a>
+        <a href="#8" class="an_8">导航8</a>
+        <a href="#9" class="an_9">导航9</a>
+        <a href="#10" class="an_10">导航10</a>
+        <a href="#11" class="an_11">导航11</a>
+        <a href="#top" class="an_12">导航12</a>
+    </div>
+
+    <script type="text/javascript">
+    //浮动导航
+
+    function float_nav(dom) {
+        var right_nav = $(dom);
+        var nav_height = right_nav.height();
+
+        function right_nav_position(bool) {
+            var window_height = $(window).height();
+            var nav_top = (window_height - nav_height) / 2;
+            if (bool) {
+                right_nav.stop(true, false).animate({
+                    top: nav_top + $(window).scrollTop()
+                }, 400);
+            } else {
+                right_nav.stop(true, false).animate({
+                    top: nav_top
+                }, 300);
+            }
+            right_nav.show();
+        }
+
+        if (!+'\v1' && !window.XMLHttpRequest) {
+            $(window).bind('scroll resize', function() {
+                if ($(window).scrollTop() > 300) {
+                    right_nav_position(true);
+                } else {
+                    right_nav.hide();
+                }
+            })
+        } else {
+            $(window).bind('scroll resize', function() {
+                if ($(window).scrollTop() > 300) {
+                    right_nav_position();
+                } else {
+                    right_nav.hide();
+                }
+            })
+        }
+    }
+    float_nav('#float');
+    float_nav('#left_nav');
+    </script>
+    <!-- 代码 结束 -->
+
+</body>
+
+</html>

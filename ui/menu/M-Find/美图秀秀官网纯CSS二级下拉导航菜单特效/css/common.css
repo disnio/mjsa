@@ -1,0 +1,165 @@
+﻿html,body,div,span,object,h1,ul,li,p {
+	margin:0;
+	padding:0;
+	vertical-align:baseline;
+	background:transparent;
+}
+img {
+	border:none;
+	display:block;
+}
+body {
+	font:normal 12px/1.5 'helvetica neue','hiragino sans gb',arial,tahoma,'Microsoft Yahei',sans-serif;
+	background:url(../images/bg.png) repeat-x;
+}
+a {
+	text-decoration:none;
+}
+.hidefont {
+	font-size:0;
+	text-indent:-9999em;
+}
+.clearfix {
+	clear:both;
+	*zoom:1;
+}
+.clearfix:after {
+	content:"";
+	display:block;
+	height:0;
+	clear:both;
+}
+.page {
+	min-width:1000px;
+}
+ul,li {
+	list-style:none;
+}
+#MT_nav div,#MT_nav ul,#MT_nav li,#MT_nav {
+	padding:0;
+	margin:0;
+}
+#MT_nav {
+	height:0;
+	line-height:0;
+	width:1000px;
+	margin:0 auto;
+	font-size:0;
+	position:relative;
+	z-index:99;
+	font-family:"Microsoft Yahei","Hiragino Sans GB",Arial,Helvetica;
+}
+#MT_nav ul {
+	list-style:none;
+	width:1000px;
+	height:57px;
+	top:22px;
+	position:absolute;
+	z-index:99;
+}
+#MT_nav .MT-bg,#MT_nav .MT-item,#MT_nav .MT-arrow,#MT_nav ul .MT-item a .MT-more,#MT_nav .MT-logo {
+	background:url(../images/MT_nav_logo_20131104.png) no-repeat;
+}
+#MT_nav .MT-logo {
+	background-position:0 -70px;
+	position:absolute;
+	width:134px;
+	height:24px;
+	top:12px;
+	left:50%;
+	margin-left:-67px;
+}
+#MT_nav ul .MT-item {
+	width:200px;
+	height:57px;
+	float:left;
+	background-position:-5px 0;
+	position:relative;
+	z-index:99;
+}
+#MT_nav ul .MT-item:hover div {
+	display:block;
+}
+#MT_nav ul .MT-first {
+	background-position:0 0;
+}
+#MT_nav ul .MT-last {
+	background-position:-43px 0;
+}
+#MT_nav ul .MT-bg {
+	background-position:-245px 0;
+}
+#MT_nav ul .MT-item a {
+	color:#646464;
+	display:block;
+	font-size:14px;
+	height:47px;
+	line-height:47px;
+	_line-height:50px;
+	text-align:center;
+	text-decoration:none;
+}
+#MT_nav ul .MT-item a:hover {
+	color:#ff5d71;
+}
+#MT_nav ul .MT-current .MT-bg {
+	font-weight:bold;
+	font-size:16px;
+	color:#ff5069;
+}
+#MT_nav ul .MT-item a .MT-more {
+	-webkit-text-size-adjust:none;
+	font-size:0;
+	height:0;
+	width:0;
+	padding:2px 4px;
+	background-position:-24px -65px;
+	position:relative;
+	top:-4px;
+	left:6px;
+	z-index:99;
+	_margin-top:22px;
+	_top:0px;
+	*zoom:1;
+}
+#MT_nav ul .MT-item div {
+	display:none;
+	background-color:#fff;
+	border:1px solid #ccc;
+	border-radius:5px;
+	position:absolute;
+	top:42px;
+	left:50%;
+	margin-left:-49%;
+	-webkit-box-shadow:0 0 4px rgba(0,0,0,.02),0 2px 5px rgba(0,0,0,.1);
+	-moz-box-shadow:0 0 4px rgba(0,0,0,.02),0 2px 5px rgba(0,0,0,.1);
+	box-shadow:0 0 4px rgba(0,0,0,.02),0 2px 5px rgba(0,0,0,.1);
+	width:98%;
+}
+#MT_nav .MT-arrow {
+	display:block;
+	font-size:0;
+	height:7px;
+	position:absolute;
+	top:-7px;
+	width:14px;
+	margin-left:-7px;
+	left:50%;
+	background-position:0 -63px;
+}
+#MT_nav ul .MT-list div {
+	display:block;
+}
+#MT_nav ul .MT-item .MT-list-last {
+	border:none;
+}
+#MT_nav ul .MT-item div a {
+	width:86%;
+	margin:0 auto;
+	border-bottom:1px solid #ccc;
+	height:40px;
+	line-height:40px;
+	font-size:14px;
+	*zoom:1;
+}
+/*素材家园 - www.sucaijiayuan.com*/

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sugar Default Package</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="stylesheets/custom.css" type="text/css" />
+    <link rel="stylesheet" href="stylesheets/tooltip.css" type="text/css" />
+    <!-- jquery -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <!-- test suite -->
+    <script type="text/javascript" src="javascripts/suite.js"></script>
+    <script type="text/javascript" src="javascripts/suite-ui.js"></script>
+    <script type="text/javascript" src="javascripts/helpers.js"></script>
+    <script type="text/javascript" src="javascripts/date-helpers.js"></script>
+    <script type="text/javascript" src="javascripts/environment.js"></script>
+    <script type="text/javascript" src="javascripts/tooltip.js"></script>
+    <script type="text/javascript" src="javascripts/overrides.js"></script>
+    <script type="text/javascript" src="../performance/javascripts/benchmark.js"></script>
+    <!-- sugar -->
+    <script type="text/javascript" src="../lib/core/core.js"></script>
+    <script type="text/javascript" src="../lib/common.js"></script>
+    <script type="text/javascript" src="../lib/es5.js"></script>
+    <script type="text/javascript" src="../lib/object.js"></script>
+    <script type="text/javascript" src="../lib/array.js"></script>
+    <script type="text/javascript" src="../lib/string.js"></script>
+    <script type="text/javascript" src="../lib/number.js"></script>
+    <script type="text/javascript" src="../lib/function.js"></script>
+    <script type="text/javascript" src="../lib/date.js"></script>
+    <script type="text/javascript" src="../lib/range.js"></script>
+    <script type="text/javascript" src="../lib/regexp.js"></script>
+    <!--<script type="text/javascript" src="../release/1.2.5/minified/sugar-1.2.5-core.min.js"></script>-->
+    <!--<script type="text/javascript" src="../release/1.2.5/minified/sugar-1.2.5-dates.min.js"></script>-->
+    <!--<script type="text/javascript" src="../release/1.2.5/minified/sugar-1.2.5-inflections.min.js"></script>-->
+    <script type="text/javascript">
+      registerEnvironment('core', [
+        {
+          name: 'core',
+          path: 'environments/sugar/',
+          tests: [
+            'array.js',
+            'date.js',
+            'date_range.js',
+            'dom.js',
+            'enumerable.js',
+            'equals.js',
+            'es5.js',
+            'es6.js',
+            'function.js',
+            'global.js',
+            'number.js',
+            'number_range.js',
+            'object.js',
+            'regexp.js',
+            'string.js',
+            'string_range.js'
+          ]
+        }
+      ]);
+
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

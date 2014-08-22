@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+</head>
+
+<script type="text/javascript">
+// 幻灯片自动轮换选项卡
+$(document).ready(function() {
+    $('ul.Slide dl dt a:first').addClass('tabActive');
+    $('ul.Slide dl dd ul:first').css('display', 'block');
+    tabRun.autoroll();
+    tabRun.hookThumb();
+});
+
+var tabRun = (function(){
+    var i = -1; //第i+1个tab开始
+    var offset = 3000; //轮换时间
+    var timer = null;    
+    var autoroll = function () {
+        var n = $('ul.Slide dl dt a').length - 1;
+        i++;
+        if (i > n) {
+            i = 0;
+        }
+        slide(i);
+        timer = window.setTimeout(autoroll, offset);
+    };
+    var slide = function (i) {
+        $('ul.Slide dl dt a').eq(i).addClass('tabActive').siblings().removeClass('tabActive');
+        $('ul.Slide dl dd ul').eq(i).fadeIn("slow").siblings('ul.Slide dl dd ul').hide();
+    };
+    var hookThumb = function () {
+        $('ul.Slide dl dt a').hover(
+            function() {
+                if (timer) {
+                    clearTimeout(timer);
+                    i = $(this).prevAll().length;
+                    slide(i);
+                }
+            },
+            function() {
+                timer = window.setTimeout(autoroll, offset);
+                this.blur();
+                return false;
+            }
+        );
+    };
+
+    return {
+        autoroll: autoroll,
+        hookThumb: hookThumb
+    }
+
+}())
+
+
+
+
+
+</script>
+
+<body>
+    <ul class="Slide">
+        <dl>
+            <dt>
+                <a  class="">健康</a>
+                <a  class="">文学</a>
+                <a  class="">社会</a>
+                <a  class="">教育</a>
+                <a  class="">电商</a>
+                <a  class="">科学</a>
+                <a  class="">互联网</a>
+            </dt>
+            <dd>
+                <ul style="display: none;">
+                    <a >
+                        <img src="0a79fd4f682cabbd35a7b4a34062b8df.jpg">
+                    </a>
+                    <p>
+                        <a >上班族10件健康小事</a>
+                    </p>
+                </ul>
+                <ul style="display: none;">
+                    <a >
+                        <img src="74180025dc05cc3e2b5c9ec2ca56f775.jpg">
+                    </a>
+                    <p>
+                        <a >诺奖效应凸显 莫言全套文集3天订单达10万套</a>
+                    </p>
+                </ul>
+                <ul style="display: none;">
+                    <a >
+                        <img src="ddc3f186d3ec5d0da3735b4e1b70d314.jpg">
+                    </a>
+                    <p>
+                        <a >家庭聚餐儿孙全在玩手机 老人一怒摔盘离席</a>
+                    </p>
+                </ul>
+                <ul style="display: none;">
+                    <a >
+                        <img src="0f4cd2326408a569daa4aa13a2f6d3b1.jpg">
+                    </a>
+                    <p>
+                        <a >国考临时放弃面试将记入诚信档案 恶意报名禁考5年</a>
+                    </p>
+                </ul>
+                <ul style="display: none;">
+                    <a >
+                        <img src="e1bbdd7e46f18be3460f5c93c460b2d9.jpg">
+                    </a>
+                    <p>
+                        <a >电商加紧抢夺优质商家：天猫京东逼供应商二选一</a>
+                    </p>
+                </ul>
+                <ul style="display: none;">
+                    <a >
+                        <img src="c7cb8dbbf20623162bae10101554e0e9.jpg">
+                    </a>
+                    <p>
+                        <a >科学家预测1000年后人类模样 更丑陋似外星人</a>
+                    </p>
+                </ul>
+                <ul style="display: none;">
+                    <a >
+                        <img src="07d8219a9bda461f36d1066a097c45f5.jpg">
+                    </a>
+                    <p>
+                        <a >《江南style》一夜蹿红背后：归功于社交网络</a>
+                    </p>
+                </ul>
+            </dd>
+        </dl>
+    </ul>
+
+</body>
+
+</html>

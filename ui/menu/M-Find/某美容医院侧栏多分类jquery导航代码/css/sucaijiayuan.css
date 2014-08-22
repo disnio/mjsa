@@ -1,0 +1,97 @@
+html,body,div,h1,h2,h3,h4,h5,h6,p,img,dl,dt,dd,ol,ul,li,table,caption,tbody,tfoot,thead,tr,th,td,form,fieldset,embed,object,applet,header,nav,section,strong,footer,a img{border:0;margin:0;padding:0}
+ul{list-style:none}
+.gl{float:left}
+.gr{float:right}
+.gclear{clear:both;font-size:0;overflow:hidden;height:0;}
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section{display: block;}
+audio, canvas, video{display: inline-block;*display: inline;*zoom: 1;}
+audio:not([controls]){display: none;}
+[hidden]{display: none;}
+body{background:url(../img/bodybg.png) 0 0 repeat-x #eaeaea;color:black;font:12px/1.5 "微软雅黑", arial, \5b8b\4f53}
+a{text-decoration:none;color:black;}
+a:visited{/*color:black*/}
+a:hover,a:active{color: #e4007f;text-decoration: none;outline: 0;}
+html{overflow-x:hidden}
+/*公用类*/.none980{display:none}
+.block980{display:block}
+.block2980{display:inline}
+.header_nav_subnav2 a.none980{display:none}
+.relative{position:relative}
+
+.header_nav{height: 45px;margin:110px auto 0;width:1000px;}
+.header_nav_subnav1{width: 197px;position: absolute;height: 45px;}
+.header_nav_subnav2{position: absolute;left: 197px;height: 45px;line-height: 45px;}
+.header_nav_subnav2 li{float: left;width: 104px;background: url(../img/header_anv.png) right center no-repeat;height: 45px;position:relative}
+.header_nav_subnav2 .move_bg{margin-left: -1px;padding-left: 1px;background: #6F082A;position: absolute;width: 104px;height: 45px;top: 0;left:-20px}
+.header_nav_subnav2 a{color: #FFF;font-size: 16px;display: block;text-decoration: none;height: 45px;position:absolute;width: 104px;text-align:center}
+.header_nav_subnav3{width: 140px;position: absolute;right: 2px;top: 3px;height: 41px;}
+.header_nav_subnav3 a{background: url(../img/header_01.png) -44px -54px no-repeat;display:block;height:41px}
+.header_nav_subnav3 a:hover{background-position:-44px -103px}
+.Z_TypeList{width: 197px;position: absolute;height: 45px;z-index:99}
+.Z_TypeList .title a{font-size: 16px;color: #ffffff;background: url(../img/i_02.png) right center #3b001e no-repeat;height: 45px;line-height: 45px;text-align: center;display: block;padding-right: 30px;text-decoration: none;font-weight: 100;cursor:default}
+.Z_TypeList .title a:hover{background:url(../img/i_05.png) right center #2a0015 no-repeat}
+.Z_TypeList .Z_MenuList{width: 200px;line-height:26px;position: absolute;left: 0;top: 45px;height: 0;display: none;z-index: 999;}
+.Z_TypeList .Z_MenuList ul li{display: block;position: relative;padding-left: 10px;background: #ffffff;border-bottom: 1px solid #ffffff;padding-top:7px}
+.Z_TypeList .Z_MenuList ul li.alt{background: #f0f0f0;}
+.Z_TypeList .Z_MenuList ul li p{padding: 0 5px 2px 0px;display: block;line-height: 2;}
+.Z_TypeList .Z_MenuList ul li p a{color: #414141;padding: 0px 4px 0 0;white-space: nowrap;}
+.Z_TypeList .Z_MenuList h3{padding-left:22px;font-size: 14px;background: url(../img/inav.png) no-repeat;font-weight: 100;display: block}
+.Z_TypeList .list-item0 h3{background-position: 0px 6px;}
+.Z_TypeList .list-item1 h3{background-position: 0px -29px;}
+.Z_TypeList .list-item2 h3{background-position: 0px -67px;}
+.Z_TypeList .list-item3 h3{background-position: 0px -107px;}
+.Z_TypeList .list-item4 h3{background-position: 0px -148px;}
+.Z_TypeList .list-item5 h3{background-position: 0px -150px;}
+/* Z_SubList*/.Z_SubList{position: absolute;height: 398px;z-index: 9;left: 200px;top: 45px;line-height: 21px;overflow: hidden;width: 0;display: none;}
+.Z_SubList .subView{position: absolute;top: 0;left: 0;overflow: hidden;display: none;float: left;width: 600px}
+.box-shadow{padding: 10px 10px 10px 0;border: 1px solid #dfdfdf;-webkit-box-shadow: 0px 0px 15px #888;-moz-box-shadow: 0px 0px 15px #888;box-shadow: 0px 0px 15px #888;background:#fafafa;z-index:999}
+.Z_SubList_ul{width: 530px;margin: 0 0 15px 10px}
+.Z_SubList .subItem{width: 540px;height: 420px;position:relative}
+.nav50{float:left;width:50%}
+.subItemimg1,.subItemimg2,.subItemimg3,.subItemimg4{position:absolute;bottom:0;font-size: 0px;line-height: normal;font-size: 0;}
+.subItemimg1{right:0}
+.subItemimg2{left:-10px}
+.subItemimg3{left:2%}
+.subItemimg4{left:1%}
+#subItemh4 h4{display:inline-block;margin: 10px 15px 0 22px;white-space: nowrap;width: 60px;}
+#subItemh4 h4 a{font-size:12px;color:#414141;padding:0 2px}
+#subItemh4 h4 a:hover{background: #DFDFDF;}
+.Z_SubList .subItem-hd{height: 34px;line-height: 34px;border-bottom: 2px solid #a6937c;font-size: 15px;font-family: "寰蒋闆呴粦";margin-bottom: 6px;display: none;}
+.Z_SubList .subItem-hd a{color: #000;}
+.Z_SubList .subItem-title{font-weight: normal;font-size: 14px;padding-left: 5px;display: block;margin-top:8px;}
+.Z_SubList .subItem-title a{color:#d9004b;}
+.Z_SubList .subItem-cat{margin-left: 10px;}
+.Z_SubList .subItem-cat a{padding:2px;color: #414141;margin: 0 2px;font-family:\5b8b\4f53 ;white-space:nowrap;overflow:hidden}
+.Z_SubList .subItem-cat .navgd{border-radius:3px;border:1px solid #CCC;padding:2px 5px;}
+.Z_SubList .subItem-cat a:hover{background: #dfdfdf;text-decoration: none;}
+.Z_TypeList .Z_MenuList ul li.menuItemColor{background-color: #ccc;}
+.Z_TypeList .Z_MenuList ul li a:hover{color:#e4007f}
+.object_banner1,
+.object_banner2,
+.object_banner3,
+.object_banner4,
+.object_banner5{width: 212px;height: 368px;overflow: hidden}
+.object_banner1 li,
+.object_banner2 li,
+.object_banner3 li,
+.object_banner4 li,
+.object_banner5 li{width: 212px;height: 368px;float: left;}
+.object_banner1 .banner_index,
+.object_banner2 .banner_index,
+.object_banner3 .banner_index,
+.object_banner4 .banner_index,
+.object_banner5 .banner_index{bottom:0;top:337px;width:auto}
+.object_banner1 .banner_index li,
+.object_banner2 .banner_index li,
+.object_banner3 .banner_index li,
+.object_banner4 .banner_index li,
+.object_banner5 .banner_index li{width:14px;height:14px;float:right;margin:0 7px}
+.Z_TypeList dl{width:212px;float: right;position: relative;top: -430px;}
+.Z_TypeList dl dt{font-size:14px;color:#414141;}
+.Z_TypeList dl dd{margin-top:5px;}
+.Z_TypeList dl.dlbanner_zdy{top:-438px}
+/*
+本代码由素材家园收集并编辑整理;
+尊重他人劳动成果;
+转载请保留素材家园链接 - www.sucaijiayuan.com
+*/

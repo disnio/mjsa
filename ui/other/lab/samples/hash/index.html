@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> jQuery hash plugin </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../../asset/core/css/base/base.css" type="text/css">
+<script src="../../asset/core/js/jquery/jquery.js" type="text/javascript"></script>
+<script src="../../asset/core/js/jquery/hash/jquery.hash.js" type="text/javascript"></script>
+</head>
+
+<body>
+<h1>jQuery hash plugin</h1>
+
+<h2 id="introduction">介绍</h2>
+<p>jQuery hash 被设计用来做为一种本地临时存储的解决方案，其实现基于 url 的 hash 部分。</p>
+<p>一般情况下，当页面被刷新时，重新加载的页面，需要通过 Ajax 恢复其原来的 UI 状态。通过 cookie 存储状态固然是一种解决方式，但却受限于 cookie 的大小，而通过 hash 却可有针对性地保留用户操作的临时状态信息。</p>
+
+<p>示例列表如下：</p>
+
+<ul class="sample-contents">
+	<li><a href="#parameters">使用方法</a></li>
+	<li><a href="#sample1">使用示例</a></li>
+</ul>
+
+<h2 id="parameters">使用方法</h2>
+<p>jQuery hash 按照 jQuery Cookie 的风格进行了“命名-值”对的封装，兼容 jQuery Cookie 的一般用法。它被直接绑定到 jQuery 对象上，且只提供了 hash 方法，但有以下三种形式：</p>
+<ul class="list">
+	<li><strong>hash("name", "value")</strong>：用于存储值对；</li>
+	<li><strong>hash("name")</strong>：用于获取值；</li>
+	<li><strong>hash("name", null)</strong>：用于删除值对；</li>
+</ul>
+
+<h2 id="sample1">使用示例</h2>
+<p>下面的示例，说明了如何通过 jQuery 的 hash 方法，设置、获取或删除值对。</p>
+
+<div class="sample">
+<input type="button" value="设置值对" id="btn-set">
+<input type="button" value="获取值" id="btn-get">
+<input type="button" value="删除值对" id="btn-remove">
+
+<script type="text/javascript">
+(function($) {
+
+$(function() {
+	$("#btn-set").click(function(event) {
+		$.hash(window.prompt("give a name please:"), window.prompt("give a value please"));
+	});
+
+	$("#btn-get").click(function(event) {
+		alert($.hash(window.prompt("give a name please:")));
+	});
+
+	$("#btn-remove").click(function(event) {
+		$.hash(window.prompt("give a name please:"), null);
+	});
+});
+
+})(jQuery);
+</script>
+</div>
+
+<p>代码：</p>
+<pre><code>&lt;input type="button" value="设置值对" id="btn-set"&gt;
+&lt;input type="button" value="获取值" id="btn-get"&gt;
+&lt;input type="button" value="删除值对" id="btn-remove"&gt;
+
+&lt;script type="text/javascript"&gt;
+(function($) {
+
+$(function() {
+	$("#btn-set").click(function(event) {
+		$.hash(window.prompt("give a name please:"), window.prompt("give a value please"));
+	});
+
+	$("#btn-get").click(function(event) {
+		alert($.hash(window.prompt("give a name please:")));
+	});
+
+	$("#btn-remove").click(function(event) {
+		$.hash(window.prompt("give a name please:"), null);
+	});
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+</body>
+</html>

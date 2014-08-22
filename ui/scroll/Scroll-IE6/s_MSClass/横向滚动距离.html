@@ -1,0 +1,160 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <script type="text/javascript" src="js/MSClass.js"></script>
+
+    <title>【※】滚动距离设置、开始等待、间歇滚动、TAB点击切换、点击控制左右滑动实例(缓动) JavaScript - MSClass应用实例演示 - Class Of Marquee Scroll通用不间断滚动JS封装类</title>
+    <meta content="JavaScript【※】滚动距离设置、开始等待、间歇滚动、TAB点击切换、点击控制左右滑动实例(缓动),MSClass,不间断滚动,JS不间断滚动,通用不间断滚动,Class Of Marquee Scroll" name="keywords">
+    <meta content="JavaScript【※】滚动距离设置、开始等待、间歇滚动、TAB点击切换、点击控制左右滑动实例(缓动),MSClass,不间断滚动,JS不间断滚动,通用不间断滚动,Class Of Marquee Scroll" name="description">
+    <meta name="GENERATOR" content="MSHTML 6.00.6000.17097">
+</head>
+
+<body>
+    <script type="text/javascript">
+    function $(id) { return document.getElementById(id)};
+    </script>
+
+    <h1>【※】滚动距离设置、开始等待、间歇滚动、TAB点击切换、点击控制左右滑动实例(缓动) JavaScript - MSClass应用实例演示 <a href="MSClass.html">下载MSClass</a>
+    </h1>
+    <br>
+    <br>
+    <style>
+    a, body, select, td, b { font-size:12px; text-decoration:none; }
+    body { background:#ffffff; }
+    a, pre { color:#808080; }
+    a:link, a:visited { color:#555; }
+    a:hover, a:active { color:#ff4e00; }
+    img { border:0}
+    </style>
+    <style>
+    .QQarea { BORDER: #d8d8d8 1px solid; BORDER-TOP: #003795 2px solid; MARGIN-BOTTOM: 8px; WIDTH: 648px; }
+    .QQarea UL { PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px}
+    .QQnav { BACKGROUND: #fafafa; WIDTH: 100%; LINE-HEIGHT: 28px; BORDER-BOTTOM: #d8d8d8 1px solid; HEIGHT: 28px}
+    .QQnav H2 { FONT-SIZE: 14px; TEXT-INDENT: 17px; FLOAT: left; margin-top:0; }
+    .QQnavbar { FLOAT: right; OVERFLOW: hidden; WIDTH: 86px; MARGIN-RIGHT: 18px; PADDING-TOP: 6px; ZOOM: 1; HEIGHT: 22px; _display: inline}
+    .QQnavbar LI { list-style:none; MARGIN-TOP: 5px; BACKGROUND: url(images/QQsplit.png) no-repeat -165px -112px; FLOAT: left; MARGIN-LEFT: 3px; WIDTH: 6px; CURSOR: pointer; HEIGHT: 6px; _display: inline}
+    .QQnavbar LI.active { BACKGROUND: url(images/QQsplit.png) no-repeat -165px -86px}
+    .QQbed { PADDING-LEFT: 19px; BACKGROUND: #fafcff; PADDING-BOTTOM: 0px; WIDTH: 629px; PADDING-TOP: 5px}
+    .QQbed LI { FLOAT: left; WIDTH: 156px; position:relative; }
+    #QQpre { BACKGROUND: url(images/QQsplit.png) no-repeat -151px -60px; FLOAT: left; WIDTH: 20px; CURSOR: pointer; MARGIN-RIGHT: 8px; HEIGHT: 15px; _display: inline}
+    #QQnext { BACKGROUND: url(images/QQsplit.png) no-repeat -151px -131px; FLOAT: right; WIDTH: 20px; CURSOR: pointer; HEIGHT: 15px}
+    #QQMarquee { OVERFLOW: hidden; WIDTH: 624px; ZOOM: 1; HEIGHT: 135px; left:-10px; POSITION:relative; }
+    #QQMarqueeCoutent IMG { BORDER-RIGHT: #ccc 1px solid; BORDER-TOP: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; BORDER-BOTTOM: #ccc 1px solid}
+    #QQMarqueeCoutent .link { DISPLAY: block; MARGIN-LEFT: 0px; WIDTH: 140px; TEXT-ALIGN: center; font-size:12px; line-height:22px; }
+    #QQMarqueeCoutent A:link { COLOR: #0b3b8c; TEXT-DECORATION: none}
+    #QQMarqueeCoutent A:visited { COLOR: #0b3b8c; TEXT-DECORATION: none}
+    #QQMarqueeCoutent A:hover { COLOR: #0b3b8c; TEXT-DECORATION: underline}
+    #QQMarqueeCoutent A:active { COLOR: #0b3b8c; TEXT-DECORATION: underline}
+    </style>
+    <div class="QQarea">
+        <div class="QQnav">
+            <h2>热点推荐</h2>
+            <div class="QQnavbar">
+                <span id="QQpre"></span>
+                <ul id="QQTab" style="padding: 0px; margin: 0px; list-style: none outside none; font-size: 0px;">
+                    <li class="" style="font-size: 12px; overflow: hidden;"></li>
+                    <li style="font-size: 12px; overflow: hidden;" class=""></li>
+                    <li style="font-size: 12px; overflow: hidden;" class="active"></li>
+                    <li style="font-size: 12px; overflow: hidden;" class=""></li>
+                    <li style="display: none;"></li>
+                    <li style="display: none;"></li>
+                    <li style="display: none;"></li>
+                    <li style="display: none;"></li>
+                    <li style="display: none;"></li>
+                    <li style="display: none;"></li>
+                </ul>
+                <span id="QQnext"></span>
+            </div>
+        </div>
+        <div class="QQbed">
+            <div id="QQMarquee" style="overflow: hidden; width: 624px; height: 130px; position: relative;">
+                <ul id="QQMarqueeCoutent" style="padding: 0px; border: 0px none; font-size: 0px; display: inline-block; margin: 0px; list-style: none outside none;  height: 130px;">
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_1.jpg">
+                        </a>
+                        <a class="link">剖析央行化解外储风险</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_2.jpg">
+                        </a>
+                        <a class="link">房价没跌主力资金去哪了</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_3.jpg">
+                        </a>
+                        <a class="link">谁抢了年轻人的“机会”</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_4.jpg">
+                        </a>
+                        <a class="link">没钱不是不理财的理由</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_5.jpg">
+                        </a>
+                        <a class="link">价格偏差带来的压力</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_6.jpg">
+                        </a>
+                        <a target="_blank" class="link">如何弥补戴安娜之憾</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_7.jpg">
+                        </a>
+                        <a target="_blank" class="link">房地产业该对谁征暴利税</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_8.jpg">
+                        </a>
+                        <a class="link">如何看待中国经济短与长</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_9.jpg">
+                        </a>
+                        <a class="link">市价性质中的造势与造价</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_10.jpg">
+                        </a>
+                        <a class="link">绿色能源经济的再思考</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_11.jpg">
+                        </a>
+                        <a class="link">阐释市场的无形之手</a>
+                    </li>
+                    <li>
+                        <a>
+                            <img width="140" height="105" src="images/140X105_12.jpg">
+                        </a>
+                        <a class="link">双汇发展是面照妖镜</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    /*********DIV + CSS开始等待、间歇滚动、TAB点击切换、点击控制左右滑动实例(缓动)***************/
+    var QQMarqueeControl = new Marquee(["QQMarquee", "QQMarqueeCoutent", "QQTab", "onclick"], 2, 0.5, 624, 130, 20, 5000, 5000, 468) //DIV + CSS开始等待、间歇滚动、TAB点击切换、点击控制左右滑动实例(缓动)
+    $("QQpre").onclick = function() { QQMarqueeControl.Run(3)}; //跳过等待时间向右滚动后保持原向运动
+    $("QQnext").onclick = function() { QQMarqueeControl.Run(2)}; //跳过等待时间向左滚动后保持原向运动
+    </script>
+
+
+</body>
+
+</html>

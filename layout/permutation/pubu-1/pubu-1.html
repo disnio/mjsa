@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+<title></title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+        body {background-color:#CCC;font-family:Verdana;}
+        .flex {position:relative;width:850px;min-height:300px;margin:0 auto;border:0px solid red;margin-top:10px;}
+        .flex a {background-color:white;display:block;width:100px;height:100px;border-radius:8px;position:absolute;background-repeat:no-repeat;background-position:center;border:3px solid white;cursor:pointer;text-align:left;text-shadow:1px 1px 20px #000;color:white;font-size:18px;font-weight:bold;text-indent:10px;line-height:30px;text-decoration:none;}
+        [bg=a] {background-image:url(images/6448917381_0b754e86fb_z.jpg);}
+        [bg=b] {background-image:url(images/7362866426_bf285ebd45.jpg);background-size:300px auto;}
+        [bg=c] {background-image:url(images/7410370290_0935419fc3.jpg);}
+        [bg=d] {background-image:url(images/7419245080_bb752ed1d6.jpg);}
+        [bg=e] {background-image:url(images/6468321069_3375be3073_z.jpg);background-size:auto 280px;}
+        [bg=f] {background-image:url(images/7342556872_46cddaf9b0.jpg);background-size:auto 280px;}
+        [bg=g] {background-image:url(images/7322604950_348c535903.jpg);background-size:auto 200px;}
+        [bg=h] {background-image:url(images/7286717012_6e6b450243.jpg);}
+        [bg=i] {background-image:url(images/7452167788_a3f6aa3104.jpg);background-size:auto 200px;}
+        [bg=j] {background-image:url(images/6480022425_a8d419e663_z.jpg);background-size:auto 280px;}
+        [bg=k] {background-image:url(images/7269592732_c4b7918626.jpg);background-size:auto 280px;}
+        h1, h3 {width:850px;font-weight:normal;margin:0 auto;}
+        h1 {margin-top:100px;}
+        h3 {color:#666;margin-top:5px;}
+        p {width:850px;margin:0;padding:0;margin:0 auto;font-size:14px;color:black;margin-top:0px;margin-bottom:20px;color:#989898;}
+        #buttons {height:75px;width:850px;margin:0 auto;margin-top:10px;}
+        #buttons a {float:left}
+        .marginleft {margin-left:25px;}
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script> 
+    <script src="jquery.flex.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $(".flex").flex();
+    });
+    </script>
+    <div id="content">
+<!--DEMO start-->
+    <h1>类似于瀑布流布局效果的jQuery插件特效演示</h1>
+    
+    <div class="flex">
+        <a height="275" width="350" style="left: 0px; top: 0px; width: 250px; height: 125px; overflow: hidden;" bg="a">A</a>
+        <a height="175" width="250" style="left: 260px; height: 100px; top: 0px; width: 125px; overflow: hidden;" bg="b">B</a>
+        <a height="350" width="125" style="left: 395px; height: 250px; top: 0px; width: 75px; overflow: hidden;" bg="c">C</a>
+        <a height="150" width="175" style="left: 480px; height: 75px; top: 0px; width: 75px; overflow: hidden;" bg="d">D</a>
+        <a height="250" width="200" style="left: 565px; height: 125px; top: 0px; width: 200px; overflow: hidden;" bg="e">E</a>
+        <a height="225" width="150" style="left: 480px; height: 200px; top: 85px; width: 75px; overflow: hidden;" bg="f">F</a>
+        <a height="150" width="225" style="left: 0px; height: 100px; top: 135px; width: 75px; overflow: hidden;" bg="g">G</a>
+        <a height="200" width="200" style="left: 260px; height: 75px; top: 110px; width: 125px; overflow: hidden;" bg="h">H</a>
+        <a height="140" width="250" style="left: 85px; height: 140px; top: 135px; width: 165px; overflow: hidden;" bg="i">I</a>
+        <a height="275" width="125" style="left: 565px; height: 150px; top: 135px; width: 75px; overflow: hidden;" bg="j">J</a>
+        <a height="200" width="75" style="left: 650px; height: 75px; top: 135px; width: 75px; overflow: hidden;" bg="k">K</a>
+    </div>
+    
+<!--DEMO end-->
+    </div>
+</body></html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Generic Data Binder Examples</title>
+        <link rel="stylesheet" href="http://bootswatch.com/slate/bootstrap.min.css">
+        <style>pre{background-color:#7a8288;border:1px solid #7a8288}html::-webkit-scrollbar{width:5px}html::-webkit-scrollbar-track{background-color:rgba(0,0,0,.31);-webkit-border-radius:5px}html::-webkit-scrollbar-thumb:vertical{margin:5px;background-color:#464646;border:1px solid #595959;-webkit-border-radius:5px}html::-webkit-scrollbar-button:end:increment,html::-webkit-scrollbar-button:start:decrement{height:5px;display:block}</style>
+    </head>
+    <body style="margin:20px;margin-bottom: 0;">
+        <div style="width:300px; margin:0 auto;">
+            <h1><a href="http://gdb.thewebdev.guru">GDB</a> Examples</h1>
+            <ul>
+                <li><a href="simplest.html" target="frame">Simplest Implementation Example</a></li>
+                <li><a href="form.html" target="frame">Form Binding Example</a></li>
+                <li><a href="model-to-view.html" target="frame">Model -> View Example</a></li>
+                <li><a href="amd-and-requirejs-support.html" target="frame">AMD and RequireJS Support</a></li>
+                <li><a href="data-parsing-functions.html" target="frame">Data Watching &amp; Parsing Functions</a></li>
+            </ul>
+        </div>
+        <iframe name="frame" id="frame" style="width:100%; border:none;" src="simplest.html"></iframe>
+
+        <script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script> 
+        <script>
+            $(function(){
+                var resizedd=function(){
+                    var $iframe=$('#frame');
+                    $iframe.height(($(window).height()-$iframe.position().top));
+                };
+                resizedd();
+                $(window).resize(function(){
+                    resizedd();
+                });
+
+                function queryToObj(){
+                    var string=window.location.search.substr(1);
+                    var array=string.split("&");
+                    var obj={};
+                    array.forEach(function(i){
+                        var propvalue=i.split("=");
+                        obj[propvalue[0]]=propvalue[1];
+                    });
+                    return obj;
+                }
+
+                if(typeof queryToObj().page !== "undefined")
+                    $('iframe').attr('src',queryToObj().page);
+
+            });
+        </script>
+    </body>
+</html>

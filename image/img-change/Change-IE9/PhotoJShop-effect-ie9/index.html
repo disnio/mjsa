@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PhotoJShop</title>
+<style type="text/css">
+body{
+	text-align:center;
+	background:#F7F7F7;
+	font-family:Georgia, "Times New Roman", Times, serif;
+}
+canvas{
+	border:#666 solid 1px;
+}
+h1{
+	color:#003871;
+}
+h3{
+	display:inline-block;
+}
+a{
+	text-decoration:none;
+	color:#005BCC;
+}
+a:hover{
+	color:#C00;
+}
+nav{
+	border:solid 1px #DDD;
+	display:inline-block;
+}
+nav ul{
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+nav li{ display:inline-block; }
+nav a{
+	display:inline-block;
+	padding:5px 15px;
+}
+nav a:hover{
+	background:#efefef;
+}
+footer{
+	text-align:center;
+	margin:30px 0;
+	font-size:80%;
+	color:#555;
+}
+</style>
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>-->
+<script src="js/jquery.js"></script>
+<script src="src/photojshop.jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#effects a').click(function(e){
+		e.preventDefault();
+		$('#jack').PhotoJShop({
+			'effect' : $(this).attr("data-effect")
+		});
+		return true;
+	});
+	$('#filters a').click(function(e){
+		e.preventDefault();
+		$('#jack').PhotoJShop({
+			'color' : $(this).attr("data-effect")
+		});
+		return true;
+	});
+	$('#custom').click(function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		var mat = prompt("Please enter custom matrix, in JavaScript format (e.g. [[0,0,0],[0,1,0],[0,0,0]])");
+		$('#jack').PhotoJShop({
+			'matrix' : eval(mat)
+		});
+		return true;
+	});
+});
+</script>
+</head>
+
+<body>
+<h1>PhotoJShop Demo</h1>
+<div style="width:500px; margin:0 auto;">
+<p>Welcome to the PhotoJShop demo page. Below you will find a set of links that will apply the corresponding effect to the image.</p>
+<p>	
+	<iframe class="github-btn" style="display:inline-block; width:100px;"
+	src="http://ghbtns.com/github-btn.html?user=aurbano&amp;repo=photojshop&amp;type=watch&amp;count=true"
+		wtransparency="true" frameborder="0" scrolling="0" height="20px"></iframe>
+	<iframe class="github-btn" style="display:inline-block; width:100px;"
+		src="http://ghbtns.com/github-btn.html?user=aurbano&amp;repo=photojshop&amp;type=fork&amp;count=true"
+		allowtransparency="true" frameborder="0" scrolling="0" height="20px"></iframe>
+</p></div>
+<h3>Effects: </h3>
+<nav>
+	<ul id="effects">
+		<li><a href="#effect" data-effect="blur">Blur</a></li>
+		<li><a href="#effect" data-effect="blur2">Blur (rad=4)</a></li>
+		<li><a href="#effect" data-effect="sharpen">Sharpen</a></li>
+		<li><a href="#effect" data-effect="lighten">Lighten</a></li>
+		<li><a href="#effect" data-effect="darken">Darken</a></li>
+		<li><a href="#effect" data-effect="emboss">Emboss</a></li>
+		<li><a href="#effect" data-effect="edge-enhance">Edge enhance</a></li>
+		<li><a href="#effect" data-effect="edge-detect">Edge detect</a></li>
+		<li><a href="#effect" data-effect="hard-edge">Hard edge</a></li>
+		<li><a href="#effect" data-effect="laplace">Laplace</a></li>
+	</ul>
+</nav>
+<br />
+<h3>Filters: </h3>
+<nav>
+	<ul id="filters">
+		<li><a href="#filter" data-effect="b&w">B&W</a></li>
+		<li><a href="#filter" data-effect="sepia">Sepia</a></li>
+		<li><a href="#filter" data-effect="vintage">Vintage</a></li>
+		<li><a href="#filter" data-effect="red">Red</a></li>
+		<li><a href="#filter" data-effect="blue">Blue</a></li>
+		<li><a href="#filter" data-effect="green">Green</a></li>
+		<li><a href="#filter" data-effect="recolor">Recolor</a></li>
+	</ul>
+</nav>
+<p>You can also use a <a href="#custom" id="custom" data-effect="custom">Custom matrix</a></p>
+<article>
+	<img src="demo/img/ocean.jpg" id="jack" alt="Jack" />
+</article>
+<footer>
+	<small><a href="https://github.com/aurbano/PhotoJShop">Fork on Github</a> &bull; Developed by <a href="http://urbanoalvarez.es">Alejandro U. Álvarez</a> &bull; [Photo credit: <a href="http://foter.com/Nature/">Foter.com</a> / <a href="http://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA</a>]</small>
+</footer>
+</body>
+</html>

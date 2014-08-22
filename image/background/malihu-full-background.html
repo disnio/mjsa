@@ -1,0 +1,51 @@
+
+<script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script> 
+<style>
+body{margin:0px; padding:0px; background:#fff;}
+#bg{position:fixed; z-index:1; overflow:hidden; top:20px; left:20px;}
+#bgimg{display:none;}
+#preloader{position:relative; z-index:2; width:32px; top:50%; margin:-32px auto;}</style>
+<div id="bg">
+    <div id="preloader"><img src="http://manos.malihu.gr/tuts/ajax-loader.gif" height="32" width="32"></div>
+    <img src="http://manos.malihu.gr/tuts/thebgimg.jpg" id="bgimg" height="900" width="1200">
+</div>
+<script>
+$theBorder=20; //border around image (change top and left values of #bg accordingly)
+$bg=$("#bg");
+$bgimg=$("#bg #bgimg");
+$preloader=$("#preloader");
+$(window).load(function() {
+    FullScreenBackground($bgimg,$bg);
+ 
+    $(window).resize(function() {
+        FullScreenBackground($bgimg,$bg);
+    });
+});
+ 
+$bgimg.load(function() {
+    var $this=$(this);
+    FullScreenBackground($this,$bg);
+    $preloader.fadeOut("fast");
+    $this.delay(200).fadeIn("slow");
+});
+ 
+function FullScreenBackground(theItem,theContainer){
+    var winWidth=$(window).width();
+    var winHeight=$(window).height();
+    var imageWidth=$(theItem).width();
+    var imageHeight=$(theItem).height();
+    var picHeight = imageHeight / imageWidth;
+    var picWidth = imageWidth / imageHeight;
+    if ((winHeight / winWidth) < picHeight) {
+        $(theItem).css("width",winWidth);
+        $(theItem).css("height",picHeight*winWidth);
+    } else {
+        $(theItem).css("height",winHeight);
+        $(theItem).css("width",picWidth*winHeight);
+    };
+    $(theContainer).css("width",winWidth-($theBorder*2));
+    $(theContainer).css("height",winHeight-($theBorder*2));
+    $(theItem).css("margin-left",(winWidth- $(theItem).width())/2);
+    $(theItem).css("margin-top",(winHeight- $(theItem).height())/2);
+}
+</script>

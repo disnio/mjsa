@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="zh-CN">
+<title>固定在页面右侧的动画跟随jquery菜单效果</title>
+<script type="text/javascript" src="http:www.97zzw.com/demo/jquery.js"></script>
+<link href="css/default.css" rel="stylesheet" type="text/css">
+</head>
+<body style="height:1000px;">
+<!-- 右侧导航 -->
+<div class="rightNav">
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>0</em>97站长网</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>1</em>书签切换</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>2</em>幻灯片</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>3</em>图片滚动-左</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>4</em>图片滚动-上</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>5</em>图片无缝滚动-左</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>6</em>图片无缝滚动-上</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>7</em>文字滚动-左</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>8</em>文字滚动-上</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>9</em>文字无缝滚动-左</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>10</em>文字无缝滚动-上</a>
+	<a href="http://www.97zzw.com" style="right: -110px;"><em>11</em>其它基础效果</a>
+</div>
+<script type="text/javascript">
+	var btb=$(".rightNav");
+	var tempS;
+	$(".rightNav").hover(function(){
+			var thisObj = $(this);
+			tempS = setTimeout(function(){
+			thisObj.find("a").each(function(i){
+				var tA=$(this);
+				setTimeout(function(){ tA.animate({right:"0"},300);},50*i);
+			});
+		},200);
+
+	},function(){
+		if(tempS){ clearTimeout(tempS); }
+		$(this).find("a").each(function(i){
+			var tA=$(this);
+			setTimeout(function(){ tA.animate({right:"-110"},300,function(){
+			});},50*i);
+		});
+
+	});
+	var isIE6 = !!window.ActiveXObject&&!window.XMLHttpRequest;
+	if( isIE6 ){ $(window).scroll(function(){ btb.css("top", $(document).scrollTop()+100) }); }
+</script>
+</body>
+</html>

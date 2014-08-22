@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>allinone carousel演示(charming皮肤/响应式)_做好网站</title>
+
+<style>
+body { overflow-x: hidden; }
+#containingDiv { width: 960px; margin: 0 auto; }
+@media screen and (min-width:1200px) {
+	#containingDiv { width: 960px; margin: 0 auto; }
+}
+@media screen and (max-width:767px) {
+	#containingDiv { width: 100%; margin: 0 auto; }
+}
+</style>
+
+<link rel="stylesheet" href="css/allinone_carousel.css">
+<script src="http://www.dowebok.com/files/js/jquery-1.9.1.min.js"></script>
+<script src="http://www.dowebok.com/files/js/jquery-ui-1.10.2.min.js"></script>
+<script src="js/allinone_carousel.js"></script>
+
+<script>
+jQuery(function() {
+	jQuery('#allinone_carousel_charming').allinone_carousel({
+		skin: 'charming',
+		width: 990,
+		height: 454,
+		responsive: true,
+		autoPlay: 3,
+		resizeImages: true,
+		autoHideBottomNav: false,
+		showElementTitle: false,
+		verticalAdjustment: 50,
+		showPreviewThumbs: false,
+		//easing:'easeOutBounce',
+		numberOfVisibleItems: 5,
+		nextPrevMarginTop: 23,
+		playMovieMarginTop: 0,
+		bottomNavMarginBottom: -10
+	});
+});
+</script>
+</head>
+
+<body>
+<h1>allinone carousel演示(charming皮肤/响应式)</h1>
+
+<!-- 代码开始 -->
+<div id="containingDiv">
+	<div id="allinone_carousel_charming">
+		<div class="myloader"></div>
+		<ul class="allinone_carousel_list">
+			<li><img src="images/charming/01_charming.jpg" alt="" /></li>
+			<li><img src="images/charming/02_charming.jpg" alt="" /></li>
+			<li><img src="images/charming/03_charming.jpg" alt="" /></li>
+			<li><img src="images/charming/04_charming.jpg" alt="" /></li>
+			<li><img src="images/charming/05_charming.jpg" alt="" /></li>
+			<li><img src="images/charming/06_charming.jpg" alt="" /></li>
+			<li data-link="http://www.dowebok.com/html/2013/allinone.html" data-target="_blank"><img src="images/charming/07_charming.jpg" alt="" /></li>
+		</ul>
+	</div>
+</div>   
+<!-- 代码结束 -->
+
+
+
+
+
+
+
+
+
+
+<!-- 以下是统计和广告，与演示无关，不必理会 -->
+<p style="text-align: center; color: #f60;">你可以在不同的设备中或改变窗口大小查看本演示</p>
+<style type="text/css">
+body { margin: 0;}
+h1 { margin: 40px 10px 0; font: 32px Microsoft Yahei; text-align: center;}
+
+.vad { margin:100px 0 5px; font-family: arial,宋体,sans-serif; text-align:center;}
+.vad a { display:inline-block; height: 30px; line-height: 30px; margin:0 5px; padding:0 20px; font-size:14px; text-align:center; color:#eee; text-decoration:none; background-color:#222;}
+.vad a:hover { color:#fff; background-color:#000;}
+
+.a728x90 { width: 728px; height: 90px; margin: 0 auto;}
+</style>
+
+<p class="vad"><a href="http://www.dowebok.com/" target="_blank">dowebok.com</a> <a href="http://www.dowebok.com/html/2013/allinone.html" target="_blank">说 明</a> <a href="http://www.dowebok.com/plus/download.php?open=0&aid=34&cid=3" target="_blank">下 载</a></p>
+
+<div class="a728x90"><!--#include file="/inc/ggad728x90.inc"--></div>
+
+<script>
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F988268596e7a833ffbfb2e9f82d93e18' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script id="bdshare_js" data="type=slide&amp;img=0&amp;pos=right&amp;uid=6588891" ></script>
+<script id="bdshell_js"></script>
+<script>
+var bds_config={"bdTop":300};
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+
+</body>
+</html>

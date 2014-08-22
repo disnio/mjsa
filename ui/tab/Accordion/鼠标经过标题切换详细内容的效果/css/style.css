@@ -1,0 +1,22 @@
+*{margin: 0;padding: 0;list-style: none;border:none;}
+body,button, input, select, textarea { font: 12px/20px Sinsum,Arial; color:#816e59}
+a{text-decoration:none; color:#534134;}
+a:hover{color:#FF6600;text-decoration:underline;}
+.bkborder{float:left;margin:10px 0 0 500px;width:220px;border:1px solid #ccc;padding:10px 0;}
+.numlist li{line-height:30px;overflow:hidden;height:30px;}
+.lst_02 li em{float:right;}
+.lst_02 li i,.numlist li b,.numlist li em{display:block;float:left;width:16px;height:11px;padding:0 4px 0 0;color:#FFF;background:url(../images/numbg_201208.gif) 0 -90px no-repeat;text-align:center;font:10px/11px Arial;margin:10px 8px 0 0}
+.numlist li em.bg1{background-position:0 0}
+.numlist li em.bg2{background-position:0 -30px}
+.numlist li em.bg3{background-position:0 -60px}
+.renqi{height:auto;}
+.renqi .numlist{padding:0 10px}
+.renqi .numlist li{height:32px;line-height:32px;}
+.renqi .numlist li.first{height:78px;overflow:hidden;border-bottom:1px dotted #dfdfdf;line-height:20px;margin-bottom:5px;}
+.renqi .numlist li img{background:url(../images/imgbg05_201208.jpg) no-repeat;padding:0 10px 5px 0;width:60px;height:60px;float:left;}
+.renqi .numlist li.first em{margin-top:2px}
+.f1,.f2 {color:#FF0000;font-family:Microsoft YaHei;}
+.f2{font-family:Constantia,Georgia;font-size:18px;}
+
+/*代码整理：www.97zzw.com - 97站长网 （尊重我们的劳动成功，转载请注明来源）*/
+

@@ -1,0 +1,167 @@
+/**
+ * Stylesheet
+ *
+ * @namespace Lungo.Layout
+ * @class Nav
+ *
+ * @author Javier Jimenez Villar <javi@tapquo.com> || @soyjavi
+ */
+
+nav
+  /* ========================================================================= */
+  /* ================================= HEADER ================================ */
+  /* ========================================================================= */
+  header &
+    & a, button
+      position: relative
+      text-align: center
+      float: left
+      height: HEADER_HEIGHT
+      min-width: HEADER_HEIGHT
+      & > .icon
+        font-size: 1.5em
+
+    & .tag
+      position: absolute
+      top: 0.5em
+      right: 0.25em
+      height: FONT_SIZE_LARGE
+      line-height: FONT_SIZE_LARGE
+
+    & .loading
+      font-size: 1.5em
+      & + .icon
+        display: none
+
+  &[data-control=groupbar], footer &
+    display-box()
+    box-pack(justify)
+    width: 100%
+    & > a
+      box-flex(1)
+      text-decoration: none
+
+
+  /* ========================================================================= */
+  /* =============================== GROUPBAR ================================ */
+  /* ========================================================================= */
+  &[data-control=groupbar]
+    z-index: 2
+    height: HEADER_GROUPBAR_HEIGHT
+    width: 100%
+    font-size: FONT_SIZE_SMALL
+    line-height: HEADER_GROUPBAR_HEIGHT
+    & > a
+      padding:0
+      margin:0
+      height: HEADER_GROUPBAR_HEIGHT !important
+      display: block
+      text-align: center
+      & .icon, .tag
+        margin: 0 0.2em
+        line-height: inherit
+
+  /* ========================================================================= */
+  /* ================================= MENU ================================== */
+  /* ========================================================================= */
+  &[data-control=menu]
+    position: absolute
+    left: 0
+    top: 0
+    top: HEADER_HEIGHT
+    visibility: hidden
+    z-index: 2
+    width: 100%
+    text-align: center
+
+    transform translateY(-120%)
+    transition-property transform
+    transition-duration TRANSITION_TIME
+    transition-timing-function DEFAULT_TRANSITION
+    backface-visibility hidden
+
+    &.show
+      visibility: visible
+      transform translateY(0%)
+
+    &.icons
+      font-size: FONT_SIZE_TINY
+      & > a
+        width: 25%
+        float: left
+        padding: 10px 0
+        & > .icon
+          font-size: S = 32px
+          line-height: S
+          display: block
+
+    &:not(.icons)
+      font-size: FONT_SIZE_BIG
+      & > a
+        display: block
+        position: relative
+        padding: INDENT
+        & > .icon
+          position: absolute
+          left: 0.5em
+          top: 0.5em
+          font-size: FONT_SIZE_LARGE
+          line-height: 1.0em
+
+
+  /* ========================================================================= */
+  /* ================================ FOOTER ================================= */
+  /* ========================================================================= */
+  footer &
+    & a
+      display: block
+      padding: 0
+      height:  HEADER_HEIGHT
+      text-align: center
+
+    & .icon
+      font-size: 2.0em
+      line-height: inherit
+      width: HEADER_HEIGHT
+      display: inline-block
+
+    & .tag
+      position: relative
+      top:  SIZE = -12px
+      left: SIZE
+      margin-right: -24px
+      & .loading
+        top: 0
+        font-size: 1.4em
+
+    abbr
+      display: none
+
+    &.with-labels
+      & .icon
+        font-size: 1.8em
+        line-height: 1.0em
+      & abbr
+        z-index: 1
+        display: block !important
+        margin-top: -1.3em
+
+        font-size: FONT_SIZE_TINY
+        line-height: FONT_SIZE_TINY
+
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+
+  /* ========================================================================= */
+  /* =========================== MENU KEYFRAMES ============================== */
+  /* ========================================================================= */
+
+@keyframes menuShow
+  0%   {transform translateY(-120%)}
+  75%  {transform translateY(8px)}
+  100% {transform translateY(0)}
+@keyframes menuHide
+  0%   {transform translateY(0)}
+  25%  {transform translateY(8px)}
+  100% {transform translateY(-120%)}

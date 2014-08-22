@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html> 
+    <head> 
+        <title>Fancy Menus With CSS and jQuery</title> 
+		
+        <link rel="stylesheet" href="style.css" type="text/css" media="screen"/> 
+        <script type="text/javascript" src="jquery-1.2.6.min.js"></script> 
+        <script type="text/javascript" src="jquery.easing.1.3.js"></script> 
+        <script type="text/javascript"> 
+            $(function() {
+                $('#navigation > div').hover(
+                function () {
+                    var $this = $(this);
+					//$this.find('.images').fadeIn();
+					
+					$this.find('a.menu').removeClass('menu').addClass('hovered');
+					
+                    $this.find('.images').stop().animate({
+                        'width'     :'230px',
+                        'height'    :'390px',
+                        'opacity'   :'1.0'
+                    },400,'easeOutBack',function(){
+					
+                        $(this).parent().find('div').fadeIn('fast');
+                    });
+                },
+                function () {
+                    var $this = $(this);
+					
+                    $this.find('div').fadeOut(500);
+					//$this.find('.images').hide();
+                   $this.find('a.hovered').removeClass('hovered').addClass('menu');
+				   
+				    $this.find('.images').stop().animate({
+                        'width'     :'100px',
+                        'height'    :'0px',
+                        'top'       :'0px',
+                        'left'      :'0px',
+                        'opacity'   :'0.9'
+                    },600,'easeOutBack'); 
+              }
+            );
+            });
+        </script>
+    </head> 
+ 
+    <body> 
+	
+	<br clear="all" />
+	
+        <div id="content"> 
+ 
+            <div class="total_images" id="navigation">
+			 
+                <div class="eachs" id="link1"> 
+					
+					<a href="#" class="menu" style=" width:90px;">99Points</a>
+					
+                    <img src="bg.png" alt="" width="140" height="140" class="images"/> 
+					
+                    <div> 
+                        <ul>
+							<li><a href="#">PHP</a></li>
+							<li><a href="#">CodeIgniter</a></li>
+							<li><a href="#">JQuery</a></li>
+							<li><a href="#">AJAX</a></li>
+							<li><a href="#">Facebook</a></li>
+							
+							<li><a href="#">YOUTUBE</a></li>
+							<li><a href="#">CSS</a></li>
+							<li><a href="#">MYSQL</a></li>
+							<li><a href="#">Tutorials</a></li>
+						</ul>
+                    </div>  
+                </div> 
+				
+				<div class="eachs" id="link4"> 
+				
+					<a href="#" class="menu" style=" width:90px;">JQuery</a>
+					
+                    <img src="bg.png" alt="" width="140" height="140" class="images"/> 
+                   
+                    <div>
+                        <ul>
+							<li><a href="#">PHP</a></li>
+							<li><a href="#">CodeIgniter</a></li>
+							<li><a href="#">JQuery</a></li>
+							<li><a href="#">AJAX</a></li>
+							<li><a href="#">Facebook</a></li>
+							
+							<li><a href="#">YOUTUBE</a></li>
+							<li><a href="#">CSS</a></li>
+							<li><a href="#">MYSQL</a></li>
+							<li><a href="#">Tutorials</a></li>
+						</ul>                    </div> 
+                </div> 
+				
+				
+                <div class="eachs" id="link2"> 
+					
+					<a href="#" class="menu" style=" width:100px;">FaceBook</a>
+					
+                    <img src="bg.png" alt="" width="160" height="199" class="images"/> 
+                    
+                    <div> 
+                        <ul>
+							<li><a href="#">PHP</a></li>
+							<li><a href="#">CodeIgniter</a></li>
+							<li><a href="#">JQuery</a></li>
+							<li><a href="#">AJAX</a></li>
+							<li><a href="#">Facebook</a></li>
+							
+							<li><a href="#">YOUTUBE</a></li>
+							<li><a href="#">CSS</a></li>
+							<li><a href="#">MYSQL</a></li>
+							<li><a href="#">Tutorials</a></li>
+						</ul>
+						                    </div>  
+                </div> 
+				
+				
+                <div class="eachs" id="link3"> 
+					
+					<a href="#" class="menu" style=" width:72px;">PHP</a>
+					
+                    <img src="bg.png" alt="" width="160" height="199" class="images"/> 
+                   
+                    <div> 
+                        <ul>
+							<li><a href="#">PHP</a></li>
+							<li><a href="#">CodeIgniter</a></li>
+							<li><a href="#">JQuery</a></li>
+							<li><a href="#">AJAX</a></li>
+							<li><a href="#">Facebook</a></li>
+							
+							<li><a href="#">YOUTUBE</a></li>
+							<li><a href="#">CSS</a></li>
+							<li><a href="#">MYSQL</a></li>
+							<li><a href="#">Tutorials</a></li>
+						</ul>                    </div> 
+                </div> 
+               
+                <div class="eachs" id="link5"> 
+					
+					<a href="#" class="menu" style=" width:84px;">AJAX</a>
+					
+                    <img src="bg.png" alt="" width="160" height="199" class="images"/> 
+                    
+                    <div> 
+                        <ul>
+							<li><a href="#">PHP</a></li>
+							<li><a href="#">CodeIgniter</a></li>
+							<li><a href="#">JQuery</a></li>
+							<li><a href="#">AJAX</a></li>
+							<li><a href="#">Facebook</a></li>
+							
+							<li><a href="#">YOUTUBE</a></li>
+							<li><a href="#">CSS</a></li>
+							<li><a href="#">MYSQL</a></li>
+							<li><a href="#">Tutorials</a></li>
+						</ul>                    </div> 
+                </div> 
+				
+				
+				<br clear="all" /><br clear="all" /><br clear="all" /><br clear="all" />
+				
+            </div> 
+        </div> 
+		
+		
+		<br clear="all" />
+More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+    </body> 
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Digit Clock
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="menu.css">
+    <script src="../../js/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(function() {
+        $(".nav").hover(function() {
+            $(".nav_left").show();
+        }, function() {
+            $(".nav_left").hide();
+        })
+        $(".cata-group-btn").hover(function() {
+            $(".cata-group-btn").removeClass("over-group");
+            $(this).addClass("over-group");
+        }, function() {
+            $(".cata-group-btn").removeClass("over-group");
+            $(this).removeClass("over-group");
+        });
+    })
+    </script>
+</head>
+
+<body>
+    <div class="nav">
+        <p>
+            <a>
+                <img src="http://i1.mbscss.com/img/moonbasa/2013/09/07/fl.jpg" alt="全部商品分类">
+            </a>
+        </p>
+        <div style="display: none;" class="nav_left">
+            <div class="cata-group">
+                <!-- 女装 -->
+                <dl class="cata-group-btn">
+                    <dt class="cata-group-head">
+                        <h3>
+                            <a>女装</a>
+                        </h3>
+                    </dt>
+                    <dd class="cata_r">
+                        <!--右-女装-->
+                        <div class="cata-sub1">
+                            <dl>
+                                <dt><a>T恤</a>
+                                </dt>
+                                <dd>
+                                    <a>
+                                        <span>长袖T恤</span>
+                                    </a><a>圆领t恤</a>  <a>荡领t恤</a>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a>衬衫</a>
+                                </dt>
+                                <dd> <a>翻领衬衫</a></dd>
+                            </dl>
+
+                        </div>
+                    </dd>
+                </dl>
+                <!--内衣-->
+                <dl class="cata-group-btn">
+                    <dt class="cata-group-head">
+                        <h3>
+                            <a>内衣</a>
+                        </h3>
+                    </dt>
+                    <dd class="cata_r">
+                        <!--右-内衣-->
+                        <div class="cata-sub1">
+                            <dl>
+                                <dt><a>文胸</a>
+                                </dt>
+                                <dd> <a>小胸型</a>  <a>丰满型</a></dd>
+                            </dl>
+                            <dl>
+                                <dt><a>家居服</a>
+                                </dt>
+                                <dd>
+                                    <a>
+                                        <span>珊瑚绒/法兰绒</span></a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </dd>
+                </dl>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

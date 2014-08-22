@@ -1,0 +1,17 @@
+div.lTab { width: 278px; border: 1px solid #d5d5d5; }
+
+div.lTab .lTabHeader { width: 278px; height: 28px; line-height: 28px;} 
+div.lTab .lTabHeader ul {float:left; display:inline;}
+div.lTab .lTabHeader ul li { display: block; width: 79px; height: 27px; float: left; border-right: 1px solid #d5d5d5; border-bottom: 1px solid #d5d5d5; text-align:center;}
+
+div.lTab .lTabHeader ul li a { color: #333; font-weight: bold; }
+div.lTab .lTabHeader ul li a:hover { color: #ff9933; }
+
+div.lTab .lTabHeader ol { width:38px; height:27px; border: none; border-bottom: 1px solid #d5d5d5; float:left;}
+div.lTab .lTabHeader ul li.lTcurr { color: #ff9933; border-bottom: 1px solid #fff; }
+div.lTab .lTabHeader ul li.lTcurr a { color: #ff9933; font-weight: bold; font-size: 16px; }
+
+div.lTab .lTabPanel { width: 278px; height: 160px; clear: both; }
+div.lTab .lTabPanel ul { padding: 0 5px 5px 0px; display: none; }
+
+div.lTab .lTabPanel ul li { padding: 0px; width: 250px; height: 25px; line-height: 25px; overflow: hidden; }

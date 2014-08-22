@@ -1,0 +1,105 @@
+.rain.demo {
+	
+	}
+
+.sample {
+	background: #ccc;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	margin: 0 0 14px 0;
+	padding: 35px 40px;
+	}
+
+.red.sample {
+	background: #9e0b0f;
+	}
+
+.sample .rainbows-shadow {
+	opacity: 0.7;
+	}
+
+.inset.sample .rainbows-shadow {
+	color: #fff !important;
+	opacity: 0.7;
+	}
+
+#three .rainbows-highlight {
+	color: #fff79c !important;
+	}
+
+#four .rainbows-highlight {
+	color: #fff !important;
+	}
+	
+
+#five .rainbows-highlight {
+	color: #a260c9 !important;
+	}
+
+#five .rainbows-shadow {
+	opacity: 0.4;
+	}
+
+.green.sample {
+	background: #3d8200;
+	}
+
+.blue.sample {
+	background: #0062a9;
+	}
+
+.orange.sample {
+	background: #ffb400;
+	}
+
+.yellow.sample {
+	background: #fce100;
+	}
+	
+.violet.sample {
+	background: #58008a;
+	}
+
+.black.sample {
+	background: #333;
+	}
+
+#seven.sample h2 {
+	font-size: 36px;
+	}
+
+#six .rainbows-highlight {
+	color: #eee !important;
+	}
+
+#seven.sample .rainbows-highlight {
+	color: #9b0004 !important;
+	}
+
+.silver.sample {
+	background: #bbb;
+	}
+
+.sample h2 {
+	font: 800 42px/1.2 "helvetica neue","lucida grande",verdana,sans-serif;
+	}
+
+.sample h2 span {
+	vertical-align: top !important;
+	}
+
+.serif.sample h2 {
+	font: oblique 400 42px/1.2 "georgia","times new roman",serif;
+	}
+
+.thin.sample h2 {
+	font-weight: 300;
+	}
+
+.comic.sample h2 {
+	font: 800 42px/1.25 "comic sans","comic sans ms","helvetica neue","lucida grande",verdana,sans-serif;
+	}
+
+.comic.sample h2 * {
+	line-height: 1;
+	}

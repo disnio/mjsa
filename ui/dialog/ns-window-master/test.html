@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<link rel="stylesheet" href="css/ns-window.css" />
+<script type="text/javascript" src="jquery-1.7.1.js"></script>
+<script type="text/javascript" src="ns-window.js"></script>
+<style>
+* {
+font-family:Tahoma;
+font-size:11px;
+}
+h1,h2,h3 {
+	color:#CC3366;
+	font-size:20px;
+	padding:20px;
+}
+</style>
+<script type="text/javascript">
+	function showWindow(theme) {
+		$.nsWindow.open({
+			title: 'Member Login',
+			width: 660,
+			height: 400,
+			dataUrl: 'content.html',
+			theme:theme
+        });
+	}
+</script>
+</head>
+<body>
+<h1>NihalSoft JQuery Window - Test Page</h1>
+
+<input type="button" onclick="showWindow('yellow');" value="Window - Yellow"/>
+<input type="button" onclick="showWindow('black');" value="Window - Black"/>
+<input type="button" onclick="showWindow('orange');" value="Window - Orange"/>
+
+<h3>By : Sheik Mohideen</h3>
+</body>
+</html>

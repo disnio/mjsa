@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Tab</title>
+        <link rel="stylesheet"  href="css/webwidget_scroller_tab.css" type="text/css" />
+        <script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script> 
+        <script type='text/javascript' src='js/webwidget_scroller_tab.js'></script>
+        <script language="javascript" type="text/javascript">
+
+            $(function() {
+                $(".webwidget_scroller_tab").webwidget_scroller_tab({
+                    scroller_time_interval: '5000',
+                    scroller_window_padding: '10',
+                    scroller_window_width: '350',
+                    scroller_window_height: '200',
+                    scroller_head_text_color: '#0099FF',
+                    scroller_head_current_text_color: '#666',
+                    directory: 'images'
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="webwidget_scroller_tab" id="webwidget_scroller_tab">
+            <div class="tabContainer">
+                <ul class="tabHead">
+                    <li class="currentBtn"><a href="javascript:;">Tab1</a></li>
+                    <li><a href="javascript:;">Tab2</a></li>
+                    <li><a href="javascript:;">Tab3</a></li>
+                </ul>
+            </div>
+            <div class="tabBody">
+                <ul>
+                    <li class="tabCot">
+                        <p>tab1 content</p>
+                    </li>
+                    <li class="tabCot">
+                        <p>tab2 content</p>
+                    </li>
+                    <li class="tabCot">
+                        <p>tab3 content</p>
+                    </li>
+                </ul>
+                <div style="clear:both"></div>
+            </div>
+            <div class="modBottom">
+                <span class="modABL">&nbsp;</span><span class="modABR">&nbsp;</span>
+            </div>
+        </div>
+    </body>
+</html>

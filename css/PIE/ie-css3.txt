@@ -1,0 +1,8 @@
+http://fetchak.com/ie-css3/ 
+代码要放到style里面：
+        .box {
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            behavior: url(css/ie-css3.htc);
+        }

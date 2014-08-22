@@ -1,0 +1,10 @@
+{
+  "name": "scaleapp",
+  "main": "./dist/scaleApp.js",
+  "ignore": [
+    "node_modules",
+    "components",
+    "bower_components",
+    "spec"
+  ]
+}

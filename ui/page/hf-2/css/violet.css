@@ -1,0 +1,35 @@
+/* BOLG皮肤（3列绿色）*/
+
+/* 通用样式表 */
+body{text-align: center; margin:0; padding:0; background: #FFF; font-size:12px; color:#000;}
+.clear{clear: both; font-size:1px; visibility: hidden;}
+
+/* 空格样式 */
+.blank4{margin:0 auto; height:4px; width:160px; font-size:1px;}
+
+.skin{margin:0 auto; padding:5px; width:750px; height:10px; border:1px solid #AB97BA; background:#F2F0F5;}
+
+#page_options{float:right; font-size:12px; text-align:left; width:90px; color:#AB97BA; cursor:pointer; z-index:90; zoom:1; position: relative; clip: rect( ); background:url(../images/tl.gif) right center no-repeat;}
+
+a#editpage{
+font:normal 11px 宋体;
+padding-right:15px;
+}
+
+#Sright{position: absolute; width:140px; height:18px; left:-25px; top:18px; z-index:1; filter:progid:DXImageTransform.Microsoft.Gradient(StartColorStr=#fffefeff,EndColorStr=#fff3f5fb, GradientType=0)progid:DXImageTransform.Microsoft.Shadow(Color=#ffb6bccb, Strength=2, Direction=135); padding:3px; font:normal 12px arial; border:1px solid #AB97BA; background:#F2F0F5; display:none;}
+
+/* 顶部导航部分 */
+.topNav{
+margin:0 auto;width:760px;height:106px;border:1px solid #AB97BA;background:url(../images/violet.gif);}
+
+/* 区块 */
+.newsbody{margin:0 auto;width:760px;}
+
+.coleft{float:left; width:178px; height:600px; border:1px solid #AB97BA; background:#F2F0F5;}
+.cocenter{float:left; width:400px; height:600px;}
+.coright{float:right; width:178px; height:600px; border:1px solid #AB97BA; background:#F2F0F5;}
+
+.cconter{margin:0 auto; width:390px; height:600px; border:1px solid #AB97BA;}
+
+/* 底部版权信息 */
+.footer{margin:0 auto; width:760px; height:106px;border:1px solid #AB97BA;background:url(../images/violet.gif);}

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="ext/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="jquery.tagsphere.min.js"></script>
+    <script type="text/javascript">
+	$(function(){
+	    $('#ts1').tagcloud({centrex:250,centrey:250});
+	    $('#ts2').tagcloud({centrex:100,centrey:100,min_font_size:10,max_font_size:16,zoom:100});
+	});
+    </script>
+
+    <style type="text/css">
+	.point a{
+	    text-decoration:none;
+	}
+</style>
+
+</head>
+<body>
+<h1>Jquery Tag Sphere Plugin Example</h1>
+
+<div id="ts1" style="width:500px; height:500px; background-color:#000; position:relative;">
+    <ul>
+	<li><a href="#" rel="20">Link 1</a></li>
+	<li><a href="#" rel="15">Link 2</a></li>
+	<li><a href="#" rel="10">Link 3</a></li>
+	<li><a href="#" rel="5">Link 4</a></li>
+	<li><a href="#" rel="1">Link 5</a></li>
+	<li><a href="#" rel="5">Link 6</a></li>
+	<li><a href="#" rel="10">Link 7</a></li>
+	<li><a href="#" rel="15">Link 8</a></li>
+	<li><a href="#" rel="20">Link 9</a></li>
+	<li><a href="#" rel="15">Link 10</a></li>
+	<li><a href="#" rel="10">Link 11</a></li>
+	<li><a href="#" rel="5">Link 12</a></li>
+	<li><a href="#" rel="1">Link 13</a></li>
+	<li><a href="#" rel="5">Link 14</a></li>
+	<li><a href="#" rel="10">Link 15</a></li>
+    </ul>
+</div>
+&nbsp;
+<div id="ts2" style="width:200px; height:200px; background-color:#000;position:relative;">
+    <ul>
+	<li><a href="#" rel="1">Link 1</a></li>
+	<li><a href="#" rel="2">Link 2</a></li>
+	<li><a href="#" rel="3">Link 3</a></li>
+	<li><a href="#" rel="4">Link 4</a></li>
+	<li><a href="#" rel="5">Link 5</a></li>
+	<li><a href="#" rel="6">Link 6</a></li>
+	<li><a href="#" rel="7">Link 7</a></li>
+	<li><a href="#" rel="8">Link 8</a></li>
+	<li><a href="#" rel="9">Link 9</a></li>
+	<li><a href="#" rel="1">Link 10</a></li>
+	<li><a href="#" rel="2">Link 11</a></li>
+    </ul>
+</div>More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+
+</body>
+</html>

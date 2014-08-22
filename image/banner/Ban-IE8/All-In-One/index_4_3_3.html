@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>allinone content演示(imposing皮肤/响应式)_做好网站</title>
+
+<style>
+body { overflow-x: hidden; }
+#containingDiv { width: 960px; margin: 0 auto; }
+@media screen and (min-width:1200px) {
+	#containingDiv { width: 960px; margin: 0 auto; }
+}
+@media screen and (max-width:767px) {
+	#containingDiv { width: 100%; margin: 0 auto; }
+}
+</style>
+
+<link href="css/allinone_contentSlider.css" rel="stylesheet" type="text/css">
+<script src="http://www.dowebok.com/files/js/jquery-1.9.1.min.js"></script>
+<script src="http://www.dowebok.com/files/js/jquery-ui-1.10.2.min.js"></script>
+<script src="js/allinone_contentSlider.js" type="text/javascript"></script>
+
+<script>
+$(function() {
+	$('#allinone_contentSlider_imposing').allinone_contentSlider({
+		skin: 'imposing',
+		responsive:true,
+		width: 918,
+		height: 382,
+		autoHideBottomNav:false,
+		showPreviewThumbs:false,
+		autoHideNavArrows:false,
+		autoPlay:5
+	});
+});
+</script>
+</head>
+
+<body>
+<h1>allinone content演示(imposing皮肤/响应式)</h1>
+
+<!-- 代码开始 -->
+<div id="containingDiv">
+	<div id="allinone_contentSlider_imposing">
+		<ul class="allinone_contentSlider_list">
+			<li><img src="images/imposing/01_imposing.jpg" width="918" height="382" alt="" /></li>
+			<li data-text-id="#allinone_contentSlider_photoText2" data-link="http://www.dowebok.com/html/2013/allinone.html"> <img src="images/imposing/02_imposing.jpg" width="918" height="382" alt="" /> </li>
+			<li><img src="images/imposing/03_imposing.jpg" width="918" height="382" alt="" /></li>
+			<li data-text-id="#allinone_contentSlider_photoText4"> <img src="images/imposing/04_imposing.jpg" width="918" height="382" alt="" /> </li>
+			<li  data-text-id="#allinone_contentSlider_photoText5"> <img src="images/imposing/05_imposing.jpg" width="918" height="382" alt="" /> </li>
+			<li  data-text-id="#allinone_contentSlider_photoText6" data-link="http://www.dowebok.com/html/2013/allinone.html" data-target="_blank"> <img src="images/imposing/06_imposing.jpg" width="918" height="382" alt="" /> </li>
+		</ul>
+		
+		<div id="allinone_contentSlider_photoText2" class="allinone_contentSlider_texts">
+			<div class="allinone_contentSlider_text_line textElement20_imposing" data-initial-left="0" data-initial-top="0" data-final-left="590" data-final-top="0" data-duration="0.5" data-fade-start="0" data-delay="0.13"></div>
+			<div class="allinone_contentSlider_text_line textElement21_imposing" data-initial-left="0" data-initial-top="35" data-final-left="610" data-final-top="35" data-duration="0.5" data-fade-start="0" data-delay="0.5">Perspiciatis<br />
+				unde omnis iste</div>
+			<div class="allinone_contentSlider_text_line textElement22_imposing" data-initial-left="0" data-initial-top="110" data-final-left="610" data-final-top="110" data-duration="0.5" data-fade-start="0" data-delay="0.3">Lorem ipsum dolor sit amet, consectetur adipisicing elit</div>
+			<div class="allinone_contentSlider_text_line textElement23_imposing" data-initial-left="650" data-initial-top="170" data-final-left="650" data-final-top="170" data-duration="0.5" data-fade-start="0" data-delay="0.5">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+			<div class="allinone_contentSlider_text_line textElement23_imposing" data-initial-left="650" data-initial-top="240" data-final-left="650" data-final-top="240" data-duration="0.5" data-fade-start="0" data-delay="0.7">Itaque earum rerum hic tenetur a sapiente delectus</div>
+			<div  class="allinone_contentSlider_text_line" data-initial-left="300" data-initial-top="170" data-final-left="610" data-final-top="170" data-duration="0.5" data-fade-start="0" data-delay="0.9"><img src="images/imposing/listIcon.png" width="28" height="26" alt=""/></div>
+			<div  class="allinone_contentSlider_text_line" data-initial-left="300" data-initial-top="240" data-final-left="610" data-final-top="240" data-duration="0.5" data-fade-start="0" data-delay="1.1"><img src="images/imposing/listIcon.png" width="28" height="26" alt=""/></div>
+		</div>
+		<div id="allinone_contentSlider_photoText4" class="allinone_contentSlider_texts">
+			<div class="allinone_contentSlider_text_line textElement40_imposing" data-initial-left="0" data-initial-top="0" data-final-left="595" data-final-top="0" data-duration="0.5" data-fade-start="0" data-delay="0.13"></div>
+			<div class="allinone_contentSlider_text_line textElement41_imposing" data-initial-left="0" data-initial-top="35" data-final-left="610" data-final-top="35" data-duration="0.5" data-fade-start="0" data-delay="0.5">Perspiciatis<br />
+				unde omnis iste</div>
+			<div class="allinone_contentSlider_text_line textElement42_imposing" data-initial-left="0" data-initial-top="130" data-final-left="610" data-final-top="130" data-duration="0.5" data-fade-start="0" data-delay="0.3">Lorem ipsum dolor sit amet, <span class="highlight1">consectetur</span> adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed ut perspiciatis unde omnis.<br />
+				<br />
+				<a href="http://www.dowebok.com/html/2013/allinone.html" target="_blank">Et harum quidem rerum</a></div>
+		</div>
+		<div id="allinone_contentSlider_photoText5" class="allinone_contentSlider_texts">
+			<div class="allinone_contentSlider_text_line textElement50_imposing" data-initial-left="590" data-initial-top="0" data-final-left="60" data-final-top="0" data-duration="0.5" data-fade-start="0" data-delay="0.13"></div>
+			<div class="allinone_contentSlider_text_line textElement51_imposing" data-initial-left="619" data-initial-top="35" data-final-left="80" data-final-top="35" data-duration="0.5" data-fade-start="0" data-delay="0.5">Perspiciatis<br />
+				unde omnis iste</div>
+			<div class="allinone_contentSlider_text_line textElement52_imposing" data-initial-left="610" data-initial-top="110" data-final-left="80" data-final-top="110" data-duration="0.5" data-fade-start="0" data-delay="0.3">Lorem ipsum dolor sit amet, consectetur adipisicing elit</div>
+			<div class="allinone_contentSlider_text_line textElement53_imposing" data-initial-left="80" data-initial-top="180" data-final-left="120" data-final-top="180" data-duration="0.5" data-fade-start="0" data-delay="0.5">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+			<div class="allinone_contentSlider_text_line textElement53_imposing" data-initial-left="80" data-initial-top="250" data-final-left="120" data-final-top="250" data-duration="0.5" data-fade-start="0" data-delay="0.7">Itaque earum rerum hic tenetur a sapiente delectus</div>
+			<div class="allinone_contentSlider_text_line textElement53_imposing" data-initial-left="80" data-initial-top="300" data-final-left="120" data-final-top="300" data-duration="0.5" data-fade-start="0" data-delay="0.9">Duis aute irure dolor in reprehenderit in</div>
+			<div  class="allinone_contentSlider_text_line" data-initial-left="610" data-initial-top="180" data-final-left="80" data-final-top="180" data-duration="0.5" data-fade-start="0" data-delay="1.1"><img src="images/imposing/listIcon.png" width="28" height="26" alt=""/></div>
+			<div  class="allinone_contentSlider_text_line" data-initial-left="610" data-initial-top="250" data-final-left="80" data-final-top="250" data-duration="0.5" data-fade-start="0" data-delay="1.3"><img src="images/imposing/listIcon.png" width="28" height="26" alt=""/></div>
+			<div  class="allinone_contentSlider_text_line" data-initial-left="610" data-initial-top="300" data-final-left="80" data-final-top="300" data-duration="0.5" data-fade-start="0" data-delay="1.5"><img src="images/imposing/listIcon.png" width="28" height="26" alt=""/></div>
+		</div>
+		<div id="allinone_contentSlider_photoText6" class="allinone_contentSlider_texts">
+			<div  class="allinone_contentSlider_text_line topimposingTextBgLeft6" data-initial-left="400" data-initial-top="300" data-final-left="38" data-final-top="250" data-duration="0.5" data-fade-start="0" data-delay="0"> <a href="http://www.dowebok.com/html/2013/allinone.html" target="_blank"><img style="margin:0px 3px 0 0px;" src="images/imposing/ChameleonWP_Thumbn.jpg" alt="" width="80" height="80" border="0" align="left" /></a><span style="position:absolute; top:13%;">set the transition for each<br />
+				image lorem ipsum dolor<br />
+				sociis natoque</span></div>
+			<div  class="allinone_contentSlider_text_line topimposingTextBgLeft6" data-initial-left="400" data-initial-top="50" data-final-left="328" data-final-top="250" data-duration="0.5" data-fade-start="0" data-delay="0"> <a href="http://www.dowebok.com/html/2013/allinone.html" target="_blank"><img style="margin:0px 3px 0 0px;" src="images/imposing/Html5_2_Thumbn.jpg" width="80" height="80" alt="" align="left" /></a><span style="position:absolute; top:13%;">set the transition for each<br />
+				image lorem ipsum dolor<br />
+				sociis natoque</span> </div>
+			<div  class="allinone_contentSlider_text_line topimposingTextBgLeft6" data-initial-left="100" data-initial-top="50" data-final-left="617" data-final-top="250" data-duration="0.5" data-fade-start="0" data-delay="0"> <a href="http://www.dowebok.com/html/2013/allinone.html" target="_blank"><img style="margin:0px 3px 0 0px;" src="images/imposing/VimeoThumb_wp.jpg" width="80" height="80" alt="" align="left" /></a><span style="position:absolute; top:13%;">set the transition for each<br />
+				image lorem ipsum dolor <br />
+				sociis natoque</span> </div>
+		</div>
+	</div>
+</div>  
+<!-- 代码结束 -->
+
+
+
+
+
+
+
+
+
+<!-- 以下是统计和广告，与演示无关，不必理会 -->
+<p style="margin-top: 50px; text-align: center; color: #f60;">你可以在不同的设备中或改变窗口大小查看本演示</p>
+<style type="text/css">
+body { margin: 0;}
+h1 { margin: 40px 10px; font: 32px Microsoft Yahei; text-align: center;}
+
+.vad { margin:50px 0 5px; font-family: arial,宋体,sans-serif; text-align:center;}
+.vad a { display:inline-block; height: 30px; line-height: 30px; margin:0 5px; padding:0 20px; font-size:14px; text-align:center; color:#eee; text-decoration:none; background-color:#222;}
+.vad a:hover { color:#fff; background-color:#000;}
+
+.a728x90 { width: 728px; height: 90px; margin: 0 auto;}
+</style>
+
+<p class="vad"><a href="http://www.dowebok.com/" target="_blank">dowebok.com</a> <a href="http://www.dowebok.com/html/2013/allinone.html" target="_blank">说 明</a> <a href="http://www.dowebok.com/plus/download.php?open=0&aid=34&cid=3" target="_blank">下 载</a></p>
+
+<div class="a728x90"><!--#include file="/inc/ggad728x90.inc"--></div>
+
+<script>
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F988268596e7a833ffbfb2e9f82d93e18' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script id="bdshare_js" data="type=slide&amp;img=0&amp;pos=right&amp;uid=6588891" ></script>
+<script id="bdshell_js"></script>
+<script>
+var bds_config={"bdTop":300};
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+
+</body>
+</html>

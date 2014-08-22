@@ -1,0 +1,109 @@
+html,body,div,ol,li,a,img,p,h4 {padding: 0;margin: 0;}
+        ol,li {list-style: none;}
+        body {
+            background: #f3f3f3;
+            font-family: "宋体,微软雅黑";
+        }
+        img {border: none;}
+
+        .list_box {
+            color: #333;
+            background: #fff;
+            width: 235px;
+            margin: 20px auto;
+            border: 1px solid #e0e0e0;
+        }
+        .list_box p a {
+            color: #333;
+            text-decoration: none;
+            line-height: 28px;
+            display: inline-block;
+            *display: inline;
+            *zoom:1;
+            width: 130px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+        .list_box a:hover {
+            text-decoration: underline;
+            color: #f60;
+        }
+        .list_title {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 34px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #f9f9f9;
+            padding-left: 12px;
+            width:223px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+        .list {
+            font-size: 14px;
+            line-height: 28px;
+            padding: 6px 12px 6px 35px;
+        }
+        .list li {
+            *zoom:1;
+            position: relative;
+        }
+        .item_num {
+            position: absolute;
+            display: inline-block;
+            *display: inline;
+            *zoom:1;
+            width: 16px;
+            height: 16px;
+            line-height: 16px;
+            text-align: center;
+            font-size: 10px;
+            background: #ccc;
+            color: #fff;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius:5px;
+            margin-right: 7px;
+            vertical-align: middle;
+            top: 6px;
+            left: -26px;
+        }
+        .item_num_top .item_num {
+            background-color: #f60;
+        }
+        .download_num {
+            float: right;
+            color: #999;
+            font-size: 12px;
+            display: inline-block;
+            *display: inline;
+            *zoom:1;
+            width: 48px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: right;
+        }
+        .active .item_img {
+            display: block;
+        }
+        .item_img {
+            display: none;
+            margin: 3px 0 4px 0;
+        }
+        .item_img img {
+            width: 120px;
+            height: 90px;
+            padding: 2px;
+            border: 1px solid #ccc;
+        }
+        .item_img img:hover {
+            border-color: #f60;
+        }/*
+本代码由97站长网收集并编辑整理;
+尊重他人劳动成果;
+转载请保留97站长网链接 - www.97zzw.com
+*/

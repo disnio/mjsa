@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Slidebox jQuery banner rotator demo</title>
+<style type="text/css">
+<!--
+/* demo page generic styling */
+body{margin:0; padding:0; background:#eee;}
+#page{position:relative; width:700px; margin:0 auto;}
+#page h2,#page p{margin:40px 50px; color:#666;}
+-->
+</style>
+<!-- Get Google CDN's jQuery and jQuery UI -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<!-- slidebox styling via external css -->
+<link rel="stylesheet" href="jquery.mSimpleSlidebox.css">
+<!-- slidebox plugin -->
+<script src="jquery.mSimpleSlidebox.js"></script>
+<!-- slidebox function call -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".slidebox").mSlidebox();
+});
+</script>
+</head>
+
+<body>
+<div id="page">
+	<h2>Basic simple Slidebox with minimum styling</h2>
+	<!-- slidebox markup start -->
+	<div class="slidebox">
+		<ul>
+    		<li>
+        		<div>slide 1 content</div>
+        	</li>
+        	<li>
+        		<div>slide 2 content</div>
+        	</li>
+        	<li>
+        		<div>slide 3 content</div>
+        	</li>
+        	<li>
+        		<div>slide 4 content</div>
+        	</li>
+		</ul>
+	</div>
+	<!-- slidebox markup end -->
+	<p><a href="http://manos.malihu.gr/slidebox-jquery-banner-rotator">Plugin homepage</a></p>
+</div>
+</body>
+</html>

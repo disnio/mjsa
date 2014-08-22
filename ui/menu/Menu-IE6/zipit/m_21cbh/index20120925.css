@@ -1,0 +1,65 @@
+/* CSS Document */
+body,dl,dt,dd,div,form,fieldset,input,textarea,img,h1,h2,h3,h4,h5,h6,li,ol,ul,em,p,span,strong{margin:0;  padding:0;}
+body{ text-align:center; background:#f5edd0; color:#2b2b2b; font-size:14px;}
+ul,li{ list-style:none;}
+img{ border:none;}
+a,a:visited{ text-decoration:none; color:#3e3e3e;}
+a:hover{ text-decoration:underline;}
+.clear{ clear:both; overflow:hidden;zoom:1; display:block; height:15px; background:#fff;  }
+
+.blank9      {clear:both; height:9px; overflow:hidden; display:block; font-size:1px;}	
+
+.wrap        { background: url(http://img.21cbh.com/images/v2/layoutbg.gif) repeat-x 0 -648px; position:relative; line-height:1; min-width:1000px;}
+.header      { width:1000px; margin:0 auto; text-align:left; }
+
+/*.PicTitle    {width:300px;}
+.PicTitle li { font-size: 12px; float:left; width:56px; text-align:center; overflow:hidden; margin:0 12px 0 0;}
+.PicTitle img{   border:1px solid #ccc; padding:2px; background:#fff;}
+.PicTitle label{color:#888;  padding:3px 0 0 0; display:block; text-align:left;}
+.PicTitle input{margin-right:2px; vertical-align:middle; _margin-right:0; }
+*/
+.nav         { width:1000px;}
+.navmenu     { height:35px; overflow:hidden;}
+.navmenu li  { float:left;  cursor:pointer; background:#242223 url(layoutbg.gif) repeat-x 0 -435px; height:35px;}
+.navmenu span{ display:block; float:left; text-align:center; height:34px; overflow:hidden; line-height:34px; border-right:1px solid #525252; border-top:1px solid #525252; border-left:1px solid #2b2b2b; width:74px; }
+.navmenu a,.navmenu a:visited{color:#d6d6d6; font-size:14px; font-weight:bold; background:url(icon.gif) no-repeat -42px -1004px; height:35px; display:block;}
+
+.navmenu .one{ border-left:1px solid #525252; background:url(layoutbg.gif) no-repeat left -310px; }
+.navmenu .end{ background:url(layoutbg.gif) no-repeat right -377px; width:86px; }
+/* on 的时候，左右两边不要 ， 顶边不要。 */
+.navmenu .on { background:#ee7948 url(layoutbg.gif) repeat-x 0 -488px;}
+.navmenu .on span{border:0; background:none; height:35px; line-height:36px; width:76px; }
+.navmenu .on a,.navmenu .on a:visited{color:#fff; background-position:-41px -1048px; text-decoration:none;}
+.navmenu .other a,.navmenu .other a:visited{ background:none;padding:0px;}
+.navmenu .on .one{}
+.navmenu .on .end{ width:88px;}
+
+.navDiv      { position:relative;}
+.navpop      { border:7px solid #ee7948; position:absolute; width:599px; background:#fff; top:0px; z-index:999; display:none;}
+.navpop .PicTitle   { padding:12px 0 0 11px; width:219px; float:left; display:block; overflow:hidden;  margin-right:17px;}
+.navpop .PicTitle li{ width:219px; text-align:left;}
+.navpop img  { padding:0; margin-bottom:5px;}
+.navpop h6   { padding-top:3px; line-height:20px; clear:both;}
+.navpop .titles,.navpop .titles:visited,.navpop .titles:hover{ font-size:12px; color:#666666;}
+/* 菜单中“首页”的特殊样式 */
+.indexpop    { width:135px;}
+.indexpop ul { padding:12px 0 12px 10px;}
+.indexpop li { height:25px; padding-left:10px; line-height:18px; overflow:hidden; padding-left:12px;background:url(icon.gif) no-repeat 0 -1819px;}
+.indexpop li a,.indexpop li a:visited{ font-weight:bold;}
+/*-----------*/
+.menu_list   { float:left; width:320px; padding:12px 0 0 0; overflow:hidden; }
+.menu_body   { }
+.menu_head   { padding: 0 0 0 12px; cursor: pointer; position: relative; font-weight:bold; font-size:14px; background:url(icon.gif) no-repeat 0 -1819px; height:21px; line-height:18px; overflow:hidden;}
+/*向下箭头*/
+.down        { background:url(icon.gif) no-repeat 0 -1777px;}
+.menu_body   { margin:0 0 0 15px; padding:0 0 5px 0;  display:none;}
+.menu_body a,.menu_body a:visited{ display:block; padding-left:8px; background:url(icon.gif) no-repeat 0 -1875px; font-size:12px; line-height:20px;}
+.menu_list .on{ display:block;}
+.close       { background:url(icon.gif) no-repeat 0 -1232px; width:15px; height:15px; margin:6px 6px 0 0; float:right; overflow:hidden;}
+.close span  { padding-top:30px; display:block; cursor:pointer;}
+/* 确定位置 */
+#Ngc         { left:0;}
+#Nqs         { left:130px;}
+
+.normal      { display:none;}
+.on          { display:block;}

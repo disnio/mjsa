@@ -1,0 +1,25 @@
+/* simple reset */
+html,body,div,h2,img {margin:0;padding:0;border:none;}
+
+html {
+	font:1em Arial, Helvetica, sans-serif;
+	color:#444;
+}
+h1 {text-align:center;}
+.clear {overflow:auto;}
+#vertical, #horizontal {
+	margin:50px auto;
+	width:909px;
+}
+#vertical div, #horizontal div {
+	margin-right:3px;
+	float:left;
+	width:296px;
+	height:130px;
+	border:1px solid #999;
+	position:relative;
+	overflow:hidden;
+}
+#vertical img, #horizontal img {
+	position:absolute;
+}

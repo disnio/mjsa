@@ -1,0 +1,124 @@
+git_Api
+
+https://github.com/disnio/mjsa.git
+
+git@github.com:disnio/mjsa.git
+创建后生成：
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:disnio/mjsa.git
+git push -u origin master
+
+$ git help 命令名
+tag??
+push
+
+将自上次 push 以来的，本地历次 commit，推送到服务器
+结合我们的实际，应该这样写：
+$ git push origin master:your-id
+
+新建分支：
+$ git branch 新分支名
+
+删除分支：
+$ git branch -d 欲删除的分支名
+【注意！】不要把 ‘-d’ 写成了 ‘-D’，危险！
+    -d：要求：被删除分支的所有修改，已经合并到当前分支；
+    -D：直接删除，未合并的代码，将被丢弃！
+
+checkout
+恢复某个已修改的文件（撤销未提交的修改）：
+$ git checkout file-name
+
+切换到另外的分支，进行开发：
+$ git checkout branch-name
+
+还原最近一次提交的修改：
+$ git revert HEAD
+
+还原指定版本的修改：
+$ git revert commit-id
+
+stash
+先将未提交的修改暂存起来，接着清除所有改动，使之与没修改时一样。
+
+若你正在开发功能 A，又需立即去开发功能 B。A 的代码正改到一半，未认真整理，你不想立即提交。此时……请呼叫 stash ～。
+它会使你所有未提交的修改瞬间不见了：
+$ git stash
+
+它会使刚刚不见了的修改，瞬间又回来了：
+$ git stash pop
+
+merge
+合并指定分支到当前分支：
+$ git merge branch-name
+
+----------------------------------------------------
+本地创建项目文件目录添加文件，加入.gitignore文件，屏蔽不需要添加到git的目录和文件。
+.gitignore：
+/jslib/
+/build/
+.DS_Store
+gen_docs.disable
+test.disable
+regression/temp*.html
+performance/temp*.html
+.idea/workspace.xml
+*~
+*.swp
+angular.js.tmproj
+/node_modules/
+/components/
+/bower_components/
+angular.xcodeproj
+.idea
+.agignore
+libpeerconnection.log
+npm-debug.log
+/tmp/
+/scripts/bower/bower-*
+*.iml
+.idea/
+.ipr
+.iws
+*~
+~*
+*.diff
+*.patch
+*.bak
+.DS_Store
+Thumbs.db
+.svn/
+*.swp
+.nojekyll
+.project
+.settings/
+------------------------------------------
+使用gitgui 在项目目录建立同名的版本库，缓存改动，签名（Sign Off）。
+提交到本地主分支。
+
+WebStrom->file->setting->Version Control 添加。
+对应git和github已配置好。
+
+push 出现没有远程定义。
+使用gitgui->远端->上传，master分支，目标版本库 Arbitrary Location:下加入远程git路径，传输选项强制覆盖已有分支。
+remote: Repository not found.
+
+git远端未建立对应的仓库repository。
+登录git创建对应的仓库，再push上传。OK。
+------------------------------------------
+40字符的对象名是对对象内容作sha1计算得来。
+两个不同内容的对象不可能有相同的对象名。
+
+四种对象类型：
+blob 存储文件数据, 
+tree 像目录管理一些tree或blob, 
+commit 指向一个tree 标记项目在某一特定时间的状态。
+tag 标记某一个commit 的方法。
+
+与其他系统的不同：
+Subversion， cvs等死增量文件系统（Delta Storage systems），他们存储每次提交（commit）之间的差异。
+
+Git 是把每次提交的文件的全部内容（snapshot）都记录下来。

@@ -1,0 +1,32 @@
+{
+	"name": "livegraph",
+	"title": "LiveGraph for jQuery",
+	"description": "jQuery plugin for creating dynamic graphs that automatically scale and live update.",
+	"keywords": [
+		"graph",
+		"barchart",
+		"livegraph",
+		"animation"
+	],
+	"version": "1.0.0",
+	"author": {
+		"name": "Lampieg",
+		"email": "github@lampieg.co.uk"
+	},
+	"maintainers": [{
+		"name": "Lampieg",
+		"email": "github@lampieg.co.uk"
+	}],
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://raw.github.com/lampieg/livegraph/master/LICENSE.txt"
+		}
+	],
+	"dependencies": {
+		"jquery": ">=1.7"
+	},
+	"homepage": "https://github.com/lampieg/livegraph",
+	"docs": "https://github.com/lampieg/livegraph",
+	"bugs": "https://github.com/lampieg/livegraph/issues"
+}

@@ -1,0 +1,537 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<TITLE>jNathanson.com | the interwebs home of josh nathanson</TITLE>
+<SCRIPT src="./demo_files/jquery-1.3.1.min.js" type="text/javascript"></SCRIPT>
+<SCRIPT src="./demo_files/mainscripts.js" type="text/javascript"></SCRIPT>
+<LINK href="./demo_files/style.css" rel="stylesheet" type="text/css">
+</HEAD><BODY bgcolor="#cccccc">
+<DIV id="content">
+  <LINK rel="stylesheet" href="./demo_files/jquery.clockpick.1.2.7.css" type="text/css">
+
+<SCRIPT type="text/javascript" src="./demo_files/jquery.bgiframe.pack.js"></SCRIPT>
+<SCRIPT type="text/javascript" src="./demo_files/jquery.clockpick.1.2.7.js"></SCRIPT>
+
+<SCRIPT type="text/javascript">
+$(document).ready(function() {
+
+	function cback() {
+		this.after("<div id='cbox' />");
+		$("#cbox")
+		.text('Callback fired!')
+		.addClass('red')
+		.fadeIn(100)
+		.fadeOut(1500);
+	}
+			
+	$("select").not("#test").change(function() {
+		binder();
+	});
+	
+	function binder() {
+		var opts = {};
+		$("select").not("#test").each(function() {
+			if ($(this).attr("id") != 'event' && $(this).attr("id") != 'layout') {
+				opts[$(this).attr("id")] = eval($(this).val());
+			}
+			else {
+				opts[$(this).attr("id")] = $(this).val();
+			}
+		});	
+		//console.log(opts);
+		$("#clockpick1").unbind().unbind( "keydown" ).clockpick(opts);
+		
+		opts.valuefield = 'timefield1';
+		$("#clockpick2").unbind().clockpick(opts, cback);
+		
+		opts.valuefield = 'timefield2';
+		opts.useBgiframe = true;
+		$("#clockpick3").unbind().clockpick(opts, cback);
+	}
+	
+	binder();
+	
+});
+
+</SCRIPT>
+
+<H1>ClockPick</H1>
+<P>A jQuery timepicker plugin</P>
+<H3><A href="#demo">Demo</A> | <A href="#download">Download</A> | <A href="#config">Configuration</A> | <A href="#history">History</A> | <A href="#contact">Contact</A></H3>
+<A name="demo"></A>
+<DIV class="thickline"></DIV>
+<H2>Demo</H2>
+<TABLE width="760" border="0" cellpadding="3" cellspacing="1">
+	<TBODY><TR>
+		<TD valign="top"><TABLE border="0" cellspacing="1" cellpadding="0">
+        	<TBODY><TR>
+        		<TD class="big">Enter time:</TD>
+        		<TD><INPUT name="clockpick1" type="text" size="8" id="clockpick1"></TD>
+        		<TD>&nbsp;</TD>
+        		</TR>
+        	</TBODY></TABLE>
+		    Click on the field - "same field" example<BR>
+		    Code:<BR>
+		    $("#clockpick1").clockpick();<BR>
+		    <BR>
+		    <BR>
+		    <TABLE border="0" cellspacing="1" cellpadding="0">
+        	<TBODY><TR>
+        		<TD class="big">Enter time:</TD>
+        		<TD><INPUT name="timefield1" type="text" id="timefield1" size="8"></TD>
+        		<TD><IMG src="./demo_files/clock.gif" width="20" height="20" id="clockpick2"></TD>
+        		<TD>&nbsp;</TD>
+        		</TR>
+        	</TBODY></TABLE>		
+			<DIV id="cback"> </DIV>
+		    <P>Click on the clock -- "other field" example, with callback <BR>
+		    	Code:<BR>
+		    	$("#clockpick2").clockpick(<BR>
+		    	{ valuefield: 'timefield1' },<BR>
+	    	cback);	    	</P>
+		    <P class="big">USING BGIFRAME FOR IE6</P>
+		   <SELECT name="test" id="test">
+                	<OPTION value="hello">hello hello hello hello hello hello</OPTION>
+           	</SELECT><BR>
+ <TABLE border="0" cellspacing="1" cellpadding="0">
+            	<TBODY><TR>
+            		<TD class="big">Enter time:</TD>
+            		<TD><INPUT name="timefield2" type="text" id="timefield2" size="8"></TD>
+            		<TD><IMG src="./demo_files/clock.gif" width="20" height="20" id="clockpick3"></TD>
+            		<TD>&nbsp;</TD>
+           		</TR>
+           	</TBODY></TABLE>
+		    <BR>
+		    	<BR>
+		    	Code:<BR>
+$("#clockpick2").clockpick(<BR>
+{ valuefield: 'timefield2',<BR>
+useBgiframe: true 
+},<BR>
+	    		cback); <BR>
+			<P></P>
+		    <P><BR>
+	    	</P>
+		</TD>
+		<TD valign="top">
+			    <P>To try different configuration options, set the options below, then click again on field or clock.</P>
+			    <TABLE border="0" cellspacing="1" cellpadding="3">
+        		<TBODY><TR>
+        			<TD bgcolor="#CCCCCC">&nbsp;</TD>
+        			<TD bgcolor="#CCCCCC"><STRONG>Param</STRONG></TD>
+        			<TD bgcolor="#CCCCCC"><STRONG>Type</STRONG></TD>
+        			<TD bgcolor="#CCCCCC"><STRONG>Default</STRONG></TD>
+        			<TD bgcolor="#CCCCCC"><STRONG>Try it!</STRONG></TD>
+        			</TR>
+        		<TR>
+        			<TD rowspan="11" valign="top" bgcolor="#cccccc">Argument 1 "options" (object) </TD>
+        			<TD bgcolor="#eeeeee" class="red">starthour</TD>
+        			<TD bgcolor="#eeeeee">int</TD>
+        			<TD bgcolor="#eeeeee">8</TD>
+        			<TD bgcolor="#eeeeee"><SELECT name="starthour" id="starthour">
+        					
+        						<OPTION value="0">0</OPTION>
+        						
+        						<OPTION value="1">1</OPTION>
+        						
+        						<OPTION value="2">2</OPTION>
+        						
+        						<OPTION value="3">3</OPTION>
+        						
+        						<OPTION value="4">4</OPTION>
+        						
+        						<OPTION value="5">5</OPTION>
+        						
+        						<OPTION value="6">6</OPTION>
+        						
+        						<OPTION value="7">7</OPTION>
+        						
+        						<OPTION value="8" selected="">8</OPTION>
+        						
+        						<OPTION value="9">9</OPTION>
+        						
+        						<OPTION value="10">10</OPTION>
+        						
+        						<OPTION value="11">11</OPTION>
+        						
+        						<OPTION value="12">12</OPTION>
+        						
+        						<OPTION value="13">13</OPTION>
+        						
+        						<OPTION value="14">14</OPTION>
+        						
+        						<OPTION value="15">15</OPTION>
+        						
+        						<OPTION value="16">16</OPTION>
+        						
+        						<OPTION value="17">17</OPTION>
+        						
+        						<OPTION value="18">18</OPTION>
+        						
+        						<OPTION value="19">19</OPTION>
+        						
+        						<OPTION value="20">20</OPTION>
+        						
+        						<OPTION value="21">21</OPTION>
+        						
+        						<OPTION value="22">22</OPTION>
+        						
+        						<OPTION value="23">23</OPTION>
+        						
+        					</SELECT></TD>
+        			</TR>
+        		<TR>
+        			<TD class="red">endhour</TD>
+        			<TD>int</TD>
+        			<TD>18</TD>
+        			<TD><SELECT name="endhour" id="endhour">
+        					
+        						<OPTION value="0">0</OPTION>
+        						
+        						<OPTION value="1">1</OPTION>
+        						
+        						<OPTION value="2">2</OPTION>
+        						
+        						<OPTION value="3">3</OPTION>
+        						
+        						<OPTION value="4">4</OPTION>
+        						
+        						<OPTION value="5">5</OPTION>
+        						
+        						<OPTION value="6">6</OPTION>
+        						
+        						<OPTION value="7">7</OPTION>
+        						
+        						<OPTION value="8">8</OPTION>
+        						
+        						<OPTION value="9">9</OPTION>
+        						
+        						<OPTION value="10">10</OPTION>
+        						
+        						<OPTION value="11">11</OPTION>
+        						
+        						<OPTION value="12">12</OPTION>
+        						
+        						<OPTION value="13">13</OPTION>
+        						
+        						<OPTION value="14">14</OPTION>
+        						
+        						<OPTION value="15">15</OPTION>
+        						
+        						<OPTION value="16">16</OPTION>
+        						
+        						<OPTION value="17">17</OPTION>
+        						
+        						<OPTION value="18" selected="">18</OPTION>
+        						
+        						<OPTION value="19">19</OPTION>
+        						
+        						<OPTION value="20">20</OPTION>
+        						
+        						<OPTION value="21">21</OPTION>
+        						
+        						<OPTION value="22">22</OPTION>
+        						
+        						<OPTION value="23">23</OPTION>
+        						
+        					</SELECT></TD>
+        			</TR>
+        		<TR>
+        			<TD bgcolor="#eeeeee" class="red">showminutes</TD>
+        			<TD bgcolor="#eeeeee">boolean</TD>
+        			<TD bgcolor="#eeeeee">True</TD>
+        			<TD bgcolor="#eeeeee"><SELECT name="showminutes" id="showminutes">
+                    	<OPTION value="true" selected="">True</OPTION>
+                    	<OPTION value="false">False</OPTION>
+                    	                    </SELECT></TD>
+        			</TR>
+        		<TR>
+        			<TD bgcolor="#FFFFFF" class="red">minutedivisions</TD>
+        			<TD bgcolor="#FFFFFF">int</TD>
+        			<TD bgcolor="#FFFFFF">4</TD>
+        			<TD bgcolor="#FFFFFF"><SELECT name="minutedivisions" id="minutedivisions">
+                    	<OPTION value="2">2</OPTION>
+                    	<OPTION value="3">3</OPTION>
+                    	<OPTION value="4" selected="">4</OPTION>
+                    	<OPTION value="6">6</OPTION>
+                    	<OPTION value="7">7</OPTION>
+                    	<OPTION value="12">12</OPTION>
+                    	</SELECT></TD>
+        		</TR>
+        		<TR>
+        			<TD bgcolor="#eeeeee" class="red">military</TD>
+        			<TD bgcolor="#eeeeee">boolean</TD>
+        			<TD bgcolor="#eeeeee">False</TD>
+        			<TD bgcolor="#eeeeee"><SELECT name="military" id="military">
+        					<OPTION value="true">True</OPTION>
+        					<OPTION value="false" selected="">False</OPTION>
+        					</SELECT></TD>
+        			</TR>
+        		<TR>
+        			<TD bgcolor="#FFFFFF" class="red">event</TD>
+        			<TD bgcolor="#FFFFFF">string</TD>
+        			<TD bgcolor="#FFFFFF">'Click'</TD>
+        			<TD bgcolor="#FFFFFF"><SELECT name="event" id="event">
+        					<OPTION value="focus">Focus</OPTION>
+        					<OPTION value="click" selected="">Click</OPTION>
+        					<OPTION value="mouseover">Mouseover</OPTION>
+        					</SELECT></TD>
+        			</TR>
+        		<TR bgcolor="#eeeeee">
+        			<TD class="red">layout</TD>
+        			<TD>string</TD>
+        			<TD>'vertical'</TD>
+        			<TD><SELECT name="layout" id="layout">
+        				<OPTION value="vertical" selected="">Vertical</OPTION>
+        				<OPTION value="horizontal">Horizontal</OPTION>
+        				</SELECT></TD>
+        			</TR>
+        		<TR bgcolor="#eeeeee">
+        			<TD bgcolor="#ffffff" class="red">valuefield</TD>
+        			<TD bgcolor="#ffffff">string</TD>
+        			<TD bgcolor="#ffffff">Null</TD>
+        			<TD bgcolor="#ffffff">--</TD>
+        			</TR>
+        		<TR bgcolor="#eeeeee">
+        			<TD bgcolor="#eeeeee" class="red">useBgiframe<BR>
+        				(must include bgIframe plugin) </TD>
+        			<TD bgcolor="#eeeeee">boolean</TD>
+        			<TD bgcolor="#eeeeee">False</TD>
+        			<TD bgcolor="#eeeeee">--</TD>
+        			</TR>
+        		<TR bgcolor="#eeeeee">
+        			<TD bgcolor="#FFFFFF" class="red">hoursopacity</TD>
+        			<TD bgcolor="#FFFFFF">float</TD>
+        			<TD bgcolor="#FFFFFF">1</TD>
+        			<TD bgcolor="#FFFFFF"><SELECT name="hoursopacity" id="hoursopacity">
+        					
+        						<OPTION value="0">0</OPTION>
+        						
+        						<OPTION value="0.1">0.1</OPTION>
+        						
+        						<OPTION value="0.2">0.2</OPTION>
+        						
+        						<OPTION value="0.3">0.3</OPTION>
+        						
+        						<OPTION value="0.4">0.4</OPTION>
+        						
+        						<OPTION value="0.5">0.5</OPTION>
+        						
+        						<OPTION value="0.6">0.6</OPTION>
+        						
+        						<OPTION value="0.7">0.7</OPTION>
+        						
+        						<OPTION value="0.8">0.8</OPTION>
+        						
+        						<OPTION value="0.9">0.9</OPTION>
+        						
+        						<OPTION value="1" selected="">1</OPTION>
+        						
+       					</SELECT></TD>
+        			</TR>
+        		<TR bgcolor="#eeeeee">
+        			<TD bgcolor="#eeeeee" class="red">minutesopacity</TD>
+        			<TD bgcolor="#eeeeee">float</TD>
+        			<TD bgcolor="#eeeeee">1</TD>
+        			<TD bgcolor="#eeeeee">
+						<SELECT name="minutesopacity" id="minutesopacity">
+						
+							<OPTION value="0">0</OPTION>
+							
+							<OPTION value="0.1">0.1</OPTION>
+							
+							<OPTION value="0.2">0.2</OPTION>
+							
+							<OPTION value="0.3">0.3</OPTION>
+							
+							<OPTION value="0.4">0.4</OPTION>
+							
+							<OPTION value="0.5">0.5</OPTION>
+							
+							<OPTION value="0.6">0.6</OPTION>
+							
+							<OPTION value="0.7">0.7</OPTION>
+							
+							<OPTION value="0.8">0.8</OPTION>
+							
+							<OPTION value="0.9">0.9</OPTION>
+							
+							<OPTION value="1" selected="">1</OPTION>
+							
+						</SELECT>
+					</TD>
+        		</TR>
+        		<TR bgcolor="#eeeeee">
+        			<TD bgcolor="#cccccc">Argument 2<BR>
+        				"callback" (function) </TD>
+        			<TD bgcolor="#ffffff"><BR>        				</TD>
+        			<TD bgcolor="#ffffff">function<BR>
+        				(gets passed back time value as string) </TD>
+        			<TD bgcolor="#ffffff">Null</TD>
+        			<TD bgcolor="#ffffff">--</TD>
+        			</TR>
+        		</TBODY></TABLE>
+		    <BR>
+		    <BR>
+	    </TD>
+	</TR>
+</TBODY></TABLE>
+<A name="download"></A>
+<DIV class="thinline"></DIV>
+<H2>Download</H2>
+<P><A href="./demo_files/jquery.clockpick.1.2.7.js">Download jquery.clockpick.1.2.7.js</A> (18K) <BR>
+	<A href="http://www.jnathanson.com/pages/jquery/clockpick/1.2.7/jquery.clockpick.1.2.7.pack.js">Download jquery.clockpick.1.2.7.pack.js</A> (10K) <BR>
+	<A href="http://www.jnathanson.com/pages/jquery/clockpick/1.2.7/jquery.clockpick.1.2.7.min.js">Download jquery.clockpick.1.2.7.min.js</A> (12K) <BR>
+	<A href="./demo_files/jquery.clockpick.1.2.7.css">Download clockpick.1.2.7.css</A> (1K)<BR>
+	<A href="http://www.jnathanson.com/pages/jquery/clockpick/1.2.7/jquery.clockpick.1.2.7.zip">Download jquery.clockpick.1.2.7.zip (Zip archive of above four files)</A> (8K)
+</P>
+<P>Also you will of course need the jQuery library, if you don't already have it:<BR>
+<A href="http://jquery.com/">http://jquery.com</A></P>
+<P>If you are using ClockPick near a select menu, you will want to<BR>
+	use the bgIframe plugin to combat the IE6 select menu show-through issue<BR>
+	<A href="http://jquery.com/plugins/files/bgiframe-2.1.zip">Download bgIframe plugin (zip archive)<BR>
+</A></P>
+<A name="config"></A>
+<DIV class="thinline"></DIV>
+<H2>Configuration</H2>
+<TABLE width="640" border="0" cellpadding="6" cellspacing="1">
+	<TBODY><TR bgcolor="#f2f2f2">
+		<TD align="right" valign="top"><H3>Basic</H3></TD>
+		<TD><P>After including the jQuery script in your html &lt;head&gt; block, include the jquery.clockpick.js file like so:<BR>
+			&lt;script src="path/to/jquery.clockpick.js"&gt;&lt;/script&gt;<BR>
+			<BR>
+			Include the clockpick css file:<BR>
+			&lt;link rel="stylesheet" href="path/to/clockpick.css" type="text/css"&gt;</P>
+			<P>Then in your $(document).ready block, simply add the following bit of code:</P>
+			<P><STRONG>$("#clockpick").clockpick();</STRONG></P>
+		    <P>This assumes you are binding the plugin to an element with the id "clockpick". You can certainly bind the plugin to any element that makes sense for your use. </P></TD>
+	</TR>
+	<TR bgcolor="#dddddd">
+		<TD align="right" valign="top" bgcolor="#dddddd"><H3>Adding parameters</H3></TD>
+		<TD><P>ClockPick takes two optional parameters:<BR>
+				<STRONG>options</STRONG> (hash) - an object containing settings keys and their values<BR>
+			    <STRONG>callback</STRONG> (function) - a callback function to run after ClockPick is run</P>
+			<P>Example:</P>
+			<P><STRONG>$("#clockpick").clockpick({<BR>
+				starthour : 6,<BR>
+				endhour : 15,<BR>
+				showminutes : false<BR>
+				}, mycallback<BR>
+				);
+				</STRONG><BR>
+			</P></TD>
+	</TR>
+	<TR bgcolor="#f2f2f2">
+		<TD align="right" valign="top"><H3>Click target different <BR>
+		than value field </H3></TD>
+		<TD><P>If you want to have the action on a different element than the time field, you would configure as below (like the "click on clock" demo).</P>
+			<P>Assuming the field you wish to have filled with the time, has the name 'myfieldname':</P>
+			<P><STRONG>$(".clockpick").clockpick({<BR>
+			valuefield : 'myfieldname' <BR>
+			});
+			</STRONG><BR>
+		</P></TD>
+	</TR>
+	<TR bgcolor="#dddddd">
+		<TD align="right" valign="top"><H3>Using bgIframe plugin </H3></TD>
+		<TD><P>To account for the notorious IE6 select menu show-through issue, a popular jQuery plugin called <A href="http://jquery.com/plugins/files/bgiframe-2.1.zip">bgIframe</A> is frequently used. ClockPick offers support for this plugin by setting a configuration variable useBgiframe = true. By doing this, ClockPick calls the bgiFrame plugin at the right time so its divs are shown above any select menus that might be nearby.</P>
+			<P>First you will need to include the <A href="http://jquery.com/plugins/files/bgiframe-2.1.zip">bgIframe plugin</A>, somewhere afer your include of the jQuery library: <BR>
+				<STRONG>&lt;script src="/path/to/bgiframeplugin.js" type="text/javascript"&gt;&lt;/script&gt; </STRONG></P>
+			<P>Then set the configuration variable when you call ClockPick:<STRONG><BR>
+	$(".clockpick").clockpick({<BR>
+	useBgiframe : true <BR>
+	}); </STRONG> </P></TD>
+	</TR>
+</TBODY></TABLE>
+<BR>
+<BR>
+<A name="history"></A>
+<DIV class="thinline"></DIV>
+<H2>History</H2>
+<P class="big">Version 1.2.7, released June 28, 2009</P>
+<P>- fixed bug: "console.log" removed from code </P>
+<P class="big">&nbsp;</P>
+<P class="big">Version 1.2.6, released June 6, 2009</P>
+<P>- fixed bug: when using external click target (clock image), text input was not manually editable. </P>
+<P class="big">&nbsp;</P>
+<P class="big">Version 1.2.5, released February 14, 2009</P>
+<P>- Removed Safari hacks; newer versions of Safari (3.1+) are behaving more like FF and IE<BR>
+	- removed [@name] reference, changed to [name]; @attr selectors obsolete in jQuery 1.3+ </P>
+<P>&nbsp;</P>
+<P class="big">Version 1.2.4, released July 15, 2008</P>
+<P>- Fixed "event: focus" bug with div placement<BR>
+	- changed css styling </P>
+<P class="big">&nbsp;</P>
+<P class="big">Version 1.2.3, released April 19, 2008</P>
+<P>- Fixed small bug by adding display:none to containers in style sheet<BR>
+- New styling<BR>
+- Added support for variable opacity</P>
+<P>&nbsp; </P>
+<P class="big">Version 1.2.2, released February 20, 2008</P>
+<P>Fixed bug where plugin would fail on IE6 if Doctype was not declared.</P>
+<P>&nbsp;</P>
+<P class="big">Version 1.2.1, released November 20, 2007</P>
+<P>Fixed small issue with div placed incorrectly when control near bottom of viewport and scrolltop &gt; 0.</P>
+<P>&nbsp; </P>
+<P><SPAN class="big">Version 1.2, released November 19, 2007</SPAN></P>
+<P>Added native support for the bgIframe plugin.</P>
+<P>&nbsp; </P>
+<P class="big">Version 1.1, released September 25, 2007</P>
+<TABLE width="400" border="0" cellpadding="1" cellspacing="1">
+	<TBODY><TR valign="top">
+		<TD>+</TD>
+		<TD>Added keyboard support. </TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR valign="top">
+		<TD>+</TD>
+		<TD>Safari for Mac issues seem to be fixed. Please let me know if you experience any problems using Safari. </TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR valign="top">
+		<TD>+</TD>
+		<TD>Fixed odd Firefox error referenced in Version 1.0. This is a known FF bug that has been around for a long time when using event.relatedTarget and the mouseout relatedTarget is an input field. Used a try/catch block as a workaround. More info: <A href="https://bugzilla.mozilla.org/show_bug.cgi?id=208427" target="_blank">https://bugzilla.mozilla.org/show_bug.cgi?id=208427</A></TD>
+		<TD>&nbsp;</TD>
+	</TR>
+</TBODY></TABLE>
+<P class="big">&nbsp; </P>
+<P class="big"><STRONG>Version 1.0, released July 12 2007.
+</STRONG></P>
+<P>Known issues:</P>
+<TABLE width="400" border="0" cellpadding="1" cellspacing="1">
+	<TBODY><TR valign="top">
+		<TD>+</TD>
+		<TD>Div rectifier not tested on field near right/left edge of viewport.</TD>
+	    <TD>&nbsp;</TD>
+	</TR>
+	<TR valign="top">
+		<TD>+</TD>
+		<TD>Safari for Mac: time div appears well below input field in "same field" example. Working on a workaround, as clientY does not appear to return the proper result in Safari when clicking on an input field. </TD>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR valign="top">
+		<TD>+</TD>
+		<TD>Odd Firefox Error: "uncaught exception: Permission denied to <BR>
+			get property HTMLDivElement.nodeName" on mouseout from <BR>
+			minutes div onto input field </TD>
+	    <TD>&nbsp;</TD>
+	</TR>
+</TBODY></TABLE>
+<P>&nbsp;	</P>
+<A name="contact"></A>
+<DIV class="thinline"></DIV>
+<H2>Contact</H2>
+Questions, comments, suggestions: hit me up: joshnathanson at gmail dot com <BR>
+
+<P>&nbsp; </P>
+<P>&nbsp; </P>
+<P>&nbsp; </P>
+
+</DIV>
+
+<DIV class="footer">
+</DIV>
+
+
+
+</BODY></HTML>

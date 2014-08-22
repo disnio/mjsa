@@ -1,0 +1,14 @@
+*.swp
+spec/*.js
+spec/**/*.js
+/docs/
+/node_modules/
+/lib/
+/dist/modules
+/dist/plugins
+/dist/*.coffee
+/dist/*.full.*
+/dist/*.min.*
+*~
+npm-debug.log
+.directory

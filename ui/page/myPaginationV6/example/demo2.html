@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>demo2</title>
+<link href="../resources/css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../resources/js/msgbox/msgbox.css" />
+<link rel="stylesheet" type="text/css" href="../resources/js/myPagination/page.css" />
+<script src="../resources/js/jquery.js" type="text/javascript">
+    </script>
+<script src="../resources/js/myPagination/jquery.myPagination6.0.js" type="text/javascript">
+    </script>
+<script language="javascript" type="text/javascript" src="../resources/js/msgbox/msgbox.js"></script>
+<style>
+h2 {color: #AAD83E;}
+pre{ margin:5px; padding:5px; ;background-color:#313131; color:#FFF;}
+</style>
+<script>
+      $(function() {
+
+        $("#demo4").myPagination({
+          cssStyle: 'starcraft2',
+          panel: {
+            first: '<<',
+            last: '>>',
+            next: '>',
+            prev: '<',
+            links: "javascript:void(0);",
+            last_on: false
+          }
+        });
+
+        $("#demo5").myPagination({
+          panel: {
+            tipInfo_on: true,
+            tipInfo: '&nbsp;&nbsp;跳{input}/{sumPage}页',
+            tipInfo_css: {
+              width: '25px',
+              height: "20px",
+              border: "2px solid #f0f0f0",
+              padding: "0 0 0 5px",
+              margin: "0 5px 0 5px",
+              color: "#48b9ef"
+            }
+          }
+        });
+
+        $("#demo6").myPagination({
+          cssStyle: 'jogger',
+          ajax: {
+            on: false,
+            onClick: function(page) {
+              ZENG.msgbox.show(" 正在加载" + page + "页，请稍后...", 6, 1000);
+            }
+          }
+        });
+		
+		$("#demo7").myPagination({
+		  cssStyle:'green-black',
+          panel: {
+            tipInfo_on: true,
+            tipInfo: '&nbsp;&nbsp;跳{select}/{sumPage}页'
+          }
+        });
+
+      });
+    </script>
+</head>
+<body>
+<h2> Demo4(配置页码栏,最后一页不显示) </h2>
+<p>
+<pre>
+$("#demo4").myPagination({
+          cssStyle: 'starcraft2',
+          panel: {
+            first: '<<',
+            last: '>>',
+            next: '>',
+            prev: '<',
+            links: "javascript:void(0);",
+            last_on: false
+          }
+        });
+</pre>
+</p>
+<div id="demo4">
+</div>
+<h2>  Demo5(配置文本框样式)</h2>
+<pre>
+$("#demo5").myPagination({
+          panel: {
+            tipInfo_on: true,
+            tipInfo: '&nbsp;&nbsp;跳{input}/{sumPage}页',
+            tipInfo_css: {
+              width: '25px',
+              height: "20px",
+              border: "2px solid #f0f0f0",
+              padding: "0 0 0 5px",
+              margin: "0 5px 0 5px",
+              color: "#48b9ef"
+            }
+          }
+        });
+</pre>
+<div id="demo5">
+</div>
+<h2>  Demo6(配置onClick提示信息)</h2>
+<pre>
+ $("#demo6").myPagination({
+          cssStyle: 'jogger',
+          ajax: {
+            on: false,
+            onClick: function(page) {
+              ZENG.msgbox.show(" 正在加载" + page + "页，请稍后...", 6, 1000);
+            }
+          }
+        });
+
+</pre>
+<div id="demo6"></div>
+<h2>Demo7(换Select选择框)</h2>
+<pre>
+$("#demo7").myPagination({
+	  cssStyle:'green-black',
+          panel: {
+            tipInfo_on: true,
+            tipInfo: '&nbsp;&nbsp;跳{select}/{sumPage}页'
+          }
+        });
+</pre>
+<div id="demo7"></div>
+</body>
+</html>

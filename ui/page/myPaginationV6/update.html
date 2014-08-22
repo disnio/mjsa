@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/baseTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>myPagination Jquery Pagination Plug-in</title>
+<!-- InstanceEndEditable -->
+<link rel="stylesheet" href="resources/css/stylesheet.css" type="text/css" media="screen" />
+<link href="resources/js/share/images/main.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="resources/js/jquery.js"></script>
+<script type="text/javascript" src="resources/js/share/js/redstorm.js"></script>
+
+<!-- InstanceBeginEditable name="head" -->
+<link rel="stylesheet" href="resources/css/stylesheet.css" type="text/css" media="screen" />
+<!-- InstanceEndEditable -->
+</head>
+
+<body>
+<div id="wrapper">
+  <!-- Begin wrapper -->
+  <div id="header">
+    <!-- Begin header -->
+    <h1><a href="#" title="Back to home">myPagination</a></h1>
+    <p>new version 6.0</p>
+  </div>
+  <hr />
+  <div id="outer-space">
+    <!-- InstanceBeginEditable name="EditRegion3" -->
+    <!-- Begin outer-space -->
+    <div id="hfeed">
+      <p id="page-info"><span>更新</span></p>
+      <div class="hentry">
+        <div class="entry-meta"> <abbr>2011 - 2013</abbr>
+          <h2 class="entry-title"><a href="#">更新记录</a></h2>
+          <p><em>By</em> <span class="author vcard">LinApex</span></p>
+        </div>
+        <div class="entry-content">
+          <p>&nbsp; </p>
+          <h4>&mdash; V6.0更新记录<a id="v6" name="v6"></a> </h4>
+          </p>
+          <p class="fontContent">
+            1.添加 Templater模板功能;<br />
+            2.添加 Select选项框跳转;<br />
+            3.添加 输入框 输入限制.只能输入数字;<br />
+            4.添加 本地Ajax测试功能;<br />
+            5.添加 ajax 对象 ajaxStop 方法，ajax 返回时调用;<br />
+            6.修复 代码优化.<br />
+          </p>
+          <h4>&mdash; V5.0更新记录<a id="v5" name="v5"></a> </h4>
+          </p>
+          <p class="fontContent">
+            1.添加 onReload() 方法，用于重新请求当前页;<br />
+            2.添加 onLoad(param) 方法，用于传参请求当前页;<br />
+            3.添加 jumpPage(page) 方法，用于跳转指定页面;<br />
+            4.添加 onClick(page) 方法，用于触发当前点击事件;<br />
+            5.添加 myPagination debug 版本;<br />
+            6.添加 多条件动态分页实例;<br />
+            7.添加 插件授权功能;<br />
+            8.添加 是否开启打印日志开关，默认关闭;<br />
+            9.修复 json数据格式解析问题;<br />
+          </p>
+          <h4>&mdash; V4.0更新记录<a id="v4" name="v4"></a> </h4>
+          </p>
+          <p class="fontContent">
+            1.完善分页功能（感谢懒洋洋朋友提供Bug）;<br />
+            2.去除 hiddentId 参数，增加自定义 pageContId ;<br />
+            3.增加 cookie 记录当前页数功能 ;<br />
+            4.增加 配置页码栏 {currText}功能 ;<br />
+          </p>
+          <h4>&mdash; V3.0更新记录<a id="v3" name="v3"></a> </h4>
+          </p>
+          <p class="fontContent">
+            1.ajax 对象中添加 ajaxStart 方法，ajax 请求时调用.<br />
+          </p>
+        </div>
+      </div>
+      <div class="separator"></div>
+      <div id="page-navigation">
+        <p class="previous"><a href="javascript:void(0)" class="16sucai">分享</a></p>
+        <p class="next"><a href="https://me.alipay.com/linapex" target="_blank">我愿意支持开源事业</a></p>
+      </div>
+    </div>
+    <!-- InstanceEndEditable -->
+    <hr />
+    <div id="left-sidebar">
+      <div class="widget">
+        <h3>首页</h3>
+        <ul>
+          <li><a href="index.html#f1">快速入门</a></li>
+          <li><a href="index.html#f2">使用进阶</a></li>
+          <li><a href="index.html#f3">Ajax实例</a></li>
+          <li><a href="index.html#f4">参考案例</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3>文档</h3>
+        <ul>
+          <li><a href="api.html#p1">配置参数</a></li>
+          <li><a href="api.html#p2">扩展方法</a></li>
+          <li><a href="api.html#p3">组合插件</a></li>
+          <li><a href="api.html#p4">应用到项目</a></li>
+          <li><a href="api.html#p5">24套样式</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3><a href="download.html">下载</a></h3>
+      </div>
+      <div class="widget">
+        <h3>更新</h3>
+        <ul>
+          <li><a href="update.html#v6">V6.0更新记录</a></li>
+          <li><a href="update.html#v5">V5.0更新记录</a></li>
+          <li><a href="update.html#v4">V4.0更新记录</a></li>
+          <li><a href="update.html#v3">V3.0更新记录</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3>授权</h3>
+        <ul>
+          <li><a href="license.html#lgpl">开源协议</a></li>
+          <li><a href="license.html#sy">商业授权</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!-- End outer-space -->
+  <hr />
+  <div class="clear"></div>
+  <hr />
+ 
+  <div id="footer">
+    <p>一个基于Jquery开发的分页插件，简单，易用 ，高效。</p>
+  </div>
+
+</div>
+<!-- End wrapper -->
+
+</body>
+<!-- InstanceEnd --></html>

@@ -1,0 +1,418 @@
+velocity 笔记：
+
+主目录配置，纯脚本，aspx的配置复制到shtml里面。不要验证文件是否存在。
+appconfig里面domainName ,不带 http, 直接写域名或localhost:端口。
+domainNameMapPath绝对路径最后不带/
+
+sqlserver2008 数据到2005，生成脚本，不使用数据库.
+编写数据的脚本 true, 架构限定对象名称：默认true. 为服务器版本编写脚本 2005.
+在2005中建库，然后打开，执行脚本。
+web.config把本机里面shtm64注释掉。
+
+
+组件缺？：
+url:'/FAjax/File/UserIconUpload.dhtml'
+
+进行自定义图片时，非cms模型定义。？？
+--------------------------------------------------------------------
+$velocityCount
+bug：
+大图转换为m开头文件尺寸不定。
+--------------------------------------------------------------------
+二次解析：
+宏模板解析需要二次刷新，转换为标签页不可以，只要包括宏就需要二次解析。除非直接包含在调用的模板里面。
+也就是，标签包含宏也存在二次解析的问题。
+
+折中方案，不写宏，写成标签，传入的参数做好约定，标签可以多次调用，在同页内也可以即使同名变量，但有先后顺序。
+存在同名输入变量是没办法的。
+通过二次传递也不能解决 agent.vm
+但加载的宏模板页面内，赋值的独立变量会直接解析，可以调用。
+包括做为Ajax，也是要二次解析才能成功返回。
+服务器重启发生。
+
+加载的时候是每次访问一个页面，发现这个页面有宏的时候，就把这个页面所有的宏load到服务器中，不是一开始就加载所有的宏，然后下次再访问其它页面的时候，发现如果存在同样名称和参数的宏，那么它不会再加载这个宏到服务器中，所以下次其它页面用到的宏都是第一次加载进来的名称相同的那个宏，后面名称相同的都不会再加载进来。
+
+所以velocity中不能存在名称相同内容不能的多个宏，否则由于访问页面顺序的不同，加载的宏顺序也不同，而服务器只加载第一次用到的那个宏，这种就会出现不可预知的问题。
+
+结论：
+可以使用宏，但在重启服务器后要对调用宏的页面进行一次访问，那边其他调用同样模板宏的页面就可以访问了。
+也就是手动启动宏的加载。当然宏模板就不能多了，1到2个。
+
+#stop
+停止模板解析
+#break
+退出循环
+#evaluate - Dynamically evaluates a string or reference
+#define - Assigns a block of VTL to a reference
+
+//操作状态
+$Page.State "running":正常运行; "success":注册成功; "error":运行错误(注:运行错误信息: $Page.ErrorMsg);
+//-->
+--------------------------------------------------------------------
+------------------------------json--------------------------------------
+数组拼接
+[#foreach( $info in $iList.DataList)["$info.ObjectID","$info.ObjectTitle",##
+#if($!info.mPicpath!='')## 空值判断
+"$Utils.HtmlEncode($info.mPicpath)"##
+#else
+""##
+#end],##每个末尾加双注释，消除空及换行符
+#end[]]##
+--------------------------------------------------------------------
+json简单拼接
+## {"news":[#foreach( $info in $iList.DataList)##
+## {"id":"$info.ObjectID","title":"$info.ObjectTitle","pic":##
+## #if($!info.mPicpath!='')## 空值判断
+## "$Utils.HtmlEncode($info.mPicpath)"##
+## #else
+## ""##
+## #end},##
+## #end{}]##
+## }##
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+复杂拼接
+#set($cback =  $OydRequest.GetQueryString("callback"))##
+## $arrList 里面是最终要提取的字段
+#set($arrList = ["ObjectID","ObjectTitle", "ObjectDescripiton" ,"mPicpath"])##
+## 提取多少字段
+#set($arrLength = $arrList.Count)##
+##  $col 里面可以把所有字段都列出
+#set($col = "ObjectID,NodeID ,ObjectTitle ,ObjectSummary , ObjectDescripiton ,CreateUserID ,CreateUserName ,CreateNickName ,CreateTime ,mPicpath")##
+## 必须明确fields 的值，即要取的字段列表，不然有些字段会没内容。
+#set($iList = $Content.GetDataSet('productShow',"%{fields='$col',orderBy='ObjectID desc', recordCount=3}" ))##
+## $escList 这里列出了需要转义的字段
+#set($escList = ["ObjectDescripiton","mPicpath"])##
+
+## $iList 为数据集
+## $arrList 为要获取的参数数组 ["ObjectID", "ObjectTitle"] 等组合
+## $tranList 为需要转码的字段列表 ["mPicpath"] 不包含在上面的列表里 $tranList#set($tranList = ["mPicpath"])
+## 注意操作的是Node表，不是content
+#set($dlist = $iList.DataList)##
+{"news":[#foreach( $info in $iList.DataList)##
+    {#foreach($arr in $arrList)
+        #if($escList.contains($arr))
+            #if($velocityCount==$arrLength)
+            "$arr":"$Utils.HtmlEncode($info.Get($arr))"##
+            #else
+            "$arr":"$Utils.HtmlEncode($info.Get($arr))",##
+            #end##
+        #else
+            #if($velocityCount==$arrLength)
+            "$arr":"$info.Get($arr)"##
+            #else
+            "$arr":"$info.Get($arr)",##
+            #end##
+        #end##
+    #end},##
+#end{}]##
+}##
+最后消除缩进。
+{"news":[{"ObjectID":"9535","ObjectTitle":"正常标题","ObjectDescripiton":"正常标题内容&lt;br /&gt;","mPicpath":""},{"ObjectID":"9534","ObjectTitle":"新标题","ObjectDescripiton":"&lt;img src=&quot;/skins/pic/feng_8.png&quot;  /&gt;","mPicpath":"&lt;img src=&quot;/skins/pic/feng_8.png&quot;  /&gt;"},{"ObjectID":"9533","ObjectTitle":"展示标题--3999","ObjectDescripiton":"&lt;img src=&quot;/skins/pic/feng_7.png&quot;  /&gt;","mPicpath":"&lt;img src=&quot;/skins/pic/feng_7.png&quot;  /&gt;"},{}]}
+-----------------------------复杂页面--------------------------------
+vtl 与 js的揉合
+json生成：
+var userCheckedList =[
+#foreach($item in $Page.List.Rows)
+{"id":"$item.OydA01_ID","b3411":"$item.B3411.TrimEnd()","checked":false},
+#end
+{}];
+##最后的这个{}保持格式的完整性，后面可以pop出。获得json变量。
+1：
+定义一个 $JQ="$."
+以后可以用 ${JQ}ajax()....... 
+定义一个velocity变量：#set($jquery="$.") 
+然后：${jquery}fullCalendar.gcalFeed('http://www.google.com/public/basic')，利用veloctiry模板引擎的替换原则，html代码第一次编译成
+$.fullCalendar.gcalFeed('http://www.google.com/public/basic')，
+被替换之后二次编译，代码没有任何问题。
+
+2：
+行首不能缩进，否则还是有空格；（这是去除字符串前面的空格和换行）
+http://wiki.apache.org/velocity/VelocityWhitespaceTruncatedByLineComment
+
+3：
+宏
+#macro(myMacro)
+this is the first line of my Macro
+this is the second line of my Macro
+#end
+#myMacro()
+
+#set($iList = $Content.GetDataSet('productShow',"%{fields='ObjectID,ObjectTitle,mPicpath',orderBy='ObjectID desc', recordCount=3}" ))  
+-------------------
+#macro( trss $color $somelists )
+    #foreach( $something in $somelists )
+        <tr><td bgcolor=$color>$something.ObjectID</td></tr>
+    #end
+#end 
+
+#set( $color = "#ffaa00" )
+## 这里必须再次赋值，宏参数里面不容许做对象提取 $iList.DataList。
+#set( $sl = $iList.DataList)
+<table>
+#trss( $color $sl )
+</table> 
+-------------------
+#macro( callme $a )
+$a
+$a
+$a
+#end
+#callme( $foo.bar() ) 
+
+#set( $myval = $foo.bar() )
+#callme( $myval ) 
+
+jq.ajax({
+    type: "GET", 
+    //url: "http://127.0.0.3:8080/when.php",
+    url : "http://192.168.0.111:8060/taa.shtml",
+    dataType: "html",
+    //jsonp: "callback", //传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)  
+    //jsonpCallback: "flightHandler" //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据  
+
+}).done(function(data){
+    console.log("success");
+    
+    //var obj = jq.parseJSON(data);
+    // var obj = JSON.parse(jq.trim(data), function(k,v){
+    //     return v;// 这里必须先trim下，然后返回。不能直接parse。
+    // });  
+    var obj = jq.parseJSON(jq.trim(data));
+    var lang='';
+    obj.pop();// 清除数组最后的空数组，必须。
+    jq.each(obj, function () { 
+        console.log(this[0]);               
+        lang += this[0] +  _.unescape(this[2])+"<br/>" ;
+    });
+    jq('#ibox').html(lang);
+
+}).fail(function(data){
+    console.log("fail");
+});
+-------------------------------------------------------------------
+-----------------------------文件上传-------------------------------
+文件处理：
+#set($ufile = $OydRequest.GetFormString("ifile"))
+$OydRequest.SaveRequestFile('d:\wwwOyd\WebNuke3\UploadFiles\temp')  
+
+$Utils.ResponseFile('d:\wwwOyd\WebNuke3\UploadFiles\temp', $ufile, "")  out: 无写路径权限
+
+-------------------------------------------------------------------
+FormHelper里的方法：
+BuildQueryString(IDictionary parameters)可用，其他不推荐。
+SetItemList 类也是用在这里的。
+
+cookie：
+$Utils.WriteCookie('username',$UserHelper.UserName)
+#set($uc = $Utils.GetCookie('username'))
+
+-----------------------------[database]数据库-------------------------------
+字段扩展里面
+尽量不要出现图片123之类，放到一个字段里面分开用逗号分开。
+
+-----------------------------[channel]频道里面-------------------------------
+
+http://www.keypark.org/yqjbxx/list.shtml?dq=%北京&lx=&jb=&hy=&word=
+地区，类型，级别，行业，搜索的关键词
+用户基本信息，用户头像：图像名称字符过长，把上传按钮挤没。
+
+用户头像上传后：大图450*450，小图90*90
+
+------------------------------------[nodelist]-----------------------------------
+
+##CAST(expr AS type) 函数可用来获取一个类型的值，并产生另一个类型的值。 
+#set($where="(ObjectTitle like '%$title%' or ObjectSummary like '%$title%') and $fields between cast('$startTime' as datetime) and dateadd(day,1,cast('$endTime' as datetime)) ")
+-------------------------------[filter]--------------------------------
+$Utils.SubString($item.Title.Replace("&nbsp;"," ").Trim(),31 ,"...")
+$Utils.SubString($Utils.RemoveHtml($data.Summary.Replace("&nbsp;","")),145,"...")
+
+$Utils.SubString($Utils.ClearHtml($qDataList.get_item(0).ObjectDescripiton.ToString()),260,"...")
+--------------------------------------------------------------------------------
+#set($count=$dataList.Count+(-1))
+
+#set($codeArr=["col1-3-01","col1-3-03","col1-3-02","col1-3-04"])
+
+$Utils.SubString($Utils.ClearHtml($item.ObjectSummary),180,"......")
+
+$Utils.SubString($abc.ObjectDescripiton, 160, "...")
+
+
+##显示列表第一条记录后，继续显示后面的，在遍历时先去除第一项。
+#set($content= $Content.GetRecommendDataList("home-1-1",7))
+#if($content.Count > 0)
+$Utils.SubString($content.get_item(0).Summary,450,"…")
+$content.RemoveAt(0) 
+
+##格式化时间
+$DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")
+$item.Get("SourceTime").ToString("yyyy-MM-dd hh:mm:ss")
+
+#set($dataSet = $Content.GetDataSet($nodeCode,$dic))
+#if( $dataSet.Allcount>1)
+
+-----------------------------[数据库脚本]-----------------------------
+a：不带输入条件的固定查询
+b：带输入条件的数据库变更操作
+c: 带输入条件的查询，用简单查询
+d：标签则是简单路由列表查询或html代码块
+
+#set($dic="%{UpdateTime='$DateTime.Now',Membername='$specialistName',ObjectTitle='$specialistName',@ObjectSummary='$Utils.InputText($specialistBackground,500)',@ObjectDescripiton='$specialistBackground', userPic='$imgPath',MemberSex='$specialistSex',MenberNative='$specialistNative',MemberAge='$specialistAge',MemberPhone='$specialistPhone',MemberEMail='$specialistEMail',MemberQQ='$specialistQQ',@MemberBackGround='$specialistBackground',userId='$UserHelper.UserID',TitleAndPos='$TitleAndPos'}")
+$DbHelper.ExecuteNonQuery("SQL_updatespecialist",$dic)
+
+5:
+$DbHelper.ExecuteScalar(脚本名) 返回第一行，第一列记录
+-----------------------------[search]搜索--------------------------------
+##搜索可以是标题和内容里面的关键词
+<script type="text/javascript" src="common/js/libs/pager.js"></script>
+#set($pageSize = 10)
+##加载查询页
+$Label.Register("SearchPage")
+#set($Page = $SearchPage.GetSearchPage()) //就这一个成员方法
+#set($word = $OydRequest.GetQueryString("word"))
+<div id="sform1">
+    <form method="GET" action="">
+        <input name="word" type="text" value="$word"/><input type="submit" value="查询"/>
+    </form>
+</div>
+#if("" == $word)
+    #set($ncList = $Node.GetNodesByParentNodeCode('news'))    
+    #foreach($ncItem in $ncList)
+    <b>$ncItem.NodeCode</b>
+        #set($dataSet = $Content.GetDataSet($ncItem.NodeCode, $pageSize, $PageIndex))
+
+        #foreach($item in $dataSet.DataList)
+            <div><a href="http://192.168.0.111:8060/$item.NavigateCode/info-${item.ObjectID}.shtml" target="_blank">${item.Title}</a></div>
+        #end
+    #end
+#else
+    #set($dataSet = $Page.GetDataSet($word, $pageSize, $PageIndex))
+    <div>查询时间：${Page.SearchTime.TotalSeconds()}秒</div>
+    <div>总记录个数：$dataSet.AllCount</div>
+    #foreach($item in $dataSet.DataList)
+        <div><a href="http://192.168.0.111:8060/$item.NavigateCode/info-${item.ObjectID}.shtml" target="_blank">${item.Title}</a></div>
+    #end
+#end
+<script type="text/javascript">
+#set($PageCount=($dataSet.AllCount - 1)/$pageSize + 1)
+        Pager.ShowPageBar($PageCount);
+</script>
+<script type="text/javascript">
+<!--
+    function search_submit() {
+        if ('' == jQuery.trim(jQuery('#word').val())) {
+            alert('请输入查询关键字!');
+            return false;
+        }
+        return true;
+    }
+//-->
+</script>
+
+-----------------------------[simplequery]简单查询--------------------------------
+模块需要添加：
+
+如果不用分页的话必须在，$query.GetDataList(0).Rows 里面加入参数0作为默认的分页
+语句：
+SELECT * FROM A57 WHERE OydState>=100 AND $Where ORDER BY $OrderBy
+SELECT A01.B0111,--单位编码
+RTRIM(A01.HB0111),--单位名称
+FROM A01
+join a78 on a01.b0111=a78.b0111 and a01.z0001=a78.z0001
+left join d401 d on a01.b3411=d.objname
+WHERE A78.a7130 not in('3','5') and left(a78.a7485,6) = (select MAX(left(NEXTMONTH,6)) from TFGZ_TIME )
+order by d.parentid,d.forder,a01.b3411,a01.z0012,a01.z0001 
+
+SELECT B0111 FROM A78 WHERE $Where order by $OrderBy
+条件：
+OydA01_ID='${OydRequest.GetQueryString("OydA01_ID")}'
+#set($username = $OydRequest.GetQueryString("username"))
+#set($starttime = $OydRequest.GetQueryString("starttime"))
+#set($A4191  = $OydRequest.GetQueryString("A4191"))
+#set($B0111 = $OydRequest.GetQueryString("dept"))
+#set($Z0007 = $OydRequest.GetQueryString("Z0007"))
+#if($starttime == "")
+  #set($starttime = "00010101")
+#end
+#set($endtime = $OydRequest.GetQueryString("endtime"))
+#if($endtime =="")
+ #set($endtime = $DateTime.Now.toString("yyyyMMdd")) 
+#end
+#set($stime = $Utils.SubString($starttime,6))
+#set($etime = $Utils.SubString($endtime,6))
+A0101 like '%${username}%'
+AND (a7485 >= '${stime}' and a7485 <= '${etime}')
+AND B0111 like '${B0111}%'
+AND A4191 like '${A4191}%'
+#if($Z0007 == "01")
+and Z0001 in (select Z0001 from A01 where z0007 not in ('91'))  
+#elseif($Z0007 == "10")
+and Z0001 in (select Z0001 from A01 where z0007 in ('91'))  
+#else
+and Z0001 like '%'
+#end
+----------------------------------------------------------------------
+
+Header：
+
+$Header("测试页面")     out: 不要直接用
+
+$Header.PageTitle = "测试页面"
+
+$Header.PageHead    out: ？？？
+
+$Header.PageMetaKeywords
+$Header.PageMetaDescription     out: 设置或获取 Meta Description
+
+$Header.Style
+$Header.Javascript      out: [] 空
+
+$Header.IncludeFile   out: "Capacity":16,"MaxCapacity":2147483647,"Length":0
+
+$Header.AddFile("/common/some.txt")  out: /common/some.txt ？？
+
+$Header.AddScript("/common/js/script.js")                         这个加运行脚本
+$Header.AddScriptFile("/common/js/script.js")  out: 这两个没区别。这个加依赖脚本
+
+$Content    如手册
+
+$Label.Register("Test")     引入插件
+$Label.Get("tab_name")          加入标签
+
+$Label.Include("template_name")  加入 
+$Label.Parse("template_name")    加入然后解析模板
+--------------------------------------------------------------------------------
+$ContentData.GetTitle(length, "...")
+$ContentData.Get("colname")  返回记录中对应字段的值
+-------------------------------------------------------------------------------
+$form 的可用性不高，不列了。
+#*
+#set($holidays = $FormHelper.CreateSetItemList() )
+$holidays.AddItem("国庆","2013-10-01")
+$holidays.AddItem("元旦","2014-01-01")
+
+#set($idata = $FormHelper.CreateSetItemList() )
+$idata.AddItem("php")
+$idata.AddItem("ruby")
+
+$FormHelper.FormTag("%{method='get'}")
+$FormHelper.Text("tword","defautlt value", "%{size='20',style='border:1px solid #f90;'}") 
+
+#set($v1 = $FormHelper.InputValue("tword","xxx"))
+
+$FormHelper.CheckboxList("tchk", $holidays) 
+
+$FormHelper.Checkbox("tdata", "java", "%{value='1'}") 
+$FormHelper.Checkbox("tdata", "python", "%{value='2'}") 
+
+$FormHelper.EndFormTag()
+
+#set($qs = $FormHelper.BuildQueryString("%{city='bj',zip='100061',area='cn'}"))
+
+<!--form action="/user/index.shtml" method="post" >
+    
+    <input type="file" name="ifile" id="">
+    <input type="submit" value="up">
+</form-->
+
+##$OydRequest.SaveRequestFile("UploadFiles") 

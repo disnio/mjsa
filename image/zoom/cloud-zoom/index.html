@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8;charset=utf-8"/>
+<title>Professor Cloud</title>
+<link href="images/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="images/jquery.min.js"></script>
+<link href="images/cloud-zoom.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="images/cloud-zoom.1.0.2.js"></script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-254857-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+<div id="midground">
+<div id="foreground">
+<div id='container'>
+  <div id="content-container" >
+    <div id='maincontent' >
+ 
+  <h1>Cloud Zoom</h1><br />
+More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+  <p id='info'>Cloud Zoom is a jQuery image zoom plugin, a comparable alternative to  products such as <a href="http://www.magictoolbox.com/magiczoom/">Magic Zoom</a>. Compared to the popular <a href="http://www.mind-projects.it/projects/jqzoom/">jQZoom</a> plugin, Cloud Zoom is smaller,  has more features and more robust compatability across browsers.</p>
+  	
+	<div class="zoom-section">    	  
+      <div class="zoom-small-image"><a href='http://www.professorcloud.com/images/zoomengine/bigimage00.jpg' class = 'cloud-zoom' id='zoom1' rel="adjustX: 10, adjustY:-4"><img src="images/smallima.jpg" alt='' title="Optional title display" /></a></div>
+      <div class="zoom-desc">
+        <h3>Standard Settings With Gallery</h3>       
+        <p><a href='http://www.professorcloud.com/images/zoomengine/bigimage00.jpg' class='cloud-zoom-gallery' title='Red' rel="useZoom: 'zoom1', smallImage: 'images/zoomengine/smallimage.jpg' "><img class="zoom-tiny-image" src="images/tinyimag.jpg" alt = "Thumbnail 1"/></a>
+        
+          <a href='http://www.professorcloud.com/images/zoomengine/bigimage01.jpg' class='cloud-zoom-gallery' title='Blue' rel="useZoom: 'zoom1', smallImage: ' images/zoomengine/smallimage-1.jpg'"><img src="images/tinyimah.jpg" alt = "Thumbnail 2" border="0" class="zoom-tiny-image"/></a>                  
+        <a href='http://www.professorcloud.com/images/zoomengine/bigimage02.jpg' class='cloud-zoom-gallery' title='Blue' rel="useZoom: 'zoom1', smallImage: 'images/zoomengine/smallimage-2.jpg' "><img src="images/tinyimai.jpg" alt = "Thumbnail 3" border="0" class="zoom-tiny-image"/></a></p>
+    <p>Hover over the large image to see the zoom working.</p>
+    <p>These are the 'out of the box' settings, with the big image appearing to the right of the small image.</p>
+            <p>The appearance of the smaller image, lens and zoom window can be altered with regular CSS.</p>
+      </div>
+	</div>
+    
+     <h3 style="clear:both;">Features</h3>
+  
+  <ul class="tickul">
+    <li>Works with most browsers (tested on IE6+, Firefox, Chrome, Opera, Safari).</li>   
+    <li>Easy integration with basic valid HTML.</li>
+    <li>Small 6Kb (minified) script.</li>
+    <li>Smooth zoom movement.</li>
+    <li>Gallery mode.</li>
+    <li>Tint, soft focus and inner zoom features.</li>
+    <li>Degrades gracefully with Javascript turned off.</li>
+    <li>Fully accessible with no CSS or text only browsers.</li>    
+    <li>It's completely free.</li>
+    </ul>
+    
+    <div class="zoom-section">
+      <div class="zoom-small-image"> <a href='http://www.professorcloud.com/images/zoomengine/bigimage03.jpg' class = 'cloud-zoom' rel="tint: '#ff0000',tintOpacity:0.5 ,smoothMove:5,zoomWidth:480, adjustY:-4, adjustX:10">
+       
+        <img   src="images/smallimb.jpg" title="Click to see integration with the Slimbox plugin" alt=''/></a></div>
+      <div class="zoom-desc">
+        <h3>Tints</h3>
+        <p>Add a tint of any colour (including black or white) to the small image. The intensity of tint is fully customisable, shown here in red at 50%.</p>
+        <p>In this example, the movement smoothness is set to a higher value for a gentle drifting effect.</p>
+      </div>
+    </div>
+  
+    <div class="zoom-section">
+      <div class="zoom-small-image"> <a href='http://www.professorcloud.com/images/zoomengine/bigimage04.jpg' class = 'cloud-zoom' rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4">
+       
+        <img src="images/smallimc.jpg" title="Your caption here" alt=''/></a> </div>
+      <div class="zoom-desc" >
+        <h3>Inner Zoom</h3>
+        <p>Zoom position can be inside the smaller image, useful if you would rather not obscure any other content.</p>
+      </div>
+    </div>
+ 
+    <div class="zoom-section" >
+  	
+      <div class="zoom-small-image"><a href='http://www.professorcloud.com/images/zoomengine/bigimage01.jpg' class = 'cloud-zoom' title="Your caption here" rel="softFocus: true, position:'anypos', smoothMove:2">       
+        <img src="images/smallimd.jpg" alt='' /></a></div>
+      <div class="zoom-desc" style="position:relative">
+      <div id="anypos" style="position:absolute;top:-128px; left: 128px;width:256px; height:256px;"></div>
+        <h3>Soft Focus</h3>
+        <p>Apply a subtle soft-focus effect to the small image.</p>
+        <p>In this example, the zoom window position is specified as a div target which can be positioned anywhere. The movement smoothness is set to a lower value for a snappier feel.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+(function() {
+	var links = document.getElementsByTagName('a');
+	var query = '?';
+	for(var i = 0; i < links.length; i++) {
+	if(links[i].href.indexOf('#disqus_thread') >= 0) {
+		query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+	}
+	}
+	document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/professorcloud/get_num_replies.js' + query + '"></' + 'script>');
+})();
+//]]>
+</script>
+</body>
+</html>
+

@@ -1,0 +1,5 @@
+$('#demodiv').animate({color: '#E4D8B8'}) 		
+$('#demodiv').animate({backgroundColor: '#400101'}) 		
+$('#demodiv').animate({borderBottomColor: '#00346B'}) 		
+$('#demodiv').animate({borderColor: 'darkolivegreen'}) 		
+$('#demodiv').animate({color: 'rgba(42, 47, 76, 0.1)'})

@@ -1,0 +1,43 @@
+关于apache端口的配置：
+
+host文件采用本机默认的地址加端口：
+127.0.0.1:8080     wamp
+127.0.0.1:8082     yfoto
+
+在http.conf配置文件中添加监听端口：
+Listen 8080
+Listen 8082
+文件底部包含对应虚拟目录的配置文件地址，所有配置也可放在一个目录下：
+Include "d:/wamp/alias/*"
+Include d:/wamp/www/yfoto/yfoto.conf
+
+conf目录下放置对应配置文件：yfoto.conf 如下
+
+NameVirtualHost *:8082
+说明  为一个基于域名的虚拟主机指定一个IP地址(和端口)
+语法  NameVirtualHost addr[:port]， 【必须与VirtualHost 严格一致】。
+为了加强可靠性和可预测性，应该使用ServerName显式的指定一个主机名和端口号。
+
+<VirtualHost *:8082>
+  ServerAdmin admin@system
+  DocumentRoot d:/wamp/www/yfoto  #这个指向实际虚拟目录
+  ServerName yfoto:8082		  
+  # http://yfoto/ 可以通过这样直接访问. 改为80端口也不确定。
+  # 但当虚拟目录增加到3个以上时候则不可用，必须通过ip来访问。估计dns问题.
+  ErrorLog logs/yfoto-error_log
+  CustomLog logs/yfoto-access_log common
+  <Directory d:/wamp/www/yfoto>
+    AllowOverride All
+    Options All
+
+    #这个允许外网访问本机，不写的话只能通过本机的127.0.0.1:8082访问
+    #Allow from all		  
+  </Directory>
+</VirtualHost>
+
+VS2010在更新了SP1后，会在开机时自动启动一个服务，占用WAMP的80端口，导致WAMP无法正常启动Apache。提示信息：
+Your port 80 is actually used by :
+Server: Microsoft-HTTPAPI/2.0
+Press Enter to exit...
+
+sql server reporting services 占用80端口禁用，同时Analysis Services 依赖这个服务也停止服务并改成手动启动。

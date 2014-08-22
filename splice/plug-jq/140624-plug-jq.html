@@ -1,0 +1,41 @@
+<!-- 
+placeholder, jquery.validationEngine
+ -->
+<script src="js/jquery.plugs.min.js"></script>
+<script src="js/jquery.validationEngine.min.js"></script>
+<script src="js/jquery.validationEngine-zh.js"></script>
+<script type="text/javascript">
+$(function(){
+    jQuery("#lyb, #softzc").validationEngine({
+        scroll: false,
+        //binded:false,
+        //showArrow:false,
+        promptPosition: "centerRight",
+        maxErrorsPerField: 1,
+        showOneMessage: true,
+        addPromptClass: "formError-noArrow formError-text"
+    });
+});
+</script>
+
+<form action="" id="lyb">
+<table class="lyb">
+    <tr>
+        <td class="ttr">姓名：</td>
+        <td><input type="text" class="w100 text-input validate[required]"></td>
+        <td class="ttr">邮箱：</td>
+        <td><input type="text" class="w100 text-input validate[required,custom[email]]" ></td>
+    </tr>
+    <tr>
+        <td class="ttr">主题：</td>
+        <td colspan="3"><input type="text" placeholder="(请填写相关软件名称)" class="text-input validate[required]" style="width:450px;" ></td>
+    </tr>
+    <tr>
+        <td class="ttr">留言板：</td>
+        <td colspan="3"><textarea name="" id="" cols="60" rows="5"  class="validate[required]" style="width:453px;" ></textarea></td>
+    </tr>
+    <tr>
+        <td colspan="4"><input type="submit" value="确定" class="lsub" style="width:100px; margin-left:70px;"></td>
+    </tr>
+</table>
+</form>

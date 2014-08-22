@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>jQuery Wookmark 瀑布流布局 - 前端开发仓库</title>
+<meta name="keywords" content="jquery瀑布流,Wookmark中文文档,Wookmark设置,Wookmark参数">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/code.css">
+<script src="/js/jquery-1.9.1.min.js"></script>
+<script src="/js/plugins.js"></script></head>
+<body>
+<div id="header" class="header">
+	<p class="breadcrumb"><a class="blacklink" href="/">前端开发仓库</a> &raquo; <span>jQuery</span> &raquo; <strong>jQuery Wookmark 瀑布流布局</strong></p>
+	<p class="pay"><a target="_blank" href="/parttime.php">项目外包</a></p>
+	<p class="pay"><a target="_blank" href="http://me.alipay.com/ciaoca">请我喝杯咖啡</a></p>
+</div><div class="content">
+	<h1>jQuery Wookmark 瀑布流布局<a class="source" target="_blank" href="http://www.wookmark.com/jquery-plugin">来源</a></h1>
+	<div class="intro">
+		<p>瀑布流布局非常适合大量图片的展示，一改过去裁剪图片尺寸统一的排版，每张图片都能完全展示，并错落有致，让人眼前一亮。</p>
+	</div>
+	<dl class="intro">
+		<dt>版本：</dt>
+		<dd>jQuery v1.4.4+</dd>
+		<dd>jQuery Wookmark v0.5</dd>
+	</dl>
+	<div class="intro">
+		<p>注意事项：</p>
+		<p>1.项目中的 img 元素的 width 和 height 属性需要写，否则定位会不准确。（可以用 JavaScript 实时获取图片的宽高，但图片数量过多时，这将是一件不靠谱的事情，如果你执意要这么做，可以参考这个 <a target="_blank" href="demo/example-load-images.html">Demo</a>）</p>
+	</div>
+	<div class="intro">
+		<p><a target="_blank" href="demo/example.html">查看 Demo</a></p>
+		<p><a class="source_download" href="version/GBKS-Wookmark-jQuery-25818a8.zip">jQuery Wookmark v0.5</a></p>
+	</div>
+
+	<h2>【options 参数说明】</h2>
+	<div class="example">
+		<table class="manual_table table_form">
+			<thead>
+				<tr>
+					<th width="120">名称</th>
+					<th width="200">默认值</th>
+					<th>说明</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>container</td>
+				<td>$("body")</td>
+				<td>父容器</td>
+			</tr>
+			<tr>
+				<td>offset</td>
+				<td>2</td>
+				<td>项目间距(px)。横向纵向相同，不支持单独设置。</td>
+			</tr>
+			<tr>
+				<td>autoResize</td>
+				<td>false</td>
+				<td>自动重排。当浏览器窗口大小大小变化时进行重新排列。</td>
+			</tr>
+			<tr>
+				<td>itemWidth</td>
+				<td>$(this[0]).outerWidth()</td>
+				<td>项目宽度(px)。默认是取第一个项目的宽度。</td>
+			</tr>
+			<tr>
+				<td>resizeDelay</td>
+				<td>50</td>
+				<td>重排间隔时间(ms)。检测自动重排的间隔时间。</td>
+			</tr>
+		</table>
+	</div>
+
+<h2>【使用方法】</h2>
+<div class="example">
+<h3>载入 JavaScript 文件</h3>
+<pre><code class="html">&lt;script src="js/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="js/jquery.wookmark.js"&gt;&lt;/script&gt;</code></pre>
+
+<h3>CSS 样式</h3>
+<pre><code class="css">/*
+ * 父容器需要设置相对定位
+ * 项目需要设置隐藏
+ */
+#list{position:relative;}
+#list li{display:none;}
+</code></pre>
+
+<h3>DOM 结构</h3>
+<pre><code class="html">&lt;!--
+本例中，$("#list") 就是父容器，内部的 li 就是要进行瀑布流布局的项目。当然也可以使用 div 或其他标签的来写。
+项目中的 img 元素的 width 和 height 属性需要写，否则定位会不准确。
+--&gt;
+&lt;ul id="list"&gt;
+	&lt;li&gt;&lt;img src="pic_1.img" width="200" height="283"&gt;&lt;p&gt;text&lt;/p&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;img src="pic_2.img" width="200" height="300"&gt;&lt;p&gt;text&lt;/p&gt;&lt;/li&gt;
+	...
+	&lt;li&gt;&lt;img src="pic_n.img" width="200" height="252"&gt;&lt;p&gt;text&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<h3>调用 Wookmark</h3>
+<pre><code class="js">$("#list li").wookmark({
+	container:$("#list"),
+	offset:10,
+	itemWidth:200
+});
+</code></pre>
+</div>
+
+<h2>相关信息</h2>
+<div class="intro">
+	<p>作者网站：<a target="_blank" href="http://www.wookmark.com/jquery-plugin">http://www.wookmark.com/jquery-plugin</a></p><p>相关文档：<a target="_blank" href="https://github.com/GBKS/Wookmark-jQuery">Github</a>　<a target="_blank" href="http://code.ciaoca.com/jquery/wookmark/">中文文档</a></p><p>授权协议：<a target="_blank" href="http://zh.wikipedia.org/zh-cn/MIT%E8%AE%B8%E5%8F%AF%E8%AF%81">MIT</a></p></div></div>
+<script src="/js/chili/jquery.chili-2.2.min.js"></script>
+<script src="/js/chili/recipes.js"></script>
+
+<div style="display:none;">
+<script src="http://code.ciaoca.com/js/donate.js"></script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cdiv id='cnzz_stat_icon_5076009' style='display:none;'%3E%3C/div%3E%3Cscript src='" + cnzz_protocol + "s25.cnzz.com/stat.php%3Fid%3D5076009' type='text/javascript'%3E%3C/script%3E"));</script>
+</div></body>
+</html>

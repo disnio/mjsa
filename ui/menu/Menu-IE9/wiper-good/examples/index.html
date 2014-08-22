@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="Author" content="株式会社M&amp;Co." />
+  <meta name="description" content="jQuery Plugin jQuery-Wiper" />
+  <meta name="robots" content="index,follow" />
+  <meta name="keywords" content="plugin, jquery, wiper, dynamic, japan" />
+  <meta property="og:title" content="M&Co. jQuery Wiper" />
+  <meta property="og:site_name" content="wiper" />
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="http://wiper.m-and.co/" />
+  <meta property="og:image" content="#" />
+  <meta property="og:locality" content="ja_JP" />
+  <meta property="og:country-name" content="japan" />
+  <meta property="og:email" content="contact@m-and.co" />
+  <title>M&Co. jQuery Wiper</title>
+  <link rel="stylesheet" href="styles/normalize.css" type="text/css" />
+	<link rel="stylesheet" href="styles/jquery.wiper.css" type="text/css" />
+	<link rel="stylesheet" href="styles/default.css" type="text/css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="jquery.wiper.js"></script>
+
+<script>
+//---------------wiper------------------
+$(function() {
+	$("ul#acordion_main").Wiper();
+
+	//easing: 'linear',
+	//easing: 'ease',
+	//easing: 'ease-in',
+	//easing: 'ease-out',
+	//easing: 'ease-in-out',
+
+	//Demonstration1
+	$("ul#inner_wiper").Wiper({
+		easing: 'ease-out',
+		offset: -1,
+		duration: 2000,
+		binder: $("#inner_wiper_demo"),
+		menuColors: [ '#000000', '#333333', '#666666', '#999999', '#cccccc' ]
+	});
+
+	//Demonstration2
+	$("ul#inner_wiper2").Wiper({
+		easing: 'ease-out',
+		offset: -1,
+		duration: 800,
+		binder: $("#inner_wiper_demo2"),
+		menuColors: [ false, false, '#ffd700', '#adff2f', '#4169e1' ],
+	});
+});
+
+</script>
+
+<script>
+$(function() {
+      $("footer #translation_box .ja").click(function() {
+        $(".ja_box").css("display", "block");
+        $(".en_box").css("display", "none");
+      });
+
+      $("footer #translation_box .en").click(function() {
+        $(".ja_box").css("display", "none");
+        $(".en_box").css("display", "block");
+      });
+	});
+	</script>
+
+</head>
+<body>
+
+<article id="test">
+	<section id="acordion_box">
+		<ul id="acordion_main">
+			<li>
+				<h2>Demo 1</h2>
+				<section class="sample_text">Demonstration 1</section>
+				<section id="inner_wiper_demo">
+					<ul id="inner_wiper">
+						<li>
+							<h2>Sample</h2>
+							<section class="li_sample5 en_box">We will work together to create the site in your desired.</section>
+							<section class="li_sample5 ja_box">我々はあなたの望むサイト制作に協力します。</section>
+						</li>
+
+						<li>
+							<h2>Sample</h2>
+							<section class="li_sample4 en_box">In addition to the wonderful site in your sense.</section>
+							<section class="li_sample4 ja_box">あなたのセンスでさらに素晴らしいwebサイトに</section>
+						</li>
+
+						<li>
+							<h2>Sample</h2>
+							<section class="li_sample3 en_box">will direct it artistic and dynamic web sites for you.</section>
+							<section class="li_sample3 ja_box">あなたのwebサイトをダイナミックかつ、芸術的に演出します。</section>
+						</li>
+
+						<li>
+							<h2>Sample</h2>
+							<section class="li_sample2 en_box">This is a demo using<br>the background-image.</section>
+							<section class="li_sample2 ja_box">background-imageを<Br>利用したデモです。</section>
+						</li>
+
+						<li>
+							<h2>Sample</h2>
+							<section class="li_sample1" class="en_box">Wiper-Sample</section>
+						</li>
+					</ul>
+				</section>
+			</li>
+
+
+
+			<li>
+				<h2>Demo 2</h2>
+				<section class="sample_text">Demonstration 2</section>
+				<section id="inner_wiper_demo2">
+					<ul id="inner_wiper2">
+
+						<li>
+							<h2></h2>
+							<section class="color">
+								<section class="color_text">M&amp;Co.</section>
+								<section id="demo_logo">
+									<img src="images/demo_logo.png"></section>
+							</section>
+						</li>
+
+						<li>
+							<h2></h2>
+							<section class="color">
+								<section class="color_text">Red</section>
+							</section>
+						</li>
+
+						<li>
+							<h2></h2>
+							<section class="color">
+								<section class="color_text">Gold</section>
+							</section>
+						</li>
+
+						<li>
+							<h2></h2>
+							<section class="color">
+								<section class="color_text">Greenyellow</section>
+							</section>
+						</li>
+
+						<li>
+							<h2></h2>
+							<section class="color">
+								<section class="color_text">Royalblue</section>
+							</section>
+						</li>
+
+						<li>
+							<h2>Filter gallery</h2>
+							<section class="color">
+								<section class="color_text">Blueviolet</section>
+							</section>
+						</li>
+					</ul>
+				</section>
+			</li>
+		</ul>
+	</section>
+
+</article>
+
+
+
+
+	<footer>
+		<section id="translation_box">
+			<section id="translation">
+				<a href="#" class="ja">日本語</a>
+				<a href="#" class="en">English</a>
+			</section>
+		<section id="copyrights"> &copy;2013 M&amp;Co.All Rights Reserved</section>
+		</section>
+	</footer>
+</body>
+</html>
+

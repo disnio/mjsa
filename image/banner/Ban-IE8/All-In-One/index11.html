@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>allinone rotator演示(classic皮肤/固定尺寸)_做好网站</title>
+
+<link rel="stylesheet" href="css/allinone_bannerRotator.css">
+<script src="http://www.dowebok.com/files/js/jquery-1.9.1.min.js"></script>
+<script src="http://www.dowebok.com/files/js/jquery-ui-1.10.2.min.js"></script>
+<script src="js/allinone_bannerRotator.js"></script>
+
+<script>
+$(function() {
+	$('#allinone_bannerRotator_classic').allinone_bannerRotator({
+		skin: 'classic',
+		width: 960,
+		height: 384,
+		thumbsWrapperMarginBottom:5,
+		defaultEffect: 'random'
+	});
+});
+</script>
+</head>
+
+<body>
+<h1>allinone rotator演示(classic皮肤/固定尺寸)</h1>
+
+<!-- 代码开始 -->
+<div style="width: 960px;margin: 0 auto;">
+	<div id="allinone_bannerRotator_classic" style="display:none;"> 
+		<!-- 图片 -->
+		<ul class="allinone_bannerRotator_list">
+			<li data-bottom-thumb="images/classic/thumbs/01_classic.jpg" data-text-id="#allinone_bannerRotator_photoText1" data-link="http://www.dowebok.com/html/2013/allinone.html" data-target="_blank">
+				<img src="images/classic/01_classic.jpg" alt="" />
+			</li>
+			<li data-bottom-thumb="images/classic/thumbs/02_classic.jpg" data-text-id="#allinone_bannerRotator_photoText2" data-link="http://www.dowebok.com/" data-target="_blank">
+				<img src="images/classic/02_classic.jpg" alt="" />
+			</li>
+			<li data-bottom-thumb="images/classic/thumbs/03_classic.jpg" data-text-id="#allinone_bannerRotator_photoText3">
+				<img src="images/classic/03_classic.jpg" alt="" />
+			</li>
+			<li data-bottom-thumb="images/classic/thumbs/04_classic.jpg" data-text-id="#allinone_bannerRotator_photoText4">
+				<img src="images/classic/04_classic.jpg" alt="" />
+			</li>
+			<li data-bottom-thumb="images/classic/thumbs/05_classic.jpg" data-text-id="#allinone_bannerRotator_photoText5">
+				<img src="images/classic/05_classic.jpg" alt="" />
+			</li>
+		</ul>
+		
+		<!-- 文字 -->
+		<div id="allinone_bannerRotator_photoText1" class="allinone_bannerRotator_texts">
+			<div class="allinone_bannerRotator_text_line textElement11_classic" data-initial-left="50" data-initial-top="10" data-final-left="50" data-final-top="40" data-duration="0.5" data-fade-start="0" data-delay="0">多达5种类型的banner效果</div>
+			<div class="allinone_bannerRotator_text_line textElement12_classic" data-initial-left="50" data-initial-top="10" data-final-left="50" data-final-top="70" data-duration="0.5" data-fade-start="0" data-delay="0.3">每种效果都有多款皮肤</div>
+		</div>
+		<div id="allinone_bannerRotator_photoText2" class="allinone_bannerRotator_texts">
+			<div class="allinone_bannerRotator_text_line textElement21_classic" data-initial-left="550" data-initial-top="60" data-final-left="550" data-final-top="60" data-duration="0.5" data-fade-start="0" data-delay="0">16种过度效果</div>
+			<div class="allinone_bannerRotator_text_line textElement22_classic" data-initial-left="550" data-initial-top="125" data-final-left="550" data-final-top="125" data-duration="0.5" data-fade-start="0" data-delay="0.3">可为每个图片分别设置</div>
+		</div>
+		<div id="allinone_bannerRotator_photoText3" class="allinone_bannerRotator_texts">
+			<div class="allinone_bannerRotator_text_line textElement31_classic" data-initial-left="480" data-initial-top="60" data-final-left="50" data-final-top="60" data-duration="0.5" data-fade-start="0" data-delay="0">文字可以从各个方向动画</div>
+			<div class="allinone_bannerRotator_text_line textElement32_classic" data-initial-left="0" data-initial-top="75" data-final-left="50" data-final-top="75" data-duration="0.5" data-fade-start="0" data-delay="0.3">上 下 左 右</div>
+			<div class="allinone_bannerRotator_text_line textElement33_classic" data-initial-left="50" data-initial-top="250" data-final-left="50" data-final-top="110" data-duration="1" data-fade-start="0" data-delay="0.5">任何颜色、CSS 和 HTML</div>
+		</div>
+		<div id="allinone_bannerRotator_photoText4" class="allinone_bannerRotator_texts">
+			<div class="allinone_bannerRotator_text_line textElement41_classic" data-initial-left="50" data-initial-top="0" data-final-left="50" data-final-top="260" data-duration="0.5" data-fade-start="0" data-delay="0">一行文字</div>
+			<div class="allinone_bannerRotator_text_line textElement42_classic" data-initial-left="50" data-initial-top="384" data-final-left="50" data-final-top="240" data-duration="0.5" data-fade-start="0" data-delay="0.3">另外一行文字</div>
+		</div>
+		<div id="allinone_bannerRotator_photoText5" class="allinone_bannerRotator_texts">
+			<div class="allinone_bannerRotator_text_line textElement51_classic" data-initial-left="400" data-initial-top="350" data-final-left="400" data-final-top="52" data-duration="0.5" data-fade-start="0" data-delay="0"><a href="###" target="_blank">强大的jQuery幻灯片插件</a></div>
+			<div class="allinone_bannerRotator_text_line textElement52_classic" data-initial-left="400" data-initial-top="110" data-final-left="400" data-final-top="92" data-duration="0.5" data-fade-start="0" data-delay="0.3">allinone 是一款强大的 jQuery 幻灯片插件，为什么说它强大呢？因为它含有 5 个分支，每个分支都有 3 款皮肤，也就是说它有 15 效果之多。allinone 的每款皮肤都很漂亮，所以说，如果使用 allinone，你几乎不用再自己写皮肤了。</div>
+			<div class="allinone_bannerRotator_text_line textElement53_classic" data-initial-left="400" data-initial-top="350" data-final-left="400" data-final-top="262" data-duration="0.5" data-fade-start="0" data-delay="0"><a href="###" target="_blank">这是一个按钮</a></div>
+		</div>
+	</div>
+</div>
+<!-- 代码结束 -->
+
+
+
+
+
+
+
+
+
+
+<!-- 以下是统计和广告，与演示无关，不必理会 -->
+<style type="text/css">
+body { margin: 0;}
+h1 { margin: 40px 10px; font: 32px Microsoft Yahei; text-align: center;}
+
+.vad { margin:50px 0 5px; font-family: arial,宋体,sans-serif; text-align:center;}
+.vad a { display:inline-block; height: 30px; line-height: 30px; margin:0 5px; padding:0 20px; font-size:14px; text-align:center; color:#eee; text-decoration:none; background-color:#222;}
+.vad a:hover { color:#fff; background-color:#000;}
+
+.a728x90 { width: 728px; height: 90px; margin: 0 auto;}
+</style>
+
+<p class="vad"><a href="http://www.dowebok.com/" target="_blank">dowebok.com</a> <a href="http://www.dowebok.com/html/2013/allinone.html" target="_blank">说 明</a> <a href="http://www.dowebok.com/plus/download.php?open=0&aid=34&cid=3" target="_blank">下 载</a></p>
+
+<div class="a728x90"><!--#include file="/inc/ggad728x90.inc"--></div>
+
+<script>
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F988268596e7a833ffbfb2e9f82d93e18' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script id="bdshare_js" data="type=slide&amp;img=0&amp;pos=right&amp;uid=6588891" ></script>
+<script id="bdshell_js"></script>
+<script>
+var bds_config={"bdTop":300};
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+
+</body>
+</html>

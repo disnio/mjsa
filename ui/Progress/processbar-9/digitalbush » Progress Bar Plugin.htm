@@ -1,0 +1,490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="distribution" content="global" />
+<meta name="robots" content="follow, all" />
+<meta name="language" content="en" />
+<meta property="twitter:account_id" content="1947521" />
+<title>digitalbush &raquo; Progress Bar Plugin</title>
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://digitalbush.com/feed/" />
+<link rel="alternate" type="text/xml" title="RSS .92" href="http://digitalbush.com/feed/rss/" />
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://digitalbush.com/feed/atom/" />
+<link rel="pingback" href="http://digitalbush.com/xmlrpc.php" />
+	<link rel='archives' title='February 2014' href='http://digitalbush.com/2014/02/' />
+	<link rel='archives' title='December 2013' href='http://digitalbush.com/2013/12/' />
+	<link rel='archives' title='May 2013' href='http://digitalbush.com/2013/05/' />
+	<link rel='archives' title='February 2013' href='http://digitalbush.com/2013/02/' />
+	<link rel='archives' title='January 2013' href='http://digitalbush.com/2013/01/' />
+	<link rel='archives' title='August 2012' href='http://digitalbush.com/2012/08/' />
+	<link rel='archives' title='June 2012' href='http://digitalbush.com/2012/06/' />
+	<link rel='archives' title='March 2012' href='http://digitalbush.com/2012/03/' />
+	<link rel='archives' title='February 2012' href='http://digitalbush.com/2012/02/' />
+	<link rel='archives' title='December 2011' href='http://digitalbush.com/2011/12/' />
+	<link rel='archives' title='November 2011' href='http://digitalbush.com/2011/11/' />
+	<link rel='archives' title='October 2011' href='http://digitalbush.com/2011/10/' />
+	<link rel='archives' title='September 2011' href='http://digitalbush.com/2011/09/' />
+	<link rel='archives' title='August 2011' href='http://digitalbush.com/2011/08/' />
+	<link rel='archives' title='July 2011' href='http://digitalbush.com/2011/07/' />
+	<link rel='archives' title='June 2011' href='http://digitalbush.com/2011/06/' />
+	<link rel='archives' title='May 2011' href='http://digitalbush.com/2011/05/' />
+	<link rel='archives' title='April 2011' href='http://digitalbush.com/2011/04/' />
+	<link rel='archives' title='March 2011' href='http://digitalbush.com/2011/03/' />
+	<link rel='archives' title='January 2011' href='http://digitalbush.com/2011/01/' />
+	<link rel='archives' title='December 2010' href='http://digitalbush.com/2010/12/' />
+	<link rel='archives' title='October 2010' href='http://digitalbush.com/2010/10/' />
+	<link rel='archives' title='September 2010' href='http://digitalbush.com/2010/09/' />
+	<link rel='archives' title='August 2010' href='http://digitalbush.com/2010/08/' />
+	<link rel='archives' title='July 2010' href='http://digitalbush.com/2010/07/' />
+	<link rel='archives' title='June 2010' href='http://digitalbush.com/2010/06/' />
+	<link rel='archives' title='April 2010' href='http://digitalbush.com/2010/04/' />
+	<link rel='archives' title='March 2010' href='http://digitalbush.com/2010/03/' />
+	<link rel='archives' title='February 2010' href='http://digitalbush.com/2010/02/' />
+	<link rel='archives' title='January 2010' href='http://digitalbush.com/2010/01/' />
+	<link rel='archives' title='December 2009' href='http://digitalbush.com/2009/12/' />
+	<link rel='archives' title='November 2009' href='http://digitalbush.com/2009/11/' />
+	<link rel='archives' title='October 2009' href='http://digitalbush.com/2009/10/' />
+	<link rel='archives' title='September 2009' href='http://digitalbush.com/2009/09/' />
+	<link rel='archives' title='August 2009' href='http://digitalbush.com/2009/08/' />
+	<link rel='archives' title='June 2009' href='http://digitalbush.com/2009/06/' />
+	<link rel='archives' title='May 2009' href='http://digitalbush.com/2009/05/' />
+	<link rel='archives' title='April 2009' href='http://digitalbush.com/2009/04/' />
+	<link rel='archives' title='March 2009' href='http://digitalbush.com/2009/03/' />
+	<link rel='archives' title='February 2009' href='http://digitalbush.com/2009/02/' />
+	<link rel='archives' title='January 2009' href='http://digitalbush.com/2009/01/' />
+	<link rel='archives' title='December 2008' href='http://digitalbush.com/2008/12/' />
+	<link rel='archives' title='November 2008' href='http://digitalbush.com/2008/11/' />
+	<link rel='archives' title='October 2008' href='http://digitalbush.com/2008/10/' />
+	<link rel='archives' title='September 2008' href='http://digitalbush.com/2008/09/' />
+	<link rel='archives' title='August 2008' href='http://digitalbush.com/2008/08/' />
+	<link rel='archives' title='July 2008' href='http://digitalbush.com/2008/07/' />
+	<link rel='archives' title='June 2008' href='http://digitalbush.com/2008/06/' />
+	<link rel='archives' title='May 2008' href='http://digitalbush.com/2008/05/' />
+	<link rel='archives' title='April 2008' href='http://digitalbush.com/2008/04/' />
+	<link rel='archives' title='March 2008' href='http://digitalbush.com/2008/03/' />
+	<link rel='archives' title='February 2008' href='http://digitalbush.com/2008/02/' />
+	<link rel='archives' title='January 2008' href='http://digitalbush.com/2008/01/' />
+	<link rel='archives' title='December 2007' href='http://digitalbush.com/2007/12/' />
+	<link rel='archives' title='November 2007' href='http://digitalbush.com/2007/11/' />
+	<link rel='archives' title='October 2007' href='http://digitalbush.com/2007/10/' />
+	<link rel='archives' title='September 2007' href='http://digitalbush.com/2007/09/' />
+	<link rel='archives' title='August 2007' href='http://digitalbush.com/2007/08/' />
+	<link rel='archives' title='July 2007' href='http://digitalbush.com/2007/07/' />
+	<link rel='archives' title='June 2007' href='http://digitalbush.com/2007/06/' />
+	<link rel='archives' title='May 2007' href='http://digitalbush.com/2007/05/' />
+	<link rel='archives' title='April 2007' href='http://digitalbush.com/2007/04/' />
+	<link rel='archives' title='March 2007' href='http://digitalbush.com/2007/03/' />
+	<link rel='archives' title='February 2007' href='http://digitalbush.com/2007/02/' />
+	<link rel='archives' title='January 2007' href='http://digitalbush.com/2007/01/' />
+	<link rel='archives' title='December 2006' href='http://digitalbush.com/2006/12/' />
+	<link rel='archives' title='November 2006' href='http://digitalbush.com/2006/11/' />
+	<link rel='archives' title='October 2006' href='http://digitalbush.com/2006/10/' />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<style type="text/css" media="screen">
+		<!-- @import url( http://digitalbush.com/wp-content/themes/digitalbush/style.css ); -->
+</style>
+<!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="http://digitalbush.com/wp-content/themes/digitalbush/ie.css">
+
+<![endif]-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://digitalbush.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://digitalbush.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='About' href='http://digitalbush.com/about/' />
+<link rel='next' title='Watermark Input Plugin' href='http://digitalbush.com/projects/watermark-input-plugin/' />
+<meta name="generator" content="WordPress 3.8.3" />
+<link rel='canonical' href='http://digitalbush.com/projects/progress-bar-plugin/' />
+<link rel='shortlink' href='http://digitalbush.com/?p=47' />
+<!-- Google Analytics Tracking by Google Analyticator 6.4.5: http://www.videousermanuals.com/google-analyticator/ -->
+<script type="text/javascript">
+	var analyticsFileTypes = ['js',''];
+	var analyticsEventTracking = 'enabled';
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-917891-1']);
+        _gaq.push(['_addDevId', 'i9k95']); // Google Analyticator App ID with Google 
+        
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+
+<link rel="stylesheet" type="text/css" href="http://digitalbush.com/wp-content/themes/digitalbush/prettify.css">
+<script type="text/javascript" src="http://digitalbush.com/wp-content/themes/digitalbush/prettify.js"></script>
+<script type="text/javascript">
+	jQuery(function($) {	    
+		$("pre,code").addClass('prettyprint');
+		prettyPrint();
+	});
+</script>
+
+</head>
+<body id="home" class="log">
+<div id="header">
+
+  <div id="logo" >
+		<div id="searchBox"><form method="get" id="searchform" action="http://digitalbush.com/"><input type="text" value="" name="s" id="s" /></form></div>
+		<h1 id="blogname" onclick="location.href='http://digitalbush.com';" style="cursor: pointer;"><a href="http://digitalbush.com">digitalbush</a></h1>
+		<div class="description">Tales of a Tormented Software Developer</div>
+</div>
+  <div id="pages">
+    <ul>
+		<li class="page_item"><a href="http://digitalbush.com">Blog</a></li>
+		<li class="page_item page-item-27 page_item_has_children current_page_ancestor current_page_parent"><a href="http://digitalbush.com/projects/">Projects</a></li>
+<li class="page_item page-item-30"><a href="http://digitalbush.com/contact/">Contact</a></li>
+<li class="page_item page-item-41"><a href="http://digitalbush.com/about/">About</a></li>
+		
+		<li class="subscribe"><a href='http://feeds.feedburner.com/digitalbush'><img src='http://digitalbush.com/wp-content/themes/digitalbush/images/feed-icon-24x24.png' />Subscribe</a></li>
+		<!--<li class="donate"><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/WEBSCR-640-20110306-1/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+</li>-->
+    </ul>
+  </div>
+</div>
+<div id="wrap">
+	<link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7/themes/south-street/jquery-ui.css' type="text/css" media="print, projection, screen"/>
+	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
+
+	<script type="text/javascript">
+		jQuery(
+			function($){$('#tabs').tabs();}
+		);
+	</script>
+	<style type='text/css'>
+		#project ul{margin-left:1em}
+		.ui-widget-header{margin:0 !important;}
+	</style>
+	
+	<div id="content" class="ui-widget">
+	  	  
+		<h3 class="entrytitle" id="post-47"> 
+			<a href="http://digitalbush.com/projects/progress-bar-plugin/" rel="bookmark">Progress Bar Plugin</a> 
+		</h3>
+		<div class="entrymeta-single">
+					</div>
+		<div>
+										<fieldset id="download" style="margin-left: 20px; padding: 0; width: 300px;float:right">
+					<legend><img style="margin-right:5px" src="http://digitalbush.com/files/lib/down.png" alt="" align="absmiddle" /> Download Latest (Alpha 1)</legend>
+					<ul>
+						<li><a href="http://digitalbush.com/wp-content/uploads/2007/02/jqueryprogressbar.js">Uncompressed</a></li>
+																	</ul>
+				</fieldset>
+					<script src="http://digitalbush.com/wp-content/uploads/2007/02/jqueryprogressbar.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var pct=0;
+	var handle=0;
+	function update(){
+			jQuery("#progressbar").reportprogress(++pct);
+			if(pct==100){
+				clearInterval(handle);
+				$("#run").val("start");
+				pct=0;
+			}
+	}
+	jQuery(function($){
+		$("#run").click(
+			function(){
+				if(this.value=="start"){
+					handle=setInterval("update()",100);
+					this.value="stop";
+				}else{
+					clearInterval(handle);
+					this.value="start";
+				}
+			}
+		);
+		$("#reset").click(function(){
+			pct=0;
+			$("#progressbar").reportprogress(0);
+		});
+	});
+</script><style>
+	/* progress bar container */
+	#progressbar{
+		border:1px solid black;
+		width:200px;
+		height:20px;
+		position:relative;
+		color:black; 
+	}
+	/* color bar */
+	#progressbar div.progress{
+		position:absolute;
+		width:0;
+		height:100%;
+		overflow:hidden;
+		background-color:#369;
+	}
+	/* text on bar */
+	#progressbar div.progress .text{
+		position:absolute;
+		text-align:center;
+		color:white;
+	}
+	/* text off bar */
+	#progressbar div.text{
+		position:absolute;
+		width:100%;
+		height:100%;
+		text-align:center;
+	}
+</style>
+<h2>Overview</h2>
+<p>This is a progress bar plugin for jQuery.  </p>
+
+<h2>Usage</h2>
+First, include the progress bar javascript file.
+<pre class="html">&lt;script src="jquery.progressbar.js" type="text/javascript"&gt;&lt;/script&gt;</pre>
+
+Next, include the styles necessary to render the progress bar correctly.
+<pre class="css">	
+/* progress bar container */
+#progressbar{
+	border:1px solid black;
+	width:200px;
+	height:20px;
+	position:relative;
+	color:black; 
+}
+/* color bar */
+#progressbar div.progress{
+	position:absolute;
+	width:0;
+	height:100%;
+	overflow:hidden;
+	background-color:#369;
+}
+/* text on bar */
+#progressbar div.progress .text{
+	position:absolute;
+	text-align:center;
+	color:white;
+}
+/* text off bar */
+#progressbar div.text{
+	position:absolute;
+	width:100%;
+	height:100%;
+	text-align:center;
+}</pre>
+
+Finally make the call to render the progress bar.
+<pre class="js">$("#progressbar").reportprogress(0);</pre>
+
+In the demo below I'm running the progress bar from a timer like so.
+<pre class="js">
+var pct=0;
+var handle=0;
+function update(){
+	$("#progressbar").reportprogress(++pct);
+	if(pct==100){
+		clearInterval(handle);
+		$("#run").val("start");
+		pct=0;
+	}
+}
+jQuery(function($){
+	$("#run").click(function(){
+		if(this.value=="start"){
+			handle=setInterval("update()",100);
+			this.value="stop";
+		}else{
+			clearInterval(handle);
+			this.value="start";
+		}
+	});
+	$("#reset").click(function(){
+		pct=0;
+		$("#progressbar").reportprogress(0);
+	});
+});
+</pre>
+
+<h2>Demo</h2>
+<div id="progressbar"></div><input type='button' id='run' value='start'/><input type='button' id='reset' value='reset'/>
+		</div>
+		<!--
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+		<rdf:Description rdf:about="http://digitalbush.com/projects/progress-bar-plugin/"
+    dc:identifier="http://digitalbush.com/projects/progress-bar-plugin/"
+    dc:title="Progress Bar Plugin"
+    trackback:ping="http://digitalbush.com/projects/progress-bar-plugin/trackback/" />
+</rdf:RDF>		-->
+	  
+		<div id="commentblock">
+  <!--comments area-->
+        </div>
+		<script type="text/javascript"><!--
+		google_ad_client = "pub-5652178116036732";
+		/* 468x60, created 4/18/08 */
+		google_ad_slot = "5744977262";
+		google_ad_width = 468;
+		google_ad_height = 60;
+		//-->
+		</script>
+		<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+	  	  <p></p>
+	</div>
+<ul id="sidebar">
+<li id="text-1" class="widget widget_text"><h2 class="widgettitle">About Me</h2>
+			<div class="textwidget">Just another developer trying to do his thing.
+</div>
+		</li>
+<li id="text-2" class="widget widget_text"><h2 class="widgettitle">Sponsored</h2>
+			<div class="textwidget"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 200x200, created 7/9/08 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:200px;height:200px"
+     data-ad-client="ca-pub-5652178116036732"
+     data-ad-slot="4458756852"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+		</li>
+<li id="tag_cloud-2" class="widget widget_tag_cloud"><h2 class="widgettitle">Tag Cloud</h2>
+<div class="tagcloud"><a href='http://digitalbush.com/tag/net/' class='tag-link-26' title='8 topics' style='font-size: 15.3111111111pt;'>.NET</a>
+<a href='http://digitalbush.com/tag/baby/' class='tag-link-141' title='4 topics' style='font-size: 11.4222222222pt;'>baby</a>
+<a href='http://digitalbush.com/tag/blog/' class='tag-link-88' title='3 topics' style='font-size: 9.86666666667pt;'>blog</a>
+<a href='http://digitalbush.com/tag/book-review/' class='tag-link-100' title='2 topics' style='font-size: 8pt;'>book review</a>
+<a href='http://digitalbush.com/tag/books/' class='tag-link-66' title='2 topics' style='font-size: 8pt;'>books</a>
+<a href='http://digitalbush.com/tag/c/' class='tag-link-27' title='11 topics' style='font-size: 17.3333333333pt;'>c#</a>
+<a href='http://digitalbush.com/tag/career/' class='tag-link-34' title='2 topics' style='font-size: 8pt;'>career</a>
+<a href='http://digitalbush.com/tag/christmas/' class='tag-link-50' title='4 topics' style='font-size: 11.4222222222pt;'>Christmas</a>
+<a href='http://digitalbush.com/tag/commuting/' class='tag-link-19' title='3 topics' style='font-size: 9.86666666667pt;'>commuting</a>
+<a href='http://digitalbush.com/tag/computers/' class='tag-link-113' title='2 topics' style='font-size: 8pt;'>computers</a>
+<a href='http://digitalbush.com/tag/computer-science/' class='tag-link-97' title='2 topics' style='font-size: 8pt;'>computer science</a>
+<a href='http://digitalbush.com/tag/couchdb/' class='tag-link-209' title='5 topics' style='font-size: 12.6666666667pt;'>couchdb</a>
+<a href='http://digitalbush.com/tag/diet/' class='tag-link-24' title='11 topics' style='font-size: 17.3333333333pt;'>diet</a>
+<a href='http://digitalbush.com/tag/email/' class='tag-link-79' title='2 topics' style='font-size: 8pt;'>email</a>
+<a href='http://digitalbush.com/tag/exercise/' class='tag-link-53' title='8 topics' style='font-size: 15.3111111111pt;'>exercise</a>
+<a href='http://digitalbush.com/tag/extension-methods/' class='tag-link-43' title='4 topics' style='font-size: 11.4222222222pt;'>extension methods</a>
+<a href='http://digitalbush.com/tag/fitness/' class='tag-link-84' title='2 topics' style='font-size: 8pt;'>fitness</a>
+<a href='http://digitalbush.com/tag/google/' class='tag-link-106' title='2 topics' style='font-size: 8pt;'>Google</a>
+<a href='http://digitalbush.com/tag/government/' class='tag-link-134' title='3 topics' style='font-size: 9.86666666667pt;'>government</a>
+<a href='http://digitalbush.com/tag/guitar/' class='tag-link-67' title='2 topics' style='font-size: 8pt;'>guitar</a>
+<a href='http://digitalbush.com/tag/halloween/' class='tag-link-12' title='2 topics' style='font-size: 8pt;'>halloween</a>
+<a href='http://digitalbush.com/tag/hudson/' class='tag-link-162' title='6 topics' style='font-size: 13.7555555556pt;'>hudson</a>
+<a href='http://digitalbush.com/tag/javascript/' class='tag-link-124' title='9 topics' style='font-size: 16.0888888889pt;'>javascript</a>
+<a href='http://digitalbush.com/tag/jquery/' class='tag-link-22' title='23 topics' style='font-size: 22pt;'>jquery</a>
+<a href='http://digitalbush.com/tag/knockout-js/' class='tag-link-231' title='5 topics' style='font-size: 12.6666666667pt;'>Knockout.js</a>
+<a href='http://digitalbush.com/tag/masked-input/' class='tag-link-99' title='7 topics' style='font-size: 14.5333333333pt;'>masked input</a>
+<a href='http://digitalbush.com/tag/mvvm/' class='tag-link-232' title='4 topics' style='font-size: 11.4222222222pt;'>mvvm</a>
+<a href='http://digitalbush.com/tag/obesity/' class='tag-link-55' title='2 topics' style='font-size: 8pt;'>obesity</a>
+<a href='http://digitalbush.com/tag/oracle/' class='tag-link-37' title='7 topics' style='font-size: 14.5333333333pt;'>oracle</a>
+<a href='http://digitalbush.com/tag/plugin/' class='tag-link-23' title='15 topics' style='font-size: 19.2pt;'>plugin</a>
+<a href='http://digitalbush.com/tag/prime-numbers/' class='tag-link-194' title='5 topics' style='font-size: 12.6666666667pt;'>prime numbers</a>
+<a href='http://digitalbush.com/tag/rant/' class='tag-link-13' title='15 topics' style='font-size: 19.2pt;'>rant</a>
+<a href='http://digitalbush.com/tag/recipe/' class='tag-link-30' title='2 topics' style='font-size: 8pt;'>recipe</a>
+<a href='http://digitalbush.com/tag/resolution/' class='tag-link-52' title='6 topics' style='font-size: 13.7555555556pt;'>resolution</a>
+<a href='http://digitalbush.com/tag/robbery/' class='tag-link-82' title='3 topics' style='font-size: 9.86666666667pt;'>robbery</a>
+<a href='http://digitalbush.com/tag/sieve-of-eratosthenes/' class='tag-link-195' title='4 topics' style='font-size: 11.4222222222pt;'>Sieve of Eratosthenes</a>
+<a href='http://digitalbush.com/tag/software/' class='tag-link-40' title='5 topics' style='font-size: 12.6666666667pt;'>software</a>
+<a href='http://digitalbush.com/tag/sql/' class='tag-link-16' title='4 topics' style='font-size: 11.4222222222pt;'>sql</a>
+<a href='http://digitalbush.com/tag/sunday-savings/' class='tag-link-95' title='7 topics' style='font-size: 14.5333333333pt;'>sunday savings</a>
+<a href='http://digitalbush.com/tag/technology/' class='tag-link-15' title='3 topics' style='font-size: 9.86666666667pt;'>technology</a>
+<a href='http://digitalbush.com/tag/thanksgiving/' class='tag-link-45' title='2 topics' style='font-size: 8pt;'>Thanksgiving</a>
+<a href='http://digitalbush.com/tag/weight-loss/' class='tag-link-21' title='22 topics' style='font-size: 21.6888888889pt;'>weight loss</a>
+<a href='http://digitalbush.com/tag/wordpress/' class='tag-link-92' title='2 topics' style='font-size: 8pt;'>wordpress</a>
+<a href='http://digitalbush.com/tag/work/' class='tag-link-77' title='2 topics' style='font-size: 8pt;'>work</a>
+<a href='http://digitalbush.com/tag/xml/' class='tag-link-58' title='2 topics' style='font-size: 8pt;'>xml</a></div>
+</li>
+<li id="archives-2" class="widget widget_archive"><h2 class="widgettitle">Archives</h2>
+		<select name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'> <option value="">Select Month</option> 	<option value='http://digitalbush.com/2014/02/'> February 2014 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2013/12/'> December 2013 &nbsp;(2)</option>
+	<option value='http://digitalbush.com/2013/05/'> May 2013 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2013/02/'> February 2013 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2013/01/'> January 2013 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2012/08/'> August 2012 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2012/06/'> June 2012 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2012/03/'> March 2012 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2012/02/'> February 2012 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2011/12/'> December 2011 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2011/11/'> November 2011 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2011/10/'> October 2011 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2011/09/'> September 2011 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2011/08/'> August 2011 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2011/07/'> July 2011 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2011/06/'> June 2011 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2011/05/'> May 2011 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2011/04/'> April 2011 &nbsp;(2)</option>
+	<option value='http://digitalbush.com/2011/03/'> March 2011 &nbsp;(2)</option>
+	<option value='http://digitalbush.com/2011/01/'> January 2011 &nbsp;(2)</option>
+	<option value='http://digitalbush.com/2010/12/'> December 2010 &nbsp;(2)</option>
+	<option value='http://digitalbush.com/2010/10/'> October 2010 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2010/09/'> September 2010 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2010/08/'> August 2010 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2010/07/'> July 2010 &nbsp;(2)</option>
+	<option value='http://digitalbush.com/2010/06/'> June 2010 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2010/04/'> April 2010 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2010/03/'> March 2010 &nbsp;(5)</option>
+	<option value='http://digitalbush.com/2010/02/'> February 2010 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2010/01/'> January 2010 &nbsp;(4)</option>
+	<option value='http://digitalbush.com/2009/12/'> December 2009 &nbsp;(6)</option>
+	<option value='http://digitalbush.com/2009/11/'> November 2009 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2009/10/'> October 2009 &nbsp;(4)</option>
+	<option value='http://digitalbush.com/2009/09/'> September 2009 &nbsp;(1)</option>
+	<option value='http://digitalbush.com/2009/08/'> August 2009 &nbsp;(4)</option>
+	<option value='http://digitalbush.com/2009/06/'> June 2009 &nbsp;(2)</option>
+	<option value='http://digitalbush.com/2009/05/'> May 2009 &nbsp;(2)</option>
+	<option value='http://digitalbush.com/2009/04/'> April 2009 &nbsp;(2)</option>
+	<option value='http://digitalbush.com/2009/03/'> March 2009 &nbsp;(4)</option>
+	<option value='http://digitalbush.com/2009/02/'> February 2009 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2009/01/'> January 2009 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2008/12/'> December 2008 &nbsp;(5)</option>
+	<option value='http://digitalbush.com/2008/11/'> November 2008 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2008/10/'> October 2008 &nbsp;(6)</option>
+	<option value='http://digitalbush.com/2008/09/'> September 2008 &nbsp;(4)</option>
+	<option value='http://digitalbush.com/2008/08/'> August 2008 &nbsp;(8)</option>
+	<option value='http://digitalbush.com/2008/07/'> July 2008 &nbsp;(12)</option>
+	<option value='http://digitalbush.com/2008/06/'> June 2008 &nbsp;(6)</option>
+	<option value='http://digitalbush.com/2008/05/'> May 2008 &nbsp;(7)</option>
+	<option value='http://digitalbush.com/2008/04/'> April 2008 &nbsp;(6)</option>
+	<option value='http://digitalbush.com/2008/03/'> March 2008 &nbsp;(6)</option>
+	<option value='http://digitalbush.com/2008/02/'> February 2008 &nbsp;(5)</option>
+	<option value='http://digitalbush.com/2008/01/'> January 2008 &nbsp;(7)</option>
+	<option value='http://digitalbush.com/2007/12/'> December 2007 &nbsp;(7)</option>
+	<option value='http://digitalbush.com/2007/11/'> November 2007 &nbsp;(7)</option>
+	<option value='http://digitalbush.com/2007/10/'> October 2007 &nbsp;(14)</option>
+	<option value='http://digitalbush.com/2007/09/'> September 2007 &nbsp;(6)</option>
+	<option value='http://digitalbush.com/2007/08/'> August 2007 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2007/07/'> July 2007 &nbsp;(7)</option>
+	<option value='http://digitalbush.com/2007/06/'> June 2007 &nbsp;(6)</option>
+	<option value='http://digitalbush.com/2007/05/'> May 2007 &nbsp;(4)</option>
+	<option value='http://digitalbush.com/2007/04/'> April 2007 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2007/03/'> March 2007 &nbsp;(4)</option>
+	<option value='http://digitalbush.com/2007/02/'> February 2007 &nbsp;(4)</option>
+	<option value='http://digitalbush.com/2007/01/'> January 2007 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2006/12/'> December 2006 &nbsp;(3)</option>
+	<option value='http://digitalbush.com/2006/11/'> November 2006 &nbsp;(5)</option>
+	<option value='http://digitalbush.com/2006/10/'> October 2006 &nbsp;(1)</option>
+ </select>
+</li>
+</ul>
+<!-- The main column ends  -->
+<!-- begin footer -->
+<div id="footer">
+		<p>&copy; 2014 Josh Bush | <a href='/wp-admin/'>Admin</a> </p>
+</div>
+</div>
+</body>
+</html>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using disk: enhanced
+Database Caching using apc
+Object Caching 891/989 objects using apc
+
+ Served from: _ @ 2014-04-29 02:16:24 by W3 Total Cache -->

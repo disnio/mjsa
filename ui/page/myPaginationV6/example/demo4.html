@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>demo3</title>
+<link rel="stylesheet" type="text/css" href="../resources/js/msgbox/msgbox.css"/>
+<link rel="stylesheet" type="text/css" href="../resources/js/myPagination/page.css"/>
+<link rel="stylesheet" type="text/css" href="../resources/css/where.css" />
+<link rel="stylesheet" type="text/css" href="../resources/js/table/table.css" />
+<link rel="stylesheet" type="text/css" href="../resources/js/jqtransform/jqtransformplugin/jqtransform.css"
+    />
+<script language="javascript" type="text/javascript" src="../resources/js/jquery.js">
+    </script>
+<script language="javascript" type="text/javascript" src="../resources/js/myPagination/jquery.myPagination6.0.js">
+    </script>
+<script language="javascript" type="text/javascript" src="../resources/js/msgbox/msgbox.js">
+    </script>
+<script language="javascript" type="text/javascript" src="../resources/js/jTemplates/jquery-jtemplates.js" >
+    </script>
+<script language="javascript" type="text/javascript" src="../resources/js/jqtransform/jqtransformplugin/jquery.jqtransform.js">
+    </script>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	margin:100px;
+	background:#fff;
+}
+.cRed {
+	color:#F00
+}
+.cBlue {
+	color:#00F;
+}
+#mytab {
+	text-align:center;
+}
+.odd {
+	background-color: #f5fafe;
+/* pale yellow for odd rows */ }
+.even {
+	background-color: #FFF; /* pale blue for
+      even rows */
+}
+.selected {
+	background-color: #FBEC88; /* pale blue for even rows
+      */
+}
+.TrHover tr:hover {
+	background-color: #DDECF7;
+//使用CSS伪类达到鼠标移入行变色的效果，比Jquery 的mouseover, hover 好用
+}
+</style>
+<script>
+      var jsonMyPagination;
+
+      $(function() {
+        init();
+        initEvent();
+      })
+
+      function init() {
+        //美化表单
+        $('form').jqTransform();
+
+        //选中第一个文本框.
+        $(":text:first").focus();
+      }
+
+      function initEvent() {
+        jsonMyPagination = $("#demo1").myPagination({
+          panel: {
+            tipInfo_on: true,
+            tipInfo: '&nbsp;&nbsp;跳{input}/{sumPage}页',
+            tipInfo_css: {
+              width: '25px',
+              height: "20px",
+              border: "2px solid #f0f0f0",
+              padding: "0 0 0 5px",
+              margin: "0 5px 0 5px",
+              color: "#48b9ef"
+            }
+          },
+          debug: false,
+          ajax: {
+            on: true,
+            url: "jsonData.txt",
+            dataType: 'json',
+            ajaxStart: function() {
+              ZENG.msgbox.show(" 正在加载中，请稍后...", 6, 10000);
+            },
+            ajaxStop: function() {
+              //隐藏加载提示
+              setTimeout(function() {
+                ZENG.msgbox.hide();
+              }, 300);
+            },
+            callback: function(data) {
+              //使用模板
+              $("#mytab tbody").setTemplateElement("Template-List").processTemplate(data);
+              $('#mytab tbody').addClass('TrHover');
+              $("#mytab tbody tr").addClass("odd");
+              $("#mytab tbody tr:even").addClass("even");
+              $('#mytab tbody tr').click(function() {
+                $(".selected").removeClass("selected"); //移除所有选中的Class.
+                $(this).toggleClass("selected"); //添加样式
+              });
+              //$("#mytab tbody").setTemplateElement("Template-List").processTemplate(data);
+
+            }
+          }
+        });
+		
+        $("#query").click(function() {
+          var params = $("#queryForm").serialize();
+          //alert("表单序列化后请求参数:"+params);
+          params = decodeURI(params);
+          alert("表单序列化后请求参数:" + params);
+          jsonMyPagination.onLoad(params);
+        });
+      }
+    </script>
+</head>
+<body>
+<form id="queryForm" name="queryForm">
+  <table width="100%" id="tab">
+    <thead >
+      <tr>
+        <th colspan="5">查询条件</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="one">关&nbsp;&nbsp;键&nbsp;&nbsp;字：</td>
+        <td colspan="2" class="two"><input type="text" id="keywords" name="keywords"  style=" width:130px; color:#000; value="" /></td>
+        <td colspan="2"><input id="query" name="query" type="button" style="width:63px;  height:21px; line-height:21px; margin: 0 50px 0 0px; font-weight:bold; float:right;"
+                          value="搜索" /></td>
+      </tr>
+      <tr class="tr_edd">
+        <td class="one">结算状态：</td>
+        <td colspan="2" class="two"><label style="margin:0 10px 0 0;">
+            <input name="FSettlementStatus" type="radio" value="" />
+            全部 </label>
+          <label style="margin:0 10px 0 0;">
+            <input name="FSettlementStatus" type="radio" value="0" />
+            已结算 </label>
+          <label style="margin:0 10px 0 0;">
+            <input name="FSettlementStatus" type="radio" value="1" />
+            等待结算 </label></td>
+        <td class="one">交易状态：</td>
+        <td class="two"><label style="margin:0 10px 0 0;">
+            <input name="FTransactionState" type="checkbox" value="0" />
+            交易成功 </label>
+          <label style="margin:0 10px 0 0;">
+            <input name="FTransactionState" type="checkbox" value="2" />
+            已撤销 </label></td>
+      </tr>
+      <tr>
+        <td class="one">发布日期：</td>
+        <td colspan="2" class="two"><select name="issuedate">
+            <option value="9" selected="">--请选择--</option>
+            <option value="1">近一天</option>
+            <option value="2">近二天</option>
+            <option value="3">近三天</option>
+            <option value="4">近一周</option>
+            <option value="5">近两周</option>
+            <option value="6">近一月</option>
+            <option value="7">近六周</option>
+            <option value="8">近两月</option>
+          </select></td>
+        <td class="one">工作年限：</td>
+        <td class="two"><select name="workyear">
+            <option value="99" selected="">--请选择--</option>
+            <option value="1">在读学生</option>
+            <option value="2">应届毕业生</option>
+            <option value="3">一年以上</option>
+            <option value="4">二年以上</option>
+            <option value="5">三年以上</option>
+            <option value="6">五年以上</option>
+            <option value="7">八年以上</option>
+            <option value="8">十年以上</option>
+            <option value="9">不限</option>
+          </select></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+<table width="100%" id="mytab" class="t1">
+  <thead>
+  <th >编号</th>
+    <th >总价格</th>
+    <th >支付状态</th>
+    <th >创建时间</th>
+    </thead>
+  <tbody>
+  </tbody>
+</table>
+<div id="demo1"></div>
+<!-- Templates -->
+<p style="display:none">
+  <textarea id="Template-List" rows="0" cols="0"><!--
+    {#template MAIN}
+        {#foreach $T.result as Result}
+          <tr>
+            <td>{$T.Result.Id}</td>
+            <td>{$T.Result.TotalPrice / 100}元</td>
+            <td>{#if $T.Result.OrderState == "未支付"}
+            	 <font class="cRed">未支付</font>
+                {#else}
+	                <font class="cBlue">已支付</font>
+            	{#/if}
+            </td>
+            <td>{$T.Result.CreateTime}</td>
+           </tr>
+        {#/for}
+    {#/template MAIN}
+  -->
+</textarea>
+</p>
+</body>
+</html>

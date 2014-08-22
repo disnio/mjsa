@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>jQuery Jcrop 图像裁剪 - 前端开发仓库</title>
+<meta name="keywords" content="jquery图像裁剪,jquery头像裁剪,jcrop中文,jcrop中文API,jcrop参数,jcrop设置">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/code.css">
+<script src="/js/jquery-1.9.1.min.js"></script>
+<script src="/js/plugins.js"></script></head>
+<body>
+<div id="header" class="header">
+	<p class="breadcrumb"><a class="blacklink" href="/">前端开发仓库</a> &raquo; <span>jQuery</span> &raquo; <strong>jQuery Jcrop 图像裁剪</strong></p>
+	<p class="pay"><a target="_blank" href="/parttime.php">项目外包</a></p>
+	<p class="pay"><a target="_blank" href="http://me.alipay.com/ciaoca">请我喝杯咖啡</a></p>
+</div><div class="content">
+	<h1>jQuery Jcrop 图像裁剪<a class="source" target="_blank" href="http://deepliquid.com/content/Jcrop.html">来源</a></h1>
+	<div class="intro">
+		<p>Jcrop 是一个功能强大的 jQuery 图像裁剪插件，结合后端程序（例如：PHP）可以快速的实现图片裁剪的功能。</p>
+	</div>
+	<dl class="intro">
+		<dt>版本：</dt>
+		<dd>jQuery v1.5.1+</dd>
+		<dd>jQuery Jcrop v0.9.9</dd>
+	</dl>
+	<div class="intro">
+		<p><a class="online_demo" target="_blank" href="demo/">查看 Demo</a></p>
+		<p><a class="source_download" href="version/tapmodo-Jcrop-v0.9.9-0-g5e58bc9.zip">jQuery Jcrop v0.9.9</a></p>
+	</div>
+
+	<h2>【options 参数说明】</h2>
+	<div class="example">
+		<table class="manual_table table_form">
+			<thead>
+				<tr>
+					<th width="80">名称</th>
+					<th width="120">默认值</th>
+					<th>说明</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>allowSelect</td>
+				<td>true</td>
+				<td>允许新选框</td>
+			</tr>
+			<tr>
+				<td>allowMove</td>
+				<td>true</td>
+				<td>允许选框移动</td>
+			</tr>
+			<tr>
+				<td>allowResize</td>
+				<td>true</td>
+				<td>允许选框缩放</td>
+			</tr>
+			<tr>
+				<td>trackDocument</td>
+				<td>true</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>baseClass</td>
+				<td>"jcrop"</td>
+				<td>基础样式名前缀。说明：class="jcrop-holder"，更改的只是其中的 jcrop。</td>
+			</tr>
+			<tr>
+				<td>addClass</td>
+				<td>null</td>
+				<td>添加样式。例：假设值为 "test"，那么会添加样式到 class="test jcrop-holder"</td>
+			</tr>
+			<tr>
+				<td>bgColor</td>
+				<td>"black"</td>
+				<td>背景颜色。颜色关键字、HEX、RGB 均可。</td>
+			</tr>
+			<tr>
+				<td>bgOpacity</td>
+				<td>0.6</td>
+				<td>背景透明度</td>
+			</tr>
+			<tr>
+				<td>bgFade</td>
+				<td>false</td>
+				<td>使用背景过渡效果</td>
+			</tr>
+			<tr>
+				<td>borderOpacity</td>
+				<td>0.4</td>
+				<td>选框边框透明度</td>
+			</tr>
+			<tr>
+				<td>handleOpacity</td>
+				<td>0.5</td>
+				<td>缩放按钮透明度</td>
+			</tr>
+			<tr>
+				<td>handleSize</td>
+				<td>9</td>
+				<td>缩放按钮大小</td>
+			</tr>
+			<tr>
+				<td>handleOffset</td>
+				<td>5</td>
+				<td>缩放按钮与边框的距离</td>
+			</tr>
+			<tr>
+				<td>aspectRatio</td>
+				<td>0</td>
+				<td>选框宽高比。说明：width/height</td>
+			</tr>
+			<tr>
+				<td>keySupport</td>
+				<td>true</td>
+				<td>支持键盘控制。按键列表：上下左右（移动）、Esc（取消）、Tab（跳出裁剪框，到下一个）</td>
+			</tr>
+			<tr>
+				<td>cornerHandles</td>
+				<td>true</td>
+				<td>允许边角缩放</td>
+			</tr>
+			<tr>
+				<td>sideHandles</td>
+				<td>true</td>
+				<td>允许四边缩放</td>
+			</tr>
+			<tr>
+				<td>drawBorders</td>
+				<td>true</td>
+				<td>绘制边框</td>
+			</tr>
+			<tr>
+				<td>dragEdges</td>
+				<td>true</td>
+				<td>允许拖动边框</td>
+			</tr>
+			<tr>
+				<td>fixedSupport</td>
+				<td>true</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>touchSupport</td>
+				<td>null</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>boxWidth</td>
+				<td>0</td>
+				<td>画布宽度</td>
+			</tr>
+			<tr>
+				<td>boxHeight</td>
+				<td>0</td>
+				<td>画布高度</td>
+			</tr>
+			<tr>
+				<td>boundary</td>
+				<td>2</td>
+				<td>边界。说明：可以从边界开始拖动鼠标选择裁剪区域</td>
+			</tr>
+			<tr>
+				<td>fadeTime</td>
+				<td>400</td>
+				<td>过度效果的时间</td>
+			</tr>
+			<tr>
+				<td>animationDelay</td>
+				<td>20</td>
+				<td>动画延迟</td>
+			</tr>
+			<tr>
+				<td>swingSpeed</td>
+				<td>3</td>
+				<td>过渡速度</td>
+			</tr>
+			<tr>
+				<td>minSelect</td>
+				<td>[0,0]</td>
+				<td>选框最小选择尺寸。说明：若选框小于该尺寸，则自动取消选择</td>
+			</tr>
+			<tr>
+				<td>maxSize</td>
+				<td>[0,0]</td>
+				<td>选框最大尺寸</td>
+			</tr>
+			<tr>
+				<td>minSize</td>
+				<td>[0,0]</td>
+				<td>选框最小尺寸</td>
+			</tr>
+			<tr>
+				<td>onChange</td>
+				<td>function(){}</td>
+				<td>选框改变时的事件</td>
+			</tr>
+			<tr>
+				<td>onSelect</td>
+				<td>function(){}</td>
+				<td>选框选定时的事件</td>
+			</tr>
+			<tr>
+				<td>onRelease</td>
+				<td>function(){}</td>
+				<td>取消选框时的事件</td>
+			</tr>
+		</table>
+	</div>
+
+<h2>【使用方法】</h2>
+<div class="example">
+<h3>载入 CSS 文件</h3>
+<pre><code class="html">&lt;link rel="stylesheet" href="css/jquery.Jcrop.css"&gt;</code></pre>
+
+<h3>载入 JavaScript 文件</h3>
+<pre><code class="html">&lt;script src="js/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="js/jquery.Jcrop.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h3>给 IMG 标签加上 ID</h3>
+<pre><code class="html">&lt;img id="element_id" src="pic.jpg"&gt;</code></pre>
+
+<h3>调用 Jcrop</h3>
+<pre><code class="js">$("#element_id").Jcrop();</code></pre>
+</div>
+
+
+	<h2>【API 接口】</h2>
+	<div class="example">
+		<table class="manual_table table_form">
+			<thead>
+				<tr>
+					<th width="80">名称</th>
+					<th>说明</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>setImage(string)</td>
+				<td>设定（或改变）图像。例：jcrop_api.setImage("newpic.jpg")</td>
+			</tr>
+			<tr>
+				<td>setOptions(object)</td>
+				<td>设定（或改变）参数，格式与初始化设置参数一样</td>
+			</tr>
+			<tr>
+				<td>setSelect(array)</td>
+				<td>创建选框，参数格式为：[x,y,x2,y2]</td>
+			</tr>
+			<tr>
+				<td>animateTo(array)</td>
+				<td>用动画效果创建选框，参数格式为：[x,y,x2,y2]</td>
+			</tr>
+			<tr>
+				<td>release()</td>
+				<td>取消选框</td>
+			</tr>
+			<tr>
+				<td>disable()</td>
+				<td>禁用 Jcrop。说明：已有选框不会被清除。</td>
+			</tr>
+			<tr>
+				<td>enable()</td>
+				<td>启用 Jcrop</td>
+			</tr>
+			<tr>
+				<td>destroy()</td>
+				<td>移除 Jcrop</td>
+			</tr>
+			<tr>
+				<td>tellSelect()</td>
+				<td>获取选框的值（实际尺寸）。例子：console.log(jcrop_api.tellSelect())</td>
+			</tr>
+			<tr>
+				<td>tellScaled()</td>
+				<td>获取选框的值（界面尺寸）。例子：console.log(jcrop_api.tellScaled())</td>
+			</tr>
+			<tr>
+				<td>getBounds()</td>
+				<td>获取图片实际尺寸，格式为：[w,h]</td>
+			</tr>
+			<tr>
+				<td>getWidgetSize()</td>
+				<td>获取图片显示尺寸，格式为：[w,h]</td>
+			</tr>
+			<tr>
+				<td>getScaleFactor()</td>
+				<td>获取图片缩放的比例，格式为：[w,h]</td>
+			</tr>
+		</table>
+	</div>
+
+<h2>相关信息</h2>
+<div class="intro">
+	<p>作者网站：<a target="_blank" href="http://deepliquid.com/content/Jcrop.html">http://deepliquid.com/content/Jcrop.html</a></p><p>相关文档：<a target="_blank" href="http://code.ciaoca.com/jquery/jcrop/">中文文档</a></p><p>授权协议：<a target="_blank" href="http://zh.wikipedia.org/zh-cn/MIT%E8%AE%B8%E5%8F%AF%E8%AF%81">MIT</a></p></div></div>
+<script src="/js/chili/jquery.chili-2.2.min.js"></script>
+<script src="/js/chili/recipes.js"></script>
+
+<div style="display:none;">
+<script src="http://code.ciaoca.com/js/donate.js"></script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cdiv id='cnzz_stat_icon_5076009' style='display:none;'%3E%3C/div%3E%3Cscript src='" + cnzz_protocol + "s25.cnzz.com/stat.php%3Fid%3D5076009' type='text/javascript'%3E%3C/script%3E"));</script>
+</div></body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <book id="1">
+    <name>深入浅出extjs</name>
+    <author>张三</author>
+    <price>88</price>
+  </book>
+  <book id="2">
+    <name>锋利的jQuery</name>
+    <author>李四</author>
+    <price>99</price>
+  </book>
+  <book id="3">
+    <name>深入浅出flex</name>
+    <author>王五</author>
+    <price>108</price>
+  </book>
+  <book id="4">
+    <name>java编程思想</name>
+    <author>钱七</author>
+    <price>128</price>
+  </book>
+  <!--
+  <a>
+  <b>
+  <c><pageCount>20</pageCount></c>
+  </b>
+  </a>
+  -->
+  <total>4</total>
+  <pageCount>20</pageCount>
+</root>

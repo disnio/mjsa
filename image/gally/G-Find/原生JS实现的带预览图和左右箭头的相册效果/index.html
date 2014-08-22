@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>原生JS实现的带预览图和左右箭头的相册效果 - 97站长网 - www.97zzw.com</title>
+<link href="css/www.97zzw.com.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="mod18">
+	<span id="prev" class="btn prev"></span>
+	<span id="next" class="btn next"></span>
+	<span id="prevTop" class="btn prev"></span>
+	<span id="nextTop" class="btn next"></span>
+	<div id="picBox" class="picBox">
+		<ul class="cf">
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293306.jpg" alt="" /></a>
+				<span>探班横店某剧组，陆毅在剧中最重的戏服有20斤，一下戏他就飞快地脱去戏服，躲到休息室凉快去。</span>
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank" ><img width="680" height="380" src="images/83293260.jpg" alt="" /></a>
+				<span> 《宫3》剧组片场，演员王琳正对着小镜子练习微笑。在片场，许多演员都有自己的秘密装备。</span>
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293278.jpg" alt="" /></a>
+				<span>虽然还是春天，横店下午的气温也有15-16度，在室外穿着厚衣服拍戏对王琳来说有点遭罪。</span> 
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293291.jpg" alt="" /></a>
+				<span>同样遭罪的还有演员寇振海，戏服太厚天太热，他的脖子上捂出了痱子。</span> 
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293300.jpg" alt="" /></a>
+				<span>出汗多，一些小妆容需要随时修饰，一位女助理在帮寇振海现场粘胡子。</span> 
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293339.jpg" alt="" /></a>
+				<span>同样是反季节拍古装戏，夏戏冬拍就好办一些，几片暖宝宝就可以解决问题。</span>
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293353.jpg" alt="" /></a>
+				<span>林志颖的一场室内戏，灯光可以模仿太阳的效果，解决时差问题。</span> 
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293410.jpg" alt="" /></a>
+				<span>夜戏白天拍，则需要在场景外围起一块完全遮光的黑布。</span>
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293412.jpg" alt="" /></a>
+				<span>为了拍出“摔飞出去”的效果，需要准备厚垫子，做好安全措施。</span> 
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293418.jpg" alt="" /></a>
+				<span>拍戏禁忌颇多，丧事戏份通常不受演员们的欢迎。</span> 
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293442.jpg" alt="" /></a>
+				<span>剧组通常都会为出演死人戏等丧事戏份的演员准备红包，以作去灾压惊之用。（资料图）</span> 
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293447.jpg" alt="" /></a>
+				<span>在许多片场的旅馆，房间门上都贴有佛教用品。</span> 
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293458.jpg" alt="" /></a>
+				<span>而在片场，能看到的大部分布景都不是真的，比如拍戏用的假花。</span> 
+			</li>
+			<li>
+				<a href="http://97zzw.com/" target="_blank"><img width="680" height="380" src="images/83293493.jpg" alt="" /></a>
+				<span>经常在电视上看到柱子上鎏金雕刻的装饰，则是临时安装上去的。</span>
+			</li>
+		</ul>
+	</div>
+	
+	<div id="listBox" class="listBox">
+		<ul class="cf">
+			<li class="on"><i class="arr2"></i><img width="118" height="64" src="images/83293792.jpg" alt="陆毅脱掉戏服" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293780.jpg" alt="对镜练习微笑" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293781.jpg" alt="冬戏夏拍" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293782.jpg" alt="寇振海热出痱子" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293783.jpg" alt="现场粘胡子" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293793.jpg" alt="贴暖宝宝" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293794.jpg" alt="灯光模仿太阳" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293795.jpg" alt="夜戏白天拍" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293809.jpg" alt="假摔" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293810.jpg" alt="丧事戏布景" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293811.jpg" alt="丧事戏" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293812.jpg" alt="门上贴佛教用品" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293831.jpg" alt="假花" /></li>
+			<li><i class="arr2"></i><img width="118" height="64" src="images/83293832.jpg" alt="假装饰" /></li>
+		</ul>
+	</div>
+	
+</div>
+<script type="text/javascript" src="js/www.97zzw.com.js"></script>
+</body>
+</html>

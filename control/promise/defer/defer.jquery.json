@@ -1,0 +1,29 @@
+{
+  "name": "defer",
+  "title": "Defer",
+  "description": "A pair of utility methods for forcing a function or an object's methods to wait for a deferred object to resolve before running and undoing this effect if required.",
+  "version": "0.1.2b",
+  "homepage": "https://github.com/wheresrhys/jquery.defer",
+  "author": {
+    "name": "Rhys Evans",
+    "email": "wheresrhys@gmail.com",
+    "url": "http://wheresrhys.co.uk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wheresrhys/jquery.defer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wheresrhys/jquery.defer/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/wheresrhys/jquery.defer/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "1.5"
+  },
+  "keywords": ["deferred", "ajax", "defer", "promise", "when", "utility"]
+}

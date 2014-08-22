@@ -1,0 +1,208 @@
+@import url(http://fonts.googleapis.com/css?family=News+Cycle);
+
+a{
+	text-decoration:none;
+}
+
+body, html{
+	overflow:hidden !important;
+	width:100% !important;
+	height:100% !important;	
+	margin:0;
+	padding:0;
+	background:#000;
+}
+
+#wall-top{
+	width:100%;
+	height:80px;
+	background:#000;
+	float:left;
+}
+
+#wall-top h1{
+	float:left;
+	margin:0;
+	padding:0 0 0 20px;
+	height:80px;
+	line-height:80px;
+	color:#fff;
+	font-family: 'News Cycle', sans-serif;
+	font-size:26px;
+}
+
+#wall-top a{
+	float:right;
+	margin:0;
+	padding:0 20px 0 0;
+	height:80px;
+	line-height:80px;
+	color:#fff;
+	font-family: 'News Cycle', sans-serif;
+	font-size:16px;
+}
+
+#wall-top a:hover{
+	color:#09c;
+}
+
+
+#wall-container{
+	overflow:hidden;
+	position:absolute;
+	top:80px;
+}
+
+#wall-loading{
+	width:100%;
+	height:100%;
+	z-index:101;
+	background:#000 url(../img/loading.gif) center no-repeat;
+	opacity:0.9;
+	position:absolute;	
+}
+
+#wall-detail{
+	width:100%;
+	height:100%;
+	z-index:100;
+	background:url(../img/overlay.png);
+	display:none;
+	position:absolute;
+}
+
+
+.wsall-detail-controls{
+	width:100%;
+	height:100%;
+	position:relative;
+}
+
+
+.wall-detail-info{
+	position:fixed;
+	right:20px;
+	bottom:-420px;
+	background:url(../img/overlay.png);
+	color:#fff;
+	padding:10px 35px;
+	font-size:32px;
+	font-family: 'News Cycle', sans-serif;
+	z-index:99;
+}
+
+#wall-items{
+	float:left;
+}
+
+.wall-item{
+	float:left;
+	color:#fff;
+	font-size:24px;
+	font-weight:bold;
+	overflow:hidden;
+	background-position:center;
+	background-repeat:no-repeat;
+	display:none;
+	position:relative;	
+}
+
+.wall-item .hide{
+	display:none;	
+}
+
+.wall-item a{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	text-indent:-9999px;
+}
+
+.wall-item:hover a{
+	background:url(../img/overlay.png);
+}
+
+.wall-item .title{
+	position:absolute;
+	font-size:22px;
+	color:#fff;
+	bottom:10px;
+	right:10px;
+	text-align:right;
+	display:none;
+	font-family: 'News Cycle', sans-serif;
+}
+
+.jmFullWall-next{
+	position:absolute;
+	right:20px;
+	top:45%;
+	width:48px;	
+	height:48px;	
+	z-index:1;
+	background:url(../img/next.png) center right no-repeat;
+}
+
+.jmFullWall-next:hover{
+}
+
+
+.jmFullWall-prev{
+	position:absolute;
+	left:20px;
+	top:45%;
+	width:48px;	
+	height:48px;	
+	z-index:1;
+	background:url(../img/prev.png) center left no-repeat;
+}
+
+.jmFullWall-prev:hover{
+}
+
+
+.jmFullWall-close{
+	position:absolute;
+	top:20px;
+	right:20px;
+	background:url(../img/close.png);
+	width:48px;	
+	height:48px;	
+	z-index:1;
+}
+
+.jmFullWall-ZoomIn{
+	width:48px;
+	height:48px;
+	top:78px;
+	right:20px;
+	background:#000;
+	position:absolute;
+	z-index:999;
+	cursor:pointer;
+	color:#fff;
+	text-align:center;
+	font-weight:bold;
+	line-height:48px;
+	font-size:36px;
+}
+
+.jmFullWall-ZoomOut{
+	width:48px;
+	height:48px;
+	top:136px;
+	right:20px;
+	background:#000;
+	position:absolute;
+	z-index:999;
+	cursor:pointer;
+	color:#fff;
+	text-align:center;
+	font-weight:bold;
+	line-height:44px;
+	font-size:36px;
+}
+
+

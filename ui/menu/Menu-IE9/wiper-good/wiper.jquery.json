@@ -1,0 +1,35 @@
+{
+    "name": "wiper",
+    "title": "jQuery Wiper",
+    "description": "Dynamic & easy menu for your web site.",
+    "keywords": [
+        "dynamic",
+        "animation",
+        "acordion"
+    ],
+    "version": "1.0.3",
+    "author": {
+        "name": "yosuke kondo",
+        "url": "http://m-and.co"
+    },
+    "maintainers": [
+        {
+            "name": "Yosuke Kondo",
+            "email": "kondo@m-and.co",
+            "url": "http://m-and.co"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/MCoLtd/jquery-wiper/blob/master/LICENSE"
+        }
+    ],
+    "bugs": "https://github.com/MCoLtd/jquery-wiper/issues",
+    "homepage": "https://github.com/MCoLtd/jquery-wiper",
+    "docs": "https://github.com/MCoLtd/jquery-wiper",
+    "download": "http://code.jquery.com/#jquery-wiper",
+    "dependencies": {
+        "jquery": ">=1.9.1"
+    }
+}

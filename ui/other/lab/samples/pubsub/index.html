@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> jQuery pubsub plugin </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../../asset/core/css/base/base.css" type="text/css">
+<script src="../../asset/core/js/jquery/jquery.js" type="text/javascript"></script>
+<script src="../../asset/core/js/jquery/pubsub/jquery.pubsub.js" type="text/javascript"></script>
+</head>
+
+<body>
+<h1>jQuery pubsub plugin</h1>
+
+<h2 id="introduction">介绍</h2>
+<p>jQuery pubsub 被设计用来在当前页面内创建一个消息中枢，使不同布局模块之间可以订阅或发布事件消息，继而实现事件响应机制。</p>
+
+<p>示例列表如下：</p>
+
+<ul class="sample-contents">
+	<li><a href="#parameters">使用方法</a></li>
+	<li><a href="#sample1">使用示例</a></li>
+</ul>
+
+<h2 id="parameters">使用方法</h2>
+<p>jQuery pubsub 插件提供了消息的发布与订阅方法，对应的方法分别是 <code>publish</code> 与 <code>subscribe</code>。它们被直接绑定到 jQuery 对象上，其方法使用形式如下：</p>
+<ul class="list">
+	<li><strong>publish("message", data1, data2, data3, ...)</strong>：用于向页面发布消息；</li>
+	<li><strong>subscribe("message", function(data1, data2, data3, ..., message){ }, fetchCache)</strong>：用于订阅页面中的消息；</li>
+</ul>
+
+<h2 id="sample1">使用示例</h2>
+<p>下面的示例，演示了如何订阅或向页面中发布消息。对于“先发布-后订阅”事件的执行顺序，订阅的回调事件默认会在订阅时被立即触发。你可以通过 <code>fetchCache</code> 为 <code>false</code>，避免触发已经发布的消息。</p>
+
+<p>另外，你可以使用级联方式订阅或发布消息，或将多个消息订阅写在一个 <code>subscribe</code> 里。<code>subscribe</code> 的最后一个参数，默认是 <code>message</code> 字符串。</p>
+
+<p>需要注意的是，任何“订阅-发布”或“发布-订阅”，都应满足一次“定阅”，多次“发布”的编码原则。</p>
+
+<div class="sample">
+<input type="button" value="发布消息" id="btn-publish">
+<input type="button" value="订阅消息(包括已经发布过的)" id="btn-subscribe1">
+<input type="button" value="订阅消息(忽略已经发布过的)" id="btn-subscribe2">
+
+<script type="text/javascript">
+(function($) {
+
+$(function() {
+	$("#btn-publish").click(function(event) {
+		$
+		.publish("message1", "hello", "world")
+		.publish("message2", "we", "are", "here")
+		
+	});
+
+	$("#btn-subscribe1").click(function(event) {
+		$
+		.subscribe("message1 message2", function(data1, data2, data3) {
+			var message = arguments[arguments.length - 1];
+			if (message == "message1") {
+				alert(data1 + " " + data2);
+			}
+			else if (message == "message2") {
+				alert(data1 + " " + data2 + " " + data3);
+			}
+			
+		});
+	});
+
+	$("#btn-subscribe2").click(function(event) {
+		$
+		.subscribe("message1", function(data1, data2, message) {
+			alert("the message is '" + message + "', and the date is: '" + data1 + " " + data2 + "'");
+		}, false)
+		.subscribe("message2", function(data1, data2, data3, message) {
+			alert("the message is '" + message + "', and the date is: '" + data1 + " " + data2 + " " + data3 + "'");
+		}, false);
+	});
+});
+
+})(jQuery);
+</script>
+</div>
+
+<p>代码：</p>
+<pre><code>&lt;input type="button" value="发布消息" id="btn-publish"&gt;
+&lt;input type="button" value="订阅消息(包括已经发布过的)" id="btn-subscribe1"&gt;
+&lt;input type="button" value="订阅消息(忽略已经发布过的)" id="btn-subscribe2"&gt;
+
+&lt;script type="text/javascript"&gt;
+(function($) {
+
+$(function() {
+	$("#btn-publish").click(function(event) {
+		$
+		.publish("message1", "hello", "world")
+		.publish("message2", "we", "are", "here")
+		
+	});
+
+	$("#btn-subscribe1").click(function(event) {
+		$
+		.subscribe("message1 message2", function(data1, data2, data3) {
+			var message = arguments[arguments.length - 1];
+			if (message == "message1") {
+				alert(data1 + " " + data2);
+			}
+			else if (message == "message2") {
+				alert(data1 + " " + data2 + " " + data3);
+			}
+			
+		});
+	});
+
+	$("#btn-subscribe2").click(function(event) {
+		$
+		.subscribe("message1", function(data1, data2, message) {
+			alert("the message is '" + message + "', and the date is: '" + data1 + " " + data2 + "'");
+		}, false)
+		.subscribe("message2", function(data1, data2, data3, message) {
+			alert("the message is '" + message + "', and the date is: '" + data1 + " " + data2 + " " + data3 + "'");
+		}, false);
+	});
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+</body>
+</html>

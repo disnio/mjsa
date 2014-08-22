@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>ImageSelect Demo</title> 
+ 
+  <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script> 
+  <script type="text/javascript" src="imageselect.js"></script> 
+ 
+  <link href="imageselect.css" media="screen" rel="stylesheet" type="text/css" /> 
+ 
+</head> 
+<body> 
+
+<span style="font-size:16px;color:red!important;">I now have a plugin pack that includes a new, improved version of the ImageDropdown plugin - please head over to <a href="http://egg.liam-galvin.co.uk">egg.liam-galvin.co.uk</a> to download it. Don't use the version on this page!</span>
+
+<p>This is a demo of ImageSelect!</p>
+
+<select name="logo">
+<option value="1">http://www.google.com/logos/2011/fathersday11-hp.jpg</option>
+<option value="2">http://www.google.com/logos/2011/israelbookfair11-hp.jpg</option>
+<option value="3">http://www.google.com/logos/2011/valentinesday11-hp.jpg</option>
+<option value="4">http://www.google.com/logos/2011/ctvrtek11-hp.jpg</option>
+</select>
+
+<p>Go <a href="http://liam-galvin.co.uk/imageselect">here</a> to download it or read the documentation.</p>
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		$('select[name=logo]').ImageSelect({dropdownWidth:425});
+	});
+
+</script>
+
+</body>
+
+</html>

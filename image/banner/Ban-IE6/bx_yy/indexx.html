@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="base_v4.css"/>
+<script src="../../js/jquery.js" type="text/javascript"></script>
+<script src="yy.edu.ui.banner-1.01.js" type="text/javascript"></script>
+<script type="text/javascript">  
+$(function(e){
+   // 初始化广告页
+   initBanner();
+   //
+   bannerThumbMouseOverHandler();
+});
+
+var banner = null;
+function initBanner(){
+	banner = new Banner({
+		total : 7,
+		bannerWidth : 710,
+		bannerHeight : 244,
+		bannerGap : 0,
+		leftBtn : $(".btn-next"),
+		rightBtn : $(".btn-prev"),
+		bannerContainer : $(".focus-cont"),
+		animateDuringTime : 150,
+		autoInterval : 5000,
+		switchEffect : "fade",
+		thumbContainer : $(".focus-thumb"),
+		startEffectHandler : startEffectHandler
+	});
+}
+
+function startEffectHandler(selectedIndex){
+	//alert("selectedIndex = " + selectedIndex);
+	//$(".home").html(selectedIndex);
+	$(".focus-tit li").hide();
+	var lis = $(".focus-tit li");
+	$(lis[selectedIndex]).show();
+};
+
+function bannerThumbMouseOverHandler(){
+   $(".focus-thumb>li").bind("mouseover",function(e){
+	   if(banner){
+		   banner.autoFlag = false;
+	   }
+   });
+   $(".focus-thumb>li").bind("mouseout",function(e){
+	   if(banner){
+		   banner.autoFlag = true;
+	   }
+   });
+}
+
+
+
+$(document).ready(function(){
+
+});
+</script>
+</head>
+    
+<body>
+<div id="wrap">
+
+<div class="mod-focus-pic">
+    <ul class="focus-cont" style="width: 710px;">    
+    
+    	<li style="display: list-item;"><a><img src="tz0MDFCKQKuHhbTMAAEMmCe7OlE138.jpg"></a></li>
+ 
+     	<li style="display: none;"><a><img src="tz0MDFCHoJPgWEwJAADz_ysATUo270.jpg"></a></li>
+
+    	<li style="display: none;"><a><img src="tz0MDFB_ZMnb3VZHAAFCh0ezmHE686.jpg"></a></li>
+    
+    	<li style="display: none;"><a><img src="tz0MDFBgGYLfcRNCAAFUaL7M5sE771.jpg"></a></li>
+ 
+    	<li style="display: none;"><a><img src="tz0MDFBgGgfASbNlAAEp6KuuT3o299.jpg"></a></li>
+    
+    	<li style="display: none;"><a><img src="tz0MDVBgGZ38sKOEAAE1kBsxq14020.jpg"></a></li>
+    
+    	<li style="display: none;"><a><img src="tz0MDFBgGW7LtAdqAAC4mHOenYE861.jpg"></a></li>
+    </ul>
+    <ul class="focus-tit">
+	
+		<li style="display: none;"><strong><a href="">YY教育课程市场 (支付系统) 全网上线</a></strong></li>
+	
+		<li class="hidden" style="display: none;"><strong><a href="">OW推广资源，使用规则</a></strong></li>
+	
+		<li class="hidden" style="display: none;"><strong><a href="">三天无条件退课，消费保障承诺</a></strong></li>
+	
+		<li class="hidden" style="display: none;"><strong><a href="">首届网络教育高峰论坛 - 学林奖投票开启</a></strong></li>
+	
+		<li class="hidden" style="display: none;"><strong><a href="">YY教育交易系统升级，课程选购更便捷</a></strong></li>
+	
+		<li class="hidden" style="display: none;"><strong><a href="">名家名言，誉满天下，YY有名堂</a></strong></li>
+	
+		<li class="hidden" style="display: none;"><strong><a href="">欢迎上架YY教育课程市场</a></strong></li>
+	
+    </ul>
+    <div class="focus-btn">
+        <a class="btn-prev" href="javascript:;">向左</a>
+        <a class="btn-next" href="javascript:;">向右</a>
+    </div>
+    <ul class="focus-thumb">
+	
+        <li selectindex="0" class="">
+        	<a href=""><img alt="YY教育课程市场 (支付系统) 全网上线" src="1.jpg"><i></i></a>
+        </li>
+	
+        <li selectindex="1" class="">
+        	<a href=""><img alt="OW推广资源，使用规则" src="2.jpg"><i></i></a>
+        </li>
+	
+        <li selectindex="2" class="">
+        	<a href=""><img alt="三天无条件退课，消费保障承诺" src="3.jpg"><i></i></a>
+        </li>
+	
+        <li selectindex="3" class="">
+        	<a href=""><img alt="首届网络教育高峰论坛 - 学林奖投票开启" src="4.jpg"><i></i></a>
+        </li>
+	
+        <li selectindex="4" class="">
+        	<a href=""><img alt="YY教育交易系统升级，课程选购更便捷" src="5.jpg"><i></i></a>
+        </li>
+	
+        <li selectindex="5" class="">
+        	<a href=""><img alt="名家名言，誉满天下，YY有名堂" src="6.jpg"><i></i></a>
+        </li>
+	
+        <li selectindex="6" class="">
+        	<a href=""><img alt="欢迎上架YY教育课程市场" src="7.jpg"><i></i></a>
+        </li>
+    	
+    </ul>
+</div>
+
+
+</div>
+</body>
+
+</html>

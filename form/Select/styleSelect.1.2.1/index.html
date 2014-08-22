@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>styleSelect | DEMO</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="jquery.js"></script> 
+<script type="text/javascript" src="jquery.styleSelect.js"></script>
+<link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<script type="text/javascript">
+	$(document).ready(function() {
+	$(".mySelect3").styleSelect({styleClass: "selectFruits",optionsWidth: 1,speed: 'fast'});
+		$(".mySelect").styleSelect({styleClass: "selectDark"});
+	});
+</script>
+More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+
+	<div class="select">
+		<select name="animals" class="mySelect">
+				<option  class="first" value="">Animals</option>
+				<option  value="hippopotamus">Hippopotamus</option>
+				<option  value="aligator">Aligator</option>
+				<option  value="aligator">Fox</option>
+				<option  value="aligator">Lion</option>
+				<option  class="last" value="giraf">Giraf</option>
+		</select>
+	</div>
+	<div class="select">
+		<select name="fruits" class="mySelect3" >
+				<option  value="">Select fruit</option>
+				<option  value="Peaches">Peache</option>
+				<option  value="Nectarines">Nectarine</option>
+				<option  value="Pears">Pear</option>
+				<option  value="Quinces">Quince</option>
+				<option  value="Cherries">Cherrie</option>
+				<option  value="Apricots">Apricot</option>
+				<option  value="Apples">Apple</option>
+				<option  value="Plums">Plum</option>
+				<option  value="Clementin">Clementin</option>
+				<option  value="Kumquat">Kumquat</option>
+				<option  value="Minneola">Minneola</option>
+				<option  value="Mandarin">Mandarin</option>
+		</select>
+	</div>
+	
+</body>
+</html>

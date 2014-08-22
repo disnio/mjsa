@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> jQuery iEffect plugin </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../../asset/core/css/base/base.css" type="text/css">
+<link rel="stylesheet" href="css/ieffect.css" type="text/css">
+<script src="../../asset/core/js/jquery/jquery.js" type="text/javascript"></script>
+<script src="../../asset/core/js/jquery/ieffect/jquery.ieffect.js" type="text/javascript"></script>
+</head>
+
+<body>
+<h1>jQuery iEffect plugin</h1>
+
+<h2 id="introduction">介绍</h2>
+<p>iEffect 的英文全称是“Interactive Effect”，目的用来实现交互时的样式效果变换。目前，支持的交互事件有 <code>mouseover</code>，<CODE>mousedown</CODE>，<CODE>focus</CODE> 及自定义事件 <CODE>error</CODE> 和 <CODE>normal</CODE>。需要说明的是，你需要预定义对应于不同事件的样式类，然后设置为 iEffect 的参数。</p>
+<p>对于 <code>mouseover</code>，<CODE>mousedown</CODE>，<CODE>focus</CODE> 等事件，其相应的恢复事件会被自动绑定，所以你不用关心 <code>mouseout</code>，<CODE>mouseup</CODE>，<CODE>blur</CODE> 等事件。</p>
+<p>示例列表如下：</p>
+
+<ul class="sample-contents">
+	<li><a href="#sample1">输入框的效果变换</a></li>
+	<li><a href="#sample2">为按钮元素加入按下样式</a></li>
+	<li><a href="#sample3">变换 div 元素的效果</a></li>
+</ul>
+
+<h2 id="sample1">输入框的效果变换</h2>
+<p>下面的输入框加入了鼠标浮动，焦点、错误状态效果。</p>
+
+<div class="sample">
+<input id="txt-test" class="txt-normal" type="text">
+<div>
+<input id="error" type="button" value="change to error state"/>
+<input id="normal" type="button" value="restore to normal state"/>
+</div>
+<script>
+(function($) {
+
+$(".txt-normal").iEffect({
+	mouseover: "txt-mouseover",
+	focus: "txt-focus",
+	error: "txt-error"
+});
+
+$("#error").click(function() {
+	$("#txt-test").trigger("error");
+});
+
+$("#normal").click(function() {
+	$("#txt-test").trigger("normal");
+});
+
+})(jQuery);
+</script>
+</div>
+
+<p>代码：</p>
+<pre><code>&lt;input id="txt-test" class="txt-normal" type="text"&gt;
+&lt;div&gt;
+&lt;input id="error" type="button" value="change to error state"/&gt;
+&lt;input id="normal" type="button" value="restore to normal state"/&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function($) {
+
+$(".txt-normal").iEffect({
+	mouseover: "txt-mouseover",
+	focus: "txt-focus",
+	error: "txt-error"
+});
+
+$("#error").click(function() {
+	$("#txt-test").trigger("error");
+});
+
+$("#normal").click(function() {
+	$("#txt-test").trigger("normal");
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+<h2 id="sample2">为按钮元素加入按下样式</h2>
+<p>下面的例子通过变换 input 元素的样式，来实现鼠标按下的效果。</p>
+<div class="sample">
+<input class="btn-accept-normal" type="button" value="确定">
+<input class="btn-cancel-normal" type="button" value="取消">
+<script>
+(function($) {
+
+$(".btn-accept-normal").iEffect({
+	mousedown: "btn-accept-down"
+});
+
+$(".btn-cancel-normal").iEffect({
+	mousedown: "btn-cancel-down"
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;input class="btn-accept-normal" type="button" value="确定"&gt;
+&lt;input class="btn-cancel-normal" type="button" value="取消"&gt;
+&lt;script&gt;
+(function($) {
+
+$(".btn-accept-normal").iEffect({
+	mousedown: "btn-accept-down"
+});
+
+$(".btn-cancel-normal").iEffect({
+	mousedown: "btn-cancel-down"
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+<h2 id="sample3">变换 div 元素的效果</h2>
+<p>我们还可以应用其到 div 或任意其他元素上，实现效果的变换。</p>
+<div class="sample">
+<div class="big-box-normal"><div class="small-box-normal"></div></div>
+<script>
+(function($) {
+
+$(".big-box-normal").iEffect({
+	mouseover: "big-box-hover",
+	mousedown: "big-box-down"
+});
+
+$(".small-box-normal").iEffect({
+	mouseover: "small-box-hover",
+	mousedown: "small-box-down"
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;div class="big-box-normal"&gt;&lt;div class="small-box-normal"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;script&gt;
+(function($) {
+
+$(".big-box-normal").iEffect({
+	mouseover: "big-box-hover",
+	mousedown: "big-box-down"
+});
+
+$(".small-box-normal").iEffect({
+	mouseover: "small-box-hover",
+	mousedown: "small-box-down"
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+</body>
+</html>

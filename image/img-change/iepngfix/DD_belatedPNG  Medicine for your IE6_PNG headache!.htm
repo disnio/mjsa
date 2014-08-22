@@ -1,0 +1,524 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=gbk">
+				<!--
+			DD_belatedPNG is free software under the MIT License: http://dillerdesign.com/experiment/DD_belatedPNG/#license
+			Author: Drew Diller
+			Email: drew.diller@gmail.com
+			URL: http://www.dillerdesign.com
+		-->
+		
+		<title>DD_belatedPNG: Medicine for your IE6/PNG headache!</title>
+		
+		<!--[if IE 6]>
+		<script src="DD_belatedPNG_0.0.8a-min.js"></script>
+		<script>
+			DD_belatedPNG.fix('.png_bg, img');
+		</script>
+		<![endif]-->
+		<style type="text/css">
+			html {filter:expression(document.execCommand("BackgroundImageCache", false, true));} /* enable background image caching in IE6 */
+			body {margin:0; padding:0; background:#FFF; font:normal 80%/1.3 arial,sans-serif; color:#FFF; text-align:center;}
+			form {margin:0; padding:0; text-align:center;}
+			.box {display:block; position:relative; overflow:hidden; zoom:1;}
+			ul, ol {margin:0; padding:0 0 10px 25px;}
+			li ul, li ol {padding-bottom:0}
+			
+			#doc {margin:0 auto; width:700px; background:#369; text-align:left;}
+			#content {position:relative; padding:125px 20px; border-left:256px solid #000;}
+			a#rss {padding-left:18px; background-image:url(rss.gif); background-position:left center; background-repeat:no-repeat;}
+			#diggbox {float:right; position:relative; margin:0 0 8px 8px;}
+			
+			hr {clear:both; overflow:hidden; height:0px; border:none; visibility:hidden; margin-bottom:20px;}
+			p {margin:0; padding:0 0 10px 0;}
+			code {padding:0px 3px; font-size:100%; background:#58B; font-weight:bold; font-family:"Courier New",sans-serif;}
+			code.box {padding:4px 6px; font-size:80%;}
+			acronym {border-bottom:1px solid #9CF;}
+			
+			h1, h2, h3 {margin:0; padding:0 0 10px 0; font-size:140%;}
+			h1 {padding:0;}
+			
+			.left_align_item {float:left; position:relative; margin-left:-256px; _display:inline; width:216px; padding-bottom:20px; text-align:right;}
+			.left_align_item a {padding:1px 5px; background:#333; color:#FFF; text-decoration:none;}
+			.left_align_item a:hover {background:#555;}
+			a {color:#FFF;}
+			#content h3 a {padding:0; background:none;}
+			
+			a.download {position:relative; float:left; margin:0 5px 5px 0; padding:20px 20px 20px 40px; border:2px solid #7CBF4D; background:#AFF32A; color:#000; text-decoration:none;}
+			a.download:hover {background:#BFF43B; border-color:#8DCF5E;}
+			a.download big {position:absolute; left:10px; top:5px; line-height:1; font-size:300%; cursor:pointer;}
+			a.download * {color:#7CBF4D; font-weight:bold;}
+			a.download:hover * {color:#8DCF5E}
+			
+			#tests .box {margin:0 0 10px 0px; padding:10px; overflow:hidden; border:1px solid #000;}
+			.png_bg {background:url(boxbg2.png);}
+			
+			#doc .clickables {background-position:right bottom;}
+			#doc .clickables .box {border:none; padding:10px;}
+			input.text, select {border:1px inset;}
+			input.radio {border:none;}
+			input.png_bg {background-position:20px 20px; color:#000;}
+
+			a.big_link {position:relative; zoom:1; float:left; margin:8px 5px 0 0; padding:50px; border:0px solid #000; color:#FFF; background-color:red;}
+			a.png_bg {background-position:left top; background-repeat:no-repeat;}
+			a.png_bg:hover {background-image:url(boxbg.png); color:#FFF;}
+			
+			img.png_img {vertical-align:middle;}
+			img.img1 {border:5px solid orange;}
+			img.img2 {border:none;}
+			img.img3 {border:10px solid #333; border-right:10px solid #777; background:#070;}
+			img.pa {z-index:100; margin:10px 0;}
+			
+			.pa {position:absolute;}
+			.L0 {left:0px}
+			.T0 {top:0px}
+			
+			#background_conditions_test select, #background_conditions_test input {display:block; float:left; clear:left; width:130px; margin:2px 20px 2px 0;}
+		</style> 
+	</head>
+	<body>
+		<div id="doc" class="box">
+			<div id="content">
+				<div class="left_align_item">
+					<h1>DD_belatedPNG</h1>
+					by <a href="http://www.dillerdesign.com/">Drew Diller</a><br>
+					<br>
+					<b>0.0.1a</b> released 2008.12.07<br>
+					Current: <b>0.0.8a</b> on 2009.06.30<br>
+					<a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/feed.rss" id="rss">release updates</a> / <a href="#changelog">changelog</a><br>
+				</div>
+				<img src="DD_belatedPNG%20%20Medicine%20for%20your%20IE6_PNG%20headache%21_files/boxbg2.png" class="pa L0 T0 png_img img2" style="left:-40px; top:10px;">
+				<h2>Medicine for your IE6/PNG headache!</h2>				
+				<div>
+					DD_belatedPNG is free software under the <a href="#license">MIT License</a>.<br>
+					Please familiarize yourself with <a href="#lacking">known issues</a>.<br>
+					You might also enjoy <a href="http://dillerdesign.com/experiment/DD_roundies">DD_roundies</a>.<br>
+					Jason Fragoso was kind enough to provide a <a href="http://www.movavi.com/opensource/dd-belatedpng-be">Belorussian translation</a> for this documentation.
+				</div>
+				<hr>
+				<div class="left_align_item">
+					<h3><a style="color:red;" name="end_of_life">END OF LIFE STATEMENT</a></h3>
+				</div>
+				<p>2011/4/8: This is no longer an actively maintained project. I apologize, I must move on with current events.</p>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="what">What?</a></h3>
+				</div>
+				<p>This is a Javascript library that sandwiches PNG image support into IE6 without much fuss.</p>
+				<p>You can use PNGs as the <code>SRC</code> of an <code>&lt;IMG/&gt;</code> element or as a <code>background-image</code> property in CSS.</p>
+				<p>If you attempt the latter, you will find that, unlike with vanilla usage of AlphaImageLoader, <code>background-position</code> and <code>background-repeat</code> work as intended.</p>
+				<p>As a bonus, "fixed" elements will respond to a commonly used set of Javascript <code>style</code> assignments, as well as the <code>A:hover</code> pseudo-class.</p>
+				<hr>
+				<div class="left_align_item">
+					<h3>Table of Contents</h3>
+				</div>
+				<div class="box toc">
+					<ul>
+						<li><a href="#how">How?</a></li>
+						<li><a href="#usage">Usage</a></li>
+						<li><a href="#alternative_usage">Alternative Usage</a></li>
+						<li><a href="#technical_summary">Technical Summary</a></li>
+						<li><a href="#lacking">Known Issues</a></li>
+						<li><a href="#supported_browsers">Supported Browsers</a></li>
+						<li><a href="#needs">To-Do List</a></li>
+						<li><a href="#license">License</a></li>
+						<li><a href="#credits">Credits</a></li>
+						<li><a href="#download">Download</a></li>
+						<li><a href="#donate">Donate</a></li>
+						<li><a href="#changelog">Changelog</a></li>
+						<li>
+							<a href="#examples">Examples</a>
+							<ul>
+								<li><a href="#background_properties">CSS Background Properties</a></li>
+								<li><a href="#animation">Javascript Animation</a></li>
+								<li><a href="#clickable">Clickable Elements</a></li>
+								<li><a href="#img_support"><code>&lt;IMG /&gt;</code> Support</a></li>
+								<li><a href="#pseudo_class">Pseudo Class Support</a></li>
+							</ul>
+						</li>
+						<li><a href="#mirror">Contact / Comments</a></li>
+					</ul>
+				</div>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="how">How?</a></h3>
+				</div>
+				<p>Long story short, this uses Microsoft's implementation of <acronym title="Vector Markup Language">VML</acronym> instead of Microsoft's <code>AlphaImageLoader</code> filter.  I stumbled upon the notion that PNG images show up correctly in a <acronym title="Vector Markup Language">VML</acronym> fill element while working on <a href="http://dillerdesign.com/experiment/DD_roundies/">DD_roundies</a>.  Thereafter, some Googling revealed that a few people had already known about this.</p>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="usage">Usage</a></h3>
+				</div>
+				<p>The intended implementation is pretty easy:</p>
+				<ul>
+					<li><a href="#download">Download</a> a copy of the DD_belatedPNG Javascript file - please do not hotlink mine, I am on a shared host.</li>
+					<li>Refer to it in your document (second line of the example code a few bullets down).</li>
+					<li>In another script node, add function calls to <code>DD_belatedPNG.fix()</code>.</li>
+					<li><code>fix()</code> requires one argument: a text string representing a CSS selector.</li>
+					<li>
+						Here is an example:
+						<code class="box">
+							&lt;!--[if IE 6]&gt;<br>
+							&lt;script src="DD_belatedPNG.js"&gt;&lt;/script&gt;<br>
+							&lt;script&gt;<br>
+								&nbsp;&nbsp;/* EXAMPLE */<br>
+								&nbsp;&nbsp;DD_belatedPNG.fix('.png_bg');<br>
+								&nbsp;&nbsp;<br>
+								&nbsp;&nbsp;/* string argument can be any CSS selector */<br>
+								&nbsp;&nbsp;/* .png_bg example is unnecessary */<br>
+								&nbsp;&nbsp;/* change it to what suits you! */<br>
+							&lt;/script&gt;<br>
+							&lt;![endif]--&gt;
+						</code>
+					</li>
+					<li>As of 0.0.3a, you can roll a bunch of CSS selectors into one argument, just like how you'd do a selector group in a CSS file: <code>fix('.example1, .example2, img');</code>
+				</li></ul>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="alternative_usage">Alternative Usage</a></h3>
+				</div>
+				<p>Due to popular demand, here is some documentation for how to "fix" elements on a pick-and-choose basis.</p>
+				<ul>
+					<li>Refer to the DD_belatedPNG script as noted earlier.</li>
+					<li>Call <code>DD_belatedPNG.fixPng( yourElement )</code>, with the sole argument being an HTMLDomElement instead of a CSS selector.</li>
+				</ul>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="technical_summary">Technical Summary</a></h3>
+				</div>
+				<p>(Based on the normal usage approach)</p>
+				<ul>
+					<li>Invoking <code>DD_belatedPNG.fix()</code> adds a line of CSS to the document via DOM.</li>
+					<li>The selector of this CSS is provided by the first argument for <code>fix</code>, which should be a string (such as <code>#content div</code>).</li>
+					<li>The declaration of this CSS is an MSIE-proprietary <a href="http://msdn.microsoft.com/en-us/library/ms532147.aspx">behavior</a> - basically a Javascript expression bound to elements on the fly, without walking through a NodeList collection.</li>
+					<li>The content of the behavior executes a function with each matched element as its sole argument.</li>
+					<li>The first duty of this function is to reset its own <code>style.behavior</code> to no longer have a value; allowing behaviors to continue unchallenged is a recipe of for CPU-eating disaster.</li>
+					<li>The function then examines the element's dimensions, location, and styles using <code>offsetWidth</code>, <code>offsetHeight</code>, <code>offsetLeft</code>, <code>offsetTop</code>, and <code>currentStyle</code></li>
+					<li>Using the above information, a <acronym title="Vector Markup Language">VML</acronym> <code>&lt;DD_belatedPNG:rect/&gt;</code> node is constructed and prepended (<code>insertBefore</code>) to the element.</li>
+					<li>The <acronym title="Vector Markup Language">VML</acronym> node is absolutely positioned to follow behind the element like a lost little puppy. It copies the matched element's <code>z-index</code>.</li>
+					<li>To support various positioning and repeat background properties, some of the <acronym title="Vector Markup Language">VML</acronym> element gets a <code>style.clip</code> rectangle.</li>
+				</ul>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="lacking">Known Issues</a></h3>
+				</div>				
+				<ul>
+					<li>You cannot use 'body' as the CSS selector argument for the <code>fix()</code> function.  <b>The <acronym title="Vector Markup Language">VML</acronym> is positioned using sibling DOM relationships!</b>  You cannot create a previousSibling of <code>&lt;body&gt;</code>, so trying to do so fails (badly).  As an alternative, you can wrap the contents of the <code>&lt;body&gt;</code> element with a wrapper element, and apply the background style and <code>fix</code> function to that instead.  It is not a question of getting it to work, it is a question of performance.</li>
+					<li><code>&lt;TR&gt;</code> and <code>&lt;TD&gt;</code> elements do not play nicely yet.  Do not attempt.</li>
+					<li>This script does not address <code>background-position: fixed;</code> functionality.</li>
+					<li>"Fixed" <code>&lt;IMG/&gt;</code> elements must take on <code>visibility:hidden;</code>,
+ and thus become unclickable.  I see no workaround other than using 
+clear pixel GIF replacements, and that is code that I am not going to 
+write.</li>
+					<li><code>&lt;INPUT type="image"/&gt;</code> nodes are not supported.  The node with the original PNG <code>SRC</code> must take on <code>visibility:hidden;</code></li>
+					<li>The "clickable elements" example boasted in this document may 
+fail when combined with an alpha (opacity) filter.  I don't know of a 
+workaround yet.</li>
+					<li>Testing for PNG image presence is done by Javascript string 
+search.  If you have a URL that doesn't end in .png, you're not in luck.
+  I suppose I could add a 'force' option - let me know if you need it.</li>
+				</ul>
+				<p>Found something wrong?  <a href="mailto:drew.diller@gmail.com">Send me bugs!</a></p>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="supported_browsers">Supported Browsers</a></h3>
+				</div>
+				<p>This is intended solely for Internet Explorer 6.  Use the script with <a href="http://www.quirksmode.org/css/condcom.html">conditional comments</a>.</p>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="needs">To-Do List</a></h3>
+				</div>				
+				<ul>
+					<li>Find bugs.</li>
+					<li>???</li>
+					<li><strike>Profit!</strike></li>
+					<li>Test for memory leaks.</li>
+					<li>This item will always persist: find performance improvements.</li>
+				</ul>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="license">License</a></h3>
+				</div>
+				<p><b>DD_belatedPNG</b> is free software under the MIT License.</p>
+				<p>The License shall remain addressable at this URL:<br><a href="http://dillerdesign.com/experiment/DD_belatedPNG/#license">http://dillerdesign.com/experiment/DD_belatedPNG/#license</a></p>
+				<p>Copyright (c) 2008 Drew Diller</p>
+				<p>Permission is hereby granted, free of charge, to any person 
+obtaining a copy of this software and associated documentation files 
+(the "Software"), to deal in the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish, 
+distribute, sublicense, and/or sell copies of the Software, and to 
+permit persons to whom the Software is furnished to do so, subject to 
+the following conditions:</p>
+				<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+				<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="credits">Credits</a></h3>
+				</div>
+				<p>My thanks to <a href="http://snook.ca/">Jonathan Snook</a> for pointing out something else I had written was almost there for good PNG support.</p>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="download">Download</a></h3>
+				</div>
+				<a class="download" href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.8a.js"><big>↓</big>0.0.8a.js <em>(Uncompressed, ~12Kb)</em></a><br clear="all">
+				<a class="download" href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.8a-min.js"><big>↓</big>0.0.8a-min.js <em>(Compressed, ~7Kb)</em></a><br clear="all">
+				<br>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="donate">Donate</a></h3>
+				</div>
+				<p>Any donations are sincerely appreciated, and help reduce the 
+occurrence of glares from my wife when I am staying up past her bedtime 
+writing software.</p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input name="cmd" value="_s-xclick" type="hidden">
+<input name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----" type="hidden">
+<input src="DD_belatedPNG%20%20Medicine%20for%20your%20IE6_PNG%20headache%21_files/btn_donateCC_LG.gif" name="submit" alt="" border="0" type="image">
+<img alt="" src="DD_belatedPNG%20%20Medicine%20for%20your%20IE6_PNG%20headache%21_files/pixel.gif" border="0" height="1" width="1">
+</form>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="changelog">Changelog</a></h3>
+				</div>
+				<div id="changelog" class="box item">
+					<ul>
+						<li>
+							<a name="release0.0.8a"></a>
+							<b>0.0.8a / 2009.06.30</b> <small>(<a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.8a.js">source.js</a> / <a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.8a-min.js">packed.js</a>)</small>
+							<ul>
+								<li>"DD_belatedPNG is undefined" error should occur less often now.</li>
+								<li>Auto-cleansing of VML artifacts when printing (or performing a print-preview) - thanks to <a href="http://remiprevost.com/">Rémi Prévost</a>!</li>
+								<li>Allowing CSS padding of <code>&lt;IMG/&gt;</code> elements in strict rendering mode.</li>
+								<li>Stricter adherence to JSLint.</li>
+								<li>Switched to YUI Compressor for packed copy of lib.</li>
+								<li>No JS error messages in Firefox (et al), if you choose to not include the lib through conditional comments.</li>
+							</ul>
+						</li>
+						<li>
+							<a name="release0.0.7a"></a>
+							<b>0.0.7a / 2009.01.01</b> <small>(<a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.7a.js">source.js</a> / <a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.7a-min.js">packed.js</a>)</small>
+							<ul>
+								<li>New feature: alpha filter value copying (in other words: opacity support, allows fades to happen for instance).</li>
+								<li>Bug fix: saying <code>fix('img');</code> froze IE6 in less 
+than a second.  Basically the size-finder images weren't being protected
+ from them being matched and "fixed" (and they would, in turn, ask for 
+more elements to be appended to the document - INFINITE LOOP).</li>
+								<li>Notice: some under-the-hood function names changed because I got sick of typing long ones.</li>
+								<li>Performance improvement: matched elements won't get "fixed" 
+if a PNG src or background image isn't detected.  This means you can be 
+lazy.</li>
+								<li>Performance improvement: according to Fiddler2, images get 
+cached correctly -- most of the time.  I believe there is still an issue
+ to solve related to latency.</li>
+								<li>Performance improvement: appending "size finder" images to the document in a more intelligent, less greedy, as-needed basis.</li>
+								<li><code>&lt;IMG/&gt;</code> support kinda sucked, but no one reported it.  Improved it anyway.</li>
+							</ul>
+						</li>
+						<li>
+							<a name="release0.0.6a"></a>
+							<b>0.0.6a / 2008.12.14</b> <small>(<a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.6a.js">source.js</a> / <a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.6a-min.js">packed.js</a>)</small>
+							<ul>
+								<li>Edges of fixed elements are no longer fuzzy (except for 
+floated elements, and only sometimes, and it goes away on mouseover... 
+weird) - the one pixel gap problem has been mostly solved.  Few people 
+noticed, but it bugged me, and was VERY hard to fix.</li>
+							</ul>
+						</li>
+						<li>
+							<a name="release0.0.5a"></a>
+							<b>0.0.5a / 2008.12.12</b> <small>(<a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.5a.js">source.js</a> / <a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.5a-min.js">packed.js</a>)</small>
+							<ul>
+								<li>Hopeful memory improvement: now setting DD_belatedPNG to null in an <code>onbeforeunload</code> listener.</li>
+								<li>Hopeful memory improvement: various <acronym title="Vector Markup Language">VML</acronym>
+ manipulation methods used to be copied onto each matched element. 
+Figured out how to just have them in the DD_belatedPNG namespace and 
+keep everything working properly. Should have done this initially.</li>
+							</ul>
+						</li>
+						<li>
+							<a name="release0.0.4a"></a>
+							<b>0.0.4a / 2008.12.11</b> <small>(<a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.4a.js">source.js</a> / <a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.4a-min.js">packed.js</a>)</small>
+							<ul>
+								<li><a href="http://www.thanatopsic.org/hendrik/">James O'Brien</a> suggested applying a large negative <code>top</code> to the dummy "size finder" images, in case one of them is very large, to prevent them from rendering an unnaturally tall page.</li>
+								<li>Very small change: added <code>onfocus</code> and <code>onblur</code> event handlers for anchors.</li>
+							</ul>
+						</li>
+						<li>
+							<a name="release0.0.3a"></a>
+							<b>0.0.3a / 2008.12.10</b> <small>(<a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.3a.js">source.js</a> / <a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.3a-min.js">packed.js</a>)</small>
+							<ul>
+								<li><code>&lt;IMG/&gt;</code> support! A clear pixel gif is not required, I simply copy the matched image's border styles and set <code>visibility:hidden;</code>.  You can also be lazy about img.width and img.height attributes.</li>
+								<li>Removed the top/left 1px fudging of the image-filled rectangle (it wasn't visible enough to warrant the added complexity).</li>
+								<li><a href="http://remiprevost.com/">Rémi Prévost</a> submitted a patch for when an element's border is not set.</li>
+								<li>Fixed a bug in which elements that spanned the entire width of the page were causing an "Infinite Scrollbar."</li>
+								<li>You can now roll multiple selectors into one call to <code>fix</code> (the change in JS simply does a split, by comma), like <code>DD_belatedPNG.fix('.thing, .something_else');</code></li>
+							</ul>
+						</li>
+						<li>
+							<a name="release0.0.2a"></a>
+							<b>0.0.2a / 2008.12.09</b> <small>(<a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.2a.js">source.js</a> / <a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.2a-min.js">packed.js</a>)</small>
+							<ul>
+								<li>After observing some offset misalignment and layering issues, each matched element <b>and its parent</b> is now forced into receiving hasLayout.</li>
+								<li>If a z-index is specified on the matched element, it is now copied to the <acronym title="Vector Markup Language">VML</acronym>.</li>
+							</ul>
+						</li>
+						<li>
+							<a name="release0.0.1a"></a>
+							<b>0.0.1a / 2008.12.07</b> <small>(<a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.1a.js">source.js</a> / <a href="http://www.dillerdesign.com/experiment/DD_belatedPNG/DD_belatedPNG_0.0.1a-min.js">packed.js</a>)</small>
+							<ul>
+								<li>Initial release.</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="examples">Examples</a></h3>
+				</div>
+				
+				<div id="tests">
+					<h3><a name="background_properties">CSS Background Properties</a></h3>
+					<p>Use these fields to change background properties.</p>
+					<p>The last field is a text field and will accept 'red' or '#F00' or '#FF0000'.</p>
+					<div style="background-color: rgb(255, 0, 0);" id="background_conditions_test" class="png_bg box">
+						<select id="change_background_position" rel="Position">
+							<option selected="selected">left top</option>
+							<option>left center</option>
+							<option>left bottom</option>
+							<option>right top</option>
+							<option>right center</option>
+							<option>right bottom</option>
+							<option>center top</option>
+							<option>center center</option>
+							<option>center bottom</option>
+							<option>20% top</option>
+							<option>20% center</option>
+							<option>20% bottom</option>
+							<option>20px 30px</option>
+							<option>-20px -30px</option>
+						</select>
+						<select id="change_background_repeat" rel="Repeat">
+							<option selected="selected">repeat</option>
+							<option>no-repeat</option>
+							<option>repeat-x</option>
+							<option>repeat-y</option>
+						</select>
+						<input id="change_background_color" rel="Color" value="#FF0000" type="text">
+					</div>
+					<script src="DD_belatedPNG%20%20Medicine%20for%20your%20IE6_PNG%20headache%21_files/DD_Base.js"></script>
+					<script>
+						var test = DD.dom.id('background_conditions_test');
+						var setup = function() {
+							DD.event.add(this, 'change', function() {
+								var options = this.getElementsByTagName('option');
+								var rel = this.getAttribute('rel');
+								var self = this;
+								DD.fade(test, false, {time:100, end:function() {
+									test.style['background' + rel] = options[self.selectedIndex].innerHTML;
+									DD.fade(test, true, {time:100})
+								}});
+							});
+						};
+						var selects = {position: true, repeat: true};
+						for (var s in selects) {
+							setup.call(DD.dom.id('change_background_' + s));
+						}
+						var changeBgColor = function() {							
+							try {
+								test.style.backgroundColor = this.value;
+							} catch(err) {}
+						};
+						var bgColorTextField = DD.dom.id('change_background_color');
+						DD.event.add(bgColorTextField, 'keyup', changeBgColor);
+						changeBgColor.call(bgColorTextField);
+					</script>
+					<hr>
+					<h3><a name="animation">Javascript Animation</a></h3>
+					<div id="morph" class="png_bg box">
+						Click on me.
+					</div>
+					<hr>
+					<script>
+						var d = 0;
+						var c = 0;
+						var upOrDown = true;
+						var setBorder = function() {
+							var obj = this;
+							var windDown = setInterval(function() {
+								d += upOrDown ? 1 : (-1);
+								if (d >= 0 && d <= 10) {
+									obj.style.borderWidth = d + 'px';
+									c = d%11;
+									if (c == 10) {
+										c = 'A';
+									}
+									c = c.toString();
+									obj.style.marginLeft = d + 'px';
+									obj.style.marginRight = d + 'px';
+									obj.style.backgroundColor = '#' + c + c + c;
+									obj.style.fontSize = (100 + (d*5)) + '%';
+								}
+								else {
+									upOrDown = !upOrDown;
+									clearInterval(windDown);
+								}
+							}, 10);
+						};
+						var morph = DD.dom.id('morph');
+						DD.event.add(morph, 'click', function() {
+							setBorder.call(morph);
+						});
+					</script>
+					<h3><a name="clickable">Clickable Elements</a></h3>
+					<p>Since AlphaImageLoader is not used, this approach doesn't appear to suffer from any of that filter's known layering issues.</p>
+					<p>You can click elements to your heart's content!</p>
+					<p>Be wary, mixing in an opacity filter may UNDO this beneficial feature!</p>
+					<div class="box png_bg clickables">
+						<div class="box">
+							<a href="http://www.google.com/">A link to Google</a>
+						</div>
+						<div class="box">
+							<input value="A text input...." class="text" type="text">&nbsp;<input value="...with a PNG image!" class="png_bg text" type="text"><br>
+						</div>
+						<div class="box">
+							<select>
+								<option selected="selected">How about a &lt;SELECT&gt;?</option>
+								<option>Yep, still works.</option>
+							</select>
+						</div>
+						<div class="box">
+							Radios work as well:
+							<input name="blah" class="radio" type="radio">
+							<input name="blah" class="radio" type="radio">
+						</div>
+					</div>
+					<hr>
+					<h3><a name="img_support"><code>&lt;IMG/&gt;</code> Support</a></h3>
+					<p>No pixel GIFs!</p>
+					<img src="DD_belatedPNG%20%20Medicine%20for%20your%20IE6_PNG%20headache%21_files/boxbg2.png" class="png_img img1"> <img src="DD_belatedPNG%20%20Medicine%20for%20your%20IE6_PNG%20headache%21_files/boxbg2.png" class="png_img img2"> <img src="DD_belatedPNG%20%20Medicine%20for%20your%20IE6_PNG%20headache%21_files/boxbg.png" class="png_img img3">
+					<hr>
+					<h3><a name="pseudo_class"><code>A:hover</code> Psuedo-Class Support</a></h3>
+					<p>Run your mouse over these:</p>
+					<a href="#nogo" class="big_link png_bg">psuedo</a>
+					<a href="#nogo" class="big_link png_bg">class</a>
+					<br clear="all">
+					<br>
+					<br>
+				</div>
+				<hr>
+				<div class="left_align_item">
+					<h3><a name="mirror">Contact / Comments</a></h3>
+				</div>
+				<p>There is a blog post about this at <a href="http://dillerdesign.wordpress.com/">dillerdesign.wordpress.com</a>.</p>
+				<p>Otherwise, you can <a href="mailto:drew.diller@gmail.com">email me</a>.</p>
+				<hr>
+			</div>
+		</div>
+	
+
+</body></html>

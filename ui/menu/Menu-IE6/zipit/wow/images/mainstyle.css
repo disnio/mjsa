@@ -1,0 +1,250 @@
+@font-face {
+    font-family: 'MisoBold';
+    src: url('miso-bold-webfont.eot');
+    src: url('miso-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('miso-bold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+::-moz-selection{color:#fff;
+                             color:rgb(255,255,255);
+                             background:#239AB2}
+                             
+::selection{color:#fff;
+                     color:rgb(255,255,255);
+                     color:rgb(255,255,255);
+                     background:#239AB2}
+                     
+html{margin:0;
+          padding:0;
+          overflow-y:scroll}
+          
+body{text-shadow:#fff 0 1px 0;
+           color:#2c2c2c;
+           font-family:"Lucida Grande","Lucida Sans Unicode",Helvetica,Arial;
+           font-weight:400;
+           font-style:normal;
+           font-variant:normal;
+           line-height:normal;
+           background-color:#e2e2d6;
+           background-image:url(../images/bg.jpg);
+           background-position:center 0;margin:0;padding:0}
+:focus{outline:0}
+.right386 .entry{margin-bottom:12px;
+             padding-bottom:18px}
+             
+input:focus{outline:none;outline-width:0}
+ul{list-style:none}
+input::-moz-focus-inner,input[type="reset"]::-moz-focus-inner,input[type="button"]::-moz-focus-inner,input[type="submit"]::-moz-focus-inner,input[type="file"]>
+input[type="button"]
+::-moz-focus-inner{border:none}
+
+caption,th,td{text-align:left;
+                         font-weight:400}
+                         
+strong{font-weight:700}
+
+em{font:italic 17px Georgia, "Times New Roman",Times,serif}
+
+*{border:0;outline:0;vertical-align:baseline;margin:0;padding:0;font:inherit inherit 100% inherit}
+
+a{color:#b02d15;text-decoration:none;cursor:pointer}
+
+.whatsnew p{
+	margin: 0 0 0 0;
+}
+.slideshow a:hover,.about a:hover,.entry a:hover,.entry2 a:hover,.sidebar a:hover,.right386 a:hover
+{/*background-color:#fffff4;*/
+  text-decoration:none;
+  border-bottom:1px solid #cdc9b3}
+
+.entry a,.sidebar a,.right386 a{border-bottom:1px solid transparent}
+
+p{font-size:15px;
+    line-height:24px;
+    margin-top:10px;
+    margin-bottom:18px}
+    
+.spaced{margin-bottom:48px}
+
+p.large{font-size:24px;
+              font-family:Cambria,Georgia,"Times New Roman",Times,serif;
+              line-height:30px;margin-top:0;margin-bottom:12px}
+              
+blockquote{font-family:Georgia,"Times New Roman",Times,serif;
+                      font-style:italic;
+                      margin-top:24px;
+                      margin-left:45px}
+                      
+blockquote p{ font-size:16px;
+                          line-height:26px;
+                          word-spacing:1px;
+                          margin-top:0;
+                          margin-bottom:36px}
+.right304 blockquote p{margin-bottom:24px}
+.right304 ul{margin-bottom:24px}
+blockquote:before{color:#b05348;
+                                   display:block;
+                                   width:50px;
+                                   content:open-quote;
+                                   height:0;
+                                   margin-left:-45px;
+                                   font:normal 700 60px normal Georgia, "Times New Roman",Times,serif}
+cite{font-size:16px;
+         font-family:Georgia,"Times New Roman",Times,serif;
+         margin-left:34px}
+hr{   clear:both;
+         float:left;
+         height:0;
+         width:100%;
+         margin-bottom:20px;
+         border:1px 0 solid #b3babf #ddd #ffffff}
+         
+.clear{clear:both}
+.toppad{margin-top:36px}
+.rule{background-image:url(../images/rule.gif);
+          background-repeat:repeat-x;
+          background-position:0 bottom;
+          height:2px;
+          min-height:2px;
+          margin-bottom:20px}
+a.go,span.go a {color:#323232;
+                              background-image:url(../images/arrow2.gif);
+                              background-repeat:no-repeat;
+                              background-position:right center;
+                              text-decoration:none;
+                              font:italic 16px Georgia, "Times New Roman", Times, serif;
+                              padding:4px 24px 4px 4px}
+a.go:hover,span.go a:hover{text-decoration:none !important}
+span.amp{font:italic 400 1.2em normal "Hoefler Text Alt", Baskerville, "Goudy Bookletter 1911", goudy-bookletter-1911-1, goudy-bookletter-1911-2, 
+               "Goudy Old Style", Palatino, "Book Antiqua",serif}
+               
+h1,h2{font-family:"Hoefler Text","Adobe Garamond Pro","AGaramond LT",Garamond,"Baskerville Old Face","Palatino Linotype",
+         "Times New Roman",Times,serif,"Times New Roman"}
+h1{font-size:32px;
+      font-weight:400;
+      margin-bottom:18px}
+      
+h1.posttitle{margin-right:12px;
+                       margin-bottom:0;
+                       margin-left:12px;
+                       padding-top:12px;
+                       border-top:3px solid #dbd6c7;
+                       display:block}
+h1.pagetitle{display:block;
+                        margin-right:12px;
+                        margin-left:12px;
+                        padding-top:12px;
+                        border-top:3px solid #dbd6c7}
+/*a.sharp{background-image:url(../images/list1.jpg);
+                  text-indent:-9999px;
+                  width:960px;
+                  height:350px}*/
+                  
+h1 a{color:#3d3d3d;
+    display:block}
+h1.welcome{font-family:"Adobe Garamond Pro",Garamond,"Baskerville Old Face","Palatino Linotype","Times New Roman",Times,serif;
+                       font-size:34px;
+                       background-image:url(../images/headline1.png);
+                       background-repeat:no-repeat;
+                       background-position:center 0;
+                       text-indent:-9999px;
+                       width:960px;
+                       margin-top:30px;
+                       margin-bottom:0;
+                       text-shadow:#fff 0 1px 0}
+h2{font:400 24px "Adobe Garamond Pro", "AGaramond LT", Garamond, "Baskerville Old Face", "Palatino Linotype", "Times New Roman", Times, serif, 
+      "Times New Roman"}
+.center{text-align:center}.toptitle,.entry .toptitle{margin-top:0}
+h3{color:#3a3a3a;
+       text-shadow:0 1px 0 #FFF;
+       text-transform:uppercase;
+       letter-spacing:2px;
+       margin-top:10px;
+       margin-bottom:8px;
+       font:700 15px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial}
+ .bandwrap h3{margin-top:12px;
+                             margin-bottom:2px}
+h3.portfolio{font-weight:700;
+                      border-bottom:1px dotted #7e7563}
+.toprule h3,.toprule h1.entry-title, .capt a{
+	margin-top:20px; 
+	font-family:MisoBold;
+	font-size:20px;
+}
+
+h3 a{color:#323232;
+         text-decoration:none}
+         
+h3 a:hover,.posttitle a:hover{color:#b02d15;
+                                                        text-decoration:none}
+                                                        
+h4 {color:#323232;text-transform:uppercase;letter-spacing:2px;margin-top:30px;padding-bottom:12px;
+       font:400 15px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial}h4
+a{color:#323232;font-weight:700;text-decoration:none}
+.container{
+	background-position:0 top;
+	max-width:984px;
+	margin:0 auto;
+	padding-bottom:48px
+}
+* html .container{
+	width:984px;	
+}
+
+
+ /* ****************************************************navigation**********************************************/              
+ul#nav{float:right;margin:7px 0 0;padding:0}
+#nav li{width:140px;float:left;margin:0 0 0 6px;padding:0}
+
+#nav li a{color:#3d3d3d;
+                background-image:url(../images/navback.png) ;
+                background-repeat: no-repeat;
+                background-position:-140px 0;
+                text-decoration:none;
+                text-transform:uppercase;
+                letter-spacing:1px;
+                width:120px;
+                padding-top:4px;
+                padding-bottom:8px;
+                padding-left:12px;
+                border-left:1px solid #ccc5b2;
+                display:block;
+                font:20px MisoBold, "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial}
+                
+#nav li a:active{padding-top:5px;padding-bottom:7px}
+#nav li a span{text-transform:lowercase;
+                           letter-spacing:normal;
+                            display:block;
+                            font:italic 13px Georgia, "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, "Times New Roman", Times, serif}
+#nav li.current_page_item a,.current{color:#B02D15}ul.homelist li,ul.homelist2 li{
+                             font-size:14px;
+                             font-variant:normal;
+                             margin-top:6px;
+                             margin-bottom:6px;
+                             padding-top:12px;
+                             padding-bottom:12px;
+                             padding-left:54px;
+                             border:0 transparent}
+ 
+                   
+ul.homelist{width:316px;float:left;padding:0;list-style-type:none;display:block}
+.work li{height:197px;float:left;margin-right:12px;margin-left:12px;padding:0;border:solid 6px #e2d9c0;list-style-type:none}
+
+.boxgrid{background-image:none;background-repeat:repeat;background-attachment:scroll;
+                 background-position:0 0;width:292px;height:197px;float:left;border:solid 6px #e2d9c0;
+                 overflow:hidden;position:relative;margin-right:10px;margin-bottom:24px;margin-left:10px}
+                 
+ .boxgrid img{position:absolute;top:0;left:0;border:0}
+ .boxcaption{color:#fff;float:left;position:relative; background:rgb(51,152,182);background:rgba(51,152,182,.9);height:100px;width:274px;
+                        padding-top:12px;padding-left:18px}
+                        
+.boxgrid:active{border-top-width:7px;border-bottom-width:5px}
+.captionfull .boxcaption{top:260px;left:0;text-shadow:none !important}
+.boxcaption .caption{font-size:14px;position:absolute;bottom:30px}
+.boxcaption .descr{display: none}
+.boxcaption .title{color:#fff;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:block;text-shadow:none}
+.work li a{height:197px;display:block}
+.work{width:100%;margin-bottom:0px;float:left;clear:both;overflow:hidden;}
+

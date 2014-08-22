@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery image slide on hover effect</title>
+<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	// Vertical
+	$("#vertical div a").hover(function(){
+		$("img", this).stop().animate({top:"-130px"},{queue:false,duration:200});
+	}, function() {
+		$("img", this).stop().animate({top:"0px"},{queue:false,duration:200});
+	});
+	// Horizontal
+	$("#horizontal div a").hover(function(){
+		$("img", this).stop().animate({left:"-296px"},{queue:false,duration:200});
+	}, function() {
+		$("img", this).stop().animate({left:"0px"},{queue:false,duration:200});
+	});
+});
+</script>
+</head>
+<body>
+	<div id="vertical" class="clear"><!-- Vertical -->
+		<h1>jQuery image slide on hover effect (vertical)</h1>
+
+		<div><a href="htmldrive.net"><img src="image-1.jpg" alt="" /></a></div>
+	  <div><a href="#"><img src="image-2.png" alt="" /></a></div>
+	</div>
+	<div id="horizontal" class="clear"><!-- Horizontal -->
+		<h1>jQuery image slide on hover effect (horizontal)</h1>
+		<div><a href="#"><img src="image-4.jpg" alt="" /></a></div>
+		<div><a href="#"><img src="image-5.png" alt="" /></a></div>
+	</div>
+More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a></body>
+</html>

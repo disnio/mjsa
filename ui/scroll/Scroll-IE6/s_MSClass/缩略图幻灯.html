@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<script type="text/javascript" src="js/MSClass.js"></script>
+
+<title>【※】缩略图、渐隐渐显效果应用实例 JavaScript - MSClass应用实例演示 - Class Of Marquee Scroll通用不间断滚动JS封装类</title>
+<meta content="JavaScript【※】缩略图、渐隐渐显效果应用实例,MSClass,不间断滚动,JS不间断滚动,通用不间断滚动,Class Of Marquee Scroll" name="keywords">
+<meta content="JavaScript【※】缩略图、渐隐渐显效果应用实例,MSClass,不间断滚动,JS不间断滚动,通用不间断滚动,Class Of Marquee Scroll" name="description">
+<meta name="GENERATOR" content="MSHTML 6.00.6000.17097"></head>
+<body>
+<script type="text/javascript">
+function $(id){return document.getElementById(id)};
+</script>
+
+<h1>【※】缩略图、渐隐渐显效果应用实例 JavaScript - MSClass应用实例演示 <a href="MSClass.html">下载MSClass</a></h1>
+<br><br>
+<style>
+a,body,select,td,b{font-size:12px;text-decoration:none;}
+body{background:#ffffff;}
+a,pre{color:#808080;}
+a:link,a:visited {color:#555;}
+a:hover,a:active { color:#ff4e00;}
+img{border:0}
+</style>
+<style type="text/css">
+#TabID {POSITION: absolute; BOTTOM: 4px; RIGHT: 2px}
+#TabID LI {FLOAT: left; CURSOR: pointer; WIDTH:78px;HEIGHT:39px;background:url('images/bg78X39_2.gif');FILTER: alpha(opacity=50); opacity: 0.5}
+#TabID LI IMG{WIDTH:66px;HEIGHT:26px;MARGIN:6px 6px 7px 6px;}
+#TabID LI.active {background:url('images/bg78X39_1.gif');FILTER: alpha(opacity=100);opacity: 1}
+</style>
+<div style="position:relative;width:700px;height:280px;overflow:hidden;">
+    <div id="MSClassBox" style="overflow: hidden; width: 700px; height: 280px; position: relative;">
+        <ul id="ContentID" style="padding: 0px; border: 0px none; font-size: 0px; display: inline-block; margin: 0px; list-style: none outside none; width: 700px;">
+            <li ><a ><img width="700" height="280" border="0" src="images/700X280_1.jpg"></a></li>
+            <li ><a ><img width="700" height="280" border="0" src="images/700X280_2.jpg"></a></li>
+            <li ><a ><img width="700" height="280" border="0" src="images/700X280_3.jpg"></a></li>
+            <li ><a ><img width="700" height="280" border="0" src="images/700X280_4.jpg"></a></li>
+            <li ><a ><img width="700" height="280" border="0" src="images/700X280_5.jpg"></a></li>
+            <li ><a ><img width="700" height="280" border="0" src="images/700X280_6.jpg"></a></li>
+        </ul>
+    </div>
+    <ul id="TabID" style="padding: 0px; margin: 0px; list-style: none outside none; font-size: 0px;">
+        <li class=""><img border="0" src="images/66X26_1.jpg"></li>
+        <li class=""><img border="0" src="images/66X26_2.jpg"></li>
+        <li class=""><img border="0" src="images/66X26_3.jpg"></li>
+        <li class="active"><img border="0" src="images/66X26_4.jpg"></li>
+        <li class=""><img border="0" src="images/66X26_5.jpg"></li>
+        <li class=""><img border="0" src="images/66X26_6.jpg"></li>
+    </ul>
+</div>
+<script type="text/javascript">
+new Marquee(
+{
+    MSClass   : ["MSClassBox","ContentID","TabID"],
+    Width     : 700,
+    Height    : 280,
+    DelayTime : 2,
+    WaitTime  : 2,
+    ScrollStep: 1,
+    SwitchType: 2,
+    AutoStart : 1
+})
+</script>
+
+
+</body></html>

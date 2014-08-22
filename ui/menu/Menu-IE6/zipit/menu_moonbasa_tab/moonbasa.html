@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>
+        Digit Clock
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="../../js/jquery.js" type="text/javascript">
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="base.css">
+</head>
+
+<body>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        //顶部导航下拉效果
+        $("ul.top_brand_ul li.MNav").hover(
+            function() {
+                $(this).find("div.subnav_top").slideDown(0).show();
+                $(this).find("a.downcd").addClass("downcd_on");
+                $(this).hover(
+                    function() {},
+                    function() {
+                        $(this).find("div.subnav_top").slideUp(0);
+                    }
+                );
+            },
+            function() {
+                $(this).find("a.downcd").removeClass("downcd_on");
+            }
+        );
+
+        //梦芭莎旗下品牌效果
+        $(".m_brand").hover(function() {
+            //$(this).find("a.m_brand_tit").addClass("m_brand_hover");
+            $(this).find(".m_brand_hover_show").css("display", "block");
+        }, function() {
+            //$(this).find("a.m_brand_tit").removeClass("m_brand_hover");
+            $(this).find(".m_brand_hover_show").css("display", "none");
+        });
+
+    });
+    </script>
+
+    <div class="top_banner_sec">
+        <div class="top_banner_center">
+            <h2>
+                <a >
+                    <img alt="返回首页" src="img/moon_logo.jpg" />
+                </a>
+            </h2>
+
+            <div class="top_brand">
+                <ul class="top_brand_ul">
+                    <li class="MNav">
+                        <a  class="downcd">内衣</a>
+                        <div class="subnav_top subnav_top_style1 subnav_top_neiyi" style="display: none;">
+                            <div class="m_pro_show">
+                                <table cellspacing="0" cellpadding="0" style=" border-collapse:collapse;">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="m_pro_show_tddiv">
+                                                    <a >
+                                                        <img alt="" src="img/menu_bra_img1.jpg">
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ul class="navlist_top">
+                                <li>
+                                    <div class="navlist_top_tit">
+                                        <a >内衣品类：</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="MNav">
+                        <a  class="downcd">
+                            <span>包包</span>
+                        </a>
+                        <div class="subnav_top subnav_top_style2" style="display: none;">
+                            <ul class="navlist_top">
+                                <li>
+                                    <div class="navlist_top_tit">
+                                        <a >女包：</a>
+                                    </div>
+                                    <div class="navlist_top_con">
+                                        <a >单肩包</a>
+                                        <a >手提包</a>
+                                        <a >斜挎包</a>
+                                        <a >钱包</a>
+                                        <a >晚装包</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- 顶部梦芭莎旗下品牌 -->
+            <div class="m_brand">
+                <a href="javascript:void(0);" class="m_brand_tit">梦芭莎旗下品牌</a>
+                <div style="display: none;" class="m_brand_hover_show">                    
+                    <img alt="" src="img/exhibit_img_nvzhuang_rihan.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

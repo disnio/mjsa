@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="js/jquery-1.3.1.min.js"></script>
+	<script type="text/javascript">
+	/*<![CDATA[*/
+	
+	$(document).ready(function () {
+
+		var value = $('#button input').val();
+		var name = $('#button input').attr('name');
+		
+		$('#button input').remove();
+		$('#button').html('<a href="#" class="cssSubmitButton" rel=' + name + '>' + value + '</a>');	
+		
+		$('#button a').live('click', function () {			
+
+			//You can use default form submission or with the ajax call below
+			//In this example, I'm using a dummy php call so that you can see the loading animation
+			//$('form[name=' + $(this).attr('rel') + ']').submit();			
+			
+			var link = $(this);
+			
+			$.ajax({
+				url : 'load.php',
+				data: '',
+				type: 'GET',
+				cache: 'false',
+				beforeSend: function () {
+					link.addClass('loading');					
+				},
+				success: function () {
+					link.removeClass('loading');		
+					alert('Submitted');
+				}			
+			});
+			
+		});
+		
+	});
+	
+	/*]]>*/
+	</script>
+	
+	<style type="text/css">	
+		body {
+			font-family: arial;
+			font-size:12px;
+			margin:10px;	
+			text-align:center;
+		}
+		
+		form {
+			margin:0 auto; 
+			text-align:left;
+			width:270px;
+			border:1px solid #ccc;
+			padding:15px;
+			background:#fff;
+			border-radius: 10px; 
+			-moz-border-radius: 10px; 
+			-webkit-border-radius: 10px; 
+			box-shadow: 0 0 4px #ccc; 
+			-webkit-box-shadow: 0 0 4px #ccc; 
+			-moz-box-shadow: 0 0 4px #ccc;
+		}
+		
+		fieldset {
+			overflow:hidden;
+			border:0;
+			height:30px;	
+			margin:3px 0;
+		}
+		
+		fieldset label {
+			display:block;
+			width:50px;
+			float:left;
+			font-weight:700;
+			color:#666;	
+			line-height:2.2em;
+		}
+		
+		fieldset input {
+			float:left;
+			border:1px solid #ccc;	
+			height: 20px;
+			padding:3px;
+			width:190px;
+			font-size:12px;
+		}
+		
+		#button {
+			margin-top:10px;
+			padding-right:20px;
+			text-align:right;	
+		}
+
+		#button input {
+			margin:0 auto;
+		}		
+
+		a.cssSubmitButton {			
+			font-size: 12px;
+			background: #fff no-repeat 4px 5px;
+			display: inline-block;
+			padding: 5px 20px 6px;
+			color: #333;
+			border:1px solid #ccc;
+			text-decoration: none;
+			font-weight: bold;
+			line-height: 1.2em;
+			border-radius: 15px;
+			-moz-border-radius: 15px;
+			-webkit-border-radius: 15px;
+			-moz-box-shadow: 0 1px 3px #999;
+			-webkit-box-shadow: 0 1px 3px #999;
+			position: relative;
+			cursor: pointer;
+			outline:none;
+		}
+		
+		a.cssSubmitButton:visited {}
+		
+		a.cssSubmitButton:hover {
+			border:1px solid #333;
+		}
+		
+		.loading {
+			background-image:url('load.gif') !important;
+			color:#ccc !important;	
+			-moz-box-shadow: 0 0 0 #fff !important;
+			-webkit-box-shadow: 0 0 0 #fff !important;
+		}
+
+		.effect {
+			border-radius: 5px;
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;	
+		}
+
+	</style>
+</head>
+<body>
+
+<form method="post" action="" name="subscribeForm">
+	<fieldset>
+		<label>Name: </label><input type="text" class="effect" name="name">
+	</fieldset>
+
+	<fieldset>
+		<label>Email: </label><input type="text" class="effect" name="email">
+	</fieldset>
+
+	<div id="button">
+		<input type="submit" value="Subscribe" name="subscribeForm"/>
+	</div>
+</form>
+
+More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+</body>
+</html>

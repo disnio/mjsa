@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+*{margin:0; padding:0;}
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, p,b, form, fieldset, input, table, tr, th, td, img{margin: 0;padding: 0;border: 0;outline: 0;}
+
+body {font-size:12px; color:#666; background-color:#FFF}
+h1,h2,h3,h4,h5 { color:#000}
+ul, ol, li, dl, dt, dd, p{list-style-type: none;}
+
+a       {text-decoration: none; color:#036;}
+a:hover {color:#CF111C; text-decoration: underline}
+/* 通过加入overflow:auto; 决内容区加入浮动后容器边线消失情况。 */
+.Box_border  {clear:both; width:250px; overflow:auto; background:#FFF; border:1px solid #CCC; margin-bottom:10px;}
+
+/*管理*/
+/* 加入relative后，解决ie6-7 li下空白线 */
+.menu3box    { float:left; position:relative; overflow:hidden; height:28px; width:250px;text-align:left;}
+#menu3       { position:absolute; top:0; left:0; z-index:1;}
+/* 用于填充左面， 一旦加入填充，则要左浮动。填充便于li宽度的调控，都用li的话后期变动不容易调整。 */
+#menu3 ol    { float:left; padding:0 10px 0 10px; line-height:28px; height:28px; width:26px;}
+/*#menu3 ol h3 { color:#000; font-size:12px;}*/
+
+#menu3 li       { float:left; display:block; cursor:pointer; width:50px; text-align:center; line-height:28px; height:28px; border-left:1px solid #CCC}
+#menu3 li.hover {background:#fff;  margin:0; border-left:1px solid #CCC; color:#000}
+/*background:#fff; */
+#menu3 li.hover a      { color:#CF111F;}
+#menu3 li.hover a:hover{ color:#CF111F; text-decoration: none;}
+/* 内容 */
+/* margin-top:-1px; IE8+以上可以使li导航底边空白。上面导航加入relative后，ie8+又出现li底边线。通过加入浮动解决。 */
+.main3box       { clear:both; float:left; margin-top:-1px; border-top:1px solid #CCC; width:230px; padding:0 10px 10px; background:#FFF}
+#main3 ul       { display: none; float:left;width:230px;}
+#main3 ul.block { display: block;}
+/*
+使用text-overflow:ellipsis对溢出文本显示省略号有两个好处，一是不用通过程序限定字数；二是有利于SEO。
+需要使用对对溢出文本显示省略号的通常是文章标题列表，这样处理对搜索引擎更友好，
+因为标题实际上并未被截字，而是局限于宽度而未被显示而已。
+
+通常的做法是这样的：
+1.overflow:hidden; 2.text-overflow:ellipsis; 3.-o-text-overflow:ellipsis; 4.white-space:nowrap; 5.width:100%;
+其中，overflow: hidden和white-space: nowrap都是必须的否则不会显示省略号
+；-o-text-overflow: ellipsis针对Opera；而宽度的设定主要是针对IE6；
+
+该方法支持Internet Explorer, Safari, Chrome 和 Opera，但FF并不支持，不过可以通过Jquery来实现类似的效果。
+下载这个Jquery插件：jQuery ellipsis plugin
+调用方法：
+1.$(document).ready(function() {
+2.    $('.ellipsis').ellipsis();
+3.}
+*/
+#main3 ul li { float:left; width:230px; margin-top:10px; overflow:hidden; white-space: nowrap; -o-text-overflow: ellipsis; text-overflow: ellipsis;}
+
+.pic_info    { background: url("line6.gif") repeat-x scroll center bottom transparent; float: left; padding-bottom: 12px; width: 230px;}
+.pic_info h3 { color: #000; font-size: 12px; font-weight: bold; height: 15px; overflow: hidden; padding: 10px 0; text-overflow: ellipsis; white-space: nowrap; width: 230px;}
+.pic_info h3 a   { color: #003366;}
+.pic_info dt     { float: left; height: 60px; margin-right: 10px; overflow: hidden; width: 80px;}
+.pic_info dt img { height: 60px; overflow: hidden; width: 80px;}
+.pic_info dd     { float: right; height: 60px; line-height: 20px; overflow: hidden; width: 140px;}
+.pic_info dd a   { color: #CF111F;}

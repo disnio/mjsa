@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Using prev/next buttons - jQuery.Switchable - Tabs, Slide, Scrollable &amp; Accordion, 4 in 1</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="Using%20prev_next%20buttons_files/screen.css">
+  <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="Using%20prev_next%20buttons_files/ga.js" async=""></script><script>var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-16622252-4"]),_gaq.push(["_addOrganic","baidu","wd"]),_gaq.push(["_trackPageview"]),location.hostname!=="localhost"&&function(){var a=document.createElement("script");a.async=!0,a.src="http://www.google-analytics.com/ga.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)}()</script>
+<script src="Using%20prev_next%20buttons_files/embed.js" async=""></script></head>
+
+<body>
+<header class="header">
+  <div class="logo">
+    <em class="do"></em>
+    <em class="re"></em>
+    <em class="mi"></em>
+    <strong>jQuery.Switchable</strong>
+  </div>
+</header>
+
+
+
+
+
+
+
+
+<nav>
+  <ul>
+    <li><a href="http://switchable.mrzhang.me/">HOME</a></li>
+    <li><a href="http://switchable.mrzhang.me/#demos" class="current">DEMO</a></li>
+    <li><a href="https://github.com/jsw0528/jQuery.Switchable/downloads" target="_blank">DOWNLOAD</a></li>
+  </ul>
+</nav>
+
+<section class="demo">
+
+  <!-- styles for this demo -->
+  <style>
+  #slide {
+    /* Required Styles */
+    position:relative;
+    width:550px;
+    height:310px;
+    overflow:hidden;
+
+    border:10px solid #444;
+    border-radius:5px;
+    box-shadow:0 0 6px rgba(0, 0, 0, .4);
+  }
+  #slide img {
+    display:block;
+    position:absolute;
+    width:550px;
+    height:310px;
+  }
+  .switchable-triggers {
+    width:100%;
+    height:30px;
+    overflow-y:hidden;
+    line-height:30px;
+    text-align:center;
+  }
+  .switchable-triggers li {
+    display:inline-block;
+    *display: inline;
+    *zoom: 1;
+    margin:0 3px;
+    color:#c6c6c6;
+    font-size:28px;
+    font-weight:bold;
+    text-shadow:0 2px 1px rgba(0, 0, 0, .4);
+    cursor:pointer;
+  }
+  .switchable-triggers li.current {
+    color:#8ab516;
+  }
+  </style>
+
+  <ul class="switchable-triggers"><li class="">•</li><li>•</li><li>•</li><li>•</li><li class="">•</li><li class="current">•</li><li>•</li></ul><div id="slide">
+    <img style="opacity: 0; z-index: 1; transition-property: none; transition-duration: 500ms; transition-timing-function: ease-in-out;" src="Using%20prev_next%20buttons_files/p1.jpg">
+    <img style="opacity: 0; z-index: 1;" src="Using%20prev_next%20buttons_files/p2.jpg">
+    <img style="opacity: 0; z-index: 1;" src="Using%20prev_next%20buttons_files/p3.jpg">
+    <img style="opacity: 0; z-index: 1;" src="Using%20prev_next%20buttons_files/p4.jpg">
+    <img style="opacity: 0; z-index: 1; transition-property: none; transition-duration: 500ms; transition-timing-function: ease-in-out;" src="Using%20prev_next%20buttons_files/p5.jpg">
+    <img style="opacity: 1; z-index: 7;" src="Using%20prev_next%20buttons_files/p6.jpg">
+    <img style="opacity: 0; z-index: 1;" src="Using%20prev_next%20buttons_files/p7.jpg">
+  </div>
+  <div class="button">
+    <a href="#" id="prev" class="float-l">Prev</a>
+    <a href="#" id="next" class="float-r">Next</a>
+  </div>
+
+</section>
+
+<section>
+  <header>
+    <h1>Usage</h1>
+  </header>
+
+  <!-- Highlight JS -->
+  <pre class="sh_javascript sh_sourcecode"><code>$<span class="sh_symbol">(</span><span class="sh_keyword">function</span><span class="sh_symbol">()</span> <span class="sh_cbracket">{</span>
+</code><code>  $<span class="sh_symbol">(</span><span class="sh_string">'#slide'</span><span class="sh_symbol">).</span><span class="sh_function">switchable</span><span class="sh_symbol">(</span><span class="sh_cbracket">{</span>
+</code><code>    triggers<span class="sh_symbol">:</span> <span class="sh_string">'&amp;bull;'</span><span class="sh_symbol">,</span>
+</code><code>    putTriggers<span class="sh_symbol">:</span> <span class="sh_string">'insertBefore'</span><span class="sh_symbol">,</span>
+</code><code>    effect<span class="sh_symbol">:</span> <span class="sh_string">'fade'</span><span class="sh_symbol">,</span>
+</code><code>    <span class="sh_comment">/* fade effect only supports steps == 1 */</span>
+</code><code>    <span class="sh_comment">// steps: 1,</span>
+</code><code>    easing<span class="sh_symbol">:</span> <span class="sh_string">'ease-in-out'</span><span class="sh_symbol">,</span>
+</code><code>    loop<span class="sh_symbol">:</span> <span class="sh_keyword">false</span><span class="sh_symbol">,</span>
+</code><code>    prev<span class="sh_symbol">:</span> <span class="sh_string">'#prev'</span><span class="sh_symbol">,</span>
+</code><code>    next<span class="sh_symbol">:</span> $<span class="sh_symbol">(</span><span class="sh_string">'#next'</span><span class="sh_symbol">),</span>
+</code><code>    onSwitch<span class="sh_symbol">:</span> <span class="sh_keyword">function</span><span class="sh_symbol">(</span>event<span class="sh_symbol">,</span> currentIndex<span class="sh_symbol">)</span> <span class="sh_cbracket">{</span>
+</code><code>      <span class="sh_keyword">var</span> api <span class="sh_symbol">=</span> <span class="sh_keyword">this</span><span class="sh_symbol">;</span>
+</code><code>      api<span class="sh_symbol">.</span>prevBtn<span class="sh_symbol">.</span><span class="sh_function">toggleClass</span><span class="sh_symbol">(</span><span class="sh_string">'disabled'</span><span class="sh_symbol">,</span> currentIndex <span class="sh_symbol">===</span> <span class="sh_number">0</span><span class="sh_symbol">);</span>
+</code><code>      api<span class="sh_symbol">.</span>nextBtn<span class="sh_symbol">.</span><span class="sh_function">toggleClass</span><span class="sh_symbol">(</span><span class="sh_string">'disabled'</span><span class="sh_symbol">,</span> currentIndex <span class="sh_symbol">===</span> api<span class="sh_symbol">.</span>length <span class="sh_symbol">-</span> <span class="sh_number">1</span><span class="sh_symbol">);</span>
+</code><code>    <span class="sh_cbracket">}</span>
+</code><code>  <span class="sh_cbracket">}</span><span class="sh_symbol">);</span>
+</code><code><span class="sh_cbracket">}</span><span class="sh_symbol">);</span></code></pre>
+
+  
+  <!-- Highlight CSS -->
+  <pre class="sh_css sh_sourcecode"><code><span class="sh_comment">/* Required Styles */</span>
+</code><code><span class="sh_selector">#slide </span><span class="sh_cbracket">{</span>
+</code><code>  <span class="sh_property">position:</span> <span class="sh_value">relative</span>;
+</code><code>  <span class="sh_property">width:</span> <span class="sh_value">550px</span>;
+</code><code>  <span class="sh_property">height:</span> <span class="sh_value">310px</span>;
+</code><code>  <span class="sh_property">overflow:</span> <span class="sh_value">hidden</span>;
+</code><code><span class="sh_cbracket">}</span>
+</code><code><span class="sh_selector">#slide img </span><span class="sh_cbracket">{</span>
+</code><code>  <span class="sh_property">position:</span> <span class="sh_value">absolute</span>;
+</code><code><span class="sh_cbracket">}</span></code></pre>
+  
+</section>
+
+<section id="disqus_thread"><iframe verticalscrolling="no" horizontalscrolling="no" src="Using%20prev_next%20buttons_files/a.htm" style="width: 100% ! important; border: medium none ! important; overflow: hidden ! important; height: 318px ! important;" title="Disqus" tabindex="0" allowtransparency="true" data-disqus-uid="2" id="dsq-2" frameborder="0" scrolling="no" width="100%"></iframe></section>
+
+
+<script src="Using%20prev_next%20buttons_files/jquery-1.js"></script>
+<script src="Using%20prev_next%20buttons_files/jquery.js"></script>
+<script>
+$(function() {
+  $('#slide').switchable({
+    triggers: '&bull;',
+    putTriggers: 'insertBefore',
+    effect: 'fade',
+    /* fade effect only supports steps == 1 */
+    // steps: 1,
+    easing: 'ease-in-out',
+    loop: false,
+    prev: '#prev',
+    next: $('#next'),
+    onSwitch: function(event, currentIndex) {
+      var api = this;
+      api.prevBtn.toggleClass('disabled', currentIndex === 0);
+      api.nextBtn.toggleClass('disabled', currentIndex === api.length - 1);
+    }
+  });
+});
+</script>
+<script src="Using%20prev_next%20buttons_files/sh.js"></script>
+<script>var disqus_shortname="jsw0528",disqus_identifier=disqus_url="http://switchable.mrzhang.me/using-prev-and-next-buttons.html",disqus_script="embed.js";(function(){var a=document.createElement("script");a.async=!0,a.src="http://"+disqus_shortname+".disqus.com/"+disqus_script,document.getElementsByTagName("head")[0].appendChild(a)})()</script>
+
+
+<footer class="footer">
+  <div class="inner">
+    <p>
+      ©2010-2012 wǒ_is神仙
+      &nbsp;-&nbsp;
+      Powered by <a href="http://octopress.org/" target="_blank">Octopress</a>
+    </p>
+    <em>CSS3 and HTML5 inside.</em>
+  </div>
+</footer>
+
+<iframe src="Using%20prev_next%20buttons_files/offline-cache.htm" style="display:none"></iframe>
+
+</body></html>

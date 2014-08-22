@@ -1,0 +1,59 @@
+*html #menu-popup .solutions .menu_content {
+	background:url(../images/hw_078222.png) no-repeat left 0;
+}
+*html #menu-popup .solutions {
+	background:url(../images/hw_078222.png) no-repeat right 0px;
+}
+*html #menu-popup .products .menu_content {
+	background:url(../images/hw_078222.png) no-repeat left 0;
+}
+*html #menu-popup .products {
+	background:url(../images/hw_078222.png) no-repeat right 0;
+}
+*html #menu-popup .services {
+	background:url(../images/hw_078247.gif) no-repeat right -199px;
+	left:235px;
+}
+*html #menu-popup .services .menu_content {
+	background:url(../images/hw_078247.gif) no-repeat left 0px;
+}
+*html #menu-popup .support .menu_content {
+	background:url(../images/hw_079104.png) no-repeat left 0;
+	height:343px;
+}
+*html #menu-popup .support {
+	background:url(../images/hw_079104.png) no-repeat right 0px;
+}
+*html #menu-popup .about-huawei .menu_content {;
+	background:url(../images/hw_078257.png) no-repeat right 0px;
+}
+*html #menu-popup .about-huawei {
+	height:297px;
+	background:url(../images/hw_078257.png) no-repeat left 0;
+	top:2px;
+	left:118px;
+}
+*html #menu-popup .about-huawei .menu_content div.link {
+	width:587px;
+}
+*html #slide-index .button img {
+	width:100%;
+	height:100%;
+}
+/*
+* html #slide-index div, * html #slide-index a, * html .png { behavior: url("/cn/images/pngfix/iepngfix.htc.htc"); }
+* html .IE6png{behavior: url("/cn/images/pngfix/iepngfix.htc.htc");}
+*/
+* html #seo-footer .links {
+	width:150px;
+}
+* html #seo-footer .offer {
+	width:100px;
+}
+*html #menu-popup .solutions {
+	left:2px;
+}
+*html #menu-popup .products {
+	left:120px;
+}
+/* 代码整理：97站长网 - www.97zzw.com */

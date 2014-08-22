@@ -1,0 +1,35 @@
+.container-24 { margin: 0 auto; width: 960px; }
+#navbar { position: relative; width: 100%; height: 40px; background: #06c; z-index: 10000; margin-bottom: 10px; }
+
+.nav { float: left; }
+.main-menu li { float: left; margin-right: 4px; font-size: 14px; }
+.main-menu li .menu-hd { float: left; padding: 10px 15px; color: #fff;}
+.main-menu .dropmenu { position: relative; }
+.main-menu .dropmenu b { display: inline-block; margin: 6px 0 0 5px; width: 0; height: 0; font-size: 0; line-height: 0; border-style: solid dashed dashed dashed; border-color: #7ba8d5 transparent transparent transparent; content: "";  }
+
+.main-menu .dropmenu .menu-bd { display: none; position: absolute; top: 100%; left: 0; z-index: 1000; float: left; margin: -1px 0 0; background-color: #fff; border: 1px solid #a6a6a6; border-radius: 0 3px 3px 3px; }
+.main-menu .hover .menu-hd { display: block; position: relative; z-index: 10000; float: left; padding: 9px 14px; background: #fff; border: solid #a6a6a6; border-width: 1px 1px 0; border-radius: 3px 3px 0 0; color: #000; }
+
+.main-menu .hover .menu-bd { display: block; margin-top: -1px; box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 5px; }
+
+.sub-menu { position: relative; _width: 120px; *zoom: 1; }
+.sub-menu li { margin: 0; clear: both; padding: 10px 15px; width: 120px; font-size: 12px; }
+.sub-menu li a { padding: 0; color: #000; font-weight: 400; }
+.sub-menu li .sub-item { display: none; }
+.sub-menu .hover { padding: 9px 15px; background: #25b9f0; border: solid #1585ad; border-width: 1px 0; }
+.sub-menu .hover a { color: #fff; text-decoration: underline; }
+.sub-menu .hover .sub-item { display: block; position: absolute; left: 150px; _left:150px; top: -2px; padding: 0 10px; width: 500px; _width:506px; min-height: 218px; _height: 220px; background: #fff; border: 2px solid #28BFF1; }
+.sub-menu .hover .sub-item dl { border-bottom: 1px dashed #ddd; overflow: hidden; padding: 4px 0 6px; *padding-top: 8px; _padding: 3px 0 8px; }
+.sub-menu .hover .sub-item dl a { margin-top: 0; white-space: nowrap; text-decoration: none; }
+.sub-menu .hover .sub-item dl a:hover { text-decoration: underline; }
+.sub-menu .hover .sub-item dl dt { float: left; padding: 0 5px 0 0; width: 70px; line-height: 22px; color: #29C1F0; font-weight: 700; text-align: right; }
+.sub-menu .hover .sub-item dl dt a { float: none; color: #0ae; font-weight: 700; }
+.sub-menu .hover .sub-item dl dd { overflow: hidden; *zoom: 1; }
+.sub-menu .hover .sub-item dl dd a { float: left; margin: 4px 0; padding: 0 8px; line-height: 14px; color: #666; }
+.sub-menu .hover .sub-item .last { border: 0 none; }
+
+.hide { display: none !important; }
+
+a { color: #0ae; text-decoration: none; }
+a:hover { text-decoration: underline; }
+

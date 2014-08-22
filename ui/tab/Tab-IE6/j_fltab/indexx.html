@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="fltab.css" />
+    <script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script> 
+    
+    <script src="fltab.js" type="text/javascript">
+    </script>
+    <script>
+    $(function() {
+        $(".lTab").flTab({
+            tabHead : ".lTabHeader li",  
+            tabPanel: ".lTabPanel ul",
+            tabCur  :"lTcurr", 
+            tabEvt  :"mouseover", 
+            tabIndex: 0 
+        });
+    })
+    </script>
+</head>
+
+<body>
+    <div class="lTab">
+        <div class="lTabHeader">
+            <ul class="lTit">
+                <li class="lTcurr"><a>成交</a>
+                </li>
+                <li><a>开工</a>
+                </li>
+                <li><a>库存</a>
+                </li>
+                <ol></ol>
+            </ul>
+        </div>
+        <div class="lTabPanel">
+            <ul style="display: block;">
+                <li><a>独家：2月21日国内工厂大豆油成交统计</a>
+                </li>
+                <li><a>独家：2月21日华东地区大豆油成交统计</a>
+                </li>
+                <li><a>独家：2月21日国内工厂菜籽油成交统计</a>
+                </li>
+                <li><a>独家：2月21日华南地区菜籽油成交统计</a>
+                </li>
+                <li><a>独家：2月21日华南地区大豆油成交统计</a>
+                </li>
+                <li><a>独家：2月21日国内工厂棕榈油成交统计</a>
+                </li>
+            </ul>
+
+            <ul style="display: none;">
+                <li><a>独家：14年第7周其它地区油厂开机调查</a>
+                </li>
+                <li><a>独家：14年第7周两广地区油厂开机调查</a>
+                </li>
+                <li><a>独家：14年第7周华东地区油厂开机调查</a>
+                </li>
+                <li><a>独家：14年第7周山东地区油厂开机调查</a>
+                </li>
+                <li><a>独家：14年第7周华北地区油厂开机调查</a>
+                </li>
+                <li><a>独家：14年第7周东北地区油厂开机调查</a>
+                </li>
+            </ul>
+
+            <ul style="display: none;">
+                <li><a>独家：2月21日第8周华东地区大豆库存合同情况</a>
+                </li>
+                <li><a>独家：2月21日第8周华南地区大豆油库存合同情况</a>
+                </li>
+                <li><a>独家：2月21日第8周华南地区棕榈油库存合同情况</a>
+                </li>
+                <li><a>独家：2月14日第7周华南地区棕榈油库存合同情况</a>
+                </li>
+                <li><a>独家：2月14日第7周华南地区大豆油库存合同情况</a>
+                </li>
+                <li><a>独家：2月14日第7周华南地区大豆库存合同情况</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+body {
+	background: #242424;
+	color: #dadada;			
+	font: 15px/1.5 Georgia, Serif;
+}
+.clear {
+	clear: both;
+}
+a {
+	color: #828383;
+	text-decoration: none;
+}
+a:hover {
+	color: #DADADA;
+}
+a img {
+	border: none;
+}
+
+#page_wrap {
+	margin: 60px auto;
+	width: 960px;
+}
+li img {
+	height: 150px;
+	width: 150px;
+}
+ul li {
+	list-style: none;
+	margin: 0 20px 0 0;
+	float: left;
+}
+ul li:last-child {
+  margin-right: 0; 
+}
+h2 {
+	font-size: 30px;
+	color: #dadada;
+	position: relative;
+	font-weight: normal;
+}
+h3 {
+  	margin: 0 0 20px 0;
+}
+p {
+	margin: 0 0 5px 0;
+}
+pre {
+	color: #dadada;
+	font: 11px Monaco, MonoSpace;
+	background: black;
+	padding: 10px; 
+	margin: 0 0 20px 0;
+}
+.ibe_outer {
+ margin: 0 0 20px 0; 
+}
+#generator {
+	padding: 15px;
+	border: 2px solid #666; 
+	overflow: hidden;
+}
+label { display: block; width: 150px; float: left; }
+input, textarea {
+	padding: 3px;
+	font-size: 13px;
+	margin: 5px;
+}
+#output { min-height: 110px; background: black; clear: both; color: white; font: 11px Monaco, MonoSpace; padding: 10px; }
+table { width: 100%; }
+table h2 { font-size: 24px; }
+table td { border: 2px solid #666; padding: 20px; }
+
+#shape1 { height: 300px; width: 150px; background: #eee; }
+#shape2 { width: 323px; height: 150px; background: #eee; }

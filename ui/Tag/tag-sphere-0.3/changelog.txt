@@ -1,0 +1,11 @@
+0.2
+Initial release
+
+0.3
+Centered text on points
+prevented default scroll on mousewheel
+changed zooming defaults
+centrex,centrey no longer shared between instances on same page
+updated included version of jquery.mousewheel
+
+

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+
+	<title>CSS3 Gradiet background</title>
+	
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	
+	<link rel="stylesheet" href="reset.css" type="text/css" media="screen" />
+	
+	<style type="text/css">
+		
+		body {background: #e6e9ed; font: 12px Arial, Helvetica, sans-serif; color: #333;}
+		#header {height: 100px; overflow: hidden; width: 100%; position: relative;}
+		#header h1 {margin: 0 20px; border: none; font-size: 16px;}
+		#content {
+			width: 760px; 
+			margin: 20px auto;
+			background: #fff;
+			border: 1px solid #ddd;
+			padding: 20px;
+			-moz-border-radius: 5px;
+			-khtml-border-radius: 5px;
+			-webkit-border-radius: 5px;
+			border-radius: 5px;
+		}
+
+		h1 {font-size: 25px; padding: 0 0 10px; margin: 0 0 10px; color: #1a82f7; border-bottom: 1px solid #ddd;}
+		h2 {font-size: 18px; padding: 10px 0; color: #1a82f7}
+		
+		#linearBg1 {
+			height: 100px;
+			background-color: #1a82f7;
+			background-image: -moz-linear-gradient(100% 100% 180deg, #2F2727, #1a82f7) !important;
+		    background-image: -webkit-gradient(linear, left top, right top, from(#1a82f7), to(#2F2727)) !important;
+			background-image: url(images/linear_bg_1.png);
+		}
+        #linearBg2 {
+        	height: 100px;
+            background-color: #1a82f7; /* fallback color */
+        	background-image: url(images/linear_bg_2.png); /* fallback image */
+            background-image: -moz-linear-gradient(100% 100% 90deg, #2F2727, #1a82f7);
+            background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f7), to(#2F2727));
+        }
+		#radialBg{
+			width: 100px;
+			height: 100px;
+			background-color: #1a82f7;
+			background-image: url(images/radial_bg.png);
+			background-position: center center;
+			background-image: -moz-radial-gradient(center 45deg, circle closest-corner, #1a82f7 0%, #2F2727 100%);
+			background-image: -webkit-gradient(radial, center center, 0, center center, 70, from(#1a82f7), to(#2F2727));
+		}
+		
+		pre {
+		   margin: 5px 0 20px 0; padding: 15px; background: #eee; overflow: auto;
+		}
+		
+	</style>
+
+</head>
+
+<body>
+		
+	<div id="content">
+		
+		<h1>CSS3 Gradient Background</h1>
+		
+		<h2>Linear background 180degree</h2>
+		
+		<div id="linearBg1"></div>
+		<pre>#linearBg1 {
+    height: 100px;
+    background-color: #1a82f7;
+    background-image: -moz-linear-gradient(100% 100% 180deg, #2F2727, #1a82f7) !important;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f7), to(#2F2727)) !important;
+    background-image: url(images/linear_bg_1.png);// fallback image
+}</pre>
+		
+		<h2>Linear background 90degree</h2>
+		
+		<div id="linearBg2"></div>
+		<pre>#linearBg2 {
+    height: 100px;
+    background-color: #1a82f7; /* fallback color */
+    background-image: url(images/linear_bg_2.png); /* fallback image */
+    background-image: -moz-linear-gradient(100% 100% 90deg, #2F2727, #1a82f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f7), to(#2F2727));
+}</pre>
+		
+		<h2>Radial background</h2>
+		
+		<div id="radialBg"></div>
+		<pre>#radialBg {
+    width: 100px;
+    height: 100px;
+    background-image: url(images/radial_bg.png);// fallback image
+    background-position: center center;
+    background-image: -moz-radial-gradient(center 45deg, circle closest-corner, #2F2727 0%, #1a82f7 100%);
+    background-image: -webkit-gradient(radial, center center, 10, center center, 80, from(#2F2727), to(#2F2727));
+}</pre>
+<br />
+More script and css style
+: <a href="http://www.htmldrive.net/" title="HTML DRIVE - Free DHMTL Scripts,Jquery plugins,Javascript,CSS,CSS3,Html5 Library">www.htmldrive.net </a>
+
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <script type="text/javascript" src="js/MSClass.js"></script>
+
+    <title>文字横向滚动应用实例(DIV + CSS、鼠标拖动) JavaScript - MSClass应用实例演示 - Class Of Marquee Scroll通用不间断滚动JS封装类</title>
+    <meta content="JavaScript文字横向滚动应用实例(DIV + CSS、鼠标拖动),MSClass,不间断滚动,JS不间断滚动,通用不间断滚动,Class Of Marquee Scroll" name="keywords">
+    <meta content="JavaScript文字横向滚动应用实例(DIV + CSS、鼠标拖动),MSClass,不间断滚动,JS不间断滚动,通用不间断滚动,Class Of Marquee Scroll" name="description">
+    <meta name="GENERATOR" content="MSHTML 6.00.6000.17097">
+</head>
+
+<body>
+    <script type="text/javascript">
+    function $(id) { return document.getElementById(id)};
+    </script>
+
+    <h1>文字横向滚动应用实例(DIV + CSS、鼠标拖动) JavaScript - MSClass应用实例演示 <a href="MSClass.html">下载MSClass</a>
+    </h1>
+    <br>
+    <br>
+    <style>
+    a, body, select, td, b { font-size:12px; text-decoration:none; }
+    body { background:#ffffff; }
+    a, pre { color:#808080; }
+    a:link, a:visited { color:#555; }
+    a:hover, a:active { color:#ff4e00; }
+    img { border:0}
+
+    .list_top { width:778px; height:35px; padding-left:30px; overflow:hidden; background:#d0f4ff; }
+    .list_top .Empty { width:40px; height:40px; float:left; }
+    .hot { width :720px; height :40px; }
+    .hot ul { width :720px; height :30px; overflow:hidden; margin :0; padding :0; }
+    .hot ul li { width :200px; height :30px; float :left; margin-right:15px; line-height :30px; }
+    .hot ul li a { color :#0066ff; font-size :14px; font-weight :bold; }
+    </style>
+
+
+    <div class="list_top">
+        <div class="hot" id="hottitle">
+            <ul id="ulid">
+                <li><a href="">文字横向滚动应用实例演示</a>
+                </li>
+                <li><a href="">省市地区联动选择JS封装类</a>
+                </li>
+                <li><a href="">通用不间断滚动JS封装类</a>
+                </li>
+                <li><a href="">WEBAMP异站调用控制示例</a>
+                </li>
+
+                <li><a href="">文字横向滚动应用实例演示</a>
+                </li>
+                <li><a href="">省市地区联动选择JS封装类</a>
+                </li>
+                <li><a href="">通用不间断滚动JS封装类</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <script language="javascript">
+    //[MSClassID  ContentID], direction, step, width, height, timer, delaytime, waittime ,ScrollStep
+    //direction值:0上 1下 2左 3右 -1上下交替 4左右交替
+    //delaytime=0 鼠标悬停控制， -1 禁止
+    new Marquee(["hottitle", "ulid"], 2, 2, 720, 30, 20, 0, 0);
+    </script>
+
+</body>
+
+</html>
