@@ -6,7 +6,7 @@
     <title>Simple Slider Example - Jssor Slider, Slideshow</title>
 </head>
 <body style="font-family:Arial, Verdana;background-color:#fff;">
-    <!-- it works the same with all jquery version from 1.3.1 to 2.0.3 -->
+    <!-- it works the same with all jquery version from 1.x to 2.x -->
     <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
     <!-- use jssor.slider.mini.js (39KB) or jssor.sliderc.mini.js (31KB, with caption, no slideshow) or jssor.sliders.mini.js (26KB, no caption, no slideshow) instead for release -->
     <!-- jssor.slider.mini.js = jssor.sliderc.mini.js = jssor.sliders.mini.js = (jssor.core.js + jssor.utils.js + jssor.slider.js) -->
@@ -17,7 +17,8 @@
 
         jQuery(document).ready(function ($) {
             var options = {
-                $AutoPlay: true,
+
+                $AutoPlay: true,                                   //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
                 $DragOrientation: 3                                //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
             };
 
@@ -38,7 +39,7 @@
             <div><img u="image" src="../img/landscape/07.jpg" /></div>
             <div><img u="image" src="../img/landscape/08.jpg" /></div>
         </div>
-        <a style="display: none" href="http://www.jssor.com">jQuery Slider</a>
+        <a style="display: none" href="http://www.jssor.com">slideshow</a>
     </div>
 </body>
 </html>

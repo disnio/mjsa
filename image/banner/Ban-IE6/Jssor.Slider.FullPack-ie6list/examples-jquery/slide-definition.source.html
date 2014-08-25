@@ -6,7 +6,7 @@
     <title>Slide Definition Example - Jssor Slider, Slideshow</title>
 </head>
 <body>
-    <!-- it works the same with all jquery version from 1.3.1 to 2.0.3 -->
+    <!-- it works the same with all jquery version from 1.x to 2.x -->
     <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
     <!-- use jssor.slider.mini.js (39KB) or jssor.sliderc.mini.js (31KB, with caption, no slideshow) or jssor.sliders.mini.js (26KB, no caption, no slideshow) instead for release -->
     <!-- jssor.slider.mini.js = jssor.sliderc.mini.js = jssor.sliders.mini.js = (jssor.core.js + jssor.utils.js + jssor.slider.js) -->
@@ -28,7 +28,7 @@
 
             var options = {
                 $AutoPlay: true,                                    //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
-                $PlayOrientation: 1,                                //[Optional] Orientation to play slide (for auto play, navigation), 1 horizental, 2 vertical, default value is 1
+                $PlayOrientation: 1,                                //[Optional] Orientation to play slide (for auto play, navigation), 1 horizental, 2 vertical, 5 horizental reverse, 6 vertical reverse, default value is 1
                 $DragOrientation: 3,                                //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
 
                 $CaptionSliderOptions: {                            //[Optional] Options which specifies how to animate caption
@@ -43,7 +43,7 @@
         });
     </script>
     <!-- Jssor Slider Begin -->
-    <!-- You can move inline styles (except 'top', 'left', 'width' and 'height') to css file or css block. -->
+    <!-- You can move inline styles to css file or css block. -->
     <div id="slider1_container" style="position: relative; width: 600px; height: 300px;">
     
         <!-- Loading Screen -->
@@ -72,7 +72,7 @@ http://www.jssor.com" target="_blank"><img src="../img/landscape/02.jpg"/></a></
                 </div>
             </div>
         </div>
-        <a style="display: none" href="http://www.jssor.com">jQuery Slider</a>
+        <a style="display: none" href="http://www.jssor.com">slideshow</a>
     </div>
     <!-- Jssor Slider End -->
 </body>
