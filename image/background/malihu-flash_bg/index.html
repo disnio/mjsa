@@ -3,11 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Flash fullscreen background on html</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+<script src="http://libs.baidu.com/swfobject/2.2/swfobject.js"></script>
 <style type="text/css">
 <!--
-@import url(http://fonts.googleapis.com/css?family=Josefin+Sans+Std+Light);
-@import url(http://fonts.googleapis.com/css?family=Reenie+Beanie);
+
 *{margin:0; padding:0; border:0;}
 html,body{width:100%; height:100%;}
 body{background:#000;}
@@ -43,7 +42,7 @@ var flashvars = {
 var params = {
   id: "bg",
   name: "bg",
-  wmode: "transparent",
+  wmode: "opaque",
   menu: "false"
 };
 var attributes = {

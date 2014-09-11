@@ -103,3 +103,7 @@ userlist_file=/etc/vsftpd/user_list
 #local_root=/var/www/html
 ftp_username=hxftp
 user_list里面把不用的用户注释掉，添加建立的ftp用户。
+-------------------------------------
+在SecureFx中选择Options->Global Options菜单，在打开的Global Options的对话框中选择General。Configuration folder。里面的路径就是SecureFX的配置文件路径。在Sessions子目录下找到对应的Session的ini配置文件。
+将"Filenames Always Use UTF8"=00000000修改为"Filenames Always Use UTF8"=00000001保存重新连接即可。 
+Session Options（会话选项） -> Terminal（终端） -> Appearance（显示）, 将Charater（字符）选择成 UTF-8就支持中文了。
