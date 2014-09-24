@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Keywords" content="" />
+    <meta name="description" content="" />
+    <link href="css/index.css" rel="stylesheet" type="text/css">
+    <link href="css/reset.css" rel="stylesheet" type="text/css">
+    <script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script> 
+    <script src="js/jquery.plugs.min.js"></script>
+    <script type="text/javascript" src="/ckplayer/ckplayer.js" charset="utf-8"></script>
+
+    <title>三角</title>
+
+</head>
+<script type="text/javascript">
+$(function() {
+    var len = $(".count li").length, pause = 3000;
+    var liwidth = $(".count li").innerWidth();
+    
+    $(".prev").on("click", scrollprev);
+
+    function scrollprev() {
+        $(".prev").off("click");
+        var left = $(".scrolling").position().left;
+        if (left == -len * liwidth) {
+            $(".scrolling").css("left", 0);
+        }
+        $(".scrolling").animate({
+            "left": "-=" + liwidth + "px"
+        }, 500, function() {
+            $(".prev").on("click", scrollprev);
+        });
+    }
+
+    $(".next").on("click", scrollnext);
+
+    function scrollnext() {
+        $(".next").off("click");
+        var left = $(".scrolling").position().left;
+        if (left == 0) {
+            $(".scrolling").css("left", -len * liwidth);
+        }
+        $(".scrolling").animate({
+            "left": "+=" + liwidth + "px"
+        }, 500, function() {
+            $(".next").on("click", scrollnext);
+        })
+    }
+
+    var player = autorun();
+
+    function autorun() {
+        return setInterval(scrollnext, pause);
+    }
+
+    $(".tx").hover(function() {
+        clearInterval(player);
+    }, function() {
+        player = autorun();
+    });
+    //$(".nav>li:first").find(".sonnav").show();
+    $(".nav>li").mouseover(function() {
+        $(this).siblings().removeClass("navact");
+        $(this).addClass("navact");
+    });
+
+    //$("#hxtab").idTabs();
+    $(".jtbox").hover(function() {
+        $(".jtbox").animate({
+            "width": 990
+        }, 1000);
+    }, function() {
+        $(".jtbox").animate({
+            "width": 83
+        }, 1000);
+    })
+
+     var flashvars={
+      f:'http://movie.ks.js.cn/flv/other/1_0.flv',
+      c:'0',
+      e:1,
+      p:0
+     };
+     var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:"transparent"};
+     var video=['http://movie.ks.js.cn/flv/other/1_0.mp4->video/mp4','http://www.ckplayer.com/webm/0.webm->video/webm','http://www.ckplayer.com/webm/0.ogv->video/ogg'];
+     CKobject.embed('../ckplayer/ckplayer.swf','mv','ckplayer_a1','263','153',false,flashvars,video,params);
+});
+
+</script>
+
+<body>
+    <div class="ztop">
+        <div class="top">
+            <div class="ttop">
+                <img src="img/logo01.jpg">
+            </div>
+
+            <div class="zhu">
+                <a href="">注册</a>&nbsp;|&nbsp;<a href="">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="var" href="">[English Version]</a>
+            </div>
+            <div class="ttop1">
+                <ul class="list">
+                    <li class="list1"><a href="">首页</a>
+                    </li>
+                    <li><a href="">新闻中心</a>
+                    </li>
+                    <li><a href="">公司概况</a>
+                    </li>
+                    <li class="list2"><a href="">会计师团队</a>
+                    </li>
+                    <li><a href="">服务范围</a>
+                    </li>
+                    <li><a href="">支付中心</a>
+                    </li>
+                    <li><a href="">联系我们</a>
+                    </li>
+                    <li><a href="">招聘信息</a>
+                    </li>
+                    <li class="list1"><a href="">Q&A</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tx">
+            <a class="prev" href="javascript:;">
+                <img src="img/prev.png">
+            </a>
+            <a class="next" href="javascript:;">
+                <img src="img/next.png">
+            </a>
+            <div class="screen">
+                <div class="scrolling">
+                    <ul class="count">
+                        <li>
+                            <a href="">
+                                <img src="img/banner01.jpg" alt="" width="975px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="img/banner02.jpg" alt="" width="975px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="img/banner03.jpg" alt="" width="975px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="img/banner04.jpg" alt="" width="975px">
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a href="">
+                                <img src="img/banner01.jpg" alt="" width="975px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="img/banner02.jpg" alt="" width="975px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="img/banner03.jpg" alt="" width="975px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="img/banner04.jpg" alt="" width="975px">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide" style="height:192px;">
+            <div class="slide1">
+                <div class="list1">
+                    <div class="list_1">
+                        <p><a href="" target="_blank">代理记账</a>
+                        </p>
+                        <p><a href="" target="_blank">代算薪水</a>
+                        </p>
+                        <p><a href="" target="_blank">营业税报税</a>
+                        </p>
+                        <p><a href="" target="_blank">财产税报税</a>
+                        </p>
+                        <p><a href="" target="_blank">财务咨询</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="list2">
+                    <div class="list_2">
+                        <p><a href="" target="_blank">公司成立</a>
+                        </p>
+                        <p><a href="" target="_blank">代办酒牌</a>
+                        </p>
+                        <p><a href="" target="_blank">商标注册</a>
+                        </p>
+                        <p><a href="" target="_blank">各类营业执照</a>
+                        </p>
+                        <p><a href="" target="_blank">在线信息提交</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="list3">
+                    <div class="list_3">
+                        <p><a href="" target="_blank">个人报税</a>
+                        </p>
+                        <p><a href="" target="_blank">公司报税</a>
+                        </p>
+                        <p><a href="" target="_blank">跨国公司报税</a>
+                        </p>
+                        <p><a href="" target="_blank">非盈利组织报税</a>
+                        </p>
+                        <p><a href="" target="_blank">跨国企业税务咨询</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="list4">
+                    <div class="list_4">
+                        <p><a href="" target="_blank">房产保险</a>
+                        </p>
+                        <p><a href="" target="_blank">汽车保险</a>
+                        </p>
+                        <p><a href="" target="_blank">商业保险</a>
+                        </p>
+                        <p><a href="" target="_blank">员工保险</a>
+                        </p>
+                        <p><a href="" target="_blank">健康保险</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="list5">
+                    <div class="list_5">
+                        <p><a href="" target="_blank">L-1/EB-1C/EB-5签证</a>
+                        </p>
+                        <p><a href="" target="_blank">公民考试</a>
+                        </p>
+                        <p><a href="" target="_blank">其他移民服务</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="list6">
+                    <div class="list_6">
+                        <p><a href="" target="_blank">投资数据库</a>
+                        </p>
+                        <p><a href="" target="_blank">本月亮点</a>
+                        </p>
+                        <p><a href="" target="_blank">在线咨询</a>
+                        </p>
+                        <p><a href="" target="_blank">房地产投资</a>
+                        </p>
+                        <p><a href="" target="_blank">租赁洽谈</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="zleft">
+
+                <div class="mv" id="mv">
+<!--                     <a href="">
+                        <img src="img/video01.jpg">
+                    </a> -->
+                </div>
+                <ul class="nav">
+                    <li class="navact"><a href="" target="_blank">北京凯瑞市总公司</a>
+                        <ul class="sonnav">
+                            <li><a href="">1601 Walnut St Suite 201 Cary,NC 27511</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="" target="_blank">北卡夏洛特分公司</a>
+                        <ul class="sonnav">
+                            <li><a href="">1</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="" target="_blank">乔州亚特兰大分公司</a>
+                        <ul class="sonnav">
+                            <li><a href="">2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="" target="_blank">宾州费城分公司</a>
+                        <ul class="sonnav">
+                            <li><a href="">3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="" target="_blank">北京分公司</a>
+                        <ul class="sonnav">
+                            <li><a href="">4</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="" target="_blank">上海分公司</a>
+                        <ul class="sonnav">
+                            <li><a href="">5</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="kai">
+                    <h3>会计师团队</h3>
+                    <div class="kai1">
+                        <p>
+                            <a href="" target="_blank">
+                                <img src="img/img01.jpg">
+                            </a>
+                        </p>
+                        <p>
+                            <a href="" target="_blank">
+                                <img src="img/img02.jpg">
+                            </a>
+                        </p>
+                        <p>
+                            <a href="" target="_blank">
+                                <img src="img/img03.jpg">
+                            </a>
+                        </p>
+                    </div>
+                    <div class="kai1">
+                        <p>
+                            <a href="" target="_blank">
+                                <img src="img/img04.jpg">
+                            </a>
+                        </p>
+                        <p>
+                            <a href="" target="_blank">
+                                <img src="img/img05.jpg">
+                            </a>
+                        </p>
+                        <p>
+                            <a href="" target="_blank">
+                                <img src="img/img06.jpg">
+                            </a>
+                        </p>
+                    </div>
+                    <div class="kai1">
+                        <p>
+                            <a href="" target="_blank">
+                                <img src="img/img07.jpg">
+                            </a>
+                        </p>
+                        <p>
+                            <a href="" target="_blank">
+                                <img src="img/img08.jpg">
+                            </a>
+                        </p>
+                        <p>
+                            <a href="" target="_blank">
+                                <img src="img/img09.jpg">
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="top_1">
+                    <h3>公司简介</h3>
+                    <p>我们是美国东部地区最有专业经验的会计师事务所。在过去的12年, 三角会计师事务所通我们是美国东部地区最有专业经验的会计师事务所。在过去的12年, 三角会计师事务所通... <a href="">[详细]</a>
+                    </p>
+                </div>
+                <div class="middle_1">
+                    <div class="middle_2">
+                        <h3>新闻报道</h3>
+                        <p><a href="" target="_blank">新准则下企业研发支出的财税处理</a>
+                            <p><a href="" target="_blank">5种借款利息支出条件下税前扣除的有关规定</a>
+                            </p>
+                            <p><a href="" target="_blank">专项用途财政性资金企业所得税处理问题政</a>
+                            </p>
+                    </div>
+                    <div class="middle_3">
+                        <h3>政策法规</h3>
+                        <p><a href="" target="_blank">新准则下企业研发支出的财税处理</a>
+                            <p><a href="" target="_blank">5种借款利息支出条件下税前扣除的有关规定</a>
+                            </p>
+                            <p><a href="" target="_blank">专项用途财政性资金企业所得税处理问题政</a>
+                            </p>
+                    </div>
+                </div>
+                <div class="zsection">
+                    <h3>优秀案例</h3>
+                    <div class="you">
+                        <table border="0" cellspacing="0" cellpadding="0" width="605px" height="248px">
+                            <tr>
+                                <td width="65px">
+                                    <a href="">
+                                        <img src="img/img1.jpg" alt="">
+                                    </a>
+                                </td>
+                                <td class="kr" rowspan="2" width="1px"></td>
+                                <td width="200px">
+                                    <p><a href="" target="_blank">海底捞餐饮集团有限公司</a>
+                                    </p>
+                                    <p><a href="" target="_blank">小肥羊餐饮有限公司</a>
+                                    </p>
+                                    <p><a href="" target="_blank">湄洲东坡餐饮集团</a>
+                                    </p>
+                                    <p><a href="" target="_blank">海底捞餐饮集团有限公司</a>
+                                    </p>
+                                </td>
+                                <td width="65px">
+                                    <a href="">
+                                        <img src="img/img2.jpg" alt="">
+                                    </a>
+                                </td>
+                                <td class="kr" rowspan="2" width="1px"></td>
+                                <td>
+                                    <p><a href="" target="_blank">海底捞餐饮集团有限公司</a>
+                                    </p>
+                                    <p><a href="" target="_blank">小肥羊餐饮有限公司</a>
+                                    </p>
+                                    <p><a href="" target="_blank">湄洲东坡餐饮集团</a>
+                                    </p>
+                                    <p><a href="" target="_blank">海底捞餐饮集团有限公司</a>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="">
+                                        <img src="img/img3.jpg" alt="">
+                                    </a>
+                                </td>
+                                <td>
+                                    <p><a href="" target="_blank">海底捞餐饮集团有限公司</a>
+                                    </p>
+                                    <p><a href="" target="_blank">小肥羊餐饮有限公司</a>
+                                    </p>
+                                    <p><a href="" target="_blank">湄洲东坡餐饮集团</a>
+                                    </p>
+                                    <p><a href="" target="_blank">海底捞餐饮集团有限公司</a>
+                                    </p>
+                                </td>
+                                <td>
+                                    <a href="">
+                                        <img src="img/img4.jpg" alt="">
+                                    </a>
+                                </td>
+                                <td>
+                                    <p><a href="" target="_blank">海底捞餐饮集团有限公司</a>
+                                    </p>
+                                    <p><a href="" target="_blank">小肥羊餐饮有限公司</a>
+                                    </p>
+                                    <p><a href="" target="_blank">湄洲东坡餐饮集团</a>
+                                    </p>
+                                    <p><a href="" target="_blank">海底捞餐饮集团有限公司</a>
+                                    </p>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+                <div class="zsection1">
+                    <h3>投资项目</h3>
+                    <table border="0" cellspacing="0" cellpadding="0" width="605px" height="160px">
+                        <tr>
+                            <td class="she" width="50px">
+                                <a href="">
+                                    <img src="img/img5.jpg" alt="">商业投资</a>
+                            </td>
+                            <td width="120px">
+                                <p><a href="" target="_blank">海底捞餐饮集团</a>
+                                </p>
+                                <p><a href="" target="_blank">小肥羊餐饮有限公司</a>
+                                </p>
+                            </td>
+                            <td width="120px">
+                                <p><a href="" target="_blank">海底捞餐饮集团</a>
+                                </p>
+                                <p><a href="" target="_blank">小肥羊餐饮有限公司</a>
+                                </p>
+                            </td>
+                            <td width="120px">
+                                <p><a href="" target="_blank">海底捞餐饮集团</a>
+                                </p>
+                                <p><a href="" target="_blank">小肥羊餐饮有限公司</a>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" height="1px">
+                                <p class="ce"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="she" width="50px">
+                                <a href="">
+                                    <img src="img/img6.jpg" alt="">房产投资</a>
+                            </td>
+                            <td width="120px">
+                                <p><a href="" target="_blank">海底捞餐饮集团</a>
+                                </p>
+                                <p><a href="" target="_blank">小肥羊餐饮有限公司</a>
+                                </p>
+                            </td>
+                            <td width="120px">
+                                <p><a href="" target="_blank">海底捞餐饮集团</a>
+                                </p>
+                                <p><a href="" target="_blank">小肥羊餐饮有限公司</a>
+                                </p>
+                            </td>
+                            <td width="120px">
+                                <p><a href="" target="_blank">海底捞餐饮集团</a>
+                                </p>
+                                <p><a href="" target="_blank">小肥羊餐饮有限公司</a>
+                                </p>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="zbottom">
+            <p>合作伙伴</p>
+            <p>
+                <a href="" target="_blank">
+                    <img src="img/slide01.jpg">
+                </a>
+            </p>
+            <p>
+                <a href="" target="_blank">
+                    <img src="img/slide02.jpg">
+                </a>
+            </p>
+            <p>
+                <a href="" target="_blank">
+                    <img src="img/slide03.jpg">
+                </a>
+            </p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="zfooter">
+
+        <div class="footer">
+            <div class="fot">
+                <img src="img/logo02.jpg">
+                <p>Copyright © 2013 triangleaccounting.net, All Rights Reserved　京ICP备11023243号</p>
+            </div>
+            <div class="ffooter">
+                <a href="" target="_blank">
+                    <img src="img/link01.jpg">
+                </a>
+                <a href="" target="_blank">
+                    <img src="img/link02.jpg">
+                </a>
+                <a href="" target="_blank">
+                    <img src="img/link03.jpg">
+                </a>
+                <a href="" target="_blank">
+                    <img src="img/link04.jpg">
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
