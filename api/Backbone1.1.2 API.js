@@ -20,7 +20,7 @@ var dispatcher = _.clone(Backbone.Events)
 -on 别名 -bind  
 object.on(event, callback, [context])
 如果一个页面中有大量不同的事件，按照惯例使用冒号指定命名空间： "poll:start", 或 "change:selection"
-
+book.on("change:title change:author", ...);
 绑定到特殊事件 "all" 的回调函数会在任意事件发生时被触发，其第一个参数为事件的名称
 proxy.on("all", function(eventName){
     object.trigger(eventName);
@@ -183,7 +183,7 @@ Uses Backbone.sync to persist the state of a model to the server. 可被覆盖.
 
 -fetch  model.fetch([options])
 从服务器重置模型状态。这对模型尚未填充数据，或者服务器端已有最新状态的情况很有用处。 如果服务器端状态与当前属性不同，则触发 "change" 事件。 选项的散列表参数接受 success 和 error 回调函数， 回调函数中可以传入 (model,response) 作为参数。
-Resets the model's state from the server by delegating to Backbone.sync. Returns a jqXHR. 
+Resets the model s state from the server by delegating to Backbone.sync. Returns a jqXHR. 
 
 
 -----------------------------------------------------
@@ -302,7 +302,7 @@ bill.set({name : "Bill Jones"});
 -----------------------------------------------------
 -----------------------------------------------------
 Collection
-集合是模型的有序组合，我们可以在集合上绑定 "change" 事件，从而当集合中的模型发生变化时获得通知，集合也可以监听 "add" 和 “remove" 事件， 从服务器更新，并能使用 Underscore.js 提供的方法
+集合是模型的有序组合，我们可以在集合上绑定 "change" 事件，从而当集合中的模型发生变化时获得通知，集合也可以监听 "add" 和 remove 事件， 从服务器更新，并能使用 Underscore.js 提供的方法
 
 集合中的模型触发的任何事件都可以在集合身上直接触发，所以我们可以监听集合中模型的变化：Documents.bind("change:selected", ...)
 
@@ -347,7 +347,7 @@ var Library = Backbone.Collection.extend({
 
 -----------------------------------------------------
 -toJSON collection.toJSON([options]) 
-返回集合中包含的每个模型对象的数组。可用于集合的序列化和持久化。本方法名称容易引起混淆，因为它与 JavaScript's JSON API 命名相同. 
+返回集合中包含的每个模型对象的数组。可用于集合的序列化和持久化。本方法名称容易引起混淆，因为它与 JavaScripts JSON API 命名相同. 
 
 var collection = new Backbone.Collection([
   {name: "Tim", age: 5},
@@ -540,7 +540,9 @@ accounts.fetch();
 
 fetch 的参数可以支持直接传入 jQuery.ajax 作为参数，所以拉取指定页码的集合数据可以这样写：。 Documents.fetch({data: {page: 3}})
 
-不建议在页面加载完毕时利用 fetch 拉取并填充集合数据 — 所有页面初始数据应当在 bootstrapped 时已经就绪。 fetch 适用于惰性加载不需立刻展现的模型数据。 
+不建议在页面加载完毕时利用 fetch 拉取并填充集合数据 — 所有页面初始数据应当在 bootstrapped 时已经就绪。 
+
+fetch 适用于惰性加载不需立刻展现的模型数据。 
 -----------------------------------------------------
 -reset collection.reset(models, [options])
 每次一个的向集合做增删操作已经很好了，但有时会有很多的模型变化以至于需要对集合做大批量的更新操作。 利用 reset 可将集合替换为新的模型（或键值对象），结束后触发 "reset" 事件。 
@@ -588,12 +590,12 @@ var Workspace = Backbone.Router.extend({
 -routes router.routes 
 routes 将带参数的 URLs 映射到路由实例的方法上，这与 视图 的 事件键值对 非常类似。 路由可以包含参数，:param，它在斜线之间匹配 URL 组件。 路由也支持通配符，*splat，可以匹配多个 URL 组件。
 
-举个例子，路由 "search/:query/p:page" 能匹配 #search/obama/p2 , 这里传入了 "obama" 和 "2" 到路由对应的动作中去了。 "file/*path 路由可以匹配 #file/nested/folder/file.txt，这时传入动作的参数为 "nested/folder/file.txt"。
+举个例子，路由 "search/:query/p:page" 能匹配 #search/obama/p2 , 这里传入了 "obama" 和 "2" 到路由对应的动作中去了。 "file/ *path 路由可以匹配 #file/nested/folder/file.txt，这时传入动作的参数为 nested/folder/file.txt"。
 
 当访问者点击浏览器后退按钮，或者输入 URL ，如果匹配一个路由，此时会触发一个基于动作名称的 事件， 其它对象可以监听这个路由并接收到通知。 下面的示例中，用户访问 #help/uploading 将从路由中触发 route:help 事件。 
 routes: {
   "help/:page":         "help",
-  "download/*path":     "download",
+  "download/ *path":     "download",
   "folder/:name":       "openFolder",
   "folder/:name-:mode": "openFolder"
 }
@@ -700,7 +702,7 @@ Backbone.emulateHTTP = true;
 Backbone.emulateHTTP = true;
 model.save();  // POST 到 "/collection/id", 附带 "_method=PUT" + header.
 
-emulate JSONBackbone.emulateJSON = true
+emulate JSON   Backbone.emulateJSON = true
 同样老的浏览器也不支持发送 application/json 编码的请求， 设置 Backbone.emulateJSON = true; 后 JSON 模型会被序列化为 model 参数， 请求会按照 application/x-www-form-urlencoded 的内容类型发送，就像提交表单一样。 
 -----------------------------------------------------
 -----------------------------------------------------
@@ -725,7 +727,7 @@ var DocumentRow = Backbone.View.extend({
   }  
 });
 -----------------------------------------------------
--constructor / -initializenew View([options])
+-constructor / -initialize new View([options])
 每次实例化一个视图时，传入的选项参数会被注册到 this.options 中以备后用。 这里有多个特殊的选项，如果传入，则直接注册到视图中去： model, collection, el, id, className, 以及 tagName. 如果视图定义了 initialize 函数，当视图实例化时该函数便立刻执行。 如果希望创建一个指向 DOM 中已存在的元素的视图，传入该元素作为选项： new View({el: existingElement}) 
 
 -el view.el
