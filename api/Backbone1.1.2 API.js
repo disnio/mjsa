@@ -1,4 +1,5 @@
 Backbone1.1.2 API
+http://sun80264629.iteye.com/blog/1848740
 -----------------------------------------------------
 -----------------------------------------------------
 -Event 能够混入任何对象，是对象具有绑定和触发自定义名称事件的能力。
@@ -563,6 +564,30 @@ var othello = nypl.create({
 });
 
 建立模型会立即出发 "add" event在集合中, a "request" event作为新模型发送服务器，同时触发 a "sync" event, 服务器回应成功。 {wait: true} 等待服务器返回。
+
+var items = new Backbone.Collection;
+items.add([{ id : 1, name: "Dog" , age: 3}, { id : 2, name: "cat" , age: 2}]);
+items.add([{ id : 1, name: "Bear" }], {merge: true });
+items.add([{ id : 2, name: "lion" }]); // merge: false
+console.log(JSON.stringify(items.toJSON()));
+// [{"id":1,"name":"Bear","age":3},{"id":2,"name":"cat","age":2}]
+
+Also note that listening to a reset event, the list of previous models is available
+in options.previousModels, for convenience.
+var todo = new Backbone.Model();
+var todos = new Backbone.Collection([todo])
+.on('reset', function(todos, options) {
+console.log(options.previousModels);
+console.log([todo]);
+console.log(options.previousModels[0] === todo); // true
+});
+todos.reset([]);
+
+// Save partial using PATCH
+model.clear().set({id: 1, a: 1, b: 2, c: 3, d: 4});
+model.save();
+model.save({b: 2, d: 4}, {patch: true});
+console.log(this.syncArgs.method);
 -----------------------------------------------------
 -----------------------------------------------------
 Backbone.Router 
@@ -726,6 +751,13 @@ var DocumentRow = Backbone.View.extend({
   ...
   }  
 });
+
+setElement
+If you need to apply an existing Backbone view to a different DOM element
+setElement can be used for this purpose. Overriding this.el needs to both
+change the DOM reference and re-bind events to the new element (and unbind
+from the old).
+setElement will create a cached $el reference for you,
 -----------------------------------------------------
 -constructor / -initialize new View([options])
 每次实例化一个视图时，传入的选项参数会被注册到 this.options 中以备后用。 这里有多个特殊的选项，如果传入，则直接注册到视图中去： model, collection, el, id, className, 以及 tagName. 如果视图定义了 initialize 函数，当视图实例化时该函数便立刻执行。 如果希望创建一个指向 DOM 中已存在的元素的视图，传入该元素作为选项： new View({el: existingElement}) 
