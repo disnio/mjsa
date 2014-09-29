@@ -111,9 +111,9 @@
 <div class="footer">
 	<p>You can read more information in the <a href="https://github.com/rewish/jquery-bgswitcher#readme">README</a>.</p>
 	<p class="copyright">&copy; 2009-2013 <a href="https://github.com/rewish">@rewish</a>.</p>
-	<a href="https://github.com/rewish/jquery-bgswitcher"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+	<a href="https://github.com/rewish/jquery-bgswitcher"></a>
 </div>
-
+<p id="ss"></p>
 <script>
 !function($) {
 	var $demo = $('#bs-demo'),
@@ -130,6 +130,7 @@
 
 	$('ul.actions').on('click', 'button', function(event) {
 		event.preventDefault();
+		console.log($(this).data('action'));
 		$demo.find('.box').bgswitcher($(this).data('action'));
 	});
 
@@ -151,6 +152,7 @@
 
 		$demo.find('.box').bgswitcher('destroy');
 		$demo.html(template);
+		$("#ss").text( JSON.stringify(config));
 		$demo.find('.box').bgswitcher(config);
 	}
 }(jQuery);
