@@ -1,0 +1,103 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 */
+
+<!--
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	background:url(../images/brick.jpg);
+}
+.clear {
+	clear:both;
+}
+.main {
+	position:absolute;
+	width:1024px;
+	height:auto;
+}
+.wood {
+	display:block;
+	border:15px outset #C60;
+	margin:10px auto;
+	overflow:hidden;
+	box-shadow:3px 3px 4px #000;
+}
+.window {
+	background:url(../images/night.JPG) 30% center;
+	width:400px;
+	height:600px;
+	box-shadow:6px 6px 4px #000;
+	border:15px inset #C60;
+	cursor:pointer;
+	-webkit-perspective: 900;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transition-property: perspective;
+	-webkit-transition-duration: 0.4s;
+}
+.left, .right {
+	width:200px;
+	height:600px;
+	box-shadow:none;
+	-moz-box-shadow:0 3px 10px #888;
+	-webkit-box-shadow:0 3px 10px #888;
+	-webkit-transition:0.4s ease-in-out;
+}
+.left {
+	float:left;
+	margin-left:0;
+	-webkit-transform: rotateY(0deg);
+}
+.right {
+	float:right;
+	margin-rihgt:0;
+	-webkit-transform: rotateY(0deg);
+}
+.left.hover {
+	-webkit-transform:scale(0.9) rotateY(60deg);
+	margin-left:-36px;
+}
+.right.hover {
+	-webkit-transform:scale(0.9) rotateY(-60deg);
+	margin-right:-36px;
+}
+.bar {
+	background:rgba(255, 255, 255, 0.3);
+	background: -webkit-radial-gradient(center, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6) 90%);
+	background: -moz-radial-gradient(center, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6) 90%);
+	background: radial-gradient(center, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6) 90%);
+	float:left;
+	width:180px;
+	height:180px;
+	border:10px outset #C60;
+}
+#pic img {
+	width:230px;
+	height:300px;
+	position:absolute;
+	top:160px;
+	left:20px;
+	box-shadow:4px 4px 4px #000;
+}
+#fire {
+	position:absolute;
+	top:80px;
+	right:40px;
+}
+#tips {
+	position:absolute;
+	top:300px;
+	right:0px;
+	font:40px Verdana, Geneva, sans-serif;
+	color:#FFC;
+	width:200px;
+	margin:40px;
+	text-shadow:0 0 10px #FF9;
+	line-height:50px;
+}
+#big {
+	font-size:50px;
+	text-align:center;
+}
+

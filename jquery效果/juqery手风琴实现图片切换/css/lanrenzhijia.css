@@ -1,0 +1,24 @@
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,fieldset,div,strong,label,em{margin:0;padding:0;border:0;}
+ul,ol,li{list-style:none;}
+input,button{margin:0;font-size:12px;vertical-align:middle;}
+body{font-size:12px;font-family:Arial, Helvetica, sans-serif; color:#333; margin:0 auto; }
+table{border-collapse:collapse;border-spacing:0;}
+
+a{color:#333;text-decoration:none;}
+a:hover{color:#c00; text-decoration:underline;}
+em,i{ font-style:normal;}
+b{ font-weight:normal;}
+h1,h2,h3,h4{ font-size:14px;}
+h5{ font-size:12px;}
+h6{ font-size:12px; font-weight:normal;}
+
+.box-lanrenzhijia{BACKGROUND: url(../images/bg01.png) no-repeat 6px 0px; MARGIN: 0px auto; OVERFLOW: hidden; WIDTH: 917px; HEIGHT: 248px}
+.box-lanrenzhijia UL {MARGIN: 7px 0px 0px 60px; OVERFLOW: hidden; WIDTH: 867px; HEIGHT: 225px}
+.box-lanrenzhijia UL LI {DISPLAY: inline; FLOAT: left; font-size:14px;}
+.box-lanrenzhijia UL LI IMG {DISPLAY: none}
+.box-lanrenzhijia SPAN{PADDING-RIGHT: 14px; DISPLAY: inline; PADDING-LEFT: 12px; FONT-WEIGHT: bold; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 20px; CURSOR: pointer; WORD-BREAK: normal; LINE-HEIGHT: 140%; PADDING-TOP: 5px; HEIGHT: 223px; TEXT-ALIGN: right; WORD-WRAP: break-word}
+.box-lanrenzhijia SPAN .djt {PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 8px; PADDING-BOTTOM: 0px; MARGIN: 0px 3px 0px 0px; PADDING-TOP: 0px; TEXT-ALIGN: center}
+.box-lanrenzhijia .last SPAN {PADDING-RIGHT: 14px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 5px}
+.box-lanrenzhijia .current {COLOR: #fff}
+.box-lanrenzhijia .last img{ width:526px;}
+

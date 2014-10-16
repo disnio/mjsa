@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery制作侧栏与工具提示信息鼠标滑过图片或文字提示详细内容</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript"> 
+$(document).ready(function(){
+	
+	$("ul.sidenav li").hover(function() {
+		$(this).find("div").stop().animate({left: "210", opacity:1}, "fast").css("display","block");
+		$(this).find(">a").addClass("current");
+	},function(){
+		$(this).find("div").stop().animate({left: "0", opacity: 0}, "fast");
+		$(this).find(">a").removeClass("current");
+	});
+	
+});
+</script>
+<link href="css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+<div class="demopage">
+  <ul class="sidenav">
+    <li><a href="#">首页</a>
+      <div>
+        <p>Go home!</p>
+      </div>
+    </li>
+    <li><a href="#">关于我们</a>
+      <div>
+        <p>知道我们的团队！</p>
+      </div>
+    </li>
+    <li><a href="#">投资组合</a>
+      <div>
+        <p>要看到我们在实验室工作吗？快来看看我们的特色工作！</p>
+      </div>
+    </li>
+    <li><a href="#">博客</a>
+      <div>
+        <p>每周更新，教程和资源。</p>
+      </div>
+    </li>
+    <li><a href="#">见证</a>
+      <div>
+        <p>看看其他客户对我们说。</p>
+      </div>
+    </li>
+    <li><a href="#">联系</a>
+      <div>
+        <p>打我们电话吧！</p>
+      </div>
+    </li>
+  </ul>
+</div>
+</body>
+</html>

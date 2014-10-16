@@ -1,0 +1,104 @@
+<!doctype html>
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="zh"><!--<![endif]-->
+<head>
+	<meta charset="gb2312" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>jquery幻灯片切换过度效果</title>
+
+	<link rel="stylesheet" href="assets/css/reset.css" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/refineslide.css" />
+	<link rel="stylesheet" href="assets/css/refineslide-theme-dark.css" />
+
+    <script src="assets/js/modernizr.js"></script>
+
+    <!--[if lt IE 9]>
+        <script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="topline"></div>
+
+	<div class="wrap group">
+        <div class="group">
+            <h1 class="title"><a href="https://github.com/alexdunphy/refineslide/">RefineSlide 幻灯演示Demo</a></h1>
+        </div>
+    </div>
+
+    <div class="group section-wrap upper" id="upper">
+        <div class="wrap group">
+            <div class="section-1">
+                <h2 class="subtitle">请选择幻灯使用的过渡效果</h2>
+
+                <ul id="legend">
+                    <li>
+                        <span class="bobble bobble-key">TYPE</span>
+                        - 你的浏览器支持的效果
+                    </li>
+                    <li>
+                        <span class="bobble bobble-key unsupported">TYPE</span>
+                        - 你的浏览器不支持的效果
+                    </li>
+                </ul>
+
+                <ul class="translist group">
+                    <li><a href="#_fade" class="button">Fade<div class="bobble-css bobble-js">CSS</div></a></li>
+                    <li><a href="#_random" class="button">Random<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_sliceH" class="button">Slice horizontal<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_sliceV" class="button">Slice vertical<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_slideH" class="button">Slide horizontal<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_slideV" class="button">Slide vertical<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_scale" class="button">Scale<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_fan" class="button">Fan<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_blockScale" class="button">Block scale<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_kaleidoscope" class="button">Kaleidoscope<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_blindH" class="button">Blind horizontal<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_blindV" class="button">Blind Vertical<div class="bobble-css">CSS</div></a></li>
+                    <li><a href="#_cubeH" class="button">Cube horizontal<div class="bobble-3d">3D</div></a></li>
+                    <li><a href="#_cubeV" class="button">Cube vertical<div class="bobble-3d">3D</div></a></li>
+                </ul>
+            </div> <!-- /.section-1 -->
+
+            <div class="section-2 group">
+				<ul id="images" class="rs-slider">
+				    <li class="group">
+				        <a href="#">
+				            <img src="assets/img/1.jpg" alt="" />
+				        </a>
+				        <div class="rs-caption rs-bottom">
+				            <h3>Design a motorcycle</h3>
+				            <p>Slider by <a href="http://www.gbin1.com/" class="button">GBin1.com</a></p>
+				        </div>
+				    </li>
+				    <li class="group">
+				        <a href="#" class="slide-parent">
+				            <img src="assets/img/2.jpg" alt=""/>
+				        </a>
+				        <div class="rs-caption rs-top-right">
+				            <p>Design parts</p>
+				        </div>
+				    </li>
+				    <li class="group">
+				        <img src="assets/img/3.jpg" alt=""/>
+				    </li>
+				    <li class="group"><img src="assets/img/4.jpg" alt=""/>
+				    </li>
+				    <li class="group"><img src="assets/img/5.jpg" alt=""/>
+				    </li>
+				    <li class="group"><img src="assets/img/6.jpg" alt=""/></li>
+					<li class="group"><img src="assets/img/7.jpg" alt=""/></li>
+					<li class="group"><img src="assets/img/8.jpg" alt=""/></li>
+					<li class="group"><img src="assets/img/9.jpg" alt=""/></li>
+				</ul>
+            </div> <!-- /.section-2 -->
+        </div> <!-- /.wrap -->
+    </div> <!-- /#upper -->
+
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery.refineslide.min.js"></script>
+    <script src="assets/js/ios-orientation-change-fix.js"></script>
+    <script src="assets/js/footer.js"></script>
+</body>
+</html>

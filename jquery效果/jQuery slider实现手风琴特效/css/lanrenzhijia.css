@@ -1,0 +1,32 @@
+/* CSS Document */
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,fieldset,div,strong,label,em{margin:0;padding:0;border:0;}
+ul,ol,li{list-style:none;}
+input,button{margin:0;font-size:12px;vertical-align:middle;}
+body{font-size:12px;font-family:Arial, Helvetica, sans-serif;  text-align:center; margin:0 auto;}
+table{border-collapse:collapse;border-spacing:0;}
+a{color:#333;text-decoration:none;}
+a:hover{color:#ef9b11; text-decoration:underline;}
+em{ font-style:normal;}
+h5{ font-size:12px;}
+h2.title_name {font-family: normal Georgia,'Times New Roman',Times,serif;font-weight: normal;font-size: 4em;padding: 50px 0 20px 0;text-align: center;}
+h2.title_name span {color: #f9f66d;font-size: 0.9em;}
+h2.title_name small {color: #AAAAAA;display: block;font-size: 0.2em;letter-spacing: 1.0em;text-transform: uppercase;}
+p.copy_right {width: 750px;margin: 30px auto 0 auto;clear: both;font-size: 1.1em;letter-spacing: 1px;text-align: center;
+overflow: hidden;}
+p.copy_right a {color: #01B2F1;}
+p.copy_right a:hover {text-decoration: none;}
+#box-163css{width: 750px;margin: 50px auto 0 auto;clear: both;padding-bottom: 50px; text-align:left;}
+.sliderbox { width: 700px; height: 375px; margin: 0 auto; overflow:hidden;}
+.sliderbox dt {height:32px; cursor:pointer; background: #333 url(../images/newsclosedbg.gif) no-repeat; width:100%;}
+.sliderbox .open { font-size: 13px; background: url(../images/newsopenbgtop.gif) no-repeat; color: #01b2f1; cursor: default;}
+.sliderbox .title{font-size: 13px; color: #01b2f1; padding: 0 0 0 40px; line-height: 30px;}	
+.sliderbox .date {font-size: 12px; color: #fff; float: right; display: block; padding: 10px 15px 0 0;}		
+.sliderbox dt:hover span { color:#FFFFFF;}	
+.sliderbox .open:hover span { color:#01b2f1;}	
+.sliderbox .open:hover .date { color:#366A80;}	
+.sliderbox .n_thumb { width: 113px; height: 125px;float:right; padding:0 0 20px 20px; }
+.sliderbox dd {overflow:hidden;}
+.sliderbox .text { padding:10px 40px 8px 40px; line-height:18px; font-size:13px;}
+.readmoreline { padding:12px 0 0 40px; display: block;text-transform: uppercase;}
+.sliderbox .thumb { cursor:pointer; margin:15px 15px 10px 20px;}
+.thumb {width: 113px;height: 125px;background-repeat: no-repeat;display: block;float: right;}

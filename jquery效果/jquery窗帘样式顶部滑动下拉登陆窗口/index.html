@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery窗帘样式顶部滑动下拉登陆窗口</title>
+<link rel="stylesheet" href="css/lanrenzhijia.css" type="text/css" />
+</head>
+<body>
+<div style="margin:0px;overflow:hidden;position:relative;height:0px;">
+  <div id="login" style="margin:-105px 0px 0px;height:auto;">
+    <div class="loginContent">
+      <form action="#" method="post">
+        <label for="log"><b>用户名: </b></label>
+        <input class="field" type="text" name="log" id="log" value="" size="23" />
+        <label for="pwd"><b>密码:</b></label>
+        <input class="field" type="password" name="pwd" id="pwd" size="23" />
+        <input type="submit" name="submit" value="" class="button_login" />
+        <input type="hidden" name="redirect_to" value=""/>
+      </form>
+      <div class="left">
+        <label for="rememberme">
+        <input name="rememberme" id="rememberme" class="rememberme" type="checkbox" checked="checked" value="forever" />
+        保持登录</label>
+      </div>
+      <div class="right">还不会员? <a href="#">注册</a> | <a href="#">忘记密码?</a></div>
+    </div>
+    <div class="loginClose"><a href="#" id="closeLogin">关闭</a></div>
+  </div>
+</div>
+<div id="top">
+  <ul class="login">
+    <li class="left">&nbsp;</li>
+    <li>您好 管理员！</li>
+    <li>|</li>
+    <li><a id="toggleLogin" href="#">登录</a></li>
+  </ul>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+$(function(){
+   $("#toggleLogin").toggle(function(){
+		$("#login").parent("div").animate({ height : 105 } , 520 );
+		$("#login").animate({marginTop : 0 } , 500 );
+		$(this).blur();
+   },function(){
+		$("#login").parent("div").animate({ height : 0 } , 500 );
+		$("#login").animate({marginTop : -105 } , 520 ); 
+		$(this).blur();
+   });
+   $("#closeLogin").click(function(){
+		$("#login").parent("div").animate({ height : 0 } , 500 );
+		$("#login").animate({marginTop : -105 } , 520 ); 
+   });
+})
+</script>
+</body>
+</html>

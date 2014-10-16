@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>多种jquery垂直滑动手风琴效果  demo2</title>
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<noscript>
+<link rel="stylesheet" type="text/css" href="css/styleNoJS.css" />
+</noscript>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&v1' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&v2' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class="container">
+			<div id="va-accordion" class="va-container">
+				<div class="va-nav">
+					<span class="va-nav-prev">Previous</span>
+					<span class="va-nav-next">Next</span>
+				</div>
+				<div class="va-wrapper">
+					<div class="va-slice va-slice-1">
+						<h3 class="va-title">Marketing</h3>
+						<div class="va-content">
+							<p>Henry Watson</p>
+							<ul>
+								<li><a href="#">About</a></li>
+								<li><a href="#">Portfolio</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="va-slice va-slice-2">
+						<h3 class="va-title">Management</h3>
+						<div class="va-content">
+							<p>Keith Johnson</p>
+							<ul>
+								<li><a href="#">About</a></li>
+								<li><a href="#">Portfolio</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>	
+					</div>
+					<div class="va-slice va-slice-3">
+						<h3 class="va-title">Visual Design</h3>
+						<div class="va-content">
+							<p>Andrew Alaniz</p>
+							<ul>
+								<li><a href="#">About</a></li>
+								<li><a href="#">Portfolio</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>	
+					</div>
+					<div class="va-slice va-slice-4">
+						<h3 class="va-title">Quality Control</h3>
+						<div class="va-content">
+							<p>Ben Freeman</p>
+							<ul>
+								<li><a href="#">About</a></li>
+								<li><a href="#">Portfolio</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>	
+					</div>
+					<div class="va-slice va-slice-5">
+						<h3 class="va-title">Web development</h3>
+						<div class="va-content">
+							<p>Alex Schuman</p>
+							<ul>
+								<li><a href="#">About</a></li>
+								<li><a href="#">Portfolio</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>	
+					</div>
+					<div class="va-slice va-slice-6">
+						<h3 class="va-title">Customer Support</h3>
+						<div class="va-content">
+							<p>Maria Wales</p>
+							<ul>
+								<li><a href="#">About</a></li>
+								<li><a href="#">Portfolio</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>	
+					</div>
+					<div class="va-slice va-slice-7">
+						<h3 class="va-title">Server Administration</h3>
+						<div class="va-content">
+							<p>Paul White</p>
+							<ul>
+								<li><a href="#">About</a></li>
+								<li><a href="#">Portfolio</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<div class="more">
+				<ul>
+								<li><a href="index1.html">Example 1</a></li>
+								<li><a href="index2.html">Example 2</a></li>
+								<li><a href="index3.html">Example 3</a></li>
+								<li><a href="index4.html">Example 4</a></li>
+							</ul>
+			</div>
+		</div>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+		<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+		<script type="text/javascript" src="js/jquery.vaccordion.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('#va-accordion').vaccordion({
+					expandedHeight	: 450,
+					animSpeed		: 500,
+					animEasing		: 'easeInOutBack',
+					animOpacity		: 0.4
+				});
+			});
+		</script>
+</body>
+</html>

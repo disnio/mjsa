@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery+CSS实现图片感应鼠标高亮显示当前图片</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+            $("ul li").hover(function(){               
+                    $(this).siblings().find("i").addClass("opacity_bg");//鼠标滑过当前元素，找到他的同辈元素i,并为它加上opacity_bg类
+                },function(){                  
+                    $(this).siblings().find("i").removeClass("opacity_bg");//鼠标移出当前元素，到他的同辈元素i,并移除它加上opacity_bg类景
+                })       
+        })
+</script>
+<link href="css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<h1>jquery聚光灯效果</h1>
+<h4>鼠标滑向当前图片高亮显示，其它图片变灰</h4>
+<ul>
+  <li><a><img  src="images/m01.jpg" /></a><i class="this_bg"></i></li>
+  <li><a><img  src="images/m02.jpg" /></a><i class="this_bg"></i></li>
+  <li><a><img  src="images/m03.jpg" /></a><i class="this_bg"></i></li>
+  <li><a><img  src="images/m04.jpg" /></a><i class="this_bg"></i></li>
+</ul>
+</body>
+</html>

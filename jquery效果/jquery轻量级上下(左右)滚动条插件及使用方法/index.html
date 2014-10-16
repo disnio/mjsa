@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery轻量级上下(左右)滚动条插件及使用方法</title>
+<link href="css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<center><h1>竖向滚动条</h1></center>
+
+<!-- 竖向滚动条begin -->
+<div id="scrollbar">
+  <div class="scrollbar" style="height: 200px;">
+    <div class="track">
+      <div class="thumb">
+        <div class="end"></div>
+      </div>
+    </div>
+  </div>
+  <div class="viewport">
+    <div class="overview">
+      <p>传统竹编工艺有着悠久的历史，其富含着劳动人民辛勤劳作的结晶，竹编工艺品分为细丝工艺品和粗丝竹编工艺品（说明：有瓷胎工艺品和无瓷胎工艺品）。</p>
+      <p>据考古资料证明，人类开始定居生活后，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余，为了不时之需，就把食物及饮水存放起来。这时候便就地取材，使用各种石斧、石刀等工具砍来植物的枝条编成篮，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余... </p>
+      <p>传统竹编工艺有着悠久的历史，其富含着劳动人民辛勤劳作的结晶，竹编工艺品分为细丝工艺品和粗丝竹编工艺品（说明：有瓷胎工艺品和无瓷胎工艺品）。</p>
+      <p>据考古资料证明，人类开始定居生活后，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余，为了不时之需，就把食物及饮水存放起来。这时候便就地取材，使用各种石斧、石刀等工具砍来植物的枝条编成篮，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余... </p>
+      <p>传统竹编工艺有着悠久的历史，其富含着劳动人民辛勤劳作的结晶，竹编工艺品分为细丝工艺品和粗丝竹编工艺品（说明：有瓷胎工艺品和无瓷胎工艺品）。</p>
+      <p>据考古资料证明，人类开始定居生活后，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余，为了不时之需，就把食物及饮水存放起来。这时候便就地取材，使用各种石斧、石刀等工具砍来植物的枝条编成篮，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余... </p>
+      <p>传统竹编工艺有着悠久的历史，其富含着劳动人民辛勤劳作的结晶，竹编工艺品分为细丝工艺品和粗丝竹编工艺品（说明：有瓷胎工艺品和无瓷胎工艺品）。</p>
+      <p>据考古资料证明，人类开始定居生活后，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余，为了不时之需，就把食物及饮水存放起来。这时候便就地取材，使用各种石斧、石刀等工具砍来植物的枝条编成篮，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余，便从事简单的农业和畜牧业生产，所获的米粟和猎取的食物稍有剩余... </p>
+    </div>
+  </div>
+</div>
+<!-- 竖向滚动条end -->
+<br />
+<br />
+<br />
+
+<center><h1>横向滚动条</h1></center>
+<!-- 横向滚动条begin -->
+<div id="scrollbar2">
+  <div class="viewport">
+    <div class="overview"> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    <img src="images/logo.jpg" /> 
+    </div>
+  </div>
+  <div class="scrollbar">
+    <div class="track">
+      <div class="thumb"></div>
+    </div>
+  </div>
+</div>
+<!-- 横向滚动条end -->
+
+<script src="js/jquery.min.js"></script>
+<script src="js/tinyscrollbar.js"></script>
+<script>
+$('#scrollbar').tinyscrollbar();
+$('#scrollbar2').tinyscrollbar({ axis: 'x'});
+</script>
+
+<div class="use">
+<p>现在网上充斥着大量的jquery滚动条代码，但往往含有多个插件，使用起来比较麻烦，且很难解决一个页面多次使用的问题</p>
+<br />
+<b>使用方法</b><br />
+<p>1、复制代码到你需要的地方，且依次引入jquery库以及tinyscrollbar插件即可。</p>
+<p>2、然后在网页底部直接按照此代码调用库中的效果即可 $('#scrollbar').tinyscrollbar(); 默认为竖向滚动条效果。如果需要多次使用，只需改变外侧的ID号，并修改css样式即可</p>
+</div>
+</body>
+</html>

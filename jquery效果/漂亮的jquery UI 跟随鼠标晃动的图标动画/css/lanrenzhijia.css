@@ -1,0 +1,103 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+body {
+	font-family:arial;
+	font-size:14px;
+	background:url(../images/bg.jpg) repeat;
+}
+#page-wrap {
+	background-color:#B8E3F5;
+	width:950px;
+	height:365px;
+	margin-left:auto;
+	margin-right:auto;
+	border:1px solid #AFC2F0;
+	padding:3px;
+}
+#header {
+	height:85px;
+	width:950px;
+	margin-top:20px;
+	text-align:center;
+}
+#content {
+	background-color:#B8E3F5;
+	width:950px;
+	text-align:left;
+}
+h1 {
+	padding:20px 10px 20px 10px;
+	background-color:gray;
+	color:white;
+	margin:0;
+	text-shadow: #9E9B9B 2px 2px 2px;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E3E1E1', endColorstr='#CCCACA'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#E3E1E1), to(#CCCACA)); /* for webkit browsers */
+	background: -moz-linear-gradient(top, #E3E1E1, #CCCACA); /* for firefox 3.6+ */
+}
+.large {
+	font-size:22px;
+}
+.orange {
+	color:orange;
+}
+.italic {
+	font-style:italic
+}
+.textmiddle {
+	vertical-align:middle;
+}
+.padout {
+	padding-left:25px;
+	padding-right:25px;
+}
+.rounded-corners {
+	-moz-border-radius: 40px;
+	-webkit-border-radius: 40px;
+	-khtml-border-radius: 40px;
+	border-radius: 40px;
+}
+.rounded-corners-top {
+	-moz-border-top-radius: 40px;
+	-webkit-border-radius: 40px;
+	-khtml-border-radius: 40px;
+	border-radius: 40px;
+}
+h2 {
+	color:blue;
+	font-size:22px;
+	color:white;
+	background-color:gray;
+	padding:10px 10px 10px 20px;
+	-moz-border-radius: 40px;
+	-webkit-border-radius: 40px;
+	-khtml-border-radius: 40px;
+	border-radius: 40px;
+	text-shadow: #9E9B9B 2px 2px 2px;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E3E1E1', endColorstr='#CCCACA'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#E3E1E1), to(#CCCACA)); /* for webkit browsers */
+	background: -moz-linear-gradient(top, #E3E1E1, #CCCACA); /* for firefox 3.6+ */
+}
+.scrolldown {
+	padding-left:20px;
+	color:#EDECE8;
+	font-size:40px;
+	font-weight:bold;
+	vertical-align:middle;
+	text-shadow: #6374AB 2px 2px 2px;
+}
+#page-content {
+	padding:20px;
+}
+#parallax-header {
+	height:200px;
+	background-color:gray;
+}
+#parallax {
+	position:relative;
+	overflow:hidden;
+	width:950px;
+	height:250px;
+	background-image:url('../images/background.jpg');
+}
+/* 代码整理：懒人之家 www.lanrenzhijia.com */

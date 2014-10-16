@@ -1,0 +1,113 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	text-align:left;
+	font-size:12px;
+}
+ul, li {
+	list-style:none;
+}
+img {
+	border:none;
+}
+.lanrenzhijia_pic ul {
+	position:relative;
+	width:240px;
+	height:406px;
+	overflow:hidden;
+}
+.lanrenzhijia_pic .picList2 {
+	width:119px;
+	height:162px;
+	left:0;
+	top:162px;
+}
+.lanrenzhijia_pic .picList3 {
+	width:119px;
+	height:80px;
+	left:121px;
+	top:162px;
+}
+.lanrenzhijia_pic .picList4 {
+	width:119px;
+	height:80px;
+	left:121px;
+	top:244px;
+}
+.lanrenzhijia_pic .picList5 {
+	width:119px;
+	height:80px;
+	left:0;
+	top:326px;
+}
+.lanrenzhijia_pic .picList6 {
+	width:119px;
+	height:80px;
+	left:121px;
+	top:326px;
+}
+.imgBoxFocus {
+	position:absolute;
+	left:0;
+	top:0;
+	display:none;
+	z-index:99;
+}
+.imgBoxFocus:hover {
+	text-decoration:none;
+}
+.imgBoxFocus p {
+	font-family:Microsoft YaHei, SimSun;
+	font-size:14px;
+	color:#fff;
+	display:inline-block;
+	position:absolute;
+	left:10px;
+	top:10px;
+	z-index:1;
+	margin:0 10px 0 0;
+}
+.imgBoxFocus em {
+	background:#d78000;
+	font-family:Microsoft YaHei, SimSun;
+	font-size:12px;
+	color:#fff;
+	font-style:normal;
+	text-decoration:none;
+	position:absolute;
+	right:0;
+	bottom:0;
+	display:inline-block;
+	height:21px;
+	line-height:21px;
+	z-index:1;
+	padding:0 5px;
+}
+.lanrenzhijia_pic .picList1 {
+	width:240px;
+	height:160px;
+	left:0;
+	top:0;
+}
+.lanrenzhijia_pic li, .truth li, .picCollection li {
+	position:absolute;
+	overflow:hidden;
+}
+.lanrenzhijia_pic .picList1 img, .photoMil img {
+	width:240px;
+	height:160px;
+}
+.lanrenzhijia_pic .picList2 img, .truth .picList2 img, .truth .picList7 img {
+	width:119px;
+	height:162px;
+}
+.imgBoxFocus .imgBoxBg {
+	position:absolute;
+	background:#2b5381;
+	z-index:0;
+}
+/* 代码整理：懒人之家 www.lanrenzhijia.com */

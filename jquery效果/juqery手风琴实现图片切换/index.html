@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<TITLE>juqery手风琴实现图片切换</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<LINK href="css/lanrenzhijia.css" type=text/css rel=stylesheet>
+<BODY>
+<div class="box-lanrenzhijia">
+	<UL>
+	   <LI><SPAN class=current><CODE class=djt>▼</CODE>迷宫寻宝　挑战神秘</SPAN><A href="http://www.lanrenzhijia.com/" target=_blank><IMG src="images/1.jpg"></A> </LI>
+	  <LI><SPAN><CODE class=djt>▼</CODE>幻想副本　天马行空</SPAN><A href="http://www.lanrenzhijia.com/" target=_blank><IMG src="images/2.jpg"></A> </LI>
+	  <LI><SPAN><CODE class=djt>▼</CODE>个性装饰　炫酷造型</SPAN><A href="http://www.lanrenzhijia.com/" target=_blank><IMG src="images/3.jpg"></A> </LI>
+	  <LI><SPAN><CODE class=djt>▼</CODE>武侠奇幻　双剑合壁</SPAN><A href="http://www.lanrenzhijia.com/" target=_blank><IMG src="images/4.jpg"></A> </LI>
+	  <LI><SPAN><CODE class=djt>▼</CODE>家园庭院　第二人生</SPAN><A href="http://www.lanrenzhijia.com/" target=_blank><IMG src="images/5.jpg"></A> </LI>
+	  <LI><SPAN><CODE class=djt>▼</CODE>现代元素　梦想首创</SPAN><A href="http://www.lanrenzhijia.com/" target=_blank><IMG src="images/6.jpg"></A> </LI>
+	  <LI class=last><SPAN><CODE class=djt>▼</CODE>史诗剧情　阵营纷争</SPAN><A href="http://www.lanrenzhijia.com/"target=_blank><IMG src="images/7.jpg"></A> 
+	</LI>
+	</UL>
+</div>
+<SCRIPT src="js/jQuery-1.4.1.min.js"></SCRIPT>
+<SCRIPT src="js/jquery.easing.1.3.js" type=text/javascript></SCRIPT>
+<SCRIPT type=text/javascript>
+$(function(){
+    var j = 0,k = 0,id = 0;
+    init();
+    $.each( [0,1,2,3,4,5,6], function(m){
+        $("div.box-lanrenzhijia>ul>li").eq(m).find("span").click(function () {
+            $.each( [0,1,2,3,4,5,6], function(i){
+                $("div.box-lanrenzhijia>ul>li").eq(i).find("span").removeClass("current");
+                $("div.box-lanrenzhijia>ul>li").eq(i).find("img").hide();
+            });
+            $("div.box-lanrenzhijia>ul>li").eq(m).find("span").addClass("current");
+            $("div.box-lanrenzhijia>ul>li").eq(m).find("img").fadeIn({queue:false, duration:100, easing:"easeInSine"});
+            j = m + 1;
+            clearTimeout(id);
+            id = setTimeout(function(){init()},6000);
+        });       
+    });
+    function init()
+    {        
+        $.each( [0,1,2,3,4,5,6], function(n){
+            $("div.box-lanrenzhijia>ul>li").eq(n).find("span").removeClass("current");
+            $("div.box-lanrenzhijia>ul>li").eq(n).find("img").hide();
+        });
+        k = j%7;
+        $("div.box-lanrenzhijia>ul>li").eq(k).find("span").addClass("current");
+        $("div.box-lanrenzhijia>ul>li").eq(k).find("img").fadeIn({queue:false, duration:100, easing:"easeInSine"});
+        j = j+1;
+        id = setTimeout(function(){init()},4000);
+    }
+});
+$(".t1 a").click(function(){
+ dialog("邀请朋友一起玩吧","id:tc","300px","auto","id");
+});
+var miso_a = mx_ver;
+var miso_c = mx_verNum;
+$('div.down').find('a').attr('href', miso_a);
+$('div.down>a').find('span').html(miso_c);
+</SCRIPT>
+
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery竖向下拉select选择样式表</title>
+<link href="css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript"></script>
+<script src="js/jquery.csf.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#demo01').customSelectForm({icon:true});
+  $('#demo02').customSelectForm();
+});
+</script>
+</head>
+<body>
+<div id="wrap">
+<form action="#" method="post">
+<!-- CUSTOM SELECT DEMO 01 -->
+<!-- use title to define an icon path -->
+<select id="demo01" name="customSelectForm">
+  <option value="1" title="images/demo01/icon/01.png">Rhum</option>
+  <option value="2" title="images/demo01/icon/01.png">Whisky</option>
+  <option value="3" title="images/demo01/icon/01.png">Champagne</option>
+  <option value="4" title="images/demo01/icon/01.png" selected="selected">Vin</option>
+  <option value="5" title="images/demo01/icon/01.png">Bières</option>
+</select>
+<!-- /CUSTOM SELECT -->
+
+<hr />
+<!-- CUSTOM SELECT DEMO 02 -->
+<select id="demo02" name="customSelectForm">
+  <option value="1" selected="selected">10</option>
+  <option value="2">20</option>
+  <option value="3">30</option>
+  <option value="4">40</option>
+  <option value="5">50</option>
+</select>
+<!-- /CUSTOM SELECT -->
+</form>
+</div>
+</body>
+</html>

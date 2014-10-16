@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* reset */
+*{margin:0;padding:0;list-style-type:none;}
+a{blr:expression(this.onFocus=this.blur())}/*去掉a标签的虚线框，避免出现奇怪的选中区域*/
+:focus{outline:0;}
+label{cursor:pointer;}
+img{vertical-align:middle;}
+table{empty-cells:show;border-collapse:collapse;border-spacing:0;}
+h1{font-size:16px;}h2,h3,h4{font-size:14px;}h5,h6{font-size:12px;}
+abbr,acronym{border:0;font-variant:normal}
+address,caption,cite,code,dfn,em,th,var,optgroup{font-style:normal;font-weight:normal}
+input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit}
+input,button,textarea,select{*font-size:100%}
+a,img{border:0;}
+a,a:visited{color:#5e5e5e; text-decoration:none;}
+a:hover{color:#4183C4;text-decoration:underline;}
+.clear{display:block;overflow:hidden;clear:both;height:0;line-height:0;font-size:0;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{display:inline-table;}/* Hides from IE-mac \*/
+*html .clearfix{height:1%;}
+.clearfix{display:block;}/* End hide from IE-mac */
+*+html .clearfix{min-height:1%;}
+body{font:12px/180% Arial,Lucida,Verdana,"宋体",Helvetica,sans-serif;color:#333;background:#fff;}
+/* shortcut */
+.shortcut{position:fixed;top:0;left:0;z-index:9999;width:100%;}
+*html,*html body /* 修正IE6振动bug */{background-image:url(about:blank);background-attachment:fixed;}
+*html .shortcut{position:absolute;top:expression(eval(document.documentElement.scrollTop));}
+.shortcut{height:28px;line-height:28px;font-size:12px;background:#EEEEEE;text-transform:uppercase;box-shadow:1px 0px 2px rgba(0,0,0,0.2);border-bottom:1px solid #DDDDDD;}
+.shortcut h1{font-size:14px;font-family:"微软雅黑","宋体";}
+.shortcut a,.shortcut h1{padding:0px 10px;letter-spacing:1px;color:#333;text-shadow:0px 1px 1px #fff;display:block;float:left;}
+.shortcut a:hover{background:#fff;}
+.shortcut span.right{float:right;}
+.shortcut span.right a{float:left;display:block;color:#ff6600;font-weight:800;}
+.headeline{height:40px;overflow:hidden;}
+.adv960x90{width:960px;height:90px;overflow:hidden;border:solid 1px #E6E6E6;margin:0 auto;}
+.adv728x90{width:728px;height:90px;overflow:hidden;border:solid 1px #E6E6E6;margin:0 auto;}
+
+*{margin:0;padding:0;}
+html{background-color:#161616;}
+body{color:#fff;min-height:600px;font-family:Arial;}
+a, a:visited {text-decoration:none;outline:none;color:#54a6de;}
+a:hover{text-decoration:underline;}
+/*----------------------------主屏幕-----------------------------*/
+#homeScreen{width:810px;height:770px;padding:1px;margin:0 auto;background:url('../images/background.jpg') no-repeat left bottom;}
+/* 面膜只显示在一个屏幕上的时间。使用溢出：隐藏 */
+#mask{width:332px;height:380px;position:relative;overflow:hidden;margin:180px auto 0;}
+#allScreens{height:100%;top:0;left:0;position:absolute;cursor:move;}
+.screen{width:332px;float:left;}
+#dock .dockicon,.screen .icon{float:left;width:60px;height:60px;background-repeat:no-repeat;margin:25px;position:relative;}
+/* 下面的图标显示的标题属性:*/
+.screen .icon:after{bottom:-25px;color:white;content:attr(title);font-size:12px;height:20px;left:-20px;overflow:hidden;position:absolute;text-align:center;white-space:nowrap;width:100px;text-shadow:0 0 3px #222;}#dock{height:70px;margin:60px auto;width:332px;}
+/* 被告席上的图标得到下面这些细微的阴影 */
+#dock .dockicon:after{border-radius:50px/10px;bottom:7px;box-shadow:0 5px 2px #000000;content:"";height:1px;position:absolute;width:58px;}
+#indicators{text-align:center;list-style:none;}
+#indicators li{border-radius:50%;display:inline-block;margin:7px;width:6px;height:6px;background-color:white;opacity:0.6;}
+#indicators li.active{opacity:1;background-color:#00A2D6;box-shadow:0 0 3px #00A2D6, 0 0 1px #51CFF9 inset;}

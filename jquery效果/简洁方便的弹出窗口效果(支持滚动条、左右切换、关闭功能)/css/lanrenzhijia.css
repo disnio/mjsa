@@ -1,0 +1,220 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+* {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+body {
+	font:normal 12px/22px Arial, Helvetica, sans-serif;
+	background:url(../images/bg.jpg) repeat;
+}
+img {
+	border:0;
+}
+a {
+	text-decoration:none;
+	color:#333;
+}
+a:hover {
+	color:#1974A1;
+	text-decoration:none;
+}
+p {
+	padding-top:20px;
+}
+.lanrenzhijia {
+	width:300px;
+	height:389px;
+	margin:100px auto;
+}
+.theme {
+	width:900px;
+	height:500px;
+	padding:20px;
+	background:#fff;
+	position:fixed;
+	left:50%;
+	top:50%;
+	margin:-260px 0px 0px -460px;
+	display:none;
+	z-index:8888;
+}
+.theme2 {
+	width:900px;
+	height:500px;
+	position:relative;
+	float:left;
+	overflow:hidden;
+}
+.theme .close {
+	width:55px;
+	height:31px;
+	position:absolute;
+	right:-55px;
+	top:30px;
+	background:url(../images/lanrenzhijia_close.png) no-repeat;
+}
+.theme .close:hover {
+	background:url(../images/lanrenzhijia_close2.png) no-repeat;
+}
+.theme .next {
+	width:55px;
+	height:31px;
+	position:absolute;
+	right:-55px;
+	top:70px;
+	background:url(../images/lanrenzhijia_next.png) no-repeat;
+}
+.theme .next:hover {
+	background:url(../images/lanrenzhijia_next2.png) no-repeat;
+}
+.theme .pre {
+	width:55px;
+	height:31px;
+	position:absolute;
+	right:-55px;
+	top:110px;
+	background:url(../images/lanrenzhijia_pre.png) no-repeat;
+}
+.theme .pre:hover {
+	background:url(../images/lanrenzhijia_pre2.png) no-repeat;
+}
+.theme2 ul div.detail {
+	width:900px;
+	height:500px;
+	float:left;
+	background:url(../images/loading.gif) no-repeat center center;
+}
+.theme2 ul {
+	width:900000px;
+	height:500px;
+	float:left;
+}
+.theme_mark {
+	width:100%;
+	height:100%;
+	float:left;
+	position:absolute;
+	left:0;
+	top:0;
+	background:url(../images/dark.png) repeat;
+	display:none;
+	z-index:7777;
+}
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+#scrollbar {
+	width: 900px;
+}
+#scrollbar .scrollbar {
+	position: relative;
+	background-position: 0 0;
+	float: right;
+	width: 8px;
+}
+#scrollbar .viewport {
+	width: 880px;
+	height: 500px;
+	overflow: hidden;
+	position: relative;
+}
+#scrollbar .track {
+	background: #ccc;
+	height: 100%;
+	width: 8px;
+	position: relative;
+}
+#scrollbar .thumb {
+	background: #CC0071;
+	height: 20px;
+	width: 8px;
+	cursor: pointer;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+}
+#scrollbar .overview {
+	list-style: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding: 0;
+	margin: 0;
+}
+#scrollbar2 {
+	width: 900px;
+}
+#scrollbar2 .scrollbar {
+	position: relative;
+	background-position: 0 0;
+	float: right;
+	width: 8px;
+}
+#scrollbar2 .viewport {
+	width: 880px;
+	height: 500px;
+	overflow: hidden;
+	position: relative;
+}
+#scrollbar2 .track {
+	background: #ccc;
+	height: 100%;
+	width: 8px;
+	position: relative;
+}
+#scrollbar2 .thumb {
+	background: #CC0071;
+	height: 20px;
+	width: 8px;
+	cursor: pointer;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+}
+#scrollbar2 .overview {
+	list-style: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding: 0;
+	margin: 0;
+}
+#scrollbar3 {
+	width: 900px;
+}
+#scrollbar3 .scrollbar {
+	position: relative;
+	background-position: 0 0;
+	float: right;
+	width: 8px;
+}
+#scrollbar3 .viewport {
+	width: 880px;
+	height: 500px;
+	overflow: hidden;
+	position: relative;
+}
+#scrollbar3 .track {
+	background: #ccc;
+	height: 100%;
+	width: 8px;
+	position: relative;
+}
+#scrollbar3 .thumb {
+	background: #CC0071;
+	height: 20px;
+	width: 8px;
+	cursor: pointer;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+}
+#scrollbar3 .overview {
+	list-style: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding: 0;
+	margin: 0;
+}
+/* 代码整理：懒人之家 www.lanrenzhijia.com */

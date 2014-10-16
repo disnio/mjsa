@@ -1,0 +1,8 @@
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+a:active {
+  outline:none;
+}
+
+:focus {
+  -moz-outline-style:none;
+}

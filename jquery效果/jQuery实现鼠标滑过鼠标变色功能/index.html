@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jQuery实现鼠标滑过鼠标变色功能</title>
+    <link href="style/lanrenzhijia.css" type="text/css" rel="stylesheet">	
+	<script language='javascript' src="js/jquery-1.2.1.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+             $("table.tab02-nd tr:nth-child(even)").addClass('altow');
+		  });  
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".tab02-nd tr").mouseover(function(){$(this).addClass("over");}).mouseout(function(){$(this).removeClass("over");
+			})
+		
+		})
+	</script>
+</head>
+<body>
+<div class="box-lanrenzhijia">
+<table class="tab02-nd">
+  <tr>
+	<th class="t1">获奖年度</th>
+	<th class="t2">获奖名称</th>
+	<th class="t3">获奖公司/部门：</th>
+	<th class="t4">获奖单位</th>
+	<th class="t5">类别</th>
+	<th class="t6">荣誉级别</th>
+	<th class="t7">授予日期</th>
+	<th class="t8"></th>
+  </tr>
+  <tr>
+	<td class="t1">2012</td>
+	<td class="t2">荣获“江苏省文明单位称号”</td>
+	<td class="t3">江苏公司广州分公司</td>
+	<td class="t4">江苏省委，省政府</td>
+	<td class="t5">政府评选</td>
+	<td class="t6">省级/部级/集团公司级</td>
+	<td class="t7">2012-08-02</td>
+	<td class="t8"><a href="#">查看明细</a></td>
+  </tr>
+  <tr>
+	<td class="t1">2012</td>
+	<td class="t2">荣获“江苏省文明单位称号”</td>
+	<td class="t3">江苏公司广州分公司</td>
+	<td class="t4">江苏省委，省政府</td>
+	<td class="t5">政府评选</td>
+	<td class="t6">省级/部级/集团公司级</td>
+	<td class="t7">2012-08-02</td>
+	<td class="t8"><a href="#">查看明细</a></td>
+  </tr>
+  <tr>
+	<td class="t1">2012</td>
+	<td class="t2">荣获“江苏省文明单位称号”</td>
+	<td class="t3">江苏公司广州分公司</td>
+	<td class="t4">江苏省委，省政府</td>
+	<td class="t5">政府评选</td>
+	<td class="t6">省级/部级/集团公司级</td>
+	<td class="t7">2012-08-02</td>
+	<td class="t8"><a href="#">查看明细</a></td>
+  </tr>
+</table>                                                              
+</div>
+ 
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery搜索框下拉列表选择搜索分类效果</title>
+<script type="text/javascript" src="js/jquery.1.4.2-min.js"></script>
+<link href="css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div class="demo">
+		<h2>搜索框过滤器演示</h2>
+		<form action="" method="post" name="searchform" id="searchform" class="searchinfo">
+			<ul class="clearfix">
+				<li>
+					<input type="text" name="keyword" value="" id="keyword" class="text searchtext" />
+					<span class="arrowDown"></span>
+				</li>
+				<li><input type="submit" value="搜索" class="button searchbtn" /></li>
+			</ul>
+			<ul class="dropdown clearfix" style="display:none;">
+				<li class="tit_filter">过滤搜索</li>
+				<li><input type="checkbox" id="all"/><label for="all"><strong>所有分类</strong></label></li>
+				<li><input type="checkbox" id="Automotive" /><label for="Automotive">汽车</label></li>
+				<li><input type="checkbox" id="Baby" /><label for="Baby">婴儿</label></li>
+				<li><input type="checkbox" id="Beauty" /><label for="Beauty">美女</label></li>
+				<li><input type="checkbox" id="Books" /><label for="Books">书籍</label></li>
+				<li><input type="checkbox" id="Cell" /><label for="Cell">手机</label></li>
+				<li><input type="checkbox" id="Cloth" /><label for="Cloth">服装</label></li>
+				<li><input type="checkbox" id="Electronics" /><label for="Electronics">电子产品</label></li>
+				<li><input type="checkbox" id="Gourmet" /><label for="Gourmet">美食</label></li>
+				<li><input type="checkbox" id="Health" /><label for="Health">保健</label></li>
+				<li><input type="checkbox" id="Home" /><label for="Home">家居与园艺</label></li>
+				<li><input type="checkbox" id="Industrial" /><label for="Industrial">产业</label></li>
+				<li><input type="checkbox" id="Jewelry" /><label for="Jewelry">首饰</label></li>
+				<li><input type="checkbox" id="Magazines" /><label for="Magazines">杂志</label></li>
+			</ul>
+		</form>
+	</div>
+	<script type="text/javascript">
+	$(function() {
+	
+		var $ui = $('#searchform');
+		
+		/** 对焦点上单击“显示”下拉列表中, 和更改的箭头图像 **/
+		$ui.find('.searchtext').bind('focus click',function(){
+			$ui.find('.arrowDown').addClass('arrowUp').removeClass('arrowDown').andSelf().find('.dropdown').slideDown(500);
+		});
+	
+		/** 鼠标离开隐藏下拉，和更改的箭头图像 **/
+		$ui.bind('mouseleave',function(){
+			$ui.find('.arrowUp').addClass('arrowDown').removeClass('arrowUp').andSelf().find('.dropdown').slideUp(500);
+		});
+	
+		/** 选择所有的复选框 **/
+		$ui.find('.dropdown').find('label[for="all"]').prev().bind('click',function(){
+			$(this).parent().siblings().find(':checkbox').attr('checked',this.checked).attr('disabled',this.checked);
+		});
+		
+	});
+	</script>	
+</body>
+</html>

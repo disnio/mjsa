@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* 代码整理：懒人之家  www.lanrenzhijia.com */
+html, body {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+body{
+	font-family: Arial, Geneva, SunSans-Regular, sans-serif;
+	font-size: 14px;
+	color: #fff;
+	line-height: 22px;
+	background: #123456;
+}
+#memory {
+	width: 820px;
+	height: 510px;
+	margin: -240px 0 0 -410px;
+	overflow: hidden;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+}
+#memory div.card {
+	border-radius: 5px;
+	width: 105px;
+	height: 140px;
+	margin: 15px;
+	overflow: hidden;
+	float: left;
+}
+#memory img {
+	border: none;
+	background-color: #fff;
+	padding: 10px;
+	display: block;
+	float: left;
+}
+.caroufredsel_wrapper {
+	border-radius: 5px;
+	background-color: #fff;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.caroufredsel_wrapper:hover {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+}
+#donate-spacer {
+	height: 100%;
+	margin-bottom: -50px;
+}
+#donate {
+	border-top: 1px solid #999;
+	width: 750px;
+	padding: 50px 75px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+#donate p, #donate form {
+	margin: 0;
+	float: left;
+}
+#donate p {
+	width: 650px;
+}
+#donate form {
+	width: 100px;
+}
+/* 代码整理：懒人之家  www.lanrenzhijia.com */

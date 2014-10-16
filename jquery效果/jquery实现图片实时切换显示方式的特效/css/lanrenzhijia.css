@@ -1,0 +1,121 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 */
+body {
+	margin: 0;
+	padding: 50px 0 0;
+	font: 10px normal Verdana, Arial, Helvetica, sans-serif;
+	background: #111 url(../images/body_bg.jpg) no-repeat center top;
+	color: #fff;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+img {
+	border: none;
+}
+h1 {
+	font: 5em normal Georgia, 'Times New Roman', Times, serif;
+	text-align:center;
+	margin-bottom: 20px;
+}
+h1 span {
+	color: #e7ff61;
+}
+h1 small {
+	font: 0.2em normal Verdana, Arial, Helvetica, sans-serif;
+	text-transform:uppercase;
+	letter-spacing: 1.5em;
+	display: block;
+	color: #ccc;
+}
+.container {
+	width: 758px;
+	margin: 0 auto;
+	padding-bottom: 10px;
+	overflow: hidden;
+}
+ul.display {
+	float: left;
+	width: 756px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border-top: 1px solid #333;
+	border-right: 1px solid #333;
+	background: #222;
+}
+ul.display li {
+	float: left;
+	width: 754px;
+	padding: 10px 0;
+	margin: 0;
+	border-top: 1px solid #111;
+	border-right: 1px solid #111;
+	border-bottom: 1px solid #333;
+	border-left: 1px solid #333;
+}
+ul.display li a {
+	color: #e7ff61;
+	text-decoration: none;
+}
+ul.display li .content_block {
+	padding: 0 10px;
+}
+ul.display li .content_block h2 {
+	margin: 0;
+	padding: 5px;
+	font-weight: normal;
+	font-size: 1.7em;
+}
+ul.display li .content_block p {
+	margin: 0;
+	padding: 5px 5px 5px 245px;
+	font-size: 1.2em;
+}
+ul.display li .content_block a img {
+	padding: 5px;
+	border: 2px solid #ccc;
+	background: #fff;
+	margin: 0 15px 0 0;
+	float: left;
+}
+ul.thumb_view li {
+	width: 250px;
+}
+ul.thumb_view li h2 {
+	display: inline;
+}
+ul.thumb_view li p {
+	display: none;
+}
+ul.thumb_view li .content_block a img {
+	margin: 0 0 10px;
+}
+a.switch_thumb {
+	width: 122px;
+	height: 26px;
+	line-height: 26px;
+	padding: 0;
+	margin: 10px 0;
+	display: block;
+	background: url(../images/switch.gif) no-repeat;
+	outline: none;
+	text-indent: -9999px;
+}
+a:hover.switch_thumb {
+	filter:alpha(opacity=75);
+	opacity:.75;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+}
+a.swap {
+	background-position: left bottom;
+}
+.footer {
+	font-size:12px;
+}
+.footer a, .footer a:visited {
+	color:#fff;
+	font-size:12px;
+	line-height:160%;
+}

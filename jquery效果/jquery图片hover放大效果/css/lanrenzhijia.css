@@ -1,0 +1,79 @@
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+body {
+	background: #EEE;
+	font-family: "Trebuchet MS", Verdana, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.6;
+}
+#content {
+	width: 750px;
+	margin: 50px auto;
+	padding: 20px;
+	background: #FFF;
+	border: 1px solid #CCC;
+}
+h1 {
+	margin: 0;
+}
+hr {
+	border: none;
+	height: 1px;
+	line-height: 1px;
+	background: #CCC;
+	margin-bottom: 20px;
+	padding: 0;
+}
+p {
+	margin: 0;
+	padding: 7px 0;
+}
+.clear {
+	clear: both;
+	line-height: 1px;
+	font-size: 1px;
+}
+a {
+	outline-color: #888;
+}
+#featured-wrap {
+	position: relative;
+	width: 592px;
+	height: 96px;
+	margin: 0 auto;
+}
+#featured-content {
+	overflow: hidden;
+}
+#featured-content a {
+	float: left;
+	margin: 0 5px;
+}
+#featured-content a img {
+	border: 1px solid #888;
+	padding: 3px;
+	vertical-align: top;
+}
+#featured-preview {
+	position: absolute;
+	top: -64px;
+	left: 0;
+	z-index: 90;
+	display: none;
+	overflow: hidden;
+	width: 320px;
+	height: 217px;
+}
+#featured-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+}
+#featured-overlay div {
+	float: left;
+	cursor: e-resize;
+	background: red;
+	display: none;
+	width: 148px;
+	height: 96px;
+}

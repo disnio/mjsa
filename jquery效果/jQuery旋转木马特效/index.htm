@@ -1,0 +1,100 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML 
+lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<META content="text/html; charset=utf-8" http-equiv="Content-Type">
+<TITLE>jQuery旋转木马特效</TITLE>
+<LINK rel="stylesheet" type="text/css" href="css/slimbox2.css">
+<LINK rel="stylesheet" type="text/css" href="css/main.css">
+<SCRIPT type="text/javascript" src="js/jquery.min.js"></SCRIPT>
+<SCRIPT type="text/JavaScript" src="js/slimbox2.js"></SCRIPT>
+<SCRIPT type="text/JavaScript" src="js/cloud-carousel.1.0.5.js"></SCRIPT>
+<SCRIPT type="text/javascript">
+
+$(document).ready(function(){
+		
+	$("#da-vinci-carousel").CloudCarousel( { 
+		reflHeight: 56,
+		reflGap:2,
+		titleBox: $('#da-vinci-title'),
+		altBox: $('#da-vinci-alt'),
+		buttonLeft: $('#but1'),
+		buttonRight: $('#but2'),
+		yRadius:40,
+		xPos: 285,
+		yPos: 120,
+		speed:0.15,
+		mouseWheel:true
+	});
+	
+	$("#carousel2").CloudCarousel({			
+		xPos:280,
+		yPos:80,
+		buttonLeft: $('#but3'),
+		buttonRight: $('#but4'),				
+		FPS:30,
+		autoRotate: 'left',
+		autoRotateDelay: 1200,
+		speed:0.2,
+		mouseWheel:true,
+		bringToFront:true
+	});	
+		
+});
+</SCRIPT>
+</HEAD>
+<BODY>
+<br />
+<DIV id="maincontent">
+  <DIV style='background: url("images/bg.jpg"); width: 570px; height: 384px; overflow: scroll;' id="da-vinci-carousel">
+  <A title="Leonardo Da Vinci" href="images/01.jpg" rel="lightbox">
+  <IMG class="cloudcarousel" title="Leonardo Da Vinci" alt="Self-portrait in red chalk, circa 1512-1515." src="images/test9.png" width="128" height="164">
+  </A>
+  
+  <A title="Mona Lisa" href="images/02.jpg" rel="lightbox">
+  <IMG class="cloudcarousel" title="Mona Lisa" alt="Oil on cotton wood, circa 1503–1505." src="images/test1.png" width="128" height="164">
+  </A>
+  
+  <A title="Lady with an Ermine" href="images/03.jpg" rel="lightbox">
+  <IMG class="cloudcarousel" title="Lady with an Ermine" alt="Oil on wood panel, 1485." src="images/test2.png" width="128" height="164">
+  </A>
+  
+  <A title="Madonna of the Yarnwinder" href="images/08.jpg" rel="lightbox">
+  <IMG class="cloudcarousel" title="Madonna of the Yarnwinder" alt="Oil on canvas, circa 1501." src="images/test3.png" width="128" height="164">
+  </A>
+  
+  <A title="Madonna and the Child" href="images/05.jpg" rel="lightbox">
+  <IMG class="cloudcarousel" title="Madonna and the Child" alt="Oil on canvas (transferred from panel), circa 1490." src="images/test4.png" width="128" height="164">
+  </A>
+  
+  <A title="Bacchus" href="images/00.jpg" rel="lightbox">
+  <IMG class="cloudcarousel" title="Bacchus" alt="Oil on walnut panel transferred to canvas, circa 1510–1515." src="images/test5.png" width="128" height="164">
+  </A>
+  
+  <A title="Madonna of the Carnation" href="images/04.jpg" rel="lightbox">
+  <IMG class="cloudcarousel" title="Madonna of the Carnation" alt="Oil on panel, circa 1478–1480." src="images/test6.png" width="128" height="164">
+  </A>
+  
+  <A title="The Virgin and Child with St. Anne and St. John the Baptist" href="images/06.jpg" rel="lightbox">
+  <IMG class="cloudcarousel" title="The Virgin and Child with St. Anne and St. John the Baptist" alt="&#10;Charcoal, black and white chalk on tinted paper, circa 1499–1500." 
+src="images/test7.png" width="128" height="164">
+</A>
+
+    <A title="The Virgin and Child with St. Anne" href="images/07.jpg" rel="lightbox">
+    <IMG class="cloudcarousel" title="The Virgin and Child with St. Anne" alt="Oil on panel, circa 1510." src="images/test8.png" width="128" height="164">
+    
+    </A>
+    <!-- ************************* -->
+    <!-- ************************ -->
+    <DIV id="da-vinci-title"></DIV>
+    <DIV id="da-vinci-alt"></DIV>
+    <DIV style="top: 20px; right: 64px; position: absolute;" id="but1" class="carouselLeft"></DIV>
+    <DIV style="top: 20px; right: 20px; position: absolute;" id="but2" class="carouselRight"></DIV>
+  </DIV>
+  
+  
+  
+</DIV>
+</BODY>
+</HTML>

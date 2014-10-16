@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery纵向手风琴效果</title>
+<script src="js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="css/lanrenzhijia.css"/>
+<link rel="stylesheet" type="text/css" href="css/tabs-acc.css"/>
+</head>
+<body>
+<div id="accordion" style="margin:0 auto;">
+  <h2 class="current">First pane</h2>
+  <div class="pane" style="display:block"> <img src="images/javascri.png" alt="JavaScript tools" style="float:left; margin:0 15px 15px 0" />
+    <h3>Lorem ipsum dolor</h3>
+    <p> <strong>Fusce semper, nisi nec pellentesque sollicitudin.</strong> </p>
+    <p style="clear:both"> Consectetur adipiscing elit. Praesent bibendum eros ac nulla. Integer vel lacus ac neque viverra ornare. Nulla id massa nec erat laoreet elementum. Vivamus tristique auctor odio. Integer mi neque. </p>
+  </div>
+  <h2>Second pane</h2>
+  <div class="pane">
+    <h3>Vestibulum ante ipsum</h3>
+    <p> Cras diam. Donec dolor lacus, vestibulum at, varius in, mollis id, dolor. Aliquam erat volutpat. Praesent pretium tristique est. Maecenas nunc lorem, blandit nec, accumsan nec, facilisis quis, pede. Aliquam erat volutpat. Donec sit amet urna quis nisi elementum fermentum. </p>
+  </div>
+  <h2>Third pane</h2>
+  <div class="pane">
+    <h3>Curabitur vel dolor</h3>
+    <p> Non lectus lacinia egestas. Nulla hendrerit, felis quis elementum viverra, purus felis egestas magna, non vulputate libero justo nec sem. Nullam arcu. Donec pellentesque vestibulum urna. In mauris odio, fringilla commodo, commodo ac, dignissim ac, augue. </p>
+  </div>
+</div>
+<script>
+$(function() { 
+
+$("#accordion").tabs("#accordion div.pane", {tabs: 'h2', effect: 'slide', initialIndex: null});
+});
+</script>
+</body>
+</html>

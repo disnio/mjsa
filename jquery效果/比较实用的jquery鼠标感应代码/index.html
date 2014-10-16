@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>比较实用的jquery鼠标感应代码</title>
+<script src="js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/lanrenzhijia.js"></script>
+<link href="css/lanrenzhijia.css" type="text/css" rel="stylesheet"  />
+</head>
+<body>
+<b>插件一</b>
+<div id="menumeno2" class="menumeno">
+  <ul>
+    <li><a href="javascript:;" style="font-size: 14px">文章推荐</a></li>
+    <li><a href="javascript:;" style="font-size: 14px">网页特效</a></li>
+    <li><a href="javascript:;" style="font-size: 14px">广告代码</a></li>
+    <li><a href="javascript:;" style="font-size: 14px">焦点图</a></li>
+    <li><a href="javascript:;" style="font-size: 14px">图片特效</a></li>
+  </ul>
+</div>
+<br />
+<b>插件二</b><br />
+<div class="lanrenzhijia">
+  <div class="heading"><span>懒人之家</span></div>
+  <img src="images/pic.jpg" width="500" height="188" alt="站长特效网广告图片" />
+  <div class="caption"><span>可能是JS网页特效代码收集最全的网站</span></div>
+</div>
+<br />
+<b>插件三</b><br />
+<div id="teaser-wrap">
+  <div class="teaser"> <img src="images/pic.jpg" alt="懒人之家广告图片" />
+    <div style="margin: 8px;">
+      <h3>Jquery插件体验中心</h3>
+      <p style="font-size: 14px;">懒人之家<BR>
+        可能是JS网页特效代码收集最全的网站</p>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+$('.teaser').hover(function() {
+	  // over
+
+	$(this).children('img').stop().animate({
+		left : '-545px'
+	}, 500);
+
+}, 
+function() {
+  // out	
+
+	$(this).children('img').stop().animate({
+		left : '0'
+	}, 500);
+
+});
+	$(document).ready(function () {
+		// transition effect
+		style = 'easeOutQuart';
+		// if the mouse hover the image
+		$('.lanrenzhijia').hover(
+			function() {
+				//display heading and caption
+				$(this).children('div:first').stop(false,true).animate({top:0},{duration:200, easing: style});
+				$(this).children('div:last').stop(false,true).animate({bottom:0},{duration:200, easing: style});
+			},
+			function() {
+				//hide heading and caption
+				$(this).children('div:first').stop(false,true).animate({top:-50},{duration:200, easing: style});
+				$(this).children('div:last').stop(false,true).animate({bottom:-50},{duration:200, easing: style});
+			}
+		);
+/*	2nd example	*/			
+			$("#menumeno2 li a").wrapInner( '<span class="out"></span>' );
+			$("#menumeno2 li a").each(function() {
+				$( '<span class="over">' +  $(this).text() + '</span>' ).appendTo( this );
+			});
+			$("#menumeno2 li a").hover(function() {
+				$(".out",	this).stop().animate({'top':	'45px'},	200); // move down - hide
+				$(".over",	this).stop().animate({'top':	'0px'},		200); // move down - show
+
+			}, function() {
+				$(".out",	this).stop().animate({'top':	'0px'},		200); // move up - show
+				$(".over",	this).stop().animate({'top':	'-45px'},	200); // move up - hide
+			});
+	});
+</script>
+</body>
+</html>

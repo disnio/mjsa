@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>jquery图片向上滑块显示文字效果</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<link href='css/style.css' rel='stylesheet' type='text/css' />
+<script src="js/jquery-1.3.2.js" type="text/javascript"></script>
+<link href='css/garagedoor.css' rel='stylesheet' type='text/css' />
+<script src="js/garagedoorjQuery.js" type="text/javascript"></script>
+</head>
+<body>
+<div style='padding: 15px;'>
+  <div class='content'>
+    <h1>jQuery version of GarageDoor</h1>
+    <p> This page shows the functionality of the garagedoor script, but now in jQuery! </p>
+    <h2>Example:</h2>
+    <div class='garagedoor' id='garagedoor'>
+      <div title='http://www.gayadesign.com' class='item'>
+        <div class='underlay'> Read my blog entries. </div>
+        <img src='images/garage50.jpg' alt='' class='overlay' />
+        <div class='mouse'><img src='images/nothing0.gif' alt='' /> &nbsp;</div>
+      </div>
+      <div title='http://www.gayadesign.com/about/' class='item'>
+        <div class='underlay'> A little information about me. </div>
+        <img src='images/garage20.jpg' class='overlay' alt='' />
+        <div class='mouse'><img src='images/nothing0.gif' alt='' /> &nbsp;</div>
+      </div>
+      <div title='http://www.gayadesign.com/partners/' class='item'>
+        <div class='underlay'> People that rock. </div>
+        <img src='images/garage30.jpg' class='overlay' alt='' />
+        <div class='mouse'><img src='images/nothing0.gif' alt='' /> &nbsp;</div>
+      </div>
+      <div title='http://www.gayadesign.com/contact/' class='item'>
+        <div class='underlay'> Send me a message. </div>
+        <img src='images/garage40.jpg' class='overlay' alt='' />
+        <div class='mouse'><img src='images/nothing0.gif' alt='' /> &nbsp;</div>
+      </div>
+      <script type='text/javascript'>
+						GarageDoor.scrollY = -55;
+						GarageDoor.setBindings('garagedoor');
+	  </script>
+    </div>
+  </div>
+</div>
+</body>
+</html>

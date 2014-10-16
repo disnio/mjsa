@@ -1,0 +1,146 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color: #FFFFFF;
+}
+ul, li {
+	list-style:none;
+}
+img {
+	border:none;
+}
+#lanrenzhijia {
+	background-color: #FFF;
+	width: 280px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 10px;
+	clear: both;
+}
+#lanrenzhijia .changjian {
+	display: block;
+	height: 40px;
+	font-size: 16px;
+	color: #FFFFFF;
+	background-color: #000000;
+	width: 100%;
+	line-height: 40px;
+	text-indent: 1em;
+	margin: 0px;
+	padding: 0px;
+}
+#lanrenzhijia .lanren {
+	padding-top: 15px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+	padding-bottom: 10px;
+}
+#lanrenzhijia .lanren .lrzj .now {
+	font-family: "宋体";
+	font-size: 14px;
+	font-style: normal;
+	color: #FFFFFF;
+	background: #333;
+	display: block;
+	float: left;
+	height: 17px;
+	width: 17px;
+	text-align: center;
+	line-height: 17px;
+}
+#lanrenzhijia .lanren .lrzj .hover {
+	font-family: "宋体";
+	font-size: 14px;
+	font-style: normal;
+	color: #FFFFFF;
+	background: #ff0000;
+	display: block;
+	float: left;
+	height: 17px;
+	width: 17px;
+	text-align: center;
+	line-height: 17px;
+}
+#lanrenzhijia .lanren .lrzj .hot {
+	height: 75px;
+	margin-left: 10px;
+}
+#lanrenzhijia .lanren .lrzj .hot .info {
+	display: block;
+	float: left;
+	width: 152px;
+	margin-left: 10px;
+}
+#lanrenzhijia .lanren .lrzj .word .shijan {
+	font-size: 12px;
+	font-style: normal;
+	float: right;
+	display: block;
+	margin-right: 10px;
+	font-family: "宋体";
+}
+#lanrenzhijia .lanren .lrzj .word {
+	line-height: 25px;
+	height: 25px;
+	color: #555455;
+	margin-left: 10px;
+}
+#lanrenzhijia .lanren .lrzj .word .wql {
+	font-size: 12px;
+	color: #434343;
+	text-decoration: none;
+	padding-left: 10px;
+	float: left;
+	display: block;
+	line-height: 17px;
+	height: 17px;
+}
+#lanrenzhijia .lanren .lrzj .word a.wql:hover {
+	color: #FF0000;
+	text-decoration: underline;
+}
+#lanrenzhijia .lanren .lrzj .hot .anli_tu {
+	float: left;
+	margin-left: 10px;
+	display: block;
+}
+#lanrenzhijia .lanren .lrzj .hot .detail {
+	font-size: 12px;
+	color: #757575;
+	line-height: 1.5;
+	display: block;
+	float: left;
+	margin: 0px;
+	padding: 0px;
+}
+#lanrenzhijia .lanren .lrzj .hot .name {
+	margin: 0px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333333;
+	display: block;
+	padding: 0px;
+	float: left;
+}
+#lanrenzhijia .lanren .lrzj .hot .more {
+	font-size: 12px;
+	color: #FF0000;
+	text-decoration: none;
+	font-weight: normal;
+	font-family: "宋体";
+	margin-left: 5px;
+	float: right;
+}
+#lanrenzhijia .lanren .lrzj .hot a.more:hover {
+	text-decoration: underline;
+}
+ /* 代码整理：懒人之家 www.lanrenzhijia.com */

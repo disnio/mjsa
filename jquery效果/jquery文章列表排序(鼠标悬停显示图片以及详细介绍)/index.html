@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery文章列表排序(鼠标悬停显示图片以及详细介绍)</title>
+<link href="css/lanrenzhijia.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="js/jquery-1.4.2.min.js"></script>
+</head>
+
+<body>
+<div id="lanrenzhijia"> <strong class="changjian"><a href="http://www.lanrenzhijia.com/" style="color:#fff; text-decoration:none;">懒人之家</a>最新更新</strong>
+  <div class="lanren">
+    <!--1-->
+    <div class="lrzj">
+      <div class="word" style="display:none"><i class="now">1</i><a href="http://www.lanrenzhijia.com/pic/2496.html" class="wql">纯CSS实现图片高亮显示</a></div>
+      <div class="hot" ><i class="hover">1</i><a href="http://www.lanrenzhijia.com/pic/2496.html" class="anli_tu"><img src="images/lanrenzhijia1.jpg"  width="71" height="57"/></a>
+        <div class="info"> <strong class="name">纯CSS实现图片高..</strong>
+          <p class="detail">默认图片上带有一层蒙版的效果..<a href="http://www.lanrenzhijia.com/pic/2496.html" class="more">更多&gt;&gt;</a></p>
+        </div>
+      </div>
+    </div>
+    <!--1-->
+    <div class="lrzj">
+      <div class="word" ><i class="now">2</i><a href="http://www.lanrenzhijia.com/jquery/2495.html" class="wql">一款腾讯UED设计的提示插件</a></div>
+      <div class="hot"  style="display:none"><i class="hover">2</i><a href="http://www.lanrenzhijia.com/jquery/2495.html" class="anli_tu"><img src="images/lanrenzhijia2.jpg"  width="71" height="57"/></a>
+        <div class="info"> <strong class="name">一款腾讯UED设...</strong>
+          <p class="detail">一款多种提示效果小插件，来自腾讯网站，腾讯空间<a href="http://www.lanrenzhijia.com/jquery/2495.html" class="more">更多&gt;&gt;</a></p>
+        </div>
+      </div>
+    </div>
+    <!--1-->
+    <div class="lrzj">
+      <div class="word" ><i class="now">3</i><a href="http://www.lanrenzhijia.com/banner/2494.html" class="wql">jquery右下角小缩略图幻灯片图片...</a></div>
+      <div class="hot"  style="display:none"><i class="hover">3</i><a href="http://www.lanrenzhijia.com/banner/2494.html" class="anli_tu"><img src="images/lanrenzhijia3.jpg"  width="71" height="57"/></a>
+        <div class="info"> <strong class="name">jquery右下角小缩...</strong>
+          <p class="detail">一款带有缩略图的焦点图特效，原本代码冗余，不方便<a href="http://www.lanrenzhijia.com/banner/2494.html" class="more">更多&gt;&gt;</a></p>
+        </div>
+      </div>
+    </div>
+    <!--1-->
+    <div class="lrzj">
+      <div class="word" ><i class="now">4</i><a href="http://www.lanrenzhijia.com/banner/2493.html" class="wql">多块左右切换焦点图效果</a></div>
+      <div class="hot"  style="display:none"><i class="hover">4</i><a href="http://www.lanrenzhijia.com/banner/2493.html" class="anli_tu"><img src="images/lanrenzhijia4.jpg"  width="71" height="57"/></a>
+        <div class="info"> <strong class="name">多块左右切换焦点图..</strong>
+          <p class="detail">来自猎豹浏览器主页的一款左右滑动banner焦点图特效，<a href="http://www.lanrenzhijia.com/banner/2493.html" class="more">更多&gt;&gt;</a></p>
+        </div>
+      </div>
+    </div>
+    <!--1-->
+    <div class="lrzj">
+      <div class="word" ><i class="now">5</i><a href="http://www.lanrenzhijia.com/famous/2492.html" class="wql">虾米网官方网站图片墙</a></div>
+      <div class="hot"  style="display:none"><i class="hover">5</i><a href="http://www.lanrenzhijia.com/famous/2492.html" class="anli_tu"><img src="images/lanrenzhijia5.jpg"  width="71" height="57"/></a>
+        <div class="info"> <strong class="name">虾米网官方网站图..</strong>
+          <p class="detail"> 虾米网官方网站的一款图片特效，当鼠标移动到图片上后，当前图片高<a href="http://www.lanrenzhijia.com/famous/2492.html" class="more">更多&gt;&gt;</a></p>
+        </div>
+      </div>
+    </div>
+    <!--1-->
+    <div class="lrzj">
+      <div class="word" ><i class="now">6</i><a href="http://www.lanrenzhijia.com/jquery/2488.html" class="wql">jquery热点提示工具插件</a></div>
+      <div class="hot"  style="display:none"><i class="hover">6</i><a href="http://www.lanrenzhijia.com/jquery/2488.html" class="anli_tu"><img src="images/lanrenzhijia6.jpg"  width="71" height="57"/></a>
+        <div class="info"> <strong class="name">jquery热点提示工..</strong>
+          <p class="detail">一款类似热点图的jquery特效，适合产品类图片局部点击放大说明使用。<a href="http://www.lanrenzhijia.com/jquery/2488.html" class="more">更多&gt;&gt;</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script language="javascript">
+	$(document).ready(function(){
+		$("#xwsub").find("a").hover(function(){
+			var index=$(this).index();
+			$("#anli").find(".anli_zixun:eq("+index+")").show().siblings(".anli_zixun").hide();
+		
+		})
+		$(".lanren").find(".lrzj").hover(function(){
+		$(this).find(".word").hide();
+		$(this).siblings(".lrzj").find(".word").show();
+		$(this).find(".hot").show();
+		$(this).siblings(".lrzj").find(".hot").hide();
+		})
+	})
+</script>
+</body>
+</html>

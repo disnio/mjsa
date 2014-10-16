@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 */
+
+ul {
+	margin:0 auto;
+	padding:0;
+	width:810px;
+	font-size:0;
+	zoom:1;
+}
+ul:after {
+	content:"";
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden;
+}
+ul li {
+	list-style-type:none;
+	float:left;
+	width:190px;
+	height:145px;
+	margin-right:1px;
+	margin-bottom:1px;
+	text-align:center;
+	display:table;
+	position:relative;
+}
+ul li a {
+	display:table-cell;
+	vertical-align:middle;
+*display: block;
+*font-size: 175p;
+*font-family:Arial;
+	text-align:center;
+}
+img {
+	border:none;
+	vertical-align:middle;
+	width:190px;
+	height:145px;
+}
+i {
+	display:block;
+	width:100%;
+	height:100%;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.opacity_bg {
+	background:#000;
+	opacity:0.4;
+}
+h1, h4 {
+	margin:10px auto;
+	width:810px;
+	color:#FF0C8A;
+	text-shadow:1px 1px 1px rgba(0, 0, 0, 0.3);
+}

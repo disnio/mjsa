@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0;}
+html{-webkit-text-size-adjust:none;}
+body{ margin:0 auto; width:960px; font:12px; background:#eaeaea}
+ul li{ list-style:none}
+p{line-height:24px}
+a{ outline-style:none; text-decoration:none;}
+header,nav,section,article,aside,footer{ display:block}
+.content{ margin:50px auto; width:279px; height:554px; background:url(../images/iphone.jpg)}
+.content aside{ position:relative; top:85px; left:23px; width:233px; height:350px;overflow:hidden}
+.content aside .scrollImages{ width:932px; height:350px;}
+.content aside .scrollImages img{ position:relative;}
+nav{ margin:0 auto; width:436px; height:33px; background:url(../images/p1_scroll_bg.png)}
+nav li{ width:109px; height:34px; line-height:34px; float:left; color:#333; text-align:center; font-weight:bold; cursor:default}
+nav li span{ position:relative; z-index:100; display:block;}
+.navHover{position:relative; left:0; top:-35px; z-index:1}

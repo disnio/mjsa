@@ -1,0 +1,229 @@
+/* 代码整理：懒人之家 lanrenzhijia.com */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+:focus {
+	outline: 0;
+}
+body {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+ol, ul {
+	list-style: none;
+}
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}
+#wrap {
+	width:830px;
+	margin:15px auto;
+}
+hr {
+	margin:20px 10px;
+	background-color:#CCC;
+}
+/*
+*********************************************
+***************** DEMO 01 *******************
+*********************************************
+ID Container = div.csf0
+
+*/
+
+
+/* --- Fake Input Div --- */
+div.csf0 div.csf_input {
+	width:130px;
+	height:18px;
+	border:1px solid #00aeff;
+}
+div.csf0 div.csf_input p {
+	display:inline;
+	color:#0572a5;
+	height:18px;
+}
+div.csf0 div.csf_input span.itemSelected {
+	margin-left:3px;
+	margin-right:8px;
+	height:18px;
+	text-align:left;
+}
+/* --- Button --- */ 
+div.csf0 a.csf_btn {
+	float:right;
+	display:inline-block;
+	height:18px;
+	text-align:right;
+	width:18px;
+*margin-top: -16px;
+}
+/* --- Open Button --- */ 
+div.csf0 a.csf_btn:link, div.csf0 a.csf_btn:visited, div.csf0 a.csf_btn:active {
+	background-image:url(../images/demo01/btn18.jpg);
+	background-position:0 0;
+}
+div.csf0 a.csf_btn:hover {
+	background-image:url(../images/demo01/btn18.jpg);
+	background-position:-18px 0;
+}
+/* --- Close Button --- */ 
+div.csf0 a.csf_btn.opened:link, div.csf0 a.csf_btn.opened:visited, div.csf0 a.csf_btn.opened:active {
+	background-image:url(../images/demo01/btn18.jpg);
+	background-position:0 -18px;
+}
+div.csf0 a.csf_btn.opened:hover {
+	background-image:url(../images/demo01/btn18.jpg);
+	background-position:-18px -18px;
+}
+/* --- List items --- */
+div.csf0 ul.csf_ul {
+	position:absolute!important;
+	width:130px;
+	border:1px solid #00aeff;
+	border-top:0px solid #000;
+	z-index:250;
+}
+div.csf0 li.csf_li {
+	background-color:#FFF;
+}
+div.csf0 li.csf_li a {
+	display:block;
+	width:124px;
+	height:18px;
+	color:#00aeff;
+	padding:3px;
+	text-decoration:none;
+	background-color:#FFF;
+	color:#00aeff;
+}
+div.csf0 li.csf_li a:link, div.csf0 li.csf_li a:visited, div.csf0 li.csf_li a:active {
+}
+div.csf0 li.csf_li a:hover {
+	background-color:#00aeff;
+	color:#FFF;
+}
+div.csf0 img.iconCSF {
+	vertical-align:middle;
+	margin-bottom:2px;
+}
+div.csf0 li.selected a {
+	display:block;
+	height:18px;
+	background-color:#0572a5;
+	color:#FFF;
+	padding:3px;
+	text-decoration:none;
+}
+/*
+*********************************************
+***************** DEMO 02 *******************
+*********************************************
+ID Container = div.csf2
+
+*/
+
+/* --- Fake Input Div --- */
+div.csf2 div.csf_input {
+	width:62px;
+	height:21px;
+	background-image:url(../images/demo02/bgDivClass.png);
+	background-repeat:no-repeat;
+}
+div.csf2 div.csf_input p {
+	display:inline;
+	color:#5b3444;
+	height:21px;
+}
+div.csf2 div.csf_input span.itemSelected {
+	position:relative;
+	top:2px;
+	margin-left:5px;
+	margin-right:8px;
+	text-align:left;
+}
+/* --- Button --- */ 
+div.csf2 a.csf_btn {
+	float:right;
+	display:inline-block;
+	height:21px;
+	text-align:right;
+	width:20px;
+*margin-top: -16px;
+}
+/* --- Open Button --- */ 
+div.csf2 a.csf_btn:link, div.csf2 a.csf_btn:visited, div.csf2 a.csf_btn:active {
+	background-image:url(../images/demo02/btn20_21.jpg);
+	background-position:0 0;
+}
+div.csf2 a.csf_btn:hover {
+	background-image:url(../images/demo02/btn20_21.jpg);
+	background-position:-20px 0;
+}
+/* --- Close Button --- */ 
+div.csf2 a.csf_btn.opened:link, div.csf2 a.csf_btn.opened:visited, div.csf2 a.csf_btn.opened:active {
+	background-image:url(../images/demo02/btn20_21.jpg);
+	background-position:0 -21px;
+}
+div.csf2 a.csf_btn.opened:hover {
+	background-image:url(../images/demo02/btn20_21.jpg);
+	background-position:-20px -21px;
+}
+/* --- List items --- */
+div.csf2 ul.csf_ul {
+	position:absolute!important;
+	width:60px;
+	border:1px solid #dddddd;
+	border-top:0px solid #000;
+	max-height:80px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	z-index:250;
+}
+div.csf2 li.csf_li {
+	background-color:#FFF;
+}
+div.csf2 li.csf_li a {
+	display:block;
+	width:50px;
+	height:18px;
+	color:#bb4477;
+	background-color:#FFF;
+	padding:5px;
+	text-decoration:none;
+}
+div.csf2 li.csf_li a:link, li.csf_li a:visited, li.csf_li a:active {
+}
+div.csf2 li.csf_li a:hover {
+	background-color:#e68da8;
+	color:#FFF;
+}
+div.csf2 li.selected a {
+	display:block;
+	height:18px;
+	background-color:#bb4477;
+	color:#FFF;
+	padding:5px;
+	text-decoration:none;
+}
+/* 代码整理：懒人之家 lanrenzhijia.com */

@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>jquery实现图片实时切换显示方式的特效</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<!--  <script type="text/javascript" src="js/jquery-latest.js"></script> -->
+<script type="text/javascript">
+$(document).ready(function(){
+ 
+	$("a.switch_thumb").toggle(function(){
+	  $(this).addClass("swap"); 
+	  $("ul.display").fadeOut("fast", function() {
+	  	$(this).fadeIn("fast").addClass("thumb_view"); 
+		 });
+	  }, function () {
+      $(this).removeClass("swap");
+	  $("ul.display").fadeOut("fast", function() {
+	  	$(this).fadeIn("fast").removeClass("thumb_view");
+		});
+	}); 
+
+});
+</script>
+<link href="css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+
+<h1>Switch <span>Display Options</span><small>with CSS &amp; jQuery</small></h1>
+
+<div class="container">
+
+<a href="#" class="switch_thumb">Switch Thumb</a> 
+
+<ul class="display">
+	<li>
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample.gif" alt="" /></a>
+
+			<h2><a href="#">Image Name</a></h2>
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'. </p>
+		</div>
+	</li>
+	<li>
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample2.gif" alt="" /></a>
+			<h2><a href="#">Image Name</a></h2>
+
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'. </p>
+		</div>
+	</li>
+	<li>
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample3.gif" alt="" /></a>
+			<h2><a href="#">Image Name</a></h2>
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'. </p>
+
+		</div>
+	</li>
+	<li>
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample4.gif" alt="" /></a>
+			<h2><a href="#">Image Name</a></h2>
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'. </p>
+		</div>
+
+	</li>
+	<li>
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample5.gif" alt="" /></a>
+			<h2><a href="#">Image Name</a></h2>
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'. </p>
+		</div>
+	</li>
+
+	<li>
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample6.gif" alt="" /></a>
+			<h2><a href="#">Image Name</a></h2>
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'. </p>
+		</div>
+	</li>
+	<li>
+
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample7.gif" alt="" /></a>
+			<h2><a href="#">Image Name</a></h2>
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'. </p>
+		</div>
+	</li>
+	<li>
+		<div class="content_block">
+
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample8.gif" alt="" /></a>
+			<h2><a href="#">Image Name</a></h2>
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. </p>
+		</div>
+	</li>
+	<li>
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample9.gif" alt="" /></a>
+
+			<h2><a href="#">Image Name</a></h2>
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'.</p>
+		</div>
+	</li>
+	<li>
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample10.gif" alt="" /></a>
+			<h2><a href="#">Image Name</a></h2>
+
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'. </p>
+		</div>
+	</li>
+	<li>
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample11.gif" alt="" /></a>
+			<h2><a href="#">Image Name</a></h2>
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell. </p>
+
+		</div>
+	</li>
+	<li>
+		<div class="content_block">
+			<a href="http://www.lanrenzhijia.com"><img src="images/sample12.gif" alt="" /></a>
+			<h2><a href="#">Image Name</a></h2>
+			<p>Askin', jehosephat come pudneer, sam-hell, in lament had. Cabin tax-collectors spell, chitlins spittin' watchin' hootch me rightly kinfolk that. Woman kickin', work yer last dogs, rattler hee-haw mobilehome stew trailer driveway shootin'. </p>
+		</div>
+
+	</li>
+</ul>
+</div>
+
+</body>
+</html>

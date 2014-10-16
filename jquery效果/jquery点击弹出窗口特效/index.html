@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery点击弹出窗口特效</title>
+<link href="css/lanrenzhijia.css" rel="stylesheet" type="text/css">
+<script src="js/jquery.js"></script>
+<script src="js/jquery-webox.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	//内嵌弹出层调用
+	$('#inside').click(function(){
+		$.webox({
+			height:280,
+			width:600,
+			bgvisibel:true,
+			title:'内嵌弹出层调用',
+			html:$("#box").html()
+		});
+	});
+	
+	//iframe弹出层调用
+	$('#outside').click(function(){
+		$.webox({
+			height:280,
+			width:600,
+			bgvisibel:true,
+			title:'iframe弹出层调用',
+			iframe:'iframe.html?'+Math.random
+		});
+	});
+	
+})
+</script>
+</head>
+
+<body>
+
+
+<a class="Button blueButton Button18" href="javascript:void(0);" id="inside"><strong>点我内嵌弹出层调用</strong></a>
+<a class="Button blueButton Button18" href="javascript:void(0);" id="outside"><strong>点我iframe弹出层调用</strong></a>
+
+<div id="box" style="display:none;">
+	<div class="mainlist">
+		<ul>
+			<li><span>▪</span><a href="http://www.lanrenzhijia.com" target="_blank">jQuery顶部浮动弹出层动画弹出层特效</a></li>
+			<li><span>▪</span><a href="http://www.lanrenzhijia.com" target="_blank">jquery浮动层动画loading页面加载特效</a></li>
+			<li><span>▪</span><a href="http://www.lanrenzhijia.com" target="_blank">jquery浮动定位层导航描点上下滚动的浮动导航</a></li>
+			<li><span>▪</span><a href="http://www.lanrenzhijia.com" target="_blank">jquery 弹出层插件 鼠标点击文字获取标题弹出层内容信息</a></li>
+			<li><span>▪</span><a href="http://www.lanrenzhijia.com" target="_blank">用jquery特效制作左侧侧边浮动导航菜单滑动显示或隐藏</a></li>
+			<li><span>▪</span><a href="http://www.lanrenzhijia.com" target="_blank">js弹出层特效点击按钮弹出窗口支持鼠标拖动</a></li>
+			<li><span>▪</span><a href="http://www.lanrenzhijia.com" target="_blank">js浮动层制作在线客服float浮动层固定在浏览器左侧</a></li>
+		</ul>
+	</div>
+</div>
+
+</body>
+</html>

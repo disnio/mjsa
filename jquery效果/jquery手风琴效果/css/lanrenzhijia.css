@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* 懒人之家 */
+
+* {padding: 0; margin: 0; }
+li {ist-style: none; }
+body {background: #f6f9fc; }
+#demo {width: 615px; height: 254px; border: 1px solid #ccc; margin: 50px auto 0; overflow:hidden; }
+.indemo { width: 3300px; height: 254px; }
+.indemo li{width:22px;height:254px;float:left;position:relative;overflow:hidden;}
+.indemo li.active { width: 550px; }
+.indemo span { width: 21px; height: 244px; padding-top: 10px; border-right: 1px solid #fff; position: absolute; top: 0; right: 0; color: #fff; font-size: 12px; text-align: center; cursor: pointer; }
+.indemo img { width: 550px; height: 254px; }
+.bg0 { background: #00FFCC; }
+.bg1 { background: #636363; }
+.bg2 { background: #3d7fbb; }
+.bg3 { background: #5ca716; }
+.bg4 { background: #f28b24; }
+.bg5 { background: #7c0070; }
+

@@ -1,0 +1,79 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+* {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+body {
+	background:url(../images/bg.gif) repeat;
+	font-size:14px;
+	text-align:center;
+	font-family:"微软雅黑", Arial;
+}
+#MobileTop {
+	text-align:center;
+	padding-top:0px;
+	padding-bottom:3px;
+	height:65px;
+	line-height:21px;
+}
+.ch {
+	color:#3399FF;
+	font-size:22px;
+}
+.en {
+	font-size:15px;
+	color:#999999;
+}
+#MobileContent {
+	width:252px;
+	margin:0 auto;
+	height:220px;
+}
+.MobileImg li {
+	width:126px;
+	text-align:center;
+	padding-top:2px;
+	padding-bottom:2px;
+	float:left;
+}
+.wone {
+	width:1px;
+	opacity:'0.1',
+}
+.wtwo {
+	width:1px;
+	opacity:'0.1',
+}
+.wthird {
+	width:1px;
+	opacity:'0.1',
+}
+.wfour {
+	width:1px;
+	opacity:'0.1',
+}
+.Moblieftxt {
+	padding-bottom:3px;
+	background:url(../images/buttom.gif) 50% 50% no-repeat;
+	text-align:center;
+	line-height:48px;
+	padding-top:3px;
+}
+.biaoti {
+	width:100%;
+	text-align:center;
+	position:absolute;
+	top:-300px;
+}
+.t1 {
+	color:#fff;
+	font-size:14px;
+	padding-right:38px;
+}
+.t2 {
+	color:#fff;
+	font-size:14px;
+}
+/* 代码整理：懒人之家 www.lanrenzhijia.com */

@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery实现图片延迟加载和ajax方式加载页面</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="jq.lanrenzhijia.js"></script>
+<script>
+$(function() {
+	$(".lanrenzhijia").lanrenzhijia();
+});
+</script>
+</head>
+
+<body>
+<p style="height:1200px">
+往下拖动鼠标，如果网速比较快的话注意看图片加载前的效果
+</p>
+<img class="lanrenzhijia" data-url="http://www.lanrenzhijia.com/yulan/424/banner.jpg" src="loading.gif"/>
+
+
+</body>
+</html>

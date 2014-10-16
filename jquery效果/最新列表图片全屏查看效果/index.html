@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>最新列表图片全屏查看效果</title>
+<link rel="stylesheet" href="css/lanrenzhijia.css">
+</head>
+<body>
+<section id="exemple">
+  <h2>点击图片查看效果</h2>
+  <div class="box"> <a href="images/nuke.jpg" class="swipebox" title="Nuke"> <img src="images/nuke_thumb.jpg" alt="nuke"> </a> </div>
+  <div class="box"> <a href="images/leap.jpg" class="swipebox" title="Leap"> <img src="images/leap_thumb.jpg" alt="leap"> </a> </div>
+  <div class="box"> <a href="images/reine.jpg" class="swipebox" title="Reine"> <img src="images/reine_thumb.jpg" alt="reine"> </a> </div>
+  <div class="box"> <a href="images/neptune.jpg" class="swipebox" title="Neptune"> <img src="images/neptune_thumb.jpg" alt="neptune"> </a> </div>
+  <div class="clear"></div>
+</section>
+<script src="js/jquery-1.9.0.min.js"></script>
+<script src="js/ios-orientationchange-fix.js"></script>
+<script src="js/jquery.swipebox.min.js"></script>
+<script type="text/javascript">
+		jQuery(function($) {
+			$(".swipebox").swipebox();
+		});
+	</script>
+</body>
+</html>

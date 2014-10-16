@@ -1,0 +1,25 @@
+/* 代码整理：懒人之家lanrenzhijia.com */
+body {
+	background:#000;
+	color:#FFFFFF;
+}
+a {
+	color:#FFCC00
+}
+.menu {
+	font-size:19px;
+}
+.menuFlash {
+	color:#fff;
+	float:left;
+	clear:both;
+	text-decoration:none;
+	font-family:verdana;
+	font-size:19px;
+	padding-bottom:6px;
+	outline:none;
+	line-height:19px;
+}
+.menuFlash a {
+	font-size:19px;
+}

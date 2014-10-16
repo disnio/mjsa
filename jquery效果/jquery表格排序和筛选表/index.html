@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>jquery表格排序和筛选表</title>
+<link rel="stylesheet" href="css/main.css" type="text/css" media="all">
+<link href="css/lanrenzhijia.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/mootools.js"></script>
+<script type="text/javascript" src="js/lanrenzhijia.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div id="example">
+			<div class="tableFilter">
+		  		<form id="tableFilter" onsubmit="myTable.filter(this.id); return false;">Filter: 
+					<select id="column">
+		  				<option value="1">Firstname</option>
+						<option value="2">Lastname</option>
+						<option value="3">Department</option>
+						<option value="4">Start Date</option>
+					</select>
+					<input type="text" id="keyword" />
+					<input type="submit" value="Submit" />
+					<input type="reset" value="Clear" />
+				</form>
+		  </div>
+		  <table id="myTable" cellpadding="0" cellpadding="0"> 
+		  	<thead>
+				<th axis="number">ID</th>
+				<th axis="string">Firstname</th>
+				<th axis="string">Lastname</th>
+				<th axis="string">Department</th>
+				<th axis="date">Start Date</th>
+			</thead>
+			<tbody>
+				<tr id="1">
+					<td class="rightAlign">1</td>
+					<td>Sam</td>
+					<td>Birch</td>
+					<td>Programming</td>
+					<td class="rightAlign">01/06/00</td>
+				</tr>
+				<tr id="2">
+					<td class="rightAlign">2</td>
+					<td>George</td>
+					<td>Lo</td>
+					<td>Support</td>
+					<td class="rightAlign">01/07/99</td>
+				</tr>
+				<tr id="3">
+					<td class="rightAlign">3</td>
+					<td>kevin</td>
+					<td>Walker</td>
+					<td>Programming</td>
+					<td class="rightAlign">01/06/05</td>
+				</tr>
+				<tr id="4">
+					<td class="rightAlign">4</td>
+					<td>Peter</td>
+					<td>Aland</td>
+					<td>Project Management</td>
+					<td class="rightAlign">23/10/06</td>
+				</tr>
+				<tr id="5">
+					<td class="rightAlign">5</td>
+					<td>Rachel</td>
+					<td>Dickinson</td>
+					<td>Design</td>
+					<td class="rightAlign">20/01/05</td>
+				</tr>
+				<tr id="6">
+					<td class="rightAlign">6</td>
+					<td>John</td>
+					<td>Tsang</td>
+					<td>Support</td>
+					<td class="rightAlign">05/10/05</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tfoot>
+		  </table>
+		<script type="text/javascript">
+			var myTable = {};
+			window.addEvent('domready', function(){
+				myTable = new sortableTable('myTable', {overCls: 'over', onClick: function(){alert(this.id)}});
+			});
+		</script>
+		</div>
+		</div>
+</body>
+</html>

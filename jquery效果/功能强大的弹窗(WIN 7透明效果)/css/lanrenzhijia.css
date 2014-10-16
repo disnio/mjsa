@@ -1,0 +1,197 @@
+/* 代码整理：懒人之家  www.lanrenzhijia.com */
+.lanrenzhijia {
+  position: absolute;
+  background: url(../images/lines.png);
+  background-position: 0px -100px;
+  z-index: 10;
+  overflow: hidden;
+  display: block;  
+}
+.lanrenzhijia .table-tl {
+  background: url(../images/tl.png);
+  min-width: 9px;
+  height: 9px;
+}
+.lanrenzhijia .table-tm {
+  background: url(../images/tm.png);
+}
+.lanrenzhijia .table-tr {
+  background: url(../images/tr.png);
+  min-width: 9px;
+  height: 9px;
+}
+.lanrenzhijia .table-rm {
+  background: url(../images/rm.png);
+}
+.lanrenzhijia .table-bl {
+  background: url(../images/bl.png);
+  width: 9px;
+  height: 9px;
+}
+.lanrenzhijia .table-bm {
+  background: url(../images/bm.png);
+}
+.lanrenzhijia .table-br {
+  background: url(../images/br.png);
+  width: 9px;
+  height: 9px;
+}
+.lanrenzhijia .table-lm {
+  background: url(../images/lm.png);
+}
+.lanrenzhijia .table-mm {
+  background: url(../images/mm.png);  
+}
+/*-------------------------------lanrenzhijia Style - Active----------------------------*/
+.lanrenzhijia.active {
+  position: absolute;
+  background: url(../images/lines.png) 0px -400px;
+  z-index: 100;
+}
+.lanrenzhijia.active .table-tl {
+  background: url(../images/tl.png);
+  width: 9px;
+  height: 9px;
+}
+.lanrenzhijia.active .table-tm {
+  background: url(../images/tm.png);
+}
+.lanrenzhijia.active .table-tr {
+  background: url(../images/tr.png);
+  width: 9px;
+  height: 9px;
+}
+.lanrenzhijia.active .table-rm {
+  background: url(../images/rm.png);
+}
+.lanrenzhijia.active .table-bl {
+  background: url(../images/bl.png);
+  width: 9px;
+  height: 9px;
+}
+.lanrenzhijia.active .table-bm {
+  background: url(../images/bm.png);
+}
+.lanrenzhijia.active .table-br {
+  background: url(../images/br.png);
+  width: 9px;
+  height: 9px;
+}
+.lanrenzhijia.active .table-lm {
+  background: url(../images/lm.png);
+}
+.lanrenzhijia.active .table-mm {
+  background: url(../images/mm.png);
+}     
+.lanrenzhijia .table-mm-container {
+  margin-top: 40px;
+  border: 1px solid #b0c6e4;
+}
+.lanrenzhijia .table-mm-content {
+  font-family: arial;
+  padding: 5px;
+  border: 1px solid #000;
+  background-color: #fff;
+  overflow: auto;
+}  
+.lanrenzhijia .title {
+  position: absolute; 
+  margin: 10px 0px 0px 5px;
+  text-shadow: #fff 0px 0px 5px; 
+  color: #333;
+  font-family: arial;
+  padding-right: 5px;
+  font-size: 14px;
+  left: 5px;
+  cursor: default;
+}
+/*-------------------------------Button Area----------------------------*/
+.buttons  {
+  position: relative;
+  float: right;
+  top: -6px;
+}        
+.buttons  a{
+  text-decoration: none;
+  cursor: default;  
+}  
+/*---------------------------Buttons Regular Window--------------------------*/
+.lanrenzhijia .buttons .win-min-btn {
+  width: 27px;
+  height: 19px;
+  display: block;
+  float: left;
+  background: url(../images/btn-min1.png);
+}      
+.lanrenzhijia .buttons .win-max-btn {
+  width: 26px;
+  height: 19px;
+  display: block;
+  float: left;
+  background: url(../images/btn-max1.png);
+}      
+.lanrenzhijia .buttons .win-reg-btn {
+  width: 26px;
+  height: 19px;
+  display: block;
+  float: left;
+  background: url(../images/btn-reg1.png);
+}      
+.lanrenzhijia .buttons .win-close-btn {
+  width: 46px;
+  height: 19px;
+  float: left;
+  display: block;
+  background: url(../images/btn-close1.png);
+}  
+.lanrenzhijia .buttons .win-btn-leftedge {
+  width: 2px;
+  height: 19px;
+  float: left;
+  background: url(../images/left.png);
+}            
+.lanrenzhijia .buttons .win-btn-rightedge {
+  width: 2px;
+  height: 19px;
+  float: left;
+  background: url(../images/right.png);
+}            
+.lanrenzhijia .buttons .win-btn-spacer {
+  width: 1px;
+  height: 19px;
+  float: left;
+  background: url(../images/spacer.png);
+}            
+.lanrenzhijia .buttons .WinBtnSet {
+  float: left;
+}
+
+/*---------------------------Buttons Active Window---------------------------*/
+.lanrenzhijia.active .buttons .win-min-btn {
+  background: url(../images/btn-min1.png);
+}      
+.lanrenzhijia.active .buttons .win-max-btn {
+  background: url(../images/btn-max1.png);
+}      
+.lanrenzhijia.active .buttons .win-reg-btn {
+  background: url(../images/btn-reg1.png);
+}      
+.lanrenzhijia.active .buttons .win-close-btn {
+  background: url(../images/btn-close1.png);
+}            
+
+/*----------------------------Buttons Hover Effects-------------------------*/
+.lanrenzhijia .buttons .win-min-btn:hover {
+  background: url(../images/btn-min.png);
+}      
+.lanrenzhijia .buttons .win-max-btn:hover {
+  background: url(../images/btn-max.png);
+}      
+.lanrenzhijia .buttons .win-reg-btn:hover {
+  background: url(../images/btn-reg.png);
+}      
+.lanrenzhijia .buttons .win-close-btn:hover {
+  background: url(../images/btn-close.png);
+}
+
+/* 代码整理：懒人之家  www.lanrenzhijia.com */

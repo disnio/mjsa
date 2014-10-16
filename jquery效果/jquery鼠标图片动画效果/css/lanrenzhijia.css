@@ -1,0 +1,21 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 lanrenzhijia.com */
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	text-align:center;
+}
+#mindscape {
+	width: 750px;
+	height: 174px;
+	overflow: hidden;
+	margin:0 auto;
+}
+#monsteck_variketch {
+	width: 750px;
+	margin:0 auto;
+	height: 200px;
+	overflow: hidden;
+}

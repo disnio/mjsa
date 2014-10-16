@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery三环立体式图片切换效果</title>
+<link rel="stylesheet" href="css/lanrenzhijia.css" type="text/css">
+</head>
+<body>
+<div class="carousel-container">
+  <div id="carousel">
+    <div class="carousel-feature"><a href="javascript:"><img class="carousel-image" src="images/gallery-img1.png"></a></div>
+    <div class="carousel-feature"><a href="javascript:"><img class="carousel-image" src="images/gallery-img3.png"></a></div>
+    <div class="carousel-feature"><a href="javascript:"><img class="carousel-image" src="images/gallery-img2.png"></a></div>
+  </div>
+</div>
+<script src="js/jquery-1.6.3.min.js"></script> 
+<script src="js/jquery.featureCarousel.js"></script> 
+<script type="text/javascript">
+      $(document).ready(function() {
+        $("#carousel").featureCarousel({
+			autoPlay:7000,
+			trackerIndividual:false,
+			trackerSummation:false,
+			topPadding:50,
+			smallFeatureWidth:.9,
+			smallFeatureHeight:.9,
+			sidePadding:0,
+			smallFeatureOffset:0
+		});
+      });
+    </script>
+</body>
+</html>

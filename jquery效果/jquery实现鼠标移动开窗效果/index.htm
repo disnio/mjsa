@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery实现鼠标移动开窗效果</title>
+<link href="css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div class="main">
+  <div id="pic"><img src="images/1.png" /></div>
+  <div id="fire"><img src="images/torch.png" /></div>
+  <div id="tips">3D Effect
+    <div id="big">only</div>
+    supported by webkit</div>
+  <div class="wood window" >
+    <div class="left">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <div class="right">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<script src="js/jquery-1.7.min.js"></script>
+<script>
+
+$(function(){
+		   
+		if($.browser.webkit){
+				$(".window").hover(function(){
+					$(".left,.right").addClass("hover");					
+										},function(){
+					$(".left,.right").removeClass("hover");										 
+			   }) 
+		 }
+		 else{
+			 $(".window").hover(function(){
+					$(".left,.right").animate({"marginTop":-300},200)		
+										},function(){
+					$(".left,.right").animate({"marginTop":0},200)									 
+			   }) 
+		 }
+         
+
+})
+</script>

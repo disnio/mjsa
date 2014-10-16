@@ -1,0 +1,21 @@
+ /* 代码整理：懒人之家 lanrenzhijia.com */
+body {
+	font-size: 10px;
+	font-family: verdana,sans-serif;
+	background:#fff;
+	padding: 0px;
+	margin: 0px;
+}
+
+.content {
+	width: 800px;
+	margin: 0px auto;
+	background-color: #ffffff;
+	padding: 20px;
+}
+
+h1 {
+	color:#221A69;
+	font-weight:normal;
+	text-decoration:none;
+} /* 代码整理：懒人之家 lanrenzhijia.com */

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery下拉搜索框显示热门关键词</title>
+<link href="css/lanrenzhijia.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" src="js/jquery-min.js"></script>
+</head>
+<body class="index">
+<div class="header_top">
+</div>
+	<div class="searchbox mt1">
+            <div class="search w960 center">
+          <form  name="formsearch" action="http://www.lanrenzhijia.com">
+            <div class="form">
+            	<div class="form_left">
+                    <div class="form_right">
+                    <div id="searchtype">
+                    	<div id="searchvalue">全部素材</div>
+                        <div id="boult">▼</div>
+                        <ul id="valuelist" style="display:none">
+                        <li title="1">全部素材</li>
+                        
+                        <li title="4">图片/壁纸</li>
+                        
+                        <li title="2">矢量</li>
+                        
+                        <li title="3">PSD</li>
+                        
+                        <li title="7">字体</li>
+                        
+                        <li title="5">网页模板</li>
+                        
+                        <li title="6">图标/Icon</li>
+                        
+                        <li title="10">PPT</li>
+                        
+                        <li title="9">音效</li>
+                        
+                        <li title="8">三维/3D</li>
+                        
+                        <li title="11">Flash</li>
+                        
+                        <li title="12">网页代码</li>
+                        
+                        <li title="13">笔刷/其他</li>
+                        </ul>
+                    </div>
+                      <h4>搜索</h4>
+                       <input name="keyword" type="text" autocomplete="off" class="search-keyword" id="search-keyword" value="输入关键词，回车搜索懒人之家特效代码" onfocus="if(this.value=='输入关键词，回车搜索懒人之家特效代码'){this.value='';}"  onblur="if(this.value==''){this.value='输入关键词，回车搜索懒人之家特效代码';}" />
+                      <button type="submit" class="search-submit" onclick="return checkinput()">
+						搜索</button>
+                    </div>
+                </div>
+          <ul id="hotwords" class="hotwords" style="display:none"><li class="hwtitle">
+					每日热词TOP10：</li><li><a href='#'><h1>背景</h1><span>13776次搜索</span></a></li><li><a href='#'><h1>
+					卡通</h1><span>7821次搜索</span></a></li><li><a href='#'><h1>画册</h1><span>
+					7783次搜索</span></a></li><li><a href='#'><h1>底纹</h1><span>
+					7669次搜索</span></a></li><li><a href='#'><h1>名片</h1><span>
+					7490次搜索</span></a></li><li><a href='#'><h1>人物</h1><span>
+					7106次搜索</span></a></li><li><a href='#'><h1>手绘</h1><span>
+					5659次搜索</span></a></li><li><a href='#'><h1>圣诞节</h1><span>
+					5532次搜索</span></a></li><li><a href='#'><h1>商务</h1><span>
+					4982次搜索</span></a></li><li><a href='#'><h1>云</h1><span>
+					4719次搜索</span></a></li></ul>
+            <script language="javascript" type="text/javascript" src="js/lanrenzhijia.js"></script>
+            </div>
+            </form>
+   		 </div>
+	</div>
+</div>
+</body>
+</html>
