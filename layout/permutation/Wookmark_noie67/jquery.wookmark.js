@@ -3,10 +3,10 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.4.6
-  @date 12/07/2013
+  @version 1.4.8
+  @date 07/08/2013
   @category jQuery plugin
-  @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
+  @copyright (c) 2009-2014 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
 */
 (function (factory) {
@@ -43,7 +43,8 @@
   };
 
   // Function for executing css writes to dom on the next animation frame if supported
-  var executeNextFrame = window.requestAnimationFrame || function(callback) {callback();};
+  var executeNextFrame = window.requestAnimationFrame || function(callback) {callback();},
+      $window = $(window);
 
   function bulkUpdateCSS(data) {
     executeNextFrame(function() {
@@ -94,7 +95,7 @@
 
       // Listen to resize event if requested.
       if (this.autoResize)
-        $(window).bind('resize.wookmark', this.onResize);
+        $window.bind('resize.wookmark', this.onResize);
 
       this.container.bind('refreshWookmark', this.onRefresh);
     }
@@ -113,7 +114,7 @@
           for (j = 0; j < itemFilterClasses.length; j++) {
             filterClass = cleanFilterName(itemFilterClasses[j]);
 
-            if (!filterClasses[filterClass]) {
+            if (typeof(filterClasses[filterClass]) === 'undefined') {
               filterClasses[filterClass] = [];
             }
             filterClasses[filterClass].push($item[0]);
@@ -155,12 +156,13 @@
      * @param filters array of string
      * @param mode 'or' or 'and'
      */
-    Wookmark.prototype.filter = function(filters, mode) {
+    Wookmark.prototype.filter = function(filters, mode, dryRun) {
       var activeFilters = [], activeFiltersLength, activeItems = $(),
           i, j, k, filter;
 
       filters = filters || [];
       mode = mode || 'or';
+      dryRun = dryRun || false;
 
       if (filters.length) {
         // Collect active filters
@@ -211,18 +213,21 @@
           }
         }
         // Hide inactive items
-        this.handler.not(activeItems).addClass('inactive');
+        if (!dryRun)
+          this.handler.not(activeItems).addClass('inactive');
       } else {
         // Show all items if no filter is selected
         activeItems = this.handler;
       }
 
       // Show active items
-      activeItems.removeClass('inactive');
-
-      // Unset columns and refresh grid for a full layout
-      this.columns = null;
-      this.layout();
+      if (!dryRun) {
+        activeItems.removeClass('inactive');
+        // Unset columns and refresh grid for a full layout
+        this.columns = null;
+        this.layout();
+      }
+      return activeItems;
     };
 
     /**
@@ -474,7 +479,7 @@
      */
     Wookmark.prototype.clear = function() {
       clearTimeout(this.resizeTimer);
-      $(window).unbind('resize.wookmark', this.onResize);
+      $window.unbind('resize.wookmark', this.onResize);
       this.container.unbind('refreshWookmark', this.onRefresh);
       this.handler.wookmarkInstance = null;
     };

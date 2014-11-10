@@ -1,7 +1,21 @@
+http://www.gbtags.com/gb/share/1945.htm
+构建工具/taskrunner（比如Grunt）
+页面管理器（比如Bower）
+依赖项管理器（比如Require.js）
+UI小部件库（比如KendoUI）
+测试框架/库（比如QUnit）
+运行测试（比如Karma）
+模板方案（比如Handlerbars）
+架构方案（比如Yeoman）
+开发服务器（比如Node.js）
+
 jqui 不要忘了表格布局
 导航：http://123.jser.us/
 需要通用的文字竖排插件，
 全兼容的Ac
+
+force IE into standards mode:
+<meta http-equiv="X-UA-Compatible" value="IE=edge" />
 百度cdn-jquery：
     支持的版本： 2.0.3, 2.0.2, 2.0.1, 2.0.0, 1.10.2, 1.10.1, 1.10.0, 1.9.1, 1.9.0, 1.8.3, 1.8.2, 1.8.1, 1.8.0, 1.7.2, 1.7.1, 1.7.0, 1.6.4, 1.6.3, 1.6.2, 1.6.1, 1.6.0, 1.5.2, 1.5.1, 1.5.0, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.6, 1.2.3 
 <script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script> 

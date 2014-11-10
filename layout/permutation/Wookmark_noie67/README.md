@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/gbks/wookmark-jquery.png?label=ready&title=Ready)](https://waffle.io/gbks/wookmark-jquery)
 jQuery Wookmark
 ===============
 
@@ -86,6 +87,15 @@ Elements which are hidden have cannot be laid out until they are visible. If you
 
     $('#myContent').trigger('refreshWookmark');
 
+### Filter
+
+You can filter all items of the handler when they have filters specified. See `example-filter` for details how to do this.
+The call to filter will also return the resulting list of items.
+
+    handler.wookmarkInstance.filter([filters=[]][,mode='or'][,dryRun=false]);
+
+If you just want to check if there would be a resulting list of items you can call filter with the `dryRun` option set to `true`.
+
 Included examples
 -----------------
 
@@ -152,6 +162,18 @@ Set 'position: relative' on your container element and check if there are other 
 ### My question isn't answered here.
 
 Send us some feedback or create an issue on github.
+
+Mentioned or used by others
+---------------------------
+
+Beware: These links lead to sites which are not necessarily related to the authors of the Wookmark plugin so we don't have any control over their content.
+
+ * [Customize the plugin online with bitconfig](http://bitconfig.com/woomark/bitconfig_woomark.html)
+ * [TYPO3 extension for YAG](http://typo3.org/extensions/repository/view/yag_themepack_jquery)
+ * [Drupal Wookmark plugin](https://drupal.org/project/views_wookmark)
+ * [Tumblr template example](http://theme-hunter.tumblr.com/post/31126746878/creating-tumblr-grid-layouts-with-wookmark)
+
+Send a [message](mailto:sebastian@helzle.net) if you want to be included with your site on this list!
 
 Feedback
 --------
