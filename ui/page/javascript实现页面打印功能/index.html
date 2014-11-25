@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>javascript实现页面打印（适合B/S）程序</title>
+    <script src="js/jquery-1.6.4.min.js"></script>
+    <script src="js/jquery.printPage.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $(".btnPrint").printPage();
+        });
+    </script>
+</head>
+<body>
+    <!-- class自定义的类样式 -->
+    <p><a class="btnPrint" href="list.html">打印</a></p>
+</body>
+</html>
