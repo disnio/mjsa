@@ -1,0 +1,118 @@
+{
+  "modules": {
+
+    "jquery": {
+      "mixins": [
+        {"name": "thorax-dep-jquery", "ignoreWarnings": true}
+      ]
+    },
+    "zepto": {
+      "mixins": [
+        {"name": "thorax-dep-zepto", "ignoreWarnings": true}
+      ],
+      "scripts": [
+        {"src": "test/lib/handlebars-reset.js", "global": true},
+        {"src": "components/handlebars/handlebars.js", "ignoreWarnings": true, "global": true}
+      ]
+    },
+    "fruit-loops": {
+      "scripts": [
+        {"src": "dist/lodash.underscore.js", "bower": "lodash", "global": true, "ignoreWarnings": true},
+        {"src": "backbone.js", "bower": "backbone", "global": true, "ignoreWarnings": true},
+        {"src": "handlebars.js", "bower": "handlebars", "global": true, "ignoreWarnings": true}
+      ]
+    },
+    "jquery-backbone-1-0": {
+      "mixins": [
+        {"name": "thorax-dep-jquery", "ignoreWarnings": true, "overrides": {"backbone.js": "test/lib/backbone-1-0.js"}}
+      ]
+    },
+    "zepto-backbone-1-0": {
+      "mixins": [
+        {"name": "thorax-dep-zepto", "ignoreWarnings": true, "overrides": {"backbone.js": "test/lib/backbone-1-0.js"}}
+      ],
+      "scripts": [
+        {"src": "test/lib/handlebars-reset.js", "global": true},
+        {"src": "components/handlebars/handlebars.js", "ignoreWarnings": true, "global": true}
+      ]
+    },
+
+    "thorax": {
+      "scripts": [
+        {"src": "LICENSE", "global": true}
+      ],
+      "mixins": [
+        "thorax",
+        {"name": "thorax-form", "server": false},
+        "thorax-helper-tags",
+        "thorax-loading"
+      ]
+    },
+    "thorax-mobile": {
+      "scripts": [
+        {"src": "LICENSE", "global": true}
+      ],
+      "mixins": [
+        "thorax",
+        {"name": "thorax-form", "server": false},
+        "thorax-helper-tags",
+        "thorax-loading",
+        "thorax-mobile"
+      ]
+    },
+
+    "test": {
+      "mixins": [
+        {
+          "name": "test",
+          "overrides": {
+            "test/lib/chai.js": "test/lib/expect.js",
+            "test/lib/sinon-chai.js": false
+          }
+        },
+        "loaded-test-runner"
+      ],
+      "scripts": [
+        // IE I hate you
+        {"src": "test/lib/json2.js", "global": true},
+        "test/src/"
+      ],
+      "static": [
+        {"src": "test/jquery.html", "dest": "jquery/test.html"},
+        {"src": "test/zepto.html", "dest": "zepto/test.html"},
+        {"src": "test/jquery-backbone-1-0.html", "dest": "jquery-backbone-1-0/test.html"},
+        {"src": "test/zepto-backbone-1-0.html", "dest": "zepto-backbone-1-0/test.html"}
+      ]
+    },
+    "test-ie": {
+      "scripts": [
+        // Must be defined in distinct file from the test declaration that loads sinon itself
+        // otherwise hoisting will break the hack. Seemingly only applies to IE8 and below
+        {"src": "test/lib/sinon-ie.js", "global": true}
+      ]
+    },
+
+
+
+    "test-fruit-loops": {
+      "mixins": [
+        // We will be injecting our own test runners that are able to safely exec in this environment
+        "loaded-test-runner"
+      ],
+      "scripts": [
+        "test/src/"
+      ],
+      "static": [
+        {"src": "test/fruit-loops.html", "dest": "fruit-loops/test.html"},
+        {"src": "benchmark/bench.html", "dest": "fruit-loops/bench.html"}
+      ]
+    },
+  },
+  "mixins": [
+    "."
+  ],
+  "scope": {
+    "template": "src/fragments/scope.handlebars"
+  },
+  "server": true
+}
