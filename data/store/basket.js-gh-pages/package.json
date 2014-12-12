@@ -1,0 +1,73 @@
+{
+  "name": "basket.js",
+  "version": "0.5.1",
+  "description": "A script-loader that handles caching scripts in localStorage where supported",
+  "keywords": [
+    "script",
+    "loader",
+    "localstorage",
+    "caching",
+    "asset",
+    "loader",
+    "preload",
+    "javascript",
+    "js"
+  ],
+  "homepage": "http://addyosmani.github.com/basket.js",
+  "license": "MIT",
+  "author": {
+    "name": "Addy Osmani",
+    "email": "addyosmani@gmail.com",
+    "url": "http://addyosmani.com"
+  },
+  "maintainers": [
+    {
+      "name": "Addy Osmani"
+    },
+    {
+      "name": "Sindre Sorhus",
+      "email": "sindresorhus@gmail.com",
+      "url": "http://sindresorhus.com"
+    },
+    {
+      "name": "Andrée Hansson",
+      "email": "peolanha@gmail.com",
+      "url": "http://andreehansson.se"
+    },
+    {
+      "name": "Mat Scales",
+      "email": "mat@wibbly.org.uk",
+      "url": "http://github.com/wibblymat"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Ironsjp"
+    },
+    {
+      "name": "Mathias Bynens"
+    },
+    {
+      "name": "Rick Waldron"
+    },
+    {
+      "name": "Felipe Morais"
+    }
+  ],
+  "main": "lib/basket",
+  "repository": "addyosmani/basket.js",
+  "scripts": {
+    "dev": "grunt",
+    "test": "bower install && grunt test"
+  },
+  "devDependencies": {
+    "bower": "1.x",
+    "grunt": "^0.4.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-connect": "^0.8.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-qunit": "^0.5.1",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
