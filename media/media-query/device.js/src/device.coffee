@@ -1,5 +1,5 @@
 # Device.js
-# (c) 2013 Matthew Hudson
+# (c) 2014 Matthew Hudson
 # Device.js is freely distributable under the MIT license.
 # For all details and documentation:
 # http://matthewhudson.me/projects/device.js/
@@ -60,7 +60,7 @@ device.windowsPhone = ->
   device.windows() and _find 'phone'
 
 device.windowsTablet = ->
-  device.windows() and _find 'touch'
+  device.windows() and (_find('touch') and not device.windowsPhone())
 
 device.fxos = ->
   (_find('(mobile;') or _find('(tablet;')) and _find('; rv:')
@@ -70,9 +70,15 @@ device.fxosPhone = ->
 
 device.fxosTablet = ->
   device.fxos() and _find 'tablet'
-  
+
 device.meego = ->
   _find 'meego'
+
+device.cordova = ->
+  window.cordova && location.protocol == 'file:'
+
+device.nodeWebkit = ->
+  typeof window.process == 'object'
 
 device.mobile = ->
   device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone() or device.fxosPhone() or device.meego()
@@ -80,11 +86,14 @@ device.mobile = ->
 device.tablet = ->
   device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet() or device.fxosTablet()
 
+device.desktop = ->
+  not device.tablet() and not device.mobile()
+
 device.portrait = ->
-  Math.abs(window.orientation) isnt 90
+  (window.innerHeight/window.innerWidth) > 1
 
 device.landscape = ->
-  Math.abs(window.orientation) is 90
+  (window.innerHeight/window.innerWidth) < 1
 
 # Run device.js in noConflict mode, returning the device variable to its previous owner.
 # Returns a reference to the device object.
@@ -155,9 +164,15 @@ else if device.fxos()
 
 else if device.meego()
   _addClass "meego mobile"
-	
+
+else if device.nodeWebkit()
+  _addClass "node-webkit"
+
 else
   _addClass "desktop"
+
+if device.cordova()
+  _addClass "cordova"
 
 
 # Orientation Handling

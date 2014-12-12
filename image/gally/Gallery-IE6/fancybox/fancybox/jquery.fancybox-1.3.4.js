@@ -1104,7 +1104,7 @@
 
 		width : 560,
 		height : 340,
-
+		// 自动缩放大小根据屏幕宽度
 		autoScale : true,
 		autoDimensions : true,
 		centerOnScroll : false,

@@ -13,12 +13,33 @@ jqui 不要忘了表格布局
 导航：http://123.jser.us/
 需要通用的文字竖排插件，
 全兼容的Ac
-
+---------------------------------------------------------------------------
 force IE into standards mode:
-<meta http-equiv="X-UA-Compatible" value="IE=edge" />
+<meta http-equiv="X-UA-Compatible" value="IE=edge" /> 同时加下面，
+若页面需默认用极速核，增加标签：<meta name="renderer" content="webkit">
+若页面需默认用ie兼容内核，增加标签：<meta name="renderer" content="ie-comp">
+若页面需默认用ie标准内核，增加标签：<meta name="renderer" content="ie-stand">
+content的取值为webkit,ie-comp,ie-stand之一，区分大小写，分别代表用webkit内核，IE兼容内核，IE标准内核。
+
+<meta name="viewport" content="width=device-width,target-densitydpi=high-dpi,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+device-dpi –使用设备原本的 dpi 作为目标 dp。 不会发生默认缩放。
+high-dpi – 使用hdpi 作为目标 dpi。 中等像素密度和低像素密度设备相应缩小。
+medium-dpi – 使用mdpi作为目标 dpi。 高像素密度设备相应放大， 像素密度设备相应缩小。 这是默认的target density.
+low-dpi -使用mdpi作为目标 dpi。中等像素密度和高像素密度设备相应放大。
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
+<script src="http://cdn.bootcss.com/es5-shim/4.0.3/es5-shim.min.js"></script>
+<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="http://cdn.bootcss.com/nwmatcher/1.2.5/nwmatcher.min.js"></script>
+<script src="http://cdn.bootcss.com/selectivizr/1.0.2/selectivizr.js"></script>
+<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
+<![endif]-->
+---------------------------------------------------------------------------
 百度cdn-jquery：
     支持的版本： 2.0.3, 2.0.2, 2.0.1, 2.0.0, 1.10.2, 1.10.1, 1.10.0, 1.9.1, 1.9.0, 1.8.3, 1.8.2, 1.8.1, 1.8.0, 1.7.2, 1.7.1, 1.7.0, 1.6.4, 1.6.3, 1.6.2, 1.6.1, 1.6.0, 1.5.2, 1.5.1, 1.5.0, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.6, 1.2.3 
-<script src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script> 
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
 
 jQueryui:
 <script src="http://libs.baidu.com/jqueryui/1.9.2/jquery-ui.min.js "></script>
