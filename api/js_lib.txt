@@ -122,6 +122,9 @@ http://browserhacks.com/#ie
 
 var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
 
+if( jQuery.browser.msie && jQuery.browser.version == '8.0' ){
+
+} 
 ---------------------------------------------------------------------
 
 横向滚动条消失出现在hover元素时，是由于开启了firebug并固定在了浏览器中，影响宽度计算。把火狐浮动出来测试页面效果。
