@@ -1,3 +1,8 @@
+
+高度不变，加粗后宽度加1
+网页: font-size:60px; 在ps中实际45px--43px
+ps:   font-size:60px; 58px-60px 相差约15px
+14px网页字体与ps相差3px
 http://www.gbtags.com/gb/share/1945.htm
 构建工具/taskrunner（比如Grunt）
 页面管理器（比如Bower）
@@ -60,8 +65,7 @@ backbone：
 <script src="http://cdn.staticfile.org/backbone.js/1.1.2/backbone-min.js"></script>
 
 angular：
-http://cdn.staticfile.org/angular.js/1.3.0-beta.3/angular.min.js.map
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.min.js"></script>
 开发静态文件：
 http://www.staticfile.org/
 
