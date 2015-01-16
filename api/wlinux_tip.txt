@@ -1,4 +1,7 @@
-﻿备份：
+﻿
+
+
+备份：
 tar -zcvf hxay130201.tar.gz * --exclude video --exclude download
 tar -zxvf
 wget http://nchc.dl.sourceforge.net/sourceforge/awstats/awstats-7.1-1.noarch.rpm

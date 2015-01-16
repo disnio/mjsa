@@ -1,3 +1,74 @@
+var myAppModule = angular.module('myApp',[],
+  function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('<[');
+    $interpolateProvider.endSymbol(']>');
+  });
+{{ }} to <[ ]> for the current Angular app.
+--------------------------------------------------
+控制器组织：
+var app = angular.module('angularjs-starter', []);
+app.controller('ParentCtrl ', function($scope) {
+  // methods to be inherited by all controllers
+  // go here
+});
+app.controller('ChildCtrl', function($scope, $controller) {
+  // this call to $controller adds the ParentCtrl's methods
+  // and properties to the ChildCtrl's scope
+  $controller('ParentCtrl', {$scope: $scope});
+  // ChildCtrl's methods and properties go here
+});
+When you inject a service into an application, the $inject service first looks to check 
+if an instance of the service already exists. If it does, the $inject service returns the 
+existing instance. If it does not, the $inject service creates a new instance of the 
+service and returns it.
+
+constant methods which is best used to define a primitive value or object 
+that will never change and needs to be made available for use by a module .s config method. 
+
+The difference is that the primitive values and objects created using the value method 
+can be changed. Another difference is that the singletons created using the value 
+method cannot be used by a module.s config method. 
+
+If you need to configure your service before instantiating it, using the 
+provider method is the best way to define your service.
+
+To review, use the constant method if you need to define values that will not change 
+over the course of your application. Use the value method if you need to define values 
+or models that will change over the course of your application. The service method 
+should be used if you define your services as a class and need to invoke the definition.s 
+constructor function. Use the factory method if you define your service as an object 
+instance and do not need to invoke a constructor. Finally, if you need to configure your 
+service in a module.s config method, use the provider method.
+--------------------------------------
+
+angular.module('myApp', ['myApp.directives']);
+angular.module('myApp.directives', []);
+
+At the time of writing, when developing for Internet Explorer 8 & 9 
+browsers, the ng-app directive must be declared twice if you attach it 
+to the html node. In addition to using the attribute to declare which 
+module to use, you must also add the id tag of "ngApp", otherwise IE 
+won.t notice it during the bootstrap process.
+<input ng-model="data.property" autocomplete-input />
+angular.directive('autocompleteInput', function () {
+  return {
+    require : 'ngModel', // ?|^
+    link : function ($scope, $element, $attrs, ngModel) {
+      ngModel.$render = function () {
+        $element.val(ngModel.$viewValue || '');
+      };
+      $element.autocomplete({
+        … //Define source, etc
+        select : function (ev, ui) {
+          $scope.$apply(function() {
+            ngModel.$setViewValue(ui.item.value);
+          });
+        }
+      });
+    }
+  }
+});
+-----------------------------------------------------------------------------------------
 Angular（1.3.0） 开始减少了对IE8的支持。
 
 1、IE浏览器不希望元素名以ng开头：因为它会认为这个前缀是一个XML命名空间。IE浏览器会忽略这些元素，
@@ -183,7 +254,7 @@ Javascript的执行被分成原始部分和拥有AngularJS执行上下文的部�
 
     1、通过调用 scope.$apply(stimulusFn)来进入AngularJS的执行上下文，这里的stimulusFn是你希望在AngularJS执行上下文中执行的函数。
     2、AngularJS会执行stimulusFn()，这个函数一般会改变应用的状态。
-    3、AngularJS进入$digest循环。这个循环是由两个小循环组成的，这两个小循环用来处理处理$evalAsync队列和$watch列表。这个$digest循环直到模型“稳定”前会一直迭代。这个稳定具体指的是$evalAsync对表为空，并且$watch列表中检测不到任何改变了。
+    3、AngularJS进入$digest循环。这个循环是由两个小循环组成的，这两个小循环用来处理$evalAsync队列和$watch列表。这个$digest循环直到模型“稳定”前会一直迭代。这个稳定具体指的是$evalAsync对表为空，并且$watch列表中检测不到任何改变了。
     4、这个$evalAsync队列是用来管理那些“视图渲染前需要在当前栈框架外执行的操作的”。这通常使用 setTimeout(0)来完成的。用setTimeout(0)会有速度慢的问题。并且，因为浏览器是根据事件队列按顺序渲染视图的，还会造成视图的抖动。
     5、$watch列表是一个表达式的集合，这些表达式可能是自上次迭代后发生了改变的。如果有检测到了有改变，那么$watch函数就会被调用，它通常会把新的值更新到DOM中。
     6、一旦AngularJS的$digest循环结束，整个执行就会离开AngularJS和Javascript的上下文。这些都是在浏览器为数据改变而进行重渲染之后进行的。
@@ -2288,13 +2359,6 @@ promise['finally'](function() {});
 (1) $q是跟Angular的$rootScope模型集成的，所以在Angular中，执行和拒绝都很快。 
 (2) $q promise是跟Angular模板引擎集成的，这意味着在视图中找到的任何promise都会在视图中被执行或者拒绝。 
 (3) $q很小，所以没有包含Q库的完整功能。
-
-
-
-
-
-
-
 
 
 --------------------------------------------
