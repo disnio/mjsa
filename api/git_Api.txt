@@ -3,6 +3,11 @@ git_Apis
 https://github.com/disnio/mjsa.git
 
 git@github.com:disnio/mjsa.git
+
+Git 支持许多数据传输协议。之前的例子使用的是 git:// 协议，
+不过你也可以用 http(s):// 
+或者 user@server:/path.git 表示的 SSH 传输协议。
+
 创建后生成：
 touch README.md
 git init
@@ -10,6 +15,21 @@ git add README.md
 git commit -m "first commit"
 git remote add origin git@github.com:disnio/mjsa.git
 git push -u origin master
+
+跳过使用暂存区域：
+git commit -a -m 'added new benchmarks'
+
+$ git rm --cached readme.txt
+$ git rm log/\*.log
+$ git rm \*~
+
+移除：
+$ git mv file_from file_to
+运行 git mv 就相当于运行了下面三条命令：
+$ mv README.txt README
+$ git rm README.txt
+$ git add README
+
 
 $ git help 命令名
 tag??
@@ -55,6 +75,21 @@ merge
 合并指定分支到当前分支：
 $ git merge branch-name
 
+$ git log -p -2
+
+添加远程仓库：
+git remote -v
+git remote add pb git://github.com/paulboone/ticgit.git
+
+查看远程仓库信息：
+$ git remote show origin
+如果是在 master 分支，就可以用 git pull 命令抓取数据合并到本地。
+
+远程仓库的删除和重命名：
+$ git remote rename pb paul
+$ git remote rm paul
+
+$ git last
 ----------------------------------------------------
 本地创建项目文件目录添加文件，加入.gitignore文件，屏蔽不需要添加到git的目录和文件。
 .gitignore：

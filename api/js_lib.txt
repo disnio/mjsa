@@ -44,8 +44,9 @@ low-dpi -使用mdpi作为目标 dpi。中等像素密度和高像素密度设备
 ---------------------------------------------------------------------------
 百度cdn-jquery：
     支持的版本： 2.0.3, 2.0.2, 2.0.1, 2.0.0, 1.10.2, 1.10.1, 1.10.0, 1.9.1, 1.9.0, 1.8.3, 1.8.2, 1.8.1, 1.8.0, 1.7.2, 1.7.1, 1.7.0, 1.6.4, 1.6.3, 1.6.2, 1.6.1, 1.6.0, 1.5.2, 1.5.1, 1.5.0, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.6, 1.2.3 
+angular：
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.min.js"></script>
 jQueryui:
 <script src="http://libs.baidu.com/jqueryui/1.9.2/jquery-ui.min.js "></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://libs.baidu.com/jqueryui/1.9.2/themes/base/jquery-ui.css" />
@@ -64,8 +65,7 @@ underscore：
 backbone：
 <script src="http://cdn.staticfile.org/backbone.js/1.1.2/backbone-min.js"></script>
 
-angular：
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.min.js"></script>
+
 开发静态文件：
 http://www.staticfile.org/
 

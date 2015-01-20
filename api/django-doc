@@ -1,10 +1,15 @@
-
+centos 升级 python2.6.6 -> python2.7.8
+wget https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz 
+./configure --enable-shared --prefix=/usr/local/python2.7
+--enable-unicode=ucs4  
+ make make install
 -----------------------------------------------------------------------------
 django-admin.py startproject testsite
 
 #python manage.py runserver 8080
 
 python manage.py startapp books
+python manage.py runmodwsgi
 
 #python manage.py sqlall books
 python manage.py syncdb && python manage.py migrate 

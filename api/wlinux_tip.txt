@@ -1,4 +1,7 @@
 ﻿
+SecureFX 乱码：
+c:\Users\Administrator\AppData\Roaming\VanDyke\Config\Sessions
+"Filenames Always Use UTF8"=00000001
 
 
 备份：
