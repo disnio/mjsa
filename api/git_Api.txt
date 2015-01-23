@@ -1,4 +1,7 @@
 git_Apis
+http://blog.csdn.net/mirkerson/article/details/22914865
+常用操作：
+http://b.soont.com/page/3
 
 https://github.com/disnio/mjsa.git
 
@@ -8,6 +11,9 @@ Git 支持许多数据传输协议。之前的例子使用的是 git:// 协议�
 不过你也可以用 http(s):// 
 或者 user@server:/path.git 表示的 SSH 传输协议。
 
+git submodule foreach --recursive git submodule init
+git submodule foreach --recursive git submodule update
+这样貌似可以一次搞定了.
 创建后生成：
 touch README.md
 git init
@@ -90,7 +96,41 @@ $ git remote rename pb paul
 $ git remote rm paul
 
 $ git last
+-------------
+在含有工作副本的git仓库中可以使用git pull，在获取远程数据后，本地跟踪分支就可以快进，并和远程分支指向的commit点保持一致在bare仓库中只能使用fetch从remote中抓取数据，但是本地已跟踪的分支可能并没有快进到和remote同步的commit点，出现例如：
+
+    tekkaman_b2 pushes to tekkaman_b2 (local out of date)
+
+如果需要本地分支快进，与remote同步，可使用以下命令：
+
+    git fetch origin tekkaman_b2:tekkaman_b2
+    git fetch <remote> <remote bratch name>:<local bratch name>
+---------------
+
+在非bare的git仓库中，如果你要同步的本地跟踪分支是当前分支，就会出现拒绝fetch的情况。也就是说不可以在非bare的git仓库中通过fetch快进你的当前分支与远程同步。个人和我同事的理解是：如果本地数据被修改过了，这种同步的fetch会更改本地的文件（相当于fetch后再checkout到某个commit点），可能影响当前未提交的的工作。
+--------------------------
+oydsoft@wsc:~/develop/mygit/.git$ cat config
+[core]
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
+[remote "tgit"]
+    url = /home/oydsoft/develop/testgit.git
+    fetch = +refs/heads/*:refs/remotes/tgit/*
+
 ----------------------------------------------------
+忽略规则：
+http://cwind.iteye.com/blog/1666646
+
+http://blog.csdn.net/vic___/article/details/9446729
+git 还提供了另一种 exclude 的方式来完成同样的忽略
+
+不同的是 .gitignore 这个文件本身会push到库中去。保存的是公共的需要排除的文件。
+而exclude 是自己本地忽略的设置，不会影响到其他人，也不会提交到库中去。
+
+
+git config --global core.excludesfile ~/.gitignore_global
 本地创建项目文件目录添加文件，加入.gitignore文件，屏蔽不需要添加到git的目录和文件。
 .gitignore：
 /jslib/

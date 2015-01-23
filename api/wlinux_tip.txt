@@ -1,9 +1,4 @@
-﻿
-SecureFX 乱码：
-c:\Users\Administrator\AppData\Roaming\VanDyke\Config\Sessions
-"Filenames Always Use UTF8"=00000001
-
-
+﻿-------------------------------------------------------
 备份：
 tar -zcvf hxay130201.tar.gz * --exclude video --exclude download
 tar -zxvf
@@ -88,28 +83,3 @@ find    /   -mtime   -1       #查找在系统中最后24小时里修改过的�
 find   /home   -size   -512k               查小于512k的文件
 find *.c -exec cp ‘{}’ /tmp ‘;’ 将find出来的东西拷到另一个地方
 find . -user 48 | xargs chown -R hxftp:apache
---------------------------------------------------------
-mysql：
-webadmin 中， 直接添加用户，并授权，作为远程账号。主机，加权限。
-/etc/rc.d/init.d/mysqld start
-
-vsftpd：
-http://blog.chinaunix.net/uid-18831400-id-151990.html
-http://www.cnblogs.com/hhuai/archive/2011/02/12/1952647.html
-yum install vsftpd
-service vsftpd status
-service vsftpd start
-
-添加ftp用户，设置主目录为上传目录，更改权限。
-/etc/vsftpd/conf
-chroot_list_file=/etc/vsftpd/chroot_list
-
-userlist_deny=NO
-userlist_file=/etc/vsftpd/user_list
-#local_root=/var/www/html
-ftp_username=hxftp
-user_list里面把不用的用户注释掉，添加建立的ftp用户。
--------------------------------------
-在SecureFx中选择Options->Global Options菜单，在打开的Global Options的对话框中选择General。Configuration folder。里面的路径就是SecureFX的配置文件路径。在Sessions子目录下找到对应的Session的ini配置文件。
-将"Filenames Always Use UTF8"=00000000修改为"Filenames Always Use UTF8"=00000001保存重新连接即可。 
-Session Options（会话选项） -> Terminal（终端） -> Appearance（显示）, 将Charater（字符）选择成 UTF-8就支持中文了。
