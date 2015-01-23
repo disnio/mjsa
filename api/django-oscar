@@ -1,0 +1,99 @@
+
+---------------------------------------------------------
+virtualenv [虚拟环境名称] 
+启动虚拟环境
+source ./bin/activate
+退出虚拟环境
+deactivate
+Virtualenv 附带有pip安装工具，因此需要安装的套件可以直接运行：
+pip install [套件名称]
+如果没有启动虚拟环境，系统也安装了pip工具，那么套件将被安装在系统环境中，为了避免发生此事，可以在~/.bashrc文件中加上：
+export PIP_REQUIRE_VIRTUALENV=true
+或者让在执行pip的时候让系统自动开启虚拟环境：
+export PIP_RESPECT_VIRTUALENV=true
+
+pip install virtualenvwrapper
+下面两行添加到~/.bashrc里
+export WORKON_HOME=~/workspaces
+source /usr/bin/virtualenvwrapper.sh
+
+mkvirtualenv env2
+lsvirtualenv -b
+lssitepackages
+切换环境：workon [env]
+随时使用“workon 环境名”可以进行环境切换，如果不带环境名参数，则显示当前使用的环境
+退出环境：deactivate
+- showvirtualenv [env] 显示指定环境的详情。
+- rmvirtualenv [env] 移除指定的虚拟环境，移除的前提是当前没有在该环境中工作。如在该环境工作，先使用deactivate退出。
+- cpvirtualenv [source] [dest] 复制一份虚拟环境。
+- cdvirtualenv [subdir] 把当前工作目录设置为所在的环境目录。
+- cdsitepackages [subdir] 把当前工作目录设置为所在环境的sitepackages路径。
+- add2virtualenv [dir] [dir] 把指定的目录加入当前使用的环境的path中，这常使用于在多个project里面同时使用一个较大的库的情况。
+- toggleglobalsitepackages -q 控制当前的环境是否使用全局的sitepackages目录。
+
+进入当前环境的目录：cdvirtualenv [子目录名]
+
+Server version: Apache/2.2.15 (Unix)
+https://pypi.python.org/pypi/mod_wsgi/4.4.6
+----------------------------------------
+pip：
+# 导出当前环境下的所有第三方库
+pip freeze > requirements.txt
+# 在新环境下安装所有文件内的第三方库
+pip install -r requirements.txt
+yum install python-virtualenv
+-----------------------------------------------------------------------------
+django-admin.py startproject testsite
+python manage.py runserver 8080
+python manage.py startapp books
+python manage.py runmodwsgi
+python manage.py sqlall books
+python manage.py syncdb && python manage.py migrate 
+python manage.py loaddata artmall_all_data.json
+python manage.py makemigrations
+python manage.py migrate
+python manage.py validate 。 它可以帮助你捕获一些常见的模型定义错误。
+
+syncdb仅仅创建数据库里还没有的表，它并不对你数据模型的修改进行同步,也不处理数据模型的删除。
+修改模型字段后：
+python manage.py makemigrations
+python manage.py sqlmigrate books 0002
+然后到数据库查询器里面执行生成的sql代码。
+---------------------------------------------------------------------
+编译mod_wsgi：
+mod_wsgi-4.4.6$ ./configure --with-apxs=/usr/bin/apxs2 --with-python=/usr/bin/python
+
+sudo chmod 644 /usr/lib/apache2/modules/mod_wsgi.so
+---------------------------------------------------------------------
+更改postgres密码：
+sudo su postgres
+[sudo] password for oydsoft: 
+postgres@wsc:/home/oydsoft$ psql
+psql (9.3.5)
+Type "help" for help.
+postgres=# \du
+postgres=# alter user postgres with password '123'
+postgres-# ;
+ALTER ROLE
+
+改配置：
+sudo /etc/init.d/postgresql restart
+
+django-admin startproject artmall
+-------------------------------------
+改变目录后wsgi 等如果pylib里面没有就要重新安装。
+
+pip install django-debug-toolbar
+pip install django-debug-toolbar-template_timings_panel
+sudo apt-get install  libjpeg-dev libfreetype6-dev zlib1g-dev
+然后重新安装Pillow
+
+LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so
+
+pip install mod_wsgi
+
+安装postgres驱动：
+pip install psycopg2
+
+python manage.py runmodwsgi
+-------------------------------------------------------------------

@@ -1,0 +1,150 @@
+﻿中文乱码：
+http://blog.csdn.net/linghao00/article/details/7562048
+将解压后的文件全放到一个指定目录t下，所以执行命令
+7z x -ot temp.7z
+
+
+linux php支持jpeg首先要安裝libjpeg，运行下面的命令：
+
+yum install libjpeg* libpng* freetype* gd*
+
+/etc/rc.d/init.d/mysqld start
+
+phpmyadmin2.11 centos6
+http://blog.sina.com.cn/s/blog_4d0309640101jtnv.html
+--------------------------------------------------------
+可以ping通内网和外网的ip但域名不能之间上网：
+/etc/sysconfig/network-script/ifcfg-et0
+onboot="yes"
+dns=192.168.0.1 真实的dns ip地址
+
+service network start
+
+查看 /etc/resolv.conf 
+-------------------------------------
+http://download.oracle.com/otn-pub/java/jdk/8u20-b26/jdk-8u20-linux-x64.rpm
+redhat linux卸载自带的Java1.4.2安装JDK6
+安装完成后root用户设置环境变量(linux下环境变量的分隔符是:冒号，windows系统是;分号)
+vi /etc/profile 编辑此文件，增加下面三行
+
+JAVA_HOME=/usr/java/jdk1.8.0_20
+CLASSPATH=$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin
+export PATH CLASSPATH JAVA_HOME 
+
+export TOMCAT_HOME=/usr/local/tomcat8
+－－－－－－－－－－－－－－－－－－－－－－
+http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.0.9/bin/apache-tomcat-8.0.9.tar.gz
+tomcat 安装：
+下载后解压到 /usr/local/tomcat8
+建立logs目录，添加catalina.out文件
+执行 ./startup.sh 开启tomcat 服务
+
+----------------------------------------
+http://archive.apache.org/dist/tomcat/tomcat-connectors/jk/binaries/linux/jk-1.2.30/i586/mod_jk-1.2.30-httpd-2.2.X.so
+
+http://archive.apache.org/dist/tomcat/tomcat-connectors/jk/binaries/
+
+---------------------------------------
+使用代替
+http://centos.ustc.edu.cn/centos/
+http://www.linuxidc.com/Linux/2011-11/47195.htm
+
+yum 源更新：
+http://elf8848.iteye.com/blog/455676
+
+mysql:
+http://dev.mysql.com/downloads/repo/yum/ 下载
+shell> sudo rpm -Uvh mysql-community-release-el6-5.noarch.rpm  
+
+安装包，然后 yum instal mysql
+================================================================================
+ Package                      Arch    Version          Repository          Size
+================================================================================
+Installing:
+ mysql                        i386    5.6.20-4.el5     mysql56-community   38 k
+ mysql                        x86_64  5.6.20-4.el5     mysql56-community   38 k
+Installing for dependencies:
+ mysql-community-client       x86_64  5.6.20-4.el5     mysql56-community   22 M
+ mysql-community-common       x86_64  5.6.20-4.el5     mysql56-community  679 k
+ mysql-community-libs         x86_64  5.6.20-4.el5     mysql56-community  2.3 M
+ mysql-community-libs-compat  x86_64  5.6.20-4.el5     mysql56-community  2.1 M
+-------------------------------------------------------
+service mysql start 
+yum install mysql-community-server
+
+mysql-community-server-5.6.20-4.el5.x86_64 from mysql56-community has depsolving problems
+  --> Missing Dependency: perl(DBI) is needed by package mysql-community-server-5.6.20-4.el5.x86_64 (mysql56-community)
+Error: Missing Dependency: perl(DBI) is needed by package mysql-community-server-5.6.20-4.el5.x86_64 (mysql56-community)
+ You could try using --skip-broken to work around the problem
+ You could try running: package-cleanup --problems
+                        package-cleanup --dupes
+                        rpm -Va --nofiles --nodigest
+The program package-cleanup is found in the yum-utils package.
+--------------------------------------------------------
+--------------------------------------------------------
+解决依赖：libaio-0.3.107-10.el6.x86_64.rpm 使用下面：
+http://downloads.skysql.com/archive/index/p/mysql/v/5.0.77
+MySQL-shared-compat-5.0.77-0.glibc23.x86_64.rpm
+perl-DBD-MySQL-3.0007-2.el5.x86_64.rpm 
+rpm -ivh mysql-5.0.77-4.el5_5.4.x86_64.rpm 
+rpm -ivh mysql-server-5.0.77-4.el5_5.4.x86_64.rpm 
+/etc/rc.d/init.d/mysqld {start|stop|status|condrestart|restart}
+ok
+
+tomcat 启动：
+/etc/rc.d/rc.local添加：/usr/local/tomcat8/bin/startup.sh
+--------------------------------------------------------
+防火墙：
+防火墙配置文件： /etc/sysconfig/iptables
+添加其它端口
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 10000 -j ACCEPT
+服务操作命令 ： /etc/init.d/iptables service iptables {start|stop...}
+
+临时改变命令 ： iptables iptables-save iptables-restore等
+
+================================
+# wget -q -O - http://www.atomicorp.com/installers/atomic.sh | sh
+y/n: n
+# yum update php
+# service httpd restart
+
+vncserver:
+yum install -y vnc vnc-server
+http://www.jb51.net/os/windows/44493.html
+http://www.linuxidc.com/Linux/2013-05/84941.htm
+问题：
+http://www.linuxidc.com/Linux/2013-08/89266.htm
+
+http://blog.csdn.net/flcandclf/article/details/469361
+
+//安装apache扩展
+yum -y install httpd-manual mod_ssl mod_perl mod_auth_mysql
+//安装php的扩展
+yum install php-gd
+yum -y install php-gd php-xml php-mbstring php-ldap php-pear php-xmlrpc
+//安装mysql扩展
+yum -y install mysql-connector-odbc mysql-devel libdbi-dbd-mysql
+
+
+http://www.cnblogs.com/huangzhen/archive/2012/09/12/2681861.html
+yum install libmcrypt libmcrypt-devel mcrypt mhash
+------------------------------------------------
+phpMyAdmin-4.1.4-all-languages
+pma 下创建config 可写权限
+然后 setup/index.php
+
+ERROR 1044 (42000): Access denied for user ''@'localhost' to database 'mysql' 
+http://blog.csdn.net/tys1986blueboy/article/details/7056835
+
+1.关闭mysql
+   # service mysqld stop
+2.屏蔽权限
+   # mysqld_safe --skip-grant-table
+   屏幕出现： Starting demo from .....
+3.新开起一个终端输入
+   # mysql -u root mysql
+   mysql> UPDATE user SET Password=PASSWORD('newpassword') where USER='root';
+   mysql> FLUSH PRIVILEGES;//记得要这句话，否则如果关闭先前的终端，又会出现原来的错误
+   mysql> \q
+
