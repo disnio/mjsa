@@ -190,3 +190,21 @@ background: #339bc2 -webkit-gradient(linear, left top, left bottom, from(#7cb8ce
 https://github.com/fex-team/styleguide
 https://github.com/darcyclarke/Front-end-Developer-Interview-Questions/tree/master/Chinese
 -------------------------------------------------
+
+获取随机固定宽度的图片：
+    function genBrick() {
+        var height = ~~ (Math.random() * 500) + 100;
+        var id = ~~ (Math.random() * 10000);
+        console.log(height, id);
+        return {
+            src: 'http://lorempixel.com/g/280/' + height + '/?' + id
+        };
+    };
+
+    $scope.bricks = [
+        genBrick(),
+        genBrick(),
+        genBrick(),
+        genBrick(),
+        genBrick()
+    ];

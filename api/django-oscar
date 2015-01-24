@@ -42,6 +42,7 @@ pip freeze > requirements.txt
 # 在新环境下安装所有文件内的第三方库
 pip install -r requirements.txt
 yum install python-virtualenv
+
 -----------------------------------------------------------------------------
 django-admin.py startproject testsite
 python manage.py runserver 8080
@@ -95,5 +96,6 @@ pip install mod_wsgi
 安装postgres驱动：
 pip install psycopg2
 
+pip install django-widget-tweaks
 python manage.py runmodwsgi
 -------------------------------------------------------------------

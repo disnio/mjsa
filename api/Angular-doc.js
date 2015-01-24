@@ -250,6 +250,8 @@ http://www.angularjs.cn/category/docs/api
 执行期：
 Javascript的执行被分成原始部分和拥有AngularJS执行上下文的部分。
 使用 $apply() 从普通Javascript上下文进入AngularJS执行上下文。
+
+$apply 把外面变量传入angular上下文， $watch 监视angular 变量，把改变传出到dom
 只有使用自定义的事件回调或者是第三方类库的回调时，才需要自己执行$apply。
 
     1、通过调用 scope.$apply(stimulusFn)来进入AngularJS的执行上下文，这里的stimulusFn是你希望在AngularJS执行上下文中执行的函数。
