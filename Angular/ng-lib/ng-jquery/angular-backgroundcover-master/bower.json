@@ -1,0 +1,21 @@
+{
+  "name": "angular-backgroundcover",
+  "version": "0.0.2",
+  "authors": [
+    "Thomas Appel <mail@thomas-appel.com>"
+  ],
+  "description": "Angular directove for jquery.backgroundcover",
+  "license": "MIT",
+  "main": "src/angular-backgroundcover.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery.backgroundcover": "~0.0.3"
+  }
+}

@@ -9,7 +9,7 @@ Example Usage
 ```
 <html>
 	<head>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$('#elementWithCSSBackground').fixCssBg();
