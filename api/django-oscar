@@ -99,3 +99,8 @@ pip install psycopg2
 pip install django-widget-tweaks
 python manage.py runmodwsgi
 -------------------------------------------------------------------
+
+c:\Python27\Lib\site-packages\debug_toolbar\settings.py
+CONFIG_DEFAULTS = {
+    }
+    'JQUERY_URL': '//libs.baidu.com/jquery/1.8.3/jquery.js',

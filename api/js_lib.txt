@@ -6,6 +6,10 @@ http://91.213.30.150/
 https://a26.d.akamai.net/f/1/1/1/dci.download.akamai.com/35985/159415/1/g/
 最后这个是镜像网站
 ------------------------------------------------------------------
+mockjax：
+<script src="{% static "js/jquery.mockjax.js" %}"></script>
+<script src="{% static "test/tjax.js" %}"></script>
+------------------------------------------------------------------
 高度不变，加粗后宽度加1
 网页: font-size:60px; 在ps中实际45px--43px
 ps:   font-size:60px; 58px-60px 相差约15px
