@@ -1,3 +1,13 @@
+
+http://codego.net/385473/
+http://stackoverflow.com/questions/8302928/angularjs-with-django-conflicting-template-tags
+<ul id="results"></ul>
+<scrpit id="itemTemplate" type="text/x-jquery-tmpl">
+{% templatetag openvariable %}each items{% templatetag closevariable %}
+<li>${name} - ${price}</li>
+{% templatetag openvariable %}/each{% templatetag closevariable %}
+</script>
+--------------------------------------------------
 var myAppModule = angular.module('myApp',[],
   function ($interpolateProvider) {
     $interpolateProvider.startSymbol('<[');
@@ -235,7 +245,7 @@ Chrome：，可以使用开发者工具提供的一些快捷方式。比如要�
 指令：是“当关联的HTML结构进入编译阶段时应该执行的操作”。
 编译器编译到相关DOM时需要执行的函数。
 http://www.angularjs.cn/category/docs/api
-
+http://developer.51cto.com/art/201403/431734_1.htm
 启动：
     浏览器载入HTML，然后把它解析成DOM。
     浏览器载入angular.js脚本。
@@ -324,7 +334,26 @@ angular.module('test', [])
             $scope.time = time;
         }
 );
+--------------
+var myModule = angular.module('myModule', []);
 
+myModule.factory('$alert', ['$window', function($window) {
+
+    return {
+        alert: function(text) {
+            $window.alert(text);
+        }
+    };}]);
+
+var myController = function($scope, $alert) {
+    $scope.message = function(msg) {
+        console.log(msg);
+        $alert.alert(msg);
+    };
+};
+myController.$inject = ['$scope', '$alert'];
+myModule.controller("myController", myController);
+----------------------
 Factory method工厂函数：
 工厂函数是用来创建指令的。它只会被调用一次：就是当编译器第一次匹配到相应指令的时候。你可以在其中进行任何初始化的工作。调用它时使用的是 $injector.invoke ， 所以它遵循所有注入器的规则。
 
@@ -1153,6 +1182,30 @@ controller
 controller参数指向require选项定义的控制器。如果没有设置require选项，那么
 controller参数的值为undefined。
 -------------------
+$parse服务
+
+$parse服务可以讲一个表达式转换为一个函数。这个函数可以被调用，其中的参数是一个上下文对象，通常来说是作用域。
+
+另外，通过$parse的表达式返回的这个函数有一个assign属性。这个assign属性也是一个函数，它可以用来在给定的上下文中改变这个表达式的值。 
+<div my-attr="obj.name" my-directive>testing</div>
+
+app.directive('myDirective',function($log,$parse){
+    return function(scope,elem,attrs){
+        //解析"my-attr属性值到一个函数中"
+        var model = $parse(attrs.myAttr);
+        //model现在是一个函数，可以调用它来获取表达式的值
+        //下面这行代码将会输出作用域中obj.name的值  
+        $log.log(model(scope));
+
+        elem.bind('click',function(){
+        //'model.assign'也是一个函数，它用来更新表达式的值  
+        model.assign(scope,'New name');
+        scope.$apply();
+        })
+    }
+});
+面的例子可以充分体现我们为什么需要$parse服务。如果属性值是name，那么我们完全可以不用$parse，只用scope[attrs.myAttr]即可。但是在上面的例子中，方括号并不管用。 
+-------------------------------
 ngModel：是一个用法特殊的指令，它提供更底层的API来处理控制器内的数据。
 
 控制器在所有的指令间共享，因此指令可以将控制器当作通信通道（公共API）。

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="App">
+    <head>
+        <title>Angular-Colobox</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/example4/colorbox.css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css"/>
+    </head>
+    <body>    
+        
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Sample</h1>
+                    demo:<div data-colorbox href="helloword.html" class="btn btn-primary" > colorbox </div>
+                    <pre>
+            &lt;div class=&quot;btn btn-primary&quot; colorbox href=&quot;helloword.html&quot;&gt; colorbox &lt;/div&gt;
+                    </pre>
+                    The others parms just look <a href="http://www.jacklmoore.com/colorbox/">jacklmoore - colorbox</a>
+                    this plug-in base on Colorbox v1.4.33 - 2013-10-31<br />
+                    If you want to add new parms just after the div add new parms likes<br />
+                    example you want add width 400<br />
+                    <pre>
+        &lt;div class=&quot;btn btn-primary&quot; colorbox href=&quot;helloword.html&quot; width=&quot;400px&quot;  &gt; colorbox &lt;/div&gt;<br />
+                    </pre>
+                    demo:<div data-colorbox href="a.html" width="400" class="btn btn-primary" > colorbox </div>
+                    
+                    
+                    <pre>                        
+                        Reference:
+                            http://www.jacklmoore.com/colorbox/
+                            http://stackoverflow.com/questions/14641791/how-to-use-colorbox-with-angular-js
+                            https://groups.google.com/forum/#!topic/angular/zVrcnW_l3aQ - Aaron Smith
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox.js"></script>
+        <script src="script/angular-colorbox.js"></script>
+        <script>
+            var app = angular.module('App', [
+                'colorbox'
+            ]);
+
+
+        </script>
+    </body>
+</html>

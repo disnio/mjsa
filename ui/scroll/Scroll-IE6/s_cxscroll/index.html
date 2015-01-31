@@ -42,7 +42,7 @@ ul{list-style-type:none;}
 </style>
 </head>
 <body>
-<h1>jQuery cxScroll 间歇式无缝滚动</h1>
+<!-- <h1>jQuery cxScroll 间歇式无缝滚动</h1> -->
 
 <div class="wrap">
 	<h2>横向滚动[right]</h2>
@@ -57,7 +57,7 @@ ul{list-style-type:none;}
 			</ul>
 		</div>
 	</div>
-
+<!-- 
 	<h2>横向滚动[left]</h2>
 	<div id="pic_list_2" class="scroll_horizontal">
 		<div class="box">
@@ -96,7 +96,7 @@ ul{list-style-type:none;}
 			</ul>
 		</div>
 	</div>
-
+ -->
 	<h2>文档</h2>
 	<ul>
 		<li><a target="_blank" href="https://github.com/ciaoca/cxScroll">Github</a></li>
@@ -111,10 +111,16 @@ ul{list-style-type:none;}
 <script src="js/jquery-1.4.4.min.js"></script>
 <script src="js/jquery.cxscroll.min.js"></script>
 <script>
-$("#pic_list_1").cxScroll();
-$("#pic_list_2").cxScroll({direction:"left",step:3});
-$("#pic_list_3").cxScroll({direction:"bottom",speed:500,time:1500,plus:false,minus:false});
-$("#pic_list_4").cxScroll({direction:"top"});
+$("#pic_list_1").cxScroll({auto:false});
+// $("#pic_list_2").cxScroll({direction:"left",step:3});
+// $("#pic_list_3").cxScroll({direction:"bottom",speed:500,time:1500,plus:false,minus:false});
+// $("#pic_list_4").cxScroll({direction:"top"});
+// 
+$(".list li").click(function(e){
+	$curzitem = $(e.currentTarget);
+	var zsrc = $curzitem.find("img").attr("src");
+	console.log($curzitem, zsrc);
+})
 </script>
 </body>
 </html>

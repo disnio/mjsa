@@ -1,0 +1,28 @@
+{
+  "name": "angular-sticky-element",
+  "version": "0.0.1",
+  "homepage": "https://github.com/izifortune/angular-sticky-element",
+  "authors": [
+    "Fabrizio Fortunato <fortune@cortesconta.net>"
+  ],
+  "description": "Sticky element directive using jquery-waypoints",
+  "main": "app/src/sticky-element.js",
+  "keywords": [
+    "angular",
+    "jquery-waypoints",
+    "sticky"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-waypoints": "~2.0.5",
+    "angular": "~1.2.20"
+  }
+}
