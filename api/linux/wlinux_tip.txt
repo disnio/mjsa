@@ -1,0 +1,85 @@
+﻿-------------------------------------------------------
+备份：
+tar -zcvf hxay130201.tar.gz * --exclude video --exclude download
+tar -zxvf
+wget http://nchc.dl.sourceforge.net/sourceforge/awstats/awstats-7.1-1.noarch.rpm
+wget http://prdownloads.sourceforge.net/webadmin/webmin-1.700-1.noarch.rpm 
+
+安装模式：　　　　　　rpm　–i　[安装选项]　　<软件包>
+查询模式：　　　　　　rpm　–q　[查询选项]
+验证模式：　　　　　　rpm　–V　或　–verify　[验证选项]
+删除模式：　　　　　　rpm　–e　　<软件包> 
+查询的命令格式如下：　　rpm　–q　　[查询选项] 
+信息选项：
+-i　　显示软件包的信息，包括名称、版本、描述信息。
+-R　　显示这个软件包所依赖的软件包。　同--requires。
+--provides　　显示这个软件包所提供的功能
+-l　　列出这个软件包内所包含的文件。
+-s　　显示这个软件包的状态，状态是指“normal”“not　installed”“replaced”
+
+rpm -qa |grep vsftpd 查询是否安装了vsftpd（提示无）
+强制安装：
+#　rpm　–ivh　bar-1.0-1.i386.rpm　--nodeps 
+rpm -ivh webmin-1.700-1.noarch.rpm
+升级软件包：
+#　rpm　–Uhv　　xanim-27064-1.i386.rpm 
+删除：--allmatches 删除所有版本
+#　rpm　–e　xanim 
+--allmatches
+删除<软件包>所指定的所有版本的软件，如果有多个版本存在的话，一般会给出错误码信息。
+
+--nodeps
+如果要删除的软件包是别的软件所必需的，在删除时用户会得到警告。这时，如果确认要强行删除，可以使用
+
+--nodeps这个选项。这样一来，相关的软件就不能运行了。 
+
+--test　　　不真正删除，只是测试。
+
+df -h 查看文件系统使用
+
+查看：查询档案或目录的磁盘使用空间 
+能以指定的目录下的子目录为单位，显示每个目录内所有档案所占用的磁盘空间大小。例如： 
+du -h/etc
+du * -sh 显示目录的总大小
+du --exclude <video, gc> -sh *
+# du /etc | sort -nr | more  
+sort 的参数 -nr 表示要以数字排序法进行反向排序
+du -c log30.tar.gz log31.tar.gz 文件总和
+
+rm -rf dirname 删除目录及文件
+
+cp -r dirname 复制目录及文件
+
+touch filename 创建文件
+
+pwd print work directory
+
+updatedb 更新文件数据库
+locate filename 搜索文件名
+
+设置系统时间，并写入硬件bios
+date -s 05/10/2013
+date -2 15:30:01
+clock -w
+
+显示目前所有档案系统的最大可用空间及使用情形
+df -hi df -h
+
+更改目录权限
+drwxr-xr-x 22 root      root  4096 May 25 16:46 html 755
+chown hxftp:apache html
+
+搜索替换（注意空格）
+# find . -name '*.html' -exec sed 's/kmbm/kcbm/' {} \;
+find . -mtime -2 -print 两天内修改的文件
+find . -user 'hxaytest' -print 所有者为hxaytest的文件
+find . -group 'apache' -print apache组的用户
+find . -perm 755 -print 权限查询
+find . -name "*.php" | xargs echo "">testlog.log
+find /tmp -name core -type f -print0 | xargs -0 /bin/rm -f
+find   /home   -uid   +501   列出/home目录内用户的识别码大于501的文件或目录
+find    /   -mmin   -5         # 查找在系统中最后5分钟里修改过的文件
+find    /   -mtime   -1       #查找在系统中最后24小时里修改过的文件
+find   /home   -size   -512k               查小于512k的文件
+find *.c -exec cp ‘{}’ /tmp ‘;’ 将find出来的东西拷到另一个地方
+find . -user 48 | xargs chown -R hxftp:apache

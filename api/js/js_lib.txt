@@ -1,0 +1,208 @@
+http://64.233.167.164/
+http://64.233.167.165/
+http://64.233.167.163/
+http://64.233.167.166/
+
+https://a26.d.akamai.net/f/1/1/1/dci.download.akamai.com/35985/159415/1/g/
+最后这个是镜像网站
+------------------------------------------------------------------
+mockjax：
+<script src="{% static "js/jquery.mockjax.js" %}"></script>
+<script src="{% static "test/tjax.js" %}"></script>
+------------------------------------------------------------------
+高度不变，加粗后宽度加1
+网页: font-size:60px; 在ps中实际45px--43px
+ps:   font-size:60px; 58px-60px 相差约15px
+14px网页字体与ps相差3px
+http://www.gbtags.com/gb/share/1945.htm
+构建工具/taskrunner（比如Grunt）
+UI小部件库（比如KendoUI）
+运行测试（比如Karma）
+架构方案（比如Yeoman）
+
+导航：http://123.jser.us/
+---------------------------------------------------------------------------
+force IE into standards mode:
+<meta http-equiv="X-UA-Compatible" value="IE=edge" /> 同时加下面，
+若页面需默认用极速核，增加标签：<meta name="renderer" content="webkit">
+若页面需默认用ie兼容内核，增加标签：<meta name="renderer" content="ie-comp">
+若页面需默认用ie标准内核，增加标签：<meta name="renderer" content="ie-stand">
+content的取值为webkit,ie-comp,ie-stand之一，区分大小写，分别代表用webkit内核，IE兼容内核，IE标准内核。
+
+<meta name="viewport" content="width=device-width,target-densitydpi=high-dpi,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+device-dpi –使用设备原本的 dpi 作为目标 dp。 不会发生默认缩放。
+high-dpi – 使用hdpi 作为目标 dpi。 中等像素密度和低像素密度设备相应缩小。
+medium-dpi – 使用mdpi作为目标 dpi。 高像素密度设备相应放大， 像素密度设备相应缩小。 这是默认的target density.
+low-dpi -使用mdpi作为目标 dpi。中等像素密度和高像素密度设备相应放大。
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
+<script src="http://cdn.bootcss.com/es5-shim/4.0.3/es5-shim.min.js"></script>
+<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="http://cdn.bootcss.com/nwmatcher/1.2.5/nwmatcher.min.js"></script>
+<script src="http://cdn.bootcss.com/selectivizr/1.0.2/selectivizr.js"></script>
+<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
+<![endif]-->
+---------------------------------------------------------------------------
+百度cdn-jquery：
+    支持的版本： 2.0.3, 2.0.2, 2.0.1, 2.0.0, 1.10.2, 1.10.1, 1.10.0, 1.9.1, 1.9.0, 1.8.3, 1.8.2, 1.8.1, 1.8.0, 1.7.2, 1.7.1, 1.7.0, 1.6.4, 1.6.3, 1.6.2, 1.6.1, 1.6.0, 1.5.2, 1.5.1, 1.5.0, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.6, 1.2.3 
+angular：
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
+http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js
+http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.min.js"></script>
+jQueryui:
+<script src="http://libs.baidu.com/jqueryui/1.9.2/jquery-ui.min.js "></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://libs.baidu.com/jqueryui/1.9.2/themes/base/jquery-ui.css" />
+支持的版本：1.10.2, 1.10.1, 1.10.0, 1.9.2, 1.9.1, 1.9.0, 1.8.24, 1.8.23, 1.8.22, 1.8.21, 1.8.20, 1.8.19, 1.8.18, 1.8.17, 1.8.16, 1.8.15, 1.8.14, 1.8.13, 1.8.12, 1.8.11, 1.8.10, 1.8.9, 1.8.8, 1.8.7, 1.8.6, 1.8.5, 1.8.4, 1.8.2, 1.8.1, 1.8.0, 1.7.3, 1.7.2, 1.7.1, 1.7.0, 1.6.0, 1.5.3, 1.5.2
+
+easing：
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" type="text/javascript"></script>
+
+swfObject：
+<script src="http://libs.baidu.com/swfobject/2.2/swfobject.js"></script>
+
+underscore：
+<script src="http://libs.baidu.com/underscore/1.3.3/underscore-min.js"></script>
+<script src="http://cdn.staticfile.org/underscore.js/1.6.0/underscore-min.js"></script>
+
+backbone：
+<script src="http://cdn.staticfile.org/backbone.js/1.1.2/backbone-min.js"></script>
+
+
+开发静态文件：
+http://www.staticfile.org/
+
+jQuery Tools：
+<script src="http://libs.baidu.com/jquerytools/1.2.7/jquery.tools.min.js"></script>
+<script src="http://cdn.jquerytools.org/1.2.7/all/jquery.tools.min.js"></script>
+
+JSON：
+<script src=" http://libs.baidu.com/json/json2/json2.js"></script>
+
+Qunit：
+<script src="http://libs.baidu.com/quint/1.9.0/qunit.js"></script>
+---------------------------------------------------------------------------
+火狐下图片不显示img， 因为是ad禁用的结果，改文件名不要有ad。
+
+两个布局组件需要测试，加入自定义数据。
+少用position
+给float外一个高度容器。
+1.
+< meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+Google Chrome Frame(谷歌内嵌浏览器框架GCF)。这个插件可以让用户的IE浏览器外不变，但用户在浏览网页时，实际上使用的是Google Chrome浏览器内核，而且支持IE6、7、8等多个版本的IE浏览器。
+这样写可以达到的效果是如果安装了GCF，则使用GCF来渲染页面，如果为安装GCF，则使用最高版本的IE内核进行渲染。
+通过修改HTTP头文件的方法来实现让指定的页面使用GCF内核进行渲染：
+
+2.在HTTP的头文件中加入以下信息：X-UA-Compatible: chrome=1
+
+　　在Apache服务器中，确保 mod_headers 和 mod_setenvif文件可用，然后在httpd.conf中加入以下配置信息：
+
+　　< IfModule mod_setenvif.c>
+　　< IfModule mod_headers.c>
+　　BrowserMatch chromeframe gcf
+　　Header append X-UA-Compatible "chrome=1" env=gcf
+
+　　在IIS7或者更高版本的服务器中，只需要修改web.config文件,添加如下信息即可即可:
+　　< configuration >
+　　< system.webServer >
+　　< httpProtocol >
+　　< customHeaders >
+　　< add name = "X-UA-Compatible" value = "chrome=1" />
+　　<system.webServer >
+
+　　
+json3用在解析wennuke传回的.net json对象，进行测试：
+-------------------------------------------------------------------
+浏览器识别：
+var isIE6 = navigator.userAgent.indexOf("MSIE 6.0") !== -1;
+var isIE7 = navigator.userAgent.indexOf("MSIE 7.0") !== -1;
+var isIE8 = navigator.userAgent.indexOf("MSIE 8.0") !== -1;
+var isIE9 = navigator.userAgent.indexOf("MSIE 9.0") !== -1;
+var isIE10 = navigator.userAgent.indexOf("MSIE 10.0") !== -1;
+//!var isIE11 = navigator.userAgent.indexOf("IE 11.0") !== -1;
+var isIE11 = /\btrident\/[0-9].*rv[ :]11\.0/.test(navigator.userAgent);
+var isIE = document.all && !window.XMLHttpRequest;
+// 多个浏览器识别
+var isIE678 = /\bMSIE [678]\.0\b/.test(navigator.userAgent);
+https://github.com/aralejs/detector/issues/18
+http://browserhacks.com/#ie
+
+var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+
+if( jQuery.browser.msie && jQuery.browser.version == '8.0' ){
+
+} 
+---------------------------------------------------------------------
+
+横向滚动条消失出现在hover元素时，是由于开启了firebug并固定在了浏览器中，影响宽度计算。把火狐浮动出来测试页面效果。
+
+m_Aim_sony 里面有 menuAim 插件的用法，类似亚马逊纵向菜单的鼠标走向角度的判断。和 correctPNG() 函数。
+
+scroll/jQuery.Marquee 里面有 jQuery.pause 插件。用于动画的暂停。
+http://ip.taobao.com/service/getIpInfo.php?ip=124.127.167.46
+##tab
+-------------------------------------------------------------------
+------------
+使用text-overflow:ellipsis对溢出文本显示省略号有两个好处，一是不用通过程序限定字数；二是有利于SEO。
+需要使用对对溢出文本显示省略号的通常是文章标题列表，这样处理对搜索引擎更友好，
+因为标题实际上并未被截字，而是局限于宽度而未被显示而已。
+
+通常的做法是这样的：
+1.overflow:hidden; 2.text-overflow:ellipsis; 3.-o-text-overflow:ellipsis; 4.white-space:nowrap; 5.width:100%;
+其中，overflow: hidden和white-space: nowrap都是必须的否则不会显示省略号
+；-o-text-overflow: ellipsis针对Opera；而宽度的设定主要是针对IE6；
+
+该方法支持Internet Explorer, Safari, Chrome 和 Opera，FF也支持在新版支持。
+---------------
+http://edu.yy.com
+.mod-tab .course-detail-cont img { max-width: 668px; _width: expression((document.documentElement.clientWidth||document.body.clientWidth)<668?"668px":""); overflow: hidden; }
+/*半透明黑色背景*/
+.shade-div { position: fixed; top: 0; left: 0; width: 100%; height: 500px; background-color: #000; filter: alpha(opacity=30); opacity: 0.3; z-index: 20008; _position: absolute; _top: expression(documentElement.scrollTop); }
+
+
+/*fixed定位窗口*/
+.win-fixed { position: fixed; top: 50%; left: 50%; }
+* html { background-image: url(about:blank); background-attachment: fixed; }
+* html .win-fixed { position: absolute; bottom: auto; top: expression(documentElement.scrollTop + (documentElement.clientHeight/2 - this.clientHeight/2)); margin-top: 0; }
+------------------
+png-8 索引颜色模式 扩散透明， 图层剥离，偏移左侧固定
+
+---------------------
+IE6不支持max-width，可以用 * html img{ width:expression(this.width>500?”500”:width); } 来实现。　　
+img{max-width:500px;}
+
+/* 文字竖排 */
+.vpjj        {position: absolute; top:0px; left:220px;  width:400px; height:220px;}
+.vpjj p      {line-height: 16px; width:16px; padding:0 5px; _padding:0px 2px; letter-spacing: 10px; float:right;  display:inline;}
+.vpjj p span {clear:both; width:16px; height:16px; line-height:16px; text-align: center; float: left; display:inline;}
+设置和模型属性为标准模式：实际width = width + border + padding
+#colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
+/* 代码片段 */
+---------------------------------------------------------------
+渐变:
+background: #339bc2 -webkit-gradient(linear, left top, left bottom, from(#7cb8ce), to(#339bc2)) no-repeat; background: #339bc2 -moz-linear-gradient(top, #7cb8ce, #339bc2) no-repeat;
+---------------------------------------------------------------
+规范：
+https://github.com/fex-team/styleguide
+https://github.com/darcyclarke/Front-end-Developer-Interview-Questions/tree/master/Chinese
+-------------------------------------------------
+
+获取随机固定宽度的图片：
+    function genBrick() {
+        var height = ~~ (Math.random() * 500) + 100;
+        var id = ~~ (Math.random() * 10000);
+        console.log(height, id);
+        return {
+            src: 'http://lorempixel.com/g/280/' + height + '/?' + id
+        };
+    };
+
+    $scope.bricks = [
+        genBrick(),
+        genBrick(),
+        genBrick(),
+        genBrick(),
+        genBrick()
+    ];

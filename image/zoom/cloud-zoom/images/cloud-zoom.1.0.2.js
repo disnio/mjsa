@@ -7,9 +7,6 @@
 //////////////////////////////////////////////////////////////////////////////////
 (function ($) {
 
-    $(document).ready(function () {
-        $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
-    });
 
     function format(str) {
         for (var i = 1; i < arguments.length; i++) {
@@ -203,7 +200,7 @@
 
                 var xPos = opts.adjustX,
                     yPos = opts.adjustY;
-                             
+                             console.log("fir",xPos);
                 var siw = sImg.outerWidth();
                 var sih = sImg.outerHeight();
 
@@ -247,7 +244,7 @@
                         h = appendTo.innerHeight();
                     }
                 }
-
+                console.log("xPos", xPos);
                 zoomDiv = appendTo.append(format('<div id="cloud-zoom-big" class="cloud-zoom-big" style="display:none;position:absolute;left:%0px;top:%1px;width:%2px;height:%3px;background-image:url(\'%4\');z-index:99;"></div>', xPos, yPos, w, h, zoomImage.src)).find(':last');
 
                 // Add the title from title tag.
@@ -336,10 +333,19 @@
 			// Hmm...eval...slap on wrist.
 			eval('var	a = {' + $(this).attr('rel') + '}');
 			relOpts = a;
+            // ms
+            var zmimg = $(this).find("img");
+            var zmw = zmimg.width();
+            var zmh = zmimg.height();
+
+
+            // me
             if ($(this).is('.cloud-zoom')) {
                 $(this).css({
                     'position': 'relative',
-                    'display': 'block'
+                    'display': 'block',
+                    'width': zmw,
+                    'height': zmh
                 });
                 $('img', $(this)).css({
                     'display': 'block'

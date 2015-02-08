@@ -1,0 +1,85 @@
+-------------
+SecureFX 乱码：
+c:\Users\Administrator\AppData\Roaming\VanDyke\Config\Sessions
+
+在SecureFx中选择Options->Global Options菜单，在打开的Global Options的对话框中选择General。Configuration folder。里面的路径就是SecureFX的配置文件路径。在Sessions子目录下找到对应的Session的ini配置文件。
+将"Filenames Always Use UTF8"=00000000修改为"Filenames Always Use UTF8"=00000001保存重新连接即可。 
+Session Options（会话选项） -> Terminal（终端） -> Appearance（显示）, 将Charater（字符）选择成 UTF-8就支持中文了。
+
+--------------------------------------------------------
+mysql：
+webadmin 中， 直接添加用户，并授权，作为远程账号。主机，加权限。
+/etc/rc.d/init.d/mysqld start
+
+vsftpd：
+http://blog.chinaunix.net/uid-18831400-id-151990.html
+http://www.cnblogs.com/hhuai/archive/2011/02/12/1952647.html
+yum install vsftpd
+service vsftpd status
+service vsftpd start
+
+添加ftp用户，设置主目录为上传目录，更改权限。
+/etc/vsftpd/conf
+chroot_list_file=/etc/vsftpd/chroot_list
+
+userlist_deny=NO
+userlist_file=/etc/vsftpd/user_list
+#local_root=/var/www/html
+ftp_username=hxftp
+user_list里面把不用的用户注释掉，添加建立的ftp用户。
+---------------------------------------------------------
+
+-----------------------------------------------------------
+centos 升级 python2.6.6 -> python2.7.8
+wget https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz 
+./configure --enable-shared --prefix=/usr/local/python2.7
+--enable-unicode=ucs4  
+ make make install
+
+cd /usr/bin/
+ls -l |grep python
+mv python python.back
+ln -sv /usr/local/python2.7/bin/python /usr/bin/python
+
+ln -s /usr/local/python2.7/lib/libpython2.7.so /usr/lib
+ln -s /usr/local/python2.7/lib/libpython2.7.so.1.0 /usr/lib
+ln -s /usr/local/python2.7/bin/python2.7 /usr/bin
+ln -s /usr/bin/python2.7 /usr/bin/python27
+/sbin/ldconfig -v
+
+修改vim /usr/bin/yum
+把头前!#/usr/bin/python 改为 /usr/bin/python2.6.6
+------------------------------------------------------------
+yum groupinstall "Development tools"  
+yum install zlib-devel bzip2-devel pcre-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel python-devel libxml2  libxml2-devel  python-setuptools  zlib-devel wget openssl-devel pcre pcre-devel sudo gcc make autoconf automake 
+-------------------
+http://www.2cto.com/os/201402/279911.html
+http://www.68idc.cn/help/jiabenmake/qita/2014042391351.html
+------------------------------------------------------------
+这个是正确的，关键是：
+http://www.johnwoltman.com/post/installing-geodjango-postgis-centos-65/
+# Download and install Python
+wget http://python.org/ftp/python/2.7.6/Python-2.7.6.tgz
+tar xzf Python-2.7.6.tgz
+cd Python-2.7.6
+./configure --prefix=/usr/local --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+make
+# Make sure you use altinstall, or you'll overwrite the system python
+这一句： make altinstall
+----------
+然后：
+The command python2.7 should now be available.  Let's keep installing packages for Python:
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | python2.7
+easy_install-2.7 pip virtualenv
+yum update httpd
+yum install httpd-devel
+yum install glibc
+-------------------
+yum install db4
+http://rpm.pbone.net/index.php3/stat/4/idpl/25155868/dir/fedora_20/com/libdb4-4.8.30-11.fc20.x86_64.rpm.html
+wget ftp://ftp.univie.ac.at/systems/linux/fedora/releases/20/Everything/x86_64/os/Packages/l/libdb4-4.8.30-11.fc20.x86_64.rpm
+libdb47-4.7.25-3mamba.x86_64 requires libc.so.6(GLIBC_2.14)(64bit)
+-------------------
+easy_install mod_wsgi
+--------
+---------------------------------------------------------------------

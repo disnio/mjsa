@@ -1,0 +1,41 @@
+bootstrap
+W = A*n -g
+
+
+fotosay.com  width: 950px  margin-lr:10px  左右但不统一 margin-tb:5px
+keypark.org  width: 970px  margin-lr:20px  左右大列统一 margin-tb:10px
+asakaka.com  width: 1002px
+------------------
+阿里巴巴：
+990 = 40 * 25 - 10
+990 = 100 * 10 - 10
+------------------
+很少：
+980 = 50 * 20 - 20
+980 = 100 * 10 - 20
+------------------
+多数：
+940 = 80 * 12 - 20
+940 = 60 * 16 - 20
+940 = 40 * 24 - 20
+------------------
+970 xxx 没有 97质数不能分解
+------------------
+200
+
+90
+
+<script src="http://libs.baidu.com/jquery/1.8.2/jquery.js"></script> 
+再高版本1.9不支持浏览器检测了。
+需要把每一快单独拿出来测试下，然后组合。
+----------------------------------------------------------------------------
+Grid：
+ie6下属性选择符失效  *= ， 所以必须把具体的内容写到span里面，并加上 display:inline
+[class*="span"] { float: left;  margin-left: 10px; min-height: 1px; }
+.span12 { width: 940px; display: inline; float: left; min-height: 1px; margin-left: 20px; }
+-------
+ie6下 ：伪类选择符 E:first-child 失效。需要通过脚本来进行修正。
+span* 和 offset*
+.row-fluid .offset25
+------
+row-fluid 下span* 的 margin-left 值 ie6，ie7可以相同。

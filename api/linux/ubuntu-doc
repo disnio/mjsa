@@ -1,0 +1,25 @@
+sudo apt-add-repository ppa:fcitx-team/nightly    #添加源  
+sudo apt-get update                               #更新源  
+sudo apt-get remov
+e fcitx*                        #如果以前安装过fcitx，需要将其删除（可以输入“fcitx”查看是否安装）  
+sudo apt-get install fcitx-sogoupinyin    #安装搜狗拼音（注意：“sogoupinyin”而不是“sougoupinyin”）
+--------------------------------------------------
+git：
+sudo apt-get build-dep git-core git-doc
+sudo apt-get install git
+-----------------------------------------------------------------
+Server URL         : http://localhost:8000/
+Server Root        : /tmp/mod_wsgi-localhost:8000:1000
+Server Conf        : /tmp/mod_wsgi-localhost:8000:1000/httpd.conf
+Error Log File     : /tmp/mod_wsgi-localhost:8000:1000/error_log
+
+sudo apt-get install libapache2-mod-wsgi
+sudo apt-get remove libapache2-mod-wsgi
+
+sudo apache2ctl start
+
+WSGIPythonPath /home/oydsoft/www/oscar/artmall:/home/oydsoft/www/oscar/lib/python2.7/site-packages
+to apache2.conf
+ServerName localhost
+-----
+$ grep tix /etc/hosts
