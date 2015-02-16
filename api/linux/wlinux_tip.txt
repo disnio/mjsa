@@ -83,3 +83,5 @@ find    /   -mtime   -1       #查找在系统中最后24小时里修改过的�
 find   /home   -size   -512k               查小于512k的文件
 find *.c -exec cp ‘{}’ /tmp ‘;’ 将find出来的东西拷到另一个地方
 find . -user 48 | xargs chown -R hxftp:apache
+git一个有用的地方，去除对pyc的跟踪
+find . -regex '.*\.pyc' -exec git rm --cached {} \;
