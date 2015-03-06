@@ -5,6 +5,7 @@ http://64.233.167.166/
 
 https://a26.d.akamai.net/f/1/1/1/dci.download.akamai.com/35985/159415/1/g/
 最后这个是镜像网站
+image: 'http://placekitten.com/' + newWidth + '/300',
 ------------------------------------------------------------------
 mockjax：
 <script src="{% static "js/jquery.mockjax.js" %}"></script>

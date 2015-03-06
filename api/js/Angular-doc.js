@@ -87,15 +87,13 @@ Angular（1.3.0） 开始减少了对IE8的支持。
 <!doctype html> 
 <html xmlns:ng="http://angularjs.org"> 
 <head> 
-<!--[if lte IE 8] 
-<script src="lib/json2.js"></script>
-<script src="lib/angular-ui-ieshiv.js"></script> 
-<script> 
-    window.myCustomTags = ['myDirective']; 
-    document.createElement('ng-view'); 
-    // 其他自定义元素 
-</script> 
-<![endif]--> 
+    <!--[if lte IE 8]>        
+        <script src="bower_components/json3.js"></script>
+        <script>
+        window.myCustomTags = [ 'accordion', 'accordionGroup', 'accordionHeading', 'accordionTransclude' ];
+        </script>       
+        <script src="bower_components/ui-utils-ieshiv.js"></script>
+    <![endif]-->
 </head> 
 <body> 
 使用属性（attribute）形式的指令，这样就无需创建自定义元素来支持IE：
@@ -363,7 +361,9 @@ myModule.factory('$alert', ['$window', function($window) {
         alert: function(text) {
             $window.alert(text);
         }
-    };}]);
+    };
+}
+]);
 
 var myController = function($scope, $alert) {
     $scope.message = function(msg) {
@@ -436,8 +436,8 @@ Directive Definition Object 指令定义对象
 
     替换replace - 如果被设置成true那么现在的元素会被模板替换，而不是被插入到元素中。
 
-    编译模板transclude - 将元素编译好，使得指令可以开始使用它。一般情况下需要和ngTransclude指令一起使用。 使用嵌入的好处在于链接函数可以获取到预绑定在作用域上的函数。在一个典型的初始化过程中，widget会创建一个孤立的作用域，但是嵌入并不是其中一个子成员，而是这孤立作用域的兄弟成员。这使得widget可以有一个私有的状态，并且嵌入被绑定在父作用域上。
-        true - 嵌入指令的内容。
+    编译模板transclude - 将元素编译好，使得指令可以开始使用它。一般情况下需要和ngTransclude指令一起使用。 使用嵌入的好处在于【链接函数可以获取到预绑定在作用域上的函数】。在一个典型的初始化过程中，【widget会创建一个孤立的作用域，但是嵌入并不是其中一个子成员，而是这孤立作用域的兄弟成员】。这使得widget可以有一个私有的状态，并且嵌入被绑定在父作用域上。
+        true - 【嵌入指令的内容】，把指令的子元素全部放入ng-transclude指令的div里面。template的内容则作为指令的子元素。
         'element' - 嵌入整个元素，包括优先级较低的指令。
 
     编译compile - 这就是后面将要讲到的编译函数。
@@ -548,6 +548,7 @@ angular.module('docsTabsExample', [])
 angular.module('docsTabsExample', [])
 .directive('myPane', function() {
   return {
+    // 注意这里的写法，数组，所以下面有controllers[0]，的写法。
     require: ['^myTabs', '^ngModel'],
     restrict: 'E',
     transclude: true,
@@ -560,7 +561,7 @@ angular.module('docsTabsExample', [])
 
       tabsCtrl.addPane(scope);
     },
-    templateUrl: 'my-pane.html'
+    templateUrl: 'my-panel.html'
   };
 });
 
@@ -621,28 +622,11 @@ angular.module('ngRouteExample', ['ngRoute'])
             myUrl: '=someAttr', // 经过了修改 
             myLinkText: '@' 
         }, 
-        template: '<div><label>My Url Field:</label> <input type="text"ng-model="myUrl" /> <a href="{{myUrl}}">{{myLinkText}}</a> </div>'
+        template: '<div><label>My Url Field:</label><input type="text"ng-model="myUrl" /><a href="{{myUrl}}">{{myLinkText}}</a></div>'
     };
 });
 ---------------------------------------------
 内置指令：
-
-<input type="text" ng-model="someProperty" placeholder="TypetoEnable"> 
-<button ng-model="button" ng-disabled="!someProperty">AButton</button> 
-angular.module('myApp', []) 
-.run(function($rootScope, $timeout) { 
-    $rootScope.isDisabled = true; 
-    $timeout(function() { 
-        $rootScope.isDisabled = false; 
-    }, 5000); 
-}); 
-ng-readonly 
-
-<label>someProperty = {{someProperty}}</label> 
-<input type="checkbox" 
-       ng-checked="someProperty" 
-       ng-init="someProperty = true" 
-       ng-model="someProperty"> 
 
 ng-selected可以对是否出现option标签的selected属性进行绑定： 
 <label>Select Two Fish:</label> 
@@ -656,7 +640,7 @@ ng-selected可以对是否出现option标签的selected属性进行绑定：
 ng-href 和 ng-src都能有效帮助重构和避免错误，因此在改进代码时强烈建议用它们代替原来的href和src属性。 
 
 <!-- 当 href 包含一个 {{expression}}时总是使用 ng-href --> 
-<a ng-href="{{ myHref }}">I'm feeling lucky, when I load</a> 
+<a ng-href="{{ myHref }}">Im feeling lucky, when I load</a> 
 将插值生效的事件延迟两秒，来观察实际的行为： 
 angular.module('myApp', []) 
 .run(function($rootScope, $timeout) { 
@@ -743,7 +727,7 @@ ng-bind-template="{{message}}{{name}}">
 </div>
 This directive is needed since some HTML elements (such as TITLE and OPTION) cannot contain SPAN elements.
 
-ng-model：指令用来将input、select、text area或自定义表单控件同包含它们的作用域中的属性进行绑定。
+ng-model：指令用来将input、select、textarea或自定义表单控件同包含它们的作用域中的属性进行绑定。
 应该始终用ngModel来绑定$scope上一个数据模型内的属性，而不是$scope上的属性，
 这可以避免在作用域或后代作用域中发生属性覆盖。 
 例如： <input type="text" ng-model="modelName.someProperty" /> 
@@ -844,8 +828,7 @@ ng-submit：用来将表达式同onsubmit事件进行绑定
  
 angular.module('myApp',[]) 
 .controller('FormController',function($scope) { 
- 
-    $scope.person = { 
+     $scope.person = { 
         name: null 
     }; 
  
@@ -1000,7 +983,7 @@ Inside myDirective, isolate scope:
 指令内部的隔离作用域，同指令外部的作用域进行数据绑定。
 @ 符号将本地作用域同DOM属性的值进行绑定。指令内部作用域可以使用外部作用域的变量
 =可以将本地作用域上的属性同父级作用域上的属性进行双向的数据绑定。
-&符号可以对父级作用域进行绑定，以便在其中运行函数。。意味着对这个值进行设置时会生成一个指向父级作用域的包装函数。 
+&符号可以对父级作用域进行绑定，以便在其中运行函数。意味着对这个值进行设置时会生成一个指向父级作用域的包装函数。 
 
 告诉AngularJS编译器，将它从DOM元素中获取的内容放到它发现 ng-transclude指令的地方。
 借助transclusion，我们可以将指令复用到第二个元素上，而无须担心样式和布局的一致性问题。
@@ -1087,18 +1070,18 @@ angular.module('myApp')
         transclude: true, 
         controller:  
             function($scope, $element, $transclude, $log) { 
-            $transclude(function(clone) { 
-                var a = angular.element('<a>'); 
-                a.attr('href', clone.text()); 
-                a.text(clone.text()); 
-                $log.info("Created new a tag in link directive"); 
-                $element.append(a); 
-            }); 
-        } 
+                $transclude(function(clone) { 
+                    var a = angular.element('<a>'); 
+                    a.attr('href', clone.text()); 
+                    a.text(clone.text()); 
+                    $log.info("Created new a tag in link directive"); 
+                    $element.append(a); 
+                }); 
+            } 
     }; 
 }); 
-指令的控制器和link函数可以进行互换。控制器主要是用来提供可在指令间复用的行为，但链接函数只能在当前内部指令中定义行为，且无法在指令间复用。
-link函数可以将指令互相隔离开来，而controller则定义可复用的行为。
+【指令的控制器和link函数可以进行互换。控制器主要是用来提供可在指令间复用的行为，但链接函数只能在当前内部指令中定义行为，且无法在指令间复用。】
+【link函数可以将指令互相隔离开来，而controller则定义可复用的行为。】
 
 由于指令可以require其他指令所使用的控制器，因此控制器常被用来放置在多个指令间共享的动作。 
 如果我们希望将当前指令的API暴露给其他指令使用，可以使用controller参数，否则可以使用link来构造当前指令元素的功能性。
@@ -1150,16 +1133,16 @@ require参数的值可以用下面的前缀进行修饰，这会改变查找控�
 编译后的模板会返回一个叫做模板函数的函数。我们有机会在指令的模板函数被返回前，对编译后的DOM树进行修改。
 compile选项本身并不会被频繁使用，但是link函数则会被经常使用。本质上，当我们设置了link选项，实际上是创建了一个postLink()链接函数，以便compile()函数可以定义链接函数。 
 
-如果设置了compile函数，说明我们希望在指令和实时数据被放到DOM中之前进行DOM操作，在这个函数中进行诸如添加和删除节点等DOM操作是安全的。
+如果设置了compile函数，【说明我们希望在指令和实时数据被放到DOM中之前进行DOM操作】，在这个函数中进行诸如添加和删除节点等DOM操作是安全的。
 ---
 compile和link选项是互斥的。如果同时设置了这两个选项，那么会把compile 所返回的函数当作链接函数，而link选项本身则会被忽略。
 
-如果模板被克隆过，那么模板实例和链接实例可能是不同的对象。因此在编译函数内部，我们只能转换那些可以被安全操作的克隆DOM节点。不要进行DOM事件监听器的注册。这个操作应该在链接函数中完成。 
+如果模板被克隆过，那么模板实例和链接实例可能是不同的对象。【因此在编译函数内部，我们只能转换那些可以被安全操作的克隆DOM节点。不要进行DOM事件监听器的注册。这个操作应该在链接函数中完成。】 
 ----
 编译函数负责对模板DOM进行转换。 
 链接函数负责将作用域和DOM进行链接。
 
-用link函数创建可以操作DOM的指令。
+【用link函数创建可以操作DOM的指令。】
 
 如果我们的指令很简单，并且不需要额外的设置，可以从工厂函数（回调函数）返回一个函数来代替对象。如果这样做了，这个函数就是链接函数。 
 
@@ -1170,7 +1153,7 @@ angular.module('myApp', [])
             return { 
                 pre: function(tElement, tAttrs, transclude) { 
             // 在子元素被链接之前执行 
-            // 在这里进行Don转换不安全 
+            // 在这里进行Dom转换不安全 
             // 之后调用'lihk'h函数将无法定位要链接的元素 
                 }, 
                 post: function(scope, iElement, iAttrs, controller) { 
@@ -1181,7 +1164,7 @@ angular.module('myApp', [])
             } 
         } 
 });
-。它会在模板编译并同作用域进行链接后被调用，因此它负责设置事件监听器，监视数据变化和实时的操作DOM。
+它会在模板编译并同作用域进行链接后被调用，因此它负责设置事件监听器，监视数据变化和实时的操作DOM。
 
 -------------------------------------------------------------------------------
 连接：
@@ -1207,7 +1190,7 @@ controller参数的值为undefined。
 -------------------
 $parse服务
 
-$parse服务可以讲一个表达式转换为一个函数。这个函数可以被调用，其中的参数是一个上下文对象，通常来说是作用域。
+$parse服务可以将一个表达式转换为一个函数。这个函数可以被调用，其中的参数是一个上下文对象，通常来说是作用域。
 
 另外，通过$parse的表达式返回的这个函数有一个assign属性。这个assign属性也是一个函数，它可以用来在给定的上下文中改变这个表达式的值。 
 <div my-attr="obj.name" my-directive>testing</div>
@@ -1222,12 +1205,12 @@ app.directive('myDirective',function($log,$parse){
 
         elem.bind('click',function(){
         //'model.assign'也是一个函数，它用来更新表达式的值  
-        model.assign(scope,'New name');
-        scope.$apply();
+            model.assign(scope,'New name');
+            scope.$apply();
         })
     }
 });
-面的例子可以充分体现我们为什么需要$parse服务。如果属性值是name，那么我们完全可以不用$parse，只用scope[attrs.myAttr]即可。但是在上面的例子中，方括号并不管用。 
+例子可以充分体现我们为什么需要$parse服务。如果属性值是name，那么我们完全可以不用$parse，只用scope[attrs.myAttr]即可。但是在上面的例子中，方括号并不管用。 
 -------------------------------
 ngModel：是一个用法特殊的指令，它提供更底层的API来处理控制器内的数据。
 
@@ -1294,19 +1277,19 @@ directive('contenteditable', ['$sce',
             link: function(scope, element, attrs, ngModel) {
                 if (!ngModel) return; // do nothing if no ng-model
 
-                // Specify how UI should be updated
+                // Specify how UI should be updated, 从textarea读取内容到当前指令
                 ngModel.$render = function() {
                     element.html($sce.getTrustedHtml(ngModel.$viewValue || ''));
                 };
 
-                // Listen for change events to enable binding
+                // Listen for change events to enable binding，当前指令数据写到textarea
                 element.on('blur keyup change', function() {
+                    //scope.$apply(read);
                     scope.$evalAsync(read);
                 });
                 read(); // initialize
 
                 // Write data to the model
-
                 function read() {
                     var html = element.html();
                     // When we clear the content editable the browser leaves a <br> behind
@@ -1565,8 +1548,6 @@ angular.module('myApp.services', [])
 });
 // 用方括号声明工厂 
 angular.module('myApp.services', []) 
-    .factory('githubService', [function($http) { }]); 
-
  .factory('githubService', function($http) {
         var githubUrl = 'https://api.github.com';
 
@@ -1653,18 +1634,17 @@ angular.module('myApp')
 angular.module('myApp', []) 
 .provider('githubService', function($http) { 
     // 默认的，私有状态 
-    var githubUrl = 'https://github.com' 
- 
+    var githubUrl = 'https://github.com', 
     setGithubUrl: function(url) { 
         // 通过.config改变默认属性 
         if (url) { githubUrl = url } 
-    }， 
+    },
     method: JSONP, // 如果需要，可以重写 
  
     $get: function($http) { 
         self = this; 
         return $http({ method: self.method, url: githubUrl + '/events'}); 
-    } 
+    } ;
 }) 
 .config(function(githubServiceProvider) { 
     githubServiceProvider.setGithubUrl("git@github.com"); 
@@ -1693,14 +1673,13 @@ decorator()：函数可以接受两个参数。
  name（字符串） 
 将要拦截的服务名称。 
  decoratorFn（函数） 
-在服务实例化时调用该函数，这个函数由injector.invoke调用，可以将服务注入这个函
-数中。 
+在服务实例化时调用该函数，这个函数由injector.invoke调用，可以将服务注入这个函数中。 
 
 $delegate：是可以进行装饰的最原始的服务，为了装饰其他服务，需要将其注入进装饰器。
 
 下面的代码展示了如何给githubService添加装饰器，从而为每个请求都加上一个时
 间戳： 
-var githubDecorator = function($delegate,$log) { 
+var githubDecorator = function($delegate, $log) { 
     var events = function(path) { 
         var startedAt = new Date(); 
         var events = $delegate.events(path);  
@@ -1817,7 +1796,7 @@ request
 response 
 requestError 
 responseError 
-
+------------------------------------------------
 设置$httpProvider ：
 使用.config()可以向所有请求中添加特定的HTTP头，这非常有用，尤其是我们希望将身份
 验证的头同请求一同发送，或设置响应类型的时候。 
@@ -1827,6 +1806,7 @@ angular.module('myApp', [])
     $httpProvider.defaults.headers 
         .post['X-Posted-By'] = 'MyAngularApp'; 
 }); 
+------------------------------------------------
 ---------------------------
 使用$resource：
 当同支持RESTful的数据模型一起工作时，它就派上用场了。
@@ -1895,7 +1875,6 @@ User.save({id: '123'}, {name: 'Ari'});
 User.get({id: '123'}, function(user) { 
     $scope.user = user; 
 });
-
 
 要创建一个封装$resource的服务，需要将$resource的服务注入到我们用来封装的服务对象中，并像平时一样调用其中的方法。 
 如下所示： 
@@ -2306,7 +2285,7 @@ angular.module('myApp', ['ngRoute'])
 为了验证用户的身份，需要创建一个服务来对已经存在的用户进行监视。同
 时需要让服务能够访问浏览器的cookie，这样当用户重新登录时，只要会话有效就无需再次进行身份验证。
 angular.module('myApp.services', []) 
-.factory('Auth',  function($cookieStore,ACCESS_LEVELS) { 
+.factory('Auth',  function($cookieStore, ACCESS_LEVELS) { 
     var _user = $cookieStore.get('user'); 
  
     var setUser = function(user) { 
@@ -2707,8 +2686,8 @@ angular.module('myApp')
    return { 
      require: '?ngModel', 
      link: function(scope, ele, attrs, ngModel) { 
-       if (!ngModel) return; 
-         ngModel.$parsers.unshift( 
+        if (!ngModel) return; 
+        ngModel.$parsers.unshift( 
            function(viewValue) { 
              var i = parseInt(viewValue); 
  
@@ -2811,6 +2790,7 @@ ngFocus指令给表单输入字段的blur和focus添加了对应的行为，添�
 <div class="error" ng-show="signup_form.name.$dirty && signup_form.name.$invalid && !signup_form.name.$focused"> 
 在ngModel控制器中使用$isEmpty()方法来判断输入字段是否为空
 
+http://www.cnblogs.com/rohelm/p/4039279.html
 然而在发布的Angular 1.3中，Angular核心做了一个升级。它不再需要基于一个详细的表达式
 状态创建元素显示或隐藏（正如我们在本章所做的那样）：
 从1.3开始，Angular中新增了一个ngMessages指令， $ bower install --save angular-messages
@@ -2940,6 +2920,68 @@ app.directive('ensureUnique', function($http) {
         } 
     } 
 }); 
+---------------------------------------------------------
+<form ng-controller="validationController" name="mainForm" >
+    <p>Email:
+        <input type="email" name="email" ng-model="myEmail" ng-minlength="3" ng-maxlength="50" required is-already-taken hint-on-blur />
+        <div style="color:red" ng-messages="mainForm.email.$error"  ng-show="!mainForm.email.focused"  ng-messages-multiple>
+            <p class="error" ng-message="required">Email is required.</p>
+            <p class="error" ng-message="email">Invalid email address.</p>
+            <p class="error" ng-message="minlength">min length 10</p>
+            <p class="error" ng-message="maxlength">max length 50</p> 
+            <p class="error" ng-message="emailAvailable">Already taken! try other email addresses!</p>
+                   
+        </div>
+    </p>
+    <p>
+        <input type="submit" ng-disabled="mainForm.$invalid" />
+    </p>
+</form> 
+var myModule = angular.module('myModule', ['ngSanitize', 'ngMessages'])
+    .controller('validationController', ['$scope', function($scope) {
+        $scope.user = 'Kavlez';
+        $scope.email = 'sweet_dreams@aliyun.com';
+    }])
+    .directive('hintOnBlur', [function() {
+        return {
+            require: 'ngModel',
+            link: function(scope, element, attrs, ctrl) {
+                ctrl.focused = false;
+                element.bind('focus', function(evt) {
+                    scope.$apply(function() {
+                        ctrl.focused = true;
+                    });
+                }).bind('blur', function(evt) {
+                    scope.$apply(function() {
+                        ctrl.focused = false;
+                    });
+                });
+            }
+        }
+    }])
+    .directive('isAlreadyTaken', function() {
+        return {
+            require: 'ngModel',
+            link: function(scope, ele, attrs, ctrl) {
+                ctrl.$parsers.push(function(val) {
+                    ctrl.$setValidity('emailAvailable', false);
+                    var emailTable = [
+                        'k@gmail.com',
+                        'a@gmail.com',
+                        'v@gmail.com',
+                        'l@gmail.com',
+                        'e@gmail.com',
+                        'z@gmail.com'
+                    ];
+                    for (var i = 0; i < emailTable.length; i += 1)
+                        if (val == emailTable[i])
+                            return;
+                    ctrl.$setValidity('emailAvailable', true);
+                    return val;
+                })
+            }
+        }
+    });
 
 ---------------------------------------------------------------------
 要把事件沿着作用域链向上派送（从子作用域到父作用域），我们要使用$emit()函数。
@@ -2998,3 +3040,161 @@ ngView指令使用$routeChangeSuccess事件来获悉何时实例化控制器并�
 
 指令并不一定要有视图模板。通常情况下，它们可以只作为视图之下处理数据的垫片。
 ngModelController控制器就是这种功能派上用场的一个例子。 
+-------------------------------------------------
+根据访问页面动态加载controller
+http://www.jb51.net/article/60757.htm
+http://blog.sina.com.cn/s/blog_8e90ad960101c0he.html
+app.config(function($controllerProvider, $compileProvider, $filterProvider, $provide) {
+  app.register = {
+    controller: $controllerProvider.register,
+    directive: $compileProvider.directive,
+    filter: $filterProvider.register,
+    factory: $provide.factory,
+    service: $provide.service
+  };
+});
+
+http://www.myext.cn/c/a_5615.html
+<div class="alert alert-danger" role="alert" ng-show="myForm.myWidget.$error.validCharacters">
+    <strong>Oh!</strong> 不符合自定义的验证规则!
+</div>
+
+ngModel.$validators.validCharacters = function(modelValue, viewValue) {
+    var value = modelValue || viewValue;
+    return /[0-9]+/.test(value);
+};
+-----------------
+<input validate-name type="text" name="myWidget" ng-model="userContent" ng-model-options="{updateOn:"blur"}" class="form-control" required uniqueUsername>
+
+<div class="alert alert-danger" role="alert" ng-show="myForm.myWidget.$error.uniqueUsername">
+      <strong>Oh!</strong> 已经存在的用户名!
+</div>
+
+app.directive("validateName",function($http,$q){
+    return {
+        restrict:"A",
+        require:"?^ngModel",
+        link:function(scope,iele,iattr,ctrl){
+            ctrl.$asyncValidators.uniqueUsername = function(modelValue, viewValue) {
+                var value = modelValue || viewValue;
+                // 异步验证用户名是否已经存在
+                return $http.get("/api/users/" + value).
+                then(function resolved(res) {
+                    if(res.data){
+                        //用户名已经存在,验证失败,给下一个promise传递失败通知.
+                        return $q.reject("res.data");
+                    }
+                    else {
+                        //用户名不存在,验证成功.
+                        return true
+                    }
+                }, function rejected() {
+                        //请求失败
+                })
+            };
+        }
+    }
+});
+
+app.directive("contenteditable", function () {
+    return {
+        require:"ngModel",
+        link:function (scope, ele, attrs, ctrl) {
+            //view -> model
+            ele.bind("blur keyup",function() {
+                scope.$apply(function() {
+                    console.log("setViewValue");
+                    ctrl.$setViewValue(ele.text());
+                });
+            });
+
+            //model -> view
+            ctrl.$render = function(value) {
+                console.log("render");
+                ele.html(value);
+            };
+            //读取初始值
+            ctrl.$setViewValue(ele.text());
+        }
+    };
+});
+------------------
+ <form class="form-horizontal" role="form" id="custom_form" name="custom_form" novalidate>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">多个email</label>
+
+        <div class="col-sm-10">
+            <input multiple-email name="user_email" ng-model="user.email" required class="form-control" placeholder="自定义验证，多个邮箱地址，以“；”或者“;”分割" />
+            验证通过：{{custom_form.user_email.$valid}}
+        </div>
+    </div>
+    <div class="form-group  text-center">
+        <input class="btn btn-primary btn-lg" ng-disabled="custom_form.$invalid" type="submit" value="提交" />
+    </div>
+</form>
+.directive('multipleEmail', [function() {
+    return {
+        require: "ngModel",
+        link: function(scope, element, attr, ngModel) {
+            if (ngModel) {
+                var emailsRegexp = /^([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*[;；]?)+$/i;
+            }
+            var customValidator = function(value) {
+                var validity = ngModel.$isEmpty(value) || emailsRegexp.test(value);
+                ngModel.$setValidity("multipleEmail", validity);
+                return validity ? value : undefined;
+            };
+            ngModel.$formatters.push(customValidator);
+            ngModel.$parsers.push(customValidator);
+        }
+    };
+}])
+
+
+------------------------------
+在route时阻塞一下去加载需要的js,加载成功后再继续,
+http://dustindiaz.com/scriptjs
+
+
+单元测试：
+http://www.jb51.net/article/58230.htm
+pre_link, post_link：
+http://www.jb51.net/article/58229.htm
+
+模块：
+http://www.jb51.net/article/60505.htm
+angular.module('myModule', []).
+     value('a', 123).
+     factory('a', function() { return 123; }).
+     directive('directiveName', ...).
+     filter('filterName', ...);
+// is same as
+angular.module('myModule', []).
+     config(function($provide, $compileProvider, $filterProvider) {
+          $provide.value('a', 123)
+          $provide.factory('a', function() { return 123; })
+          $compileProvider.directive('directiveName', ...).
+          $filterProvider.register('filterName', ...);
+});
+
+Angularjs编写KindEditor,UEidtor,jQuery指令
+http://www.jb51.net/article/60435.htm
+------------------------------------------------------------------------------
+动画：
+.animation('.fade-in', function() { 
+     return { 
+         enter: function(element, done) { 
+             // 运行动画 
+             // 当动画结束的时候调用done 
+             return function(cancelled) { 
+                 // 关闭或者取消的回调 
+             } 
+       } 
+     } 
+}); 
+myModule.config(function($animateProvider) { 
+    // 唯一合法的参数是正则表达式 
+    $animateProvider.classNameFilter(/\banimate-/); 
+}); 
+element.on('$animate:before', function(evt, animationDetails) {}); 
+element.on('$animate:after', function(evt, animationDetails) {}); 

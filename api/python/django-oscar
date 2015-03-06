@@ -68,6 +68,8 @@ pip install django-localflavor
 pip install whoosh
 pip install jieba
 haystack 
+
+thumbnail_kvstore 静态文件替换后要清空
 ---------------------------------------------------------------------
 编译mod_wsgi：
 mod_wsgi-4.4.6$ ./configure --with-apxs=/usr/bin/apxs2 --with-python=/usr/bin/python
