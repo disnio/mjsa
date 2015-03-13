@@ -2,10 +2,39 @@ http://64.233.167.164/
 http://64.233.167.165/
 http://64.233.167.163/
 http://64.233.167.166/
+-----------------------
+甸超：18元
+---------------
+Promise -> Express -> Parse[backbone]
 
 https://a26.d.akamai.net/f/1/1/1/dci.download.akamai.com/35985/159415/1/g/
 最后这个是镜像网站
 image: 'http://placekitten.com/' + newWidth + '/300',
+
+在Angular的争议发生后，Reddit上的另一篇文章问：JavaScript开发人员应该迁移到什么技术。
+
+下面是javascript程序应该做的：
+
+React.js 和 Flux (一只有视图 view-only 的库和事件驱动模块)
+Ember.js (MVC框架)
+Knockout.js (视图库)
+Backbone.js (MVC框架)
+Meteor (同构框架)
+Mithril (MVC框架)
+Ember (MVC框架)
+‘不要框架，只需要一堆库就可以了’
+Vue.js (视图库)
+Breeze.js (数据库Model-only)
+Ractive (视图库)
+
+HTML Imports, HTML Templates, Custom Elements 和 Shadow DOM 都是有利的技术，应该让我们减小对框架的依赖，允许创建可重复使用的元素和功能。下面这些技术可以更好地实现这一点：
+
+HTML Imports
+Polymer
+X-Tag
+Bosonic
+
+其实，你需要确保Web组件工作的第一件事是用polyfills来实现该功能，如X-Tag和Polymer。避免那些旧版浏览器不支持的情况。 
 ------------------------------------------------------------------
 mockjax：
 <script src="{% static "js/jquery.mockjax.js" %}"></script>

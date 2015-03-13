@@ -18,3 +18,221 @@ $ npm install --save-dev nodemon
 我们可以不用node app.js启动应用，而用下面的代码替换它： 
 $ nodemon app.js 
 每次对app.js文件作修改并且保存时，nodemon会自动重启Node应用。 
+
+-----------------------------------------------------------------
+body-parser：
+https://github.com/expressjs/body-parser
+var bodyParser = require('body-parser')
+bodyParser.json(options)
+bodyParser.raw(options)
+bodyParser.text(options)
+bodyParser.urlencoded(options)
+-----
+var express = require('express')
+var bodyParser = require('body-parser')
+var app = express()
+// create application/json parser
+var jsonParser = bodyParser.json()
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+// POST /login gets urlencoded bodies
+app.post('/login', urlencodedParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400)
+  res.send('welcome, ' + req.body.username)
+})
+// POST /api/users gets JSON bodies
+app.post('/api/users', jsonParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400)
+  // create user in req.body
+})
+-----------------------------------------------------------------
+morgan：
+var morgan = require('morgan')
+morgan(format, options)
+immediate
+skip:
+// EXAMPLE: only log error responses 
+morgan('combined', {
+  skip: function (req, res) { return res.statusCode < 400 }
+})
+
+stream
+---
+combined, common, dev, short, tiny
+Tokens:
+:date[format] clf iso web
+:http-version  :method  :referrer
+:remote-addr  :remote-user  :req[header]  :res[header]
+:response-time  :status :url :user-agent
+--- 
+var app = express() 
+// create a write stream (in append mode) 
+var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
+ // setup the logger 
+app.use(morgan('combined', {stream: accessLogStream}))
+app.get('/', function (req, res) {
+  res.send('hello, world!')
+})
+---
+var uuid = require('node-uuid')
+morgan.token('id', function getId(req) {
+  return req.id
+})
+var app = express()
+app.use(assignId)
+app.use(morgan(':id :method :url :response-time'))
+ 
+app.get('/', function (req, res) {
+  res.send('hello, world!')
+})
+ 
+function assignId(req, res, next) {
+  req.id = uuid.v4()
+  next()
+}
+---------------------------------------------------------
+https://www.npmjs.com/package/express-handlebars
+https://github.com/ericf/express-handlebars
+express-handlebars-example
+
+var bodyparser = require('body-parser')
+var express = require('express')
+var path = require('path')
+var exphbs = require('express-handlebars');
+var helpers = require('./lib/helpers/helpers');
+// var hbs = exphbs.create({defaultLayout: 'main'});
+
+var app = express()
+var csrfProtection = csrf({
+    cookie: true
+})
+var parseForm = bodyparser.urlencoded({
+    extended: false
+})
+
+app.use(cookieParser())
+
+
+app.use(express.static(path.join(__dirname, 'public/')));
+app.set('views', path.join(__dirname, 'views'));
+// handlebars
+
+var hbs = exphbs.create({
+    // Specify helpers which are only registered on this instance. 
+    defaultLayout : 'main',
+    extname : ".hbs",    
+    helpers : helpers,
+
+    // Uses multiple partials dirs, templates in "shared/templates/" are shared
+    // with the client-side of the app (see below).
+    partialsDir: [
+        'shared/templates/',
+        'views/partials/'
+    ]
+});
+app.engine('.hbs', hbs.engine);
+// app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', '.hbs');
+// app
+
+// Middleware to expose the app's shared templates to the cliet-side of the app
+// for pages which need them.
+function exposeTemplates(req, res, next) {
+    // Uses the `ExpressHandlebars` instance to get the get the **precompiled**
+    // templates which will be shared with the client-side of the app.
+    hbs.getTemplates('shared/templates/', {
+        cache      : app.enabled('view cache'),
+        precompiled: true
+    }).then(function (templates) {
+        // RegExp to remove the ".handlebars" extension from the template names.
+        var extRegex = new RegExp(hbs.extname + '$');
+
+        // Creates an array of templates which are exposed via
+        // `res.locals.templates`.
+        templates = Object.keys(templates).map(function (name) {
+            return {
+                name    : name.replace(extRegex, ''),
+                template: templates[name]
+            };
+        });
+
+        // Exposes the templates during view rendering.
+        if (templates.length) {
+            res.locals.templates = templates;
+        }
+
+        setImmediate(next);
+    })
+    .catch(next);
+}
+
+app.get('/', function (req, res) {
+    res.render('home', {
+        title: 'Home'
+    });
+});
+
+app.get('/yell', function (req, res) {
+    res.render('yell', {
+        title: 'Yell',
+
+        // This `message` will be transformed by our `yell()` helper.
+        message: 'hello world'
+    });
+});
+
+app.get('/exclaim', function (req, res) {
+    res.render('yell', {
+        title  : 'Exclaim',
+        message: 'hello world',
+
+        // This overrides _only_ the default `yell()` helper.
+        helpers: {
+            yell: function (msg) {
+                return (msg + '!!!');
+            }
+        }
+    });
+});
+
+app.get('/echo/:message?', exposeTemplates, function (req, res) {
+    res.render('echo', {
+        title  : 'Echo',
+        message: req.params.message,
+
+        // Overrides which layout to use, instead of the defaul "main" layout.
+        layout: 'shared-templates',
+
+        partials: Promise.resolve({
+            echo: hbs.handlebars.compile('<p>ECHO: {{message}}</p>')
+        })
+    });
+});
+
+//Start server
+var port = 4712;
+app.listen(port, function() {
+    console.log('Express server listening on port %d in %s mode', port, app.settings.env);
+});
+-----------------------------------------------------------
+var finalhandler = require('finalhandler')
+finalhandler(req, res, [options])
+
+Returns function to be invoked as the final step for the given req and res. This function is to be invoked as fn(err). If err is falsy, the handler will write out a 404 response to the res. If it is truthy, an error response will be written out to the res, and res.statusCode is set from err.status.
+-----------------------------------------------------------
+https://www.npmjs.com/package/content-disposition
+var contentDisposition = require('content-disposition')
+Create and parse HTTP Content-Disposition header
+contentDisposition(filename, options)
+
+Create an attachment Content-Disposition header value using the given file name, if supplied. The filename is optional and if no file name is desired, but you want to specify options, set filename to .
+
+res.setHeader('Content-Disposition', contentDisposition('∫ maths.pdf'))
+-----------------------------------------------------------
+var vhost = require('vhost')
+
+vhost(hostname, server)
+
+Create a new middleware function to hand off request to server when the incoming host for the request matches hostname.
+
+-----------------------------------------------------------

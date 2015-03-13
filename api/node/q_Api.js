@@ -1,3 +1,466 @@
+jquery deferred：
+http://javascript.ruanyifeng.com/jquery/deferred.html
+
+Promises的主要目的就是取代回调函数，成为非同步操作的解决方案。
+它的核心思想就是让非同步操作返回一个对象，其他操作都针对这个对象来完成。
+
+progress()用来指定一个回调函数，当调用notify()方法时，该回调函数将执行。
+var userProgress = $.Deferred();
+var $profileFields = $("input");
+var totalFields = $profileFields.length
+    
+userProgress.progress(function (filledFields) {
+    var pctComplete = (filledFields/totalFields)*100;
+    $("#progress").html(pctComplete.toFixed(0));
+}); 
+
+userProgress.done(function () {
+    $("#thanks").html("Thanks for completing your profile!").show();
+});
+
+$("input").on("change", function () {
+    var filledFields = $profileFields.filter("[value!='']").length;
+    userProgress.notify(filledFields);
+    if (filledFields == totalFields) {
+        userProgress.resolve();
+    }
+});
+（1）概述
+deferred.then( doneFilter [, failFilter ] [, progressFilter ] )
+（2）返回值
+deferred对象有三种状态。
+    pending：表示操作还没有完成。
+    resolved：表示操作成功。
+    rejected：表示操作失败。
+
+在jQuery 1.8之前，then()只是.done().fail()写法的语法糖，两种写法是等价的。
+在jQuery 1.8之后，then()返回一个新的promise对象，而done()返回的是原有的deferred对象。
+如果then()指定的回调函数有返回值，该返回值会作为参数，传入后面的回调函数。
+利用then()会修改返回值这个特性，我们可以在调用其他回调函数之前，对前一步操作返回的值进行处理。
+
+（3）对返回值的修改
+var post = $.post("/echo/json/")
+    .then(function(p){
+        return p.firstName;
+    });
+
+post.done(function(r){ console.log(r); });
+
+有时，Ajax操作返回json字符串里面有一个error属性，表示发生错误。这个时候，传统的方法只能是通过done()来判断是否发生错误。通过then()方法，可以让deferred对象调用fail()方法。
+
+var myDeferred = $.post('/echo/json/', {json:JSON.stringify({'error':true})})
+    .then(function (response) {
+            if (response.error) {
+                return $.Deferred().reject(response);
+            }
+            return response;
+        },function () {
+            return $.Deferred().reject({error:true});
+        }
+    );
+
+myDeferred.done(function (response) {
+        $("#status").html("Success!");
+    }).fail(function (response) {
+        $("#status").html("An error occurred");
+    });
+关于error的处理，jQuery的 deferred 对象与其他实现 Promises 规范的函数库有一个重大不同。
+就是说，如果 deferred 对象执行过程中，抛出一个非 Promises 对象的错误，那么将不会被后继的then方法指定的rejected回调函数捕获，
+而会一直传播到应用程序层面。为了代码行为与 Promises 规范保持一致，建议出错时，总是使用 reject 方法返回错误。
+
+（4）回调函数的返回值
+
+如果回调函数返回 deferred 对象，则 then 方法的返回值将是对应这个返回值的 promise 对象。
+var d1 = $.Deferred();
+
+var promise = $.when('Hello').then(function(h){  
+  return $.when(h,d1);
+})
+
+promise.done(function (s1,s2) {
+    console.log(s1);
+    console.log(s2);
+})
+
+d1.resolve('World')
+// Hello
+// World
+// 
+上面代码中，done 方法的回调函数，正常情况下只能接受一个参数。
+但是由于then方法的回调函数，返回一个 when 方法生成的 deferred 对象，导致它可以接受两个参数。
+------------
+pipe方法接受一个函数作为参数，表示在调用then方法、done方法、fail方法、always方法指定的回调函数之前，
+先运行pipe方法指定的回调函数。它通常用来对服务器返回的数据做初步处理。
+
+Promise事实上的标准是社区提出的 Promise A+ 规格， jQuery的实现并不完全符合 Promise A+，主要是对错误的处理。
+在回调函数中抛出一个错误，Promise A+规定此时Promise实例的状态变为reject，该错误被下一个catch方法指定的回调函数捕获。
+
+jQuery 的 Deferred 对象此时不会改变状态，亦不会触发回调函数，该错误一般情况下会被 
+window.onerror捕获。换句话说，在 jquery Deferred 对象中，总是必须使用 reject 方法来改变状态。
+------------
+promise 对象： 
+从外部改变第三方完成的异步操作（比如Ajax）的状态是毫无意义的。
+为了防止用户这样做，可以在deferred对象的基础上，返回一个针对它的promise对象。
+
+promise 对象就是不能改变状态的 deferred 对象，也就是 deferred 的只读版。
+或者更通俗地理解成，promise 是一个对将要完成的任务的承诺，排除了其他人破坏这个承诺的可能性，只能等待承诺方给出结果。
+也就是说promise对象不允许你调用resolve和reject方法。
+
+---
+$.when()接受多个 deferred 对象作为参数，当它们全部运行成功后，才调用 resolved 状态的回调函数，
+但只要其中有一个失败，就调用 rejected 状态的回调函数。它相当于将多个非同步操作，合并成一个。
+实质上，when 方法为多个 deferred 对象，返回一个单一的 promise 对象。
+如果 when 方法的参数不是 deferred 或 promise 对象，则直接作为回调函数的参数。
+---
+var post = $.ajax({
+    url: "/echo/json/",
+    data: {json: JSON.stringify({firstName: "Jose", lastName: "Romaniello"})} ,
+    type: "POST"
+});
+
+post.done(function(p){
+    alert(p.firstName +  " saved.");
+});
+
+post.fail(function(){
+    alert("error!");
+});
+---
+var post = $.post("/echo/json/",
+        {
+            json: JSON.stringify({firstName: "Jose", lastName: "Romaniello"})
+        }
+    ).pipe(function(p){
+        return "Saved " + p.firstName;
+    });
+
+post.done(function(r){ alert(r); });
+---
+d = $.Deferred()  
+$.when(d, 'World').done(function (s1, s2){
+    console.log(s1);
+    console.log(s2);
+})
+
+d.resolve('Hello') 
+// Hello 
+// World
+--- 
+// https://msdn.microsoft.com/en-us/magazine/gg723713.aspx
+function prepareInterface() {
+    return $.Deferred(function( dfd ) {
+        var latest = $( “.news, .reactions” );
+            latest.slideDown( 500, dfd.resolve );
+            latest.addClass( “active” );
+        }).promise();
+}
+ 
+$.when(
+    getLatestNews(),
+    getLatestReactions(),
+    prepareInterface()
+).then(function(){
+    console.log( “fire after requests succeed” );
+}).fail(function(){
+    console.log( “something went wrong!” );
+});
+---
+缓存示例：
+var cachedScriptPromises = {};
+ 
+$.cachedGetScript = function( url, callback ) {
+    if ( !cachedScriptPromises[ url ] ) {
+        cachedScriptPromises[ url ] = $.Deferred(function( defer ) {
+            $.getScript( url ).then( defer.resolve, defer.reject );
+        }).promise();
+    }
+    return cachedScriptPromises[ url ].done( callback );
+};
+---
+改进：
+$.createCache = function( requestFunction ) {
+    var cache = {};
+    return function( key, callback ) {
+        if ( !cache[ key ] ) {
+            cache[ key ] = $.Deferred(function( defer ) {
+                requestFunction( defer, key );
+            }).promise();
+        }
+        return cache[ key ].done( callback );
+    };
+}
+$.cachedGetScript = $.createCache(function( defer, url ) {
+    $.getScript( url ).then( defer.resolve, defer.reject );
+});
+---
+图像加载应用：
+$.loadImage = $.createCache(function( defer, url ) {
+    var image = new Image();
+    function cleanUp() {
+       image.onload = image.onerror = null;
+    }
+    defer.then( cleanUp, cleanUp );
+    image.onload = function() {
+        defer.resolve( url );
+    };
+    image.onerror = defer.reject;
+    image.src = url;
+});
+$.loadImage( "my-image.png" ).done( callback1 );
+--
+$.searchTwitter = $.createCache(function( defer, query ) {
+    $.ajax({
+        url: "http://search.twitter.com/search.json",
+        data: {
+            q: query
+        },
+        dataType: "jsonp",
+        success: defer.resolve,
+        error: defer.reject
+    });
+});
+$.searchTwitter( "jQuery Deferred", callback1 );
+---
+同步动画：
+$.fn.animatePromise = function( prop, speed, easing, callback ) {
+   var elements = this;
+   return $.Deferred(function( defer ) {
+        elements.animate( prop, speed, easing, function() {
+            defer.resolve();
+            if ( callback ) {
+                callback.apply( this, arguments );
+            }
+        });
+   }).promise();
+};
+var fadeDiv1Out = $( "#div1" ).animatePromise({
+        opacity: 0
+    }),
+    fadeDiv2In = $( "#div1" ).animatePromise({
+        opacity: 1
+    }, "fast" );
+ 
+$.when(
+    fadeDiv1Out,
+    fadeDiv2In
+).done(function() {
+    /* both animations ended */
+});
+
+---
+$.fn.bindOnce = function( event, callback ) {
+    var element = $( this[ 0 ] ),
+        defer = element.data( "bind_once_defer_" + event );
+    if ( !defer ) {
+        defer = $.Deferred();
+        function deferCallback() {
+            element.unbind( event, deferCallback );
+            defer.resolveWith( this, arguments );
+        }
+        element.bind( event, deferCallback )
+        element.data( "bind_once_defer_" + event , defer );
+    }
+    return defer.done( callback ).promise();
+};
+The code works as follows:
+
+check if the element already has a deferred attached for the given event
+if not, create it and make it so it is resolved when the event is fired the first time around
+then attach the given callback to the deferred and return the promise
+
+$.fn.firstClick = function( callback ) {
+    return this.bindOnce( "click", callback );
+};
+
+Then the logic can be re-factored as follows:
+
+var openPanel = $( "#myButton" ).firstClick();
+    
+openPanel.done( initializeData );
+openPanel.done( showPanel );
+---
+<div id="myPanel">
+    <img data-src="image1.png" />
+    <img data-src="image2.png" />
+    <img data-src="image3.png" />
+    <img data-src="image4.png" />
+</div>
+
+$( "#myButton" ).firstClick(function() {
+       
+   var panel = $( "#myPanel" ),
+       promises = [];
+       
+   $( "img", panel ).each(function() {
+       var image = $( this ),
+           src = element.attr( "data-src" );
+       if ( src ) {
+           promises.push(
+               $.loadImage( src ).then( function() {
+                   image.attr( "src", src );
+               }, function() {
+                   image.attr( "src", "error.png" );
+               } )
+           );
+       }
+   });
+ 
+   promises.push(
+       panel.slideDownPromise()
+   );
+ 
+   $.when.apply( null, promises ).done(function() {
+       panel.fadeIn();
+   });
+});
+-----
+// http://www.intridea.com/blog/2011/2/8/fun-with-jquery-deferred
+$.wait = function(time) {
+  return $.Deferred(function(dfd) {
+    // 经过 time 承诺履行， deferred.then(doneCallbacks,failCallbacks[, progressCallbacks])
+    // 经过 time ， 发送履行的信号， 然后 then 的 resolved 函数执行
+    setTimeout(dfd.resolve, time);
+  });
+}
+
+Now, thanks to the Deferreds, I can write timeouts in my app like this:
+
+$.wait(5000).then(function() {
+  alert("Hello from the future!");
+});
+---
+Twitter = {
+  search:function(query) {
+    var dfr = $.Deferred();
+    $.ajax({
+     url:"http://search.twitter.com/search.json",
+     data:{q:query},
+     dataType:'jsonp',
+     success:dfr.resolve
+    });
+    return dfr.promise();
+  }
+}
+// Now I can easily perform Twitter searches in my app like so:
+
+Twitter.search('intridea').then(function(data) {
+  alert(data.results[0].text);
+});
+----
+//1: done, 2: cancelled, other: pending
+function getPrintingStatus(){
+    var d = $.Deferred();
+    $.post(
+        "/echo/json/",
+        {
+            json: JSON.stringify( {status: Math.floor(Math.random()*8+1)} ),
+            delay: 2
+        }
+    ).done(function(s){
+        d.resolve(s.status);
+    }).fail(d.reject); 
+    return d.promise();
+}
+
+function pollUntilDone(){
+    //do something
+    return getPrintingStatus()
+            .pipe(function(s){
+                if(s === 1 || s == 2) {
+                    return s;  //if the status is done or cancelled return the status
+                }
+                //if the status is pending... call this same function
+                //and return a deferred...
+                return pollUntilDone();
+            });
+}
+
+$.blockUI({message: "Loading..."});
+
+pollUntilDone()
+    .pipe(function(s){ //project the status code to a meaningfull string.
+            switch(s){
+            case 1:
+                return "done";
+            case 2:
+                return "cancelled";
+            }  
+    })
+    .done(function(s){
+        $.unblockUI();
+        alert("The status is " + s);
+    });
+---
+function getCustomer(customerId){
+    var d = $.Deferred();
+    $.post(
+        "/echo/json/",
+        {json: JSON.stringify({firstName: "Jose", lastName: "Romaniello", ssn: "123456789"})}
+    ).done(function(p){
+        d.resolve(p);
+    }).fail(d.reject); 
+    return d.promise();
+}
+
+function getPersonAddressBySSN(ssn){
+    return $.post("/echo/json/", {
+            json: JSON.stringify({
+                ssn: "123456789",
+                address: "Siempre Viva 12345, Springfield" })
+    }).pipe(function(p){
+        return p.address;
+    });
+}
+
+$.when(getCustomer(123), getPersonAddressBySSN("123456789"))
+    .pipe(function(person, address){
+        return $.extend(person, {address: address});
+    })
+    .done(function(person){
+        alert("The name is " + person.firstName + " and the address is " + person.address);
+    });
+---
+function getCustomer(customerId){
+    var d = $.Deferred();
+    $.post(
+        "/echo/json/",
+        {json: JSON.stringify({firstName: "Jose", lastName: "Romaniello", ssn: "123456789"}),
+         delay: 4}
+    ).done(function(p){
+        d.resolve(p);
+    }).fail(d.reject); 
+    return d.promise();
+}
+
+function getPersonAddressBySSN(ssn){
+    return $.post("/echo/json/", {
+             json: JSON.stringify({
+                            ssn: "123456789",
+                            address: "Siempre Viva 12345, Springfield" }),
+             delay: 2
+    }).pipe(function(p){
+        return p.address;
+    });
+}
+
+function load(){
+    $.blockUI({message: "Loading..."});
+    var loadingCustomer = getCustomer(123)
+                            .done(function(c){
+                                $("span#firstName").html(c.firstName)
+                            });
+
+    var loadingAddress = getPersonAddressBySSN("123456789")
+                            .done(function(address){
+                                $("span#address").html(address)
+                            });
+    
+    $.when(loadingCustomer, loadingAddress)
+     .done($.unblockUI);
+}
+
+load();
+--------------------------------------------------------------------------------
 https://github.com/kriskowal/q/wiki/API-Reference
 Q.js API 常用函数说明：
 
@@ -48,7 +511,7 @@ Returns a promise for the result of calling the named method of an object with t
 promise.invoke(methodName, ...args) Alias:promise.send/mcall
 Returns a promise for the result of calling the named method of an object with the given variadic arguments
 
-I am trying to get few values from redis, combine them and eventually send. But I just can't make those promises work.
+I am trying to get few values from redis, combine them and eventually send. But I just cant make those promises work.
 This is the simple get functions from redis
 client.get('user:1:id',function(err,data){
     // here I have data which contains user ID
@@ -557,4 +1020,155 @@ value.foo(...args)          promise.post("foo", [args])
 value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
+--------------------------------------------------------------------------------
+http://joseoncode.com/2013/05/23/promises-a-plus/
+/*
+ * simulate an ajax operation to fetch a customer profile
+ */
+function getUser (id) {
+  return Q.delay(1000)
+  .thenResolve({
+      id: id, 
+      name: 'user ' + id, 
+      twiterHandler: 'jfroma'
+  });
+}
 
+/*
+ * simulate an asynchronous fetch from twitter.com
+ */
+function getTweets (customer) { 
+  return Q.delay(1000)
+  .thenResolve([{
+    message: 'I love Q and Promises/A+'
+  }]);
+}
+
+getUser(123)
+  .then(getTweets)
+  .then(function (tweets) {
+    tweets.forEach(function(t){
+      alert(t.message);
+    });
+  });
+// In this example we first get the user with getUser and then we get his tweets getTweets. 
+// The result of then(getTweets) becomes a new promise that will be fullfiled when the two things are fulfilled 
+// and it will be fulfilled with tweets.
+---
+// At the point I'm writing this jQuery promises are not compatible with Promises/A and Promises/A+, so an easy way to fix this is as follows:
+function getUser(id) {
+  var d = Q.defer() 
+
+  $.ajax({
+    url: "/echo/json/",
+    data: { json: JSON.stringify({firstName: "Jose", lastName: "Romaniello"})} ,
+    type: "POST"
+  }).done(d.resolve).fail(d.reject);
+ 
+  return d.promise;
+}
+
+getUser(123)
+.then(function (user) {
+  return Q.delay(2000)
+          .thenResolve(user);
+}).then(function (user) {
+  alert(user.firstName);
+});
+
+// Despite the specification doesn't work with jQuery Promises, the Q implementation does in a straightforward way:
+
+Q($.get('/something'))
+
+// You can wrap a jQuery promise with Q to convert it to Promise/A+.
+---
+// Q.all converts an array of promises into a single promise that will be fulfilled
+//  when all the promises are fulfilled with an array of all the values or rejected with 
+//  the first reason a promise is rejected.
+function getUser(id) {
+  return Q.delay(1000)
+          .thenResolve({id: id, name: 'User ' + id});
+}
+
+var userPromises = [1,2,3].map(getUser);
+
+Q.all(userPromises)
+ .then(function (users) {
+   alert('we got ' + users.length + ' users');
+ });
+---
+// In this case the spread method (from Q- not standard) works like then but "spread" all 
+// the values in arguments thus we can give the mergeProfiles function directly.
+function getUser (id) {
+  return Q.delay(1000)
+    .thenResolve({id: id, name: 'User ' + id});
+}
+
+function getTwitterProfile (twitterHandler) {
+  return Q.delay(1000)
+    .thenResolve({handler: twitterHandler});
+}
+
+function mergeProfiles (user, twitter) {
+  user.handler = twitter.handler;
+  return user;
+}
+
+Q.all([getUser(123), getTwitterProfile('jforma')])
+ .spread(mergeProfiles)
+ .then(function (prof) {
+   alert(prof.name + ' known as ' + prof.handler);
+ });
+---
+// Another interesting thing about promises is error handling. 
+// In node.js land it happens a lot that you end with a code like this:
+
+doFoo(function (err, r1) {
+  if (err) return handleError(err);
+
+  doBar(r1, function (err, r2) {
+    if (err) return handleError(err);
+
+    doBaz(r2, function (err, r3) {
+      if (err) return handleError(err);
+
+      callback(r3);
+    });
+
+  });
+});
+
+// I want you to notice this line three times:
+
+if (err) return handleError(err)
+
+// With promises you can write this same code as follows:
+doFoo()
+  .then(doBar)
+  .then(doBaz)
+  .then(null, handleError);
+// Because the two first then calls doesn't have a onreject handler 
+// they will pass the rejection reason to the next promise until someone handles that error.
+// More interesting if a promise is rejected none of the fulfill handlers here will be called.
+// The other interesting thing about this is that if you throw an exception inside a then call
+//  the promise will be rejected.
+
+---
+// node.js api and modules follow a convention for asynchronous code, 
+// functions usually have callback parameter as the very last parameter 
+// and this callback get called with error and value.
+
+// So, Q make it easy to convert this style to promises as follows:
+var Q = require('q');
+var readdir = Q.nbind(require('fs').readdir);
+
+//usage
+readdir('./path')
+  .then(function (files) {
+
+  }, function (err) {
+
+  });
+---
+// 原生阅读：
+// http://blogs.msdn.com/b/ie/archive/2011/09/11/asynchronous-programming-in-javascript-with-promises.aspx

@@ -113,10 +113,18 @@ vncserver:
 yum install -y vnc vnc-server
 http://www.jb51.net/os/windows/44493.html
 http://www.linuxidc.com/Linux/2013-05/84941.htm
+vi /etc/sysconfig/vncservers
+VNCSERVERS="1:root"           --指定远程用户
+VNCSERVERARGS[1]="-geometry 1024x768"      --指定远程桌面分辨率
+
+vi /etc/sysconfig/iptables
+-A INPUT -p tcp -m tcp --dport 5900:5903 -j ACCEPT
 问题：
 http://www.linuxidc.com/Linux/2013-08/89266.htm
 
 http://blog.csdn.net/flcandclf/article/details/469361
+
+yum install libXfont xorg-x11-xfs xorg-x11-xfs-utils xorg-x11-xinit xorg-x11-xdm xorg-x11-font*
 
 //安装apache扩展
 yum -y install httpd-manual mod_ssl mod_perl mod_auth_mysql
