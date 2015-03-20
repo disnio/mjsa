@@ -1,0 +1,442 @@
+NPM：
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+npm run:
+    "build-js": "browserify -r robot.js:my-module -o  | uglifyjs -mc > static/robot.js",
+
+    // "build-css": "cat static/pages/*.css tabs/*/*.css",
+    // "build": "npm run build-js && npm run build-css",
+
+    // "watch-js": "watchify browser/main.js -o static/bundle.js -dv",
+    "watch-js": "watchify -r robot.js:my-module -o static/robot.js --debug --verbose",
+
+    // "watch-css": "catw static/pages/*.css tabs/*/*.css -o static/bundle.css -v",
+    // "watch": "npm run watch-js & npm run watch-css",
+    // "start": "node server.js",
+    // "test": "tap test/*.js"
+-----------------------------------------------------------------------------------------
+watchify -r ./robot.js:my-module -d -o static/robot.js -v
+html:
+    <script src="static/robot.js"></script>
+    <script>
+        var rob = require("my-module");
+        var r = rob("hello");
+        console.log(r);
+    </script>
+---
+robot.js:
+module.exports = function (s) { return s.toUpperCase() + '？？' };
+---
+static/robot.js:
+
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})
+({"my-module":[function(require,module,exports){
+module.exports = function (s) { return s.toUpperCase() + '？？' };
+},{}]},{},[])
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6L1VzZXJzL0FkbWluaXN0cmF0b3IvQXBwRGF0YS9Sb2FtaW5nL25wbS9ub2RlX21vZHVsZXMvd2F0Y2hpZnkvbm9kZV9tb2R1bGVzL2Jyb3dzZXJpZnkvbm9kZV9tb2R1bGVzL2Jyb3dzZXItcGFjay9fcHJlbHVkZS5qcyIsInJvYm90LmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0FDQUEiLCJmaWxlIjoiZ2VuZXJhdGVkLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbIihmdW5jdGlvbiBlKHQsbixyKXtmdW5jdGlvbiBzKG8sdSl7aWYoIW5bb10pe2lmKCF0W29dKXt2YXIgYT10eXBlb2YgcmVxdWlyZT09XCJmdW5jdGlvblwiJiZyZXF1aXJlO2lmKCF1JiZhKXJldHVybiBhKG8sITApO2lmKGkpcmV0dXJuIGkobywhMCk7dmFyIGY9bmV3IEVycm9yKFwiQ2Fubm90IGZpbmQgbW9kdWxlICdcIitvK1wiJ1wiKTt0aHJvdyBmLmNvZGU9XCJNT0RVTEVfTk9UX0ZPVU5EXCIsZn12YXIgbD1uW29dPXtleHBvcnRzOnt9fTt0W29dWzBdLmNhbGwobC5leHBvcnRzLGZ1bmN0aW9uKGUpe3ZhciBuPXRbb11bMV1bZV07cmV0dXJuIHMobj9uOmUpfSxsLGwuZXhwb3J0cyxlLHQsbixyKX1yZXR1cm4gbltvXS5leHBvcnRzfXZhciBpPXR5cGVvZiByZXF1aXJlPT1cImZ1bmN0aW9uXCImJnJlcXVpcmU7Zm9yKHZhciBvPTA7bzxyLmxlbmd0aDtvKyspcyhyW29dKTtyZXR1cm4gc30pIiwibW9kdWxlLmV4cG9ydHMgPSBmdW5jdGlvbiAocykgeyByZXR1cm4gcy50b1VwcGVyQ2FzZSgpICsgJ++8n++8nycgfTsiXX0=
+---------
+{
+  "name": "mypkg",
+  "version": "1.2.3",
+  "main": "main.js",
+  "browser": "browser.js"
+}
+
+Now when somebody does require('mypkg') in node, they will get the exports from main.js , but when they do require('mypkg') in a browser, they will get the exports from browser.js . 
+---
+ You can configure transforms to be automatically applied when a module is loaded in a package's browserify.transform field. For example, we can automatically apply the brfs transform with this package.json:
+
+{
+  "name": "mypkg",
+  "version": "1.2.3",
+  "main": "main.js",
+  "browserify": {
+    "transform": [ "brfs" ]
+  }
+}
+-----------------------------------------------------------------------------------------
+
+Coffee:
+-----------------------------------------------------------------------------------------
+Note that on the command-line with the -c flag you can just do:
+
+$ browserify -c 'coffee -sc' main.coffee > bundle.js
+
+Or better still, use the coffeeify module:
+
+$ npm install coffeeify
+$ browserify -t coffeeify main.coffee > bundle.js
+
+coffeeify：
+https://github.com/jnordberg/coffeeify
+browserify transform to compile coffee-script automatically 
+
+foo.coffee:
+console.log(require './bar.js')
+
+bar.js:
+module.exports = require('./baz.coffee')(5)
+
+baz.coffee:
+module.exports = (n) -> n * 111
+
+when you compile your app, just pass -t coffeeify to browserify:
+
+$ browserify -t coffeeify foo.coffee > bundle.js
+$ node bundle.js
+555
+
+-----------------------------------------------------------------------------------------
+
+
+Stream:
+-----------------------------------------------------------------------------------------
+Readable流可以产出数据，你可以将这些数据传送到一个writable，transform或者duplex流中，只需要调用pipe()方法:
+这是因为在你使用.push()将数据推进一个readable流中时，一直要到另一个东西来消耗数据之前，数据都会存在一个缓存中。
+我们可以通过定义一个._read函数来实现按需推送数据:
+_read函数也可以获取一个size参数来指明消耗者想要读取多少比特的数据，但是这个参数是可选的。
+需要注意到的是你可以使用util.inherit()来继承一个Readable流。
+
+var Readable = require('stream').Readable;
+var rs = Readable();
+
+var c = 97 - 1;
+
+rs._read = function () {
+    if (c >= 'z'.charCodeAt(0)) return rs.push(null);
+
+    setTimeout(function () {
+        rs.push(String.fromCharCode(++c));
+    }, 100);
+};
+
+rs.pipe(process.stdout);
+
+process.on('exit', function () {
+    console.error('\n_read() called ' + (c - 97) + ' times');
+});
+process.stdout.on('error', process.exit);
+
+在上面的代码中，setTimeout很重要，因为操作系统需要花费一些时间来发送程序结束信号。
+另外,process.stdout.on('error',fn)处理器也很重要，因为当head不再关心我们的程序输出时，操作系统将会向我们的进程发送一个SIGPIPE信号，此时process.stdout将会捕获到一个EPIPE错误。
+
+如果你创建了一个readable流，并且想要将任何的值推送到其中的话，
+确保你在创建流的时候指定了objectMode参数,Readable({ objectMode: true })。
+----
+消耗一个readable流
+
+大部分时候，将一个readable流直接pipe到另一种类型的流或者使用through或者concat-stream创建的流中，是一件很容易的事情。但是有时我们也会需要直接来消耗一个readable流。
+
+process.stdin.on('readable', function () {
+    var buf = process.stdin.read();
+    console.dir(buf);
+});
+
+代码运行结果如下所示：
+
+$ (echo abc; sleep 1; echo def; sleep 1; echo ghi) | node consume0.js 
+<Buffer 61 62 63 0a>
+<Buffer 64 65 66 0a>
+<Buffer 67 68 69 0a>
+null
+
+这是因为多余的数据都留在了内部的缓存中，因此这个时候我们需要告诉node我们还对剩下的数据感兴趣，
+我们可以使用.read(0)来完成这件事：
+
+process.stdin.on('readable', function () {
+    var buf = process.stdin.read(3);
+    console.dir(buf);
+    process.stdin.read(0);
+});
+---
+var offset = 0;
+
+process.stdin.on('readable', function () {
+    var buf = process.stdin.read();
+    if (!buf) return;
+    for (; offset < buf.length; offset++) {
+        if (buf[offset] === 0x0a) {
+            console.dir(buf.slice(0, offset).toString());
+            buf = buf.slice(offset + 1);
+            offset = 0;
+            process.stdin.unshift(buf);
+            return;
+        }
+    }
+    process.stdin.unshift(buf);
+});
+代码的运行结果如下所示：
+$ tail -n +50000 /usr/share/dict/american-english | head -n10 | node lines.js 
+-----------------------
+writable流
+
+一个writable流指的是只能流进不能流出的流:
+创建一个writable流
+
+只需要定义一个._write(chunk,enc,next)函数，你就可以将一个readable流的数据释放到其中：
+
+var Writable = require('stream').Writable;
+var ws = Writable();
+ws._write = function (chunk, enc, next) {
+    console.dir(chunk);
+    next();
+};
+
+process.stdin.pipe(ws);
+$ (echo beep; sleep 1; echo boop) | node write0.js 
+
+第一个参数，chunk代表写进来的数据。
+
+第二个参数enc代表编码的字符串，但是只有在opts.decodeString为false的时候你才可以写一个字符串。
+
+第三个参数，next(err)是一个回调函数，使用这个回调函数你可以告诉数据消耗者可以写更多的数据。
+---
+在从一个readable流向一个writable流传数据的过程中，数据会自动被转换为Buffer对象，
+除非你在创建 writable 流的时候制定了 decodeStrings 参数为 false, Writable({decodeStrings: false})。
+
+如果你需要传递对象，需要指定objectMode参数为true，Writable({ objectMode: true })。
+---
+向一个writable流中写东西，只需要调用.write(data)即可。
+var fs = require('fs');
+var ws = fs.createWriteStream('message.txt');
+
+ws.write('beep ');
+
+setTimeout(function () {
+    ws.end('boop\n');
+}, 1000);
+
+如果你在创建writable流时指定了highWaterMark参数，那么当没有更多数据写入时，调用.write()方法将会返回false。
+
+如果你想要等待缓存情况，可以监听drain事件。 
+-----------------------
+transform流
+
+你可以将transform流想象成一个流的中间部分，它可以读也可写，但是并不保存数据，它只负责处理流经它的数据。 
+-----------------------
+duplex流
+
+Duplex流是一个可读也可写的流，就好像一个电话，可以接收也可以发送语音。
+一个rpc交换是一个duplex流的最好的例子。如果你看到过下面这样的代码：
+
+a.pipe(b).pipe(a)
+
+那么你需要处理的就是一个duplex流对象。
+-----------------------
+如果你自己创建流对象，永远不要绑定data和end监听器。如果你需要和旧版本的流兼容，最好使用第三方库来实现.pipe()方法。
+
+你可以使用through模块来避免显式的使用data和end监听器:
+
+var through = require('through');
+process.stdin.pipe(through(write, end));
+
+function write (buf) {
+    console.log(buf);
+}
+function end () {
+    console.log('__END__');
+}
+----
+你也可以使用concat-stream模块来将整个流的内容缓存起来:
+
+var concat = require('concat-stream');
+process.stdin.pipe(concat(function (body) {
+    console.log(JSON.parse(body));
+}));
+$ echo '{"beep":"boop"}' | node concat.js 
+{ beep: 'boop' }
+
+你可以使用readable-stream模块来确保你的stream2代码兼容node 0.8及其之前的代码。
+在你npm install readable-stream之后直接 reauire('readable-stream')而不要require('stream')。
+-----------------------
+var concat = require('concat-stream');
+
+var cs = concat(function (body) {
+    console.log(body.toUpperCase());
+});
+cs.write('beep ');
+cs.write('boop.');
+cs.end();
+
+$ node concat.js
+BEEP BOOP.
+---
+var http = require('http');
+var qs = require('querystring');
+var concat = require('concat-stream');
+
+var server = http.createServer(function (req, res) {
+    req.pipe(concat(function (body) {
+        var params = qs.parse(body.toString());
+        res.end(JSON.stringify(params) + '\n');
+    }));
+});
+server.listen(5005);
+
+$ curl -X POST -d 'beep=boop&dinosaur=trex' http://localhost:5005
+{"beep":"boop","dinosaur":"trex"}
+-----------------------
+emit-stream：
+https://github.com/substack/emit-stream
+turn event emitters into streams and streams into event emitters 
+server:
+var emitStream = require('emit-stream');
+var JSONStream = require('JSONStream');
+var net = require('net');
+
+var server = (function () {
+    var evs = createEmitter();
+
+    return net.createServer(function (stream) {
+        emitStream(evs)
+            .pipe(JSONStream.stringify())
+            .pipe(stream);
+    });
+})();
+
+server.listen(5555);
+
+function createEmitter () {
+    var EventEmitter = require('events').EventEmitter;
+    var ev = new EventEmitter;
+    setInterval(function () {
+        ev.emit('ping', Date.now());
+    }, 2000);
+
+    var x = 0;
+    setInterval(function () {
+        ev.emit('x', x++);
+    }, 500);
+
+    return ev;
+}
+---
+client:
+var emitStream = require('emit-stream');
+var net = require('net');
+var JSONStream = require('JSONStream');
+
+var stream = net.connect(5555)
+    .pipe(JSONStream.parse([true]))
+;
+var ev = emitStream(stream);
+
+ev.on('ping', function (t) {
+    console.log('# ping: ' + t);
+});
+
+ev.on('x', function (x) {
+    console.log('x = ' + x);
+});
+---------
+https://github.com/dominictarr/event-stream
+
+var util = require("util");  
+var events = require("events");//EventEmitter通过events模块来访问  
+  
+function MyStream() {//新建一个类  
+    events.EventEmitter.call(this);  
+}  
+  
+util.inherits(MyStream, events.EventEmitter);//使这个类继承EventEmitter  
+  
+MyStream.prototype.write = function(data) {//定义一个新方法  
+    this.emit("data", data);//在此触发名为"data"事件  
+}  
+  
+var stream = new MyStream();  
+  
+stream.on("data", function(data) {//注册监听器，监听名为"data"事件  
+    console.log('Received data: "' + data + '"');  
+})  
+stream.write("It works!"); // Received data: "It works!"  
+-----------------------
+request：
+https://www.npmjs.com/package/request
+
+dnode：
+https://www.npmjs.com/package/dnode
+freestyle rpc
+dnode is an asynchronous rpc system for node.js that lets you call remote functions.
+
+-----------------------
+JSONStream：
+https://www.npmjs.com/package/JSONStream
+rawStream.pipe(JSONStream.parse()).pipe(streamOfObjects)
+
+streaming JSON.parse and stringify
+-------
+through：
+simplified stream construction
+You don't need to necessarily use the through module. Browserify is compatible with the newer, more verbose Transform streams built into Node v0.10.
+
+through2
+
+https://github.com/rvagg/through2
+A tiny wrapper around Node streams2 Transform to avoid explicit subclassing noise
+-------
+exorcist：
+https://github.com/thlorenz/exorcist
+Externalizes the source map found inside a stream to an external .js.map file
+
+var browserify = require('browserify')
+  , path       = require('path')
+  , fs         = require('fs')
+  , exorcist   = require('exorcist')
+  , mapfile    = path.join(__dirname, 'bundle.js.map')
+
+browserify()
+  .require(require.resolve('./main'), { entry: true })
+  .bundle({ debug: true })
+  .pipe(exorcist(mapfile))
+  .pipe(fs.createWriteStream(path.join(__dirname, 'bundle.js'), 'utf8'))
+
+command line example
+
+browserify main.js --debug | exorcist bundle.js.map > bundle.js 
+---
+Gulp
+To use exorcist in gulp with gulp-browserify, you must wrap the exorcist call using vinyl-transform like so:
+
+var gulp = require('gulp'),
+  browserify = require('gulp-browserify'),
+  transform = require('vinyl-transform'),
+  exorcist = require('exorcist'),
+  concat = require('gulp-concat');
+
+gulp.task('browserify', function () {
+  gulp
+    .src('src/app.js')
+    .pipe(browserify({ debug: true }))
+    .pipe(transform(function () { return exorcist('dist/script.map'); }))
+    .pipe(concat('script.js'))
+    .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('default', ['browserify']);
+
+-------
+vinyl-transform：
+Use standard text transform streams to write fewer gulp plugins
+https://www.npmjs.com/package/vinyl-transform
+
+labeled-stream-splicer：
+https://www.npmjs.com/package/labeled-stream-splicer
+stream splicer with labels
+
+browser-pack：
+https://www.npmjs.com/package/browser-pack
+pack node-style source files from a json stream into a browser bundle
+---------------------------------------------------------------------------------------
+subarg：
+parse arguments with recursive contexts
+var subarg = require('subarg');
+var argv = subarg(process.argv.slice(2));
+console.log(argv);
+Contexts are denoted with square brackets:
+$ node example/show.js rawr --beep [ boop -a 3 ] -n4 --robots [ -x 8 -y 6 ]
+{ _: [ 'rawr' ],
+  beep: { _: [ 'boop' ], a: 3 },
+  n: 4,
+  robots: { _: [], x: 8, y: 6 } 
+}

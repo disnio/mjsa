@@ -1,0 +1,44 @@
+koa
+-------------------------------------------------------------------------
+http://bg.biedalian.com/2013/12/28/why-koa-so-cool.html
+var fs = require('fs')
+var app = require('koa')()
+var readFile = function(dir) {
+    return function(fn) {
+        fs.readFile(dir, fn)
+    }
+}
+app.use(function*() {
+    var arr =
+        yield ['1.txt', '2.txt', '3.txt'].map(function(path) {
+            return readFile(path)
+        })
+    this.body = arr.join(',')
+})
+app.listen(8000)
+-------
+var fs = require('fs')
+var app = require('koa')()
+var readFile = function(dir) {
+  return function(fn) {
+    fs.readFile(dir, fn)
+  }
+}
+app.use(function* (next) {
+  try {
+    yield next
+  } catch(e) {
+    return this.body = e.message || "I'm dead"
+  }
+})
+app.use(function* () {
+  var arr = yield ['4.txt', '2.txt', '3.txt'].map(function(path) {
+    // 4.txt不存在
+    return readFile(path)
+  })
+  this.body = arr.join(',')
+})
+app.listen(8000)
+可以看到访问网页的返回结果ENOENT, open '4.txt'
+
+我们在app的匹配栈上直接给yield next套上try catch

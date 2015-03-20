@@ -1,0 +1,267 @@
+ES6
+
+-------------------------------------------------------------------------------
+http://www.infoq.com/cn/articles/generator-and-asynchronous-programming/
+目前解决异步流程控制问题的主流方案有以下三种：
+
+    自定义事件式方案
+    Promise/Deferred
+    高阶函数篡改回调函数
+
+高阶函数在异步编程中的使用：
+
+高阶函数在异步编程中的使用，最广泛、最知名的莫过于async和step这两个库，它将用户正常传递进来的回调函数替换成自己包装了特殊逻辑的函数，然后再传递给异步调用。当异步调用结束后，先执行的是特殊逻辑，然后才是用户传入的回调函数。
+// 闭包
+var pending = (function () {
+  var count = 0;
+  // done 函数， 传入回调
+  return function (callback) {
+    count++;
+    // done 函数执行后的返回函数，即 fs.readFile('file1.txt', 'utf8', returnFunc); returnFunc = done()
+    return function () {
+      count--;
+      if (count === 0) {
+        callback();
+      }
+    };
+  };
+}());
+
+var done = pending(function () {
+  console.log('all is over');
+});
+
+// 执行完后，调用 returnFunc 
+fs.readFile('file1.txt', 'utf8', done());
+fs.readFile('file2.txt', 'utf8', done());
+
+上述代码中，done执行了两次，每次执行的过程中，将计数器count加一，然后返回一个函数。当fs.readFile这个异步调用结束后，done执行后的回调函数会得到执行，计数器减一。当计数器回到0的时候，意味着多个异步调用的回调函数都已经执行，此时执行传入的回调函数。因为非阻塞的原因，done()生成的函数不会立即执行，使得计数器可以正常地增加值，结束后才慢慢减少值。
+-----------------------
+Generator：
+constructor GeneratorFunction {}
+@@iterator @@iterator()
+next next()
+    arguments  null
+    caller null
+    length 1
+    name "next"
+    apply apply()
+    bind bind()
+    call call()
+    constructor Function()
+    isGenerator isGenerator()
+    toSource toSource()
+    toString toString()
+throw throw()
+-------------------------------------------------------------------------------
+function* Hello() {
+  // 我习惯用大驼峰命名因为这就好比generator的构造函数
+  yield 1
+  yield 2
+}
+
+var hello = Hello() // hello 是一个generator
+var a = hello.next() // a: Object {value: 1, done: false}
+var b = hello.next() // b: Object {value: 2, done: false} 
+var c = hello.next() // c: Object {value: undefined, done: true}
+
+yield就是相当于是另一种return, return使用时函数就结束了, 而使用yield的时候, 
+函数会卡在那个yield的地方, 等待下一个next
+
+所有带有 * 前缀的函数都表示这个函数会返回一个 generator 对象。
+GeneratorFunction 里面可以使用 yield关键字，可以理解为在当前位置设置断点。
+
+根本上来说，generator 会同步地 yield 出数据
+（译注：如果对Python比较熟悉的话，应该对ES6的generator不陌生，这里的yield其实和Python的yield语句差不多一个意思）
+
+var gen = (function* (num) {
+  console.log(num) //  print 11
+  var a = yield 1
+  console.log(a) //  print 22
+  var b = yield 1
+  console.log(b) // print 33
+})(11)
+
+gen.next()
+gen.next(22)
+gen.next(33, 44)
+
+每次.next()调用时，返回一个对象，这个对象具备两个属性，
+布尔型的done，它表示这个Generator对象的逻辑块是否执行完成。
+value， yield 语句后的表达式的结果。
+yield的返回值和 yield 后面的东西毫无关系(但不能没有, 不然是undefined), 【返回值就是next函数中第一个参数】。
+
+真正让 Generator 具有价值的是 yield 关键字，这个 yield 关键字让 Generator 内部的逻辑能够切割成多个部分。
+可以简单地理解为yield关键字将程序逻辑划分成几部分，每次.next()执行时执行一部分。
+这使得程序的执行单元再也不是函数，复杂的逻辑可以通过yield来暂停。
+这类似于将一个函数的逻辑分拆为四个函数，但它们共享上下文。
+
+对于Generator而言，它不仅可以将逻辑的单元切分得更细外，
+还能在暂停和继续执行的间隔中，动态传入数据，使得代码逻辑可以更灵活。
+----------
+通过Generator进行流程控制的几个要点。
+首先，每个异步方法都需要标准化为yield关键字能接受的方法，使我们有机会注入特殊逻辑，这个过程被TJ称为thunkify。
+其次，需要巧妙地将异步调用执行完成得到的结果通过.next()传递给下一段流程。
+最后，需要递归地将业务逻辑执行完成。
+
+需要注意的是yield只能暂停Generator内部的逻辑，它并不是真正暂停整个线程，Generator外的业务逻辑依然会继续执行下去。
+----------
+是否是generatorFunction的判断方法
+
+function isGeneratorFunction(obj) {
+  return obj && obj.constructor && 'GeneratorFunction' === obj.constructor.name
+}
+
+yield后面可以跟 *anothergenerator，这样当前的断点就会进入到anothergenerator的generatorfunction里面，
+等子generator全部执行完后再回来继续执行。这个其实有点类似递归的意思。
+function* run() {
+    console.log("step in child generator");
+    return "child over";
+    var b =
+        yield 'running';
+    console.log(b);
+    console.log("step out child generator")
+
+}
+var runGenerator = run();
+
+function* start() {
+    var a =
+        yield 'start';
+    console.log(a);
+    var childValue =
+        yield * runGenerator;
+    console.log("childValue==" + childValue);
+    var c =
+        yield 'end';
+    console.log(c);
+    return 'over';
+}
+var it = start();
+console.log(it.next());
+//Object {value: "start", done: false}
+console.log(it.next(22));
+//22
+//step in child generator
+//childValue==child over
+//Object {value: "end", done: false}
+console.log(it.next(333));
+//333 Object {value: "over", done: true}
+
+另外子 generatorfunction 的 return 值会做为 yield * generator的返回值。
+------
+var fs = require('fs');
+//这个函数的参数是一个异步调用函数，调用之后，得到一个新的函数，这个函数在重新整理了参数列表后，添加了一个实际被调用到的回调函数。这个新的函数执行后，会调用真正的异步函数，然后再次返回一个函数，最后返回的函数的作用是为了随时注入新的逻辑（pass）。在参数列表后添加的回调函数中，它会将结果传递给最终给到的函数。
+var helper = function(fn) {
+    return function() {
+        var args = [].slice.call(arguments);
+        var pass;
+        args.push(function() { // 在回调函数中植入收集逻辑
+            if (pass) {
+                pass.apply(null, arguments);
+            }
+        });
+        fn.apply(null, args);
+
+        return function(fn) { // 传入一个收集函数
+            pass = fn;
+        };
+    };
+};
+var readFile = helper(fs.readFile);
+var flow = function*() {
+    var txt =
+        yield readFile('file2.txt', 'utf8');
+    console.log(txt);
+};
+
+var generator = flow();
+var ret = generator.next(); // 执行readFile('file1.txt', 'utf8');
+// 通过这样置入特殊逻辑后，使得flow中的代码能够按期望顺利执行，通过yield巧妙地将回调函数得到的值转换为类似返回值。
+ret.value(function(err, data) {
+    if (err) {
+        throw err;
+    }
+    generator.next(data);
+});
+--------------------
+模拟 co ：
+var fs = require('fs');
+// 模拟 thrunkify
+var helper = function(fn) {
+    return function() {
+        var args = [].slice.call(arguments);
+        var pass;
+        args.push(function() { // 在回调函数中植入收集逻辑
+            if (pass) {
+                pass.apply(null, arguments);
+            }
+        });
+        fn.apply(null, args);
+
+        return function(fn) { // 传入一个收集函数
+            pass = fn;
+        };
+    };
+};
+
+var readFile = helper(fs.readFile);
+
+var co = function(flow) {
+    var generator = flow();
+    var next = function(data) {
+        var ret = generator.next(data);
+        if (!ret.done) {
+            if (Array.isArray(ret.value)) {
+                var count = 0;
+                var results = [];
+                ret.value.forEach(function(item, index) {
+                    count++;
+                    item(function(err, data) {
+                        count--;
+                        if (err) {
+                            throw err;
+                        }
+                        results[index] = data;
+                        if (count === 0) {
+                            next(results);
+                        }
+                    });
+                });
+            } else {
+                ret.value(function(err, data) {
+                    if (err) {
+                        throw err;
+                    }
+                    next(data);
+                });
+            }
+        }
+    };
+    next();
+};
+
+co(function*() {
+    var results =
+        yield [readFile('file1.txt', 'utf8'), readFile('file2.txt', 'utf8')];
+    console.log(results[0]);
+    console.log(results[1]);
+    var file3 =
+        yield readFile('file3.txt', 'utf8');
+    console.log(file3);
+});
+
+var _sleep = function(ms, fn) {
+    setTimeout(fn, ms);
+};
+var sleep = helper(_sleep);
+
+co(function*() {
+    console.time('sleep1');
+    yield sleep(1000);
+    yield sleep(1000);
+    console.timeEnd('sleep1');
+    console.time('sleep2');
+    yield [sleep(1000), sleep(1000)];
+    console.timeEnd('sleep2');
+});
