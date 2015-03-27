@@ -108,9 +108,72 @@ pip install psycopg2
 
 pip install django-widget-tweaks
 python manage.py runmodwsgi
+
+service postgresql initdb
+/var/lib/pgsql/data 
+让数据库开机启动
+chkconfig --add postgresql 
+chkconfig postgresql on
+
+su - postgres
+
+createdb test
+
+pg_hba.conf
+host    all         all         127.0.0.1/32          ident
+host    all         all         192.168.0.111/16          trust
 -------------------------------------------------------------------
+
 
 c:\Python27\Lib\site-packages\debug_toolbar\settings.py
 CONFIG_DEFAULTS = {
     }
     'JQUERY_URL': '//libs.baidu.com/jquery/1.8.3/jquery.js',
+-------------------------------------------------------------------
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+ImportError: No module named django_wsgi
+
+列出端口占用情况：
+netstat -lpnt
+
+uwsgi：
+http://django-china.cn/topic/101/
+http://www.nowamagic.net/academy/detail/1330328
+http://www.cnblogs.com/lxg226/p/3468558.html (nginx server 配置注意)
+http://www.nowamagic.net/academy/detail/1330331
+http://mdba.cn/?p=109
+uwsgi --http :8001 --chdir /var/www/wsctest/artmall-src/oscar/artmall --module ango_wsgi
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "oscar.artmall.settings")
+
+(wsctest)[root@wow oscar]# uwsgi --http :8001 --chdir /var/www/wsctest/artmall-src/oscar/ --module django_wsgi
+uwsgi: invalid option -- 'o'
+getopt_long() error
+-----
+http://www.nowamagic.net/academy/detail/1330334
+有时候因各种环境问题，-x --xml 命令识别不了，可以使用下面的 ini 配置方式：
+uwsgi --ini wsgi.ini&
+wsgi.ini
+[uwsgi]
+vhost= false
+
+socket= 127.0.0.1:8077
+
+chdir= /var/www/wsctest/artmall-src/oscar
+
+module= django_wsgi
+
+buffer-size = 32768
+
+master = true
+
+workers =1
+
+wsgi-file = /var/www/wsctest/artmall-src/oscar/django_wsgi.py
+virtualenv = /var/www/wsctest/
+--------
+操作uwsgi进程(切换到<project path>目录下):
+
+    启动：uwsgi --ini uwsgi_XXX.ini
+    停止：uwsgi --stop uwsgi.pid
+    reload: uwsgi --reload uwsgi.pid

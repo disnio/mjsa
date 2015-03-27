@@ -1,5 +1,43 @@
 测试：
+三维吞噬二维，光是正常的世界，我们是迟滞的世界，我们本应如光，我们未来是光。
+
 ------------------------------------------------------------------------
 MochaJS 作为测试套件， ChaiJS 作为断言库， Sinon 做为数据mocking和函数spy
 
+代码整理 yield 后面是 generatorFunction时会错误
 makedown --must
+----------------------------
+> co@4.5.1 test d:\wamp\www\nodeb\browserify\brotest\co-4.5.1
+> mocha --harmony
+package.json 
+{
+    "name": "co",
+    "version": "4.5.1",
+    "description": "generator async control flow goodness",
+    "keywords": [
+        "async",
+        "flow",
+        "generator",
+        "coro",
+        "coroutine"
+    ],
+    "devDependencies": {
+        "istanbul-harmony": "0",
+        "mocha": "^2.0.0",
+        "mz": "^1.0.2"
+    },
+    "scripts": {
+        "test": "mocha --harmony",
+        "test-cov": "node --harmony node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --reporter dot",
+        "test-travis": "node --harmony node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --reporter dot"
+    },
+    "files": [
+        "index.js"
+    ],
+    "license": "MIT",
+    "repository": "tj/co",
+    "engines": {
+        "iojs": ">= 1.0.0",
+        "node": ">= 0.12.0"
+    }
+}

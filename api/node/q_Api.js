@@ -3,7 +3,89 @@ http://javascript.ruanyifeng.com/jquery/deferred.html
 
 Promises的主要目的就是取代回调函数，成为非同步操作的解决方案。
 它的核心思想就是让非同步操作返回一个对象，其他操作都针对这个对象来完成。
+----
+http://segmentfault.com/blog/kk_470661/1190000000591382
+Promises就像是一个函数在说“我这有一个事件监听器，当我完成或者失败的时候会被通知到。”
+通过promises，我们重新获得了程序的控制权而不是通过给第三方库传递回调来转移控制权。
+这是javascript中异步控制流程表达上一个很大的进步。
 
+批判性地看，promises所做的只是改变了你传递回调的地方。
+
+标准的promises机制有以下这些保证：
+1. 如果promise被resolve，它要不是success就是failure，不可能同时存在。
+2. 一旦promise被resolve，它就再也不会被resolve(不会出现重复调用)。
+3. 如果promise返回了成功的信息，那么你绑定在成功事件上的回调会得到这个消息。
+4. 如果发生了错误，promise会收到一个带有错误信息的错误通知。
+5. 无论promise最后的结果是什么(success或者failure)，他就不会改变了，你总是可以获得这个消息只要你不销毁promise。
+
+promises的最重要的特点就是它把我们处理任何函数调用的成功或者失败的方式规范成了可预测的形式，
+特别是如果这个调用实际上的异步的。
+var myPromise = {
+    state: {
+        status: 1,
+        value: "Hello World"
+    },
+    then: function(success,failure) {
+        // implement something like a thenable's behavior
+    }
+}; xxx not promise
+
+可靠性就是完成的promise是不可变的。
+
+规范的早期版本中，把resolve/reject的功能分离出来放在一个对象中，叫做 Deferred.
+把这想成一个对象对：在创建的时候，我们创建一个promise 和 一个 deferred，
+deferred 可以resolve这个promise。重要的是，这两个可以被分开，一部分代码可以resolve 或 reject 
+一个 promise 而另外一部分只能监听这个变化然后做出回应。
+规范的后续版本中简化了promises，通过删除 deferred 对象，
+取而代之的是简单的暴露出原来属于 deferred 的 resolve() 和 reject() 方法。
+
+var p = new Promise( function(resolve,reject){
+    // I have `resolve()` and `reject()` from the
+    // hidden `deferred`, and I **alone** control
+    // the state of the promise.
+} );
+
+// now, I can pass around `p` freely, and it can't
+// be changed by anyone else but the creator.
+使用 promises 是基于可靠性的。然后可靠性是基于 promise 的状态是与外部影响隔离的，只有创建者能改变。
+
+只使用ES5中可以使用的方法，你是不可能创建私有状态同时又可以有效子类化的promise。
+这两个概念在ES5以下是互相排斥的。
+
+就像我之前说的，我认为promise的子类化最终会被证明是一个华而不实的东西。我不会牺牲promise的可靠性来顺从子类化。
+
+promise并不是给开发者使用的 ，它们是给库作者使用的。
+
+最大的关于promise的误解： 它们不是真正关于流程控制的 。
+
+promises确实只是一个值的容器。这个值可能现在就存在也可能是未来的一个值。但是不管怎样，它只是一个值。
+它是一个成功值或者失败信息的容器。
+
+这是promise最有意义的好处之一。它们在值的上面创建了一个强大的抽象使得值不再是暂存的东西。
+换句话说，不管那个值现在是否存在，你都可以用同样的方式使用promise。
+promise必须是不可变的，它们作为值的意义也是基于这个特点的。
+
+promises就像状态的小型的自包含的表现方式。它们是可组合的，也就意味着你全部的程序可以用它们来表示。
+
+所以不带失败处理函数的promise是一个会默默地失败的promise。
+这并不好。这意味着如果你忘记了，你会陷入失败的陷阱而不是成功。
+---
+function someAsyncThing(){
+    var p = new Promise(function(resolve,reject){
+        //at some later time,call 'resolve()' or 'reject()'
+    }) ;
+    return p ;
+}
+var p = someAsyncThing() ;
+p.then(
+    function(){
+        //success happened    
+    },
+    function(){
+        //failure happened
+    }
+) ;
+----
 progress()用来指定一个回调函数，当调用notify()方法时，该回调函数将执行。
 var userProgress = $.Deferred();
 var $profileFields = $("input");

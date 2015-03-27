@@ -1,3 +1,5 @@
+通过Linux+PostgreSQL+PHP+Postfix+roundcube实现开源平台上的邮件服务系统
+
 关于apache端口的配置：
 
 host文件采用本机默认的地址加端口：

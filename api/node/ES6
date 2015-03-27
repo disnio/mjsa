@@ -1,8 +1,190 @@
 ES6
+-------------------------------------------------------------------------------
+只有火狐支持的：
+JavaScript 1.6 特性：
+Array generics：
+var words = "These are just words";
+    Array.filter(words, function (value) {
+    return value.indexOf("s") === -1;
+});
 
+String generics：
+var arr = ["Firefox", "Safari", "Opera"];
+String.replace(arr, /[aoueiy]/, "");
+
+String generics, global flag：
+var arr = ["Firefox", "Safari", "Opera"];
+String.replace(arr, /[aoueiy]/g, "");
+
+大部分 1.7 的特性只有火狐支持。iojs也是部分支持。实现上有区别
+----------------------
+测试 getters 和 setters, 及 Object.defineProperty：
+http://www.robertnyman.com/javascript/javascript-getters-setters.html#regular-getters-and-setters-object-literal-notation
+Object literal notation 对象字面量： ie9+
+var lost = {
+    loc: "Island",
+    get location() {
+        return this.loc;
+    },
+    set location(val) {
+        this.loc = val;
+    }
+};
+lost.location = "Another island";
+console.log(lost, lost.location);
+
+----
+Object.defineProperty 对象定义属性： ie9+
+var lost = {
+    loc: "Island"
+};
+
+Object.defineProperty(lost, "location", {
+    get: function() {
+        return this.loc;
+    },
+    set: function(val) {
+        this.loc = val;
+    }
+});
+
+lost.location = 'america';
+console.log(lost, lost.location);
+---------------------------------------------------------
+
+在 JavaScript 1.8 引入 Array extras: reduce
+var a = [10, 20, 30];
+var total = a.reduce(function(first, second) { return first + second; }, 0);
+alert(total) // Alerts 60
+-------
+多维数组：
+var a = new Array(4);
+for (i = 0; i < 4; i++) {
+  a[i] = new Array(4);
+  for (j = 0; j < 4; j++) {
+    a[i][j] = "[" + i + "," + j + "]";
+  }
+}
+
+This example creates an array with the following rows:
+
+Row 0: [0,0] [0,1] [0,2] [0,3]
+Row 1: [1,0] [1,1] [1,2] [1,3]
+Row 2: [2,0] [2,1] [2,2] [2,3]
+Row 3: [3,0] [3,1] [3,2] [3,3]
+-------
+Array comprehensions：
+var numbers = [1, 2, 3, 4];
+var doubled = [i * 2 for (i of numbers)];
+alert(doubled); // Alerts 2,4,6,8
+eq:
+var doubled = numbers.map(function(i){return i * 2;});
+
+var numbers = [1, 2, 3, 21, 22, 30];
+var evens = [i for (i of numbers) if (i % 2 === 0)];
+alert(evens); // Alerts 2,22,30
+eq:
+var evens = numbers.filter(function(i){return i % 2 === 0;});
+---
+var numbers = [1, 2, 3, 21, 22, 30];
+var doubledEvens = [i * 2 for (i of numbers) if (i % 2 === 0)];
+alert(doubledEvens); // Alerts 4,44,60
+-------
+var today = new Date();
+var endYear = new Date(1995, 11, 31, 23, 59, 59, 999);
+
+-------
+<script type="application/javascript;version=1.7"></script>
+void： 操作符丢弃一个表达式的返回值.
+
+https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.7
+let： 操作符创建一个临时变量, 有效作用域仅为当前表达式.
+    Variables declared by let have as their scope the block in which they are defined。
+
+function letTests() {
+  let x = 10;
+  // let-statement
+  let (x = x + 20) {
+    alert(x);  // 30
+  }
+  // let-expression
+  alert(let (x = x + 20) x);  // 30
+  // let-definition
+  {
+    let x = x + 20;  // x here evaluates to undefined
+    alert(x);  // undefined + 20 ==> NaN
+  }
+}
+
+function add3(obj) {
+   for ( let i in obj )
+     yield (parseInt(i, 10) + 2);
+ }
+ 
+ let it = add3([2, 3, 4]);
+ try {
+   while (true) {
+     console.log( it.next() + "\n");
+   }
+ } catch (err if err instanceof StopIteration) {
+   console.log("End of record.\n");
+ }
+
+Arrow Function：
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+
+Destructuring assignment ： 分割代入
+function fib() {
+  var i = 0, j = 1;
+  while (true) {
+    yield i;
+    [i, j] = [j, i + j];
+  }
+}
+
+var g = fib();
+for (var i = 0; i < 10; i++)
+  console.log(g.next());
+
+多值返回：
+function f() {
+  return [1, 2];
+}
+var a, b;
+[a, b] = f();
+
+对象循值：
+let obj = { width: 3, length: 1.5, color: "orange" };
+
+for (let [name, value] in Iterator(obj)) {
+  console.log("Name: " + name + ", Value: " + value);
+}
+
+pulling out fields of interest from each object：
+var people = [
+  {name: "Mike Smith", family: {mother: "Jane Smith", father: "Harry Smith", sister: "Samantha Smith"}, age: 35 }, 
+  {name: "Tom Jones", family: {mother: "Norah Jones", father: "Richard Jones", brother: "Howard Jones"}, age: 25 } ];
+
+for each (let {name: n, family: { father: f } } in people) {
+  console.log("Name: " + n + ", Father: " + f);
+}
+
+Pulling fields from objects passed as function parameter：
+function userId({id}) {
+  return id;
+}
+
+function whois({displayName: displayName, fullName: {firstName: name}})
+  console.log(displayName + " is " + name);
+}
+
+var user = {id: 42, displayName: "jdoe", fullName: {firstName: "John", lastName: "Doe"}};
+
+console.log("userId: " + userId(user));
+whois(user);
 -------------------------------------------------------------------------------
 http://www.infoq.com/cn/articles/generator-and-asynchronous-programming/
-目前解决异步流程控制问题的主流方案有以下三种：
+异步流程控制问题：
 
     自定义事件式方案
     Promise/Deferred
@@ -38,6 +220,7 @@ fs.readFile('file2.txt', 'utf8', done());
 上述代码中，done执行了两次，每次执行的过程中，将计数器count加一，然后返回一个函数。当fs.readFile这个异步调用结束后，done执行后的回调函数会得到执行，计数器减一。当计数器回到0的时候，意味着多个异步调用的回调函数都已经执行，此时执行传入的回调函数。因为非阻塞的原因，done()生成的函数不会立即执行，使得计数器可以正常地增加值，结束后才慢慢减少值。
 -----------------------
 Generator：
+https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/The_Iterator_protocol
 constructor GeneratorFunction {}
 @@iterator @@iterator()
 next next()
@@ -53,7 +236,50 @@ next next()
     toSource toSource()
     toString toString()
 throw throw()
+--------------------
+只有火狐：
+function double5() {
+    var i = 0,
+        j = 5,
+        k;
+    while (true) {
+        yield i;
+        k = i;
+        i = j;
+        j += i;
+    }
+}
+
+var g = double5(),
+    resultValues = [];
+for (var i = 0; i < 5; i++) {
+    resultValues.push(g.next());
+}
+console.log(resultValues); //  [0, 5, 10, 20, 40]
 -------------------------------------------------------------------------------
+var gen = generator();
+
+function driveGenerator() {
+  if (gen.next()) {
+    window.setTimeout(driveGenerator, 0);   
+  } else {
+    gen.close();    
+  }
+}
+
+function generator() {
+  while (i < something) {
+    /** stuff **/
+
+    ++i;
+    /** 100 loops per yield **/
+    if ((i % 100) == 0) {
+      yield true;
+    } 
+  }
+  yield false;
+}
+------------------
 function* Hello() {
   // 我习惯用大驼峰命名因为这就好比generator的构造函数
   yield 1
@@ -111,7 +337,9 @@ yield的返回值和 yield 后面的东西毫无关系(但不能没有, 不然�
 function isGeneratorFunction(obj) {
   return obj && obj.constructor && 'GeneratorFunction' === obj.constructor.name
 }
-
+function isGenerator(obj) {
+  return obj && 'function' == typeof obj.next && 'function' == typeof obj.throw;
+}
 yield后面可以跟 *anothergenerator，这样当前的断点就会进入到anothergenerator的generatorfunction里面，
 等子generator全部执行完后再回来继续执行。这个其实有点类似递归的意思。
 function* run() {
@@ -186,9 +414,78 @@ ret.value(function(err, data) {
 });
 --------------------
 模拟 co ：
+function thunkify( fn ){
+    return function() {
+        // before logic， 在执行 fn 前先做一些事情，如参数整理等
+        var args = new Array(arguments.length);
+        // node 大环境
+        var ctx = this;
+        for (var i = 0; i < args.length; ++i) {
+            args[i] = arguments[i];
+        }
+        // 正常本来这里应该 fn ( args ) 了
+        // 结果又 return 了，包包再扔出去，generatour.next() 
+        // 其实还是要 before 先做些事情，但不在这里做了
+        // 把 befone 的部分逻辑放到 done 回调函数里了，
+        // 要让别的环境（函数）驱动下
+        return function (done){
+            var called;
+            args.push( function () {
+                if (called) return;
+                // done 必然要把原来的参数带着
+                done.applay(null, arguments);
+                called = true;
+            });
+            // done 要接收别的函数的执行结果，那么 done 就是得作为
+            // 其他函数的回调，在调用函数执行完后，再执行对结果的处理。
+            try {
+                fn.applay( ctx, args );
+            } catch (err){
+                // 也包括错误处理
+                done(err);
+            }
+
+        }
+        
+    }
+}
+function thunkify(fn) {
+    assert('function' == typeof fn, 'function required');
+    // readFile() 包装后的函数
+    return function() {
+        var args = new Array(arguments.length);
+        var ctx = this;
+
+        for (var i = 0; i < args.length; ++i) {
+            args[i] = arguments[i];
+        }
+        // 收集参数后， 返回的函数为 yield 后面语句执行后的 value 或 value array 的 item 项。
+        // done 为 item 项的回调函数
+        return function(done) {
+            var called;
+            console.log("thunkify done: ", done)
+            // 在回调函数中植入收集逻辑，先执行植入的逻辑函数
+            args.push(function() {
+                if (called) return;
+                called = true;
+                // console.dir("thunkify argumentss:", arguments);
+                done.apply(null, arguments);
+            });
+
+            try {
+                // console.log("thunkify args:", args);
+                fn.apply(ctx, args);
+            } catch (err) {
+                done(err);
+            }
+        }
+    }
+};
+
 var fs = require('fs');
 // 模拟 thrunkify
 var helper = function(fn) {
+    // 下面的 item 函数
     return function() {
         var args = [].slice.call(arguments);
         var pass;
@@ -211,12 +508,17 @@ var co = function(flow) {
     var generator = flow();
     var next = function(data) {
         var ret = generator.next(data);
+        // yield [readFile('file1.txt', 'utf8'), readFile('file2.txt', 'utf8')] 返回值是 value
+        // co out ret: { value: [ [Function], [Function] ], done: false }
         if (!ret.done) {
             if (Array.isArray(ret.value)) {
                 var count = 0;
                 var results = [];
                 ret.value.forEach(function(item, index) {
                     count++;
+                    // 下面是 node 的典型回调函数 callback,
+                    // item 的回调 似 readFile 中的 callback， 比如 readFile('file1.txt', 'utf8', callback)                     
+                    // item 的回调函数为 thunkify 中的返回函数，执行 item
                     item(function(err, data) {
                         count--;
                         if (err) {
@@ -265,3 +567,9 @@ co(function*() {
     yield [sleep(1000), sleep(1000)];
     console.timeEnd('sleep2');
 });
+
+--------------------------
+http://segmentfault.com/blog/kk_470661/1190000000593885
+另一个ES6中的新特性是WeakMap。
+简单的说，一个 WeakMap实例能够使用对象引用作为键，然后和一个数据相联系，而不需要真正把数据存储在对象上。
+

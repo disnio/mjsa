@@ -1,15 +1,17 @@
-describe('Object', function () {
-    "use strict";
+/*global describe, it, xit, expect, beforeEach, jasmine */
 
-    describe("Object.keys", function () {
+describe('Object', function () {
+    'use strict';
+
+    describe('Object.keys', function () {
         var obj = {
-            "str": "boz",
-            "obj": { },
-            "arr": [],
-            "bool": true,
-            "num": 42,
-            "null": null,
-            "undefined": undefined
+            str: 'boz',
+            obj: { },
+            arr: [],
+            bool: true,
+            num: 42,
+            'null': null,
+            undefined: undefined
         };
 
         var loopedValues = [];
@@ -29,6 +31,19 @@ describe('Object', function () {
                     expect(Object.keys(arguments)).toEqual(['0', '1', '2']);
                 }(1, 2, 3));
             });
+
+            it('works with a legacy arguments object', function () {
+                var FakeArguments = function (args) {
+                    args.forEach(function (arg, i) {
+                        this[i] = arg;
+                    }.bind(this));
+                };
+                FakeArguments.prototype.length = 3;
+                FakeArguments.prototype.callee = function () {};
+
+                var fakeOldArguments = new FakeArguments(['a', 'b', 'c']);
+                expect(Object.keys(fakeOldArguments)).toEqual(['0', '1', '2']);
+            });
         });
 
         it('should return an Array', function () {
@@ -44,14 +59,15 @@ describe('Object', function () {
         it('should return names which are enumerable', function () {
             keys.forEach(function (name) {
                 expect(loopedValues.indexOf(name)).toNotBe(-1);
-            })
+            });
         });
 
-        it('should throw error for non object', function () {
+        // ES6 Object.keys does not require this throw
+        xit('should throw error for non object', function () {
             var e = {};
             expect(function () {
                 try {
-                    Object.keys(42)
+                    Object.keys(42);
                 } catch (err) {
                     throw e;
                 }
@@ -74,12 +90,11 @@ describe('Object', function () {
         });
 
         it('works with boxed primitives', function () {
-            expect(Object.keys(new String('hello'))).toEqual(['0', '1', '2', '3', '4']);
             expect(Object.keys(Object('hello'))).toEqual(['0', '1', '2', '3', '4']);
         });
 
         it('works with boxed primitives with extra properties', function () {
-            var x = new String('x');
+            var x = Object('x');
             x.y = 1;
             var actual = Object.keys(x);
             var expected = ['0', 'y'];
@@ -89,7 +104,7 @@ describe('Object', function () {
         });
     });
 
-    describe("Object.isExtensible", function () {
+    describe('Object.isExtensible', function () {
         var obj = { };
 
         it('should return true if object is extensible', function () {
@@ -109,25 +124,23 @@ describe('Object', function () {
         });
 
         it('should throw error for non object', function () {
-            var e1 = {};
-            expect(function () {
-                try {
-                    Object.isExtensible(42)
-                } catch (err) {
-                    throw e1;
-                }
-            }).toThrow(e1);
+            try {
+                // note: in ES6, this is expected to return false.
+                expect(Object.isExtensible(42)).toBe(false);
+            } catch (err) {
+                expect(err).toEqual(jasmine.any(TypeError));
+            }
         });
     });
 
-    describe("Object.defineProperty", function () {
+    describe('Object.defineProperty', function () {
         var obj;
 
-        beforeEach(function() {
+        beforeEach(function () {
            obj = {};
 
            Object.defineProperty(obj, 'name', {
-               value : 'Testing',
+               value: 'Testing',
                configurable: true,
                enumerable: true,
                writable: true
@@ -155,7 +168,7 @@ describe('Object', function () {
             var child = Object.create(obj, {});
 
             Object.defineProperty(child, 'name', {
-                value : 'Other'
+                value: 'Other'
             });
 
             expect(obj.name).toBe('Testing');
@@ -169,11 +182,11 @@ describe('Object', function () {
         });
     });
 
-    describe("Object.getOwnPropertyDescriptor", function () {
+    describe('Object.getOwnPropertyDescriptor', function () {
         it('should return undefined because the object does not own the property', function () {
             var descr = Object.getOwnPropertyDescriptor({}, 'name');
 
-            expect(descr).toBeUndefined()
+            expect(descr).toBeUndefined();
         });
 
         it('should return a data descriptor', function () {
@@ -189,13 +202,13 @@ describe('Object', function () {
         it('should return undefined because the object does not own the property', function () {
             var descr = Object.getOwnPropertyDescriptor(Object.create({name: 'Testing'}, {}), 'name');
 
-            expect(descr).toBeUndefined()
+            expect(descr).toBeUndefined();
         });
 
         it('should return a data descriptor', function () {
             var obj = Object.create({}, {
                 name: {
-                    value : 'Testing',
+                    value: 'Testing',
                     configurable: true,
                     enumerable: true,
                     writable: true
@@ -212,9 +225,12 @@ describe('Object', function () {
         });
 
         it('should throw error for non object', function () {
-            expect(function () {
-                Object.getOwnPropertyDescriptor(42, 'name');
-            }).toThrow();
+            try {
+                // note: in ES6, we expect this to return undefined.
+                expect(Object.getOwnPropertyDescriptor(42, 'name')).toBeUndefined();
+            } catch (err) {
+                expect(err).toEqual(jasmine.any(TypeError));
+            }
         });
     });
 });
