@@ -61,21 +61,33 @@ python manage.py makemigrations
 python manage.py sqlmigrate books 0002
 然后到数据库查询器里面执行生成的sql代码。
 
-支付装：
+------------------------------------------------------
+django-oscar 安装： 
+apt-get install python-dev 
+sudo apt-get install  libjpeg-dev[el] freetype [libfreetype6-dev]
+gd 库编译安装
+
+pip install django-oscar pillow
+pip install django-debug-toolbar
+pip install django-debug-toolbar-template_timings_panel
+
 pip install requests
 pip install django-localflavor
 
 pip install whoosh
 pip install jieba
 haystack 
+pip install psycopg2
 
+settings.py 里面：
+thumbnail_debug = True
+
+数据库直接远程导入
+-------------------------------------
 thumbnail_kvstore 静态文件替换后要清空
 ---------------------------------------------------------------------
-编译mod_wsgi：
-mod_wsgi-4.4.6$ ./configure --with-apxs=/usr/bin/apxs2 --with-python=/usr/bin/python
-
-sudo chmod 644 /usr/lib/apache2/modules/mod_wsgi.so
----------------------------------------------------------------------
+http://www.cnblogs.com/eastday/archive/2013/05/31/3109819.html
+http://blog.itpub.net/9521459/viewspace-759918/
 更改postgres密码：
 sudo su postgres
 [sudo] password for oydsoft: 
@@ -91,17 +103,7 @@ ALTER ROLE
 sudo /etc/init.d/postgresql restart
 
 django-admin startproject artmall
--------------------------------------
-改变目录后wsgi 等如果pylib里面没有就要重新安装。
 
-pip install django-debug-toolbar
-pip install django-debug-toolbar-template_timings_panel
-sudo apt-get install  libjpeg-dev libfreetype6-dev zlib1g-dev
-然后重新安装Pillow
-
-LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so
-
-pip install mod_wsgi
 
 安装postgres驱动：
 pip install psycopg2
@@ -123,8 +125,7 @@ pg_hba.conf
 host    all         all         127.0.0.1/32          ident
 host    all         all         192.168.0.111/16          trust
 -------------------------------------------------------------------
-
-
+改 debug-toolbar  的 jquery：
 c:\Python27\Lib\site-packages\debug_toolbar\settings.py
 CONFIG_DEFAULTS = {
     }
@@ -138,42 +139,50 @@ netstat -lpnt
 
 uwsgi：
 http://django-china.cn/topic/101/
-http://www.nowamagic.net/academy/detail/1330328
+
 http://www.cnblogs.com/lxg226/p/3468558.html (nginx server 配置注意)
 http://www.nowamagic.net/academy/detail/1330331
 http://mdba.cn/?p=109
-uwsgi --http :8001 --chdir /var/www/wsctest/artmall-src/oscar/artmall --module ango_wsgi
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "oscar.artmall.settings")
+uwsgi --http :8001 --chdir /var/www/wsctest/artmall-src/oscar/ --module django_wsgi
 
-(wsctest)[root@wow oscar]# uwsgi --http :8001 --chdir /var/www/wsctest/artmall-src/oscar/ --module django_wsgi
-uwsgi: invalid option -- 'o'
-getopt_long() error
 -----
 http://www.nowamagic.net/academy/detail/1330334
 有时候因各种环境问题，-x --xml 命令识别不了，可以使用下面的 ini 配置方式：
-uwsgi --ini wsgi.ini&
-wsgi.ini
+uwsgi --ini wsgi.ini
+
 [uwsgi]
-vhost= false
-
-socket= 127.0.0.1:8077
-
-chdir= /var/www/wsctest/artmall-src/oscar
-
-module= django_wsgi
-
-buffer-size = 32768
-
-master = true
-
-workers =1
-
-wsgi-file = /var/www/wsctest/artmall-src/oscar/django_wsgi.py
-virtualenv = /var/www/wsctest/
+vhost= true 
+# no-site = true
+socket= 127.0.0.1:8078
+chdir= /var/www/dtest/dtest/
+wsgi-file = /var/www/dtest/dtest/dtest_wsgi.py
+processes = 4
+threads = 2
+virtualenv = /var/www/dtest/
 --------
+
+http://www.cnblogs.com/xiongpq/p/3381069.html 配置全部含脚本
+http://www.nowamagic.net/academy/detail/1226280 简明魔法的nginx 
 操作uwsgi进程(切换到<project path>目录下):
 
     启动：uwsgi --ini uwsgi_XXX.ini
     停止：uwsgi --stop uwsgi.pid
     reload: uwsgi --reload uwsgi.pid
+
+app 一定要放在和 manage.py 同级
+-----------
+win 下 nginx + apache + django
+http://daigong.iteye.com/blog/1019572
+---------------------------------------------------------------------
+
+改变目录后wsgi 等如果pylib里面没有就要重新安装。
+
+编译mod_wsgi：
+mod_wsgi-4.4.6$ ./configure --with-apxs=/usr/bin/apxs2 --with-python=/usr/bin/python
+-------------------------------------
+sudo chmod 644 /usr/lib/apache2/modules/mod_wsgi.so
+
+LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so
+
+pip install mod_wsgi

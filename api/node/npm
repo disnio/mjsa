@@ -54,6 +54,120 @@ Now when somebody does require('mypkg') in node, they will get the exports from 
     "transform": [ "brfs" ]
   }
 }
+
+-----------------------------------------------------------------------------------------
+
+A querystring parser that supports nesting and arrays, with a depth limit
+var Qs = require('qs');
+ 
+var obj = Qs.parse('a=c');    // { a: 'c' } 
+var str = Qs.stringify(obj);  // 'a=c' 
+Qs.parse('a=b&c=d', { parameterLimit: 1 });
+// { a: 'b' } 
+An optional delimiter can also be passed:
+
+Qs.parse('a=b;c=d', { delimiter: ';' });
+// { a: 'b', c: 'd' } 
+
+Delimiters can be a regular expression too:
+
+Qs.parse('a=b;c=d,e=f', { delimiter: /[;,]/ });
+
+
+Parsing Arrays
+
+qs can also parse arrays using a similar [] notation:
+
+Qs.parse('a[]=b&a[]=c');
+// { a: ['b', 'c'] } 
+
+You may specify an index as well:
+
+Qs.parse('a[1]=c&a[0]=b');
+// { a: ['b', 'c'] } 
+// 
+// qs will also limit specifying indices in an array to a maximum index of 20. Any array members with an index of greater than 20 will instead be converted to an object with the index as the key:
+
+Qs.parse('a[100]=b');
+// { a: { '100': 'b' } } 
+// This limit can be overridden by passing an arrayLimit option:
+
+Qs.parse('a[1]=b', { arrayLimit: 0 });
+// { a: { '1': 'b' } } 
+// 
+-------------
+// When arrays are stringified, by default they are given explicit indices:
+
+Qs.stringify({ a: ['b', 'c', 'd'] });
+// 'a[0]=b&a[1]=c&a[2]=d' 
+
+You may override this by setting the indices option to false:
+
+Qs.stringify({ a: ['b', 'c', 'd'] }, { indices: false });
+// 'a=b&a=c&a=d' 
+You may use the arrayFormat option to specify the format of the output array
+
+Qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'indices' })
+// 'a[0]=b&a[1]=c' 
+Qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'brackets' })
+// 'a[]=b&a[]=c' 
+Qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'repeat' })
+// 'a=b&a=c' 
+/Qs.stringify({ a: 'b', c: 'd' }, { delimiter: ';' });
+// 'a=b;c=d' 
+-----------------------------------------------------------------------------------------
+router：
+http://cnpmjs.org/package/router
+router.use([path], ...middleware)
+router[method](path, ...[middleware], handler)
+router.param(name, param_middleware)
+router.route(path)
+route.all(handler)
+----
+express 比较好的例子：
+app.param('user', function(req, res, next, id){
+  User.find(id, function(err, user){
+    if (err) {
+      next(err);
+    } else if (user) {
+      req.user = user;
+      next();
+    } else {
+      next(new Error('failed to load user'));
+    }
+  });
+});
+app.param(function(name, fn){
+  if (fn instanceof RegExp) {
+    return function(req, res, next, val){
+      var captures;
+      if (captures = fn.exec(String(val))) {
+        req.params[name] = captures;
+        next();
+      } else {
+        next('route');
+      }
+    }
+  }
+});
+
+The method could now be used to effectively validate parameters
+ (and optionally parse them to provide capture groups):
+// app.param('user', function(req, res, next, id)
+// app.param(function(name, fn)
+app.param('id', /^\d+$/);
+app.get('/user/:id', function(req, res){
+  res.send('user ' + req.params.id);
+});
+
+app.get(/^\/commits\/(\w+)(?:\.\.(\w+))?$/, function(req, res){
+  var from = req.params[0];
+  var to = req.params[1] || 'HEAD';
+  res.send('commit range ' + from + '..' + to);
+});
+------------------------
+res.cookie('rememberme', '1', { maxAge: 900000, httpOnly: true })
+res.cookie('name', 'tobi', { domain: 'localhost', path: '/admin', secure: true });
 -----------------------------------------------------------------------------------------
 
 Coffee:

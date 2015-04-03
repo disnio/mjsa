@@ -1,3 +1,10 @@
+SSH：
+sudo apt-get update 这个必须先做，在新安装的系统
+sudo apt-get install openssh-server
+安装完后启动ssh服务：
+sudo /etc/init.d/ssh start
+其中端口默认为22。
+-----------------------------------------------------------------
 sudo apt-add-repository ppa:fcitx-team/nightly    #添加源  
 sudo apt-get update                               #更新源  
 sudo apt-get remov
@@ -8,6 +15,7 @@ git：
 sudo apt-get build-dep git-core git-doc
 sudo apt-get install git
 -----------------------------------------------------------------
+Apache：
 Server URL         : http://localhost:8000/
 Server Root        : /tmp/mod_wsgi-localhost:8000:1000
 Server Conf        : /tmp/mod_wsgi-localhost:8000:1000/httpd.conf
@@ -21,5 +29,35 @@ sudo apache2ctl start
 WSGIPythonPath /home/oydsoft/www/oscar/artmall:/home/oydsoft/www/oscar/lib/python2.7/site-packages
 to apache2.conf
 ServerName localhost
------
-$ grep tix /etc/hosts
+------
+http://www.cnblogs.com/CSGrandeur/p/3741871.html
+sudo a2ensite mysite
+sudo service apache2 reload
+sudo a2dissite 000-default
+sudo service apache2 reload
+----------------------------------------------------------------
+联网：
+iface lo inet loopback
+
+# The primary network interface
+auto etc1
+
+iface eth1 inet static
+address 192.168.0.253
+netmask 255.255.255.0
+#network 192.168.0.0
+gateway 192.168.0.1
+#broadcast 192.168.0.255
+
+#iface eth1 inet static
+#address 106.120.238.37
+#netmask 255.255.255.248
+#gateway 106.120.238.33
+vmware：
+检查 wmare 对应服务开启， win 联网共享， 网址网关
+vmnet8 nat：
+ip 192.168.93.1
+gateway 192.168.93.1
+虚拟机：
+
+----------------------------------------------------------------

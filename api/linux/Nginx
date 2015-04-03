@@ -1,0 +1,72 @@
+Nginx：
+------------
+停止和禁用apache
+service httpd stop
+chkconfig –levels 2345 off
+
+停止 apache 占用 80
+chkconfig httpd off
+------------
+http://www.sxt.cn/u/4647/blog/5559 靠谱
+http://www.nginx.cn/install
+wget http://nginx.org/packages/centos/5/noarch/RPMS/nginx-release-centos-5-0.el5.ngx.noarch.rpm
+rpm -ivh nginx-release-centos-5-0.el5.ngx.noarch.rpm
+yum install nginx
+
+whereis nginx
+
+/usr/sbin/nginx -v
+**运行和控制**：
+http://www.nginx.cn/nginxchscommandline
+
+chkconfig --add nginx
+chkconfig --level 35 nginx on
+chkconfig --list | grep nginx
+
+停止
+nginx -s stop
+#查询nginx主进程号
+ps -ef | grep nginx
+#停止进程
+kill -QUIT 主进程号
+#快速停止
+kill -TERM 主进程号
+#强制停止
+pkill -9 nginx
+重启
+service nginx restart
+/usr/local/nginx/sbin/nginx -s reload
+
+http://django-china.cn/topic/124/
+
+/etc/nginx/nginx.conf
+修改ngxin运行用户为原apache运行用户:apache，这样可以不用修改web目录权限的情况下完美解决权限问题。
+在nginx.conf文件第一行，加上 user root
+本来是默认用户，权限不够会造成静态文件无法引用
+
+conf.d/default.conf
+
+
+-------------------------------------------------------------------
+安装 PHP-FPM ：
+PHP-FPM是一个PHP FastCGI管理器，是只用于PHP的, 可以在 http://php-fpm.org/download下载得到.
+
+PHP-FPM其实是PHP源代码的一个补丁，旨在将FastCGI进程管理整合进PHP包中。
+必须将它patch到你的PHP源代码中，在编译安装PHP后才可以使用。
+新版PHP已经集成php-fpm了，不再是第三方的包了，推荐使用
+
+yum -y install gcc automake autoconf libtool make
+
+yum -y install gcc gcc-c++ glibc
+
+yum -y install libmcrypt-devel mhash-devel libxslt-devel \
+libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel \
+zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel \
+ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel \
+krb5 krb5-devel libidn libidn-devel openssl openssl-devel
+
+http://www.nowamagic.net/academy/detail/1226239
+yum erase php*
+or
+yum remove httpd* php* #这个命令是删除不干净的
+yum remove php-cli php-common php   #删除
