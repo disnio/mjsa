@@ -1,3 +1,27 @@
+
+Ubuntu的软件包格式为deb,而RPM格式的包则是Red Hat 相关系统所用的软件包。
+$sudo apt-get install alien ##alien默认没有安装，所以首先要安装它
+
+$sudo alien xxxx.rpm  ##将rpm转换为deb,完成后会生成一个xxxx.deb
+
+$sudo dpkg -i xxxx.deb ##这样xxxx软件就可以安装完成了
+-----------------------------------------------------------------
+
+nano /etc/nanorc
+
+set const
+
+-----------------------------------------------------------------
+PHP：
+http://www.cnblogs.com/zhj5chengfeng/archive/2013/10/15/3369460.html
+sudo apt-get install php5 libapache2-mod-php5 php5-mysql
+
+webadmin：
+sudo apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions
+
+wget http://prdownloads.sourceforge.net/webadmin/webmin_1.740_all.deb
+
+-----------------------------------------------------------------
 SSH：
 sudo apt-get update 这个必须先做，在新安装的系统
 sudo apt-get install openssh-server
@@ -16,6 +40,7 @@ sudo apt-get build-dep git-core git-doc
 sudo apt-get install git
 -----------------------------------------------------------------
 Apache：
+http://www.92csz.com/40/1213.html deny allow
 Server URL         : http://localhost:8000/
 Server Root        : /tmp/mod_wsgi-localhost:8000:1000
 Server Conf        : /tmp/mod_wsgi-localhost:8000:1000/httpd.conf
@@ -35,8 +60,26 @@ sudo a2ensite mysite
 sudo service apache2 reload
 sudo a2dissite 000-default
 sudo service apache2 reload
+
+如果觉得不再需要apache了，可以将它卸载：
+
+1. 删除apache
+在命令行中输入:
+$ sudo apt-get --purge remove apache-common
+$ sudo apt-get --purge remove apache
+
+
+2.找到没有删除掉的配置文件，一并删除
+代码:
+$ sudo find /etc -name "*apache*" |xargs rm -rf
+$ sudo rm -rf /var/www
+$sudo rm -rf /etc/libapache2-mod-jk
+
+3.删除关联，这样就可以再次用apt-get install apache2 重装了
+#dpkg -l |grep apache2|awk '{print $2}'|xargs dpkg -P
 ----------------------------------------------------------------
 联网：
+etc/network/interface
 iface lo inet loopback
 
 # The primary network interface

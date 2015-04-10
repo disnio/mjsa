@@ -4,7 +4,7 @@ tar -zcvf hxay130201.tar.gz * --exclude video --exclude download
 tar -zxvf
 wget http://nchc.dl.sourceforge.net/sourceforge/awstats/awstats-7.1-1.noarch.rpm
 wget http://prdownloads.sourceforge.net/webadmin/webmin-1.700-1.noarch.rpm 
-
+------------------------------------------------------
 安装模式：　　　　　　rpm　–i　[安装选项]　　<软件包>
 查询模式：　　　　　　rpm　–q　[查询选项]
 验证模式：　　　　　　rpm　–V　或　–verify　[验证选项]
@@ -34,7 +34,7 @@ rpm -ivh webmin-1.700-1.noarch.rpm
 --nodeps这个选项。这样一来，相关的软件就不能运行了。 
 
 --test　　　不真正删除，只是测试。
-
+-------------------------------------------------------------
 df -h 查看文件系统使用
 
 查看：查询档案或目录的磁盘使用空间 
@@ -46,15 +46,10 @@ du --exclude <video, gc> -sh *
 sort 的参数 -nr 表示要以数字排序法进行反向排序
 du -c log30.tar.gz log31.tar.gz 文件总和
 
-rm -rf dirname 删除目录及文件
-
-cp -r dirname 复制目录及文件
-
 touch filename 创建文件
 
-pwd print work directory
-
 updatedb 更新文件数据库
+
 locate filename 搜索文件名
 
 设置系统时间，并写入硬件bios
@@ -65,10 +60,7 @@ clock -w
 显示目前所有档案系统的最大可用空间及使用情形
 df -hi df -h
 
-更改目录权限
-drwxr-xr-x 22 root      root  4096 May 25 16:46 html 755
-chown hxftp:apache html
-
+----------------------------------------------------------------------------------
 搜索替换（注意空格）
 # find . -name '*.html' -exec sed 's/kmbm/kcbm/' {} \;
 find . -mtime -2 -print 两天内修改的文件
@@ -85,7 +77,7 @@ find *.c -exec cp ‘{}’ /tmp ‘;’ 将find出来的东西拷到另一个地
 find . -user 48 | xargs chown -R hxftp:apache
 git一个有用的地方，去除对pyc的跟踪
 find . -regex '.*\.pyc' -exec git rm --cached {} \;
------------
+----------------------------------------------------------------------------------
 ps：将某个时间点的程序运作情况撷取下来
 [root@linux ~]# ps aux
 [root@linux ~]# ps -lA
@@ -130,7 +122,7 @@ F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
 
 [root@linux ~]# ps aux
 USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND
-root 1 0.0 0.1 1740 540 ? S Jul25 0:01 init [3]
+root 1   0.0   0.1 1740 540 ?  S    Jul25 0:01 init [3]
 root 2 0.0 0.0 0 0 ? SN Jul25 0:00 [ksoftirqd/0]
 root 3 0.0 0.0 0 0 ? S< Jul25 0:00 [events/0]
 .....中间省略.....
@@ -153,3 +145,95 @@ o Z ：该程序应该已经终止，但是其父程序却无法正常的终止�
 • START：该 process 被触发启动的时间；
 • TIME ：该 process 实际使用 CPU 运作的时间。
 • COMMAND：该程序的实际指令为何？
+-----------------------------------------------------------------------------
+ubuntu中与chkconfig相对应的，应该是update-rc.d吧！
+sudo update-rc.d <service name> start|stop <order> <level>
+http://blog.sina.com.cn/s/blog_4cd5d2bb010142g5.html
+http://www.linuxidc.com/Linux/2013-01/77553.htm **
+chkconfig命令主要用来更新（启动或停止）和查询系统服务的运行级信息。谨记chkconfig不是立即自动禁止或激活一个服务，它只是简单的改变了符号连接。
+chkconfig [--add][--del][--list][系统服务] 或 chkconfig [--level <等级代号>][系统服务][on/off/reset]
+on和off分别指服务被启动和停止，reset指重置服务的启动信息，无论有问题的初始化脚本指定了什么。on和off开关，系统默认只对运行级3，4，5有效，但是reset可以对所有运行级有效。
+参数用法：
+   --add 　增加所指定的系统服务，让chkconfig指令得以管理它，并同时在系统启动的叙述文件内增加相关数据。
+   --del 　删除所指定的系统服务，不再由chkconfig指令管理，并同时在系统启动的叙述文件内删除相关数据。
+   --level<等级代号> 　指定读系统服务要在哪一个执行等级中开启或关毕。
+      等级0表示：表示关机
+      等级1表示：单用户模式
+      等级2表示：无网络连接的多用户命令行模式
+      等级3表示：有网络连接的多用户命令行模式
+      等级4表示：不可用
+      等级5表示：带图形界面的多用户模式
+      等级6表示：重新启动
+      需要说明的是，level选项可以指定要查看的运行级而不一定是当前运行级。对于每个运行级，只能有一个启动脚本或者停止脚本。当切换运行级时，init不会重新启动已经启动的服务，也不会再次去停止已经停止的服务。
+
+    chkconfig --list [name]：显示所有运行级系统服务的运行状态信息（on或off）。如果指定了name，那么只显示指定的服务在不同运行级的状态。
+    chkconfig --add name：增加一项新的服务。chkconfig确保每个运行级有一项启动(S)或者杀死(K)入口。如有缺少，则会从缺省的init脚本自动建立。
+    chkconfig --del name：删除服务，并把相关符号连接从/etc/rc[0-6].d删除。
+    chkconfig [--level levels] name：设置某一服务在指定的运行级是被启动，停止还是重置。
+
+每个被chkconfig管理的服务需要在对应的init.d下的脚本加上两行或者更多行的注释。
+
+如何增加一个服务：
+1.服务脚本必须存放在/etc/ini.d/目录下；
+2.chkconfig --add servicename
+    在chkconfig工具服务列表中增加此服务，此时服务会被在/etc/rc.d/rcN.d中赋予K/S入口了；
+3.chkconfig --level 35 mysqld on
+    修改服务的默认启动等级。
+
+ls -l /etc/rc?.d/*apache2           */
+
+lrwxrwxrwx 1 root root 17  1月 16 12:02 rc0.d/K09apache2 -> ../init.d/apache2*
+lrwxrwxrwx 1 root root 17  1月 16 12:02 rc1.d/K09apache2 -> ../init.d/apache2*
+lrwxrwxrwx 1 root root 17  1月 16 12:02 rc2.d/S91apache2 -> ../init.d/apache2*
+lrwxrwxrwx 1 root root 17  1月 16 12:02 rc3.d/S91apache2 -> ../init.d/apache2*
+lrwxrwxrwx 1 root root 17  1月 16 12:02 rc4.d/S91apache2 -> ../init.d/apache2*
+lrwxrwxrwx 1 root root 17  1月 16 12:02 rc5.d/S91apache2 -> ../init.d/apache2*
+lrwxrwxrwx 1 root root 17  1月 16 12:02 rc6.d/K09apache2 -> ../init.d/apache2*
+update-rc.d -f apache2 remove 当下停止
+update-rc.d apache2 stop 80 0 1 2 3 4 5 6 . 以后停止
+
+update-rc.d apache2 defaults 20
+update-rc.d apache2 defaults 20 80
+
+update-rc.d apache2 start 20 2 3 4 5 . stop 80 0 1 6 .
+update-rc.d apache2 start 20 2 3 4 . start 30 5 . stop 80 0 1 6 .
+
+注意启动变量的影响
+/etc/init.d/ntgps
+PATH=/usr/local/rvm/gems/ruby-1.9.2-p290/bin:/usr/local/rvm/gems/ruby-1.9.2-p290@global/bin:
+----------------------------------------------------------------------------------
+kill：
+确定要杀死进程的PID或PPID
+ps -ef | grep httpd
+
+以最优雅的方式来结束进程
+kill -l PID
+-l选项告诉kill命令用好像启动进程的用户已注销的方式结束进程。
+当使用该选项时，kill命令也试图杀死所留下的子进程。但这个命令也不是总能成功--或许仍然需要先手工杀死子进程，然后再杀死父进程。
+
+TERM信号
+给父进程发送一个TERM信号，试图杀死它和它的子进程。
+kill -TERM PPID
+-----------
+killall 命令
+killall 命令杀死同一进程组内的所有进程。其允许指定要终止的进程的名称，而非PID。
+
+killall httpd
+停止和重启进程
+
+有时候只想简单的停止和重启进程。如下：
+kill -HUP PID
+该命令让Linux和缓的执行进程关闭，然后立即重启。
+在配置应用程序的时候，这个命令很方便，在对配置文件修改后需要重启进程时就可以执行此命令。
+
+绝杀： kill -9 PID
+
+同意的 kill -s SIGKILL
+这个强大和危险的命令迫使进程在运行时突然终止，进程在结束后不能自我清理。
+危害是导致系统资源无法正常释放，一般不推荐使用，除非其他办法都无效。
+
+当使用此命令时，一定要通过ps -ef 确认没有剩下任何僵尸进程。
+只能通过终止父进程来消除僵尸进程。如果僵尸进程被init收养，问题就比较严重了。杀死init进程意味着关闭系统。
+
+如果系统中有僵尸进程，并且其父进程是init，而且僵尸进程占用了大量的系统资源，那么就需要在某个时候重启机器以清除进程表了。
+---------------------------------------------------------------------------------

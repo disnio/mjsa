@@ -7,6 +7,12 @@ chkconfig –levels 2345 off
 停止 apache 占用 80
 chkconfig httpd off
 ------------
+安装方法：
+http://www.linuxidc.com/Linux/2014-08/105422.htm
+sudo add-apt-repository ppa:nginx/stable
+sudo apt-get update
+sudo apt-get install nginx
+
 http://www.sxt.cn/u/4647/blog/5559 靠谱
 http://www.nginx.cn/install
 wget http://nginx.org/packages/centos/5/noarch/RPMS/nginx-release-centos-5-0.el5.ngx.noarch.rpm
@@ -43,9 +49,16 @@ http://django-china.cn/topic/124/
 修改ngxin运行用户为原apache运行用户:apache，这样可以不用修改web目录权限的情况下完美解决权限问题。
 在nginx.conf文件第一行，加上 user root
 本来是默认用户，权限不够会造成静态文件无法引用
-
+-----
+Permission：
+connect() to 127.0.0.1:8077 failed (13: Permission denied) while connecting to upstream, client: 127.0.0.1
 conf.d/default.conf
-
+查看了一下nginx进程ps aux|grep nginx
+ 发现都是nobody的进程，但是nginx的目录都是root用户，另外集群tomcat也是属于root用户，而且root启动，查看nginx.conf:
+ user nobody
+ 改成：user root
+ 停止nginx -s stop
+ 重启nginx -c  nginx.conf
 
 -------------------------------------------------------------------
 安装 PHP-FPM ：

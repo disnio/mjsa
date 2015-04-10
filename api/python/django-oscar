@@ -1,4 +1,22 @@
+-------------------------------------------------------------------
+改 debug-toolbar  的 jquery：
+c:\Python27\Lib\site-packages\debug_toolbar\settings.py
+CONFIG_DEFAULTS = {
+    }
+    'JQUERY_URL': '//libs.baidu.com/jquery/1.8.3/jquery.js',
+---
+site-packages\django_oscar-1.1_dev-py2.7.egg\oscar\templates\oscar\base.html:
+74:             <script src="{% static "oscar/js/jquery/jquery-1.9.1.min.js" %}"></script>
 
+---
+site-packages\django_oscar-1.1_dev-py2.7.egg\oscar\templates\oscar\dashboard\layout.html:
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+  153:     <script>window.jQuery.ui || document.write('<script src="{% static "oscar/js/jquery/jquery-ui-1.10.3.min.js" %}"><\/script>')</script>
+
+fonts.google: dashboard.css/less
+code.jquery:
+templates\oscar\customer\order\order_list.html
+templates\oscar\dashboard\layout.html
 ---------------------------------------------------------
 virtualenv [虚拟环境名称] 
 启动虚拟环境
@@ -54,6 +72,8 @@ python manage.py loaddata artmall_all_data.json
 python manage.py makemigrations
 python manage.py migrate
 python manage.py validate 。 它可以帮助你捕获一些常见的模型定义错误。
+带--fake参数执行migrate命令时，只将migration文件记录到数据库的django_migrations表，
+如果是用South的migration文件，fake操作就很关键了。
 
 syncdb仅仅创建数据库里还没有的表，它并不对你数据模型的修改进行同步,也不处理数据模型的删除。
 修改模型字段后：
@@ -116,20 +136,25 @@ service postgresql initdb
 让数据库开机启动
 chkconfig --add postgresql 
 chkconfig postgresql on
-
-su - postgres
+-------------------------
+修改数据库超级用户postgres的密码
+sudo passwd postgres
+切换到ubuntu下postgres用户
+sudo su postgres
 
 createdb test
 
+http://francs3.blog.163.com/blog/static/4057672720138953548912/
 pg_hba.conf
 host    all         all         127.0.0.1/32          ident
-host    all         all         192.168.0.111/16          trust
--------------------------------------------------------------------
-改 debug-toolbar  的 jquery：
-c:\Python27\Lib\site-packages\debug_toolbar\settings.py
-CONFIG_DEFAULTS = {
-    }
-    'JQUERY_URL': '//libs.baidu.com/jquery/1.8.3/jquery.js',
+host    all         all         192.168.0.111/16      trust
+local   all             all                           trust
+--------
+host    all             all     127.0.0.1/32          trust
+host    all             all     ::1/128               md5
+host    all             all     192.168.93.0/24       trust
+host    all             all     192.168.0.111/32      trust
+
 -------------------------------------------------------------------
 *** Python threads support is disabled. You can enable it with --enable-threads ***
 ImportError: No module named django_wsgi
@@ -139,6 +164,8 @@ netstat -lpnt
 
 uwsgi：
 http://django-china.cn/topic/101/
+apt-get update
+apt-get install uwsgi uwsgi-core uwsgi-plugin-python libxml2-dev python-dev python-pip
 
 http://www.cnblogs.com/lxg226/p/3468558.html (nginx server 配置注意)
 http://www.nowamagic.net/academy/detail/1330331
@@ -171,6 +198,11 @@ http://www.nowamagic.net/academy/detail/1226280 简明魔法的nginx
     reload: uwsgi --reload uwsgi.pid
 
 app 一定要放在和 manage.py 同级
+错误：
+看日志
+IOError: [Errno 13] Permission denied: '/home/artmalluser/oscar/artmall/artmall/logs/errors.log'
+upstream prematurely closed connection while reading response header from upstream,
+重装 sudo pip install uwsgi 和虚拟环境，退出虚拟，然后重新激活。重启nginx. 
 -----------
 win 下 nginx + apache + django
 http://daigong.iteye.com/blog/1019572
@@ -186,3 +218,4 @@ sudo chmod 644 /usr/lib/apache2/modules/mod_wsgi.so
 LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so
 
 pip install mod_wsgi
+---------------------------------------------------------------------

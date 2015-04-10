@@ -1,0 +1,4 @@
+1、改变模型后提交py文件
+2、其他人获取
+3、python manage.py makemigrations -- 生成模型改变的代码在app的migrations文件夹下
+4、python manage.py migrate --执行所有app的migrations，产生的影响是模型对应的表发生改变同时django_migrations表增加操作记录
