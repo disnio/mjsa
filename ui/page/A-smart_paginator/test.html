@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <title>Demo::jQuery Smart Pagination Plugin</title>
+
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
+
+    <script type="text/javascript" src="smartpaginator.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="smartpaginator.css">
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#red').smartpaginator({
+            totalrecords: 32,
+            recordsperpage: 4,
+            length: 4,
+            next: 'Next',
+            prev: 'Prev',
+            first: 'First',
+            last: 'Last',
+            theme: 'black',
+            controlsalways: true,
+            onchange: function(newPage) {
+
+                $('#r').html('Page # ' + newPage);
+
+            }
+
+        });
+
+
+
+    });
+    </script>
+
+
+</head>
+
+<body>
+<div id="red"></div>
+
+<div id="r"></div>
+</body>
+
+</html>
