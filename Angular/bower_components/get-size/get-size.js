@@ -7,6 +7,28 @@
 /*jshint browser: true, strict: true, undef: true, unused: true */
 /*global define: false, exports: false, require: false, module: false, console: false */
 
+<<<<<<< HEAD
+=======
+// http://www.cnblogs.com/rubylouvre/archive/2011/03/28/1998223.html
+
+var getStyleProperty =  new function (css, el) {
+    var prefixes = ['', '-ms-','-moz-', '-webkit-', '-khtml-', '-o-'];
+    var reg_cap = /-([a-z])/g;
+    return function(css, el){
+        el = el || document.documentElement;
+        var style = el.style, test;
+        for (var i=0, l=prefixes.length; i < l; i++) {
+            test = (prefixes[i] + css).replace(reg_cap,function($0,$1){
+                return $1.toUpperCase();
+            });
+            if(test in style){
+                return test;
+            }
+        }
+        return null;
+    }
+};
+>>>>>>> bdd49364ca1bc3c8d111febf3c7ae14423cfcac5
 (function(window, undefined) {
 
     'use strict';
@@ -14,7 +36,10 @@
     // -------------------------- helpers -------------------------- //
 
     // get a number from a string, not a percentage
+<<<<<<< HEAD
 
+=======
+>>>>>>> bdd49364ca1bc3c8d111febf3c7ae14423cfcac5
     function getStyleSize(value) {
         var num = parseFloat(value);
         // not a percent like '100%', and a number
@@ -25,8 +50,13 @@
     function noop() {}
 
     var logError = typeof console === 'undefined' ? noop :
+<<<<<<< HEAD
             function(message) {
                 console.error(message);
+=======
+        function(message) {
+            console.error(message);
+>>>>>>> bdd49364ca1bc3c8d111febf3c7ae14423cfcac5
         };
 
     // -------------------------- measurements -------------------------- //
@@ -77,7 +107,10 @@
          * do it on initial getSize(), rather than on script load
          * For Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=548397
          */
+<<<<<<< HEAD
 
+=======
+>>>>>>> bdd49364ca1bc3c8d111febf3c7ae14423cfcac5
         function setup() {
             // setup once
             if (isSetup) {
@@ -88,11 +121,19 @@
             var getComputedStyle = window.getComputedStyle;
             getStyle = (function() {
                 var getStyleFn = getComputedStyle ?
+<<<<<<< HEAD
                         function(elem) {
                             return getComputedStyle(elem, null);
                     } :
                         function(elem) {
                             return elem.currentStyle;
+=======
+                    function(elem) {
+                        return getComputedStyle(elem, null);
+                    } :
+                    function(elem) {
+                        return elem.currentStyle;
+>>>>>>> bdd49364ca1bc3c8d111febf3c7ae14423cfcac5
                     };
 
                 return function getStyle(elem) {
@@ -130,6 +171,7 @@
                 body.removeChild(div);
             }
 
+<<<<<<< HEAD
         }
 
         // -------------------------- getSize -------------------------- //
@@ -207,6 +249,84 @@
         // IE8 returns percent values, not pixels
         // taken from jQuery's curCSS
 
+=======
+        }
+
+        // -------------------------- getSize -------------------------- //
+
+        function getSize(elem) {
+            setup();
+
+            // use querySeletor if elem is string
+            if (typeof elem === 'string') {
+                elem = document.querySelector(elem);
+            }
+
+            // do not proceed on non-objects
+            if (!elem || typeof elem !== 'object' || !elem.nodeType) {
+                return;
+            }
+
+            var style = getStyle(elem);
+
+            // if hidden, everything is 0
+            if (style.display === 'none') {
+                return getZeroSize();
+            }
+
+            var size = {};
+            size.width = elem.offsetWidth;
+            size.height = elem.offsetHeight;
+
+            var isBorderBox = size.isBorderBox = !!(boxSizingProp &&
+                style[boxSizingProp] && style[boxSizingProp] === 'border-box');
+
+            // get all measurements
+            for (var i = 0, len = measurements.length; i < len; i++) {
+                var measurement = measurements[i];
+                var value = style[measurement];
+                value = mungeNonPixel(elem, value);
+                var num = parseFloat(value);
+                // any 'auto', 'medium' value will be 0
+                size[measurement] = !isNaN(num) ? num : 0;
+            }
+
+            var paddingWidth = size.paddingLeft + size.paddingRight;
+            var paddingHeight = size.paddingTop + size.paddingBottom;
+            var marginWidth = size.marginLeft + size.marginRight;
+            var marginHeight = size.marginTop + size.marginBottom;
+            var borderWidth = size.borderLeftWidth + size.borderRightWidth;
+            var borderHeight = size.borderTopWidth + size.borderBottomWidth;
+
+            var isBorderBoxSizeOuter = isBorderBox && isBoxSizeOuter;
+
+            // overwrite width and height if we can get it from style
+            var styleWidth = getStyleSize(style.width);
+            if (styleWidth !== false) {
+                size.width = styleWidth +
+                    // add padding and border unless it's already including it
+                    (isBorderBoxSizeOuter ? 0 : paddingWidth + borderWidth);
+            }
+
+            var styleHeight = getStyleSize(style.height);
+            if (styleHeight !== false) {
+                size.height = styleHeight +
+                    // add padding and border unless it's already including it
+                    (isBorderBoxSizeOuter ? 0 : paddingHeight + borderHeight);
+            }
+
+            size.innerWidth = size.width - (paddingWidth + borderWidth);
+            size.innerHeight = size.height - (paddingHeight + borderHeight);
+
+            size.outerWidth = size.width + marginWidth;
+            size.outerHeight = size.height + marginHeight;
+
+            return size;
+        }
+
+        // IE8 returns percent values, not pixels
+        // taken from jQuery's curCSS
+>>>>>>> bdd49364ca1bc3c8d111febf3c7ae14423cfcac5
         function mungeNonPixel(elem, value) {
             // IE8 and has percent value
             if (window.getComputedStyle || value.indexOf('%') === -1) {

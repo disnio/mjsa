@@ -1,7 +1,5 @@
 #[jQuery Form Plugin](http://jquery.malsup.com/form/)
-http://xinkong1010.iteye.com/blog/866045
-http://www.vaikan.com/docs/jquery.form.plugin/jquery.form.plugin.html
-http://www.esnsc.com/news638.html
+
 ##Overview
 The jQuery Form Plugin allows you to easily and unobtrusively upgrade HTML forms to use AJAX.  The main methods, ajaxForm and ajaxSubmit, gather information from the form element to determine how to manage the submit process. Both of these methods support numerous options which allows you to have full control over how the data is submitted. 
 
@@ -186,6 +184,9 @@ Clears selected field elements. This is handy when you need to clear only a part
 The Form Plugin supports use of [XMLHttpRequest Level 2]("http://www.w3.org/TR/XMLHttpRequest/") and [FormData](https://developer.mozilla.org/en/XMLHttpRequest/FormData) objects on browsers that support these features.  As of today (March 2012) that includes Chrome, Safari, and Firefox.  On these browsers (and future Opera and IE10) files uploads will occur seamlessly through the XHR object and progress updates are available as the upload proceeds.  For older browsers, a fallback technology is used which involves iframes.  [More Info](http://malsup.com/jquery/form/#file-upload)
 
 ---
+
+##CDN Support
+`<script src="//oss.maxcdn.com/jquery.form/3.50/jquery.form.min.js"></script>`
 
 ##Copyright and License
 Copyright 2006-2013 (c) M. Alsup

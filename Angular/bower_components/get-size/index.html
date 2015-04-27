@@ -6,47 +6,17 @@
   <title>getSize</title>
 
   <style>
-    .container {
-      width: 300px;
-      height: 200px;
-      margin-bottom: 10px;
-      border: 1px solid;
-      position: relative;
-    }
+    .container { width: 300px; height: 200px; margin-bottom: 10px; border: 1px solid; position: relative; }
 
-    .box {
-      color: blue;
-      background: pink;
-    }
+    .box { color: blue; background: pink; }
 
-    .border-box {
-      -webkit-box-sizing: border-box;
-         -moz-box-sizing: border-box;
-              box-sizing: border-box;
-    }
+    .border-box { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
-    #box1, #box2 {
-      width: 50%;
-      height: 50%;
-      border: 10px solid;
-      padding: 10px;
-    }
+    #box1, #box2 { width: 50%; height: 50%; border: 10px solid; padding: 10px; }
 
-    #box3, #box4 {
-       width: 50%;
-       height: 50%;
-       border: 0px solid;
-       margin: 10%;
-       padding: 10px;
-     }
+    #box3, #box4 { width: 50%; height: 50%; border: 0px solid; margin: 10%; padding: 10px; }
 
-    #box5, #box6 {
-       width: 100px;
-       height: 100px;
-       border: 10px solid;
-       margin: 10%;
-       padding: 5%;
-     }
+    #box5, #box6 { width: 100px; height: 100px; border: 10px solid; margin: 10%; padding: 5%; }
 
     </style>
 
@@ -80,6 +50,11 @@
   </div>
 
   <script src="get-size.js"></script>
-
+  <script>
+  for(var i=1; i<=6; i++){
+     console.log("box"+ i + ": ", getSize('#box'+i));
+  }
+  // console.log(getSize("#box1"));
+  </script>
 </body>
 </html>
