@@ -7,244 +7,247 @@
 /*jshint browser: true, strict: true, undef: true, unused: true */
 /*global define: false, exports: false, require: false, module: false, console: false */
 
-( function( window, undefined ) {
+(function(window, undefined) {
 
-'use strict';
+    'use strict';
 
-// -------------------------- helpers -------------------------- //
+    // -------------------------- helpers -------------------------- //
 
-// get a number from a string, not a percentage
-function getStyleSize( value ) {
-  var num = parseFloat( value );
-  // not a percent like '100%', and a number
-  var isValid = value.indexOf('%') === -1 && !isNaN( num );
-  return isValid && num;
-}
+    // get a number from a string, not a percentage
 
-function noop() {}
+    function getStyleSize(value) {
+        var num = parseFloat(value);
+        // not a percent like '100%', and a number
+        var isValid = value.indexOf('%') === -1 && !isNaN(num);
+        return isValid && num;
+    }
 
-var logError = typeof console === 'undefined' ? noop :
-  function( message ) {
-    console.error( message );
-  };
+    function noop() {}
 
-// -------------------------- measurements -------------------------- //
+    var logError = typeof console === 'undefined' ? noop :
+            function(message) {
+                console.error(message);
+        };
 
-var measurements = [
-  'paddingLeft',
-  'paddingRight',
-  'paddingTop',
-  'paddingBottom',
-  'marginLeft',
-  'marginRight',
-  'marginTop',
-  'marginBottom',
-  'borderLeftWidth',
-  'borderRightWidth',
-  'borderTopWidth',
-  'borderBottomWidth'
-];
+    // -------------------------- measurements -------------------------- //
 
-function getZeroSize() {
-  var size = {
-    width: 0,
-    height: 0,
-    innerWidth: 0,
-    innerHeight: 0,
-    outerWidth: 0,
-    outerHeight: 0
-  };
-  for ( var i=0, len = measurements.length; i < len; i++ ) {
-    var measurement = measurements[i];
-    size[ measurement ] = 0;
-  }
-  return size;
-}
+    var measurements = [
+        'paddingLeft',
+        'paddingRight',
+        'paddingTop',
+        'paddingBottom',
+        'marginLeft',
+        'marginRight',
+        'marginTop',
+        'marginBottom',
+        'borderLeftWidth',
+        'borderRightWidth',
+        'borderTopWidth',
+        'borderBottomWidth'
+    ];
 
-
-
-function defineGetSize( getStyleProperty ) {
-
-// -------------------------- setup -------------------------- //
-
-var isSetup = false;
-
-var getStyle, boxSizingProp, isBoxSizeOuter;
-
-/**
- * setup vars and functions
- * do it on initial getSize(), rather than on script load
- * For Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=548397
- */
-function setup() {
-  // setup once
-  if ( isSetup ) {
-    return;
-  }
-  isSetup = true;
-
-  var getComputedStyle = window.getComputedStyle;
-  getStyle = ( function() {
-    var getStyleFn = getComputedStyle ?
-      function( elem ) {
-        return getComputedStyle( elem, null );
-      } :
-      function( elem ) {
-        return elem.currentStyle;
-      };
-
-      return function getStyle( elem ) {
-        var style = getStyleFn( elem );
-        if ( !style ) {
-          logError( 'Style returned ' + style +
-            '. Are you running this code in a hidden iframe on Firefox? ' +
-            'See http://bit.ly/getsizebug1' );
+    function getZeroSize() {
+        var size = {
+            width: 0,
+            height: 0,
+            innerWidth: 0,
+            innerHeight: 0,
+            outerWidth: 0,
+            outerHeight: 0
+        };
+        for (var i = 0, len = measurements.length; i < len; i++) {
+            var measurement = measurements[i];
+            size[measurement] = 0;
         }
-        return style;
-      };
-  })();
+        return size;
+    }
 
-  // -------------------------- box sizing -------------------------- //
 
-  boxSizingProp = getStyleProperty('boxSizing');
 
-  /**
-   * WebKit measures the outer-width on style.width on border-box elems
-   * IE & Firefox measures the inner-width
-   */
-  if ( boxSizingProp ) {
-    var div = document.createElement('div');
-    div.style.width = '200px';
-    div.style.padding = '1px 2px 3px 4px';
-    div.style.borderStyle = 'solid';
-    div.style.borderWidth = '1px 2px 3px 4px';
-    div.style[ boxSizingProp ] = 'border-box';
+    function defineGetSize(getStyleProperty) {
 
-    var body = document.body || document.documentElement;
-    body.appendChild( div );
-    var style = getStyle( div );
+        // -------------------------- setup -------------------------- //
 
-    isBoxSizeOuter = getStyleSize( style.width ) === 200;
-    body.removeChild( div );
-  }
+        var isSetup = false;
 
-}
+        var getStyle, boxSizingProp, isBoxSizeOuter;
 
-// -------------------------- getSize -------------------------- //
+        /**
+         * setup vars and functions
+         * do it on initial getSize(), rather than on script load
+         * For Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+         */
 
-function getSize( elem ) {
-  setup();
+        function setup() {
+            // setup once
+            if (isSetup) {
+                return;
+            }
+            isSetup = true;
 
-  // use querySeletor if elem is string
-  if ( typeof elem === 'string' ) {
-    elem = document.querySelector( elem );
-  }
+            var getComputedStyle = window.getComputedStyle;
+            getStyle = (function() {
+                var getStyleFn = getComputedStyle ?
+                        function(elem) {
+                            return getComputedStyle(elem, null);
+                    } :
+                        function(elem) {
+                            return elem.currentStyle;
+                    };
 
-  // do not proceed on non-objects
-  if ( !elem || typeof elem !== 'object' || !elem.nodeType ) {
-    return;
-  }
+                return function getStyle(elem) {
+                    var style = getStyleFn(elem);
+                    if (!style) {
+                        logError('Style returned ' + style +
+                            '. Are you running this code in a hidden iframe on Firefox? ' +
+                            'See http://bit.ly/getsizebug1');
+                    }
+                    return style;
+                };
+            })();
 
-  var style = getStyle( elem );
+            // -------------------------- box sizing -------------------------- //
 
-  // if hidden, everything is 0
-  if ( style.display === 'none' ) {
-    return getZeroSize();
-  }
+            boxSizingProp = getStyleProperty('boxSizing');
 
-  var size = {};
-  size.width = elem.offsetWidth;
-  size.height = elem.offsetHeight;
+            /**
+             * WebKit measures the outer-width on style.width on border-box elems
+             * IE & Firefox measures the inner-width
+             */
+            if (boxSizingProp) {
+                var div = document.createElement('div');
+                div.style.width = '200px';
+                div.style.padding = '1px 2px 3px 4px';
+                div.style.borderStyle = 'solid';
+                div.style.borderWidth = '1px 2px 3px 4px';
+                div.style[boxSizingProp] = 'border-box';
 
-  var isBorderBox = size.isBorderBox = !!( boxSizingProp &&
-    style[ boxSizingProp ] && style[ boxSizingProp ] === 'border-box' );
+                var body = document.body || document.documentElement;
+                body.appendChild(div);
+                var style = getStyle(div);
 
-  // get all measurements
-  for ( var i=0, len = measurements.length; i < len; i++ ) {
-    var measurement = measurements[i];
-    var value = style[ measurement ];
-    value = mungeNonPixel( elem, value );
-    var num = parseFloat( value );
-    // any 'auto', 'medium' value will be 0
-    size[ measurement ] = !isNaN( num ) ? num : 0;
-  }
+                isBoxSizeOuter = getStyleSize(style.width) === 200;
+                body.removeChild(div);
+            }
 
-  var paddingWidth = size.paddingLeft + size.paddingRight;
-  var paddingHeight = size.paddingTop + size.paddingBottom;
-  var marginWidth = size.marginLeft + size.marginRight;
-  var marginHeight = size.marginTop + size.marginBottom;
-  var borderWidth = size.borderLeftWidth + size.borderRightWidth;
-  var borderHeight = size.borderTopWidth + size.borderBottomWidth;
+        }
 
-  var isBorderBoxSizeOuter = isBorderBox && isBoxSizeOuter;
+        // -------------------------- getSize -------------------------- //
 
-  // overwrite width and height if we can get it from style
-  var styleWidth = getStyleSize( style.width );
-  if ( styleWidth !== false ) {
-    size.width = styleWidth +
-      // add padding and border unless it's already including it
-      ( isBorderBoxSizeOuter ? 0 : paddingWidth + borderWidth );
-  }
+        function getSize(elem) {
+            setup();
 
-  var styleHeight = getStyleSize( style.height );
-  if ( styleHeight !== false ) {
-    size.height = styleHeight +
-      // add padding and border unless it's already including it
-      ( isBorderBoxSizeOuter ? 0 : paddingHeight + borderHeight );
-  }
+            // use querySeletor if elem is string
+            if (typeof elem === 'string') {
+                elem = document.querySelector(elem);
+            }
 
-  size.innerWidth = size.width - ( paddingWidth + borderWidth );
-  size.innerHeight = size.height - ( paddingHeight + borderHeight );
+            // do not proceed on non-objects
+            if (!elem || typeof elem !== 'object' || !elem.nodeType) {
+                return;
+            }
 
-  size.outerWidth = size.width + marginWidth;
-  size.outerHeight = size.height + marginHeight;
+            var style = getStyle(elem);
 
-  return size;
-}
+            // if hidden, everything is 0
+            if (style.display === 'none') {
+                return getZeroSize();
+            }
 
-// IE8 returns percent values, not pixels
-// taken from jQuery's curCSS
-function mungeNonPixel( elem, value ) {
-  // IE8 and has percent value
-  if ( window.getComputedStyle || value.indexOf('%') === -1 ) {
-    return value;
-  }
-  var style = elem.style;
-  // Remember the original values
-  var left = style.left;
-  var rs = elem.runtimeStyle;
-  var rsLeft = rs && rs.left;
+            var size = {};
+            size.width = elem.offsetWidth;
+            size.height = elem.offsetHeight;
 
-  // Put in the new values to get a computed value out
-  if ( rsLeft ) {
-    rs.left = elem.currentStyle.left;
-  }
-  style.left = value;
-  value = style.pixelLeft;
+            var isBorderBox = size.isBorderBox = !! (boxSizingProp &&
+                style[boxSizingProp] && style[boxSizingProp] === 'border-box');
 
-  // Revert the changed values
-  style.left = left;
-  if ( rsLeft ) {
-    rs.left = rsLeft;
-  }
+            // get all measurements
+            for (var i = 0, len = measurements.length; i < len; i++) {
+                var measurement = measurements[i];
+                var value = style[measurement];
+                value = mungeNonPixel(elem, value);
+                var num = parseFloat(value);
+                // any 'auto', 'medium' value will be 0
+                size[measurement] = !isNaN(num) ? num : 0;
+            }
 
-  return value;
-}
+            var paddingWidth = size.paddingLeft + size.paddingRight;
+            var paddingHeight = size.paddingTop + size.paddingBottom;
+            var marginWidth = size.marginLeft + size.marginRight;
+            var marginHeight = size.marginTop + size.marginBottom;
+            var borderWidth = size.borderLeftWidth + size.borderRightWidth;
+            var borderHeight = size.borderTopWidth + size.borderBottomWidth;
 
-return getSize;
+            var isBorderBoxSizeOuter = isBorderBox && isBoxSizeOuter;
 
-}
+            // overwrite width and height if we can get it from style
+            var styleWidth = getStyleSize(style.width);
+            if (styleWidth !== false) {
+                size.width = styleWidth +
+                // add padding and border unless it's already including it
+                (isBorderBoxSizeOuter ? 0 : paddingWidth + borderWidth);
+            }
 
-// transport
-if ( typeof define === 'function' && define.amd ) {
-  // AMD for RequireJS
-  define( [ 'get-style-property/get-style-property' ], defineGetSize );
-} else if ( typeof exports === 'object' ) {
-  // CommonJS for Component
-  module.exports = defineGetSize( require('desandro-get-style-property') );
-} else {
-  // browser global
-  window.getSize = defineGetSize( window.getStyleProperty );
-}
+            var styleHeight = getStyleSize(style.height);
+            if (styleHeight !== false) {
+                size.height = styleHeight +
+                // add padding and border unless it's already including it
+                (isBorderBoxSizeOuter ? 0 : paddingHeight + borderHeight);
+            }
 
-})( window );
+            size.innerWidth = size.width - (paddingWidth + borderWidth);
+            size.innerHeight = size.height - (paddingHeight + borderHeight);
+
+            size.outerWidth = size.width + marginWidth;
+            size.outerHeight = size.height + marginHeight;
+
+            return size;
+        }
+
+        // IE8 returns percent values, not pixels
+        // taken from jQuery's curCSS
+
+        function mungeNonPixel(elem, value) {
+            // IE8 and has percent value
+            if (window.getComputedStyle || value.indexOf('%') === -1) {
+                return value;
+            }
+            var style = elem.style;
+            // Remember the original values
+            var left = style.left;
+            var rs = elem.runtimeStyle;
+            var rsLeft = rs && rs.left;
+
+            // Put in the new values to get a computed value out
+            if (rsLeft) {
+                rs.left = elem.currentStyle.left;
+            }
+            style.left = value;
+            value = style.pixelLeft;
+
+            // Revert the changed values
+            style.left = left;
+            if (rsLeft) {
+                rs.left = rsLeft;
+            }
+
+            return value;
+        }
+
+        return getSize;
+
+    }
+
+    // transport
+    if (typeof define === 'function' && define.amd) {
+        // AMD for RequireJS
+        define(['get-style-property/get-style-property'], defineGetSize);
+    } else if (typeof exports === 'object') {
+        // CommonJS for Component
+        module.exports = defineGetSize(require('desandro-get-style-property'));
+    } else {
+        // browser global
+        window.getSize = defineGetSize(window.getStyleProperty);
+    }
+
+})(window);
