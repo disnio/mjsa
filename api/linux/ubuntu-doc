@@ -81,26 +81,54 @@ $sudo rm -rf /etc/libapache2-mod-jk
 联网：
 etc/network/interface
 iface lo inet loopback
-
 # The primary network interface
-auto etc1
+auto etc0
 
-iface eth1 inet static
-address 192.168.0.253
+iface eth0 inet static
+address 192.168.159.129
 netmask 255.255.255.0
-#network 192.168.0.0
-gateway 192.168.0.1
-#broadcast 192.168.0.255
+gateway 192.168.159.2
 
-#iface eth1 inet static
-#address 106.120.238.37
-#netmask 255.255.255.248
-#gateway 106.120.238.33
+
 vmware：
 检查 wmare 对应服务开启， win 联网共享， 网址网关
 vmnet8 nat：
-ip 192.168.93.1
-gateway 192.168.93.1
-虚拟机：
+ip 192.168.159.1
+gateway 192.168.159.1 不设置
 
+IP地址设定：工具ip, ifconfig and route,
+#sudo ifconfig eth0 1192.168.159.129 netmask 255.255.255.0
+ifconfig eth0
+
+修改默认网关：
+sudo route add default gw 10.0.0.1 eth0
+
+查看修改：
+route -n
+
+/etc/resolv.conf
+nameserver 192.168.159.2
+nameserver 8.8.8.8
+
+清除所有IP配置：
+ip addr flush eth0 
+
+动态IP：
+auto eth0
+iface eth0 inet dhcp
+----
+sudo ifup eth0
+sudo ifdown eth0 
+
+静态主机名：配置文件：/etc/hosts，IP到主机名的映射。
+http://www.2cto.com/os/201404/292853.html
+IP 地址可分为网络地址和主机地址两个部分。如果你拿到一个 IP 地址，
+把网络地址部分全部设为 1，而主机地址部分全部设为 0，则你将得到这个网络的子网掩码。
+IP addresses net mask length
+
+Class A 1.0.0.0 - 126.255.255.255 255.0.0.0 === /8
+
+Class B 128.0.0.0 - 191.255.255.255 255.255.0.0 === /16
+
+Class C 192.0.0.0 - 223.255.255.255 255.255.255.0 === /24
 ----------------------------------------------------------------
