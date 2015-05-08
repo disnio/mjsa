@@ -235,3 +235,10 @@ https://github.com/darcyclarke/Front-end-Developer-Interview-Questions/tree/mast
         genBrick(),
         genBrick()
     ];
+
+window: 判断
+function isWin(elem) {
+    return !elem.nodeName ||
+        $.inArray(elem.nodeName.toLowerCase(), ['iframe','#document','html','body']) !== -1;
+}   
+elem = win ? this.contentWindow || window : this,

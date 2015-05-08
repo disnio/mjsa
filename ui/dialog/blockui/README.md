@@ -1,5 +1,5 @@
 # BlockUI - Page or element overlay
-https://github.com/malsup/blockui
+
 ## Getting Started
 Download either the [production version][min] or the [development version][max] of BlockUI.
 

@@ -1,32 +1,40 @@
-# jQuery.ScrollTo
+# jQuery.scrollTo
 
-### Installation and usage
+[![GitHub version](https://badge.fury.io/gh/flesler%2Fjquery.scrollTo.svg)](http://badge.fury.io/gh/flesler%2Fjquery.scrollTo)
+[![libscore](http://img.shields.io/badge/libscore-31656-brightgreen.svg?style=flat-square)](http://libscore.com/#jQuery.fn.scrollTo)
 
-Using [bower](https://github.com/twitter/bower):
+## Installation and usage
+
+Via [![Bower version](https://badge.fury.io/bo/jquery.scrollTo.svg)](http://badge.fury.io/bo/jquery.scrollTo):
 ```bash
 bower install jquery.scrollTo
 ```
-Using [composer](http://getcomposer.org/download/):
-
-Either run
-
+Via [![npm version](https://badge.fury.io/js/jquery.scrollto.svg)](http://badge.fury.io/js/jquery.scrollto):
+```bash
+npm install jquery.scrollto
 ```
+Via [![PHP version](https://badge.fury.io/ph/flesler%2Fjquery.scrollTo.svg)](http://badge.fury.io/ph/flesler%2Fjquery.scrollTo):
+```php
 php composer.phar require --prefer-dist flesler/jquery.scrollto "*"
 ```
 
-or add
+### Using a public CDN
 
+CDN provided by [cdnjs](https://cdnjs.com/libraries/jquery-scrollTo)
+```html
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.14/jquery.scrollTo.min.js"></script>
 ```
-"flesler/jquery.scrollto": "*"
-```
-
-to the require section of your composer.json.
 
 ### Downloading Manually
 
 If you want the latest stable version, get the latest release from the [releases page](https://github.com/flesler/jquery.scrollTo/releases).
 
-### Notes
+## 2.0
+
+Version 2.0 has been recently released. It is mostly backwards compatible, if you have any issue first check [this link](https://github.com/flesler/jquery.scrollTo/wiki/Migrating-to-2.0).
+If your problem is not solved then go ahead and [report the issue](https://github.com/flesler/jquery.scrollTo/issues/new).
+
+## Notes
 
 * Apart from the target and duration, the plugin can receive a hash of settings. Documentation and examples are included in the source file.
 

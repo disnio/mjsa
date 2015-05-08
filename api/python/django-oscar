@@ -219,3 +219,8 @@ LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so
 
 pip install mod_wsgi
 ---------------------------------------------------------------------
+以root权限运行不对，
+目录权限需要调整，
+nginx 运行权限需要调整。
+
+图像滚动加载的错误处理。
