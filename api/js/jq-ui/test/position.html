@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/jqueryui/1.9.2/jquery-ui.min.js "></script>
+    <style>
+        .d1, .div1 {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #6495ED;
+        }
+        .div2 {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #6495ED;
+        }
+    </style>
+</head>
+<body>
+<div class="d1"></div>
+<div class="div1"></div>
+<div class="div2"></div>
+<a href="" target="_blank"></a>
+<script>
+    $('.d1').position({
+        at: 'center',
+        my: 'center',
+        of: window
+    });
+    $('.div1').mousemove(function (event) {
+        $('.div2').position({
+            'my': 'left bottom',
+            'of': event
+        });
+    });
+</script>
+</body>
+</html>
