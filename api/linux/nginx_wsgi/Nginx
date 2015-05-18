@@ -3,15 +3,25 @@ Nginx：
 停止和禁用apache
 service httpd stop
 chkconfig –levels 2345 off
+sysv-rc-conf
 
 停止 apache 占用 80
 chkconfig httpd off
 ------------
 安装方法：
 http://www.linuxidc.com/Linux/2014-08/105422.htm
-sudo add-apt-repository ppa:nginx/stable
-sudo apt-get update
-sudo apt-get install nginx
+---
+add-apt-repository: command not found 相关问题：
+sudoapt-get install python-software-properties
+sudoapt-get install apt-file
+apt-file update
+apt-file search add-apt-repository
+apt-get install software-properties-common
+---
+
+add-apt-repository ppa:nginx/stable
+apt-get update
+apt-get install nginx
 
 http://www.sxt.cn/u/4647/blog/5559 靠谱
 http://www.nginx.cn/install

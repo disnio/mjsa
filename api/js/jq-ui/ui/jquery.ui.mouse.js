@@ -30,9 +30,11 @@ $.widget("ui.mouse", {
 
 		this.element
 			.bind('mousedown.'+this.widgetName, function(event) {
+				// mouseDown 需要重写
 				return that._mouseDown(event);
 			})
 			.bind('click.'+this.widgetName, function(event) {
+				// 移除部件“阻止单击事件”，防止事件冒泡
 				if (true === $.data(event.target, that.widgetName + '.preventClickEvent')) {
 					$.removeData(event.target, that.widgetName + '.preventClickEvent');
 					event.stopImmediatePropagation();
@@ -46,6 +48,7 @@ $.widget("ui.mouse", {
 	// TODO: make sure destroying one instance of mouse doesn't mess with
 	// other instances of mouse
 	_mouseDestroy: function() {
+		// 只消除此部件的鼠标实例
 		this.element.unbind('.'+this.widgetName);
 		if ( this._mouseMoveDelegate ) {
 			$(document)
