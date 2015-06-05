@@ -93,3 +93,20 @@ yum erase php*
 or
 yum remove httpd* php* #这个命令是删除不干净的
 yum remove php-cli php-common php   #删除
+--------------------------------------------
+限速：
+http://enetor.iteye.com/blog/1129671
+http://www.linuxidc.com/Linux/2013-07/88023.htm
+对于全局限速，我们只需要在后面加上参数即可，比如每秒20个请求，rate=20r/s，即:
+limit_req_zone $binary_remote_addr zone=perip:5m rate=20r/s;
+
+limit_zone针对每个IP定义一个存储session状态的容器。
+limit_zone one $binary_remote_addr 10m;
+
+limit_conn zone_name 允许每个客户端建立的链接数
+limit_rate 每个链接的最大速率
+
+limit_conn one 2; 
+limit_rate_after 1m; 
+limit_rate 40k;  
+

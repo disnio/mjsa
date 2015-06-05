@@ -80,3 +80,24 @@ Base Widget 部件库（Widget Factory）使用的基础小部件。
 http://www.2cto.com/kf/201410/342653.html
 
 $(that.options.filter, that.element[0]);
+
+autocomplete:
+http://blogs.uuu.com.tw/Articles/post/2014/12/31/%E4%BD%BF%E7%94%A8jQuery-UI-AutoComplete-Widget%E9%80%A3%E7%B5%90%E9%81%A0%E7%AB%AF%E8%B3%87%E6%96%99%E4%BE%86%E6%BA%90-1.aspx
+
+dropable:
+http://blogs.uuu.com.tw/Articles/post/2014/06/04/jQuery-UI-%E2%80%93-Droppable-Widget%E7%B0%A1%E4%BB%8B.aspx
+
+dragable:
+http://blogs.uuu.com.tw/Articles/post/2014/01/01/jQuery-UI-%E2%80%93-Draggable-Widget%E7%B0%A1%E4%BB%8B.aspx
+
+addBack()函数用于将之前匹配的元素加入到当前匹配的元素中
+
+ui.menu: 
+menus.children(":not(.ui-menu-item):has(a)")
+
+_itemRole: function() {
+    return {
+        menu: "menuitem",
+        listbox: "option"
+    }[this.options.role];
+},
