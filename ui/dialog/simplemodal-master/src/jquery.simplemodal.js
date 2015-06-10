@@ -1,7 +1,7 @@
 /*
  * SimpleModal @VERSION - jQuery Plugin
  * http://simplemodal.com/
- * Copyright (c) 2013 Eric Martin
+ * Copyright (c) 2014 Eric Martin
  * Licensed under MIT and GPL
  * Date:
  */
@@ -597,7 +597,7 @@
 				st = s.d.container.css('position') !== 'fixed' ? wndw.scrollTop() : 0;
 
 			if (s.o.position && Object.prototype.toString.call(s.o.position) === '[object Array]') {
-				top = st + (s.o.position[0] || hc);
+				top = parseFloat(st) + parseFloat(s.o.position[0] || hc);
 				left = s.o.position[1] || vc;
 			} else {
 				top = st + hc;

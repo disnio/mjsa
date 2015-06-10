@@ -1,24 +1,19 @@
 {
   "name": "URIjs",
-  "version": "1.13.1",
+  "version": "1.15.1",
   "title": "URI.js - Mutating URLs",
   "author": {
     "name": "Rodney Rehm",
     "url": "http://rodneyrehm.de"
   },
-  "repository" :
-  {
-    "type" : "git",
-    "url" : "https://github.com/medialize/URI.js.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/medialize/URI.js.git"
   },
   "licenses": [
     {
       "type": "MIT",
       "url": "http://www.opensource.org/licenses/mit-license"
-    },
-    {
-      "type": "GPL",
-      "url": "http://opensource.org/licenses/GPL-3.0"
     }
   ],
   "description": "URI.js is a Javascript library for working with URLs.",
@@ -38,7 +33,9 @@
     "RFC 3986",
     "RFC3986",
     "RFC 6570",
-    "RFC6570"
+    "RFC6570",
+    "jquery-plugin",
+    "ecosystem:jquery"
   ],
   "categories": [
     "Parsers & Compilers",
@@ -59,9 +56,9 @@
     "src/URI.min.js",
     "src/jquery.URI.min.js",
     "src/URI.fragmentQuery.js",
-    "src/URI.fragmentURI.js"
+    "src/URI.fragmentURI.js",
+    "LICENSE.txt"
   ],
-  
   "jam": {
     "main": "src/URI.js",
     "dependencies": {
@@ -74,11 +71,13 @@
       "src/punycode.js",
       "src/URITemplate.js",
       "src/jquery.URI.js",
+      "src/URI.min.js",
+      "src/jquery.URI.min.js",
       "src/URI.fragmentQuery.js",
-      "src/URI.fragmentURI.js"
+      "src/URI.fragmentURI.js",
+      "LICENSE.txt"
     ]
   },
-  
   "npmName": "URIjs",
   "npmFileMap": [
     {
@@ -86,11 +85,20 @@
       "files": [
         "*.js"
       ]
+    },
+    {
+      "basePath": "/",
+      "files": [
+        "LICENSE.txt"
+      ]
     }
   ],
   "devDependencies": {
     "jshint-stylish": "~0.1.5",
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.8.0"
+  },
+  "spm": {
+    "main": "src/URI.js"
   }
 }

@@ -9,6 +9,16 @@
   });
 
   module('constructing');
+  test('URI()', function() {
+    var u = URI();
+    ok(u instanceof URI, 'instanceof URI');
+    equal(u.toString(), window.location && window.location.href || '', 'is location (browser) or empty string (node)');
+  });
+  test('URI(undefined)', function() {
+    raises(function() {
+      URI(undefined);
+    }, TypeError, 'Failing undefined input');
+  });
   test('new URI(string)', function() {
     var u = new URI('http://example.org/');
     ok(u instanceof URI, 'instanceof URI');
@@ -22,6 +32,14 @@
   test('new URI(Location)', function () {
     var u = new URI(location);
     equal(u.href(), String(location.href), 'location object');
+  });
+  test('new URI(undefined)', function() {
+    var u = new URI();
+    ok(u instanceof URI, 'instanceof URI');
+    equal(u.toString(), window.location && window.location.href || '', 'is location (browser) or empty string (node)');
+    raises(function() {
+      new URI(undefined);
+    }, TypeError, 'Failing undefined input');
   });
   (function() {
     var element;
@@ -84,6 +102,11 @@
     raises(function() {
       new URI(new Date());
     }, TypeError, 'Failing unknown input');
+  });
+  test('new URI(undefined)', function() {
+    raises(function() {
+      new URI(undefined);
+    }, TypeError, 'Failing undefined input');
   });
   test('new URI()', function() {
     var u = new URI();
@@ -231,6 +254,20 @@
     equal(u.pathname(), '/', 'empty absolute path');
     equal(u.toString(), '/', 'empty absolute path to string');
   });
+  test('URN paths', function() {
+    var u = new URI('urn:uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66?foo=bar');
+    u.pathname('uuid:de305d54-75b4-431b-adb2-eb6b9e546013');
+    equal(u.pathname(), 'uuid:de305d54-75b4-431b-adb2-eb6b9e546013');
+    equal(u + '', 'urn:uuid:de305d54-75b4-431b-adb2-eb6b9e546013?foo=bar');
+
+    u.pathname('');
+    equal(u.pathname(), '', 'changing pathname ""');
+    equal(u+'', 'urn:?foo=bar', 'changing url ""');
+
+    u.pathname('music:classical:Béla Bártok%3a Concerto for Orchestra');
+    equal(u.pathname(), 'music:classical:B%C3%A9la%20B%C3%A1rtok%3A%20Concerto%20for%20Orchestra', 'path encoding');
+    equal(u.pathname(true), 'music:classical:Béla Bártok%3A Concerto for Orchestra', 'path decoded');
+  });
   test('query', function() {
     var u = new URI('http://example.org/foo.html');
     u.query('foo=bar=foo');
@@ -369,6 +406,11 @@
     equal(u.search(), '', 'href removed search');
     equal(u.hash(), '', 'href removed hash');
     equal(u.href(), '../path/index.html', 'href removed url');
+
+    /*jshint -W053 */
+    u.href(new String('/narf'));
+    /*jshint +W053 */
+    equal(u.pathname(), '/narf', 'href from String instance');
   });
   test('resource', function() {
     var u = new URI('http://foo.bar/foo.html?hello#world');
@@ -760,6 +802,10 @@
     u.addQuery('empty', '');
     equal(u.query(), 'foo=bar&empty=', 'add empty string');
 
+    u.query('?foo');
+    u.addQuery('foo', 'bar');
+    equal(u.query(), 'foo=bar', 'add to null value');
+
     u.query('');
     u.addQuery('some value', 'must be encoded because of = and ? and #');
     equal(u.query(), 'some+value=must+be+encoded+because+of+%3D+and+%3F+and+%23', 'encoding');
@@ -784,6 +830,14 @@
     u.query('?foo=bar&foo=baz&foo=bam&obj=bam&bar=1&bar=2&bar=3');
     u.removeQuery({foo: 'bar', obj: undefined, bar: ['1', '2']});
     equal(u.query(), 'foo=baz&foo=bam&bar=3', 'removing object');
+
+    u.query('?foo=bar&foo=baz&foo=bam&obj=bam&bar=1&bar=2&bar=3');
+    u.removeQuery(/^bar/);
+    equal(u.query(), 'foo=bar&foo=baz&foo=bam&obj=bam', 'removing by RegExp');
+
+    u.query('?foo=bar&foo=baz&foo=bam&obj=bam&bar=bar&bar=baz&bar=bam');
+    u.removeQuery('foo', /[rz]$/);
+    equal(u.query(), 'foo=bam&obj=bam&bar=bar&bar=baz&bar=bam', 'removing by value RegExp');
   });
   test('duplicateQueryParameters', function() {
     var u = new URI('?bar=1&bar=1&bar=1');
@@ -1036,6 +1090,20 @@
     u = URI('/../../../../../www/common/js/app/../../../../www_test/common/js/app/views/view-test.html');
     u.normalize();
     equal(u.path(), '/www_test/common/js/app/views/view-test.html', 'parent absolute');
+
+    // URNs
+    u = URI('urn:people:authors:poets:Shel Silverstein');
+    u.normalize();
+    equal(u.path(), 'people:authors:poets:Shel%20Silverstein');
+
+    u = URI('urn:people:authors:philosophers:Søren Kierkegaard');
+    u.normalize();
+    equal(u.path(), 'people:authors:philosophers:S%C3%B8ren%20Kierkegaard');
+
+    // URNs path separator preserved
+    u = URI('urn:games:cards:Magic%3A the Gathering');
+    u.normalize();
+    equal(u.path(), 'games:cards:Magic%3A%20the%20Gathering');
   });
   test('normalizeQuery', function() {
     var u = new URI('http://example.org/foobar.html?');
@@ -1106,6 +1174,16 @@
         url: './relative/path?blubber=1#hash3',
         base: '/path/to/file?some=query#hash',
         result: '/path/to/relative/path?blubber=1#hash3'
+      }, {
+        name: 'path-relative path resolve 2',
+        url: 'tofile',
+        base: '/path/to/file',
+        result: '/path/to/tofile'
+      }, {
+        name: 'path-relative path-root resolve',
+        url: 'tofile',
+        base: '/file',
+        result: '/tofile'
       }, {
         name: 'path-relative parent path resolve',
         url: '../relative/path?blubber=1#hash3',
@@ -1532,6 +1610,21 @@
   });
 
   module('Encoding');
+  test('decode malformed URI', function() {
+    try {
+      decodeURIComponent('%%20');
+      ok(false, 'decodeURIComponent() must throw URIError: URI malformed');
+    } catch(e) {}
+
+    try {
+      URI.decode('%%20');
+      ok(false, 'URI.decode() must throw URIError: URI malformed');
+    } catch(e) {}
+
+    equal(URI.decodeQuery('%%20'), '%%20', 'malformed URI component returned');
+    equal(URI.decodePathSegment('%%20'), '%%20', 'malformed URI component returned');
+    equal(URI.decodeUrnPathSegment('%%20'), '%%20', 'malformed URN component returned');
+  });
   test('encodeQuery', function() {
     var escapeQuerySpace = URI.escapeQuerySpace;
 

@@ -1,3 +1,8 @@
+> **NOTICE**
+ 
+> I am no longer able to actively support or maintain SimpleModal. If you would like to become a contributor, drop me a line. Otherwise, I will be removing this project in the near future.
+
+
 [SimpleModal](http://simplemodal.com/) - A modal dialog framework for jQuery
 ================================
 

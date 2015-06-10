@@ -2,9 +2,9 @@ http://64.233.167.164/
 http://64.233.167.165/
 http://64.233.167.163/
 
-underscore template ç”¨æ³•æ”¹å˜ï¼š
+underscore template ÓÃ·¨¸Ä±ä£º
 http://www.bennadel.com/blog/2411-using-underscore-js-templates-to-render-html-partials.htm
-éœ€è¦è®¾ç½® _.templateSettings.variable = "rc";
+ĞèÒªÉèÖÃ _.templateSettings.variable = "rc";
 var template = _.template( $("#pt").html());
 var tempdata = { "datas": datas };
 $("#bqrw").html( template(tempdata) );
@@ -14,65 +14,72 @@ $("#bqrw").html( template(tempdata) );
 Promise -> Express -> Parse[backbone]
 
 https://a26.d.akamai.net/f/1/1/1/dci.download.akamai.com/35985/159415/1/g/
-æœ€åè¿™ä¸ªæ˜¯é•œåƒç½‘ç«™
+×îºóÕâ¸öÊÇ¾µÏñÍøÕ¾
 image: 'http://placekitten.com/' + newWidth + '/300',
 
-åœ¨Angularçš„äº‰è®®å‘ç”Ÿåï¼ŒRedditä¸Šçš„å¦ä¸€ç¯‡æ–‡ç« é—®ï¼šJavaScriptå¼€å‘äººå‘˜åº”è¯¥è¿ç§»åˆ°ä»€ä¹ˆæŠ€æœ¯ã€‚
+ÔÚAngularµÄÕùÒé·¢Éúºó£¬RedditÉÏµÄÁíÒ»ÆªÎÄÕÂÎÊ£ºJavaScript¿ª·¢ÈËÔ±Ó¦¸ÃÇ¨ÒÆµ½Ê²Ã´¼¼Êõ¡£
 
-ä¸‹é¢æ˜¯javascriptç¨‹åºåº”è¯¥åšçš„ï¼š
+ÏÂÃæÊÇjavascript³ÌĞòÓ¦¸Ã×öµÄ£º
 
-React.js å’Œ Flux (ä¸€åªæœ‰è§†å›¾ view-only çš„åº“å’Œäº‹ä»¶é©±åŠ¨æ¨¡å—)
-Ember.js (MVCæ¡†æ¶)
-Knockout.js (è§†å›¾åº“)
-Backbone.js (MVCæ¡†æ¶)
-Meteor (åŒæ„æ¡†æ¶)
-Mithril (MVCæ¡†æ¶)
-Ember (MVCæ¡†æ¶)
-â€˜ä¸è¦æ¡†æ¶ï¼Œåªéœ€è¦ä¸€å †åº“å°±å¯ä»¥äº†â€™
-Vue.js (è§†å›¾åº“)
-Breeze.js (æ•°æ®åº“Model-only)
-Ractive (è§†å›¾åº“)
+React.js ºÍ Flux (Ò»Ö»ÓĞÊÓÍ¼ view-only µÄ¿âºÍÊÂ¼şÇı¶¯Ä£¿é)
+Ember.js (MVC¿ò¼Ü)
+Knockout.js (ÊÓÍ¼¿â)
+Backbone.js (MVC¿ò¼Ü)
+Meteor (Í¬¹¹¿ò¼Ü)
+Mithril (MVC¿ò¼Ü)
+Ember (MVC¿ò¼Ü)
+¡®²»Òª¿ò¼Ü£¬Ö»ĞèÒªÒ»¶Ñ¿â¾Í¿ÉÒÔÁË¡¯
+Vue.js (ÊÓÍ¼¿â)
+Breeze.js (Êı¾İ¿âModel-only)
+Ractive (ÊÓÍ¼¿â)
 
-HTML Imports, HTML Templates, Custom Elements å’Œ Shadow DOM éƒ½æ˜¯æœ‰åˆ©çš„æŠ€æœ¯ï¼Œåº”è¯¥è®©æˆ‘ä»¬å‡å°å¯¹æ¡†æ¶çš„ä¾èµ–ï¼Œå…è®¸åˆ›å»ºå¯é‡å¤ä½¿ç”¨çš„å…ƒç´ å’ŒåŠŸèƒ½ã€‚ä¸‹é¢è¿™äº›æŠ€æœ¯å¯ä»¥æ›´å¥½åœ°å®ç°è¿™ä¸€ç‚¹ï¼š
+HTML Imports, HTML Templates, Custom Elements ºÍ Shadow DOM ¶¼ÊÇÓĞÀûµÄ¼¼Êõ£¬Ó¦¸ÃÈÃÎÒÃÇ¼õĞ¡¶Ô¿ò¼ÜµÄÒÀÀµ£¬ÔÊĞí´´½¨¿ÉÖØ¸´Ê¹ÓÃµÄÔªËØºÍ¹¦ÄÜ¡£ÏÂÃæÕâĞ©¼¼Êõ¿ÉÒÔ¸üºÃµØÊµÏÖÕâÒ»µã£º
 
 HTML Imports
 Polymer
 X-Tag
 Bosonic
 
-å…¶å®ï¼Œä½ éœ€è¦ç¡®ä¿Webç»„ä»¶å·¥ä½œçš„ç¬¬ä¸€ä»¶äº‹æ˜¯ç”¨polyfillsæ¥å®ç°è¯¥åŠŸèƒ½ï¼Œå¦‚X-Tagå’ŒPolymerã€‚é¿å…é‚£äº›æ—§ç‰ˆæµè§ˆå™¨ä¸æ”¯æŒçš„æƒ…å†µã€‚ 
+ÆäÊµ£¬ÄãĞèÒªÈ·±£Web×é¼ş¹¤×÷µÄµÚÒ»¼şÊÂÊÇÓÃpolyfillsÀ´ÊµÏÖ¸Ã¹¦ÄÜ£¬ÈçX-TagºÍPolymer¡£±ÜÃâÄÇĞ©¾É°æä¯ÀÀÆ÷²»Ö§³ÖµÄÇé¿ö¡£ 
 ------------------------------------------------------------------
-mockjaxï¼š
+mockjax£º
 <script src="{% static "js/jquery.mockjax.js" %}"></script>
 <script src="{% static "test/tjax.js" %}"></script>
 ------------------------------------------------------------------
-é«˜åº¦ä¸å˜ï¼ŒåŠ ç²—åå®½åº¦åŠ 1
-ç½‘é¡µ: font-size:60px; åœ¨psä¸­å®é™…45px--43px
-ps:   font-size:60px; 58px-60px ç›¸å·®çº¦15px
-14pxç½‘é¡µå­—ä½“ä¸psç›¸å·®3px
+¸ß¶È²»±ä£¬¼Ó´Öºó¿í¶È¼Ó1
+ÍøÒ³: font-size:60px; ÔÚpsÖĞÊµ¼Ê45px--43px
+ps:   font-size:60px; 58px-60px Ïà²îÔ¼15px
+14pxÍøÒ³×ÖÌåÓëpsÏà²î3px
 http://www.gbtags.com/gb/share/1945.htm
-æ„å»ºå·¥å…·/taskrunnerï¼ˆæ¯”å¦‚Gruntï¼‰
-UIå°éƒ¨ä»¶åº“ï¼ˆæ¯”å¦‚KendoUIï¼‰
-è¿è¡Œæµ‹è¯•ï¼ˆæ¯”å¦‚Karmaï¼‰
-æ¶æ„æ–¹æ¡ˆï¼ˆæ¯”å¦‚Yeomanï¼‰
+¹¹½¨¹¤¾ß/taskrunner£¨±ÈÈçGrunt£©
+UIĞ¡²¿¼ş¿â£¨±ÈÈçKendoUI£©
+ÔËĞĞ²âÊÔ£¨±ÈÈçKarma£©
+¼Ü¹¹·½°¸£¨±ÈÈçYeoman£©
 
-å¯¼èˆªï¼šhttp://123.jser.us/
+µ¼º½£ºhttp://123.jser.us/
 ---------------------------------------------------------------------------
 force IE into standards mode:
-<meta http-equiv="X-UA-Compatible" value="IE=edge" /> åŒæ—¶åŠ ä¸‹é¢ï¼Œ
-è‹¥é¡µé¢éœ€é»˜è®¤ç”¨æé€Ÿæ ¸ï¼Œå¢åŠ æ ‡ç­¾ï¼š<meta name="renderer" content="webkit">
-è‹¥é¡µé¢éœ€é»˜è®¤ç”¨ieå…¼å®¹å†…æ ¸ï¼Œå¢åŠ æ ‡ç­¾ï¼š<meta name="renderer" content="ie-comp">
-è‹¥é¡µé¢éœ€é»˜è®¤ç”¨ieæ ‡å‡†å†…æ ¸ï¼Œå¢åŠ æ ‡ç­¾ï¼š<meta name="renderer" content="ie-stand">
-contentçš„å–å€¼ä¸ºwebkit,ie-comp,ie-standä¹‹ä¸€ï¼ŒåŒºåˆ†å¤§å°å†™ï¼Œåˆ†åˆ«ä»£è¡¨ç”¨webkitå†…æ ¸ï¼ŒIEå…¼å®¹å†…æ ¸ï¼ŒIEæ ‡å‡†å†…æ ¸ã€‚
+<meta http-equiv="X-UA-Compatible" value="IE=edge" /> Í¬Ê±¼ÓÏÂÃæ£¬
+ÈôÒ³ÃæĞèÄ¬ÈÏÓÃ¼«ËÙºË£¬Ôö¼Ó±êÇ©£º<meta name="renderer" content="webkit">
+ÈôÒ³ÃæĞèÄ¬ÈÏÓÃie¼æÈİÄÚºË£¬Ôö¼Ó±êÇ©£º<meta name="renderer" content="ie-comp">
+ÈôÒ³ÃæĞèÄ¬ÈÏÓÃie±ê×¼ÄÚºË£¬Ôö¼Ó±êÇ©£º<meta name="renderer" content="ie-stand">
+contentµÄÈ¡ÖµÎªwebkit,ie-comp,ie-standÖ®Ò»£¬Çø·Ö´óĞ¡Ğ´£¬·Ö±ğ´ú±íÓÃwebkitÄÚºË£¬IE¼æÈİÄÚºË£¬IE±ê×¼ÄÚºË¡£
 
 <meta name="viewport" content="width=device-width,target-densitydpi=high-dpi,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-device-dpi â€“ä½¿ç”¨è®¾å¤‡åŸæœ¬çš„ dpi ä½œä¸ºç›®æ ‡ dpã€‚ ä¸ä¼šå‘ç”Ÿé»˜è®¤ç¼©æ”¾ã€‚
-high-dpi â€“ ä½¿ç”¨hdpi ä½œä¸ºç›®æ ‡ dpiã€‚ ä¸­ç­‰åƒç´ å¯†åº¦å’Œä½åƒç´ å¯†åº¦è®¾å¤‡ç›¸åº”ç¼©å°ã€‚
-medium-dpi â€“ ä½¿ç”¨mdpiä½œä¸ºç›®æ ‡ dpiã€‚ é«˜åƒç´ å¯†åº¦è®¾å¤‡ç›¸åº”æ”¾å¤§ï¼Œ åƒç´ å¯†åº¦è®¾å¤‡ç›¸åº”ç¼©å°ã€‚ è¿™æ˜¯é»˜è®¤çš„target density.
-low-dpi -ä½¿ç”¨mdpiä½œä¸ºç›®æ ‡ dpiã€‚ä¸­ç­‰åƒç´ å¯†åº¦å’Œé«˜åƒç´ å¯†åº¦è®¾å¤‡ç›¸åº”æ”¾å¤§ã€‚
+device-dpi ¨CÊ¹ÓÃÉè±¸Ô­±¾µÄ dpi ×÷ÎªÄ¿±ê dp¡£ ²»»á·¢ÉúÄ¬ÈÏËõ·Å¡£
+high-dpi ¨C Ê¹ÓÃhdpi ×÷ÎªÄ¿±ê dpi¡£ ÖĞµÈÏñËØÃÜ¶ÈºÍµÍÏñËØÃÜ¶ÈÉè±¸ÏàÓ¦ËõĞ¡¡£
+medium-dpi ¨C Ê¹ÓÃmdpi×÷ÎªÄ¿±ê dpi¡£ ¸ßÏñËØÃÜ¶ÈÉè±¸ÏàÓ¦·Å´ó£¬ ÏñËØÃÜ¶ÈÉè±¸ÏàÓ¦ËõĞ¡¡£ ÕâÊÇÄ¬ÈÏµÄtarget density.
+low-dpi -Ê¹ÓÃmdpi×÷ÎªÄ¿±ê dpi¡£ÖĞµÈÏñËØÃÜ¶ÈºÍ¸ßÏñËØÃÜ¶ÈÉè±¸ÏàÓ¦·Å´ó¡£
+
+<!--[if (gte IE 6)&(lte IE 8)]>
+    <script src="https://raw.githubusercontent.com/dperini/nwmatcher/master/src/nwmatcher.js"></script>
+    <script src="http://cdn.bootcss.com/nwmatcher/1.2.5/nwmatcher.min.js"></script>
+    <script src="http://cdn.bootcss.com/selectivizr/1.0.2/selectivizr.js"></script>
+<![endif]--> 
 
 <!--[if lt IE 9]>
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> 
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
 <script src="http://cdn.bootcss.com/es5-shim/4.0.3/es5-shim.min.js"></script>
 <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -81,9 +88,13 @@ low-dpi -ä½¿ç”¨mdpiä½œä¸ºç›®æ ‡ dpiã€‚ä¸­ç­‰åƒç´ å¯†åº¦å’Œé«˜åƒç´ å¯†åº¦è®¾å¤‡
 <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
 <![endif]-->
 ---------------------------------------------------------------------------
-ç™¾åº¦cdn-jqueryï¼š
-    æ”¯æŒçš„ç‰ˆæœ¬ï¼š 2.0.3, 2.0.2, 2.0.1, 2.0.0, 1.10.2, 1.10.1, 1.10.0, 1.9.1, 1.9.0, 1.8.3, 1.8.2, 1.8.1, 1.8.0, 1.7.2, 1.7.1, 1.7.0, 1.6.4, 1.6.3, 1.6.2, 1.6.1, 1.6.0, 1.5.2, 1.5.1, 1.5.0, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.6, 1.2.3 
-angularï¼š
+°Ù¶Ècdn-jquery£º
+    Ö§³ÖµÄ°æ±¾£º 2.0.3, 2.0.2, 2.0.1, 2.0.0, 1.10.2, 1.10.1, 1.10.0, 1.9.1, 1.9.0, 1.8.3, 1.8.2, 1.8.1, 1.8.0, 1.7.2, 1.7.1, 1.7.0, 1.6.4, 1.6.3, 1.6.2, 1.6.1, 1.6.0, 1.5.2, 1.5.1, 1.5.0, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.6, 1.2.3 
+
+    http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js
+
+    http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js
+angular£º
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
 http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js
 http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js
@@ -91,38 +102,38 @@ http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js
 jQueryui:
 <script src="http://libs.baidu.com/jqueryui/1.9.2/jquery-ui.min.js "></script>
 <link rel="stylesheet" type="text/css" media="screen" href="http://libs.baidu.com/jqueryui/1.9.2/themes/base/jquery-ui.css" />
-æ”¯æŒçš„ç‰ˆæœ¬ï¼š1.10.2, 1.10.1, 1.10.0, 1.9.2, 1.9.1, 1.9.0, 1.8.24, 1.8.23, 1.8.22, 1.8.21, 1.8.20, 1.8.19, 1.8.18, 1.8.17, 1.8.16, 1.8.15, 1.8.14, 1.8.13, 1.8.12, 1.8.11, 1.8.10, 1.8.9, 1.8.8, 1.8.7, 1.8.6, 1.8.5, 1.8.4, 1.8.2, 1.8.1, 1.8.0, 1.7.3, 1.7.2, 1.7.1, 1.7.0, 1.6.0, 1.5.3, 1.5.2
+Ö§³ÖµÄ°æ±¾£º1.10.2, 1.10.1, 1.10.0, 1.9.2, 1.9.1, 1.9.0, 1.8.24, 1.8.23, 1.8.22, 1.8.21, 1.8.20, 1.8.19, 1.8.18, 1.8.17, 1.8.16, 1.8.15, 1.8.14, 1.8.13, 1.8.12, 1.8.11, 1.8.10, 1.8.9, 1.8.8, 1.8.7, 1.8.6, 1.8.5, 1.8.4, 1.8.2, 1.8.1, 1.8.0, 1.7.3, 1.7.2, 1.7.1, 1.7.0, 1.6.0, 1.5.3, 1.5.2
 
-easingï¼š
+easing£º
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" type="text/javascript"></script>
 
-swfObjectï¼š
+swfObject£º
 <script src="http://libs.baidu.com/swfobject/2.2/swfobject.js"></script>
 
-underscoreï¼š
+underscore£º
 <script src="http://libs.baidu.com/underscore/1.3.3/underscore-min.js"></script>
 <script src="http://cdn.staticfile.org/underscore.js/1.6.0/underscore-min.js"></script>
 
-backboneï¼š
+backbone£º
 <script src="http://cdn.staticfile.org/backbone.js/1.1.2/backbone-min.js"></script>
 
 
-å¼€å‘é™æ€æ–‡ä»¶ï¼š
+¿ª·¢¾²Ì¬ÎÄ¼ş£º
 http://www.staticfile.org/
 
-jQuery Toolsï¼š
+jQuery Tools£º
 <script src="http://libs.baidu.com/jquerytools/1.2.7/jquery.tools.min.js"></script>
 <script src="http://cdn.jquerytools.org/1.2.7/all/jquery.tools.min.js"></script>
 
-JSONï¼š
+JSON£º
 <script src=" http://libs.baidu.com/json/json2/json2.js"></script>
 
-Qunitï¼š
+Qunit£º
 <script src="http://libs.baidu.com/quint/1.9.0/qunit.js"></script>
-ã€€ã€€
-json3ç”¨åœ¨è§£æwennukeä¼ å›çš„.net jsonå¯¹è±¡ï¼Œè¿›è¡Œæµ‹è¯•ï¼š
+¡¡¡¡
+json3ÓÃÔÚ½âÎöwennuke´«»ØµÄ.net json¶ÔÏó£¬½øĞĞ²âÊÔ£º
 -------------------------------------------------------------------
-æµè§ˆå™¨è¯†åˆ«ï¼š
+ä¯ÀÀÆ÷Ê¶±ğ£º
 var isIE6 = navigator.userAgent.indexOf("MSIE 6.0") !== -1;
 var isIE7 = navigator.userAgent.indexOf("MSIE 7.0") !== -1;
 var isIE8 = navigator.userAgent.indexOf("MSIE 8.0") !== -1;
@@ -131,7 +142,7 @@ var isIE10 = navigator.userAgent.indexOf("MSIE 10.0") !== -1;
 //!var isIE11 = navigator.userAgent.indexOf("IE 11.0") !== -1;
 var isIE11 = /\btrident\/[0-9].*rv[ :]11\.0/.test(navigator.userAgent);
 var isIE = document.all && !window.XMLHttpRequest;
-// å¤šä¸ªæµè§ˆå™¨è¯†åˆ«
+// ¶à¸öä¯ÀÀÆ÷Ê¶±ğ
 var isIE678 = /\bMSIE [678]\.0\b/.test(navigator.userAgent);
 https://github.com/aralejs/detector/issues/18
 http://browserhacks.com/#ie
@@ -143,20 +154,20 @@ if( jQuery.browser.msie && jQuery.browser.version == '8.0' ){
 } 
 ---------------------------------------------------------------------
 
-æ¨ªå‘æ»šåŠ¨æ¡æ¶ˆå¤±å‡ºç°åœ¨hoverå…ƒç´ æ—¶ï¼Œæ˜¯ç”±äºå¼€å¯äº†firebugå¹¶å›ºå®šåœ¨äº†æµè§ˆå™¨ä¸­ï¼Œå½±å“å®½åº¦è®¡ç®—ã€‚æŠŠç«ç‹æµ®åŠ¨å‡ºæ¥æµ‹è¯•é¡µé¢æ•ˆæœã€‚
+ºáÏò¹ö¶¯ÌõÏûÊ§³öÏÖÔÚhoverÔªËØÊ±£¬ÊÇÓÉÓÚ¿ªÆôÁËfirebug²¢¹Ì¶¨ÔÚÁËä¯ÀÀÆ÷ÖĞ£¬Ó°Ïì¿í¶È¼ÆËã¡£°Ñ»ğºü¸¡¶¯³öÀ´²âÊÔÒ³ÃæĞ§¹û¡£
 
-m_Aim_sony é‡Œé¢æœ‰ menuAim æ’ä»¶çš„ç”¨æ³•ï¼Œç±»ä¼¼äºšé©¬é€Šçºµå‘èœå•çš„é¼ æ ‡èµ°å‘è§’åº¦çš„åˆ¤æ–­ã€‚å’Œ correctPNG() å‡½æ•°ã€‚
+m_Aim_sony ÀïÃæÓĞ menuAim ²å¼şµÄÓÃ·¨£¬ÀàËÆÑÇÂíÑ·×İÏò²Ëµ¥µÄÊó±ê×ßÏò½Ç¶ÈµÄÅĞ¶Ï¡£ºÍ correctPNG() º¯Êı¡£
 
-scroll/jQuery.Marquee é‡Œé¢æœ‰ jQuery.pause æ’ä»¶ã€‚ç”¨äºåŠ¨ç”»çš„æš‚åœã€‚
+scroll/jQuery.Marquee ÀïÃæÓĞ jQuery.pause ²å¼ş¡£ÓÃÓÚ¶¯»­µÄÔİÍ£¡£
 http://ip.taobao.com/service/getIpInfo.php?ip=124.127.167.46
 ##tab
 -------------------------------------------------------------------
 ------------
-/* ä»£ç ç‰‡æ®µ */
+/* ´úÂëÆ¬¶Î */
 
 -------------------------------------------------
 
-è·å–éšæœºå›ºå®šå®½åº¦çš„å›¾ç‰‡ï¼š
+»ñÈ¡Ëæ»ú¹Ì¶¨¿í¶ÈµÄÍ¼Æ¬£º
     function genBrick() {
         var height = ~~ (Math.random() * 500) + 100;
         var id = ~~ (Math.random() * 10000);
@@ -174,7 +185,7 @@ http://ip.taobao.com/service/getIpInfo.php?ip=124.127.167.46
         genBrick()
     ];
 
-window: åˆ¤æ–­
+window: ÅĞ¶Ï
 function isWin(elem) {
     return !elem.nodeName ||
         $.inArray(elem.nodeName.toLowerCase(), ['iframe','#document','html','body']) !== -1;
