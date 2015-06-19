@@ -1,5 +1,7 @@
 Purl (A JavaScript URL parser) v2.3.1
 ===================================
+测试 uri:
+http://username:password@www.fotosay.com:8000/FWeb/search/index.dhtml?c=1&cid=0&q=+%E9%99%95%E8%A5%BF+%E9%9B%95%E5%A1%91+%E4%B8%AD%E5%9B%BD%E6%B2%B9%E7%94%BB%E5%8D%8F%E4%BC%9A#p=1&q=2
 
 An AMD compatible utility to parse urls and provide easy access to their attributes (such as the protocol, host, port etc), path segments, querystring parameters, fragment parameters and more.
 

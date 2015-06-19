@@ -191,3 +191,8 @@ function isWin(elem) {
         $.inArray(elem.nodeName.toLowerCase(), ['iframe','#document','html','body']) !== -1;
 }   
 elem = win ? this.contentWindow || window : this,
+
+--------------------------------------------------------------
+function isArray(vArg) {
+    return Object.prototype.toString.call(vArg) === "[object Array]";
+}

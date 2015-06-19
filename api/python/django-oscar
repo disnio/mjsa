@@ -103,6 +103,13 @@ pip install whoosh
 pip install jieba
 haystack 
 pip install psycopg2
+pip install alipay
+
+---------------------------------------------
+pip install supervisor
+echo_supervisord_conf > svisor_cn.conf 
+supervisord -c svisor_cn.conf 
+
 
 settings.py 里面：
 thumbnail_debug = True

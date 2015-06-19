@@ -2,7 +2,7 @@
 * @Author: anchen
 * @Date:   2015-06-05 14:48:23
 * @Last Modified by:   anchen
-* @Last Modified time: 2015-06-10 14:18:04
+* @Last Modified time: 2015-06-16 15:23:07
 */
 ---------------------------------------------------------------
 渐变:
@@ -43,7 +43,14 @@ span:nth-of-type(2){ color:red; }
 
 li:before { content:"第" counter(licounter) "节"; padding-right:20px; color:#000; font-size: 16px;}
 li {counter-increment:licounter;}
+-----------------
+字体：
+@font-face {
+    font-family: WebFont;
+    src: ("font/webfont.otf") format:("opentype");
 
+}
+opentype:otf, truetype:ttf, ms embedded opentype: eot
 
 -----------------
 溢出文本:
@@ -137,3 +144,24 @@ font-size: 12px;
 -webkit-transform: scale(75%); /* 相当于 9px */
 transform: scale(75%);
 --------------
+.btn-default {
+    display: inline-block;
+    text-decoration: none;
+    line-height: 14px;
+    height: 14px;
+    border-radius: 2px;
+    background: #f7f7f7;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid #DDD;
+    padding: 4px 13px 5px;
+    color: #666;
+    background-color: #f7f7f7;
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(top, #f7f7f7, #f2f2f2);
+    background-image: -webkit-linear-gradient(top, #f7f7f7, #f2f2f2);
+    background-image: -o-linear-gradient(top, #f7f7f7, #f2f2f2);
+    background-image: linear-gradient(top, #f7f7f7, #f2f2f2);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#f2f2f2', GradientType=0)
+}

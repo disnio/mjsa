@@ -1,8 +1,8 @@
 {
-  "name": "waypoints",
-  "version": "3.1.1",
+  "name": "jquery-waypoints",
+  "version": "3.1.0",
   "author": "Caleb Troughton <caleb@imakewebthings.com> (http://imakewebthings.com)",
-  "description": "Easily execute a function when you scroll to an element",
+  "description": "A jQuery plugin that makes it easy to execute a function whenever you scroll to an element.",
   "scripts": {
     "build": "gulp build",
     "start": "gulp",
@@ -12,9 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/imakewebthings/waypoints.git"
+    "url": "https://github.com/imakewebthings/jquery-waypoints.git"
   },
   "keywords": [
+    "jquery",
     "scroll"
   ],
   "devDependencies": {
