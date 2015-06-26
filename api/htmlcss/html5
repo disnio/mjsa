@@ -16,3 +16,7 @@ SVG
 最适合带有大型渲染区域的应用程序（比如谷歌地图）
 复杂度高会减慢渲染速度（任何过度使用 DOM 的应用都不快）
 不适合游戏应用
+
+移动端HTML5<video>视频播放优化实践
+http://www.w3.org/2010/05/video/mediaevents.html
+http://www.xuanfengge.com/html5-video-play.html

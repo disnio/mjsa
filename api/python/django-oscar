@@ -115,6 +115,9 @@ settings.py 里面：
 thumbnail_debug = True
 
 数据库直接远程导入
+
+备份：
+mv  /var/lib/postgresql/9.3/artmall-db.sql  /var/lib/postgresql/9.3/$(date +'%Y-%m-%d-%H-%M-%S').sql
 -------------------------------------
 thumbnail_kvstore 静态文件替换后要清空
 ---------------------------------------------------------------------
@@ -236,3 +239,17 @@ pip install mod_wsgi
 nginx 运行权限需要调整。
 
 图像滚动加载的错误处理。
+----------------------------------
+geoip:
+wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+apt-get install libgeoip-dev
+
+gzip -d GeoIP.dat.gz 
+sudo cp GeoIP.dat /etc/nginx
+
+nginx.conf add:
+geoip_country  /etc/nginx/GeoIP.dat;
+geoip_city     /etc/nginx/GeoLiteCity.dat;
+
+http://www.51cto.com/art/200602/21772.htm
+无类域间路由
