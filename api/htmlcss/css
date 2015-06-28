@@ -1,4 +1,16 @@
+浏览器视窗宽度是不同的, ie7-8忽略滚动条的宽度。 
+var viewW, mlw;
+var isIE78 = /\bMSIE [78]\.0\b/.test(navigator.userAgent);
+if(isIE78) {
+    viewW = Response.viewportW();
+    mlw = (viewW - 868) / 2;
+} else {
+    viewW = Response.viewportW() - 17;
+    mlw = (viewW - 870) / 2;
+}
 
+ie7-8:触发 layout，透明度有效。
+opacity:0.01; filter: alpha(opacity=1);  zoom:1; z-index: 1;
 --------------
 inline-block
 
