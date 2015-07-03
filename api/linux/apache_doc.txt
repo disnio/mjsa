@@ -52,3 +52,6 @@ http://www.devside.net/wamp-server/download-speed-limit-and-throttling-for-apach
     SetOutputFilter RATE_LIMIT  
     SetEnv rate-limit 30  
 </Directory>  
+--------------------
+启用APACHE2(Ubuntu下)的USERDIR的功能
+http://www.cnblogs.com/ylan2009/archive/2012/02/25/2367836.html
