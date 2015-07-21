@@ -1,0 +1,306 @@
+------------------------------------------------------------------------------
+2 命名函数表达式：
+
+函数声明必须带有标示符（Identifier）（就是大家常说的函数名称），而函数表达式则可以省略这个标示符
+
+括号 () 是一个分组操作符，它的内部只能包含表达式。
+
+JSON字符串通常被包含在一个圆括号里：eval('(' + json + ')')，
+这样做的原因就是因为分组操作符，也就是这对括号，会让解析器强制将JSON的花括号解析成表达式而不是代码块。
+
+var f = function foo(){    
+    return typeof foo; 
+  // foo是在内部作用域内有效  
+};  
+// foo在外部用于是不可见的  
+typeof foo; // "undefined"  
+f(); // "function"
+给它一个名字就是可以让调试过程更方便。
+
+---------------------------
+JScript的Bug：
+函数表达式的标示符泄露到外部作用域：ie8
+var f = function g(){};    
+typeof g; // "function"
+
+将命名函数表达式同时当作函数声明和函数表达式：
+typeof g; // "function"    
+var f = function g(){};
+
+命名函数表达式会创建两个截然不同的函数对象！
+var f = function g(){};    
+f === g; // false    
+f.expando = 'foo';    
+g.expando; // undefined
+
+仅仅顺序解析函数声明而忽略条件语句块：
+var f = function g() {      return 1;    };    
+if (false) {      
+    f = function g(){        return 2;      };    
+}    
+g(); // 2
+JScript的内存管理
+
+首先防范标识符泄漏带外部作用域，其次，应该永远不引用被用作函数名称的标识符；
+关键就在于始终要通过f或者arguments.callee来引用函数。
+如果你使用了命名函数表达式，那么应该只在调试的时候利用那个名字。
+最后，还要记住一点，一定要把命名函数表达式声明期间错误创建的函数清理干净。
+
+// 使用独立的作用域包含声明  
+var addEvent = (function() {
+  var docEl = document.documentElement;
+  // 声明要引用函数的变量
+  var fn;
+  if (docEl.addEventListener) {
+      fn = function addEvent(element, eventName, callback) {
+          element.addEventListener(eventName, callback, false);
+      }
+  } else if (docEl.attachEvent) {
+      fn = function addEvent(element, eventName, callback) {
+          element.attachEvent('on' + eventName, callback);
+      }
+  } else {
+      fn = function addEvent(element, eventName, callback) {
+          element['on' + eventName] = callback;
+      }
+  }
+  // 清除由JScript创建的addEvent函数，一定要保证在赋值前使用var关键字，除非函数顶部已经声明了addEvent
+  var addEvent = null;
+  
+  return fn;
+})();
+-----
+var IsString = function(obj) {
+    return typeof(obj) == "string";
+};
+
+var GetElement = function(elmt) {
+    if (IsString(elmt)) {
+        elmt = document.getElementById(elmt);
+    }
+
+    return elmt;
+};
+
+var AddEvent = function(elmt, eventName, handler, useCapture) {
+    
+    var elmt = GetElement(elmt);
+
+    if (elmt.addEventListener) {
+        if (eventName == "mousewheel") {
+            elmt.addEventListener("DOMMouseScroll", handler, useCapture);
+        }
+        // we are still going to add the mousewheel -- not a mistake!
+        // self is for opera, since it uses onmousewheel but needs addEventListener.
+        elmt.addEventListener(eventName, handler, useCapture);
+    } else if (elmt.attachEvent) {
+        elmt.attachEvent("on" + eventName, handler);
+        if (useCapture && elmt.setCapture) {
+            elmt.setCapture();
+        }
+    }
+};
+---------------------------------------------------------------
+模块模式：
+var blogModule = (function() {
+    var my = {},
+        privateName = "博客园";
+
+    function privateAddTopic(data) {}
+    my.Name = privateName;
+    my.AddTopic = function(data) {
+        privateAddTopic(data);
+    };
+    return my;
+}());
+
+扩展：在一些大型项目里，将一个功能分离成多个文件是非常重要的，因为可以多人合作易于开发。
+再回头看看上面的全局参数导入例子，我们能否把blogModule自身传进去呢？答案是肯定的，
+我们先将blogModule传进去，添加一个函数属性，然后再返回就达到了我们所说的目的。
+
+var blogModule = (function(my) {
+    my.AddPhoto = function() {};
+    return my;
+}(blogModule || {}));
+
+紧耦合扩展：限制了加载顺序，但是提供了我们重载的机会
+var blogModule = (function(my) {
+    var oldAddPhotoMethod = my.AddPhoto;
+    my.AddPhoto = function() {}; // 重载方法，依然可通过oldAddPhotoMethod调用旧的方法
+    return my;
+}(blogModule));
+
+跨文件共享私有对象：如果一个module分割到多个文件的话，每个文件需要保证一样的结构，
+也就是说每个文件匿名函数里的私有对象都不能交叉访问，那如果我们非要使用，那怎么办呢？
+var blogModule = (function(my) {
+    var _private = my._private = my._private || {},
+        _seal = my._seal = my._seal || function() {
+            delete my._private;
+            delete my._seal;
+            delete my._unseal;
+        },
+        _unseal = my._unseal = my._unseal || function() {
+            my._private = _private;
+            my._seal = _seal;
+            my._unseal = _unseal;
+        };
+    return my;
+}(blogModule || {}));
+
+任何文件都可以对他们的局部变量_private设属性，并且设置对其他的文件也立即生效。
+一旦这个模块加载结束，应用会调用 blogModule._seal()"上锁"，这会阻止外部接入内部的_private。如果这个模块需要再次增生，
+应用的生命周期内，任何文件都可以调用_unseal() ”开锁”，然后再加载新文件。加载后再次调用 _seal()”上锁”。
+---------------------------------------------------------------
+立即调用：
+var elems = document.getElementsByTagName('a');
+for (var i = 0; i < elems.length; i++) {
+    (function(lockedInIndex) {
+        elems[i].addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('I am link #' + lockedInIndex);
+        }, 'false');
+    })(i);
+}
+
+原型链：
+function Foo() {
+    this.value = 42;
+}
+Foo.prototype = {
+    method: function() {}
+};
+
+function Bar() {}
+// 设置Bar的prototype属性为Foo的实例对象
+prototype = new Foo();
+Bar.prototype.foo = 'Hello World';
+// 修正Bar.prototype.constructor为Bar本身
+Bar.prototype.constructor = Bar;
+var test = new Bar()
+
+test [Bar的实例]    
+    Bar.prototype [Foo的实例]         
+        { foo: 'Hello World' }        
+        Foo.prototype            
+            {method: ...};            
+                Object.prototype                
+                    {toString: ... /* etc. */};
+
+
+判断一个对象是否包含自定义属性而不是原型链上的属性，因为hasOwnProperty 是 JavaScript 中唯一一个处理属性但是不查找原型链的函数。
+
+-----
+The Single Responsibility Principle（单一职责SRP） 
+The Open/Closed Principle（开闭原则OCP） 
+The Liskov Substitution Principle（里氏替换原则LSP） 
+The Interface Segregation Principle（接口分离原则ISP） 
+The Dependency Inversion Principle（依赖反转原则DIP） 
+
+单一职责SRP：类发生更改的原因应该只有一个
+    function Event(name) {
+        var handlers = [];
+        this.getName = function() {
+            return name;
+        };
+        this.addHandler = function(handler) {
+            handlers.push(handler);
+        };
+        this.removeHandler = function(handler) {
+            for (var i = 0; i < handlers.length; i++) {
+                if (handlers[i] == handler) {
+                    handlers.splice(i, 1);
+                    break;
+                }
+            }
+        };
+        this.fire = function(eventArgs) {
+            handlers.forEach(function(h) {
+                h(eventArgs);
+            });
+        };
+    }
+
+    function EventAggregator() {
+        var events = [];
+
+        function getEvent(eventName) {
+            return $.grep(events, function(event) {
+                return event.getName() === eventName;
+            })[0];
+        }
+        this.publish = function(eventName, eventArgs) {
+            var event = getEvent(eventName);
+            if (!event) {
+                event = new Event(eventName);
+                events.push(event);
+            }
+            event.fire(eventArgs);
+        };
+        this.subscribe = function(eventName, handler) {
+            var event = getEvent(eventName);
+            if (!event) {
+                event = new Event(eventName);
+                events.push(event);
+            }
+            event.addHandler(handler);
+        };
+    }
+
+    function Product(id, description) {
+        this.getId = function() {
+            return id;
+        };
+        this.getDescription = function() {
+            return description;
+        };
+    }
+
+    function Cart(eventAggregator) {
+        var items = [];
+        this.addItem = function(item) {
+            items.push(item);
+            eventAggregator.publish("itemAdded", item);
+        };
+    }
+
+    function CartController(cart, eventAggregator) {
+        eventAggregator.subscribe("itemAdded", function(eventArgs) {
+            var newItem = $('<li></li>').html(eventArgs.getDescription()).attr('id-cart', eventArgs.getId()).appendTo("#cart");
+        });
+        eventAggregator.subscribe("productSelected", function(eventArgs) {
+            cart.addItem(eventArgs.product);
+        });
+    }
+
+    function ProductRepository() {
+        var products = [new Product(1, "Star Wars Lego Ship"), new Product(2, "Barbie Doll"), new Product(3, "Remote Control Airplane")];
+        this.getProducts = function() {
+            return products;
+        }
+    }
+
+    function ProductController(eventAggregator, productRepository) {
+        var products = productRepository.getProducts();
+
+        function onProductSelected() {
+            var productId = $(this).attr('id');
+            var product = $.grep(products, function(x) {
+                return x.getId() == productId;
+            })[0];
+            eventAggregator.publish("productSelected", {
+                product: product
+            });
+        }
+        products.forEach(function(product) {
+            var newItem = $('<li></li>').html(product.getDescription()).attr('id', product.getId()).dblclick(onProductSelected).appendTo("#products");
+        });
+    }
+
+    (function() {
+        var eventAggregator = new EventAggregator(),
+            cart = new Cart(eventAggregator),
+            cartController = new CartController(cart, eventAggregator),
+            productRepository = new ProductRepository(),
+            productController = new ProductController(eventAggregator, productRepository);
+    })();
+-------

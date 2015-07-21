@@ -31,6 +31,8 @@ sudo aptitude purge pkgname卸载软件包及其配置文件与依赖关系包�
 dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
 如果报如下错误，证明你的系统中没有残留配置文件了，无须担心。
 https://s18195164.onlinehome-server.com:10000/
+
+sudo apt-get install build-essential libgtk2.0-dev libjpeg62-dev libtiff4-dev libjasper-dev libopenexr-dev cmake python-dev python-numpy libtbb-dev libeigen2-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev
 -----------------------------------------------------------------
 
 nano /etc/nanorc
