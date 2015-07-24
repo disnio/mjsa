@@ -1,3 +1,4 @@
+Firefox浏览器使用的 Gecko 引擎有着很好的实现，IE浏览器使用的 Trident 引擎。
 ------------------------------------------------------------------------------
 2 命名函数表达式：
 
@@ -304,3 +305,352 @@ The Dependency Inversion Principle（依赖反转原则DIP）
             productController = new ProductController(eventAggregator, productRepository);
     })();
 -------
+开闭原则：软件实体（类，模块，方法等等）应当对扩展开放，对修改关闭，即软件实体应当在不修改的前提下扩展。
+
+function questionCreator(spec, my) {
+    var that = {};
+    my = my || {};
+    my.label = spec.label;
+    my.renderInput = function() {
+        throw "not implemented";
+    };
+    that.render = function(target) {
+        var questionWrapper = document.createElement('div');
+        questionWrapper.className = 'question';
+        var questionLabel = document.createElement('div');
+        questionLabel.className = 'question-label';
+        var label = document.createTextNode(spec.label);
+        questionLabel.appendChild(label);
+        var answer = my.renderInput();
+        questionWrapper.appendChild(questionLabel);
+        questionWrapper.appendChild(answer);
+        return questionWrapper;
+    };
+    return that;
+}
+
+function choiceQuestionCreator(spec) {
+    var my = {},
+        that = questionCreator(spec, my);
+    my.renderInput = function() {
+        var input = document.createElement('select');
+        var len = spec.choices.length;
+        for (var i = 0; i < len; i++) {
+            var option = document.createElement('option');
+            option.text = spec.choices[i];
+            option.value = spec.choices[i];
+            input.appendChild(option);
+        }
+        return input;
+    };
+    return that;
+}
+
+function inputQuestionCreator(spec) {
+    var my = {},
+        that = questionCreator(spec, my);
+    my.renderInput = function() {
+        var input = document.createElement('input');
+        input.type = 'text';
+        return input;
+    };
+    return that;
+}
+
+var view = {
+    render: function(target, questions) {
+        for (var i = 0; i < questions.length; i++) {
+            target.appendChild(questions[i].render());
+        }
+    }
+};
+
+var questions = [choiceQuestionCreator({
+    label: 'Have you used tobacco products within the last 30 days?',
+    choices: ['Yes', 'No']
+}), inputQuestionCreator({
+    label: 'What medications are you currently using?'
+})];
+
+var questionRegion = document.getElementById('questions');
+view.render(questionRegion, questions);
+
+首先，questionCreator方法的创建，可以让我们使用模板方法模式将处理问题的功能delegat给针对每个问题类型的扩展代码renderInput上。 
+其次，我们用一个私有的spec属性替换掉了前面question方法的构造函数属性，因为我们封装了render行为进行操作，不再需要把这些属性暴露给外部代码了。 
+第三，我们为每个问题类型创建一个对象进行各自的代码实现，但每个实现里都必须包含renderInput方法以便覆盖questionCreator方法里的renderInput代码，这就是我们常说的策略模式。 
+通过重构，我们可以去除不必要的问题类型的枚
+
+-----------------------------
+里氏替换原则LSP：派生类型必须可以替换它的基类型。Subtypes must be substitutable for their base types.
+处理LSP过分妨碍的一个策略是使用契约，契约清单有2种形式：执行说明书（executable specifications）和错误处理，
+在执行说明书里，一个详细类库的契约也包括一组自动化测试，
+而错误处理是在代码里直接处理的，例如在前置条件，后置条件，常量检查等。
+
+使用测试驱动开发（Test-Driven Development）来指导你代码的设计 
+设计可重用类库的时候可随意使用契约设计技术 
+
+避免LSP妨碍的另外一个测试是：如果可能的话，尽量不用继承。 组合比继承好的唯一作用是静态类型。
+继承子类型和他们的基类型耦合在一起了，就是说基类型的改变会影响到继承子类型。组合倾向于对象更小化。
+
+里氏替换原则（LSP）的本质不是真的和继承有关，而是行为兼容性。
+一个对象的契约行为不是对象的类型决定的，而是对象期望的功能决定的。
+-----------------------------
+
+JSON只是一个数据交换语言，只有我们将之用在string上下文的时候它才叫JSON。
+JSON只是其中一种语法，它可以在string上下文里描述对象，数组，字符串，数字，布尔型和null，然后通过程序间传输，
+并且反序列化成所需要的格式。YAML和XML（甚至request params）也是流行的数据交换格式，
+
+JSON有非常严格的语法，所有属性名称和它的值都必须用双引号引住，不能使用单引号。另外，即便你用了转义以后的单引号也是不合法的。
+
+【取决于上下文】，在string上下文里使用带有大括号的JavaScript对象，那它就是JSON字符串，
+而如果在对象字面量上下文里使用的话，那它就是对象字面量。
+
+JSON.parse 用来将JSON字符串反序列化成对象，JSON.stringify 用来将对象序列化成JSON字符串。
+
+ECMA-262：
+ECMAScript是一门高度抽象的面向对象(object-oriented)语言，用以处理Objects对象. 
+Object是一个属性的集合，并且都拥有一个单独的原型对象[prototype object]. 这个原型对象[prototype object]可以是一个object或者null值。
+
+不过一般来说，我们会使用__<内部属性名>__ 下划线来代替双括号。
+显式的属性[explicit own properties] 隐式的 __proto__ 属性[implicit __proto__ property] 为什么需要原型呢？
+
+原型链：实现继承和共享属性。
+原型对象也是普通的对象，并且也有可能有自己的原型，如果一个原型对象的原型不为null的话，我们就称之为原型链（prototype chain）。
+
+可以由prototype chain原型链来实现。这种继承被称为 delegation based inheritance - 【基于继承的委托】，或者更通俗一些，叫做原型继承。
+this 这个值在一个继承机制中，仍然是指向它原本属于的对象，而不是从原型链上找到它时，它所属于的对象。
+
+对象拥有相同或相似的状态结构(same or similar state structure) （即相同的属性集合）与 不同的状态值(different state values)。
+
+---
+执行上下文栈 (Execution Context Stack)：
+
+在ECMASscript中的代码有三种类型：global, function 和 eval。
+注意，一个function可能产生无限的上下文环境，因为一个函数的调用（甚至递归）都产生了一个新的上下文环境。
+
+当一个caller激活了一个callee，那么这个caller就会暂停它自身的执行，然后将控制权交给这个callee.
+
+一个callee可以用返回（return）或者抛出异常（exception）来结束自身的上下文。
+
+执行上下文(Execution Context)：变量对象(variable object)，this指针(this value)，作用域链(scope chain)
+
+注意：函数表达式[function expression]（而不是函数声明[function declarations]）是不包含在VO[variable object]里面的。
+
+仅有函数能够创建新的作用域。在函数内部定义的变量与内部函数，在外部非直接可见并且不污染全局对象。
+
+eval会使用全局变量对象或调用者的变量对象(eval的调用来源)。
+
+活动对象(activation object)：
+
+作用域链(Scope Chains)：作用域链是一个 对象列表(list of objects) ，用以检索上下文代码中出现的标识符(identifiers) 
+
+ECMAScript中，只采用了静态作用域。
+
+闭包：是一系列代码块（在ECMAScript中是函数），并且静态保存所有父级的作用域。通过这些保存的作用域来搜寻到函数中的自由变量。
+因为每一个普通函数在创建时保存了[[Scope]]，理论上，ECMAScript中所有函数都是闭包。
+
+this 是执行上下文环境的一个属性，而不是某个变量对象的属性。因为和变量不同，this是没有一个类似搜寻变量的过程。
+在ECMAScript中，是不可以给this赋值的，因为，还是那句话，this不是变量。
+this取决于调用函数的方式。
+
+为什么用表达式的不同形式激活同一个函数会不同的this值，答案在于引用类型（type Reference）不同的中间值。
+
+手动设置函数调用的this值。它们是.apply和.call方法。
+
+在代码执行阶段有两个声明能修改作用域链。这就是with声明和catch语句。它们添加到作用域链的最前端，对象须在这些声明中出现的标识符中查找。
+
+var x = 10,
+    y = 10;
+with({
+    x: 20
+}) {
+    var x = 30,
+        y = 30;
+    console.log(x); //30
+    console.log(y); //30
+}
+console.log(x); //10
+console.log(y); //30
+----------------------------------
+封装是一个抽象的增加，而不是选拔个直接往你的类里写入一些东西的隐藏“恶意黑客”。
+封装辅助对象（局部），我们用最小的代价、本地化和预测性变化来问为公共接口的行为变化提供可行性，这也正是封装的目的。
+
+ECMAScript程序里可以直接访问的,它们是：Undefined、Null、Boolean、String、Number、Object。
+Reference是用来解释delete、typeof、this这样的操作符，并且包含一个基对象和一个属性名称；
+List描述的是参数列表的行为（在new表达式和函数调用的时候）；
+Completion 是用来解释行为break、continue、return和throw语句的。
+alert(typeof null); // "object"
+
+ES5规范规定，静态对象不能扩展新的属性，并且它的属性页不能删除或者修改。他们是所谓的冻结对象，可以通过应用Object.freeze(o)方法得到。
+
+在ES5规范里，也使用Object.preventExtensions(o)方法防止扩展，或者使用Object.defineProperty(o)方法来定义属性：
+
+var foo = {
+    x: 10
+};
+
+Object.defineProperty(foo, "y", {
+    value: 20,
+    writable: false,
+    enumerable: false,
+    configurable: false
+});
+
+Object.preventExtensions(foo);
+console.log(Object.isExtensible(foo)); // false 
+
+属性的特性：
+http://segmentfault.com/a/1190000000515151
+所有的属性（property） 都可以有很多特性（attributes）。
+
+    {ReadOnly}——忽略向属性赋值的写操作尝，但只读属性可以由宿主环境行为改变——也就是说不是“恒定值” ; 
+    {DontEnum}——属性不能被for..in循环枚举 
+    {DontDelete}——糊了delete操作符的行为被忽略（即删不掉）; 
+    {Internal}——内部属性，没有名字（仅在实现层面使用），ECMAScript里无法访问这样的属性。 
+
+注意，在ES5里{ReadOnly}，{DontEnum}和{DontDelete}被重新命名为[[Writable]]，[[Enumerable]]和[[Configurable]]，
+可以手工通过Object.defineProperty或类似的方法来管理这些属性。
+
+var desc = Object.getOwnPropertyDescriptor(foo, "x"); 
+console.log(desc.enumerable); // false
+console.log(desc.writable); // true
+
+在函数创建的算法里，我们知道constructor属性在函数创建阶段被设置为函数的prototype属性，constructor属性的值是函数自身的重要引用。
+
+function A() {}
+A.prototype.x = 10; 
+var a = new A();
+alert(a.x); // 10 
+A.prototype = {  constructor: A,  x: 20  y: 30 }; 
+// 对象a是通过隐式的[[Prototype]]引用从原油的prototype上获取的值
+alert(a.x); // 10
+alert(a.y) // undefined 
+
+var b = new A(); // 但新对象是从新原型上获取的值
+alert(b.x); // 20
+alert(b.y) // 30
+
+ES5提供了 Object.getPrototypeOf(O) 方法，该方法直接返回对象的[[Prototype]]属性——实例的初始原型。
+注意：in操作符也可以负责查找属性（也会查找原型链）
+
+function inherit(child, parent) {
+    var F = function() {};
+    F.prototype = parent.prototype; 
+    child.prototype = new F();
+    child.prototype.constructor = child;
+    child.superproto = parent.prototype;
+    return child;
+}
+
+ES5为原型链标准化了这个工具函数，那就是Object.create方法。
+
+Object.create || Object.create = function(parent, properties) {
+    function F() {}
+    F.prototype = parent;
+    var child = new F;
+    for (var k in properties) {
+        child[k] = properties[k].value;
+    }
+    return child;
+}
+var foo = {
+    x: 10
+};
+var bar = Object.create(foo, {
+    y: {
+        value: 20
+    }
+});
+
+console.log(bar.x, bar.y);
+现在可以看到，它实际上不是基于类的继承，而是连接原型的一个很方便的代码重用。
+------------------
+对象是按引用传参，而原始值类型按值传参。传递参数的计算顺序也是很重要的——在ECMAScript是左到右。
+参数的值是调用者传递的对象值的拷贝(copy of value），函数内部改变参数的值不会影响到外面的对象（该参数在外面的值）。
+如果该函数的参数不是原始值而是复杂的结构对象是时候，将带来很大的性能问题。
+“按对象传递”或“按对象共享传递”。函数内部给参数重新赋新值不会影响到外部的对象（和上例按引用传递的case），但是因为该参数是一个地址拷贝。
+传递给函数内部用的参数仅仅是绑定值（引用地址）的一个名称，并不会影响外部的对象。
+
+ECMAScript中将对象作为参数传递的策略了——按共享传递：修改参数的属性将会影响到外部，而重新赋值将不会影响到外部对象。
+
+var foo = {x: 10, y: 20};
+var bar = foo; 
+alert(bar === foo); // true 
+bar.x = 100;bar.y = 200; 
+alert([foo.x, foo.y]); // [100, 200]
+
+bar = {z: 1, q: 2}; 
+alert([foo.x, foo.y]); // [100, 200] – 没改变
+alert([bar.z, bar.q]); // [1, 2] – 但现在引用的是新对象
+------------
+if (!("a" in window)) { var a = 1; }
+alert(a);
+首先声明a，然后判断a是否在存在，如果不存在就赋值为1，很明显a永远在window里存在，这个赋值语句永远不会执行，所以结果是undefined。
+
+提前这个词语显得有点迷惑了，其实就是执行上下文的关系，因为执行上下文分2个阶段：
+进入执行上下文和执行代码，在进入执行上下文的时候，创建变量对象VO里已经有了：函数的所有形参、所有的函数声明、所有的变量声明
+
+VO(global) = { a: undefined }
+-------
+function a(x) { return x * 2; }
+var a;alert(a);
+遇到同名的函数声明，VO不会重新定义，执行a的时候，相应地就弹出了函数a的内容了。
+----------
+function a() { alert(this); }
+a.call(null);
+根据ECMAScript262规范规定：如果第一个参数传入的对象调用者是null或者undefined的话，call方法将把全局对象（也就是window）作为this的值。
+-------------------------------
+接口隔离原则：Clients should not be forced to depend on methods they do not use. 不应该强迫客户依赖于它们不用的方法。
+在静态类型语言语言里，导致违反ISP原则的一个原因是堕落的实现。
+静态类型语言里的另外一个导致违反ISP的原因是静态耦合，在静态类型语言里，接口在一个松耦合设计程序里扮演了重大角色。
+当一个接口interface变成了一个需求实现很多方法的时候，他的实现将会变得异常复杂，而且有可能导致这些接口承担一个没有粘性的职责，这就是我们经常提到的胖接口。
+
+依赖倒置原则：高层模块不应该依赖于低层模块，二者都应该依赖于抽象。抽象不应该依赖于细节，细节应该依赖于抽象。
+确保应用程序或框架的主要组件从非重要的底层组件实现细节解耦出来，这将确保程序的最重要的部分不会因为低层次组件的变化修改而受影响。
+所以抽象不应依赖于细节这个改变在JavaScript里没有太大的影响，但高层模块不应依赖于低层模块却有很大的影响。
+依赖注入是控制反转的一个特殊形式，反转的意思一个组件如何获取它的依赖。依赖注入的意思就是：依赖提供给组件，而不是组件去获取依赖，意思是创建一个依赖的实例，通过工厂去请求这个依赖，通过Service Locator或组件自身的初始化去请求这个依赖。依赖倒置原则和依赖注入都是关注依赖，并且都是用于反转。不过，依赖倒置原则没有关注组件如何获取依赖，而是只关注高层模块如何从低层模块里解耦出来。某种意义上说，依赖倒置原则是控制反转的另外一种形式，这里反转的是哪个模块定义接口（从低层里定义，反转到高层里定义）。
+
+--------------------------
+在SCRIPT元素里的注释行// <![CDATA[ 是用来告诉支持XHTML的浏览器，这里面的代码是字符数据而不是XHTML标签
+defer属性告诉浏览器加载完HTML文档以后再执行JS代码，但这个属性只能在IE下使用。
+
+getElementsByTagName ：方法返回的是一个节点集合，和数组类似也有length属性，重要的一个特性是他是live的。
+
+Node.ELEMENT_NODE == 1
+Node.ATTRIBUTE_NODE == 2
+Node.TEXT_NODE == 3
+Node.CDATA_SECTION_NODE == 4
+Node.COMMENT_NODE == 8
+Node.DOCUMENT_NODE == 9
+Node.DOCUMENT_TYPE_NODE == 10
+Node.DOCUMENT_FRAGMENT_NODE == 11
+
+event 对象：
+function myEventHandler(e) {
+    e = e || window.event;
+    if (e.preventDefault) {
+        e.preventDefault();
+    } else {
+        e.returnValue = false;
+    }
+}
+
+冒泡：
+function myParagraphEventHandler(e) {
+    e = e || window.event;
+    if (e.stopPropagation) {
+        e.stopPropagation();
+    } else {
+        e.cancelBubble = true;
+    }
+}
+
+事件委托：
+var myTable = document.getElementById('my-table');
+myTable.onclick = function() {
+    e = e || window.event;
+    var targetNode = e.target || e.srcElement;
+    if (targetNode.nodeName.toLowerCase() === 'tr') {
+        alert('You clicked a table row!');
+    }
+}

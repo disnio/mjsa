@@ -129,8 +129,9 @@ Object.defineProperty(o, "b", {
 AMD模块
 CommonJS 模块
 ECMAScript Harmony 模块
-// -------------------------------------------------------
-模块模式1：
+
+// -------------------------模块模式------------------------------
+
 var testModule = (function() {
     // 私有变量及函数
     // function abc() {}
@@ -235,8 +236,8 @@ myRevealingModule.setName("Paul Kinlan");
 // 公有成员使用私有成员也遵循上面不能打补丁的规则。因为上面的原因，
 // 使用暴露式模块模式创建的模块相对于原始的模块模式更容易出问题，因此在使用的时候需要小心。
 
-// --------------------------------------------------------------------
-//  单例模式
+// --------------------------------单例模式------------------------------------
+//  【单例模式】，单例一般是用在系统间各种模式的通信协调上
 var mySingleton = (function() {
     // Instance stores a reference to the Singleton
     var instance;
@@ -315,6 +316,231 @@ var singletonTest = SingletonTester.getInstance({
 // Log the output of pointX just to verify it is correct
 // Outputs: 5
 console.log(singletonTest.pointX);
+//  --------------------------------------------------
+// 其它1：
+function Universe() {
+    if (typeof Universe.instance === 'object') {
+        return Universe.instance;
+    }
+    this.start_time = 0;
+    this.bang = "Big";
+    Universe.instance = this;
+}
+var uni = new Universe();
+var uni2 = new Universe();
+console.log(uni === uni2);
+
+// 其它2：
+function Universe() {
+    var instance = this;
+    this.start_time = 0;
+    this.bang = "Big";
+    // 重写构造函数
+    Universe = function() {
+        return instance;
+    };
+}
+var uni = new Universe();
+var uni2 = new Universe();
+uni.bang = "123";
+console.log(uni === uni2); // true
+console.log(uni2.bang); // 123复制代码
+
+// 其它3：
+function Universe() {
+    var instance;
+    Universe = function Universe() {
+        return instance;
+    };
+    // 后期处理原型属性
+    Universe.prototype = this;
+    instance = new Universe();
+    // 重设构造函数指针
+    instance.constructor = Universe;
+    instance.start_time = 0;
+    instance.bang = "Big";
+    return instance;
+}
+var uni = new Universe();
+var uni2 = new Universe();
+console.log(uni === uni2);
+Universe.prototype.nothing = true;
+var uni = new Universe();
+Universe.prototype.everything = true;
+var uni2 = new Universe();
+console.log(uni.nothing);
+console.log(uni2.nothing);
+console.log(uni.everything);
+console.log(uni2.everything);
+console.log(uni.constructor === Universe); // true复制代码
+
+// 其它4：
+var Universe;
+(function() {
+    var instance;
+    Universe = function Universe() {
+        if (instance) {
+            return instance;
+        }
+        instance = this;
+        this.start_time = 0;
+        this.bang = "Big";
+    };
+}());
+var a = new Universe();
+var b = new Universe();
+alert(a === b);
+a.bang = "123";
+alert(b.bang); // 123
+
+
+// ---------------------------------建造者模式---------------------------------------
+可以将一个复杂对象的构建与其表示相分离，使得同样的构建过程可以创建不同的表示。
+也就是说如果我们用了建造者模式，那么用户就需要指定需要建造的类型就可以得到它们，而具体建造的过程和细节就不需要知道了。
+
+function getBeerById(id, callback) {
+    asyncRequest('GET', 'beer.uri?id=' + id, function(resp) {
+        callback(resp.responseText);
+    });
+}
+var el = document.querySelector('#test');
+el.addEventListener('click', getBeerByIdBridge, false);
+
+function getBeerByIdBridge(e) {
+    getBeerById(this.id, function(beer) {
+        console.log('Requested Beer: ' + beer);
+    });
+}
+// ----------------------------------工厂模式--------------------------------------
+
+创建对象（视为工厂里的产品）时无需指定创建对象的具体类。
+
+工厂模式定义一个用于创建对象的接口，这个接口由子类决定实例化哪一个类。
+该模式使一个类的实例化延迟到了子类。而子类可以重写接口方法以便创建的时候指定自己的对象类型。
+
+//:1：
+var productManager = {};
+productManager.createProductA = function() {
+    console.log('ProductA');
+}
+productManager.createProductB = function() {
+    console.log('ProductB');
+}
+productManager.factory = function(typeType) {
+    return new productManager[typeType];
+}
+productManager.factory("createProductA");
+
+// 2：
+var page = page || {};
+page.dom = page.dom || {};
+page.dom.Text = function() {
+    this.insert = function(where) {
+        var txt = document.createTextNode(this.url);
+        where.appendChild(txt);
+    };
+};
+
+page.dom.Link = function() {
+    this.insert = function(where) {
+        var link = document.createElement('a');
+        link.href = this.url;
+        link.appendChild(document.createTextNode(this.url));
+        where.appendChild(link);
+    };
+};
+
+page.dom.Image = function() {
+    this.insert = function(where) {
+        var im = document.createElement('img');
+        im.src = this.url;
+        where.appendChild(im);
+    };
+};
+
+page.dom.factory = function(type) {
+    return new page.dom[type];
+}
+var o = page.dom.factory('Link');
+o.url = 'http://www.cnblogs.com';
+o.insert(document.body);
+
+// -----------------------------------装饰者-------------------------------------
+提供比继承更有弹性的替代方案。装饰者用于包装不？同接口的对象，不仅允许你向方法添加行为，
+而且还可以将方法设置成原始对象调用（例如装饰者的构造函数）。
+
+装饰者用于通过重载方法的形式添加新功能，该模式可以在被装饰者前面或者后面加上自己的行为以达到特定的目的。
+当脚本运行时，在子类中增加行为会影响原有类所有的实例，而装饰者却不然。取而代之的是它能给不同对象各自添加新行为。
+var tree = {};
+tree.decorate = function() {
+    console.log('Make sure the tree won\'t fall');
+};
+tree.getDecorator = function(deco) {
+    tree[deco].prototype = this;
+    return new tree[deco];
+};
+tree.RedBalls = function() {
+    this.decorate = function() {
+        this.RedBalls.prototype.decorate();
+        console.log('Put on some red balls');
+    }
+};
+tree.BlueBalls = function() {
+    this.decorate = function() {
+        this.BlueBalls.prototype.decorate();
+        console.log('Add blue balls');
+    }
+};
+tree.Angel = function() {
+    this.decorate = function() {
+        this.Angel.prototype.decorate();
+        console.log('An angel on the top');
+    }
+};
+tree = tree.getDecorator('BlueBalls');
+tree = tree.getDecorator('Angel');
+tree = tree.getDecorator('RedBalls');
+tree.decorate(); 
+// --
+function ConcreteClass() {
+    this.performTask = function() {
+        this.preTask();
+        console.log('doing something');
+        this.postTask();
+    };
+}
+
+function AbstractDecorator(decorated) {
+    this.performTask = function() {
+        decorated.performTask();
+    };
+}
+
+function ConcreteDecoratorClass(decorated) {
+    this.base = AbstractDecorator;
+    this.base(decorated);
+    decorated.preTask = function() {
+        console.log('pre-calling..');
+    };
+    decorated.postTask = function() {
+        console.log('post-calling..');
+    };
+}
+
+var concrete = new ConcreteClass();
+var decorator1 = new ConcreteDecoratorClass(concrete);
+var decorator2 = new ConcreteDecoratorClass(decorator1);
+decorator1.performTask();
+decorator2.performTask();
+// ------------------------------------------------------------------------
+外观模式不仅简化类中的接口，而且对接口与调用者也进行了解耦。外观模式 Facade
+
+代理模式（Proxy），为其他对象提供一种代理以控制对这个对象的访问。
+    远程代理，也就是为了一个对象在不同的地址空间提供局部代表，这样可以隐藏一个对象存在于不同地址空间的事实，就像web service里的代理类一样。 
+    虚拟代理，根据需要创建开销很大的对象，通过它来存放实例化需要很长时间的真实对象，比如浏览器的渲染的时候先显示问题，而图片可以慢慢显示（就是通过虚拟代理代替了真实的图片，此时虚拟代理保存了真实图片的路径和尺寸。 
+    安全代理，用来控制真实对象访问时的权限，一般用于对象应该有不同的访问权限。 
+    智能指引，只当调用真实的对象时，代理处理另外一些事情。例如C#里的垃圾回收，使用对象的时候会有引用次数，如果对象没有引用了，GC就可以回收它了。
+
 // ------------------------------------------------------------------------
 // 一个被称作被【观察者】的对象，维护一组被称为观察者的对象，这些对象依赖于被观察者，
 // 被观察者自动将自身的状态的任何变化通知给它们。
@@ -401,5 +627,130 @@ pubsub.publish("inbox/newMessage", {
 });
 
 pubsub.publish("inbox/newMessage", "Hello! are you still there?");
+// -------
+function Observer() {
+    this.fns = [];
+}
+Observer.prototype = {
+    subscribe: function(fn) {
+        this.fns.push(fn);
+    },
+    unsubscribe: function(fn) {
+        this.fns = this.fns.filter(function(el) {
+            if (el !== fn) {
+                return el;
+            }
+        });
+    },
+    update: function(o, thisObj) {
+        var scope = thisObj || window;
+        this.fns.forEach(function(el) {
+            el.call(scope, o);
+        });
+    }
+};
+var o = new Observer;
+var f1 = function(data) {
+    console.log('Robbin: ' + data + ', 赶紧干活了！');
+};
+var f2 = function(data) {
+    console.log('Randall: ' + data + ', 找他加点工资去！');
+};
+o.subscribe(f1);
+o.subscribe(f2);
+o.update("Tom回来了！") 
+o.unsubscribe(f1);
+o.update("Tom回来了！");
+// ------------ 
+var observer = {
+    addSubscriber: function(callback) {
+        this.subscribers[this.subscribers.length] = callback;
+    },
+    removeSubscriber: function(callback) {
+        for (var i = 0; i < this.subscribers.length; i++) {
+            if (this.subscribers[i] === callback) {
+                delete(this.subscribers[i]);
+            }
+        }
+    },
+    publish: function(what) {
+        for (var i = 0; i < this.subscribers.length; i++) {
+            if (typeof this.subscribers[i] === 'function') {
+                this.subscribers[i](what);
+            }
+        }
+    },
+    // 多个订阅者
+    make: function(o) {
+        for (var i in this) {
+            o[i] = this[i];
+            o.subscribers = [];
+        }
+    }
+};
+var blogger = {
+    recommend: function(id) {
+        var msg = 'dudu 推荐了的帖子:' + id;
+        this.publish(msg);
+    }
+};
+var user = {
+    vote: function(id) {
+        var msg = '有人投票了!ID=' + id;
+        this.publish(msg);
+    }
+};
+observer.make(blogger);
+observer.make(user);
+
+var tom = {
+    read: function(what) {
+        console.log('Tom看到了如下信息：' + what)
+    }
+};
+var mm = {
+    show: function(what) {
+        console.log('mm看到了如下信息：' + what)
+    }
+};
+blogger.addSubscriber(tom.read);
+blogger.addSubscriber(mm.show);
+blogger.recommend(123);
+blogger.removeSubscriber(mm.show);
+blogger.recommend(456);
+user.addSubscriber(mm.show);
+user.vote(789);
+// --------
+(function($) {
+    var o = $({});
+    // on(events,[selector],[data],fn)
+    $.subscribe = function() {
+        o.on.apply(o, arguments);
+    };
+
+    $.unsubscribe = function() {
+        o.off.apply(o, arguments);
+    };
+
+    $.publish = function() {
+        o.trigger.apply(o, arguments);
+    };
+}(jQuery));
+
+function handle(e, a, b, c) {
+    console.log(e, a + b + c);
+};
+
+$.subscribe("/some/topic", handle);
+$.publish("/some/topic", ["a", "b", "c"]);
+$.unsubscribe("/some/topic", handle);
+
+$.subscribe("/some/tox", function(e, a, b, c) {
+    console.log(e, a + "--" + b + c);
+});
+
+$.publish("/some/tox", ["a", "b", "c"]);
+$.unsubscribe("/some/tox");
+
 // ----------------------------------------------------------------------
 // 中介者
