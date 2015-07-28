@@ -5,6 +5,13 @@ ssh-keygen -t rsa -C "291166364@qq.com"
 id_rsa id_rsa.pub 生成的两个key文件
 
 在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件
+本地先初始化化成git 库。
+[root@GHVM18-C3-01 git]# mkdir taskb
+[root@GHVM18-C3-01 git]# chown git:git taskb
+[root@GHVM18-C3-01 git]# cd taskb
+[root@GHVM18-C3-01 taskb]# git init --bare taskb.git
+Initialized empty Git repository in /home/git/taskb/taskb.git/
+[root@GHVM18-C3-01 taskb]# chown -R git:git taskb.git
 -------------------------------------------------------------------
 在实际开发中，我们应该按照几个基本原则进行分支管理：
 首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
