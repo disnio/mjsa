@@ -123,7 +123,11 @@ vi /etc/sysconfig/iptables
 http://www.linuxidc.com/Linux/2013-08/89266.htm
 
 http://blog.csdn.net/flcandclf/article/details/469361
+------------------------------------------------------------
+ubuntu x11vnc：
+http://blog.163.com/yes_id/blog/static/28715884201232573015611/
 
+--------------------------------------
 yum install libXfont xorg-x11-xfs xorg-x11-xfs-utils xorg-x11-xinit xorg-x11-xdm xorg-x11-font*
 
 //安装apache扩展

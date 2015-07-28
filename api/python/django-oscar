@@ -1,3 +1,5 @@
+oauth2
+http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html
 -------------------------------------------------------------------
 改 debug-toolbar  的 jquery：
 c:\Python27\Lib\site-packages\debug_toolbar\settings.py
@@ -83,6 +85,9 @@ python manage.py sqlmigrate books 0002
 
 ------------------------------------------------------
 django-oscar 安装： 
+Successfully installed 
+Babel-1.3 Unidecode-0.4.17 django-1.7.8 django-appconf-1.0.1 django-compressor-1.5 django-extra-views-0.6.4 django-haystack-2.3.1 django-oscar-1.0.2 django-tables2-0.15.0 django-treebeard-2.0 factory-boy-2.4.1 mock-1.0.1 phonenumbers-6.3.0 pillow-2.4.0 purl-1.1 pytz-2015.4 six-1.9.0 sorl-thumbnail-11.12.1b0
+
 apt-get install python-dev 
 sudo apt-get install  libjpeg-dev[el] freetype [libfreetype6-dev]
 gd 库编译安装
@@ -98,11 +103,21 @@ pip install whoosh
 pip install jieba
 haystack 
 pip install psycopg2
+pip install alipay
+
+---------------------------------------------
+pip install supervisor
+echo_supervisord_conf > svisor_cn.conf 
+supervisord -c svisor_cn.conf 
+
 
 settings.py 里面：
 thumbnail_debug = True
 
 数据库直接远程导入
+
+备份：
+mv  /var/lib/postgresql/9.3/artmall-db.sql  /var/lib/postgresql/9.3/$(date +'%Y-%m-%d-%H-%M-%S').sql
 -------------------------------------
 thumbnail_kvstore 静态文件替换后要清空
 ---------------------------------------------------------------------
@@ -224,3 +239,17 @@ pip install mod_wsgi
 nginx 运行权限需要调整。
 
 图像滚动加载的错误处理。
+----------------------------------
+geoip:
+wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+apt-get install libgeoip-dev
+
+gzip -d GeoIP.dat.gz 
+sudo cp GeoIP.dat /etc/nginx
+
+nginx.conf add:
+geoip_country  /etc/nginx/GeoIP.dat;
+geoip_city     /etc/nginx/GeoLiteCity.dat;
+
+http://www.51cto.com/art/200602/21772.htm
+无类域间路由

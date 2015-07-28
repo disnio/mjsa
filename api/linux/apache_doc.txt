@@ -43,3 +43,15 @@ Server: Microsoft-HTTPAPI/2.0
 Press Enter to exit...
 
 sql server reporting services 占用80端口禁用，同时Analysis Services 依赖这个服务也停止服务并改成手动启动。
+
+-----------------
+限速：
+http://blog.csdn.net/hursing/article/details/18663047
+http://www.devside.net/wamp-server/download-speed-limit-and-throttling-for-apache-2-4
+<Directory /home/hursing/mylimiteddir/>  
+    SetOutputFilter RATE_LIMIT  
+    SetEnv rate-limit 30  
+</Directory>  
+--------------------
+启用APACHE2(Ubuntu下)的USERDIR的功能
+http://www.cnblogs.com/ylan2009/archive/2012/02/25/2367836.html

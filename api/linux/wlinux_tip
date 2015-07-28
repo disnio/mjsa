@@ -1,4 +1,6 @@
-﻿-------------------------------------------------------
+﻿mv 1.py $(date +'%Y-%m-%d-%H-%M-%S').py
+date +'%Y-%m-%d %H-%M-%S'
+-------------------------------------------------------
 备份：
 tar -zcvf hxay130201.tar.gz * --exclude video --exclude download
 tar -zxvf
@@ -239,3 +241,5 @@ kill -HUP PID
 ---------------------------------------------------------------------------------
 top：
 http://www.jb51.net/LINUXjishu/151995.html
+dd：
+http://www.jb51.net/LINUXjishu/157283.html

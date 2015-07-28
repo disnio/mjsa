@@ -98,9 +98,141 @@ easy_install mod_wsgi
 centos 6 不联网：
 关闭了 NetworkManager，还得在 /etc/sysconfig/network-scripts/ifcfg-eth0）並把 ONBOOT=no 切換為 ONBOOT=yes
 ---------------------------------------------------------------------
+防火墙：
+http://www.2cto.com/os/201505/400718.html
+http://www.jb51.net/os/Ubuntu/45291.html
+http://www.linuxidc.com/Linux/2015-01/111937.htm X2Go 远程控制
+http://www.iteye.com/news/7975 远程桌面软件
+http://www.fs-security.com/
 
+apt-get install ufw
+ufw enable
+ufw default deny
+ufw allow 22/tcp 允许所有的外部IP访问本机的22/tcp (ssh)端口
+ufw deny 22/tcp 禁止所有外部IP访问本机的22/tcp(ssh)端口
+
+我们可以允许建立会话来接受流量：
+p312 鸟
+
+iptables [-AI 链名] [-io 网络接口] [-p 协议]  [-s 来源 IP/网域] [-d 目标 IP/网域] -j [ACCEPT|DROP|REJECT|LOG]
+选项与参数：
+-AI 链名：针对某的链进行规则的 "插入" 或 "累加"
+-A ：新增加一条规则，该规则增加在原本规则的最后面。例如原本已经有四条规则，使用 -A 就可以加上第五条规则！
+-I ：插入一条规则。如果没有指定此规则的顺序，默认是插入变成第一条规则。例如原本有四条规则，使用 -I 则该规则变成第一条，而原本四条变成 2~5 号
+链 ：有 INPUT, OUTPUT, FORWARD 等，此链名称又与 -io 有关，请看底下。
+
+-io 网络接口：设定封包进出的接口规范
+-i ：封包所进入的那个网络接口，例如 eth0, lo 等接口。需与 INPUT 链配合；
+-o ：封包所传出的那个网络接口，需与 OUTPUT 链配合；
+-p 协定：设定此规则适用于哪种封包格式， 主要的封包格式有： tcp, udp, icmp 及 all 。
+
+-s 来源 IP/网域：设定此规则之封包的来源项目，可指定单纯的 IP 或包括网域，
+    例如：IP ： 192.168.0.100 网域： 192.168.0.0/24, 192.168.0.0/255.255.255.0 均可。
+    若规范为『不许』时，则加上 ! 即可，例如：
+    -s ! 192.168.100.0/24 表示不许 192.168.100.0/24 之封包来源；
+
+-d 目标 IP/网域：同 -s ，只不过这里指的是目标的 IP 或网域。
+-j ：后面接动作，主要的动作有接受(ACCEPT)、丢弃(DROP)、拒绝(REJECT)及记录(LOG)
+
+--sport 埠口范围：限制来源的端口口号码，端口口号码可以是连续的，例如 1024:65535
+--dport 埠口范围：限制目标的端口口号码。
+
+-m ：一些 iptables 的外挂模块，主要常见的有：
+    state ：状态模块
+    mac ：网络卡硬件地址 (hardware address)
+
+--state ：一些封包的状态，主要有：
+    INVALID ：无效的封包，例如数据破损的封包状态
+    ESTABLISHED：已经联机成功的联机状态；
+    NEW ：想要新建立联机的封包状态；
+    RELATED ：这个最常用！表示这个封包是与我们主机发送出去的封包有关
+--mac-source ：就是来源主机的 MAC 啦！
+
+--icmp-type ：后面必须要接 ICMP 的封包类型，也可以使用代号，例如 8 代表 echo request 的意思。
+21,22,53,80,110,443,5900:5910
+-A INPUT -i lo -j ACCEPT
+-A INPUT -i eth1 -s 192.168.0.10 -j ACCEPT
+-A INPUT -i eth1 -s 192.168.0.100 -j DROP
+
+-A INPUT -i eth0 -p tcp --dport 21 -j DROP
+-A INPUT -i eth0 -p udp --dport 137:138 -j ACCEPT
+
+-A INPUT -i eth0 -p tcp -s 192.168.1.0/24 --sport 1024:65534 --dport ssh -j DROP
+
+
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT 
+-A INPUT -m state --state INVALID -j DROP
+-A INPUT -p tcp -i eth0 --dport ssh -j ACCEPT 
 
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 5432 -j ACCEPT
+
+最好不要将所有的 ICMP 封包都丢弃！如果不是做为路由器的主机时，通常我们会把 ICMP type 8 (echo request) 拿掉而已，
+让远程主机不知道我们是否存在，也不会接受 ping 的响应就是了。
+
+范例：让 0,3,4,11,12,14,16,18 的 ICMP type 可以进入本机：
+[root@www ~]# vi somefile
+#!/bin/bash
+icmp_type="0 3 4 11 12 14 16 18"
+for typeicmp in $icmp_type
+do
+    iptables -A INPUT -i eth0 -p icmp --icmp-type $typeicmp -j ACCEPT
+done
+[root@www ~]# sh somefile
+---------
+PATH=/sbin:/bin:/usr/sbin:/usr/bin; export PATH
+# 1. 清除规则
+iptables -F
+iptables -X
+iptables -Z
+# 2. 设定政策
+iptables -P INPUT DROP
+iptables -P OUTPUT ACCEPT
+iptables -P FORWARD ACCEPT
+# 3~5. 制订各项规则
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -i eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+#iptables -A INPUT -i eth0 -s 192.168.1.0/24 -j ACCEPT
+# 6. 写入防火墙规则配置文件
+/etc/init.d/iptables save
+[root@www ~]# sh bin/firewall.sh
+-----------
+
+# iptables -L
+
+允许所有的web流量
+iptables -A INPUT -p tcp -i eth0 --dport 80 -j ACCEPT 
+阻断流量
+iptables -A INPUT -j DROP 
+所以除了web和ssh流量外其他任何流量都会被阻断
+
+iptables -I INPUT 4 -i lo -j ACCEPT 
+
+iptables-save 和iptables-restore命令来保存配置。 
+
+保存您的防火墙股则到一个文件
+iptables-save > /etc/iptables.up.rules 
+接着修改 /etc/network/interfaces 脚本自动应用这些规则(末行是添加的)
+auto eth0
+iface eth0 inet dhcp
+pre-up iptables-restore < /etc/iptables.up.rules
+post-down iptables-restore < /etc/iptables.down.rules 
+
+iptables-save > /etc/iptables.test.rules
+gedit /etc/iptables.test.rules 
+iptables-restore < /etc/iptables.test.rules 
+
+------------------------------------------------------------------------
+SSL too long：
+http://www.jb51.net/article/56059.htm
+
+listen 443;
+server_name mail.jb51.net;
+
+ssl on;
+ssl_certificate server.crt;
+ssl_certificate_key server.key;
+
+http://www.poluoluo.com/server/201401/261178.html

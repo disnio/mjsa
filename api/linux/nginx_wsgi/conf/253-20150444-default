@@ -14,6 +14,7 @@
 # Default server configuration
 #
 
+limit_zone one $binary_remote_addr 10m;
 server {
 	listen 80;
         #	listen [::]:80 default_server;
@@ -35,6 +36,7 @@ server {
 
 	server_name localhost;
 
+
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
@@ -45,14 +47,20 @@ server {
 		#uwsgi_param UWSGI_PYHOME /home/artmalluser/oscar;
 		#uwsgi_param UWSGI_CHDIR /home/artmalluser/oscar/artmall;
 		root /home/artmalluser/oscar/artmall;
+
+        limit_conn one 2;
+        limit_rate 10k;
+
 	}
 
 	location /static/ {
 		alias /home/artmalluser/oscar/artmall/artmall/public/static/;
+                limit_rate 20k;
 	}
 
 	location /media/ {
 		alias /home/artmalluser/oscar/artmall/artmall/public/media/;
+	        limit_rate 20k;
 	}
 
 	error_page 500 502 503 504 /50x.html;

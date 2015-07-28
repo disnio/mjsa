@@ -1,10 +1,38 @@
-
+http://blog.csdn.net/makenothing/article/details/23954445
 Ubuntu的软件包格式为deb,而RPM格式的包则是Red Hat 相关系统所用的软件包。
 $sudo apt-get install alien ##alien默认没有安装，所以首先要安装它
 
 $sudo alien xxxx.rpm  ##将rpm转换为deb,完成后会生成一个xxxx.deb
 
 $sudo dpkg -i xxxx.deb ##这样xxxx软件就可以安装完成了
+
+
+安装软件 apt-get install softname1 softname2 softname3……
+
+卸载软件 apt-get remove softname1 softname2 softname3……
+卸载并清除配置 apt-get remove --purge softname1
+更新软件信息数据库 apt-get update
+进行系统升级 apt-get upgrade
+搜索软件包 apt-cache search softname1 softname2 softname3……
+修正（依赖关系）安装：apt-get -f install
+
+安装deb软件包 dpkg -i xxx.deb
+删除软件包 dpkg -r xxx.deb
+连同配置文件一起删除 dpkg -r --purge xxx.deb
+查看软件包信息 dpkg -info xxx.deb
+查看文件拷贝详情 dpkg -L xxx.deb
+查看系统中已安装软件包信息 dpkg -l
+重新配置软件包 dpkg-reconfigure xx
+
+sudo dpkg -p package_name卸载软件包及其配置文件，但无法解决依赖关系！
+
+sudo aptitude purge pkgname卸载软件包及其配置文件与依赖关系包！ 
+清除所有已删除包的残馀配置文件
+dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
+如果报如下错误，证明你的系统中没有残留配置文件了，无须担心。
+https://s18195164.onlinehome-server.com:10000/
+
+sudo apt-get install build-essential libgtk2.0-dev libjpeg62-dev libtiff4-dev libjasper-dev libopenexr-dev cmake python-dev python-numpy libtbb-dev libeigen2-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev
 -----------------------------------------------------------------
 
 nano /etc/nanorc
@@ -18,7 +46,7 @@ sudo apt-get install php5 libapache2-mod-php5 php5-mysql
 
 webadmin：
 sudo apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions
-
+apt-get -f install libapt-pkg-perl libnet-ssleay-perl openssl libauthen-pam-perl libio-pty-perl apt-show-versions   
 wget http://prdownloads.sourceforge.net/webadmin/webmin_1.740_all.deb
 
 -----------------------------------------------------------------
@@ -116,6 +144,15 @@ ip addr flush eth0
 动态IP：
 auto eth0
 iface eth0 inet dhcp
+
+重启Ubuntu后发现又不能上网了，问题出在/etc/resolv.conf。重启后，此文件配置的dns又被自动修改为默认值。所以需要永久性修改DNS。方法如下：
+vim /etc/resolvconf/resolv.conf.d/base
+nameserver 192.168.80.2
+nameserver 8.8.8.8
+
+3、重启networking服务使其生效：
+
+# /etc/init.d/networking restart
 ----
 sudo ifup eth0
 sudo ifdown eth0 
@@ -132,3 +169,5 @@ Class B 128.0.0.0 - 191.255.255.255 255.255.0.0 === /16
 
 Class C 192.0.0.0 - 223.255.255.255 255.255.255.0 === /24
 ----------------------------------------------------------------
+ssh rsa:
+http://www.linuxidc.com/Linux/2013-07/87458.htm

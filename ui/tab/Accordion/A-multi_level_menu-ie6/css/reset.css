@@ -1,0 +1,39 @@
+/* 2015-01-20--wu */
+ @charset"utf-8";
+ html { overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-size: 100%; color: #515151; background-color: #FFF; }
+* html, * html body { _background-image:url(about:blank); _background-attachment:fixed; }
+body { font-family:"Microsoft YaHei", "Arial", Sans-Serif; font-size: 14px; margin: 0; }
+div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td { margin: 0; padding: 0; }
+table { border-spacing: 0; border-collapse: collapse; }
+fieldset, img, iframe { border: 0 none; }
+/* ie6 7 8(q) bug 显示为行内表现 */
+ iframe { display: block; }
+img { -ms-interpolation-mode: bicubic; vertical-align: middle; }
+address, caption, cite, code, dfn, em, strong, th, var { font-weight: normal; font-style: normal; }
+caption, th { text-align: left; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
+q:before, q:after { content:''; }
+input, textarea, select { font-family: inherit; font-size: inherit; font-weight: inherit; outline: none; *font-size: 100%; vertical-align: middle; }
+table { font: 100%; font-size: inherit; }
+strong { font-weight: bold; }
+a { cursor: pointer; text-decoration: none; color: #000; }
+/*a:visited { color: #000; } 这个在ie6下覆盖其它样式 */
+ a:hover { color: #FF7200; }
+a:active { color: #000; background-color: #fff; }
+button { border: none; }
+ul, li, ol, li { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content:''; content: none; }
+.clear { display: inline; *zoom: 1; clear:both; line-height: 0; height: 0; font-size:0; visibility: hidden; }
+.clear:after { content:""; display: block; clear: both; line-height: 0; visibility: hidden; height: 0; font-style: 0; }
+* html .clearfix { zoom: 1; }
+*:first-child + html .clearfix { zoom: 1; }
+.space10 { font-size: 0; line-height: 0; clear: both; height: 10px; }
+.space20 { font-size: 0; line-height: 0; clear: both; height: 20px; }
+br { height: 1px; line-height: 1px; }
+/* 自定义样式 */
+ a { /*去掉a标签的虚线框，避免出现奇怪的选中区域*/
+    outline: none; blr: expression(this.onFocus=this.blur ()); }
+/* 强制文本换行 */
+ .textwrap, .textwrap td, .textwrap th { word-wrap:break-word; word-break:break-all; }
+.textwrap-table { table-layout:fixed; }

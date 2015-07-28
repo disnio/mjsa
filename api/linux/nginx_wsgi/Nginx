@@ -3,15 +3,25 @@ Nginx：
 停止和禁用apache
 service httpd stop
 chkconfig –levels 2345 off
+sysv-rc-conf
 
 停止 apache 占用 80
 chkconfig httpd off
-------------
+------------------------------------------------------
 安装方法：
 http://www.linuxidc.com/Linux/2014-08/105422.htm
-sudo add-apt-repository ppa:nginx/stable
-sudo apt-get update
-sudo apt-get install nginx
+---
+add-apt-repository: command not found 相关问题：
+sudoapt-get install python-software-properties
+sudoapt-get install apt-file
+apt-file update
+apt-file search add-apt-repository
+apt-get install software-properties-common
+---
+
+add-apt-repository ppa:nginx/stable
+apt-get update
+apt-get install nginx
 
 http://www.sxt.cn/u/4647/blog/5559 靠谱
 http://www.nginx.cn/install
@@ -22,9 +32,10 @@ yum install nginx
 whereis nginx
 
 /usr/sbin/nginx -v
+------------------------------------------------------
 **运行和控制**：
 http://www.nginx.cn/nginxchscommandline
-
+http://www.jb51.net/article/47750.htm
 chkconfig --add nginx
 chkconfig --level 35 nginx on
 chkconfig --list | grep nginx
@@ -34,18 +45,20 @@ nginx -s stop
 #查询nginx主进程号
 ps -ef | grep nginx
 #停止进程
-kill -QUIT 主进程号
+kill -QUIT 主进程号 或 pid文件路径
 #快速停止
-kill -TERM 主进程号
+kill -TERM/-INT 主进程号
 #强制停止
 pkill -9 nginx
 重启
 service nginx restart
 /usr/local/nginx/sbin/nginx -s reload
 
-http://django-china.cn/topic/124/
+kill -HUP 平滑重启 / -USR2 平滑升级可执行文件
 
-/etc/nginx/nginx.conf
+http://django-china.cn/topic/124/
+sudo nginx -t -c /etc/nginx/nginx.conf 检测配置文件是否正确
+
 修改ngxin运行用户为原apache运行用户:apache，这样可以不用修改web目录权限的情况下完美解决权限问题。
 在nginx.conf文件第一行，加上 user root
 本来是默认用户，权限不够会造成静态文件无法引用
@@ -83,3 +96,359 @@ yum erase php*
 or
 yum remove httpd* php* #这个命令是删除不干净的
 yum remove php-cli php-common php   #删除
+--------------------------------------------
+限速：
+**http://blog.csdn.net/plunger2011/article/details/37812843
+http://enetor.iteye.com/blog/1129671
+http://www.linuxidc.com/Linux/2013-07/88023.htm
+-----
+1、在nginx.conf里的http{}里加上如下代码：
+#ip limit
+limit_conn_zone $binary_remote_addr zone=perip:10m;
+limit_conn_zone $server_name zone=perserver:10m;
+
+2、在需要限制并发数和下载带宽的网站配置server{}里加上如下代码：
+limit_conn perip 2;
+limit_conn perserver 20;
+limit_rate 100k;
+
+$binary_remote_addr是限制同一客户端ip地址；
+$server_name是限制同一server最大并发数；
+limit_conn为限制并发连接数；
+limit_rate为限制下载速度；
+----------------------------------------------
+GeoIP：
+http://www.68idc.cn/help/server/linux/2014053099850.html
+http://www.asklinux.com/linux/debian/175
+geoip_country GeoIP.dat;
+geoip_city GeoLiteCity.dat;
+
+if ($geoip_region = "(22|28)"  {
+    proxy_pass http://www.baidu.com;
+    root  /usr/share/nginx/html;
+}  
+if ($geoip_city_country_code ~ "US") {
+    proxy_pass $request_uri;
+}
+
+if ($geoip_country_code ~ ^(?:CN)$) {
+    root /usr/share/nginx/html; 
+}
+----------------------------------------------
+基于：ip 域名 端口 3种虚拟
+ip别名：一个物理网卡绑定多个IP
+ifconfig / route 添加别名
+本地回环：127.0.0.1代表设备的本地虚拟接口，ping 127没问题证明网卡和协议正确
+ifconfig eth0:1 192.168.0.254 broadcast 192.168.0.255 netmask 255.255.255.0 up
+route add -host 192.168.0.254 dev eth0:1
+重启失效应添加到 /etc/rc.local
+
+日志：经过反向代理和负载均衡后 $remote_addr 拿到的将是反向服务器的ip，
+反向服务器在转发请求的http头中可增加X-Forwarded-For信息记录原客户端ip和客户端请求的服务器地址。
+日志切割： mv /data/logs/access.log /data/logs/20150606.log kill -USR1 nginx主进程号
+cut_nginx_log.sh
+#!/bin/bash
+logs_path="/run/logs/"
+
+mkdir -p ${logs_path}$(date -d "yesterday" + "%Y")/$(date -d "yesterday" + "%m")/
+mv ${logs_path}access.log ${logs_path}$(date -d "yesterday" + "%Y")/$(date -d "yesterday" + "%m")/access_$(date -d "yesterday" + "%Y%m%d").log
+kill -USR1 'cat /log/nginx.pid'
+
+crontab -e 00 00 * * * /bin/bash /script/cut_nginx_log.sh
+----------------------------------------------------
+自动列目录：
+location / { autoindex on; autoindex_exact_size [on|off] MB  autoindex_localtime on}
+
+代理服务器能够代理外部网络的主机访问内部网络时，这种代理服务的方式成为【反向代理】。
+upstream 指令：用于设置一组可以在 proxy_pass 和 fastcgi_pass 指令中使用的代理服务器，默认为轮询。
+proxy_set_header：在向反向代理的后端发请求时添加指定的 头信息。
+$_SERVER['HTTP_X_FORWARDED_FOR']来获取用户的ip
+------------------------------
+ip_hash ：将客户端ip请求定位到同台后端服务器，保证用户始终在后端A上，而不是跑到B。
+
+如果后端能做到 session 共享，则不要用此功能。
+如果要从负载均衡中摘除一定时间，则加 down;
+
+if 语句不可嵌套，不能&& 和 ||。比较 =， != 。
+~ 大小写匹配，~* 不区分大小写。
+-f !-f 判断文件是否存在。 -d !-d 判断目录是否存在。-e !-e 判断文件或目录是否存在。
+-e !-e 判断文件是否可执行。
+
+例子：
+if (#http_user_agent ~ MSIE){
+    rewrite ^(.*)$ /msie/$1 break;
+}
+
+------------
+return 返回状态码
+204 No Content 成功处理了请求，无需返回任何实体内容，希望返回更新了的元信息。
+400 语法错误，请求无法理解。
+403 Forbidden 理解请求，但拒绝执行。
+404 Not Found 资源未在服务器发现。
+405 Method Not Allowed 请求方法不能被用于请求相应的资源。
+408 超时。
+410 资源已经不再可用。
+413 请求的实体数据太多，重试。
+500 内部程序错误。
+501 不支持功能。
+503 服务器维护或过载。
+
+
+rewrite 根据表达式重定向 uri, 或修改字符串。重写表达式只对相对路径有效，配对主机要用 if.
+
+flag 标记：
+last 相当于 apache 李的 [L], 表示完成 rewrite。 alias 时。 会重新请求
+break 本条规则匹配完后，不再匹配后面的。 proxy_pass 时
+redirect 返回302临时重定向。
+permanent 返回301永久重定向。
+
+正则表达式里如果带花括号{}应该用双引号扩起来。
+
+如果被替换的uri含有参数，默认参数会自动附加到替换串上，通过在末尾家?来阻止添加。p130
+
+set 变量赋值 set $varname 'hello'
+
+rewrite 可用的变量：
+$args; $content_length; $content_type; $document_root; $document_uri; $host;
+$http_user_agent; $http_cookie; $limit_rate; $request_body_file; $request_method;
+$remote_addr; $remote_port/user; $request_uri/filename; $query_string; $scheme;
+$server_protocol/addr/name/port; $uri
+
+pcre 例子：
+abc.domain.com/sort/2 -> abc.domain.com/index.php?act=sort&name=abc&id=2
+if ($host ~* (.*)\.domain\.com) {
+    set $sub_name $1;
+    rewrite ^/sort\/(\d+)\/?$ /index.php?act=sort&name=$sub_name&id=$1 last;
+}
+
+目录对换 /1234/xxx -> /xxx?id=1234
+rewrite ^/(\d)/(.+)/ /$2?id=$1 last;
+
+禁止访问多个目录
+location ~ ^/(cron|temp)/ {
+    deny all;
+    break;
+}
+禁止访问/data开头的文件
+location ~ ^/data {
+    deny all;
+}
+设置文件的浏览器缓冲时间
+location ~ .*\.(gif|jpg)$ {
+    expires 30d;
+}
+
+将多级目录下文件转换成一个文件 /job-123-456-789.html -> /job/123/456/789.html
+rewrite ^/job-([0-9]+)-([0-9]+)-([0-9]+)\.html$ /job/$1/$2/$3.html last;
+
+禁止访问 .sh、.flv等文件名后缀的url
+location ~ .*\.(sh|flv)?$ { return 403; }
+
+nginx -t 发现配置有语法错误（主要是大括号引起的）
+rewrite ^/([0-9]{5}).html$ /x.jsp?id=$1 last;
+rewrite "^/([0-9]{5}).html$" /x.jsp?id=$1 last;
+
+与apache 的跳转区别：
+RewriteRule ^/html/tagindex/([a-zA-Z+])/.*$ /$1/ [R=301, L]
+rewrite     ^/html/tagindex/([a-zA-Z+])/.*$ http://$host/$1/ permanent;
+
+变量名称  %{HTTP_HOST} $host
+[R] redirect; [P] last; [R,L] redirect; [P,L] last;
+
+允许指定的域名访问，其它跳转：
+RewriteCond %{HTTP_HOST} !^(.*?)\.aaa\.com$ [NC]
+RewriteCond %{HTTP_HOST} !^192\.168\.1\.(.*?)$
+RewriteCond %{HTTP_HOST} !^localhost$
+RewriteRule ^/(.*)$ http://www.aaa.com [R,L]
+
+if ($host ~* ^(.*?)\.aaa\.com$){
+    set $var_tz '1';
+}
+if ($host ~* ^192\.168\.1\.(.*?)$) {
+    set $var_tz '1';
+}
+if ($host ~* ^localhost) {
+    set $var_tz '1';
+}
+if ($vat_tz !~ '1'){
+    rewrite ^/(.*)$ http://www.aaa.com redirect;
+}
+
+重写与反向代理同时：
+ProxyRequests Off
+RewriteRule ^/news/(.*)$ http://s.domain.com/$1 [P,L]
+
+location /news/ {
+    proxy_pass http://s.domain.com;
+}
+
+RewriteCond %{REQUEST_URI} !^/xxx/map/.*
+RewriteCond %{REQUEST_URI} !^/xxx/accounts/.*
+RewriteRule ^/xxx/(.*?)/(.*?)/ /xxx/$2.php?name=$1 [L]
+
+if($request_uri ~* "^/xxx/map/.*"){
+    set $var_xxx = '1'
+}
+
+if($request_uri ~* "^/xxx/accounts/.*"){
+    set $var_xxx = '1'
+}
+
+if($request_uri !~ "1"){
+    rewrite ^/xxx/(.*?)/(.*?)/ /xxx/$2.php?name=$1 last;
+}
+---------------------------------------------------
+小内存vps：
+如果没有swap分区则增加Swap分区文件
+创建一个足够大的文件（此处为256M）
+dd if=/dev/zero of=/swapfile bs=1024 count=262144
+把这个文件变成swap文件
+mkswap /swapfile
+启用这个swap文件
+swapon /swapfile
+在每次开机的时候自动加载swap文件, 需要在 /etc/fstab 文件中增加一行
+/swapfile swap swap defaults 0 0
+
+server_names_hash_bucket_size 128;
+client_header_buffer_size 32k;
+large_client_header_buffers 4 32k;
+
+sendfile on;
+tcp_nopush;
+tcp_nodelay on;
+
+
+location ~ .*\.(php|php5)?$ {
+    fastcgi_pass unix:/tmp/php-cgi.sock;
+    # tcp 方式高并发下比sock稳定，sock速度快
+    #fastcgi_pas 127.0.0.1:9000;
+    fastcgi_index index.php
+    include fcgi.conf;
+}+
+fastcgi参数性能优化和解释：p195 eaccelerator
+http://www.linuxidc.com/Linux/2014-10/108012.htm
+fastcgi_cache_path /usr/local/nginx/fastcgi_cache levels=1:2 keys_zone=TEST:10m inactive=5m;
+fastcgi_connect_timeout=300;
+fastcgi_send_timeout=300;
+fastcgi_buffer_size=64k;
+fastcgi_buffers 4 64k;
+fastcgi_busy_buffers_size 128k;
+fastcgi_temp_file_write_size 128k;
+fastcgi_cache TEST;
+fastcgi_cache_valid 200 302 1h;
+fastcgi_cache_valid 301 1d;
+fastcgi_cache_valid any 1m;
+---------
+fastcgi_cache_path /usr/local/nginx/fastcgi_cache levels=1:2 keys_zone=TEST:10m inactive=5m; #缓存路径文件，目录结构等级，关键字区域实际和非活动时间
+
+fastcgi_connect_timeout=300; #连接到后端fastcgi超时时间
+
+fastcgi_send_timeout=300; #向fastcgi请求超时时间(这个指定值已经完成两次握手后向fastcgi传送请求的超时时间)
+
+fastcgi_rend_timeout=300; #接收fastcgi应答超时时间，同理也是2次握手后
+
+fastcgi_buffer_size=64k; #读取fastcgi应答第一部分需要多大缓冲区，该值表示使用1个64kb的缓冲区读取应答第一部分(应答头),可以设置为fastcgi_buffers选项缓冲区大小
+
+fastcgi_buffers 4 64k; #指定本地需要多少和多大的缓冲区来缓冲fastcgi应答请求，
+假设一个php或java脚本所产生页面大小为256kb,那么会为其分配4个64kb的缓冲来缓存；
+若页面大于256kb,那么大于的256kb的部分会缓存到fastcgi_temp指定路径中，这并非是个好办法，
+内存数据处理快于硬盘，一般该值应该为站点中php/java脚本所产生页面大小中间值，
+如果站点大部分脚本所产生的页面大小为256kb，那么可把值设置为16 16k,4 64k等
+
+fastcgi_busy_buffers_size 128k; #默认值是fastcgi_buffer的2倍
+fastcgi_temp_file_write_size 128k; #写入缓存文件使用多大的数据块，默认值是fastcgi_buffer的2倍
+fastcgi_cache TEST; #开启fastcgi缓存并为其指定为TEST名称，降低cpu负载,防止502错误发生.
+fastcgi_cache_valid 301 1d; #应答代码缓存时间，200和302应答缓存为1个小时，301一天,其他1分钟
+---------------------------------------------------------------
+禁用日志 error_log /dev/null crit;
+
+log_not_found 启用或禁用404，对robot.txt favrio.ico找不到禁用。
+
+include 包含配置文件
+
+pid 主进程id号
+
+ssl_engine openssl engine -t
+
+timer_resolution 毫秒级的准确时间，减少 gettimeofday()的调用次数
+
+p184
+http://www.nginx.cn/279.html
+try_files 检查文件是否存在, 返回找到的第一个文件，未找到这启用后备uri重定向。
+location / {
+    try_files /system/main.html;
+    $uri $uri/index.html $uri.html @mogrel;
+}
+location @mogrel {
+    proxy_pass http://mogrel;
+}
+---------------http
+alias 在rul和文件系统路径之间实现映射
+location /i/ { alias /spool/img/; } i/top.gif -> spool/img/top.gif
+
+client_body_in_file_only 客户端请求记录到文件
+
+client_body_in_single_buffer 保持内容在单一客户端缓冲，$request_body时使用
+
+client_max_body_size 超过返回 Request Entity Too Large 413，默认1M,如果提供上传
+1m以上大文件则加大
+
+directio 超过设置大小用o_directio标签打开文件，使sendfile失效。
+
+error_page 出现指定错误码，返回对应uri地址
+
+if_modified_since off/exact/before
+
+limit_except 限制http方法访问location中的内容.
+limit_except GET {
+    allow 192.168.1.0/32;
+    deny all;
+}
+
+limit_rate_after 下载大于此数值后，limit_rate起作用。
+
+@ 命名标记，处理内部重定向
+命名的捕获变量：或(?P<domain>.+)
+server {
+    server_name ~^(www\.)?(?<domain).+)$;
+    location / {
+        root /sites/$domain;
+    }
+}
+
+tcp_nodelay 发送字节打包与否
+
+p212 http核心模块中可以使用的变量：
+$arg_PARAMETER GET请求的变量值
+
+$args 请求行中的参数
+
+$binary_remote_addr 二进制格式的客户端地址
+
+$cookie_COOKIE
+
+$document_root
+
+$document_uri
+
+$host 客户端请求中的Host值，没有这位当前请求提供服务的服务器名称
+
+$http_HEADER  header头中的变量
+
+$query_string
+
+$remote_user
+
+$request_filename 当前请求的文件路径
+
+$request_body/method/uri $request_body_file
+
+-------------------------------------------------------------
+http referer 告诉服务器是从那个页面链接过来的。防盗链。
+当一个请求头的Referer字段中包含一些非正确的字段，这个模块可以禁止这个请求访问站点。
+http://dngood.blog.51cto.com/446195/1033362/
+
+limit req p241 限制并发数
+
+memcache p270 去官网找对应的模块去。
+
