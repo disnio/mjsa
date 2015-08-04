@@ -1,4 +1,6 @@
 ctrl + alt + f1 -- f6
+内存清理：
+echo 1 > /proc/sys/vm/drop_caches
 -------------
 SecureFX 乱码：
 c:\Users\Administrator\AppData\Roaming\VanDyke\Config\Sessions

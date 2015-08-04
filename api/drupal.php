@@ -1,5 +1,6 @@
 http://lugir.com/book
 
+jquery-update 需启用，否则 jquery1.4 和 jqueryui1.8
 节点是 Drupal 中的一个通用术语，表示网站中的各种内容（content）。通俗来讲，节点就是网站中的各种文章页面
 区块（Blocks）是一些用于放置到区域（region）中的内容块，因此被称为区块。
 
