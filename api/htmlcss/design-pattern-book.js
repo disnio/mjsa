@@ -752,5 +752,79 @@ $.subscribe("/some/tox", function(e, a, b, c) {
 $.publish("/some/tox", ["a", "b", "c"]);
 $.unsubscribe("/some/tox");
 
+
+// -----------------------策略模式----------------------------
+// 【策略模式】定义了算法家族，分别封装起来，让他们之间可以互相替换，此模式让算法的变化不会影响到使用算法的客户。
+// 概念上来说，所有的这些算法都是做相同的事情，只是实现不同，他可以以相同的方式调用所有的方法，
+// 减少了各种算法类与使用算法类之间的耦合。
+
+var validator = {
+    types: {},
+    messages: [],
+    config: {},
+    validate: function(data) {
+        var i, msg, type, checker, result_ok;
+        this.messages = [];
+        for (i in data) {
+            if (data.hasOwnProperty(i)) {
+                type = this.config[i];
+                checker = this.types[type];
+                if (!type) {
+                    continue;
+                }
+                if (!checker) {
+                    throw {
+                        name: "ValidationError",
+                        message: "No handler to validate type " + type
+                    };
+                }
+                result_ok = checker.validate(data[i]);
+                if (!result_ok) {
+                    msg = "Invalid value for *" + i + "*, " + checker.instructions;
+                    this.messages.push(msg);
+                }
+            }
+        }
+        return this.hasErrors();
+    },
+    hasErrors: function() {
+        return this.messages.length !== 0;
+    }
+};
+
+validator.types.isNonEmpty = {
+    validate: function(value) {
+        return value !== "";
+    },
+    instructions: "传入的值不能为空"
+};
+validator.types.isNumber = {
+    validate: function(value) {
+        return !isNaN(value);
+    },
+    instructions: "传入的值只能是合法的数字，例如：1, 3.14 or 2010"
+};
+
+var data = {
+    first_name: "Tom",
+    last_name: "Xu",
+    age: "unknown",
+    username: "TomXu"
+};
+validator.config = {
+    first_name: 'isNonEmpty',
+    age: 'isNumber',
+    username: 'isAlphaNum'
+};
+
+validator.validate(data);
+if (validator.hasErrors()) {    
+  console.log(validator.messages.join("\n"));
+}
 // ----------------------------------------------------------------------
-// 中介者
+// 中介者模式（Mediator），用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，
+// 从而使其耦合松散，而且可以独立地改变它们之间的交互。
+//观察者模式，没有封装约束的单个对象，相反，观察者Observer和具体类Subject是一起配合来维护约束的，
+//沟通是通过多个观察者和多个具体类来交互的：每个具体类通常包含多个观察者，而有时候具体类里的一个观察者也是另一个观察者的具体类。
+//
+//
