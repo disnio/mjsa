@@ -720,21 +720,31 @@ blogger.removeSubscriber(mm.show);
 blogger.recommend(456);
 user.addSubscriber(mm.show);
 user.vote(789);
-// --------
+
+/*
+ * jQuery Tiny Pub/Sub
+ * https://github.com/cowboy/jquery-tiny-pubsub
+ *
+ * Copyright (c) 2013 "Cowboy" Ben Alman
+ * Licensed under the MIT license.
+ */
+
 (function($) {
-    var o = $({});
-    // on(events,[selector],[data],fn)
-    $.subscribe = function() {
-        o.on.apply(o, arguments);
-    };
 
-    $.unsubscribe = function() {
-        o.off.apply(o, arguments);
-    };
+  var o = $({});
 
-    $.publish = function() {
-        o.trigger.apply(o, arguments);
-    };
+  $.subscribe = function() {
+    o.on.apply(o, arguments);
+  };
+
+  $.unsubscribe = function() {
+    o.off.apply(o, arguments);
+  };
+
+  $.publish = function() {
+    o.trigger.apply(o, arguments);
+  };
+
 }(jQuery));
 
 function handle(e, a, b, c) {
@@ -751,6 +761,121 @@ $.subscribe("/some/tox", function(e, a, b, c) {
 
 $.publish("/some/tox", ["a", "b", "c"]);
 $.unsubscribe("/some/tox");
+// --------
+<button id="addNewObserver">Add new Observer checkbox</button>
+<input type="checkbox" id="mainCheckbox"/>
+
+<div id="observersContainer"></div>
+
+function ObserverList(){
+    this.observerList = [];
+}
+
+ObserverList.prototype.Add = function(obj){
+    return this.observerList.push(obj);
+};
+
+ObserverList.prototype.Empty = function(){
+    this.observerList = [];
+};
+
+ObserverList.prototype.Count = function(){
+    return this.observerList.length;
+};
+
+ObserverList.prototype.Get = function( index ){
+    if( index > -1 && index < this.observerList.length ){
+        return this.observerList[index];
+    }
+};
+
+ObserverList.prototype.Insert = function( obj, index ){
+    var pointer = -1;
+
+    if(index === 0){
+        this.observerList.unshift(obj);
+        pointer = index;
+    }
+    if(index  === this.observerList.length){
+        this.observerList.push(obj);
+        pointer = index;
+    }
+    return pointer;
+};
+
+ObserverList.prototype.IndexOf = function( obj, startIndex ){
+    var i = startIndex, pointer = -1;
+    while ( i< this.observerList.length){
+        if(this.observerList[i] === obj){
+            pointer = i;
+        }
+        i++;
+    }
+    return pointer;
+};
+
+ObserverList.prototype.RemoveIndexAt = function( index ){
+    if(index === 0){
+        this.observerList.shift();
+    }
+    if(index == this.observerList.length){
+        this.observerList.pop();
+    }
+};
+
+function extend( obj, extension ){
+    for (var i in obj ){
+        extension[i] = obj[i];
+    }
+}
+
+function Subject(){
+    this.observers = new ObserverList();
+}
+
+Subject.prototype.AddObserver = function( observer ){
+    this.observers.Add(observer);
+};
+
+Subject.prototype.RemoveObserver = function( observer ){
+    this.observers.RemoveIndexAt(this.observers.IndexOf(observer, 0));
+};
+
+Subject.prototype.Notify = function( context ){
+    var observerCount = this.observers.Count();
+    for (var i=0; i<observerCount; i++){
+        this.observers.Get(i).Update(context);
+    }
+};
+
+function Observer() {
+    this.Update = function(context){
+        console.log(context);
+    }
+}
+
+var controlCheckbox = document.getElementById('mainCheckbox'),
+    addBtn = document.getElementById('addNewObserver'),
+    container = document.getElementById('observersContainer');
+
+extend(new Subject(), controlCheckbox);
+controlCheckbox["onclick"] = new Function(" controlCheckbox.Notify(controlCheckbox.checked)");
+addBtn["onclick"] = AddNewObserver;
+
+function AddNewObserver(){
+    var check = document.createElement("input");
+    check.type = "checkbox";
+    extend(new Observer(), check);
+
+    check.Update = function(value){
+        console.log("check: ", value);
+        this.checked = value;
+    };
+
+    controlCheckbox.AddObserver(check);
+    container.appendChild(check);
+
+}
 
 
 // -----------------------策略模式----------------------------
@@ -826,5 +951,4 @@ if (validator.hasErrors()) {
 // 从而使其耦合松散，而且可以独立地改变它们之间的交互。
 //观察者模式，没有封装约束的单个对象，相反，观察者Observer和具体类Subject是一起配合来维护约束的，
 //沟通是通过多个观察者和多个具体类来交互的：每个具体类通常包含多个观察者，而有时候具体类里的一个观察者也是另一个观察者的具体类。
-//
 //

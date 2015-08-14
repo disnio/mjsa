@@ -58,12 +58,13 @@
     this.fn = fn;
     this.options = options;
     this.context = context;
+    //  订阅的频道
     this.channel = null;
   }
 
   // Mediator.update on a subscriber instance can update its function,context,
   // or options object. It takes in an object and looks for fn, context, or
-  // options keys.
+  // options keys. 更新订阅者信息
   Subscriber.prototype.update = function(options) {
     if (options) {
       this.fn = options.fn || this.fn;
@@ -75,16 +76,20 @@
     }
   }
 
-
+  // 频道作为中介的 主题
   function Channel(namespace, parent) {
     if (!(this instanceof Channel)) {
       return new Channel(namespace);
     }
 
     this.namespace = namespace || "";
+    // 频道下订阅者的列表
     this._subscribers = [];
+    // 主频道下子频道类别
     this._channels = {};
+    // 记录上级
     this._parent = parent;
+    // 标示是否终止此频道的订阅，开关频道
     this.stopped = false;
   }
 
@@ -99,23 +104,23 @@
     if (options && options.priority !== undefined) {
       // Cheap hack to either parse as an int or turn it into 0. Runs faster
       // in many browsers than parseInt with the benefit that it won't
-      // return a NaN.
+      // return a NaN. 转换为整数的快捷方式
       options.priority = options.priority >> 0;
 
       if (options.priority < 0) { options.priority = 0; }
       if (options.priority >= this._subscribers.length) { options.priority = this._subscribers.length-1; }
-
+      // 设置优先级，排定消息的发送顺序
       this._subscribers.splice(options.priority, 0, subscriber);
     }else{
+      // 无则按订阅添加顺序排序
       this._subscribers.push(subscriber);
     }
-
+    // 订阅本频道
     subscriber.channel = this;
 
     return subscriber;
   }
-
-  // The channel instance is passed as an argument to the mediator subscriber,
+    // The channel instance is passed as an argument to the mediator subscriber,
   // and further subscriber propagation can be called with
   // channel.StopPropagation().
   Channel.prototype.stopPropagation = function() {
@@ -141,7 +146,7 @@
     var oldIndex = 0,
         x = 0,
         sub, firstHalf, lastHalf, y;
-
+    // 找到要设置优先级的index
     for(x = 0, y = this._subscribers.length; x < y; x++) {
       if (this._subscribers[x].id === identifier || this._subscribers[x].fn === identifier) {
         break;
@@ -150,13 +155,15 @@
     }
 
     sub = this._subscribers[oldIndex];
+    //  订阅列表的前半段
     firstHalf = this._subscribers.slice(0, oldIndex);
     lastHalf = this._subscribers.slice(oldIndex+1);
-
+    // 合并前后
     this._subscribers = firstHalf.concat(lastHalf);
+    //  插入优先级所定的位置
     this._subscribers.splice(priority, 0, sub);
   }
-
+  //  命名空间下所属的频道
   Channel.prototype.addChannel = function(channel) {
     this._channels[channel] = new Channel((this.namespace ? this.namespace + ':' : '') + channel, this);
   }
@@ -172,7 +179,7 @@
   Channel.prototype.removeSubscriber = function(identifier) {
     var x = this._subscribers.length - 1;
 
-    // If we don't pass in an id, we're clearing all
+    // If we don't pass in an id, we're clearing all， 不传id则清除所有订阅者
     if (!identifier) {
       this._subscribers = [];
       return;
@@ -181,6 +188,7 @@
     // Going backwards makes splicing a whole lot easier.
     for(x; x >= 0; x--) {
       if (this._subscribers[x].fn === identifier || this._subscribers[x].id === identifier) {
+        //  订阅者的频道清空
         this._subscribers[x].channel = null;
         this._subscribers.splice(x,1);
       }
@@ -205,6 +213,7 @@
 
       if (!this.stopped) {
         subsBefore = this._subscribers.length;
+        //  订阅者需要实现 predicate 断言接口，通过断言（）决定订阅中的回调fn是否可执行，实际是否可以接收订阅的消息
         if (subscriber.options !== undefined && typeof subscriber.options.predicate === "function") {
           if (subscriber.options.predicate.apply(subscriber.context, data)) {
             // The predicate matches, the callback function should be called
@@ -216,21 +225,23 @@
         }
       }
 
-      // Check if the callback should be called
+      // Check if the callback should be called， 断言可调用
       if (shouldCall) {
         // Check if the subscriber has options and if this include the calls options
         if (subscriber.options && subscriber.options.calls !== undefined) {
-          // Decrease the number of calls left by one
+          // Decrease the number of calls left by one 预设的订阅次数
           subscriber.options.calls--;
           // Once the number of calls left reaches zero or less we need to remove the subscriber
+          //  达到预设次数，停止订阅
           if (subscriber.options.calls < 1) {
             this.removeSubscriber(subscriber.id);
           }
         }
         // Now we call the callback, if this in turns publishes to the same channel it will no longer
         // cause the callback to be called as we just removed it as a subscriber
+        //  执行订阅回调，传入订阅数据
         subscriber.fn.apply(subscriber.context, data);
-
+        // 因为涉及到预设次数达到的订阅要移除1，所以订阅列表长度发生变化，实时调整
         subsAfter = this._subscribers.length;
         y = subsAfter;
         if (subsAfter === subsBefore - 1) {
@@ -238,19 +249,19 @@
         }
       }
     }
-
+    // 向上传递发布消息
     if (this._parent) {
       this._parent.publish(data);
     }
 
     this.stopped = false;
   }
-
+  //  中介者维护频道
   function Mediator() {
     if (!(this instanceof Mediator)) {
       return new Mediator();
     }
-
+    // 频道实例
     this._channels = new Channel('');
   }
 
@@ -295,6 +306,7 @@
   // index.
 
   Mediator.prototype.subscribe = function(channelName, fn, options, context) {
+    //  构建频道层级，指定对应频道
     var channel = this.getChannel(channelName || "", false);
 
     options = options || {};
@@ -308,7 +320,7 @@
   // does not exist. Options can include a predicate to determine if it
   // should be called (based on the data published to it) and a priority
   // index.
-
+  //  只订阅一次的
   Mediator.prototype.once = function(channelName, fn, options, context) {
     options = options || {};
     options.calls = 1;
@@ -342,8 +354,8 @@
     channel.removeSubscriber(identifier);
   }
 
-  // Publishes arbitrary data to a given channel namespace. Channels are
-  // called recursively downwards; a post to application:chat will post to
+  // Publishes arbitrary（任意） data to a given channel namespace. Channels are
+  // called recursively（递归） downwards; a post to application:chat will post to
   // application:chat:receive and application:chat:derp:test:beta:bananas.
   // Called using Mediator.publish("application:chat", [ args ]);
 
@@ -354,7 +366,7 @@
     }
 
     var args = Array.prototype.slice.call(arguments, 1);
-
+    // ？？
     args.push(channel);
 
     channel.publish(args);
