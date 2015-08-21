@@ -1194,6 +1194,58 @@ $( function() {
     var r = $( "#foo" ).redman().data( "redman" );
     setTimeout( function() { r.destroy(); }, 2000 );
 });
+//-------------------------jquery.bridge.js jquery ui widget factory bridge
+var widgetName = function (options, element) {
+    this.name = "myWidgeName";
+    this.options = options;
+    this.element = element;
+
+    this._init();
+};
+widgetName.prototype = {
+    _create: function(){
+
+    },
+    _init: function(){
+
+    },
+    option: function (key, value) {
+        if($.isPlainObject(key)){
+            this.options = $.extend(true, this.options, key);
+        }else if(key && typeof value  === "undefined"){
+            return this.options[key];
+        }else{
+            this.options[key] = value;
+        }
+    },
+    publicFunc: function(){},
+    _privateFunc: function () {}
+};
+$.widget.bridge("foo", widgetName);
+var instance = $("#foo").foo({baz:true});
+console.log(instance.data("foo").element);
+instance.foo("publicFunc");
+//http://jquerysbestfriends.com/#slide56
+var orWhateverable = {
+    init: function(options, elem) {
+        this.options = $.extend({}, this.options, options);
+        this.$elem = $(elem);
+
+        return this;
+    },
+
+    options: {},
+
+    addOrWhatever: function() {
+        this.$elem.append(' or whatever...');
+    }
+};
+
+$.fn.orWhateverable = function(opts) {
+    return this.each(function(){
+        $.data(this, 'orWhat', Object.create(orWhateverable).init(opts, this));
+    });
+};
 //http://ajpiano.com/widgetfactory/#slide9
 //http://learn.jquery.com/jquery-ui/widget-factory/how-to-use-the-widget-factory/
 //http://github.bililite.com/understanding-widgets.html

@@ -554,3 +554,6 @@ $ node example/show.js rawr --beep [ boop -a 3 ] -n4 --robots [ -x 8 -y 6 ]
   n: 4,
   robots: { _: [], x: 8, y: 6 } 
 }
+----------------------------------------------------------------------------------------
+formidable：A node.js module for parsing form data, especially file uploads.
+https://cnodejs.org/topic/4f16442ccae1f4aa2700104d
