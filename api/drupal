@@ -1,3 +1,8 @@
+注意主导航中的空格，会影响到重写page 时候的 tpl 引用。page--node.tpl.php  page--zgc.tpl.php
+根据内容类型覆写views jiaju/views-view-fields--default.tpl.php
+homeban_bhban/views-view-unformatted--homeban--bhban.tpl 首页幻灯
+多个page导致多个zgc模板，所以需要解决统一模板的问题，向page传参数。
+
 http://lugir.com/book
 
 jquery-update 需启用，否则 jquery1.4 和 jqueryui1.8
