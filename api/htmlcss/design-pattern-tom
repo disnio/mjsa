@@ -654,3 +654,4 @@ myTable.onclick = function() {
         alert('You clicked a table row!');
     }
 }
+----------------------------------

@@ -1,4 +1,6 @@
 ctrl + alt + f1 -- f6
+内存清理：
+echo 1 > /proc/sys/vm/drop_caches
 -------------
 SecureFX 乱码：
 c:\Users\Administrator\AppData\Roaming\VanDyke\Config\Sessions
@@ -12,6 +14,7 @@ mysql：
 webadmin 中， 直接添加用户，并授权，作为远程账号。主机，加权限。
 /etc/rc.d/init.d/mysqld start
 
+service mariadb start
 ---------------------------------------------------------
 vsftpd：
 http://blog.chinaunix.net/uid-18831400-id-151990.html
@@ -236,9 +239,28 @@ ssl_certificate server.crt;
 ssl_certificate_key server.key;
 
 http://www.poluoluo.com/server/201401/261178.html
-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+nginx：
+http://www.tuicool.com/articles/EJ3uY3
+grep processor /proc/cpuinfo | wc -l
 
-yum -y install openssl perl perl-Net-SSLeay perl-IO-Tty perl-Crypt-SSLeay
-perl -MCPAN -e shell
-install Net::SSLeay
-install Mon::Client
+sudo systemctl start nginx
+sudo systemctl enable nginx
+sudo firewall-cmd --zone=public --add-port=80/tcp --permanent$ 
+sudo firewall-cmd --reload
+     
+    # nginx passes PHP scripts to FastCGI server via a TCP/9000 socket
+    # this setting much be consistent with /etc/php-fpm.d/www.conf
+    # try_files prevents nginx from passing bad scripts to FastCGI server
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+cgi.fix_pathinfo = 0
+date.timezone = "PRC"
+$ sudo systemctl restart nginx
+$ sudo systemctl restart php-fpm

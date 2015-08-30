@@ -1,3 +1,9 @@
+// $.error breaks jQuery chaining
+var logError = typeof console === 'undefined' ? noop :
+    function (message) {
+        console.error(message);
+    };
+//----------------------------------------------
 (function(global, factory) {
     'use strict';
 
@@ -25,65 +31,65 @@
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
 }));
-
-创建型设计模式：
-关注于对象创建的机制方法， 通过该方法, 对象以适应工作环境的方式被创建。
-
-构造器模式（ Constructor）, 工厂模式（ Factory）, 抽象工厂模式（ Abstract）, 原型模式（ Prototype）,
-单例模式（ Singleton） 以及 建造者模式（ Builder）。
-
-结构模式：
-关注于对象组成和通常识别的方式实现不同对象之间的关系。
-该模式有助于在系统的某一部分发生改变的时候， 整个系统结构不需要改变。
-该模式同样有助于对系统中某部分没有达到某一目的的部分进行重组。
-
-装饰模式， 外观模式， 享元模式， 适配器模式和代理模式。
-
-行为模式：
-关注改善或精简在系统中不同对象间通信。
-
-迭代模式， 中介者模式， 观察者模式和访问者模式。
-
-// -----------------------------------------------------
-Creational 根据创建对象的概念分成下面几类。
-
-Class
-Factory Method(工厂方法) 通过将数据和事件接口化来构建若干个子类。
-
-Object
-Abstract Factory(抽象工厂) 建立若干族类的一个实例， 这个实例不需要具体类的细节信息。（ 抽象类）
-Builder(建造者) 将对象的构建方法和其表现形式分离开来， 总是构建相同类型的对象。
-Prototype(原型) 一个完全初始化的实例， 用于拷贝或者克隆。
-Singleton(单例) 一个类只有唯一的一个实例， 这个实例在整个程序中有一个全局的访问点。
-Structural 根据构建对象块的方法分成下面几类。
-
-Class
-Adapter(适配器) 将不同类的接口进行匹配， 调整， 这样尽管内部接口不兼容但是不同的类还是可以协同工作的。
-Bridge(桥接模式) 将对象的接口从其实现中分离出来， 这样对象的实现和接口可以独立的变化。
-Composite(组合模式) 通过将简单可组合的对象组合起来， 构成一个完整的对象，
-这个对象的能力将会超过这些组成部分的能力的总和， 即会有新的能力产生。
-
-Decorator(装饰器) 动态给对象增加一些可替换的处理流程。
-Facada(外观模式) 一个类隐藏了内部子系统的复杂度， 只暴露出一些简单的接口。
-
-Flyweight(享元模式) 一个细粒度对象， 用于将包含在其它地方的信息 在不同对象之间高效地共享。
-Proxy(代理模式) 一个充当占位符的对象用来代表一个真实的对象。
-
-Behavioral 基于对象间作用方式来分类。
-
-Class
-Interpreter(解释器) 将语言元素包含在一个应用中的一种方式， 用于匹配目标语言的语法。
-Template Method(模板方法) 在一个方法中为某个算法建立一层外壳， 将算法的具体步骤交付给子类去做。
-
-Object
-Chain of Responsibility(响应链) 一种将请求在一串对象中传递的方式， 寻找可以处理这个请求的对象。
-Command(命令) 封装命令请求为一个对象， 从而使记录日志， 队列缓存请求， 未处理请求进行错误处理 这些功能称为可能。
-Iterator(迭代器) 在不需要直到集合内部工作原理的情况下， 顺序访问一个集合里面的元素。
-Mediator(中介者模式) 在类之间定义简化的通信方式， 用于避免类之间显式的持有彼此的引用。
-Observer(观察者模式) 用于将变化通知给多个类的方式， 可以保证类之间的一致性。
-State(状态) 当对象状态改变时， 改变对象的行为。
-Strategy(策略) 将算法封装到类中， 将选择和实现分离开来。
-Visitor(访问者) 为类增加新的操作而不改变类本身。
+//
+//创建型设计模式：
+//关注于对象创建的机制方法， 通过该方法, 对象以适应工作环境的方式被创建。
+//
+//构造器模式（ Constructor）, 工厂模式（ Factory）, 抽象工厂模式（ Abstract）, 原型模式（ Prototype）,
+//单例模式（ Singleton） 以及 建造者模式（ Builder）。
+//
+//结构模式：
+//关注于对象组成和通常识别的方式实现不同对象之间的关系。
+//该模式有助于在系统的某一部分发生改变的时候， 整个系统结构不需要改变。
+//该模式同样有助于对系统中某部分没有达到某一目的的部分进行重组。
+//
+//装饰模式， 外观模式， 享元模式， 适配器模式和代理模式。
+//
+//行为模式：
+//关注改善或精简在系统中不同对象间通信。
+//
+//迭代模式， 中介者模式， 观察者模式和访问者模式。
+//
+//// -----------------------------------------------------
+//Creational 根据创建对象的概念分成下面几类。
+//
+//Class
+//Factory Method(工厂方法) 通过将数据和事件接口化来构建若干个子类。
+//
+//Object
+//Abstract Factory(抽象工厂) 建立若干族类的一个实例， 这个实例不需要具体类的细节信息。（ 抽象类）
+//Builder(建造者) 将对象的构建方法和其表现形式分离开来， 总是构建相同类型的对象。
+//Prototype(原型) 一个完全初始化的实例， 用于拷贝或者克隆。
+//Singleton(单例) 一个类只有唯一的一个实例， 这个实例在整个程序中有一个全局的访问点。
+//Structural 根据构建对象块的方法分成下面几类。
+//
+//Class
+//Adapter(适配器) 将不同类的接口进行匹配， 调整， 这样尽管内部接口不兼容但是不同的类还是可以协同工作的。
+//Bridge(桥接模式) 将对象的接口从其实现中分离出来， 这样对象的实现和接口可以独立的变化。
+//Composite(组合模式) 通过将简单可组合的对象组合起来， 构成一个完整的对象，
+//这个对象的能力将会超过这些组成部分的能力的总和， 即会有新的能力产生。
+//
+//Decorator(装饰器) 动态给对象增加一些可替换的处理流程。
+//Facada(外观模式) 一个类隐藏了内部子系统的复杂度， 只暴露出一些简单的接口。
+//
+//Flyweight(享元模式) 一个细粒度对象， 用于将包含在其它地方的信息 在不同对象之间高效地共享。
+//Proxy(代理模式) 一个充当占位符的对象用来代表一个真实的对象。
+//
+//Behavioral 基于对象间作用方式来分类。
+//
+//Class
+//Interpreter(解释器) 将语言元素包含在一个应用中的一种方式， 用于匹配目标语言的语法。
+//Template Method(模板方法) 在一个方法中为某个算法建立一层外壳， 将算法的具体步骤交付给子类去做。
+//
+//Object
+//Chain of Responsibility(响应链) 一种将请求在一串对象中传递的方式， 寻找可以处理这个请求的对象。
+//Command(命令) 封装命令请求为一个对象， 从而使记录日志， 队列缓存请求， 未处理请求进行错误处理 这些功能称为可能。
+//Iterator(迭代器) 在不需要直到集合内部工作原理的情况下， 顺序访问一个集合里面的元素。
+//Mediator(中介者模式) 在类之间定义简化的通信方式， 用于避免类之间显式的持有彼此的引用。
+//Observer(观察者模式) 用于将变化通知给多个类的方式， 可以保证类之间的一致性。
+//State(状态) 当对象状态改变时， 改变对象的行为。
+//Strategy(策略) 将算法封装到类中， 将选择和实现分离开来。
+//Visitor(访问者) 为类增加新的操作而不改变类本身。
 
 // 对象设置 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
 Object.defineProperty(newObject, "someKey", {
@@ -122,13 +128,13 @@ Object.defineProperty(o, "b", {
     configurable: true
 });
 
-在JavaScript中， 实现模块有几个选项：
-
-模块化模式
-对象表示法
-AMD模块
-CommonJS 模块
-ECMAScript Harmony 模块
+//在JavaScript中， 实现模块有几个选项：
+//
+//模块化模式
+//对象表示法
+//AMD模块
+//CommonJS 模块
+//ECMAScript Harmony 模块
 
 // -------------------------模块模式------------------------------
 
@@ -395,8 +401,8 @@ alert(b.bang); // 123
 
 
 // ---------------------------------建造者模式---------------------------------------
-可以将一个复杂对象的构建与其表示相分离，使得同样的构建过程可以创建不同的表示。
-也就是说如果我们用了建造者模式，那么用户就需要指定需要建造的类型就可以得到它们，而具体建造的过程和细节就不需要知道了。
+//可以将一个复杂对象的构建与其表示相分离，使得同样的构建过程可以创建不同的表示。
+//也就是说如果我们用了建造者模式，那么用户就需要指定需要建造的类型就可以得到它们，而具体建造的过程和细节就不需要知道了。
 
 function getBeerById(id, callback) {
     asyncRequest('GET', 'beer.uri?id=' + id, function(resp) {
@@ -413,10 +419,10 @@ function getBeerByIdBridge(e) {
 }
 // ----------------------------------工厂模式--------------------------------------
 
-创建对象（视为工厂里的产品）时无需指定创建对象的具体类。
-
-工厂模式定义一个用于创建对象的接口，这个接口由子类决定实例化哪一个类。
-该模式使一个类的实例化延迟到了子类。而子类可以重写接口方法以便创建的时候指定自己的对象类型。
+//创建对象（视为工厂里的产品）时无需指定创建对象的具体类。
+//
+//工厂模式定义一个用于创建对象的接口，这个接口由子类决定实例化哪一个类。
+//该模式使一个类的实例化延迟到了子类。而子类可以重写接口方法以便创建的时候指定自己的对象类型。
 
 //:1：
 var productManager = {};
@@ -466,11 +472,11 @@ o.url = 'http://www.cnblogs.com';
 o.insert(document.body);
 
 // -----------------------------------装饰者-------------------------------------
-提供比继承更有弹性的替代方案。装饰者用于包装不？同接口的对象，不仅允许你向方法添加行为，
-而且还可以将方法设置成原始对象调用（例如装饰者的构造函数）。
-
-装饰者用于通过重载方法的形式添加新功能，该模式可以在被装饰者前面或者后面加上自己的行为以达到特定的目的。
-当脚本运行时，在子类中增加行为会影响原有类所有的实例，而装饰者却不然。取而代之的是它能给不同对象各自添加新行为。
+//提供比继承更有弹性的替代方案。装饰者用于包装不？同接口的对象，不仅允许你向方法添加行为，
+//而且还可以将方法设置成原始对象调用（例如装饰者的构造函数）。
+//
+//装饰者用于通过重载方法的形式添加新功能，该模式可以在被装饰者前面或者后面加上自己的行为以达到特定的目的。
+//当脚本运行时，在子类中增加行为会影响原有类所有的实例，而装饰者却不然。取而代之的是它能给不同对象各自添加新行为。
 var tree = {};
 tree.decorate = function() {
     console.log('Make sure the tree won\'t fall');
@@ -533,13 +539,13 @@ var decorator2 = new ConcreteDecoratorClass(decorator1);
 decorator1.performTask();
 decorator2.performTask();
 // ------------------------------------------------------------------------
-外观模式不仅简化类中的接口，而且对接口与调用者也进行了解耦。外观模式 Facade
-
-代理模式（Proxy），为其他对象提供一种代理以控制对这个对象的访问。
-    远程代理，也就是为了一个对象在不同的地址空间提供局部代表，这样可以隐藏一个对象存在于不同地址空间的事实，就像web service里的代理类一样。 
-    虚拟代理，根据需要创建开销很大的对象，通过它来存放实例化需要很长时间的真实对象，比如浏览器的渲染的时候先显示问题，而图片可以慢慢显示（就是通过虚拟代理代替了真实的图片，此时虚拟代理保存了真实图片的路径和尺寸。 
-    安全代理，用来控制真实对象访问时的权限，一般用于对象应该有不同的访问权限。 
-    智能指引，只当调用真实的对象时，代理处理另外一些事情。例如C#里的垃圾回收，使用对象的时候会有引用次数，如果对象没有引用了，GC就可以回收它了。
+//外观模式不仅简化类中的接口，而且对接口与调用者也进行了解耦。外观模式 Facade
+//
+//代理模式（Proxy），为其他对象提供一种代理以控制对这个对象的访问。
+//    远程代理，也就是为了一个对象在不同的地址空间提供局部代表，这样可以隐藏一个对象存在于不同地址空间的事实，就像web service里的代理类一样。
+//    虚拟代理，根据需要创建开销很大的对象，通过它来存放实例化需要很长时间的真实对象，比如浏览器的渲染的时候先显示问题，而图片可以慢慢显示（就是通过虚拟代理代替了真实的图片，此时虚拟代理保存了真实图片的路径和尺寸。
+//    安全代理，用来控制真实对象访问时的权限，一般用于对象应该有不同的访问权限。
+//    智能指引，只当调用真实的对象时，代理处理另外一些事情。例如C#里的垃圾回收，使用对象的时候会有引用次数，如果对象没有引用了，GC就可以回收它了。
 
 // ------------------------------------------------------------------------
 // 一个被称作被【观察者】的对象，维护一组被称为观察者的对象，这些对象依赖于被观察者，
@@ -720,21 +726,31 @@ blogger.removeSubscriber(mm.show);
 blogger.recommend(456);
 user.addSubscriber(mm.show);
 user.vote(789);
-// --------
+
+/*
+ * jQuery Tiny Pub/Sub
+ * https://github.com/cowboy/jquery-tiny-pubsub
+ *
+ * Copyright (c) 2013 "Cowboy" Ben Alman
+ * Licensed under the MIT license.
+ */
+
 (function($) {
-    var o = $({});
-    // on(events,[selector],[data],fn)
-    $.subscribe = function() {
-        o.on.apply(o, arguments);
-    };
 
-    $.unsubscribe = function() {
-        o.off.apply(o, arguments);
-    };
+  var o = $({});
 
-    $.publish = function() {
-        o.trigger.apply(o, arguments);
-    };
+  $.subscribe = function() {
+    o.on.apply(o, arguments);
+  };
+
+  $.unsubscribe = function() {
+    o.off.apply(o, arguments);
+  };
+
+  $.publish = function() {
+    o.trigger.apply(o, arguments);
+  };
+
 }(jQuery));
 
 function handle(e, a, b, c) {
@@ -751,6 +767,633 @@ $.subscribe("/some/tox", function(e, a, b, c) {
 
 $.publish("/some/tox", ["a", "b", "c"]);
 $.unsubscribe("/some/tox");
+// --------
+//<button id="addNewObserver">Add new Observer checkbox</button>
+//<input type="checkbox" id="mainCheckbox"/>
+//
+//<div id="observersContainer"></div>
 
+function ObserverList(){
+    this.observerList = [];
+}
+
+ObserverList.prototype.Add = function(obj){
+    return this.observerList.push(obj);
+};
+
+ObserverList.prototype.Empty = function(){
+    this.observerList = [];
+};
+
+ObserverList.prototype.Count = function(){
+    return this.observerList.length;
+};
+
+ObserverList.prototype.Get = function( index ){
+    if( index > -1 && index < this.observerList.length ){
+        return this.observerList[index];
+    }
+};
+
+ObserverList.prototype.Insert = function( obj, index ){
+    var pointer = -1;
+
+    if(index === 0){
+        this.observerList.unshift(obj);
+        pointer = index;
+    }
+    if(index  === this.observerList.length){
+        this.observerList.push(obj);
+        pointer = index;
+    }
+    return pointer;
+};
+
+ObserverList.prototype.IndexOf = function( obj, startIndex ){
+    var i = startIndex, pointer = -1;
+    while ( i< this.observerList.length){
+        if(this.observerList[i] === obj){
+            pointer = i;
+        }
+        i++;
+    }
+    return pointer;
+};
+
+ObserverList.prototype.RemoveIndexAt = function( index ){
+    if(index === 0){
+        this.observerList.shift();
+    }
+    if(index == this.observerList.length){
+        this.observerList.pop();
+    }
+};
+
+function extend( obj, extension ){
+    for (var i in obj ){
+        extension[i] = obj[i];
+    }
+}
+
+function Subject(){
+    this.observers = new ObserverList();
+}
+
+Subject.prototype.AddObserver = function( observer ){
+    this.observers.Add(observer);
+};
+
+Subject.prototype.RemoveObserver = function( observer ){
+    this.observers.RemoveIndexAt(this.observers.IndexOf(observer, 0));
+};
+
+Subject.prototype.Notify = function( context ){
+    var observerCount = this.observers.Count();
+    for (var i=0; i<observerCount; i++){
+        this.observers.Get(i).Update(context);
+    }
+};
+
+function Observer() {
+    this.Update = function(context){
+        console.log(context);
+    }
+}
+
+var controlCheckbox = document.getElementById('mainCheckbox'),
+    addBtn = document.getElementById('addNewObserver'),
+    container = document.getElementById('observersContainer');
+
+extend(new Subject(), controlCheckbox);
+controlCheckbox["onclick"] = new Function(" controlCheckbox.Notify(controlCheckbox.checked)");
+addBtn["onclick"] = AddNewObserver;
+
+function AddNewObserver(){
+    var check = document.createElement("input");
+    check.type = "checkbox";
+    extend(new Observer(), check);
+
+    check.Update = function(value){
+        console.log("check: ", value);
+        this.checked = value;
+    };
+
+    controlCheckbox.AddObserver(check);
+    container.appendChild(check);
+
+}
+
+
+// -----------------------策略模式----------------------------
+// 【策略模式】定义了算法家族，分别封装起来，让他们之间可以互相替换，此模式让算法的变化不会影响到使用算法的客户。
+// 概念上来说，所有的这些算法都是做相同的事情，只是实现不同，他可以以相同的方式调用所有的方法，
+// 减少了各种算法类与使用算法类之间的耦合。
+
+var validator = {
+    types: {},
+    messages: [],
+    config: {},
+    validate: function(data) {
+        var i, msg, type, checker, result_ok;
+        this.messages = [];
+        for (i in data) {
+            if (data.hasOwnProperty(i)) {
+                type = this.config[i];
+                checker = this.types[type];
+                if (!type) {
+                    continue;
+                }
+                if (!checker) {
+                    throw {
+                        name: "ValidationError",
+                        message: "No handler to validate type " + type
+                    };
+                }
+                result_ok = checker.validate(data[i]);
+                if (!result_ok) {
+                    msg = "Invalid value for *" + i + "*, " + checker.instructions;
+                    this.messages.push(msg);
+                }
+            }
+        }
+        return this.hasErrors();
+    },
+    hasErrors: function() {
+        return this.messages.length !== 0;
+    }
+};
+
+validator.types.isNonEmpty = {
+    validate: function(value) {
+        return value !== "";
+    },
+    instructions: "传入的值不能为空"
+};
+validator.types.isNumber = {
+    validate: function(value) {
+        return !isNaN(value);
+    },
+    instructions: "传入的值只能是合法的数字，例如：1, 3.14 or 2010"
+};
+
+var data = {
+    first_name: "Tom",
+    last_name: "Xu",
+    age: "unknown",
+    username: "TomXu"
+};
+validator.config = {
+    first_name: 'isNonEmpty',
+    age: 'isNumber',
+    username: 'isAlphaNum'
+};
+
+validator.validate(data);
+if (validator.hasErrors()) {    
+  console.log(validator.messages.join("\n"));
+}
 // ----------------------------------------------------------------------
-// 中介者
+// 中介者模式（Mediator），用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，
+// 从而使其耦合松散，而且可以独立地改变它们之间的交互。
+//观察者模式，没有封装约束的单个对象，相反，观察者Observer和具体类Subject是一起配合来维护约束的，
+//沟通是通过多个观察者和多个具体类来交互的：每个具体类通常包含多个观察者，而有时候具体类里的一个观察者也是另一个观察者的具体类。
+//
+// ----------------------------------反Curry化-----------------------------------
+// http://www.alloyteam.com/2013/08/javascript-zhong-you-qu-di-fan-ke-li-hua-ji-shu/
+Function.prototype.uncurrying = function(){
+    var __this = this;
+    // __this 就是 Array.prototype.push
+    return function(){
+        return Function.prototype.call.apply( __this, arguments );
+    }
+}
+//------------------Lightweight Start-------------------
+
+$.fn.plugname = function(){}
+(function($){
+    $.extend($.fn, {
+        plugname: function(){}
+    })
+})(jQuery);
+
+;(function($, window, document, undefined){
+    var plugName = "defaultPlugName",
+        defaults = {
+            propertyName: "value"
+        };
+    function Plugin(element, options){
+        this.element = element;
+        this.options = $.extend({}, defaults, options);
+        this._defaults = defaults;
+        this._name = plugName;
+
+        this.init();
+    }
+
+    Plugin.prototype.init = function(){
+    //    初始化逻辑，访问dom， 通过实例访问 options
+    };
+
+    //    真正的插件包装，防止多实例
+    $.fn[plugName] = function(options){
+        return this.each(function(){
+            if(!$.data(this, "plugin_"+plugName)){
+                $.data(this, "plugin_"+plugName, new Plugin(this, options));
+            }
+        });
+    };
+
+})(jQuery, window, document);
+
+$("#elem").defaultPlugName({
+    propertyName: "a custom value"
+});
+//---------------------
+//---------------------嵌套命名空间插件模式
+;(function ($) {
+    if(!myNamespace){
+        $myNamespace = {};
+    }
+
+    $myNamespace.myPluginName = function (el, myFuncParam, options) {
+        var base = this;
+        base.$el = $(el);
+        base.el = el;
+        base.$el.data("myNamespace.myPluginName", base);
+        base.init = function () {
+            base.myFuncParam = myFuncParam;
+            base.options = $.extend({}, $.myNamespace.myPluginName.defaultOptions, options);
+        //    init code in here
+
+        }
+        base.init();
+    }
+
+    $myNamespace.myPluginName.defaultOptions = {
+        myDefaultValue : ""
+    };
+
+    $.fn.myNamespace_myPluginName = function (myFuncParam, options) {
+        return this.each(function(){
+            (new $.myNamespace.myPluginName(this, myFuncParam, options));
+        });
+    };
+})(jQuery)
+
+$("#elem").myNamespace_myPluginName({
+    myDefaultValue: "foobar"
+});
+//---------jQuery UI 自定义事件插件模式
+;(function ($, window, document, undefined) {
+    $.widget("ao.eventStatus", {
+        options: {},
+        _create: function () {
+            var self = this;
+        //  self.element.addClass("my-widget");
+            self.element.on("myEventStart", function(e) {
+                console.log("event start");
+            });
+
+            self.element.on("myEventEnd", function(e){
+                console.log("enent end");
+            });
+        },
+        _destroy: function () {
+            $.Widget.prototype.destroy.apply(this, arguments);
+        }
+    })
+})(jQuery, window, document, undefined)
+
+var el = $("#elem");
+el.eventStatus().trigger("myEventStart");
+//------------ DOM to Object Bridge 模式的原型继承
+var myObject = {
+    init: function (options, elem) {
+        this.options = $.extend({}, this.options, options);
+        this.elem = elem;
+        this.$elem = $(elem);
+        this._build();
+        return this;
+    },
+    options: {
+        name: "No name"
+    },
+    _build: function () {
+    //    this.$elem.html("<p>ss</p>");
+    },
+    myMethod: function (msg) {
+
+    }
+};
+
+$.plugin = function(name, object){
+    $.fn[name] = function (options) {
+        return this.each(function () {
+            if(!$.data(this, name)){
+                $.data(this, name, Object.create(object).init(options, this));
+            }
+        });
+    };
+};
+$.plugin("myobj", myObject);
+$("elem").myobj({name: "John"});
+var coll = $("elem").data("myobj");
+coll.myMethod("msg");
+
+// https://msdn.microsoft.com/en-us/magazine/ff608209.aspx
+// http://starter.pixelgraphics.us/ 插件代码生成器
+(function($) {
+    $.watermark = function(element, options) {
+        this.options = {};
+
+        element.data('watermark', this);
+
+        this.init = function(element, options) {
+            this.options = $.extend({}, $.watermark.defaultOptions, options);
+
+            //Call private function
+            updateElement(element, this.options);
+        };
+
+        //Public function
+        this.greet = function(name) {
+            console.log('Hello, ' + name + ', welcome to Script Junkies!');
+        };
+
+        this.init(element, options);
+    };
+
+    $.fn.watermark = function(options) {
+        return this.each(function() {
+            (new $.watermark($(this), options));
+        });
+    };
+
+    //Private function
+    function updateElement(element, options) {
+        //Manipulate element here...
+    };
+
+    $.watermark.defaultOptions = {
+        class: 'watermark',
+        text: 'Enter Text Here'
+    }
+
+})(jQuery);
+
+var playGroundSelector = "#qunit-playground";
+module("Watermark jQuery Plugin", {
+    setup: function() {
+        $.watermark.defaultOptions = {
+            class: 'watermark',
+            text: 'Enter Text Here'
+        }
+    },
+    teardown: function() {
+        $(playGroundSelector).empty();
+    }
+});
+test("Watermark Should Clear on Focus", function() {
+    //Arrange
+    var testBox =
+        $("<input id='testBox' type='text' />")
+            .appendTo(playGroundSelector);
+
+    //Act
+    testBox.watermark({
+        text: 'Enter Text Here 4',
+        class: 'watermark5'
+    }).focus();
+
+    //Assert
+    expect(2);
+    ok(!testBox.hasClass("watermark5"), "Should not have watermark Class");
+    same(testBox.val(), "", "Watermark Value Should Be Cleared");
+});
+//------ http://ajpiano.com/widgetfactory/#slide5
+( function( $ ) {
+    function Redman( elem ) {
+        this.init( elem );
+    }
+    Redman.prototype.init = function( elem ) {
+        this.element = $( elem ).addClass( "wu-tang" ).css( "color", "red" );
+    };
+    Redman.prototype.destroy = function() {
+        this.element.removeClass( "wu-tang" ).removeAttr( "style" ).removeData( "redman" );
+    };
+
+    $.fn.redman = function() {
+        return this.each( function() {
+            // Instantiate a new Redman, storing the instance in the element's data cache
+            $.data( this, "redman", new Redman( this ) );
+        });
+    };
+})( jQuery );
+
+$( function() {
+    var r = $( "#foo" ).redman().data( "redman" );
+    setTimeout( function() { r.destroy(); }, 2000 );
+});
+//-------------------------jquery.bridge.js jquery ui widget factory bridge
+var widgetName = function (options, element) {
+    this.name = "myWidgeName";
+    this.options = options;
+    this.element = element;
+
+    this._init();
+};
+widgetName.prototype = {
+    _create: function(){
+
+    },
+    _init: function(){
+
+    },
+    option: function (key, value) {
+        if($.isPlainObject(key)){
+            this.options = $.extend(true, this.options, key);
+        }else if(key && typeof value  === "undefined"){
+            return this.options[key];
+        }else{
+            this.options[key] = value;
+        }
+    },
+    publicFunc: function(){},
+    _privateFunc: function () {}
+};
+$.widget.bridge("foo", widgetName);
+var instance = $("#foo").foo({baz:true});
+console.log(instance.data("foo").element);
+instance.foo("publicFunc");
+//http://jquerysbestfriends.com/#slide56
+var orWhateverable = {
+    init: function(options, elem) {
+        this.options = $.extend({}, this.options, options);
+        this.$elem = $(elem);
+
+        return this;
+    },
+
+    options: {},
+
+    addOrWhatever: function() {
+        this.$elem.append(' or whatever...');
+    }
+};
+
+$.fn.orWhateverable = function(opts) {
+    return this.each(function(){
+        $.data(this, 'orWhat', Object.create(orWhateverable).init(opts, this));
+    });
+};
+//http://ajpiano.com/widgetfactory/#slide9
+//http://learn.jquery.com/jquery-ui/widget-factory/how-to-use-the-widget-factory/
+//http://github.bililite.com/understanding-widgets.html
+(function($) {
+    // The jQuery.aj namespace will automatically be created if it doesn't exist
+    $.widget( "aj.filterable", {
+        options: {
+            delay: 250,
+            "className": ""
+        },
+        _create: function() {
+            // The _create method is called the first time the plugin is invoked on an element
+            // This is where most of your setup will happen
+            // Two things are already available:
+            // this.element -- a jQuery object of the element the widget was invoked on.
+            // this.options --  the merged options hash
+
+            // Cache references to collections the widget needs to access regularly
+
+            this.filterElems = this.element.children()
+                .addClass( "ui-widget-content "+this.options.className );
+
+            // toggles ui-state-hover for you, but we want to do something else...
+            // this._hoverable( this.filterElems );
+            this._on( this.filterElems, {
+                mouseenter: "_hover",
+                mouseleave: "_hover"
+            });
+
+            this.filterInput = $( "<input type='text'>" )
+                .insertBefore(this.element)
+                .wrap( "<div class='ui-widget-header " + this.options.className + "'>" );
+            // bind events on elements
+            this._on( this.filterInput, {
+                "keyup": "filter"
+            });
+
+            // toggles ui-state-focus for you
+            this._focusable( this.filterInput );
+            this.timeout = false;
+
+            this._trigger( "ready" );
+
+        },
+        filter: function(e) {
+            // Debounce the keyup event with a timeout, using the specified delay
+            clearTimeout( this.timeout );
+            // like setTimeout, only better!
+            this.timeout = this._delay( function() {
+                var re = new RegExp( this.filterInput.val(), "i" ),
+                    visible = this.filterElems.filter( function() {
+                        var $t = $( this ), matches = re.test( $t.text() );
+                        // Leverage the CSS Framework to handle visual state changes
+                        $t.toggleClass( "ui-helper-hidden", !matches );
+                        return matches;
+                    });
+
+                // Trigger a callback so the user can respond to filtering being complete
+                // Supply  an object of useful parameters with the second argument to _trigger
+                this._trigger( "filtered", e, {
+                    visible: visible
+                });
+            }, this.options.delay );
+        },
+        _hover: function(e) {
+            $( e.target ).toggleClass( "ui-state-active", e.type === "mouseenter" );
+            this._trigger( "hover", e, {
+                hovered: $( e.target )
+            });
+        },
+        _setOption: function( key, value ) {
+            var oldValue = this.options[ key ];
+            // Check for a particular option being set
+            if ( key === "className" ) {
+                // Gather all the elements we applied the className to
+                this.filterInput.parent()
+                    .add( this.filterElems )
+                    // switch the new className in for the old
+                    .toggleClass( oldValue + " " + value );
+            }
+            // Call the base _setOption method
+            this._superApply( arguments );
+
+            // The widget factory doesn't fire an callback for options changes by default
+            // In order to allow the user to respond, fire our own callback
+            this._trigger( "setOption", null, {
+                option: key,
+                original: oldValue,
+                current: value
+            });
+
+        },
+        _destroy: function() {
+            // Use the _destroy method to reverse everything your plugin has applied
+            this.filterInput.parent().remove();
+            this.filterElems.removeClass( "ui-widget-content ui-helper-hidden " + this.options.className );
+            // After you do that, you still need to invoke the "base" destroy method
+            this._super();
+        }
+    });
+})(jQuery);
+//
+//<ul id="cheeses">
+//    <li data-price="17.99">Gruyere</li>
+//    <li data-price="16.99">Comte</li>
+//    <li data-price="4.99">Provolone</li>
+//    <li data-price="8.99">Cheddar</li>
+//    <li data-price="18.99">Parmigiano Reggiano</li>
+//    <li data-price=".99">Government</li>
+//</ul>
+//
+//<div id="register">
+//One pound of each would cost $<span id="total"></span>
+//</div>
+//
+//<button id="activation">Toggle Filterable</button>
+
+var total = $("#total"),
+    cheeses = $("#cheeses"),
+    register = $("#register"),
+    price = $("<span>"),
+    activation = $("#activation").button({icons:{primary:"ui-icon-search"}});
+activation.click(function() {
+    if ( cheeses.is(":aj-filterable") ) {
+        return cheeses.filterable("destroy");
+    }
+
+    cheeses.filterable({
+        className: "cheese",
+        create: function() { register.addClass("ui-widget-header cheese").show(); },
+        filtered: function(e, ui) {
+            var t = 0;
+            ui.visible.each(function() { t = t + parseFloat( $(this).data("price") ); });
+            total.text( t.toFixed( 2 ) );
+        },
+        setOption: function(e, ui) {
+            ui.option === "className" && register.toggleClass([ui.original, ui.current].join(" "));
+        },
+        hover: function(e, ui) {
+            if (e.originalEvent.type === "mouseenter") {
+                price.text(" - " + ui.hovered.data("price") + " per lb").appendTo(ui.hovered);
+            } else {
+                price.detach();
+            }
+        }
+    }).on("filterabledestroy", function(e,ui) {
+        register.removeClass("ui-widget-header "+ui.options.className).hide();
+    }).filterable("filter");
+
+    setTimeout(function() { cheeses.filterable("option", "className", "cheesePlease"); },3000);
+});
