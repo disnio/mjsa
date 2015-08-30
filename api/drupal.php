@@ -32,3 +32,61 @@ search（搜索）、filter（过滤）、faceted（分面搜索）、Solr（Apa
 
 计算字段图片数量：
 echo count($content['field_pics']['#items']); 
+
+对于有些字段，比如entityreference类型的字段，是没有['safe_value']这个东西的，这种方式很容易出现语法错误。
+
+　　下面推荐的是一种Drupal原生的方式渲染字段：
+
+　　即field_view_field
+
+　　常规用法如下：
+
+　　$output = field_view_field('node', $node, 'field_name');
+
+　　print render($output);
+
+　　这种方式，可以兼容上面提到的几种容易产生问题的地方。同时，你可以更灵活的渲染你的字段。
+
+　　比如对于图片字段，默认的label隐藏，使用medium的imagestyle来显示图片，则可以使用如下的代码：
+
+　　$node = node_load(NID);
+
+　　$display = array(
+
+　　'label' => 'hidden',
+
+　　'settings' => array(
+
+　　'image_style' => 'food_pairing',
+
+　　)
+
+　　);
+
+　　$field = field_view_field('node', $node, 'field_image', $display);
+
+　　对于body字段，打印起trim的值：
+
+　　$display = array(
+
+　　'label'=>'hidden',
+
+　　'type' => 'text_summary_or_trimmed',
+
+　　'settings'=>array('trim_length' => 150),
+
+　　);
+
+　　$output = field_view_field('node', $node, 'body', $display);
+
+　　print render($output);
+
+　　额外补充：
+
+　　如果只想获得field的值，则可以使用field_get_items，并结合field_view_value，可以实现打印指定的$delta的值;比如第一个。代码示例如下：
+
+　　$node = node_load($nid);
+
+　　$field = field_get_items('node', $node, 'field_name');
+
+　　$output = field_view_value('node', $node, 'field_name', $field[$delta]);

@@ -236,3 +236,9 @@ ssl_certificate server.crt;
 ssl_certificate_key server.key;
 
 http://www.poluoluo.com/server/201401/261178.html
+------------------------------------------------------------------------
+
+yum -y install openssl perl perl-Net-SSLeay perl-IO-Tty perl-Crypt-SSLeay
+perl -MCPAN -e shell
+install Net::SSLeay
+install Mon::Client
