@@ -12,6 +12,23 @@ id_rsa id_rsa.pub 生成的两个key文件
 [root@GHVM18-C3-01 taskb]# git init --bare taskb.git
 Initialized empty Git repository in /home/git/taskb/taskb.git/
 [root@GHVM18-C3-01 taskb]# chown -R git:git taskb.git
+
+[core]
+  repositoryformatversion = 0
+  filemode = false
+  bare = false
+  logallrefupdates = true
+  symlinks = false
+  ignorecase = true
+  hideDotFiles = dotGitOnly
+[remote "origin"]
+  url = https://github.com/disnio/mjsa.git
+  fetch = +refs/heads/*:refs/remotes/origin/*
+  puttykeyfile = ""
+[branch "master"] 这句保证能把文件拉到本地
+  remote = origin
+  merge = refs/heads/master
+  
 -------------------------------------------------------------------
 在实际开发中，我们应该按照几个基本原则进行分支管理：
 首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
