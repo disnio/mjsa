@@ -132,6 +132,9 @@ Qunit：
 <script src="http://libs.baidu.com/quint/1.9.0/qunit.js"></script>
 　　
 json3用在解析wennuke传回的.net json对象，进行测试：
+var jsondata1 = $("#jsondata").html();
+var jsondata = eval( "(" + jsondata1 + ")");
+var jsondata =(new Function("","return "+jsondata1))();
 -------------------------------------------------------------------
 浏览器识别：
 var isIE6 = navigator.userAgent.indexOf("MSIE 6.0") !== -1;

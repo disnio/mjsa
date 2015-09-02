@@ -1,3 +1,22 @@
+2015-09-02
+http://ju.outofmemory.cn/entry/75502
+http://www.vmvps.com/4-ways-to-install-node-js-on-centos-7-servers.html
+https://github.com/creationix/nvm
+yum install gcc gcc-c++
+wget https://nodejs.org/dist/v0.12.7/node-v0.12.7.tar.gz
+./configure
+make  发生错误
+
+改nvm
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash
+source ~/.nvm/nvm.sh
+nvm ls-remote
+nvm install v0.12.7 ok
+
+nvm use 0.10
+nvm which 0.10
+nvm alias default stable
+----------------------------------------------------------------------------------------
 NPM：
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 

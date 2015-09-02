@@ -32,6 +32,9 @@ NameVirtualHost *:8082
     AllowOverride All
     Options All
 
+    #Order deny,allow
+    #deny from all
+    #allow from 127.0.0.1
     #这个允许外网访问本机，不写的话只能通过本机的127.0.0.1:8082访问
     #Allow from all		  
   </Directory>

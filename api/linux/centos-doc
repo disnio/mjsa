@@ -1,3 +1,6 @@
+http://www.kafan.cn/edu/828094.html
+yum remove 
+---------------------------------------------------------
 ctrl + alt + f1 -- f6
 内存清理：
 echo 1 > /proc/sys/vm/drop_caches

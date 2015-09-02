@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+ <head>
+  <title>flash上传头像组件演示</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="Keywords" content="flash头像上传组件，仿新浪微博头像上传组件，头像图片剪裁" />
+  <meta name="Description" content="flash 上传头像，用户体验好，头像剪裁，预览组件" />
+  <style type="text/css" media="screen">
+  html, body { height:100%; background-color: #ffffff;}
+  #flashContent { width:100%; height:100%; }
+  </style>
+  
+  <script type="text/javascript">
+   function uploadevent(status){
+	//alert(status);
+        status += '';
+     switch(status){
+     case '1':
+         var time = new Date().getTime();
+        //这里用于显示刚上传的图片，但图片地址是固定的，不是后天接收到的路径
+		document.getElementById('avatar_priview').innerHTML = "头像1 : <img src='1.png?" + time + "'/> <br/> 头像2: <img src='2.png?" + time + "'/><br/> 头像3: <img src='3.png?" + time + "'/>" ;
+		
+	break;
+     break;
+     case '-1':
+	  window.location.reload();
+     break;
+     default:
+     window.location.reload();
+    } 
+   }
+  </script>
+ </head>
+ <body>
+  <div id="altContent">
+
+
+<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
+WIDTH="650" HEIGHT="450" id="myMovieName">
+<!---这里修改flash路径-->
+<PARAM NAME=movie VALUE="/Flash/avatar.swf">
+<PARAM NAME=quality VALUE=high>
+<PARAM NAME=bgcolor VALUE=#FFFFFF>
+<!----./default.jpg修改默认图片路径，=./upfile.aspx修改后台执行页面的路径------------->
+<param name="flashvars" value="imgUrl=/UploadImg/default.jpg&uploadUrl=upfile.ashx&uploadSrc=false&pSize=162|162|48|48|20|20" />
+<!----./default.jpg修改默认图片路径，=./upfile.aspx修改后台执行页面的路径------------->
+<!---这里修改flash路径-->
+<EMBED src="/Flash/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="650" HEIGHT="450" wmode="transparent" flashVars="imgUrl=/UploadImg/default.jpg&uploadUrl=upfile.ashx&uploadSrc=false&pSize=162|162|48|48|20|20"
+NAME="myMovieName" ALIGN="" TYPE="application/x-shockwave-flash" allowScriptAccess="always"
+PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer">
+</EMBED>
+</OBJECT>
+ 
+
+  </div>
+  <!--这个div用于演示刚上传的图片，可以删除 --->
+  <div id="avatar_priview"></div>
+
+</body>
+</html>

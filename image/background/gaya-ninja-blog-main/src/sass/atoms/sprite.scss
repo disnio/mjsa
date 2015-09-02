@@ -1,0 +1,116 @@
+/*
+ * Generate a SVG-sprite mixin for Sass
+ * ====================================
+ *
+ * Gaya Kessler - http://gaya.ninja - http://twitter.com/GayaNinja
+ *
+ * SVGSprite is a wonderful package, but doesn't enable responsive sprites out of the box.
+ * This moustache template generates a sass file with a mixin for the generated SVG-sprite.
+ * Calculates the position and size of the background by filename.
+ * Included SVG image scales to width and height.
+ *
+ * Usage:
+ * ======
+ * 1. In the SVGSprite options put the template in the `render` property:
+ *
+ * render: {
+ *      sass: {
+ *          template: 'svg-sprite-layout.scss',
+ *          dest: 'path/to/output/svg-sprite.scss'
+ *      }
+ * }
+ *
+ * 2. Import the generated .scss file in your Sass project:
+ *
+ * @import "path/to/output/svg-sprite.scss";
+ *
+ * 3. Use the SVG image on an element:
+ *
+ * .element {
+ *      @include svg-sprite('name-of-svg-file');
+ *      width: 15px;
+ *      height: 20px;
+ * }
+ *
+ */
+
+%sprite {
+    background-image: url(../images/gn-sprite.svg);
+    background-origin: padding-box;
+}
+
+$sprite-padding: 0;
+$sprites: (
+    "gn-logo": (
+    "w": 50,
+    "h": 43.313953488372086,
+    "rw": 50,
+    "rh": 43.313953488372086,
+    "x": 0,
+    "y": 0
+),
+    "gn-logo-dark": (
+    "w": 50,
+    "h": 43.313953488372086,
+    "rw": 50,
+    "rh": 43.313953488372086,
+    "x": -50,
+    "y": -44
+),
+    "gn-logo-dark-on": (
+    "w": 50,
+    "h": 43.313953488372086,
+    "rw": 50,
+    "rh": 43.313953488372086,
+    "x": -100,
+    "y": -88
+),
+    "home-icon": (
+    "w": 50,
+    "h": 44.526901669758814,
+    "rw": 50,
+    "rh": 44.526901669758814,
+    "x": -150,
+    "y": -132
+),
+    "home-icon-on": (
+    "w": 50,
+    "h": 44.526901669758814,
+    "rw": 50,
+    "rh": 44.526901669758814,
+    "x": -200,
+    "y": -177
+),
+);
+$total-w: 250;
+$total-h: 222;
+
+@mixin svg-sprite($name) {
+    @extend %sprite;
+
+    $sprite: map-get($sprites, $name);
+
+    $pos-x: 0;
+    $pos-y: 0;
+
+    @if ($total-w - map-get($sprite, "rw")) != 0 {
+        $pos-x: ((map-get($sprite, "x") * -1) + $sprite-padding) / (($total-w - map-get($sprite, "rw")));
+    }
+
+    @if ($total-h - map-get($sprite, "rh")) != 0 {
+        $pos-y: ((map-get($sprite, "y") * -1) + $sprite-padding) / ($total-h - map-get($sprite, "rh"));
+    }
+
+    background-size: percentage($total-w / map-get($sprite, "rw")) auto;
+    background-position: percentage($pos-x) percentage($pos-y);
+}
+
+@function svg-sprite-width($name, $height) {
+    $sprite: map-get($sprites, $name);
+    @return map-get($sprite, "rw") * ($height / map-get($sprite, "rh"));
+}
+
+@function svg-sprite-height($name, $width) {
+    $sprite: map-get($sprites, $name);
+    @return map-get($sprite, "rh") * ($width / map-get($sprite, "rw"));
+}

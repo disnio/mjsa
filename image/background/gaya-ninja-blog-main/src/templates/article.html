@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block extraClass %}{% endblock %}
+
+{% block canonical %}{{ url }}{{ page.url }}{% endblock %}
+
+{% if page.metadata.seo_title %}
+    {% block title %}{{ page.metadata.seo_title }}{% endblock %}
+{% else %}
+    {% block title %}{{ page.title }}{% endblock %}
+{% endif %}
+
+{% if page.metadata.seo_desc %}
+    {% block description %}{{ page.metadata.seo_desc }}{% endblock %}
+{% endif %}
+
+{% block content %}
+    <section class="breadcrumbs">
+        <a href="{{ env.locals.url }}" class="breadcrumbs__link">{{ env.locals.name }}</a>
+        <span class="breadcrumbs__seperator">&rsaquo;</span>
+        <span class="breadcrumbs__item">{{ page.title }}</span>
+    </section>
+
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <header class="post__header">
+            <h1 class="post__header__text"><a href="{{ url }}{{ page.url }}" itemprop="name headline">{{ page.title }}</a></h1>
+        </header>
+
+        <ul class="post__social">
+            <li class="post__social__item--twitter">
+                <a href="https://twitter.com/intent/tweet?text={{ urlencode(page.title) }}&url={{ urlencode(url) }}{{ urlencode(page.url) }}&via=GayaNinja"
+                   data-related="twitter">Tweet this</a>
+            </li>
+            <li class="post__social__item--facebook">
+                <a href="https://www.facebook.com/dialog/share?app_id=705919162852726&display=popup&href={{ urlencode(url) }}{{ urlencode(page.url) }}&redirect_uri={{ urlencode(url) }}{{ urlencode(page.url) }}">
+                    Share on Facebook</a>
+            </li>
+        </ul>
+
+        {% if page.metadata.links %}
+            <section class="post__links">
+                {% for link in page.metadata.links %}
+                    <a class="post__links__link" href="{{ link.url }}">
+                        <span class="post__links__link__title">{{ link.title }}</span>
+                        <span class="post__links__link__desc">{{ link.desc }}</span>
+                    </a>
+                {% endfor %}
+            </section>
+        {% endif %}
+
+        <section class="post__body" itemprop="articleBody">
+            {{ page.html }}
+        </section>
+
+        {% if page.metadata.docs %}
+            {% include "docs.html" %}
+        {% endif %}
+
+        <section class="post__meta">
+            <section class="post__meta__published">
+                Published on <time content="{{ moment.utc(page.date).format() }}" datetime="{{ moment.utc(page.date).format() }}" itemprop="datePublished">{{ moment.utc(page.date).format('DD MMMM, YYYY') }}</time>
+            </section>
+            <section class="post__meta__closing">
+                If you have any remarks or questions, tell me so on Twitter using <a href="http://twitter.com/GayaNinja">@GayaNinja</a>.
+            </section>
+        </section>
+    </article>
+{% endblock %}

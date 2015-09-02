@@ -1,0 +1,32 @@
+{
+  "contents": "./blog/contents",
+  "templates": "./src/templates",
+  "locals": {
+    "url": "http://localhost:3000",
+    "name": "Gaya Ninja Blog",
+    "owner": "Gaya Kessler",
+    "description": "Web development articles written for web developers",
+    "feedurl": "http://feeds.feedburner.com/GayaNinja/"
+  },
+  "plugins": [
+    "./blog/plugins/paginator.coffee", "./node_modules/wintersmith-nunjucks"
+  ],
+  "require": {
+    "moment": "moment",
+    "_": "underscore",
+    "typogr": "typogr",
+    "urlencode": "urlencode"
+  },
+  "jade": {
+    "pretty": true
+  },
+  "markdown": {
+    "smartLists": true,
+    "smartypants": true
+  },
+  "paginator": {
+    "perPage": 5,
+    "template": "index.html"
+  },
+  "output": "./dist"
+}

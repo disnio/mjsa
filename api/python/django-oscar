@@ -87,11 +87,45 @@ python manage.py sqlmigrate books 0002
 django-oscar 安装： 
 Successfully installed 
 Babel-1.3 Unidecode-0.4.17 django-1.7.8 django-appconf-1.0.1 django-compressor-1.5 django-extra-views-0.6.4 django-haystack-2.3.1 django-oscar-1.0.2 django-tables2-0.15.0 django-treebeard-2.0 factory-boy-2.4.1 mock-1.0.1 phonenumbers-6.3.0 pillow-2.4.0 purl-1.1 pytz-2015.4 six-1.9.0 sorl-thumbnail-11.12.1b0
-
+-----------------------------------------------------
 apt-get install python-dev 
 sudo apt-get install  libjpeg-dev[el] freetype [libfreetype6-dev]
 gd 库编译安装
+"decoder jpeg not available"
+http://www.ithao123.cn/content-8103388.html
+http://stackoverflow.com/questions/18504835/pil-decoder-jpeg-not-available-on-ubuntu-x64/20091508
+1. clear PIL packages
 
+rm -rf /usr/lib/python2.7/site-packages/PIL
+rm -rf /usr/lib/python2.7/site-packages/PIL.pth
+
+2. install required packages
+
+ubuntu:
+apt-get install libjpeg-dev libfreetype6-dev zlib1g-dev libpng12-dev
+
+centos:
+yum install zlib zlib-devel
+yum install libjpeg libjpeg-devel
+yum install freetype freetype-devel
+
+3. download Image and install
+
+wget http://effbot.org/downloads/Imaging-1.1.7.tar.gz
+tar xzvf Imaging-1.1.7.tar.gz
+
+python2.7 setup.py install
+4. check if it works
+
+# before this command you should run `mv PIL PIL2`
+
+python2.7 selftest.py
+安装到了系统的  
+/usr/local/lib/python2.7/dist-packages/PIL/PIL-1.1.7.egg-info
+/usr/local/lib/python2.7/dist-packages/PIL
+需要复制到 虚拟环境里！
+-------------------------------------------------
+pip install django==1.7.1
 pip install django-oscar pillow
 pip install django-debug-toolbar
 pip install django-debug-toolbar-template_timings_panel
@@ -106,6 +140,7 @@ pip install psycopg2
 pip install alipay
 
 ---------------------------------------------
+
 pip install supervisor
 echo_supervisord_conf > svisor_cn.conf 
 supervisord -c svisor_cn.conf 
@@ -142,7 +177,7 @@ django-admin startproject artmall
 
 安装postgres驱动：
 pip install psycopg2
-
+sudo apt-get install postgresql-server-dev-9.3
 pip install django-widget-tweaks
 python manage.py runmodwsgi
 
@@ -159,6 +194,8 @@ sudo su postgres
 
 createdb test
 
+postgresql.conf   listen_addresses项值设定为"*"
+host    all    all    0.0.0.0/0    md5
 http://francs3.blog.163.com/blog/static/4057672720138953548912/
 pg_hba.conf
 host    all         all         127.0.0.1/32          ident
