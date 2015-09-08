@@ -135,6 +135,10 @@ json3用在解析wennuke传回的.net json对象，进行测试：
 var jsondata1 = $("#jsondata").html();
 var jsondata = eval( "(" + jsondata1 + ")");
 var jsondata =(new Function("","return "+jsondata1))();
+
+var strToJson = function(str){
+    return typeof JSON == "object" ? JSON.parse(str) : (new Function("return " + str)());
+};
 -------------------------------------------------------------------
 浏览器识别：
 var isIE6 = navigator.userAgent.indexOf("MSIE 6.0") !== -1;
@@ -199,3 +203,7 @@ elem = win ? this.contentWindow || window : this,
 function isArray(vArg) {
     return Object.prototype.toString.call(vArg) === "[object Array]";
 }
+
+中文unicode：
+if (/[\u4E00-\uFA29]/.test(str.charAt(i))) 
+
