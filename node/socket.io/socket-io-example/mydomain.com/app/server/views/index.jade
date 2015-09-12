@@ -1,0 +1,28 @@
+div.navbar.navbar-fixed-top
+	div.navbar-inner
+		div.container-fluid
+			ul.nav.pull-left
+				.brand Node.js & Socket.IO Chat Server
+			ul.nav.pull-right
+				li
+					a(href='javascript:;')#connected
+
+#container
+	#send-message.well.span4
+		h2 说点啥吧~
+		hr
+		label Your Name 
+		input(type="text", name="name", id='name').span4
+		label Your Message
+		textarea(rows='6', name="msg", id='msg').span4
+		button#btn-send.btn.btn-primary
+			i.icon-pencil.icon-white
+			| 发送消息
+	#messages.well.span4
+		h2 聊天内容
+		hr
+		#incoming
+
+script(src='/vendor/jquery.min.js')
+script(src='/socket.io/socket.io.js')
+script(src='/js/index.js')

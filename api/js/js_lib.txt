@@ -1,6 +1,11 @@
-http://64.233.167.164/
-http://64.233.167.165/
-http://64.233.167.163/
+
+tweenlitejs
+swiper.js 
+touch.js 
+Iscroll.js 
+charles(抓包工具) 
+pickpick(页面排版校准工具)
+Axure RP网站蓝图
 
 underscore template 用法改变：
 http://www.bennadel.com/blog/2411-using-underscore-js-templates-to-render-html-partials.htm

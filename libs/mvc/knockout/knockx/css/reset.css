@@ -1,0 +1,71 @@
+/* 2014-02-17 jslib --wu */
+html { overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-size: 100%; color: #000; background-color: #FFF; }
+* html,* html body {
+  _background-image:url(about:blank);
+  _background-attachment:fixed;
+}
+body { font-family:"Microsoft YaHei","Arial","Hiragino Sans GB",Sans-Serif; font-size: 12px;  margin: 0;}
+/* 去掉height:100%;定义 -webkit-text-size-adjust:none会导致页面缩放文字失效 background-color:#FFF,html元素设置了背景色会导致body的背景色不能100%高度覆盖 把白色背景色定义在html上，定义这个背景色的目的是，修复一些浏览器中设置了浏览器保护色 overflow-y:scroll定义在被iframe引用的页面就强制带滚动条 */
+div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td { margin: 0; padding: 0; }
+table { border-spacing: 0; border-collapse: collapse; }
+fieldset, img, iframe { border: 0 none; }
+/* ie6 7 8(q) bug 显示为行内表现 */
+iframe {display: block;}
+img { -ms-interpolation-mode: bicubic; vertical-align: middle; }
+address, caption, cite, code, dfn, em, strong, th, var { font-weight: normal; font-style: normal; }
+caption, th { text-align: left; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
+q:before, q:after { content:''; }
+input, textarea, select { font-family: inherit; font-size: inherit; font-weight: inherit; outline: none; *font-size: 100%; vertical-align: middle;}
+
+table { font: 100%; font-size: inherit; }
+strong { font-weight: bold; }
+a { cursor: pointer; text-decoration: none; color: #333; }
+/*a:visited { color: #000; } 这个在ie6下覆盖其它样式 */
+a:hover { color: #f60; }
+a:active { color: #000; background-color: #fff; }
+button { border: none; }
+ul, li, ol, li { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+.clear {display: inline; *zoom: 1; clear:both; line-height: 0; height: 0; font-size:0; visibility: hidden;}
+.clear:after { content:""; display: block; clear: both; line-height: 0; visibility: hidden; height: 0;font-style: 0; }
+.clearfix:after { font-size: 0; line-height: 0; display: block; visibility: hidden; clear: both; height: 0; content:'.'; }
+.clearfix { display: inline-block; }
+* html .clearfix { zoom: 1; }
+*:first-child + html .clearfix { zoom: 1; }
+.space10 { font-size: 0; line-height: 0; clear: both; height: 10px; }
+br { height: 1px; line-height: 1px; }
+/* 一致化 horizonal rule */
+hr{ border:none; border-bottom:1px solid #cfcfcf; margin-bottom:10px; *color:pink;*filter:chroma(color=pink); height:10px; *margin:-7px 0 2px; } 
+/* 自定义样式 */
+a { /*去掉a标签的虚线框，避免出现奇怪的选中区域*/
+    blr: expression(this.onFocus = this.blur () );
+}
+.alwaystop {
+    position: fixed;
+    _position: absolute;
+    _top: expression(( document.compatMode == 'CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop );
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000000;
+}
+
+.alwaysbottom {
+    position: fixed;
+    _position: absolute;
+    _top: expression(eval(( document.compatMode && document.compatMode == 'CSS1Compat') ? documentElement.scrollTop + documentElement.clientHeight - this.clientHeight : document.body.scrollTop + document.body.clientHeight - this.clientHeight ) );
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000000;
+}
+/* 强制文本换行 */
+.textwrap, .textwrap td, .textwrap th{
+    word-wrap:break-word;
+    word-break:break-all;
+}
+.textwrap-table{
+    table-layout:fixed;
+}
