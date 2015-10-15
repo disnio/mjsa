@@ -3,7 +3,7 @@
 * @Author: anchen
 * @Date:   2015-06-05 14:48:23
 * @Last Modified by:   anchen
-* @Last Modified time: 2015-08-10 08:33:27
+* @Last Modified time: 2015-10-08 10:16:44
 */
 
 缓动算法：
@@ -61,18 +61,7 @@ li {counter-increment:licounter;}
 }
 opentype:otf, truetype:ttf, ms embedded opentype: eot
 
------------------
-溢出文本:
-使用text-overflow:ellipsis对溢出文本显示省略号有两个好处，一是不用通过程序限定字数；二是有利于SEO。
-需要使用对对溢出文本显示省略号的通常是文章标题列表，这样处理对搜索引擎更友好，
-因为标题实际上并未被截字，而是局限于宽度而未被显示而已。
 
-通常的做法是这样的：
-1.overflow:hidden; 2.text-overflow:ellipsis; 3.-o-text-overflow:ellipsis; 4.white-space:nowrap; 5.width:100%;
-其中，overflow: hidden和white-space: nowrap都是必须的否则不会显示省略号
-；-o-text-overflow: ellipsis针对Opera；而宽度的设定主要是针对IE6；
-
-该方法支持Internet Explorer, Safari, Chrome 和 Opera，FF也支持在新版支持。
 ---------------
 http://edu.yy.com
 .mod-tab .course-detail-cont img { max-width: 668px; _width: expression((document.documentElement.clientWidth||document.body.clientWidth)<668?"668px":""); overflow: hidden; }
@@ -133,12 +122,12 @@ display: inline-block;
 *display: inline;
 *zoom: 1;
 --------------
-最小高度 min-height
+/*最小高度 min-height*/
 
 min-height: 200px;
 _height: 200px; /* hack for ie6 */
 --------------
-顺时针翻转 90 度。
+/*顺时针翻转 90 度。*/
 
 -webkit-transform: rotate(90deg);
 -moz-transform: rotate(90deg);
@@ -147,7 +136,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
 -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
 transform: rotate(90deg);
 --------------
-用 transform: scale(xx%) 解决 chrome 的中文字体限制问题。
+/*用 transform: scale(xx%) 解决 chrome 的中文字体限制问题。*/
 
 font-size: 12px;
 -webkit-transform: scale(75%); /* 相当于 9px */
@@ -174,3 +163,26 @@ transform: scale(75%);
     background-image: linear-gradient(top, #f7f7f7, #f2f2f2);
     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#f2f2f2', GradientType=0)
 }
+/*------------------------------------*/
+/*固定布局*/
+table-layout:fixed;
+/*无内容显示边框ie8+*/
+empty-cell:show; 
+/*separate 边框独立，collapse:相邻边合并 */
+border-collapse:collapse;
+
+-----------------
+溢出文本:
+使用text-overflow:ellipsis对溢出文本显示省略号有两个好处，一是不用通过程序限定字数；二是有利于SEO。
+需要使用对对溢出文本显示省略号的通常是文章标题列表，这样处理对搜索引擎更友好，
+因为标题实际上并未被截字，而是局限于宽度而未被显示而已。
+
+通常的做法是这样的：
+overflow:hidden; 
+white-space:nowrap; 
+text-overflow:ellipsis; 
+-o-text-overflow:ellipsis; 
+-moz-binding:url('ellipsis.xml#ellipsis');
+width:100%;
+
+

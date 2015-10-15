@@ -3198,3 +3198,5 @@ myModule.config(function($animateProvider) {
 }); 
 element.on('$animate:before', function(evt, animationDetails) {}); 
 element.on('$animate:after', function(evt, animationDetails) {}); 
+--------------------------------------------------------------------------------------
+2015-09-29

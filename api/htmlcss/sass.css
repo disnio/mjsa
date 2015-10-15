@@ -1,0 +1,419 @@
+webstrom scss:
+http://w3cboy.com/post/2014/03/%E5%9C%A8webstorm%E4%B8%AD%E9%85%8D%E7%BD%AEcompass/
+https://www.jetbrains.com/webstorm/help/working-with-sass-and-scss-in-compass-projects.html#d205700e452
+添加 file>setting>languages & frameworks> compass 支持
+file watch 默认 compass scss
+-----------------
+compass create --bare --sass-dir "sass" --css-dir "css" --javascripts-dir "js" --images-dir "img"
+
+--避免 compass 添加初始化的文件和文件夹
+compass clean
+compass watch
+-------------------
+config.rb
+http_path 部署时把以下路径设置为工程根目录
+relative_assets = true 打开资源相对路径功能
+line_comments = false 关闭调试注释
+---------------------------------------------------------
+
+混合器主要是展示性样式的重用， 类名是语义样式的重用， @mixin name($x,...)， 通过@include name引用:
+!default 只有在没有其他值赋值的情况下才使用默认值。
+$defined-bs-type: border-box !default;
+
+@extend .error; 继承会任何位置处定义的.error 的所有相关样式。% 定义级别引用
+继承是建立在语义的关系上，类或选择器。
+混合器本身不会引起CSS层叠的问题，因为混合器把样式直接放到了CSS规则中，而继承存
+在样式层叠的问题。
+---------------------------------------------------------
+颜色：
+HSL 红0、黄60、绿120、青180、蓝240、紫300
+
+clearfix 用作浮动元素上，通常他的外层有一个没声明浮动熟悉的block元素。
+
+at-breakpoint($x) 创建 media queries
+
+susy:
+gem install susy
+compass install susy
+gem install oily_png 
+gem install sass-globbing
+
+compass stats
+gem install css_parser
+-----------------------------------------------
+@import "compass/typography" 垂直韵律
+$base-font-size； 16px;
+$base-line-height:24px;
+@include establish-baseline;
+
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    @include debug-vertical-aligment("../images/debug.png")
+}
+h2 {@include adjust-font-size-to(36px)}
+
+p {@include leader; @include trailer;}
+leader 混合器在元素钱加一个基线单位的外边距。padding-leader/trailer
+
+a {@include link-colors(#333, $hover: #00f, $active: #f00, $visited: #555, $focus: #f00); }
+hover-link, unstyled-link
+
+通过背景图片显示列表的项目符号：
+ul.features { @include pretty-bullets('pretty-bullet.png', $padding:10px, $line-height: 22px); }
+ie8 li.no-bullet {
+    list-style-image: none;
+    list-style-type: none;
+    margin:0px;
+}
+li.no-bullet {@include no-bullet}
+ul.no-bullets {@include no-bullets}
+横向列表：
+ul.nav {@include horizontal-list(7px, right) }
+定义内联列表：
+ul.words {@include delimited-list("! ");}
+
+截断文字显示省略号：
+td.dot-dot { @include ellipsis; }
+防止文本折行：@include nowrap;
+
+@include replace-text/with-dimensions("coffe.png") 将图片转换为文字
+
+布局：compass/layout
+页脚生成：
+@include sticky-footer(40px, "#content", "#footer", "#sticky-footer");
+绝对定位：
+@include stretch(5px, 5px, 4px, 5px);
+
+CSS3:
+compass/css3
+
+$shadow-color: #ccc;
+$shadow-h: 5px;
+$shadow-v: 5px;
+$shadow-blur: 0;
+
+$default-text-shadow-color: $shadow-color;
+$default-text-shadow-h-offset: $shadow-h;
+$default-text-shadow-v-offset: $shadow-v;
+$default-text-shadow-blur: $shadow-blur;
+
+$default-box-shadow-color: $shadow-color;
+$default-box-shadow-h-offset: $shadow-h;
+$default-box-shadow-v-offset: $shadow-v;
+$default-box-shadow-blur: $shadow-blur;
+
+@include font-face("ChunkFiveRegular", font-files("Chunkfive-webfont.woff", woff, "Chunkfive-webfont.ttf", ttf, "Chunkfive-webfont.svg", svg), "Chunkfive-webfont.eot", normal, normal);
+
+h1 {font-family: 'ChunkFiveRegular'; } 
+
+compass install compass/pie
+@import "compass/css3/pie";
+$pie-behavior: url("/stylesheets/PIE.htc");
+$pie-base-class: pie-element;
+.pie-element {@include pie-element(relative); } 
+
+.rounded {
+  @include pie; 
+  @include border-radius(20px);
+}
+
+.gradient {
+  @include pie;
+  @include background(linear-gradient(#aaa, #333));
+}
+
+精灵：
+@import "compass/utilities/sprites";
+@import "icons/*.png"   */
+@import "buy /*.png"; */
+
+精灵混合器：
+
+@include all-<map>-sprites;
+@include <map>-sprites($name);
+<map>占位符替换为精灵图片文件夹的名称
+all-sprites混合器会为整个精灵地图撰写所有必要的CSS。
+第二个混合器将会输出一个独立命名精灵的CSS。
+@include all-icons-sprites; 自动精灵
+
+
+.add-button {
+  @include icons-sprite(box-add);
+}
+
+有了single-sprite混合器，就没有必要生成一个类名了，因为样式已经包含在了选择器里。
+
+$<map>-<property>: setting;
+$<map>-<sprite>-<property>: setting;
+
+1. 配置精灵间距
+Compass允许你通过配置精灵间距变量改变精灵的间距：
+$<map>-spacing: 0px;
+$<map>-<sprite>-spacing: 0px;
+
+@import "compass/utilities/sprites";
+$icons-spacing: 4px;
+$icons-arrow-spacing: 12px;
+@import "icons/ *.png"; 
+
+.next {
+  @include icons-sprite(arrow);
+}
+
+2. 设置精灵的重复性
+水平方向的重复精灵会有大用处。设置精灵的重复性变量：
+$<map>-repeat: no-repeat/repeat-x;
+$<map>-<sprite>-repeat: no-repeat/repeat-x;
+
+@import "compass/utilities/sprites";
+$icons-arrow-repeat: repeat-x;
+@import "icons/ *.png";
+
+.next {
+  @include icons-sprite(arrow);
+}
+
+3. 设置精灵的位置
+Compass允许你通过设置位置变量来横向移动图片：
+$<map>-position: 0px;
+$<map>-<sprite>-position: 0px;
+
+$icons-position: 4px;
+$icons-arrow-position: 100%;
+
+4. 设置精灵地图的布局
+
+$<map>-layout: vertical/horizontal/diagonal/smart;
+
+5. 清除过期的精灵地图
+Compass会自动为你移除旧的精灵地图，或者你也可以把它们保留下来：
+$<map>-clean-up: true/false;
+
+1. 输出精灵的尺寸
+如果你想要给一个特殊的精灵设置尺寸，你可以使用精灵尺寸的辅助器：
+<map>-sprite-height($name)
+<map>-sprite-width($name)
+
+.next {
+  @include icons-sprite(arrow);
+  width: icons-sprite-width(arrow);
+  height: icons-sprite-height(arrow);
+}
+
+2. 精灵的基础类
+$<map>-sprite-base-class: ".class-name";
+
+3. 魔术精灵选择器
+$disable-magic-sprite-selectors: true/false;
+魔术精灵选择器是默认开启的，也就是说Compass在精灵时会根据以“ _hover”“ _active”
+或_target结尾的名字自动输出CSS的:hover、 :active和:target伪选择器。
+
+4. 辅助
+$icons: sprite-map("icons/ *.png");
+.next {
+  background: sprite($icons, arrow) no-repeat; 
+}
+
+.add-button {
+  background: sprite($icons, box-add) no-repeat; 
+}
+------------
+$icons: sprite-map("icons/ *.png");
+.sprite-base { background: $icons no-repeat; }
+
+.next {
+  @extend .sprite-base;
+  background-position: sprite-position($icons, arrow);
+}
+.add-button {
+  @extend .sprite-base;
+  @include sprite-background-position($icons, box-add);
+}
+------------
+$icons: sprite-map("icons/ *.png");
+.sprite-base { background: $icons no-repeat; }
+
+.next {
+  @extend .sprite-base;
+  @include sprite-background-position($icons, arrow);
+  @include sprite-dimensions($icons, arrow);
+}
+
+-----------------------------------------------
+image-url('logo.png')
+font-url('arial.ttf')
+stylesheet-url('randomfile.xml')
+
+图片的缓存清理：
+#logo { background-image: url('/images/logo.png?1298578273'); }
+
+在你的Compass配置文件里写入这些内容：
+# Increment the deploy_version before every
+# release to force cache busting.
+asset_cache_buster do |http_path, real_path|
+"v=1"
+end
+会使Compass为你的logo图片生成下面这段代码：
+#logo { background-image: url('/images/logo.png?v=1'); }
+
+如果你想要最大可能缓存你的资源并且又可以清理，那么最好的办法就是重写资源的
+路径。通过一些相关的Web服务器配置，你可以生成类似这样的URL：
+#logo { background-image: url('/images/logo-1307943914.png'); }
+
+定义一个基于路径的资源缓存：
+asset_cache_buster do |path, real_path|
+    if File.exists?(real_path)
+        pathname = Pathname.new(path)
+
+        modified_time = File.mtime(real_path)
+
+        new_path = "%s/%s-%%" % [
+            pathname.dirname,
+            pathname.basename(pathname.extname),
+            modified_time.strftime("%s"),
+            pathname.extname
+        ]
+        {:path => new_path}
+    end
+end
+
+否则在浏览器里设计和创建原型就是最有可能缔造高质量产品，并且耗时更短，将
+来也更易于更改的方式。
+
+compass compile --force -e production
+
+如果你想在生产环境下以紧凑型输出，你可以在Compass配置中添加这个条件设置：
+if environment == :production
+    output_style = :compact
+end
+
+如果你的站点承载在一个子目录中，你就需要改变这个Compass配置：
+http_path = '/my-app'
+如果你已经启用了相对资源，你应该禁用它们，因为你不想生成相对于CSS文件的URL，而
+relative_assets设置会优先：relative_assets = false
+再次编译之后， logo的URL变成了：
+#logo {background: url('/my-app/images/logo.png?1240702589'); } 
+
+设想一下，在部署时你的图片被复制到了一个相对于站点根目录的叫做imgs的文件夹。这
+种情况下，你需要为你的项目设置http_images_dir：
+http_path = '/my-app'
+relative_assets = false
+images_dir = 'images' 
+http_images_dir = 'imgs' 
+再次编译之后， logo的URL变成了：
+#logo {background: url('/my-app/imgs/logo.png?1240702589'); }
+但如果你的网站很奇葩，它决定把它的图片放到一个完全不同于HTML的地方，那么你就要
+转而设置http_images_path：
+#logo {background: url('/somewhere-else/imgs/logo.png?1240702589'); }
+
+大声的注释会识别Sass脚本，所以它们可以将你的版权提示设置为变量
+并在站点之中重用：
+$copyright-year: unquote("2012");
+$company-name: unquote("Example, Inc.");
+/*!
+Copyright © #{$copyright-year}, #{$company-name}
+All Rights Reserved.
+*/
+
+compass compile my_sass_dir/application.scss
+sass --compass my_sass_dir/application.scss my_css_dir/application.css
+
+有些网站甚至有三层预发环境（边缘、集成、预发），用来测试并集成不同成熟度的功能。
+STAGING=true compass compile --force -e production
+然后在配置文件里，你可以使用Ruby检测这个环境变量并改变相应的设置：
+if ENV['STAGING']
+    relative_urls = true
+    output_style = :compact
+elsif environment == :production
+    relative_urls = false
+    output_style = :compact
+else #development
+    relative_urls = true
+    output_style = :expanded
+end
+如果你针对每个环境的配置是明显不同的，那么你也可以创建不同的配置文件：
+compass compile --forec -c staging_config.rb -e production
+-----------------------------------------------
+性能优化：
+许多网站采取的策略是将CSS文件组织为三个层级（参见图8-3）。
+ 核心样式表：几乎每个页面都需要的普通样式。 
+ 部分样式表：应用或者网站的某个大型部分需要的普通样式。 
+ 单页样式表：只有某个单独页面需要的样式，经常用于销售页面这样设计复杂而独特的
+页面。
+
+通常，优化前端性能的最佳方式是尽可能缩小资源的网络复写。
+
+用资源托管提高页面加载速度
+一种普遍的策略是注册多个域（或者子域），并将它们解析到同一个地方。
+随后， Web浏览器将同步下载更多的资源，使你的用户体验到更快的页面加载速度。
+
+除了具有并行的好处，设置资源托管来使用一个无cookie域也很重要，即一个不会和站点分
+享cookie的域。它每次可以使用更少的字节向服务器发送图片请求。
+
+资源托管在Compass项目中是关闭的，但是你可以告诉Compass如何在资源托管上分发资源，从而开启资源托管。
+
+为了在四个子域中分发资源，你需要在Compass配置中添加以下Ruby代码：
+asset_host do |asset|
+    host_number = (asset.hash % 4) + 1
+    "http://img-#{host_number}.example.com"
+end
+
+#logo {background-image: url('http://img-3.example.com/images/logo-small.png?1298578273'); }
+使用资源托管可以显著地减少客户端渲染时间。
+
+避免内容警告和基于域的资源相混合
+
+处理这个问题的最佳方式是使用相对于协议的URL：
+#logo {background-image: url('//assets3.example.com/images/logo-small.png?1298578273'); }
+
+配置Compass在资源托管时使用一个相对于协议的URL，你需要在配置中添加以下代码：
+asset_host do |asset|
+    host_number = (asset.hash % 4) + 1
+    "//img-#{host_number}.example.com"
+end
+
+内联 data URI 图片内嵌在样式表中
+data:image/gif;base64,***=
+协议，mime类型，编码，负载
+
+.icon { background: inline-image("black-dot.png"); }
+显式地提供MIME类型：
+.icon {
+    background: inline-image("black-dot.bitmap", "image/bmp");
+}
+
+
+-----------------------------------------------
+span-columns(9 omega,12)
+omega 标示最后一列
+
+with-grid-settings() 现有网格内创建一个新的网格。参数：
+列数，列宽，列间隔，内边距
+nth-omega() 为最后一项快速设置外边距
+isolate-grid()分格混合宏
+
+image-url()
+
+
+
+sass -i
+compass interactive
+
+一次性编译输出：
+compass compile --output-style compressed/expanded --force
+---------------------------------*/
+样式检测：
+是否有一些标准化或重置的样式是不必要的。
+选择器的层级最好不要超3层，减少嵌套。
+修正过于具体的选择器。footer[role="contentinfo"] -> [role="contentinfo"] / 建新类.footer。
+如果有嵌套的元素是否可以通过子选择器优化性能。
+是否加载了不需要的字体。
+是否有float和display:block/inline-block 属性同时添加到了一个元素上。
+如果一个值为0，那么就不要带单位。
+是否有不需要的css文件生成。
+添加独立注释。
+
+https://github.com/csscomb/sublime-csscomb
+csscomb 排序,sublime
+
+
