@@ -39,3 +39,8 @@ SVG
 移动端HTML5<video>视频播放优化实践
 http://www.w3.org/2010/05/video/mediaevents.html
 http://www.xuanfengge.com/html5-video-play.html
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1">

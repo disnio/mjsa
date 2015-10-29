@@ -1,5 +1,5 @@
 /*!
- * Isotope v2.0.1
+ * Isotope v2.0.0
  * Filter & sort magical layouts
  * http://isotope.metafizzy.co
  */
@@ -577,20 +577,6 @@ function isotopeDefinition( Outlayer, getSize, matchesSelector, Item, LayoutMode
     // re-enable transition for reveal
     this.options.transitionDuration = transitionDuration;
     return returnValue;
-  };
-
-  // ----- helper methods ----- //
-
-  /**
-   * getter method for getting filtered item elements
-   * @returns {Array} elems - collection of item elements
-   */
-  Isotope.prototype.getFilteredItemElements = function() {
-    var elems = [];
-    for ( var i=0, len = this.filteredItems.length; i < len; i++ ) {
-      elems.push( this.filteredItems[i].element );
-    }
-    return elems;
   };
 
   // -----  ----- //

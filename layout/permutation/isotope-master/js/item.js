@@ -42,16 +42,6 @@ Item.prototype.updateSortData = function() {
   }
 };
 
-var _destroy = Item.prototype.destroy;
-Item.prototype.destroy = function() {
-  // call super
-  _destroy.apply( this, arguments );
-  // reset display, #741
-  this.css({
-    display: ''
-  });
-};
-
 return Item;
 
 }

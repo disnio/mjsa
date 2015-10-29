@@ -85,22 +85,6 @@ td.dot-dot { @include ellipsis; }
 @include stretch(5px, 5px, 4px, 5px);
 
 CSS3:
-compass/css3
-
-$shadow-color: #ccc;
-$shadow-h: 5px;
-$shadow-v: 5px;
-$shadow-blur: 0;
-
-$default-text-shadow-color: $shadow-color;
-$default-text-shadow-h-offset: $shadow-h;
-$default-text-shadow-v-offset: $shadow-v;
-$default-text-shadow-blur: $shadow-blur;
-
-$default-box-shadow-color: $shadow-color;
-$default-box-shadow-h-offset: $shadow-h;
-$default-box-shadow-v-offset: $shadow-v;
-$default-box-shadow-blur: $shadow-blur;
 
 @include font-face("ChunkFiveRegular", font-files("Chunkfive-webfont.woff", woff, "Chunkfive-webfont.ttf", ttf, "Chunkfive-webfont.svg", svg), "Chunkfive-webfont.eot", normal, normal);
 
@@ -381,8 +365,111 @@ data:image/gif;base64,***=
 .icon {
     background: inline-image("black-dot.bitmap", "image/bmp");
 }
+--------------------------------------------------
+关键词参数:
+p {
+  color: hsl($hue: 0, $saturation: 100%, $lightness: 50%);
+}
 
+Sass 支持所有 CSS3 的 @ 规则， 以及一些 Sass 专属的规则，也被称为 “指令（directives）”。 
 
+.sidebar {
+  width: 300px;
+  @media screen and (orientation: landscape) {
+    width: 500px;
+  }
+}
+
+@media screen {
+  .sidebar {
+    @media (orientation: landscape) {
+      width: 500px;
+    }
+  }
+}
+
+@extend-Only Selectors 
+#context a%extreme {
+  color: blue;
+  font-weight: bold;
+  font-size: 2em;
+}
+.notice {
+  @extend %extreme;
+}
+
+插值：
+@mixin thing($class, $prop) {
+  .thing.#{$class} {
+    prop-#{$prop}: val;
+  }
+}
+@include thing(foo, bar);
+#{$class}被foo所替换， #{$prop}被bar所替换，因此最终的CSS如下所示：
+.thing.foo {
+  prop-bar: val;
+}
+
+循环：
+@for $i from 1 through 5 {
+  .rating-#{$i} {
+    background-image: url(/images/rating-#{$i}.png);
+  }
+}
+
+@each $section in home, about, archive, projects {
+  nav .#{$section} {
+    background-image: url(/images/nav/#{$section}.png);
+  }
+}
+
+.rounded {
+  @if $use-browser-prefixes {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+  }
+  border-radius: 5px;
+}
+
+$i: 6;
+@while $i > 0 {
+  .item-#{$i} { width: 2em * $i; }
+  $i: $i - 2;
+}
+
+变量参数：
+@mixin box-shadow($shadows...) {
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  box-shadow: $shadows;
+}
+
+.shadows {
+  @include box-shadow(0px 4px 5px #666, 2px 6px 10px #999);
+}
+
+@mixin colors($text, $background, $border) {
+  color: $text;
+  background-color: $background;
+  border-color: $border;
+}
+
+$values: #ff0000, #00ff00, #0000ff;
+.primary {
+  @include colors($values...);
+}
+
+内容块：
+@mixin apply-to-ie6-only {
+  * html {
+    @content;
+  }
+}
+@include apply-to-ie6-only {
+  #logo {
+    background-image: url(/logo.gif);
+  }
+}
 -----------------------------------------------
 span-columns(9 omega,12)
 omega 标示最后一列
@@ -416,4 +503,15 @@ compass compile --output-style compressed/expanded --force
 https://github.com/csscomb/sublime-csscomb
 csscomb 排序,sublime
 
+
+--------------------------------
+http://susydocs.oddbird.net/en/latest/toolkit/#container
+nested : 
+$grid: 1 2 3;
+@include span(1 of $grid at 3); // $grid 中的一列，从第三个位置开始 （3）
+@include span(2 of $grid at 1); // $grid 中的2列，从第一个位置开始 (1 2)
+
+span : <span> at <location> of <layout>
+
+isolate(n of $grid at x) 偏移n列在$grid中，如果有at 直接定位到 at，n不起作用。独立浮动可和其它元素重合。
 
