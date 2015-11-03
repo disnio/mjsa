@@ -1,4 +1,69 @@
-<!-- vim:ts=4:sts=4:sw=4:et:tw=70 -->
+
+## 1.4.1
+
+ - Address an issue that prevented Q from being used as a `<script>` for
+   Firefox add-ons. Q can now be used in any environment that provides `window`
+   or `self` globals, favoring `window` since add-ons have an an immutable
+   `self` that is distinct from `window`.
+
+## 1.4.0
+
+ - Add `noConflict` support for use in `<script>` (@jahnjw).
+
+## 1.3.0
+
+ - Add tracking for unhandled and handled rejections in Node.js (@benjamingr).
+
+## 1.2.1
+
+ - Fix Node.js environment detection for modern Browserify (@kahnjw).
+
+## 1.2.0
+
+ - Added Q.any(promisesArray) method (@vergara).
+   Returns a promise fulfilled with the value of the first resolved promise in
+   promisesArray. If all promises in promisesArray are rejected, it returns
+   a rejected promise.
+
+## 1.1.2
+
+ - Removed extraneous files from the npm package by using the "files"
+   whitelist in package.json instead of the .npmignore blacklist.
+   (@anton-rudeshko)
+
+## 1.1.1
+
+ - Fix a pair of regressions in bootstrapping, one which precluded
+   WebWorker support, and another that precluded support in
+   ``<script>`` usage outright. #607
+
+## 1.1.0
+
+ - Adds support for enabling long stack traces in node.js by setting
+   environment variable `Q_DEBUG=1`.
+ - Introduces the `tap` method to promises, which will see a value
+   pass through without alteration.
+ - Use instanceof to recognize own promise instances as opposed to
+   thenables.
+ - Construct timeout errors with `code === ETIMEDOUT` (Kornel Lesiński)
+ - More descriminant CommonJS module environment detection.
+ - Dropped continuous integration for Node.js 0.6 and 0.8 because of
+   changes to npm that preclude the use of new `^` version predicate
+   operator in any transitive dependency.
+ - Users can now override `Q.nextTick`.
+
+## 1.0.1
+
+ - Adds support for `Q.Promise`, which implements common usage of the
+   ES6 `Promise` constructor and its methods. `Promise` does not have
+   a valid promise constructor and a proper implementation awaits
+   version 2 of Q.
+ - Removes the console stopgap for a promise inspector. This no longer
+   works with any degree of reliability.
+ - Fixes support for content security policies that forbid eval. Now
+   using the `StopIteration` global to distinguish SpiderMonkey
+   generators from ES6 generators, assuming that they will never
+   coexist.
 
 ## 1.0.0
 
@@ -69,7 +134,7 @@ have been distributed far and wide and demand long term support.
 
 ## 0.9.4
 
- - `isPromise` and `isPromiseAlike` now always returns a boolean 
+ - `isPromise` and `isPromiseAlike` now always returns a boolean
    (even for falsy values). #284 @lfac-pt
  - Support for ES6 Generators in `async` #288 @andywingo
  - Clear duplicate promise rejections from dispatch methods #238 @SLaks
@@ -719,4 +784,3 @@ Their replacements are listed here:
 ## 0.0.1
 
  - initial version
-
