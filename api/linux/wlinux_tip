@@ -1,4 +1,5 @@
-﻿mv 1.py $(date +'%Y-%m-%d-%H-%M-%S').py
+﻿C:\Documents and Settings\Administrator\Application Data\Mozilla\Firefox\Profiles\rfyh9rwn.default\bookmarkbackups
+mv 1.py $(date +'%Y-%m-%d-%H-%M-%S').py
 date +'%Y-%m-%d %H-%M-%S'
 -------------------------------------------------------
 备份：

@@ -152,6 +152,7 @@ thumbnail_debug = True
 数据库直接远程导入
 
 备份：
+/var/lib/postgresql/9.3/artmall-db.sql
 mv  /var/lib/postgresql/9.3/artmall-db.sql  /var/lib/postgresql/9.3/$(date +'%Y-%m-%d-%H-%M-%S').sql
 -------------------------------------
 thumbnail_kvstore 静态文件替换后要清空
