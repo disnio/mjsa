@@ -1,3 +1,16 @@
+
+// form：
+jquery-validate:
+
+混合内容拦截（Mixed Content Blocking），所谓混合内容就是 HTTPS 资源和 HTTP 资源混合显示在页面上。
+默认会阻止在 HTTPS 页面中显示活动的 HTTP 内容。
+活动的内容包括：脚本、样式表、插件内容、内联框架、web 字体和 websocket。
+https://developer.mozilla.org/zh-CN/docs/Security/MixedContent
+火狐：about:config 修改为：security.mixed_content.block_active_content：false
+IE：安全-自定义级别-显示混合内容-启用
+Google Chrome的启动快键方式加上--allow-running-insecure-content（与前面的内容要有空格）。
+"chrome.exe" --allow-running-insecure-content
+// -------------------------------------------------------------------------
 / * 透明iframe * /
 .shade-iframe { filter: alpha(opacity=0); opacity: 0; z-index: 1; }
 
