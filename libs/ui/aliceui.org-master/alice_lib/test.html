@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap25</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+
+    <link rel="stylesheet" type="text/css" href="grid-master/dist/grid-debug.css">
+    <link rel="stylesheet" type="text/css" href="box-master/dist/box-debug.css">
+    <link rel="stylesheet" type="text/css" href="button-master/dist/button-debug.css">
+    <link rel="stylesheet" type="text/css" href="button-dropdown-master/dist/button-dropdown-debug.css">
+    <link rel="stylesheet" type="text/css" href="tiptext-master/dist/tiptext-debug.css">
+    <link rel="stylesheet" type="text/css" href="form-master/dist/form-debug.css">
+    <link rel="stylesheet" type="text/css" href="list-master/dist/list-debug.css">
+    <link rel="stylesheet" type="text/css" href="tab-master/dist/tab-debug.css">
+    <link rel="stylesheet" type="text/css" href="table-master/dist/table-debug.css">
+
+
+
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+
+    <style type="text/css">
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- grid 栅格系统 -->
+        <div class="ui-grid-row t-row">
+            <div class="ui-grid-25">ui-grid-25</div>
+        </div>
+
+        <div class="ui-grid-row t-row">
+            <div class="ui-grid-5">ui-grid-5</div>
+            <div class="ui-grid-20">ui-grid-20</div>
+        </div>
+
+        <div class="ui-grid-row t-row">
+            <div class="ui-grid-5">ui-grid-5</div>
+            <div class="ui-grid-15">ui-grid-15</div>
+            <div class="ui-grid-5">ui-grid-5</div>
+        </div>
+
+        <div class="ui-grid-row t-row">
+            <div class="ui-grid-21">ui-grid-21</div>
+            <div class="ui-grid-4">ui-grid-4</div>
+        </div>
+
+        <div class="ui-grid-row t-row">
+            <div class="ui-grid-6">ui-grid-6</div>
+            <div class="ui-grid-13">ui-grid-13</div>
+            <div class="ui-grid-6">ui-grid-6</div>
+        </div>
+        <!-- box 带边框和标题的标准区块 -->
+        <div class="ui-grid-row">
+            <div class="ui-grid-16">
+
+                <div class="ui-box">
+                    <div class="ui-box-head">
+                        <h3 class="ui-box-head-title">区块标题</h3>
+                        <span class="ui-box-head-text">其他文字</span>
+                        <a href="#" class="ui-box-head-more">更多</a>
+                    </div>
+                    <div class="ui-box-container">
+                        <div class="ui-box-content">ui-box-content 有默认内边距</div>
+                    </div>
+                </div>
+                <!-- 两区块相连 -->
+                <div class="ui-box ui-box-follow">
+                    <div class="ui-box-head">
+                        <h3 class="ui-box-head-title">连着上面的box</h3>
+                        <span class="ui-box-head-text">其他文字</span>
+                        <a href="#" class="ui-box-head-more">更多</a>
+                    </div>
+                    <div class="ui-box-container">
+                        <div class="ui-box-content">ui-box-content 有默认内边距</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-20">
+                <!-- button  -->
+                <p>
+                    <a href="javascript:;" class="ui-button ui-button-lwhite">白色大按钮</a>
+                    <a href="javascript:;" class="ui-button ui-button-mwhite">白色中按钮</a>
+                    <a href="javascript:;" class="ui-button ui-button-swhite">白色小按钮</a> 
+
+                </p>
+                <p>
+                    <input type="button" class="ui-button ui-button-lwhite" value="白色大按钮">
+                    <input type="button" class="ui-button ui-button-mwhite" value="白色中按钮">
+                    <input type="button" class="ui-button ui-button-swhite" value="白色小按钮">
+                </p>
+            </div>
+        </div>
+        <!-- 按钮下拉菜单 -->
+        <div class="ui-grid-row" style="height:90px;">
+            <div class="ui-grid-10">
+                <a class="ui-button ui-button-lorange ui-dbutton ui-dbutton-orange">
+                    <span class="ui-dbutton-self">下拉菜单</span>
+                    <i class="ui-dbutton-arrow iconfont" title="下三角形">&#xF03C;</i>
+                </a>
+                <a class="ui-button ui-button-morange ui-dbutton ui-dbutton-orange">
+                    <span class="ui-dbutton-self">下拉菜单</span>
+                    <i class="ui-dbutton-arrow iconfont" title="下三角形">&#xF03C;</i>
+                </a>
+                <a class="ui-button ui-button-sorange ui-dbutton ui-dbutton-orange">
+                    <span class="ui-dbutton-self">下拉菜单</span>
+                    <i class="ui-dbutton-arrow iconfont" title="下三角形">&#xF03C;</i>
+                </a>
+            </div>
+            <div class="ui-grid-10">
+                <div class="ui-button-dropdown">
+                    <a class="ui-button ui-button-lorange ui-dbutton ui-dbutton-orange">
+                        <span class="ui-dbutton-self">下拉菜单</span>
+                        <i class="ui-dbutton-arrow iconfont" title="下三角形">&#xF03C;</i>
+                    </a>
+                    <ul class="ui-button-dropdown-large">
+                        <li class="ui-button-dropdown-item">
+                            <a href="#">设置代扣</a>
+                        </li>
+                        <li class="ui-button-dropdown-item">
+                            <a href="#">标为已缴</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ui-button-dropdown">
+                    <a class="ui-button ui-button-morange ui-dbutton ui-dbutton-orange">
+                        <span class="ui-dbutton-self">下拉菜单</span>
+                        <i class="ui-dbutton-arrow iconfont" title="下三角形">&#xF03C;</i>
+                    </a>
+                    <ul class="ui-button-dropdown-middle">
+                        <li class="ui-button-dropdown-item">
+                            <a href="#">设置代扣</a>
+                        </li>
+                        <li class="ui-button-dropdown-item">
+                            <a href="#">标为已缴</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ui-button-dropdown">
+                    <a class="ui-button ui-button-sorange ui-dbutton ui-dbutton-orange">
+                        <span class="ui-dbutton-self">下拉菜单</span>
+                        <i class="ui-dbutton-arrow iconfont" title="下三角形">&#xF03C;</i>
+                    </a>
+                    <ul class="ui-button-dropdown-small">
+                        <li class="ui-button-dropdown-item">
+                            <a href="#">设置代扣</a>
+                        </li>
+                        <li class="ui-button-dropdown-item">
+                            <a href="#">标为已缴</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-17">
+
+                <form class="ui-form" name="" method="post" action="#" id="">
+                    <fieldset>
+                        <legend>表单标题</legend>
+
+                        <div class="ui-form-item ui-form-item-error">
+                            <label for="" class="ui-label">表单项文本</label>
+                            <p class="ui-form-text">一个个文字文字
+                        </div>
+
+                        <div class="ui-form-item">
+                            <label for="" class="ui-label">
+                                <span class="ui-form-required">*</span>表单项文本
+                            </label>
+                            <input class="ui-input" type="text">
+                            <span class="ui-form-other"><a href="#">添加备注</a>
+                            </span>
+                            <p class="ui-form-explain">默认文案。</p>
+                        </div>
+
+                        <div class="ui-form-item ui-form-item-error">
+                            <label for="" class="ui-label">表单项文本</label>
+                            <input class="ui-input ui-input-large" type="text">
+                            <span class="ui-form-other"><a href="#">表单项其他</a>
+                            </span>
+                            <p class="ui-form-explain ui-tiptext ui-tiptext-error">
+                                <i class="ui-tiptext-icon iconfont" title="出错">&#xF045;</i>
+                                此在DOM上保存属性值，请使用data-xxx的形式。
+                            </p>
+                        </div>
+
+                        <div class="ui-form-item ui-form-item-error ui-form-item-focus">
+                            <label for="" class="ui-label">表单项文本</label>
+                            <input class="ui-input" type="text">
+                            <span class="ui-form-other"><a href="#">表单项其他</a>
+                            </span>
+                            <p class="ui-form-explain ui-tiptext ui-tiptext-error">
+                                <i class="ui-tiptext-icon iconfont" title="出错">&#xF045;</i>
+                                ui-form-item-focus 的效果。
+                            </p>
+                        </div>
+
+                        <div class="ui-form-item ui-form-item-success">
+                            <label for="" class="ui-label">表单项文本</label>
+                            <textarea class="ui-textarea">一二三四五六七八九十</textarea>
+                            <p class="ui-form-explain ui-tiptext ui-tiptext-success">
+                                <i class="ui-tiptext-icon iconfont" title="成功">&#xF049;</i>
+                                成功文案。
+                            </p>
+                        </div>
+
+                        <div class="ui-form-item">
+                            <label for="" class="ui-label">下拉选择</label>
+                            <select id="province" name="province">
+                                <option value="">
+                                    请选择
+                                </option>
+                                <option value="北京">
+                                    北京
+                                </option>
+                                <option value="上海">
+                                    上海
+                                </option>
+                                <option value="天津">
+                                    天津
+                                </option>
+                                <option value="浙江">
+                                    浙江
+                                </option>
+                            </select>
+                            <p class="ui-form-explain">更多地区即将开通，敬请期待。</p>
+                        </div>
+
+                        <div class="ui-form-item">
+                            <label for="" class="ui-label ui-label-reset">不可用input</label>
+                            <input class="ui-input ui-input-disable" type="text" disabled>
+                            <p class="ui-form-explain">目前不可用</p>
+                        </div>
+
+                        <div class="ui-form-item">
+                            <label for="" class="ui-label">验证码</label>
+                            <input class="ui-input ui-input-checkcode" type="text" data-explain="请输入右图中字符，不区分大小写。" maxlength="4" autocomplete="off" value="" name="fourcode">
+                            <img class="ui-checkcode-imgcode-img" align="absMiddle" alt="请输入您看到的内容" src="https://omeo.alipay.com/service/checkcode?sessionID=82012ab6b1f4ed9e675fb9092a25cb3b&r=0.9321065918075809" title="点击刷新图片校验码">
+                            <a href="#">看不清，换一张</a>
+                            <div class="ui-form-explain">请输入右图中字符，不区分大小写。</div>
+                        </div>
+
+                        <div class="ui-form-item">
+                            <label for="test">
+                                <input class="ui-checkbox" id="test" value="" type="checkbox">我已阅读并接受自主缴费服务协议
+                            </label>
+                        </div>
+
+                        <div class="ui-form-item">
+                            <input type="submit" class="ui-button ui-button-morange" value="确定">
+                            <input type="button" class="ui-button ui-button-mwhite" value="取消">
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+
+            <div class="ui-grid-8">
+                <p>默认列表</p>
+                <ul class="ui-list">
+                    <li class="ui-list-item"><a href="#">如何申请认证？</a>
+                    </li>
+                    <li class="ui-list-item"><a href="#">如何提现？</a>
+                    </li>
+                    <li class="ui-list-item"><a href="#">支付宝数字证书有什么作用？</a>
+                    </li>
+                    <li class="ui-list-item"><a href="#">如何申请认证？</a>
+                    </li>
+                </ul>
+                <p>灰色文字</p>
+                <ul class="ui-list ui-list-graylink">
+                    <li class="ui-list-item"><a href="#">如何申请认证？</a>
+                    </li>
+                    <li class="ui-list-item"><a href="#">如何申请认证？</a>
+                    </li>
+                    <li class="ui-list-item"><a href="#">支付宝数字证书有什么作用？</a>
+                    </li>
+                    <li class="ui-list-item"><a href="#">如何申请认证？</a>
+                    </li>
+                </ul>
+                <p>没有方块</p>
+                <ul class="ui-list ui-list-nosquare">
+                    <li class="ui-list-item"><a href="#">如何申请认证？</a>
+                    </li>
+                    <li class="ui-list-item"><a href="#">如何申请认证？</a>
+                    </li>
+                    <li class="ui-list-item"><a href="#">支付宝数字证书有什么作用？</a>
+                    </li>
+                    <li class="ui-list-item"><a href="#">如何申请认证？</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-16">
+                <div class="ui-tab">
+                    <ul class="ui-tab-items">
+                        <li class="ui-tab-item ui-tab-item-current">
+                            <a href="javascript:;">全部交易</a>
+                        </li>
+                        <li class="ui-tab-item">
+                            <a href="javascript:;">进行中的交易</a>
+                        </li>
+                        <li class="ui-tab-item">
+                            <a href="javascript:;">等待发货的交易</a>
+                        </li>
+                        <li class="ui-tab-item">
+                            <a href="javascript:;">未确认收获的交易</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-20">
+            <!-- .ui-table-noborder 可以嵌在别的框里的表格.ui-table-inbox -->
+                <div class="ui-table-container">
+                    <table class="ui-table">
+                        <!-- 可以在class中加入ui-table-inbox或ui-table-noborder分别适应不同的情况 -->
+                        <thead>
+                            <tr>
+                                <th>创建时间</th>
+                                <th>名称
+                                    <em class="ft-bar">|</em>交易号</th>
+                                <th>对方</th>
+                                <th>金额
+                                    <em class="ft-bar">|</em>明细</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                                <th>备注</th>
+                            </tr>
+                        </thead>
+                        <!-- 表头可选 -->
+                        <tbody>
+                            <tr>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                            </tr>
+                            <tr class="ui-table-split">
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                            </tr>
+                            <tr>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                            </tr>
+                            <tr class="ui-table-split">
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                            </tr>
+                            <tr>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                                <td>Data</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7">表尾数据</td>
+                            </tr>
+                        </tfoot>
+                        <!-- 表尾可选 -->
+                    </table>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+</body>
+
+</html>

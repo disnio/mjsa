@@ -1,4 +1,4 @@
-
+JSON.stringify 注意发送json 要序列化
 tweenlitejs
 swiper.js 
 touch.js 
