@@ -1,0 +1,211 @@
+nodejs+nginx反向代理及la(n)mp安装
+http://www.thinkphp.cn/topic/26055.html
+用nginx或apache作爲反向代理，根據不同的域名映射到本地不同的端口。
+
+网站产品做多了，你会发现需要创建SSL来保护敏感的信息。可能你第一反应会想到从证书颁发机构申请网站证书，但是你也可以创建签名证书。唯一的问题就是浏览器端会提示“该证书不可信”的警告信息，但是作为本地测试，这也就足够了。这里有一篇教程讲解了如何自己创建签名SSL证书，可以看看。
+
+当你有了自己的证书，你就可以在Nginx上安装SSL了，修改后的配置文件，代码如下：
+server {
+    listen       8080;
+    listen       443 ssl;
+    server_name  localhost;
+    ssl_certificate  /etc/nginx/ssl/server.crt
+    ssl_certificate_key /etc/nginx/ssl/server.key
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection ‘upgrade’;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+    location /public {
+    root /usr/local/var/www;
+    }
+}
+完 成了！这样当你访问https://localhost:8080 的时候SSL就可以开始工作了。这里我们默认将证书保存在/etc/nginx /ssl/server.crt 目录下。将私钥保存在/etc/nginx/ssl/server.key 目录下，你也可以改变保存的目录。
+
+------------------------------------
+你可以使用connect.js的vhost或者express.js（基于connect.js）。
+
+var connect = require('connect'),
+    http = require('http');
+
+// 其他的require...
+var vhost1 = connect.vhost(
+    'www.example.com',
+    connect.createServer(...)
+);
+var vhost2 = connect.vhost(
+    'bbs.example.com',
+    http.createServer(...) // http.server也可以
+);
+
+connect.createServer(
+    connect.logger(), vhost1, vhost2
+).listen(8888);
+
+用nginx做proxy的方案更好，更灵活。
+
+你也可以在node.js程序内部判断host：
+app.get('some_route', function(req, res) {
+    var host = req.header('host');
+    // 然后针对host做处理
+---------------------------------------------
+http://stackoverflow.com/questions/5009324/node-js-nginx-what-now
+Create the file yourdomain at /etc/nginx/sites-available/:
+
+vim /etc/nginx/sites-available/yourdomain
+
+In it you should have something like: 
+# the IP(s) on which your node server is running. I chose port 3000.
+upstream app_yourdomain {
+    server 127.0.0.1:3000;
+    keepalive 8;
+}
+
+# the nginx server instance
+server {
+    listen 0.0.0.0:80;
+    server_name yourdomain.com yourdomain;
+    access_log /var/log/nginx/yourdomain.log;
+
+    # pass the request to the node.js server with the correct headers
+    # and much more can be added, see nginx config options
+    location / {
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-NginX-Proxy true;
+
+      proxy_pass http://app_yourdomain/;
+      proxy_redirect off;
+    }
+ }
+
+If you want nginx (>= 1.3.13) to handle websocket requests as well, add the following lines in the location / section:
+
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "upgrade";
+#proxy_cache_bypass $http_upgrade;
+Create your node server app at /var/www/yourdomain/app.js and run it at localhost:3000
+
+var http = require('http');
+
+http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello World\n');
+}).listen(3000, "127.0.0.1");
+console.log('Server running at http://127.0.0.1:3000/');
+
+Restart nginx:
+
+sudo /etc/init.d/nginx restart
+
+Lastly start the node server:
+
+cd /var/www/yourdomain/ && node app.js
+Now you should see "Hello World" at yourdomain.com
+
+One last note with regards to starting the node server: you should use some kind of monitoring system for the node daemon. 
+
+#ModSecurityEnabled on;
+#ModSecurityConfig /etc/nginx/modsecurity.conf;
+# proxy the PHP scripts to Apache listening on 127.0.0.1:80
+#
+#location ~ \.php$ {
+# proxy_pass http://127.0.0.1;
+#}
+
+# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+#
+#location ~ \.php$ {
+# root html;
+# fastcgi_pass 127.0.0.1:9000;
+# fastcgi_index index.php;
+# fastcgi_param SCRIPT_FILENAME /scripts$fastcgi_script_name;
+# include fastcgi_params;
+#}
+# deny access to .htaccess files, if Apache's document root
+# concurs with nginx's one
+#
+#location ~ /\.ht {
+# deny all;
+#}
+-----------------
+You can also setup multiple domain with nginx, forwarding to multiple node.js processes.
+
+For example to achieve these:
+
+    domain1.com -> to Node.js process running locally http://127.0.0.1:4000
+    domain2.com -> to Node.js process running locally http://127.0.0.1:5000
+
+/etc/nginx/sites-enabled/domain1
+
+server {
+    listen 80;
+    server_name domain1.com;
+    access_log /var/log/nginx/domain1.access.log;
+    location / {
+        proxy_pass    http://127.0.0.1:4000/;
+    }
+}
+
+In /etc/nginx/sites-enabled/domain2
+
+server {
+    listen 80;
+    server_name domain2.com;
+    access_log /var/log/nginx/domain2.access.log;
+    location / {
+        proxy_pass    http://127.0.0.1:5000/;
+    }
+}
+-------------
+You can also have different urls for apps in one server configuration:
+
+    yourdomain.com/app1 -> to Node.js process running locally http://127.0.0.1:3000
+    yourdomain.com/app2 -> to Node.js process running locally http://127.0.0.1:4000
+
+In /etc/nginx/sites-enabled/yourdomain:
+
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    location ^~ /app1{
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_pass    http://127.0.0.1:3000/;
+    }
+
+    location ^~ /app2{
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_pass    http://127.0.0.1:4000/;
+    }
+}
+
+Restart nginx:
+
+sudo service nginx restart
+---------------
+https://github.com/StevenIseki/vagrant-node-nginx-boilerplate
+----------------------------------------------------
+
+完整的mongodb.conf
+dbpath = /data/mongodb/db
+logpath = /data/mongodb/logs/mongodb.log
+port = 27017
+fork = true
+rest=true
+nohttpinterface = true
+Vi /data/mongodb/logs/mongodb.log
+保存退出:wq
+重新绑定mongodb的配置文件地址和访问IP：
+/usr/local/mongodb/bin/mongod --rest --bind_ip localhost -f /usr/local/mongodb/bin/mongodb.conf 
