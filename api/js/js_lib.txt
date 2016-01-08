@@ -93,6 +93,9 @@ low-dpi -使用mdpi作为目标 dpi。中等像素密度和高像素密度设备相应放大。
 <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
 <![endif]-->
 
+babel:
+<script src="//cdn.bootcss.com/babel-core/6.1.19/browser.min.js"></script>
+
 
 <script src="//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <link href="//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css" rel="stylesheet">
