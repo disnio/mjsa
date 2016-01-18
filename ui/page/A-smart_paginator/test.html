@@ -15,7 +15,7 @@
 
         $('#red').smartpaginator({
             totalrecords: 32,
-            recordsperpage: 4,
+            recordsperpage: 5,
             length: 4,
             next: 'Next',
             prev: 'Prev',
@@ -25,13 +25,29 @@
             controlsalways: true,
             onchange: function(newPage) {
 
-                $('#r').html('Page # ' + newPage);
+                $('#r').html('Page r # ' + newPage);
 
             }
 
         });
 
+        $('#blue').smartpaginator({
+            totalrecords: 20,
+            recordsperpage: 5,
+            length: 4,
+            next: 'Next',
+            prev: 'Prev',
+            first: 'First',
+            last: 'Last',
+            theme: 'green',
+            controlsalways: true,
+            onchange: function(newPage) {
 
+                $('#s').html('Page s # ' + newPage);
+
+            }
+
+        });
 
     });
     </script>
@@ -43,6 +59,10 @@
 <div id="red"></div>
 
 <div id="r"></div>
+
+<div id="blue"></div>
+
+<div id="s"></div>
 </body>
 
 </html>

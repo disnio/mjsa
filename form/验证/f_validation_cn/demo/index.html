@@ -17,7 +17,7 @@ $.validator.setDefaults({
 $().ready(function() {
 	// validate the comment form when it is submitted
 	$("#commentForm").validate();
-
+	$("#signupForm fieldset").prepend($("#test").html());
 	// validate signup form on keyup and submit
 	$("#signupForm").validate({
 		rules: {
@@ -153,18 +153,7 @@ $().ready(function() {
 			<label for="username">Username</label>
 			<input id="username" name="username" type="text" />
 		</p>
-		<p>
-			<label for="password">Password</label>
-			<input id="password" name="password" type="password" />
-		</p>
-		<p>
-			<label for="confirm_password">Confirm password</label>
-			<input id="confirm_password" name="confirm_password" type="password" />
-		</p>
-		<p>
-			<label for="email">Email</label>
-			<input id="email" name="email" type="email" />
-		</p>
+
 		<p>
 			<label for="agree">Please agree to our policy</label>
 			<input type="checkbox" class="checkbox" id="agree" name="agree" />
@@ -194,7 +183,20 @@ $().ready(function() {
 		</p>
 	</fieldset>
 </form>
-
+<div id="test" style="display:none;">
+			<p>
+			<label for="password">Password</label>
+			<input id="password" name="password" type="password" />
+		</p>
+		<p>
+			<label for="confirm_password">Confirm password</label>
+			<input id="confirm_password" name="confirm_password" type="password" />
+		</p>
+		<p>
+			<label for="email">Email</label>
+			<input id="email" name="email" type="email" />
+		</p>
+</div>
 <h3>Synthetic examples</h3>
 <ul>
 	<li><a href="errorcontainer-demo.html">Error message containers in action</a></li>

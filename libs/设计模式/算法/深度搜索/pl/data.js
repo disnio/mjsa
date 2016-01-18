@@ -1,0 +1,128 @@
+var pl = [{
+    "ID": 1,
+    "ParentID": 0,
+    "CreatorID": 1,
+    "ProjectID": 7,
+    "CreationDate": "2015-11-12T10:56:48.493",
+    "Content": "评论1",
+    "CreatorName": "者1",
+    "CreatorIcon": ""
+}, {
+    "ID": 2,
+    "ParentID": 0,
+    "CreatorID": 2,
+    "ProjectID": 7,
+    "CreationDate": "2015-11-12T14:14:29.057",
+    "Content": "评论2",
+    "CreatorName": "者2",
+    "CreatorIcon": ""
+}, {
+    "ID": 3,
+    "ParentID": 1,
+    "CreatorID": 3,
+    "ProjectID": 7,
+    "CreationDate": "2015-11-12T15:25:42.77",
+    "Content": "评论3",
+    "CreatorName": "Justin",
+    "CreatorIcon": ""
+}, {
+    "ID": 4,
+    "ParentID": 1,
+    "CreatorID": 3,
+    "ProjectID": 7,
+    "CreationDate": "2015-11-12T16:12:08.317",
+    "Content": "评论4",
+    "CreatorName": "Justin",
+    "CreatorIcon": ""
+}, {
+    "ID": 5,
+    "ParentID": 3,
+    "CreatorID": 3,
+    "ProjectID": 7,
+    "CreationDate": "2015-11-12T16:12:24.363",
+    "Content": "评论5",
+    "CreatorName": "Justin",
+    "CreatorIcon": ""
+}, {
+    "ID": 6,
+    "ParentID": 4,
+    "CreatorID": 1,
+    "ProjectID": 7,
+    "CreationDate": "2015-11-12T16:28:04.113",
+    "Content": "评论6",
+    "CreatorName": "者1",
+    "CreatorIcon": ""
+}, {
+    "ID": 7,
+    "ParentID": 4,
+    "CreatorID": 2,
+    "ProjectID": 7,
+    "CreationDate": "2015-11-12T16:28:27.823",
+    "Content": "评论7",
+    "CreatorName": "者2",
+    "CreatorIcon": ""
+}, {
+    "ID": 8,
+    "ParentID": 4,
+    "CreatorID": 24,
+    "ProjectID": 7,
+    "CreationDate": "2015-12-15T14:16:08.447",
+    "Content": "评论8",
+    "CreatorName": "康用",
+    "CreatorIcon": ""
+}, {
+    "ID": 9,
+    "ParentID": 3,
+    "CreatorID": 24,
+    "ProjectID": 7,
+    "CreationDate": "2015-12-15T14:16:27.767",
+    "Content": "评论9",
+    "CreatorName": "康用",
+    "CreatorIcon": ""
+}, {
+    "ID": 10,
+    "ParentID": 1,
+    "CreatorID": 24,
+    "ProjectID": 7,
+    "CreationDate": "2015-12-15T14:16:35.9",
+    "Content": "评论10",
+    "CreatorName": "康用",
+    "CreatorIcon": ""
+}, {
+    "ID": 11,
+    "ParentID": 9,
+    "CreatorID": 2,
+    "ProjectID": 7,
+    "CreationDate": "2015-12-15T14:16:35.9",
+    "Content": "评论11",
+    "CreatorName": "者2",
+    "CreatorIcon": ""
+}, {
+    "ID": 12,
+    "ParentID": 2,
+    "CreatorID": 1,
+    "ProjectID": 7,
+    "CreationDate": "2015-12-15T14:16:35.9",
+    "Content": "评论12",
+    "CreatorName": "者1",
+    "CreatorIcon": ""
+}, {
+    "ID": 13,
+    "ParentID": 2,
+    "CreatorID": 2,
+    "ProjectID": 7,
+    "CreationDate": "2015-12-15T14:16:35.9",
+    "Content": "评论13",
+    "CreatorName": "者2",
+    "CreatorIcon": ""
+}, {
+    "ID": 14,
+    "ParentID": 0,
+    "CreatorID": 1,
+    "ProjectID": 7,
+    "CreationDate": "2015-12-15T14:19:35.9",
+    "Content": "评论14",
+    "CreatorName": "者1",
+    "CreatorIcon": ""
+}];
+// all leaf path: [[13, 2], [12, 2], [11, 9, 3, 1], [10, 1], [8, 4, 1], [7, 4, 1], [6, 4, 1], [5, 3, 1]]

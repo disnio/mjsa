@@ -1,0 +1,13 @@
+.replies .inComment { color: #000; text-align: left; }
+.replies .body { position: relative; z-index: 0; clear: both; font-size: 14px; padding: 12px 0; white-space: normal; word-break: break-all; }
+.replies .inComment { padding-left: 50px; }
+.replies::after, .commentBox::after, .replies .tieOperations::after { clear: both; content: "."; display: block; height: 0; overflow: hidden; visibility: hidden; }
+.commentBox { background: #ffe none repeat scroll 0 0; border: 1px solid #999; margin-bottom: 12px; padding: 3px; position: relative; word-wrap: break-word; z-index: 1; }
+.commentBox .commentInfo { font-size: 12px; height: 20px; line-height: 18px; margin: 0 3px; overflow: hidden; position: relative; }
+.replies .content { clear: both; color: #2b2b2b; font-size: 14px; line-height: 20px; margin: 9px 3px; word-wrap: break-word; }
+.replies .commentBox .content { margin: 9px 3px 0; }
+.commentBox::after, .replies .tieOperations::after { clear: both; content: "."; display: block; height: 0; overflow: hidden; visibility: hidden; }
+.replies .tieOperations { clear: both; display: none; font-size: 12px; line-height: 20px; margin: 0 3px 2px; }
+.commentBox .author { color: #1e50a2; padding-top: 2px; }
+.replies .author { position: relative; z-index: 3; }
+.replies .author, .replies .focus { color: #1e50a2; display: block; float: left; height: 18px; line-height: 18px; vertical-align: middle; }

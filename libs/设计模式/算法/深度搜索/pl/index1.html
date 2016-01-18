@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dp</title>
+    <!-- 清除默认样式，发布时要把注释删除！ -->
+    <!--<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.css"/>-->
+    <link rel="stylesheet" href="pl.css"/>
+    <!-- 需要覆盖的样式放在这里 -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="data.js"></script>
+    <script src="js/func.js"></script>
+    <script src="pl.js"></script>
+    <!-- <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>  -->
+</head>
+
+<body>
+<div class="comwrap replies">
+    <div class="list"></div>
+</div>
+
+<script id="comower" type="text/template">
+    <div class="inComment">
+        <div class="commentInfo"><span class="author">ID: <%= item.ID %> | CreatorName: <%= item.CreatorName %> | Date:<%= item.CreationDate %></span></div>
+        <div class="body">          
+            <p class="content"><%= item.Content %></p>
+        </div>
+        <div class="tieOperations">回复</div>
+    </div>
+</script>
+
+<script id="citem" type="text/template">
+    
+        <div class="commentInfo"><span class="author">ID: <%= item.ID %> | CreatorName: <%= item.CreatorName %> | Date:<%= item.CreationDate %></span></div>
+        <p class="content"><%= item.Content %></p>
+        <div class="tieOperations">回复</div>
+    
+</script>
+
+</body>
+
+</html>

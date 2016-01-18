@@ -1,8 +1,8 @@
 yum install -y mongodb-org
 http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/
-启动服务：
+启动服务：win10 要以管理员身份启动 cmd
 c:\mongo\bin\mongod.exe --dbpath=c:\mongo\data
-
+mongod.exe --dbpath=d:\MongoDB\data --logpath d:\MongoDB\mongodb.log --install
 设置为随机启动服务：
 c:\Program Files\MongoDB 2.6 Standard\bin>mongod.exe --dbpath=d:\mongo\data --logpath d:\mongo\mongodb.log --install
 
