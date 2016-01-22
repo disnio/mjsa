@@ -9,7 +9,9 @@
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  */
-
+header('Access-Control-Allow-Origin:*');  
+// header('Access-Control-Allow-Origin: x-requested-with');
+header('Access-Control-Allow-Methods:GET,POST,OPTIONS');  
 error_reporting(E_ALL | E_STRICT);
 require('UploadHandler.php');
 $upload_handler = new UploadHandler();

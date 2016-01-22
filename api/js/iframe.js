@@ -1,3 +1,137 @@
+服务端访问控制:
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Server-Side_Access_Control
+Cross-Origin Resource Sharing: https://www.w3.org/TR/cors/
+
+header('Content-Type:application:json;charset=utf8');  
+header('Content-Type:text/html;charset=utf8');  
+header('Content-Type: application/xml');
+header('Content-Type: text/html');
+header('Content-Type: text/plain');
+
+header('Access-Control-Allow-Origin:http://client.ycdl.com');  
+header('Access-Control-Allow-Origin: x-requested-with');
+
+header('Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS'); 
+
+header('Access-Control-Allow-Credentials:true');
+
+header('Access-Control-Allow-Headers:x-requested-with,content-type');  
+header('Access-Control-Allow-Headers:X-PINGARUNER');
+header('Access-Control-Allow-Headers:Content-Type, Authorization, Accept,X-Requested-With');  
+
+    Cache-Control
+    Content-Language
+    Content-Type
+    Expires
+    Last-Modified
+    Pragma
+
+header('Access-Control-Max-Age: 1728000');
+header("Content-Length: 0");
+
+header('Cache-Control: no-cache');
+header('Pragma: no-cache');
+header('Access-Control-Allow-Credentials: true');
+
+header("HTTP/1.1 403 Access Forbidden");
+----------
+跨站点文件上传需要设置：
+Access-Control-Allow-Headers Content-Type, Content-Range, Content-Disposition
+https://github.com/blueimp/jQuery-File-Upload/wiki/Browser-support
+多文件上传需要 ie10+
+---------------------------------------------------
+abort(), getAllResponseHeaders(), getResponseHeader()
+void open(
+   DOMString method,
+   DOMString url,
+   optional boolean async,
+   optional DOMString user,
+   optional DOMString password
+);
+send(ArrayBuffer data); 废弃
+send(ArrayBufferView data);
+send(Blob data);
+send(Document data);
+send(DOMString? data);
+send(FormData data);
+setRequestHeader(DOMString header, DOMString value);
+
+XMLHttpRequest.onreadystatechange
+XMLHttpRequest.readyState 
+0   UNSENT  open() has not been called yet.
+1   OPENED  send() has been called.
+2   HEADERS_RECEIVED    send() has been called, and headers and status are available.
+3   LOADING     Downloading; responseText holds partial data.
+4   DONE    The operation is complete.
+
+XMLHttpRequest.status
+XMLHttpRequest.statusText
+XMLHttpRequest.response
+XMLHttpRequest.responseType "json" ie10不支持
+
+XMLHttpRequest.responseXML 
+XMLHttpRequest.responseText
+"arraybuffer"
+"blob"
+"document"
+"json"
+"text"
+
+XMLHttpRequest.withCredentials
+XMLHttpRequest.upload 
+XMLHttpRequest.timeout
+
+http://www.telerik.com/blogs/details/using-cors-with-all-modern-browsers
+<!--[if lt IE 10]>
+<!--iecors provides a jQuery ajax custom transport for IE8/9 XDR-->
+<script src="scripts/jquery.iecors.js"></script>
+<![endif]-->
+关于ie89:
+http://blogs.msdn.com/b/ieinternals/archive/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds.aspx
+
+var xdr = new XDomainRequest();
+    if (xdr) {
+        xdr.onerror = function () {
+//                    alert('xdr onerror');
+        };
+        xdr.ontimeout = function () {
+//                    alert('xdr ontimeout');
+        };
+        xdr.onprogress = function () {
+//                    alert("XDR onprogress");
+//                    alert("Got: " + xdr.responseText);
+        };
+        xdr.onload = function() {
+//                    alert('onload' + xdr.responseText);
+            callback(xdr.responseText);
+        };
+        xdr.timeout = 5000;
+        xdr.open("get", thisURL);
+        xdr.send();
+    } else {
+//                alert('failed to create xdr');
+    }
+
+// setTimeout(function () {
+//     xdr.send();
+// }, 0);
+The XDomainRequest object handles differently in every IE.
+
+In IE9 -> the XDomainRequest object requires that all handles are given a method. Meaning, that handles like onerror, onload, ontimeout, and onprogress are all given something to do. Without defining a method for these handles then you'll get a network response of "operation aborted".
+
+In IE7/8/9 -> the XDomainRequest is ASYNC by default. It will execute the code further down the stack regardless of the xdr object completing or not. Putting a setTimeout may be a solution but shouldnt be.
+
+In this case, trigger an event and listen for the event before executing any further code. An example of this would be (in jquery)...
+
+// call this method in xdr onload
+$(document).trigger("xdr_complete");
+
+// use this wrapper in code you want to execute after the complete of xdr
+$(document).bind("xdr_complete", function(){ ... });
+In IE7/IE8 you'll notice it working. IE7 and IE8 are rather "loose" in that they don't abort when there are missing method for the handles.
+
+
+---------------------------------------------------
 The problem was that IE9 does not understand the format of "JSON" in the encoding cp1251,
 even though it is clearly stated in the response header. 
 Translation of the JSON response in utf-8 solved the problem with IE9.

@@ -2,8 +2,26 @@
 http://blog.csdn.net/linghao00/article/details/7562048
 将解压后的文件全放到一个指定目录t下，所以执行命令
 7z x -ot temp.7z
+-------------
+sqlyog：导入数据库脚本报错
+#直接在sqlyog里面执行，修改这两个变量的值： 
+set global max_allowed_packet=10000000; 
+set global net_buffer_length=10000; 
+--
+MYSQL 1130错误的解决方案 
+考虑可能是因为系统数据库mysql中user表中的host是localhost的原因
+2. 改表法。可能是你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 "mysql" 数据库里的 "user" 表里的 "host" 项，从"localhost"改称"%"
+mysql -u root -pvmware
+mysql>use mysql;
+mysql>update user set host = '%' where user = 'root';
+mysql>flush privileges;
+mysql>select host, user from user;
 
-
+3. 授权法。例如，你想myuser使用mypassword从任何主机连接到mysql服务器的话。
+GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%' IDENTIFIED BY 'mypassword' WITH GRANT OPTION;
+如果你想允许用户myuser从ip为192.168.1.3的主机连接到mysql服务器，并使用mypassword作为密码
+GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'192.168.0.1' IDENTIFIED BY 'mypassword' WITH GRANT OPTION;
+---------
 linux php支持jpeg首先要安裝libjpeg，运行下面的命令：
 
 yum install libjpeg* libpng* freetype* gd*

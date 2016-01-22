@@ -1,3 +1,25 @@
+访问控制：
+http://blog.chinaunix.net/uid-8721861-id-2017179.html
+http://blog.sina.com.cn/s/blog_7be8a2150100trml.html
+    Options Indexes FollowSymLinks
+
+    #
+    # AllowOverride controls what directives may be placed in .htaccess files.
+    # It can be "All", "None", or any combination of the keywords:
+    #   AllowOverride FileInfo AuthConfig Limit
+    #
+    # AllowOverride all
+
+    #
+    # Controls who can get stuff from this server.
+    #
+    Order Deny,Allow
+    Allow from All
+http://enable-cors.org/server_apache.html
+
+<Directory>, <Location>, <Files> or <VirtualHost>
+Header set Access-Control-Allow-Origin "*"
+apachectl -t
 通过Linux+PostgreSQL+PHP+Postfix+roundcube实现开源平台上的邮件服务系统
 
 关于apache端口的配置：

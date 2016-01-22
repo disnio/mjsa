@@ -1,0 +1,82 @@
+国际化：
+-----
+获取或设置【负货币值】的格式模式
+NumberFormatInfo.CurrencyNegativePattern 
+https://msdn.microsoft.com/zh-cn/library/system.globalization.numberformatinfo.currencynegativepattern.aspx
+Value Associated pattern
+0   ($n)
+1   -$n
+2   $-n *
+3   $n- 
+
+I18NCurrencyPositive 无
+I18NCurrencySymbol    ¥
+-----
+描述要用于时间层次结构的日历类型。
+I18NCalendarType 未定 1
+
+All 日历类型基于所有可用的类型。
+Fiscal  日历基于会计日历。
+Iso8601 日历基于 ISO 8601 日历。
+Manufacturing   日历基于生产日历（包含 13 个期间）。
+Reporting   日历基于以下日历：其中季度中的一个月有 5 周，另外两个月各有 4 周。
+Standard    日历基于 12 个月的公历日历：从 1 月 1 日开始，到 12 月 31 日结束。
+-----
+I18NLongTimeFormat H:mm:ss
+https://msdn.microsoft.com/library/system.io.packaging.packagedigitalsignaturemanager.timeformat%28v=vs.100%29.aspx
+-----
+I18NPercentNegative 无 1
+I18NPercentPositive 无 1
+
+I18NShortDateFormat yyyy/M/d
+I18NShortTimeFormat H:mm
+-----
+default language "zh-CN":china "en-US": US 
+I18NUI    zh-CN
+I18N      zh-CN
+
+ASP.NET_SessionId
+UCAA
+--------------------------------
+https://secure-demo.ucdl.cn/WebCenter/ResourceLoader.ashx?p=AddressBook.create.aspx&I18N=zh-cn&callback=sss
+EXEC [dbo].[SP_MResources_InsertOnly] @pn=N'ZCPT.PublicPortal.Web.Account.CreateAccount', @kn=N'CreateAccount', @en=N'Create Account', @zh=N'创建账户';
+
+--------
+EXEC [dbo].[SP_MResources_InsertOnly] @pn=N'ZCPT.PublicPortal.Web.Account.CreateAccount', @kn=N'CreateAccount', @en=N'Create Account', @zh=N'创建账户';
+
+
+var en = $.ajax({
+    url: sitePath + "/Statics/js/ResourceLoader_en-us.json",
+    type: 'GET',
+    data: {
+        p: "CreateAccount",
+        I18N: "en-US"
+    },
+    dataType: 'json',
+    // contentType: "application/json",
+    // jsonp: 'callback',
+});
+
+var zh = $.ajax({
+    url: sitePath + "/Statics/js/ResourceLoader_zh-cn.json",
+    type: 'GET',
+    data: {
+        p: "CreateAccount",
+        I18N: "zh-CN"
+    },
+    dataType: 'json',
+    // contentType: "application/json",
+    // jsonp: 'callback',
+});
+
+$.when(en, zh).done(function(endata, zhdata){
+    var key = _.keys(endata[0].CreateAccount);
+    var edata = _.values(endata[0].CreateAccount);
+    var zdata = _.values(zhdata[0].CreateAccount);
+    var arr = _.zip(edata, zdata, key);
+    var s = '';
+    _.each(arr, function(v, i){
+        s += "EXEC [dbo].[SP_MResources_InsertOnly] @pn=N'ZCPT.PublicPortal.Web.Account.CreateAccount', @kn=N'" + v[2] + "', @en=N'" + v[0] + "', @zh=N'" + v[1] + "';|";
+    });
+    console.log(s)
+});

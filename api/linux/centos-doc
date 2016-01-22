@@ -91,7 +91,7 @@ userlist_file=/etc/vsftpd/user_list
 #local_root=/var/www/html
 ftp_username=hxftp
 user_list里面把不用的用户注释掉，添加建立的ftp用户。
-
+http://linuxunix.xyz/2015/08/30/CentOS6-5-%E9%85%8D%E7%BD%AEvsftpd/
 -----------------------------------------------------------
 python 升级：
 python2.6.6 -> python2.7.8

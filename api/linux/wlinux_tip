@@ -7,6 +7,19 @@ tar -zcvf hxay130201.tar.gz * --exclude video --exclude download
 tar -zxvf
 wget http://nchc.dl.sourceforge.net/sourceforge/awstats/awstats-7.1-1.noarch.rpm
 wget http://prdownloads.sourceforge.net/webadmin/webmin-1.700-1.noarch.rpm 
+tar -zcf hxay20160113.tar.gz *
+-----
+make
+mkdir -p /usr/local/bin
+mkdir -p /usr/local/lib
+cp rar unrar /usr/local/bin
+cp rarfiles.lst /etc
+cp default.sfx /usr/local/lib
+安装完毕之后，运行rar 指令出现如下错误：
+rar: /lib/libc.so.6: version `GLIBC_2.7  not found (required by rar)
+ 其实并不是glibc版本的问题，进行如下操作就可以解决该问题：
+cp rar_static /usr/local/bin/rar
+这时运行rar指令就不会出错。
 ------------------------------------------------------
 安装模式：　　　　　　rpm　–i　[安装选项]　　<软件包>
 查询模式：　　　　　　rpm　–q　[查询选项]
