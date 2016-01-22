@@ -7,6 +7,10 @@ tar -zcvf hxay130201.tar.gz * --exclude video --exclude download
 tar -zxvf
 wget http://nchc.dl.sourceforge.net/sourceforge/awstats/awstats-7.1-1.noarch.rpm
 wget http://prdownloads.sourceforge.net/webadmin/webmin-1.700-1.noarch.rpm 
+tar -zcf hxay160113.tar.gz * --exclude video --exclude download --exclude assets --exclude framework --exclude gc --exclude imag --exclude jc --exclude js --exclude themes --exclude lovebaby.* --exclude resources/kindeditor
+
+http://www.hxay2005.net/hxay160113.tar.gz
+
 tar -zcf hxay20160113.tar.gz *
 -----
 make

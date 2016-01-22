@@ -1,3 +1,61 @@
+<<<<<<< .mine
+http://localhost/awstats/awstats.pl?config=hxay2005.net
+selinux:
+http://www.cnblogs.com/xiaoluo501395377/archive/2013/05/26/3100444.html
+awstats:
+http://cuijunwei.com/1962
+http://blog.chinaunix.net/uid-20076215-id-1978280.html
+配置ubuntu linux中apache2支持perl 
+sudo apt-get install libapache2-mod-perl2
+先前装awstats已经对apache2.conf做了修改,在apache2.conf后面加上如下配置:
+AddHandler cgi-script .cgi .pl  //一定要加上这个
+ [root@www ~]# yum -y install mod_perl
+[root@www ~]# vi /etc/httpd/conf.d/perl.conf
+# line 17: uncomment
+
+PerlSwitches -w
+# line 26: uncomment
+
+PerlSwitches -T
+# line 32-38: uncomment like follows
+
+Alias /perl /var/www/perl
+<Directory /var/www/perl> # the directory for mod_perl environment
+
+   SetHandler perl-script # looks all files as perl-scripts under this directory
+
+#   AddHandler perl-script .cgi
+# if set specific files, use this line and make the line above comment
+
+#   PerlResponseHandler ModPerl::Registry
+   PerlResponseHandler ModPerl::PerlRun
+# specify PerlRun mode
+
+   PerlOptions +ParseHeaders
+   Options +ExecCGI
+</Directory>
+# line 45-51: uncomment ( this is for the status of mod_perl )
+
+<Location /perl-status>
+   SetHandler perl-script
+   PerlResponseHandler Apache2::Status
+   Order deny,allow
+   Deny from all
+   Allow from 10.0.0.0/24
+# IP address you permit to access
+
+</Location>
+[root@www ~]# /etc/rc.d/init.d/httpd restart
+
+Stopping httpd: [  OK  ]
+
+Starting httpd: [  OK  ]
+
+
+
+
+
+=======
 、+------------------------------------------------------------------------+
 |          LNMP V1.2 for CentOS Linux Server, Written by Licess          |
 +------------------------------------------------------------------------+
@@ -54,6 +112,7 @@ reboot
 安装LNMP执行：wget -c http://soft.vpser.net/lnmp/lnmp1.2-full.tar.gz && tar zxf lnmp1.2-full.tar.gz && cd lnmp1.2-full && ./install.sh lnmp
 如需要安装LNMPA或LAMP，将./install.sh 后面的参数替换为lnmpa或lamp即可。
 -------------------------------
+>>>>>>> .theirs
 http://www.kafan.cn/edu/828094.html
 yum remove 
 ---------------------------------------------------------
@@ -70,6 +129,14 @@ Session Options（会话选项） -> Terminal（终端） -> Appearance（显示
 
 --------------------------------------------------------
 mysql：
+date.timezone ="Asia/Shanghai"
+Can't connect to MySQL server on 'XXX' (13)
+结果是 SELinux 不让 httpd 访问外网
+getsebool -a | grep httpd
+发现 httpd_can_network_connect_db --> off
+解决方案：
+#/usr/sbin/setsebool -P httpd_can_network_connect_db on
+
 webadmin 中， 直接添加用户，并授权，作为远程账号。主机，加权限。
 /etc/rc.d/init.d/mysqld start
 
