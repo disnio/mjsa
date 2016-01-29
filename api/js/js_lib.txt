@@ -62,6 +62,8 @@ UI小部件库（比如KendoUI）
 架构方案（比如Yeoman）
 
 导航：http://123.jser.us/
+contentType: "application/json"
+contentType: "application/x-www-form-urlencoded",
 ---------------------------------------------------------------------------
 force IE into standards mode:
 <meta http-equiv="X-UA-Compatible" value="IE=edge" /> 同时加下面，

@@ -1,6 +1,7 @@
 requireApi
 markdown 标记语言做笔记
-
+Error: Mismatched anonymous define() module: function ()
+脱离 requirejs 单独引用第三方文件会报此错误。
 -------------------------------------------------
 www/
 

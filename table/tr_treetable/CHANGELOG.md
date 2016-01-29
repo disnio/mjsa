@@ -1,3 +1,12 @@
+## 3.2.0 - June 13, 2014
+
+* [ENHANCEMENT] Simplified directory structure
+* [ENHANCEMENT] Do not show outline around indenter (#141)
+* [ENHANCEMENT] Use closure for better compatibility with other jQuery versions/plugins (#138)
+* [ENHANCEMENT] Bowerified (#113)
+* [BUG] Fix for nodes with undefined parent (#132)
+* [BUG] Fix removeNode() not deleting node from parent (#131)
+
 ## 3.1.0 - October 14, 2013
 
 * [FEATURE] Added branch sort API (#87)
