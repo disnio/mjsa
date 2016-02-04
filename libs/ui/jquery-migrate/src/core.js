@@ -2,22 +2,24 @@
 var matched, browser,
 	oldInit = jQuery.fn.init,
 	oldParseJSON = jQuery.parseJSON,
+	rspaceAngle = /^\s*</,
 	// Note: XSS check is done below after string is trimmed
 	rquickExpr = /^([^<]*)(<[\w\W]+>)([^>]*)$/;
 
 // $(html) "looks like html" rule change
 jQuery.fn.init = function( selector, context, rootjQuery ) {
-	var match;
+	var match, ret;
 
 	if ( selector && typeof selector === "string" && !jQuery.isPlainObject( context ) &&
 			(match = rquickExpr.exec( jQuery.trim( selector ) )) && match[ 0 ] ) {
 		// This is an HTML string according to the "old" rules; is it still?
-		if ( selector.charAt( 0 ) !== "<" ) {
+		if ( !rspaceAngle.test( selector ) ) {
 			migrateWarn("$(html) HTML strings must start with '<' character");
 		}
 		if ( match[ 3 ] ) {
 			migrateWarn("$(html) HTML text after last tag is ignored");
 		}
+
 		// Consistently reject any HTML-like string starting with a hash (#9521)
 		// Note that this may break jQuery 1.6.x code that otherwise would work.
 		if ( match[ 0 ].charAt( 0 ) === "#" ) {
@@ -30,11 +32,34 @@ jQuery.fn.init = function( selector, context, rootjQuery ) {
 			context = context.context;
 		}
 		if ( jQuery.parseHTML ) {
-			return oldInit.call( this, jQuery.parseHTML( match[ 2 ], context, true ),
-					context, rootjQuery );
+			return oldInit.call( this,
+					jQuery.parseHTML( match[ 2 ], context && context.ownerDocument ||
+						context || document, true ), context, rootjQuery );
 		}
 	}
-	return oldInit.apply( this, arguments );
+
+	// jQuery( "#" ) is a bogus ID selector, but it returned an empty set before jQuery 3.0
+	if ( selector === "#" ) {
+		migrateWarn( "jQuery( '#' ) is not a valid selector" );
+		selector = [];
+	}
+
+	ret = oldInit.apply( this, arguments );
+
+	// Fill in selector and context properties so .live() works
+	if ( selector && selector.selector !== undefined ) {
+		// A jQuery object, copy its properties
+		ret.selector = selector.selector;
+		ret.context = selector.context;
+
+	} else {
+		ret.selector = typeof selector === "string" ? selector : "";
+		if ( selector ) {
+			ret.context = selector.nodeType? selector : context || document;
+		}
+	}
+
+	return ret;
 };
 jQuery.fn.init.prototype = jQuery.fn;
 
@@ -110,4 +135,10 @@ jQuery.sub = function() {
 	var rootjQuerySub = jQuerySub(document);
 	migrateWarn( "jQuery.sub() is deprecated" );
 	return jQuerySub;
+};
+
+// The number of elements contained in the matched element set
+jQuery.fn.size = function() {
+	migrateWarn( "jQuery.fn.size() is deprecated; use the .length property" );
+	return this.length;
 };

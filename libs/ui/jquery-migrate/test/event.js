@@ -722,13 +722,39 @@ test( "error() event method", function() {
 	expect( 2 );
 
 	expectWarning( "jQuery.fn.error()", function() {
-		jQuery("<img />")
+		jQuery( "<img />" )
 			.error(function(){
 				ok( true, "Triggered error event" );
 			})
 			.error()
-			.unbind("error")
+			.unbind( "error" )
 			.error()
+			.remove();
+	});
+});
+
+test( "load() and unload() event methods", function() {
+	expect( 4 );
+
+	expectWarning( "jQuery.fn.load()", function() {
+		jQuery( "<img />" )
+			.load(function(){
+				ok( true, "Triggered load event" );
+			})
+			.load()
+			.unbind( "load" )
+			.load()
+			.remove();
+	});
+
+	expectWarning( "jQuery.fn.unload()", function() {
+		jQuery( "<img />" )
+			.unload(function(){
+				ok( true, "Triggered unload event" );
+			})
+			.unload()
+			.unbind( "unload" )
+			.unload()
 			.remove();
 	});
 });
@@ -765,16 +791,27 @@ test( "hover pseudo-event", function() {
 	});
 });
 
+test( "ready event", function() {
+	expect( 2 );
+
+	expectWarning( "Setting a ready event", 1, function() {
+		jQuery( document ).bind( "ready", function() {
+			ok( true, "ready event was triggered" );
+		}).trigger( "ready" );
+	});
+});
+
 test( "global events not on document", function() {
-	expect( 16 );
+	expect( 11 );
 
 	expectWarning( "Global ajax events", 1, function() {
 		var events = "ajaxStart ajaxStop ajaxSend ajaxComplete ajaxError ajaxSuccess";
 
 		// Attach to random element, just like old times
-		jQuery("#first").bind( events, function( e ) {
+		jQuery( "#first" ).bind( events, function( e ) {
 			ok( true, e.type + " on #first" );
 		});
+
 		// Ensure attach to document still fires
 		jQuery( document ).bind( events, function( e ) {
 			ok( true, e.type + " on document" );
@@ -786,20 +823,37 @@ test( "global events not on document", function() {
 			complete: function() {
 				// Give events a chance to fire before we remove them
 				setTimeout(function() {
-					jQuery("#first").unbind( events );
-					jQuery.ajax({
-						url: "not_found_404.html",
-						complete: function() {
-							setTimeout( start, 10 );
-						}
-					});
-				}, 1);
+					jQuery( "#first" ).add( document ).unbind( events );
+					setTimeout( start, 10 );
+				}, 10 );
 			}
 		});
 	});
 });
 
-if ( jQuery.event.dispatch ) {
+test( "event args on non-document ajax events (#113)", function() {
+
+	expect( 2 );
+
+	// Ensure all args are passed to non-document ajax events
+	jQuery( "#first" ).bind( "ajaxError", function( e, jqXHR, options ) {
+		equal( arguments.length, 4, "passed all args" );
+		equal( options.url, "not_found_404.html", "matched URL" );
+	});
+
+	stop();
+	jQuery.ajax({
+		url: "not_found_404.html",
+		complete: function() {
+			jQuery( "#first" ).unbind( "ajaxError" );
+			setTimeout( start, 10 );
+		}
+	});
+});
+
+// Support: IE<=8
+// Need ES5 Object.defineProperty() to catch property access
+if ( jQuery.event.dispatch && Object.defineProperties ) {
 
 	test( "jQuery.event.handle", function() {
 		expect( 2 );

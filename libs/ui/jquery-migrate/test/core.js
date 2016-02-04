@@ -1,6 +1,12 @@
 
 module("core");
 
+test( "jQuery.migrateVersion", function( assert ) {
+	assert.expect( 1 );
+
+	assert.ok( /^\d+\.\d+\.[\w\-]+/.test( jQuery.migrateVersion ), "Version property" );
+});
+
 test( "jQuery(html, props)", function() {
 	expect( 3 );
 
@@ -18,14 +24,14 @@ test( "jQuery(html) loose rules", function() {
 		nowarns = {
 			"simple tag": "<div />",
 			"single tag with properties": "<input type=text name=easy />",
-			"embedded newlines": "<div>very\nspacey\n<div>like\n</div> text </div></div>",
+			"embedded newlines": "<div>very\nspacey\n like\n<div> text </div></div>",
 			"embedded hash": "<p>love potion <strong bgcolor='#bad'>#9</strong></p>",
-			"complex html": "<div id='good'><p id='guy'> hello !</p></div>"
-		},
-		warns = {
+			"complex html": "<div id='good'><p id='guy'> hello !</p></div>",
 			"leading space": "  <div />",
 			"leading newline": "\n<div />",
-			"lots of space/newline": "  <em>  spaces \n and \n newlines </em> \n ",
+			"lots of space/newline": "  <em>  spaces \n and \n newlines </em> \n "
+		},
+		warns = {
 			"leading text": "don't<div>try this</div>",
 			"trailing text": "<div>try this</div>junk",
 			"both text": "don't<div>try this</div>either"
@@ -47,8 +53,63 @@ test( "jQuery(html) loose rules", function() {
 	}
 });
 
+test( "jQuery( '#' )", function() {
+	expect( 2 );
+
+	expectWarning( "Selector, through the jQuery constructor, nothing but hash", function() {
+		var set = jQuery( "#" );
+		equal( set.length, 0, "empty set" );
+	});
+});
+
+test( "selector state", function() {
+	expect( 18 );
+
+	var test;
+
+	test = jQuery( undefined );
+	equal( test.selector, "", "Empty jQuery Selector" );
+	equal( test.context, undefined, "Empty jQuery Context" );
+
+	test = jQuery( document );
+	equal( test.selector, "", "Document Selector" );
+	equal( test.context, document, "Document Context" );
+
+	test = jQuery( document.body );
+	equal( test.selector, "", "Body Selector" );
+	equal( test.context, document.body, "Body Context" );
+
+	test = jQuery("#qunit-fixture");
+	equal( test.selector, "#qunit-fixture", "#qunit-fixture Selector" );
+	equal( test.context, document, "#qunit-fixture Context" );
+
+	test = jQuery("#notfoundnono");
+	equal( test.selector, "#notfoundnono", "#notfoundnono Selector" );
+	equal( test.context, document, "#notfoundnono Context" );
+
+	test = jQuery( "#qunit-fixture", document );
+	equal( test.selector, "#qunit-fixture", "#qunit-fixture Selector" );
+	equal( test.context, document, "#qunit-fixture Context" );
+
+	test = jQuery( "#qunit-fixture", document.body );
+	equal( test.selector, "#qunit-fixture", "#qunit-fixture Selector" );
+	equal( test.context, document.body, "#qunit-fixture Context" );
+
+	// Test cloning
+	test = jQuery( test );
+	equal( test.selector, "#qunit-fixture", "#qunit-fixture Selector" );
+	equal( test.context, document.body, "#qunit-fixture Context" );
+
+	test = jQuery( document.body ).find("#qunit-fixture");
+	equal( test.selector, "#qunit-fixture", "#qunit-fixture find Selector" );
+	equal( test.context, document.body, "#qunit-fixture find Context" );
+});
+
 test( "XSS injection", function() {
 	expect( 10 );
+
+	// IE6 doesn't throw exceptions, just skip it since the XSS is still stopped
+	var expectThrow = navigator.userAgent.indexOf( "MSIE 6" ) < 0;
 
 	// Bad HTML will throw on some supported versions
 	expectWarning( "leading hash", function() {
@@ -68,7 +129,7 @@ test( "XSS injection", function() {
 		} catch ( e ) {
 			threw = true;
 		}
-		equal( threw, true, "Throw on leading-hash HTML (treated as selector)" );
+		equal( threw, expectThrow, "Throw on leading-hash HTML (treated as selector)" );
 		equal( window.XSS, false, "XSS" );
 	});
 
@@ -80,7 +141,7 @@ test( "XSS injection", function() {
 		} catch ( e ) {
 			threw = true;
 		}
-		equal( threw, true, "Throw on leading-hash HTML and space (treated as selector)" );
+		equal( threw, expectThrow, "Throw on leading-hash HTML and space (treated as selector)" );
 		equal( window.XSS, false, "XSS" );
 	});
 
@@ -92,13 +153,20 @@ test( "XSS injection", function() {
 		} catch ( e ) {
 			threw = true;
 		}
-		equal( threw, true, "Throw on leading-hash HTML (treated as selector)" );
+		equal( threw, expectThrow, "Throw on leading-hash HTML (treated as selector)" );
 		stop();
 		setTimeout(function() {
 			equal( window.XSS, false, "XSS" );
 			start();
 		}, 1000);
 	});
+});
+
+test( "jQuery( '<element>' ) usable on detached elements (#128)" , function() {
+	expect( 1 );
+
+	jQuery( "<a>" ).outerWidth();
+	ok( true, "No crash when operating on detached elements with window" );
 });
 
 test( "jQuery.parseJSON() falsy values", function() {
@@ -252,4 +320,12 @@ test( "jQuery.sub() - .fn Methods", function(){
 			});
 		});
 	});
+});
+
+test( ".size", function(){
+    expect( 1 );
+
+    expectWarning( "size", function() {
+        jQuery( "<div />" ).size();
+    });
 });

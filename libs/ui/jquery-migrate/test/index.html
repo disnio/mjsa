@@ -7,8 +7,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
 	<!-- QUnit -->
-	<link rel="stylesheet" href="../libs/qunit/qunit.css" media="screen">
-	<script src="../libs/qunit/qunit.js"></script>
+	<link rel="stylesheet" href="../external/qunit/qunit.css" media="screen">
+	<script src="../external/qunit/qunit.js"></script>
 
 	<!-- Load a jQuery and jquery-migrate plugin file based on URL -->
 	<script src="testinit.js"></script>
@@ -16,14 +16,14 @@
 		TestManager.init({
 			"jquery": {
 				urlTag: "jquery",
-				choices: "dev,min,git,git2,2.0.2,1.10.1,1.9.1,1.8.3,1.7.2,1.6.4"
+				choices: "dev,min,git,2.1.3,2.0.3,1.11.2,1.10.2,1.9.1,1.8.3,1.7.2,1.6.4"
 			},
 			"jquery-migrate": {
 				urlTag: "plugin",
-				choices: "dev,min,git,1.0.0,1.1.0"
+				choices: "dev,min,git,1.0.0,1.1.0,1.2.1"
 			}
 		});
-		TestManager.loadProject( "jquery", "git" );
+		TestManager.loadProject( "jquery", "2.x-git" );
 		// Close this script tag so file will load
 	</script>
 	<script>
@@ -34,11 +34,14 @@
 	<!-- Unit test files -->
 	<script src="migrate.js"></script>
 	<script src="core.js"></script>
+	<script src="css.js"></script>
 	<script src="data.js"></script>
 	<script src="attributes.js"></script>
 	<script src="manipulation.js"></script>
 	<script src="ajax.js"></script>
 	<script src="event.js"></script>
+	<script src="traversing.js"></script>
+	<script src="deferred.js"></script>
 </head>
 <body>
 	<div id="qunit"></div>

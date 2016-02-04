@@ -7,7 +7,8 @@ define([
     '../../lib/file'
 ], function( Base, Html5Runtime, File ) {
 
-    var $ = Base.$;
+    var $ = Base.$,
+        prefix = 'webuploader-dnd-';
 
     return Html5Runtime.register( 'DragAndDrop', {
         init: function() {
@@ -31,11 +32,28 @@ define([
         },
 
         _dragEnterHandler: function( e ) {
-            this.dndOver = true;
-            this.elem.addClass('webuploader-dnd-over');
+            var me = this,
+                denied = me._denied || false,
+                items;
 
             e = e.originalEvent || e;
-            e.dataTransfer.dropEffect = 'copy';
+
+            if ( !me.dndOver ) {
+                me.dndOver = true;
+
+                // 注意只有 chrome 支持。
+                items = e.dataTransfer.items;
+
+                if ( items && items.length ) {
+                    me._denied = denied = !me.trigger( 'accept', items );
+                }
+
+                me.elem.addClass( prefix + 'over' );
+                me.elem[ denied ? 'addClass' :
+                        'removeClass' ]( prefix + 'denied' );
+            }
+
+            e.dataTransfer.dropEffect = denied ? 'none' : 'copy';
 
             return false;
         },
@@ -47,6 +65,7 @@ define([
                 return false;
             }
 
+            clearTimeout( this._leaveTimer );
             this._dragEnterHandler.call( this, e );
 
             return false;
@@ -54,24 +73,23 @@ define([
 
         _dragLeaveHandler: function() {
             var me = this,
-                handler = function() {
-                    if ( !me.dndOver ) {
-                        me.elem.removeClass('webuploader-dnd-over');
-                    }
-                };
-            setTimeout( handler, 50 );
-            this.dndOver = false;
+                handler;
 
+            handler = function() {
+                me.dndOver = false;
+                me.elem.removeClass( prefix + 'over ' + prefix + 'denied' );
+            };
+
+            clearTimeout( me._leaveTimer );
+            me._leaveTimer = setTimeout( handler, 100 );
             return false;
         },
 
         _dropHandler: function( e ) {
-            var results  = [],
-                promises = [],
-                me = this,
+            var me = this,
                 ruid = me.getRuid(),
                 parentElem = me.elem.parent().get( 0 ),
-                items, files, dataTransfer, file, item, i, len, canAccessFolder;
+                dataTransfer, data;
 
             // 只处理框内的。
             if ( parentElem && !$.contains( parentElem, e.currentTarget ) ) {
@@ -80,6 +98,36 @@ define([
 
             e = e.originalEvent || e;
             dataTransfer = e.dataTransfer;
+
+            // 如果是页面内拖拽，还不能处理，不阻止事件。
+            // 此处 ie11 下会报参数错误，
+            try {
+                data = dataTransfer.getData('text/html');
+            } catch( err ) {
+            }
+
+            me.dndOver = false;
+            me.elem.removeClass( prefix + 'over' );
+
+            if ( !dataTransfer || data ) {
+                return;
+            }
+
+            me._getTansferFiles( dataTransfer, function( results ) {
+                me.trigger( 'drop', $.map( results, function( file ) {
+                    return new File( ruid, file );
+                }) );
+            });
+
+            return false;
+        },
+
+        // 如果传入 callback 则去查看文件夹，否则只管当前文件夹。
+        _getTansferFiles: function( dataTransfer, callback ) {
+            var results  = [],
+                promises = [],
+                items, files, file, item, i, len, canAccessFolder;
+
             items = dataTransfer.items;
             files = dataTransfer.files;
 
@@ -90,6 +138,7 @@ define([
                 item = items && items[ i ];
 
                 if ( canAccessFolder && item.webkitGetAsEntry().isDirectory ) {
+
                     promises.push( this._traverseDirectoryTree(
                             item.webkitGetAsEntry(), results ) );
                 } else {
@@ -103,14 +152,8 @@ define([
                     return;
                 }
 
-                me.trigger( 'drop', $.map( results, function( file ) {
-                    return new File( ruid, file );
-                }) );
+                callback( results );
             });
-
-            this.dndOver = false;
-            this.elem.removeClass('webuploader-dnd-over');
-            return false;
         },
 
         _traverseDirectoryTree: function( entry, results ) {
@@ -147,8 +190,13 @@ define([
         destroy: function() {
             var elem = this.elem;
 
+            // 还没 init 就调用 destroy
+            if (!elem) {
+                return;
+            }
+
             elem.off( 'dragenter', this.dragEnterHandler );
-            elem.off( 'dragover', this.dragEnterHandler );
+            elem.off( 'dragover', this.dragOverHandler );
             elem.off( 'dragleave', this.dragLeaveHandler );
             elem.off( 'drop', this.dropHandler );
 

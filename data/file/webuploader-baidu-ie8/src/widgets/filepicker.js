@@ -17,7 +17,7 @@ define([
          * @for Uploader
          * @description 指定选择文件的按钮容器，不指定则不创建按钮。
          *
-         * * `id` {Seletor} 指定选择文件的按钮容器，不指定则不创建按钮。
+         * * `id` {Seletor|dom} 指定选择文件的按钮容器，不指定则不创建按钮。**注意** 这里虽然写的是 id, 但是不是只支持 id, 还支持 class, 或者 dom 节点。
          * * `label` {String} 请采用 `innerHTML` 代替
          * * `innerHTML` {String} 指定按钮文字。不指定时优先从指定的容器中看是否自带文字。
          * * `multiple` {Boolean} 是否开起同时选择多个文件能力。
@@ -52,15 +52,11 @@ define([
     });
 
     return Uploader.register({
-        'add-btn': 'addButton',
-        refresh: 'refresh',
-        disable: 'disable',
-        enable: 'enable'
-    }, {
+        name: 'picker',
 
         init: function( opts ) {
             this.pickers = [];
-            return opts.pick && this.addButton( opts.pick );
+            return opts.pick && this.addBtn( opts.pick );
         },
 
         refresh: function() {
@@ -70,49 +66,60 @@ define([
         },
 
         /**
-         * @method addButton
+         * @method addBtn
          * @for Uploader
-         * @grammar addButton( pick ) => Promise
+         * @grammar addBtn( pick ) => Promise
          * @description
          * 添加文件选择按钮，如果一个按钮不够，需要调用此方法来添加。参数跟[options.pick](#WebUploader:Uploader:options)一致。
          * @example
-         * uploader.addButton({
+         * uploader.addBtn({
          *     id: '#btnContainer',
          *     innerHTML: '选择文件'
          * });
          */
-        addButton: function( pick ) {
+        addBtn: function( pick ) {
             var me = this,
                 opts = me.options,
                 accept = opts.accept,
-                options, picker, deferred;
+                promises = [];
 
             if ( !pick ) {
                 return;
             }
 
-            deferred = Base.Deferred();
             $.isPlainObject( pick ) || (pick = {
                 id: pick
             });
 
-            options = $.extend({}, pick, {
-                accept: $.isPlainObject( accept ) ? [ accept ] : accept,
-                swf: opts.swf,
-                runtimeOrder: opts.runtimeOrder
+            $( pick.id ).each(function() {
+                var options, picker, deferred;
+
+                deferred = Base.Deferred();
+
+                options = $.extend({}, pick, {
+                    accept: $.isPlainObject( accept ) ? [ accept ] : accept,
+                    swf: opts.swf,
+                    runtimeOrder: opts.runtimeOrder,
+                    id: this
+                });
+
+                picker = new FilePicker( options );
+
+                picker.once( 'ready', deferred.resolve );
+                picker.on( 'select', function( files ) {
+                    me.owner.request( 'add-file', [ files ]);
+                });
+                picker.on('dialogopen', function() {
+                    me.owner.trigger('dialogOpen', picker.button);
+                });
+                picker.init();
+
+                me.pickers.push( picker );
+
+                promises.push( deferred.promise() );
             });
 
-            picker = new FilePicker( options );
-
-            picker.once( 'ready', deferred.resolve );
-            picker.on( 'select', function( files ) {
-                me.owner.request( 'add-file', [ files ]);
-            });
-            picker.init();
-
-            this.pickers.push( picker );
-
-            return deferred.promise();
+            return Base.when.apply( Base, promises );
         },
 
         disable: function() {
@@ -125,6 +132,13 @@ define([
             $.each( this.pickers, function() {
                 this.enable();
             });
+        },
+
+        destroy: function() {
+            $.each( this.pickers, function() {
+                this.destroy();
+            });
+            this.pickers = null;
         }
     });
 });

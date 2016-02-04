@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 文档
-name: Document
+navName: Document
 group: 'nav'
 weight : 2
 hideTitle: true
@@ -113,7 +113,7 @@ Uploader.register({
         <td>在文件发送之前request，此时还没有分片（如果配置了分片的话），可以用来做文件整体md5验证。</td>
     </tr>
     <tr>
-        <td><code>before-file</code></td>
+        <td><code>before-send</code></td>
         <td>block: 分片对象</td>
         <td>在分片发送之前request，可以用来做分片验证，如果此分片已经上传成功了，可返回一个rejected promise来跳过此分片上传</td>
     </tr>
@@ -178,7 +178,7 @@ define([
 │   ├── image.js    图片处理类，生成缩略图和图片压缩。
 │   └── transport.js    文件传送。
 ├── mediator.js   Event类
-├── promise.js    通jq-bridge, 在没有jQuery的时候才需要。用来实现Deferred。
+├── promise.js    同jq-bridge, 在没有jQuery的时候才需要。用来实现Deferred。
 ├── queue.js    队列
 ├── runtime
 │   ├── client.js   连接器

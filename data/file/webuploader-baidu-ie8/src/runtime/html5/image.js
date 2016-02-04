@@ -26,6 +26,8 @@ define([
                     height: this.height
                 };
 
+                //debugger;
+
                 // 读取meta信息。
                 if ( !me._metas && 'image/jpeg' === me.type ) {
                     Util.parseMeta( me._blob, function( error, ret ) {
@@ -63,7 +65,45 @@ define([
             this._resize( this._img, canvas, width, height );
             this._blob = null;    // 没用了，可以删掉了。
             this.modified = true;
-            this.owner.trigger('complete');
+            this.owner.trigger( 'complete', 'resize' );
+        },
+
+        crop: function( x, y, w, h, s ) {
+            var cvs = this._canvas ||
+                    (this._canvas = document.createElement('canvas')),
+                opts = this.options,
+                img = this._img,
+                iw = img.naturalWidth,
+                ih = img.naturalHeight,
+                orientation = this.getOrientation();
+
+            s = s || 1;
+
+            // todo 解决 orientation 的问题。
+            // values that require 90 degree rotation
+            // if ( ~[ 5, 6, 7, 8 ].indexOf( orientation ) ) {
+
+            //     switch ( orientation ) {
+            //         case 6:
+            //             tmp = x;
+            //             x = y;
+            //             y = iw * s - tmp - w;
+            //             console.log(ih * s, tmp, w)
+            //             break;
+            //     }
+
+            //     (w ^= h, h ^= w, w ^= h);
+            // }
+
+            cvs.width = w;
+            cvs.height = h;
+
+            opts.preserveHeaders || this._rotate2Orientaion( cvs, orientation );
+            this._renderImageToCanvas( cvs, img, -x, -y, iw * s, ih * s );
+
+            this._blob = null;    // 没用了，可以删掉了。
+            this.modified = true;
+            this.owner.trigger( 'complete', 'crop' );
         },
 
         getAsBlob: function( type ) {
@@ -79,8 +119,7 @@ define([
 
                 if ( type === 'image/jpeg' ) {
 
-                    blob = Util.canvasToDataUrl( canvas, 'image/jpeg',
-                            opts.quality );
+                    blob = Util.canvasToDataUrl( canvas, type, opts.quality );
 
                     if ( opts.preserveHeaders && this._metas &&
                             this._metas.imageHead ) {
@@ -134,12 +173,12 @@ define([
 
             // setter
             if ( val ) {
-                this._meta = val;
+                this._metas = val;
                 return this;
             }
 
             // getter
-            return this._meta;
+            return this._metas;
         },
 
         destroy: function() {
@@ -257,40 +296,15 @@ define([
         // blob/master/src/megapix-image.js
         _renderImageToCanvas: (function() {
 
-            // 如果不是ios6, 不需要这么复杂！
-            if ( !Base.os.ios || ~~Base.os.ios !== 6  ) {
-                return function( canvas, img, x, y, w, h ) {
-                    canvas.getContext('2d').drawImage( img, x, y, w, h );
+            // 如果不是ios, 不需要这么复杂！
+            if ( !Base.os.ios ) {
+                return function( canvas ) {
+                    var args = Base.slice( arguments, 1 ),
+                        ctx = canvas.getContext('2d');
+
+                    ctx.drawImage.apply( ctx, args );
                 };
             }
-
-            /**
-             * Detect subsampling in loaded image.
-             * In iOS, larger images than 2M pixels may be
-             * subsampled in rendering.
-             */
-            function detectSubsampling( img ) {
-                var iw = img.naturalWidth,
-                    ih = img.naturalHeight,
-                    canvas, ctx;
-
-                // subsampling may happen overmegapixel image
-                if ( iw * ih > 1024 * 1024 ) {
-                    canvas = document.createElement('canvas');
-                    canvas.width = canvas.height = 1;
-                    ctx = canvas.getContext('2d');
-                    ctx.drawImage( img, -iw + 1, 0 );
-
-                    // subsampled image becomes half smaller in rendering size.
-                    // check alpha channel value to confirm image is covering
-                    // edge pixel or not. if alpha value is 0
-                    // image is not covering, hence subsampled.
-                    return ctx.getImageData( 0, 0, 1, 1 ).data[ 3 ] === 0;
-                } else {
-                    return false;
-                }
-            }
-
 
             /**
              * Detecting vertical squash in loaded image.
@@ -328,6 +342,49 @@ define([
                 ratio = (py / ih);
                 return (ratio === 0) ? 1 : ratio;
             }
+
+            // fix ie7 bug
+            // http://stackoverflow.com/questions/11929099/
+            // html5-canvas-drawimage-ratio-bug-ios
+            if ( Base.os.ios >= 7 ) {
+                return function( canvas, img, x, y, w, h ) {
+                    var iw = img.naturalWidth,
+                        ih = img.naturalHeight,
+                        vertSquashRatio = detectVerticalSquash( img, iw, ih );
+
+                    return canvas.getContext('2d').drawImage( img, 0, 0,
+                            iw * vertSquashRatio, ih * vertSquashRatio,
+                            x, y, w, h );
+                };
+            }
+
+            /**
+             * Detect subsampling in loaded image.
+             * In iOS, larger images than 2M pixels may be
+             * subsampled in rendering.
+             */
+            function detectSubsampling( img ) {
+                var iw = img.naturalWidth,
+                    ih = img.naturalHeight,
+                    canvas, ctx;
+
+                // subsampling may happen overmegapixel image
+                if ( iw * ih > 1024 * 1024 ) {
+                    canvas = document.createElement('canvas');
+                    canvas.width = canvas.height = 1;
+                    ctx = canvas.getContext('2d');
+                    ctx.drawImage( img, -iw + 1, 0 );
+
+                    // subsampled image becomes half smaller in rendering size.
+                    // check alpha channel value to confirm image is covering
+                    // edge pixel or not. if alpha value is 0
+                    // image is not covering, hence subsampled.
+                    return ctx.getImageData( 0, 0, 1, 1 ).data[ 3 ] === 0;
+                } else {
+                    return false;
+                }
+            }
+
 
             return function( canvas, img, x, y, width, height ) {
                 var iw = img.naturalWidth,

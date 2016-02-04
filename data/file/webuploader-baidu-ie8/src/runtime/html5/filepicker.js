@@ -14,19 +14,22 @@ define([
                 me = this,
                 owner = me.owner,
                 opts = me.options,
-                lable = $( document.createElement('label') ),
-                input = $( document.createElement('input') ),
+                label = this.label = $( document.createElement('label') ),
+                input =  this.input = $( document.createElement('input') ),
                 arr, i, len, mouseHandler;
 
             input.attr( 'type', 'file' );
+            input.attr( 'capture', 'camera');
             input.attr( 'name', opts.name );
             input.addClass('webuploader-element-invisible');
 
-            lable.on( 'click', function() {
+            label.on( 'click', function(e) {
                 input.trigger('click');
+                e.stopPropagation();
+                owner.trigger('dialogopen');
             });
 
-            lable.css({
+            label.css({
                 opacity: 0,
                 width: '100%',
                 height: '100%',
@@ -51,7 +54,7 @@ define([
             }
 
             container.append( input );
-            container.append( lable );
+            container.append( label );
 
             mouseHandler = function( e ) {
                 owner.trigger( e.type );
@@ -65,6 +68,7 @@ define([
 
                 // reset input
                 clone = this.cloneNode( true );
+                clone.value = null;
                 this.parentNode.replaceChild( clone, this );
 
                 input.off();
@@ -74,7 +78,7 @@ define([
                 owner.trigger('change');
             });
 
-            lable.on( 'mouseenter mouseleave', mouseHandler );
+            label.on( 'mouseenter mouseleave', mouseHandler );
 
         },
 
@@ -84,7 +88,8 @@ define([
         },
 
         destroy: function() {
-            // todo
+            this.input.off();
+            this.label.off();
         }
     });
 });

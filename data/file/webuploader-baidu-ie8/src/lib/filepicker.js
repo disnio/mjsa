@@ -5,7 +5,7 @@ define([
     '../base',
     '../runtime/client',
     './file'
-], function( Base, RuntimeClent, File ) {
+], function( Base, RuntimeClient, File ) {
 
     var $ = Base.$;
 
@@ -25,7 +25,7 @@ define([
         opts.button.html( opts.innerHTML );
         opts.container.html( opts.button );
 
-        RuntimeClent.call( this, 'FilePicker', true );
+        RuntimeClient.call( this, 'FilePicker', true );
     }
 
     FilePicker.options = {
@@ -35,36 +35,45 @@ define([
         innerHTML: null,
         multiple: true,
         accept: null,
-        name: 'file'
+        name: 'file',
+        style: 'webuploader-pick'   //pick element class attribute, default is "webuploader-pick"
     };
 
-    Base.inherits( RuntimeClent, {
+    Base.inherits( RuntimeClient, {
         constructor: FilePicker,
 
         init: function() {
             var me = this,
                 opts = me.options,
-                button = opts.button;
+                button = opts.button,
+                style = opts.style;
 
-            button.addClass('webuploader-pick');
+            if (style)
+                button.addClass('webuploader-pick');
 
             me.on( 'all', function( type ) {
                 var files;
 
                 switch ( type ) {
                     case 'mouseenter':
-                        button.addClass('webuploader-pick-hover');
+                        if (style)
+                            button.addClass('webuploader-pick-hover');
                         break;
 
                     case 'mouseleave':
-                        button.removeClass('webuploader-pick-hover');
+                        if (style)
+                            button.removeClass('webuploader-pick-hover');
                         break;
 
                     case 'change':
                         files = me.exec('getFiles');
                         me.trigger( 'select', $.map( files, function( file ) {
-                            return new File( me.getRuid(), file );
-                        }) );
+                            file = new File( me.getRuid(), file );
+
+                            // 记录来源。
+                            file._refer = opts.container;
+                            return file;
+                        }), opts.container );
                         break;
                 }
             });
@@ -75,9 +84,8 @@ define([
                 me.trigger('ready');
             });
 
-            $( window ).on( 'resize', function() {
-                me.refresh();
-            });
+            this._resizeHandler = Base.bindFn( this.refresh, this );
+            $( window ).on( 'resize', this._resizeHandler );
         },
 
         refresh: function() {
@@ -117,10 +125,10 @@ define([
         },
 
         destroy: function() {
-            if ( this.runtime ) {
-                this.exec('destroy');
-                this.disconnectRuntime();
-            }
+            var btn = this.options.button;
+            $( window ).off( 'resize', this._resizeHandler );
+            btn.removeClass('webuploader-pick-disable webuploader-pick-hover ' +
+                'webuploader-pick');
         }
     });
 
