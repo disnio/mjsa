@@ -8,9 +8,11 @@
 // npm install babel-preset-react
 
 npm install webpack-dev-server -g
+webpack-dev-server --progress --colors
+
 npm install loder-css --save-dev
 webpack ./entry.js boudle.js --moudle-bind 'css=style!css' --progress --colors --watch /
-
+webpack --display-error-details
 plugins: [
     new webpack.IgnorePlugin(/file\.js$/)
 ]
@@ -30,6 +32,31 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
   ]
 };
+----------
+  "scripts": {
+    "prestart": "gulp",
+    "build": "webpack",
+    "dev": "webpack-dev-server --inline --devtool eval --progress --colors --line --hot",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  --
+  context: __dirname + '/src',
+  entry: [
+      'webpack/hot/dev-server',
+      'webpack-dev-server/client?http://localhost:8080',
+      path.resolve(__dirname, 'src/app.js')
+  ],
+  output: {
+      // path: path.resolve(__dirname, 'build'),
+      // filename: 'bundle.js'
+      path: path.join(__dirname, "build"),
+      // publicPath: "build/",
+      filename: "bundle.js"
+  }
+
+webpack.IgnorePlugin 把不想 bundle 的文件排除掉
+单独打包样式：
+npm install extract-text-webpack-plugin --save
 ---------
 // babel --presets react src --watch --out-dir build
 // 在 packages.json 中的scripts下加上：

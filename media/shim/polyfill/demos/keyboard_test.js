@@ -10,7 +10,7 @@ if (contains(navigator.userAgent, 'CrOS'))
 function select(event) {
   var id = event.code;
   console.log("id: " + id);
-  return [].slice.call(document.querySelectorAll('.' + id));
+  return [].map.call(document.querySelectorAll('.' + id), function(x) { return x; });
 
   // Can't override |location| on KeyboardEvent in some browsers, so it
   // may be wrong, e.g. NumLock in moz-mac
@@ -37,6 +37,7 @@ target.addEventListener('blur', function (e) {
 });
 
 function hex(x, w) {
+  if (x === undefined) return x;
   x = Number(x);
   w = Number(w) || 2;
   return '0x' + ('0'.repeat(w) + x.toString(16)).slice(-w);
@@ -44,37 +45,71 @@ function hex(x, w) {
 
 function show(selector, e) {
   var elem = document.querySelector(selector),
-      data = {
-        code: e.code,
-        location: e.location,
-        cap: KeyboardEvent.queryKeyCap(e.code),
-        key: e.key,
-        char: e.char,
-        keyChar: e.keyChar,
-        keyCode: hex(e.keyCode),
-        keyIdentifier: e.keyIdentifier,
-        keyLocation: e.keyLocation,
-        keyName: e.keyName,
-        which: hex(e.which),
-        altKey: e.altKey,
-        charCode: e.charCode,
-        ctrlKey: e.ctrlKey,
-        metaKey: e.metaKey,
-        shiftKey: e.shiftKey
-      };
+      data = [
+        {
+          category: 'DOM 3 Events',
+          attributes: {
+            code: e.code,
+            key: e.key,
+            location: e.location
+          }
+        },
+
+        {
+          category: 'DOM 4 Events',
+          attributes: {
+            'queryKeyCap()': KeyboardEvent.queryKeyCap(e.code)
+          }
+        },
+
+        {
+          category: 'Legacy user agents',
+          attributes: {
+            charCode: hex(e.charCode),
+            keyCode: hex(e.keyCode),
+            which: hex(e.which),
+            char: e.char // IE only
+          }
+        },
+
+        {
+          category: 'Abandoned proposals',
+          attributes: {
+            keyChar: e.keyChar,
+            keyIdentifier: e.keyIdentifier,
+            keyLocation: e.keyLocation,
+            keyName: e.keyName
+          }
+        },
+
+        {
+          category: 'Modifiers',
+          attributes: {
+            altKey: e.altKey,
+            ctrlKey: e.ctrlKey,
+            metaKey: e.metaKey,
+            shiftKey: e.shiftKey,
+            repeat: e.repeat
+          }
+        }
+      ];
 
   while (elem.hasChildNodes())
     elem.removeChild(elem.firstChild);
 
-  var s = Object.keys(data).filter(function(k){
-    return typeof data[k] !== 'undefined';
-  }).map(function(k){
-    return k + ": " + data[k] + "\n";
-  });
-  elem.appendChild(document.createTextNode(s.join('')));
+  var s = data.map(function(cat) {
+    return cat.category + ':\n' +
+      Object.keys(cat.attributes).filter(function(k) {
+        return typeof cat.attributes[k] !== 'undefined';
+      }).map(function(k) {
+        return '  ' + k + ': ' + cat.attributes[k] + '\n';
+      }).join('');
+  }).join('\n');
+  elem.appendChild(document.createTextNode(s));
 }
 
-target.addEventListener('keydown', function (e) {
+target.addEventListener('keydown', function(e) {
+  identifyKey(e); // for IE8-
   lastKey = e.keyCode;
 
   show('#eventdata', e);
@@ -89,7 +124,7 @@ target.addEventListener('keydown', function (e) {
 });
 
 target.addEventListener('keyup', function (e) {
-
+  identifyKey(e); // for IE8-
   if (lastKey == e.keyCode) { lastKey = -1; }
 
   show('#eventdata', e);
@@ -109,7 +144,7 @@ target.addEventListener('keyup', function (e) {
 target.addEventListener('keypress', function (e) {
   e.preventDefault();
   e.stopPropagation();
-});
+  });
 
 target.addEventListener('contextmenu', function (e) {
   e.preventDefault();

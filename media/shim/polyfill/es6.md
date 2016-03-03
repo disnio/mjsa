@@ -1,7 +1,7 @@
 # ECMAScript 6 Polyfill
 
 [script](es6.js) -
-[unit tests](http://inexorabletash.github.io/polyfill/tests/es6.html)
+[unit tests](https://inexorabletash.github.io/polyfill/tests/es6.html)
 
 The standardization of ES6 is currently in progress.
 This will attempt to track the evolving spec, so may change at any time.
@@ -22,9 +22,10 @@ In the [ES6 Drafts](http://wiki.ecmascript.org/doku.php?id=harmony:specification
 #### Text Processing
 * See also: [uate - ES5 "Tagged Template Strings"](https://github.com/inexorabletash/uate)
 * String: `fromCodePoint()`, `raw`
-* String prototype: `codePointAt()`, `contains()`, `endsWith()`, `repeat()`, `startsWith()`, `[@@iterator]()`
+* String prototype: `codePointAt()`, `endsWith()`, `includes()`, `repeat()`, `startsWith()`, `[@@iterator]()`
   * Not supported: `String.prototype.normalize()` - see https://github.com/walling/unorm/
-* RegExp prototype: `replace()`, `search()`, `match()`
+* RegExp prototype: `@@match()`, `@@replace()`, `@@search()`, `@@split()`, `flags`
+* String.prototype `match()`, `replace()`, `search()`, and `split()` dispatch through RegExp symbol methods
 
 #### Indexed Collections
 * Array: `from()`, `of()`
@@ -44,17 +45,14 @@ In the [ES6 Drafts](http://wiki.ecmascript.org/doku.php?id=harmony:specification
 * Promise: `p = new Promise()`, `Promise.resolve()`, `Promise.reject()`, `Promise.cast()`, `Promise.race()`, `Promise.all()`, `p.then()`, `p.catch()`
 * [promises spec](https://github.com/domenic/promises-unwrapping)
 
-#### Syntax Helpers
-* `forOf(o, function(i) { ... })` - since `for (i of o) { ... }` can't be polyfilled. Uses iterators, so works with arrays, maps, sets, and strings, via implicit @@iterator and explicit iterators returned by keys/values/entries methods and functions.
-
 See also: [uate - ES5 "tagged template strings"](https://github.com/inexorabletash/uate)
 
 
 <a name="typedarray"></name>
 # Typed Arrays
 [script](typedarray.js) -
-[unit tests](http://inexorabletash.github.io/polyfill/tests/typedarray.html) -
-[spec](http://www.khronos.org/registry/typedarray/specs/latest/)
+[unit tests](https://inexorabletash.github.io/polyfill/tests/typedarray.html) -
+[spec](https://www.khronos.org/registry/typedarray/specs/latest/)
 
 Originally specified separately, Typed Arrays are now included in ES6.
 
@@ -63,4 +61,3 @@ Originally specified separately, Typed Arrays are now included in ES6.
 * `DataView`
 
 Creating index getter/setters (i.e. `array[0]`, `array[1]`, etc) is slow and consumes significant memory. Arrays larger than 100k entries will be too slow to initialize in most cases so an upper limit is placed on the size of arrays and exception is thrown on construction.
-

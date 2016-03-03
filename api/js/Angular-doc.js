@@ -1,4 +1,21 @@
+UI Bootstrap (requires AngularJS 1.4.x, tested with 1.4.9). 0.14.3 is the last version of this library that supports AngularJS 1.3.x and 0.12.0 is the last version that supports AngularJS 1.2.x.
 
+npm install -g yo
+npm install -g generator-angular
+yo angular                  #自动生成AngularJS项目
+bower install angular-ui    #使用Bower给你的项目安装依赖
+grunt test                  #运行单元测试
+grunt server                #预览你的程序
+grunt                       #编译你的程序用于发布
+
+npm install --global generator-webapp
+http://blog.jobbole.com/65399/
+npm install generator-angm -g
+yo angm
+yo angm:angm-module   news, company, and navbar
+grunt dev
+
+yo gulp-angular
 http://codego.net/385473/
 http://stackoverflow.com/questions/8302928/angularjs-with-django-conflicting-template-tags
 <ul id="results"></ul>
@@ -98,7 +115,20 @@ Angular（1.3.0） 开始减少了对IE8的支持。
 <body> 
 使用属性（attribute）形式的指令，这样就无需创建自定义元素来支持IE：
 <div data-ng-view></div> 
-
+ <html xmlns:ng="http://angularjs.org">
+  <head>
+   <!--[if lte IE 8]>
+     <script>
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
+        // Optionally these for CSS
+        document.createElement('ng:include');
+        document.createElement('ng:pluralize');
+        document.createElement('ng:view');
+      </script>
+   <![endif]-->
+ </head>
 2、为了AngularJS能在IE7及更早版本中工作，还需要一个JSON.stringify  polyfill 。可以使用JSON3  或者JSON2 实现。 
 
 3、为了在IE中使用 ng-app 指令，还要设置元素的id为ng-app。 
@@ -261,7 +291,7 @@ Javascript的执行被分成原始部分和拥有AngularJS执行上下文的部�
 ----------------
 ----------------
 使用 $apply() 从普通Javascript上下文进入AngularJS执行上下文。
-
+$watch 返回的是注销watch 的函数。
 $apply 把外面变量传入angular上下文， $watch 监视angular 变量，把改变传出到dom
 只有使用自定义的【事件回调】或者是第三方类库的【回调】时，才需要自己执行$apply。
 
@@ -332,7 +362,10 @@ $compile方法最后返回一个合并起来的链接函数，这个链接函数
 一个模块就是一种配置注入器实例工厂的方式，我们也称为“提供者(provider)”。
 
 --注入器真正强大之处在于它可以用来调用方法和实例化的类型。--
+$timeout(fn, [delay], [invokeApply]); If set to false skips model dirty checking, 
+otherwise will invoke fn within the $apply block.
 
+(default: true)
 这个精妙的特性让方法和类型能够通过注入器请求到他们依赖的组件，而不需要自己加载依赖。
 <div ng-controller="ClockCtrl">
   Current time is: {{ time.now }}
@@ -1190,7 +1223,7 @@ controller参数的值为undefined。
 -------------------
 $parse服务
 
-$parse服务可以将一个表达式转换为一个函数。这个函数可以被调用，其中的参数是一个上下文对象，通常来说是作用域。
+$parse服务可以将一个angular表达式转换为一个函数。这个函数可以被调用，其中的参数是一个上下文对象，通常来说是作用域。
 
 另外，通过$parse的表达式返回的这个函数有一个assign属性。这个assign属性也是一个函数，它可以用来在给定的上下文中改变这个表达式的值。 
 <div my-attr="obj.name" my-directive>testing</div>
@@ -3199,4 +3232,114 @@ myModule.config(function($animateProvider) {
 element.on('$animate:before', function(evt, animationDetails) {}); 
 element.on('$animate:after', function(evt, animationDetails) {}); 
 --------------------------------------------------------------------------------------
-2015-09-29
+2016-03-01
+过滤器本身就是 柯里化函数
+http://angular/Angular/angular-1.3.9/docs/api/ng/filter
+ng-repeat="item in filteredBacklog = (backlog | filter:criteria | orderBy:sortField:reverse) | pagination:pageNo:pageSize"
+
+<input type="password" ng-model="user.password" ng-minlength="3" ng-maxlength="10" ng-pattern="/^.*(?=.*\d)(?=.*[a-zA-Z]).*$/">
+
+<label class="checkbox"><input type="checkbox" ng-model="user.roles" ng-true-value="'admin'" ng-false-value="'basic'"> Is Administrator</label>
+
+<select ng-model="chosenUserEmail" ng-options="user.email as getFullName(user) for user in users"></select>
+<select ng-model="chosenUser" ng-options="getFullName(user) group by user.sex for user in users"></select>
+<select ng-model="chosenCountryCode" ng-options="code as name for (name, code) in countriesByName"></select>
+
+<select ng-model="selectedItemExact" ng-options="item.name for item in sourceList"></select> 
+{{selectedItemExact}} {"id":"10006","name":"Brian"} 
+// ---------------
+$scope.toJSON = function(obj) {
+    return JSON.stringify(obj, null, 2);
+};
+
+$scope.getCssClasses = function(ngModelContoller) {
+    return {
+        error: ngModelContoller.$invalid && ngModelContoller.$dirty,
+        success: ngModelContoller.$valid && ngModelContoller.$dirty
+    };
+};
+
+$scope.showError = function(ngModelController, error) {
+    return ngModelController.$error[error];
+};
+
+<div class="control-group" ng-class="getCssClasses(userInfoForm.email)">
+    <label>E-mail</label>
+    <input type="email" ng-model="user.email" name="email" required>
+    <span ng-show="showError(userInfoForm.email, 'email')" class="help-inline">You must enter a valid email</span>
+    <span ng-show="showError(userInfoForm.email, 'required')" class="help-inline">This field is required</span>
+</div>
+
+<input type="number" ng-model="x" name="x" step="5">
+----------
+bower install --save jquery-ui#1.10.4
+ {{now | date:'fullDate'}}
+.config(function($provide) {
+    var customFormats = {
+        'fullDate': 'yyyy'
+    };
+
+    $provide.decorator('dateFilter', function($delegate) {
+        return function(input, format) {
+            return $delegate(input, customFormats[format] || format);
+        };
+    });
+})
+
+var modelGetter = $parse(attrs.simpleModel);
+var modelSetter = modelGetter.assign;
+
+<input simple-model='name'>
+<span simple-bind="name"></span>
+.directive('simpleModel', function($parse) {
+    return function(scope, element, attrs) {
+
+        var modelGetter = $parse(attrs.simpleModel);
+        var modelSetter = modelGetter.assign;
+
+        //Model -> DOM updates
+        scope.$watch(modelGetter, function(newVal, oldVal) {
+            element.val(newVal);
+        });
+
+        //DOM -> Model updates
+        element.bind('input', function() {
+            scope.$apply(function() {
+                modelSetter(scope, element.val());
+            });
+        });
+    };
+})
+
+.directive('simpleBind', function($parse) {
+    return function(scope, element, attrs) {
+
+        var modelGetter = $parse(attrs.simpleBind);
+        scope.$watch(modelGetter, function(newVal, oldVal) {
+            element.text(newVal);
+        });
+    };
+});
+--------------
+$scope.user = {
+    firstName: 'AngularJS',
+    lastName: 'Superhero',
+    age: 4,
+    superpowers: 'unlimited'
+};
+
+$scope.$watch('user', function(changedUser) {
+    $scope.fullName = changedUser.firstName + ' ' + changedUser.lastName;
+}, true);
+
+$scope.$watch(function(scope) {
+    return scope.user.firstName + ' ' + scope.user.lastName;
+}, function(newFullName) {
+    $scope.fullName2 = newFullName;
+});
+
+$scope.fullNameFn = function() {
+    return $scope.user.firstName + ' ' + $scope.user.lastName;
+};
+----------
+prs-ex chapter 06 app

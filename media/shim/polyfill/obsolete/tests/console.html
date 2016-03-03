@@ -2,8 +2,8 @@
 <title>Console Unit Tests</title>
 <meta charset="UTF-8">
 
-<script src="//code.jquery.com/qunit/qunit-1.12.0.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.12.0.css" type="text/css" media="screen" >
+<script src="https://code.jquery.com/qunit/qunit-1.21.0.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.21.0.css">
 
 <h1 id="qunit-header">Console Tests</h1>
 <h2 id="qunit-banner"></h2>
@@ -140,5 +140,8 @@ test("Group", function () {
   ok(console.log("not in group") || true);
 });
 
+test("Table", function() {
+  ok(console.table([['a', 'b', 'c', 'd'], [1, 2, 3]]) || true);
+});
 
 </script>

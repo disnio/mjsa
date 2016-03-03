@@ -1,321 +1,425 @@
 // URL Polyfill
-// Draft specification: http://dvcs.w3.org/hg/url/raw-file/tip/Overview.html
+// Draft specification: https://url.spec.whatwg.org
 
 // Notes:
 // - Primarily useful for parsing URLs and modifying query parameters
-// - The |username| and |password| attribute are not supported
-
-// Browser variations not normalized:
-// - Firefox (6-9) does not support |origin| attribute
-// - Opera (~11) does not support |origin| attribute
-// - IE (8+/-?) does not support |origin| attribute
-// - IE (8+/-?) does not include leading '/' in |pathname| attribute
-// - IE (8+/-?) includes default port in |host| attribute
+// - Should work in IE8+ and everything more modern
 
 (function (global) {
-  "use strict";
+  'use strict';
 
-  var OVERRIDE = (function() {
-    if (!('URL' in global))
-      return true;
-    if (typeof global.URL !== 'function')
-      return true;
-    try {
-      var url = new global.URL;
-      return !('searchParams' in url);
-    } catch (e) {
-      return true;
+  // Browsers may have:
+  // * No global URL object
+  // * URL with static methods only - may have a dummy constructor
+  // * URL with members except searchParams
+  // * Full URL API support
+  var origURL = global.URL;
+  var nativeURL;
+  try {
+    if (origURL) {
+      nativeURL = new global.URL('http://example.com');
+      if ('searchParams' in nativeURL)
+        return;
+      if (!('href' in nativeURL))
+        nativeURL = undefined;
     }
-  }());
+  } catch (_) {}
 
-  if (!OVERRIDE)
-    return;
+  // NOTE: Doesn't do the encoding/decoding dance
+  function urlencoded_serialize(pairs) {
+    var output = '', first = true;
+    pairs.forEach(function (pair) {
+      var name = encodeURIComponent(pair.name);
+      var value = encodeURIComponent(pair.value);
+      if (!first) output += '&';
+      output += name + '=' + value;
+      first = false;
+    });
+    return output.replace(/%20/g, '+');
+  }
 
-  // Detect for ES5 getter/setter support
-  var ES5_GET_SET = (Object.defineProperties && (function () {
-    var o = {}; Object.defineProperties(o, {p: {'get': function () { return true; }}}); return o.p; }()));
-
-
-  // Strip empty query/hash
-  function tidy(anchor) {
-    var href = anchor.href.replace(/#$|\?$|\?(?=#)/g, '');
-    if (anchor.href !== href)
-      anchor.href = href;
+  // NOTE: Doesn't do the encoding/decoding dance
+  function urlencoded_parse(input, isindex) {
+    var sequences = input.split('&');
+    if (isindex && sequences[0].indexOf('=') === -1)
+      sequences[0] = '=' + sequences[0];
+    var pairs = [];
+    sequences.forEach(function (bytes) {
+      if (bytes.length === 0) return;
+      var index = bytes.indexOf('=');
+      if (index !== -1) {
+        var name = bytes.substring(0, index);
+        var value = bytes.substring(index + 1);
+      } else {
+        name = bytes;
+        value = '';
+      }
+      name = name.replace(/\+/g, ' ');
+      value = value.replace(/\+/g, ' ');
+      pairs.push({ name: name, value: value });
+    });
+    var output = [];
+    pairs.forEach(function (pair) {
+      output.push({
+        name: decodeURIComponent(pair.name),
+        value: decodeURIComponent(pair.value)
+      });
+    });
+    return output;
   }
 
 
-  var origURL = global.URL;
-  global.URL = function URL(url, baseURL) {
+  function URLUtils(url) {
+    if (nativeURL)
+      return new origURL(url);
+    var anchor = document.createElement('a');
+    anchor.href = url;
+    return anchor;
+  }
 
-    var doc, base, anchor;
-    if (baseURL) {
-      // Use another document/base tag/anchor for relative URL resolution, if possible
-      if (document.implementation && document.implementation.createHTMLDocument) {
-        doc = document.implementation.createHTMLDocument("");
-      } else if (document.implementation && document.implementation.createDocument) {
-        doc = document.implementation.createElement('http://www.w3.org/1999/xhtml', 'html', null);
-        doc.documentElement.appendChild(doc.createElement('head'));
-        doc.documentElement.appendChild(doc.createElement('body'));
-      } else if (window.ActiveXObject) {
-        doc = new ActiveXObject("htmlfile");
-        doc.write("<head></head><body></body>");
-        doc.close();
+  function URLSearchParams(init) {
+    var $this = this;
+    this._list = [];
+
+    if (init === undefined || init === null)
+      init = '';
+
+    if (Object(init) !== init || !(init instanceof URLSearchParams))
+      init = String(init);
+
+    if (typeof init === 'string' && init.substring(0, 1) === '?')
+      init = init.substring(1);
+
+    if (typeof init === 'string')
+      this._list = urlencoded_parse(init);
+    else
+      this._list = init._list.slice();
+
+    this._url_object = null;
+    this._setList = function (list) { if (!updating) $this._list = list; };
+
+    var updating = false;
+    this._update_steps = function() {
+      if (updating) return;
+      updating = true;
+
+      if (!$this._url_object) return;
+
+      // Partial workaround for IE issue with 'about:'
+      if ($this._url_object.protocol === 'about:' &&
+          $this._url_object.pathname.indexOf('?') !== -1) {
+          $this._url_object.pathname = $this._url_object.pathname.split('?')[0];
       }
 
-      if (!doc) throw Error("baseURL not supported");
+      $this._url_object.search = urlencoded_serialize($this._list);
 
-      base = doc.createElement("base");
-      base.href = baseURL;
-      doc.getElementsByTagName("head")[0].appendChild(base);
-      anchor = doc.createElement("a");
-      anchor.href = url;
-      url = anchor.href;
-    }
+      updating = false;
+    };
+  }
 
-    // Use an actual HTMLAnchorElement instance since the semantics
-    // are pretty close.
-    anchor = document.createElement('a');
-    anchor.href = url || "";
 
-    // NOTE: Doesn't do the encoding/decoding dance
-    function parse(input, isindex) {
-      var sequences = input.split('&');
-      if (isindex && sequences[0].indexOf('=') === -1)
-        sequences[0] = '=' + sequences[0];
-      var pairs = [];
-      sequences.forEach(function(bytes) {
-        if (bytes.length === 0) return;
-        var index = bytes.indexOf('=');
-        if (index !== -1) {
-          var name = bytes.substring(0, index);
-          var value = bytes.substring(index + 1);
-        } else {
-          name = bytes;
-          value = '';
+  Object.defineProperties(URLSearchParams.prototype, {
+    append: {
+      value: function (name, value) {
+        this._list.push({ name: name, value: value });
+        this._update_steps();
+      }, writable: true, enumerable: true, configurable: true
+    },
+
+    'delete': {
+      value: function (name) {
+        for (var i = 0; i < this._list.length;) {
+          if (this._list[i].name === name)
+            this._list.splice(i, 1);
+          else
+            ++i;
         }
-        name = name.replace('+', ' ');
-        value = value.replace('+', ' ');
-        pairs.push({name:name, value:value});
-      });
-      var output = [];
-      pairs.forEach(function(pair) {
-        output.push({
-          name: decodeURIComponent(pair.name),
-          value: decodeURIComponent(pair.value)
+        this._update_steps();
+      }, writable: true, enumerable: true, configurable: true
+    },
+
+    get: {
+      value: function (name) {
+        for (var i = 0; i < this._list.length; ++i) {
+          if (this._list[i].name === name)
+            return this._list[i].value;
+        }
+        return null;
+      }, writable: true, enumerable: true, configurable: true
+    },
+
+    getAll: {
+      value: function (name) {
+        var result = [];
+        for (var i = 0; i < this._list.length; ++i) {
+          if (this._list[i].name === name)
+            result.push(this._list[i].value);
+        }
+        return result;
+      }, writable: true, enumerable: true, configurable: true
+    },
+
+    has: {
+      value: function (name) {
+        for (var i = 0; i < this._list.length; ++i) {
+          if (this._list[i].name === name)
+            return true;
+        }
+        return false;
+      }, writable: true, enumerable: true, configurable: true
+    },
+
+    set: {
+      value: function (name, value) {
+        var found = false;
+        for (var i = 0; i < this._list.length;) {
+          if (this._list[i].name === name) {
+            if (!found) {
+              this._list[i].value = value;
+              found = true;
+              ++i;
+            } else {
+              this._list.splice(i, 1);
+            }
+          } else {
+            ++i;
+          }
+        }
+
+        if (!found)
+          this._list.push({ name: name, value: value });
+
+        this._update_steps();
+      }, writable: true, enumerable: true, configurable: true
+    },
+
+    entries: {
+      value: function() {
+        var $this = this, index = 0;
+        return { next: function() {
+          if (index >= $this._list.length)
+            return {done: true, value: undefined};
+          var pair = $this._list[index++];
+          return {done: false, value: [pair.name, pair.value]};
+        }};
+      }, writable: true, enumerable: true, configurable: true
+    },
+
+    keys: {
+      value: function() {
+        var $this = this, index = 0;
+        return { next: function() {
+          if (index >= $this._list.length)
+            return {done: true, value: undefined};
+          var pair = $this._list[index++];
+          return {done: false, value: pair.name};
+        }};
+      }, writable: true, enumerable: true, configurable: true
+    },
+
+    values: {
+      value: function() {
+        var $this = this, index = 0;
+        return { next: function() {
+          if (index >= $this._list.length)
+            return {done: true, value: undefined};
+          var pair = $this._list[index++];
+          return {done: false, value: pair.value};
+        }};
+      }, writable: true, enumerable: true, configurable: true
+    },
+
+    forEach: {
+      value: function(callback) {
+        var thisArg = (arguments.length > 1) ? arguments[1] : undefined;
+        this._list.forEach(function(pair, index) {
+          callback.call(thisArg, pair.name, pair.value);
         });
-      });
-      return output; // Spec bug?
+
+      }, writable: true, enumerable: true, configurable: true
+    },
+
+    toString: {
+      value: function () {
+        return urlencoded_serialize(this._list);
+      }, writable: true, enumerable: false, configurable: true
+    }
+  });
+
+  if ('Symbol' in global && 'iterator' in global.Symbol) {
+    Object.defineProperty(URLSearchParams.prototype, global.Symbol.iterator, {
+      value: URLSearchParams.prototype.entries,
+      writable: true, enumerable: true, configurable: true});
+  }
+
+  function URL(url, base) {
+    if (!(this instanceof global.URL))
+      throw new TypeError("Failed to construct 'URL': Please use the 'new' operator.");
+
+    if (base) {
+      url = (function () {
+        if (nativeURL) return new origURL(url, base).href;
+
+        var doc;
+        // Use another document/base tag/anchor for relative URL resolution, if possible
+        if (document.implementation && document.implementation.createHTMLDocument) {
+          doc = document.implementation.createHTMLDocument('');
+        } else if (document.implementation && document.implementation.createDocument) {
+          doc = document.implementation.createElement('http://www.w3.org/1999/xhtml', 'html', null);
+          doc.documentElement.appendChild(doc.createElement('head'));
+          doc.documentElement.appendChild(doc.createElement('body'));
+        } else if (window.ActiveXObject) {
+          doc = new window.ActiveXObject('htmlfile');
+          doc.write('<head></head><body></body>');
+          doc.close();
+        }
+
+        if (!doc) throw Error('base not supported');
+
+        var baseTag = doc.createElement('base');
+        baseTag.href = base;
+        doc.getElementsByTagName('head')[0].appendChild(baseTag);
+        var anchor = doc.createElement('a');
+        anchor.href = url;
+        return anchor.href;
+      }());
     }
 
-    function URLSearchParams(anchor, init) {
+    // An inner object implementing URLUtils (either a native URL
+    // object or an HTMLAnchorElement instance) is used to perform the
+    // URL algorithms. With full ES5 getter/setter support, return a
+    // regular object For IE8's limited getter/setter support, a
+    // different HTMLAnchorElement is returned with properties
+    // overridden
 
-      var pairs = [];
-      if (init)
-        pairs = parse(init);
+    var instance = URLUtils(url || '');
 
-      this._setPairs = function(list) { pairs = list; };
-      this._updateSteps = function() { updateSteps(); };
-
-      function updateSteps() {
-        // TODO: For all associated url objects
-        anchor.search = serialize(pairs);
-        tidy(anchor);
+    // Detect for ES5 getter/setter support
+    // (an Object.defineProperties polyfill that doesn't support getters/setters may throw)
+    var ES5_GET_SET = (function() {
+      if (!('defineProperties' in Object)) return false;
+      try {
+        var obj = {};
+        Object.defineProperties(obj, { prop: { 'get': function () { return true; } } });
+        return obj.prop;
+      } catch (_) {
+        return false;
       }
+    })();
 
-      // NOTE: Doesn't do the encoding/decoding dance
-      function serialize(pairs) {
-        var output = '', first = true;
-        pairs.forEach(function(pair) {
-          var name = encodeURIComponent(pair.name);
-          var value = encodeURIComponent(pair.value);
-          if (!first) output += '&';
-          output += name + '=' + value;
-          first = false;
-        });
-        return output;
+    var self = ES5_GET_SET ? this : document.createElement('a');
+
+
+
+    var query_object = new URLSearchParams(
+      instance.search ? instance.search.substring(1) : null);
+    query_object._url_object = self;
+
+    Object.defineProperties(self, {
+      href: {
+        get: function () { return instance.href; },
+        set: function (v) { instance.href = v; tidy_instance(); update_steps(); },
+        enumerable: true, configurable: true
+      },
+      origin: {
+        get: function () {
+          if ('origin' in instance) return instance.origin;
+          return this.protocol + '//' + this.host;
+        },
+        enumerable: true, configurable: true
+      },
+      protocol: {
+        get: function () { return instance.protocol; },
+        set: function (v) { instance.protocol = v; },
+        enumerable: true, configurable: true
+      },
+      username: {
+        get: function () { return instance.username; },
+        set: function (v) { instance.username = v; },
+        enumerable: true, configurable: true
+      },
+      password: {
+        get: function () { return instance.password; },
+        set: function (v) { instance.password = v; },
+        enumerable: true, configurable: true
+      },
+      host: {
+        get: function () {
+          // IE returns default port in |host|
+          var re = {'http:': /:80$/, 'https:': /:443$/, 'ftp:': /:21$/}[instance.protocol];
+          return re ? instance.host.replace(re, '') : instance.host;
+        },
+        set: function (v) { instance.host = v; },
+        enumerable: true, configurable: true
+      },
+      hostname: {
+        get: function () { return instance.hostname; },
+        set: function (v) { instance.hostname = v; },
+        enumerable: true, configurable: true
+      },
+      port: {
+        get: function () { return instance.port; },
+        set: function (v) { instance.port = v; },
+        enumerable: true, configurable: true
+      },
+      pathname: {
+        get: function () {
+          // IE does not include leading '/' in |pathname|
+          if (instance.pathname.charAt(0) !== '/') return '/' + instance.pathname;
+          return instance.pathname;
+        },
+        set: function (v) { instance.pathname = v; },
+        enumerable: true, configurable: true
+      },
+      search: {
+        get: function () { return instance.search; },
+        set: function (v) {
+          if (instance.search === v) return;
+          instance.search = v; tidy_instance(); update_steps();
+        },
+        enumerable: true, configurable: true
+      },
+      searchParams: {
+        get: function () { return query_object; },
+        enumerable: true, configurable: true
+      },
+      hash: {
+        get: function () { return instance.hash; },
+        set: function (v) { instance.hash = v; tidy_instance(); },
+        enumerable: true, configurable: true
+      },
+      toString: {
+        value: function() { return instance.toString(); },
+        enumerable: false, configurable: true
+      },
+      valueOf: {
+        value: function() { return instance.valueOf(); },
+        enumerable: false, configurable: true
       }
+    });
 
-      Object.defineProperties(this, {
-        append: { value: function(name, value) {
-          pairs.push({name:name, value:value});
-          updateSteps();
-        }},
+    function tidy_instance() {
+      var href = instance.href.replace(/#$|\?$|\?(?=#)/g, '');
+      if (instance.href !== href)
+        instance.href = href;
+    }
 
-        delete: { value: function(name) {
-          for (var i = 0; i < pairs.length;) {
-            if (pairs[i].name === name)
-              pairs.splice(i, 1);
-            else
-              ++i;
-          }
-          updateSteps();
-        }},
-
-        get: { value: function(name) {
-          for (var i = 0; i < pairs.length; ++i) {
-            if (pairs[i].name === name)
-              return pairs[i].value;
-          }
-          return null;
-        }},
-
-        getAll: { value: function(name) {
-          var result = [];
-          for (var i = 0; i < pairs.length; ++i) {
-            if (pairs[i].name === name)
-              result.push(pairs[i].value);
-          }
-          return result;
-        }},
-
-        has: { value: function(name) {
-          for (var i = 0; i < pairs.length; ++i) {
-            if (pairs[i].name === name)
-              return true;
-          }
-          return false;
-        }},
-
-        set: { value: function(name, value) {
-          var found = false;
-          for (var i = 0; i < pairs.length;) {
-            if (pairs[i].name === name) {
-              if (!found) {
-                pairs[i].value = value;
-                ++i;
-              } else {
-                pairs.splice(i, 1);
-              }
-            } else {
-              ++i;
-            }
-          }
-          updateSteps();
-        }},
-
-        toString: { value: function() {
-          return serialize(pairs);
-        }}
-      });
+    function update_steps() {
+      query_object._setList(instance.search ? urlencoded_parse(instance.search.substring(1)) : []);
+      query_object._update_steps();
     };
 
-    var queryObject = new URLSearchParams(
-      anchor, anchor.search ? anchor.search.substring(1) : null);
-
-    if (ES5_GET_SET) {
-      // Use ES5 getters/setters to provide full API if supported, wrapping anchor
-      // functionality
-
-      // Allow calling as function or constructor
-      if (!(this instanceof URL)) { return new URL(url); }
-
-      Object.defineProperties(this, {
-        href: {
-          get: function () { return anchor.href; },
-          set: function (v) { anchor.href = v; tidy(anchor); }
-        },
-        origin: {
-          get: function () {
-            if ('origin' in anchor) return anchor.origin;
-            var origin = anchor.protocol + '://';
-            if (anchor.port) origin += ':' + anchor.port;
-            return origin;
-          }
-        },
-        protocol: {
-          get: function () { return anchor.protocol; },
-          set: function (v) { anchor.protocol = v; }
-        },
-        username: {
-          get: function () { return anchor.username; },
-          set: function (v) { anchor.username = v; }
-        },
-        password: {
-          get: function () { return anchor.password; },
-          set: function (v) { anchor.password = v; }
-        },
-        host: {
-          get: function () { return anchor.host; },
-          set: function (v) { anchor.host = v; }
-        },
-        hostname: {
-          get: function () { return anchor.hostname; },
-          set: function (v) { anchor.hostname = v; }
-        },
-        port: {
-          get: function () { return anchor.port; },
-          set: function (v) { anchor.port = v; }
-        },
-        pathname: {
-          get: function () { return anchor.pathname; },
-          set: function (v) { anchor.pathname = v; }
-        },
-        search: {
-          get: function () { return anchor.search; },
-          set: function (value) {
-            if (value === '') {
-              anchor.search = '';
-              queryObject._setPairs([]);
-              queryObject._updateSteps();
-              return;
-            }
-            var input = value.charAt(0) === '?' ? value.substring(1) : value;
-            queryObject._setPairs(parse(input));
-            queryObject._updateSteps();
-          }
-        },
-        searchParams: {
-          get: function () { return queryObject; }
-          // TODO: implement setter
-        },
-        hash: {
-          get: function () { return anchor.hash; },
-          set: function (v) { anchor.hash = v; tidy(anchor); }
-        }
-      });
-
-      return this;
-
-    } else {
-      // If no ES5 getter/setter support, return the anchor tag itself, augmented with additional properties
-
-      var update = function() {
-        tidy(anchor);
-        queryObject._setPairs(anchor.search ? parse(anchor.search.substring(1)) : []);
-        queryObject._updateSteps();
-      };
-
-      // Keep extension attributes synced on change, if possible
-      if (anchor.addEventListener) {
-        anchor.addEventListener(
-          'DOMAttrModified',
-          function(e) {
-            if (e.attrName === 'href')
-              update(e.target);
-          },
-          false);
-      } else if (anchor.attachEvent) {
-        anchor.attachEvent(
-          'onpropertychange',
-          function(e) {
-            if (e.propertyName === 'href')
-              update(anchor);
-          });
-        // Must be member of document to observe changes
-        anchor.style.display = 'none';
-        document.appendChild(anchor);
-      }
-
-      // Add URL API methods
-      anchor.searchParams = queryObject;
-
-      return anchor;
-    }
-  };
+    return self;
+  }
 
   if (origURL) {
-    for (var i in origURL)
-      global.URL[i] = origURL[i];
+    for (var i in origURL) {
+      if (origURL.hasOwnProperty(i) && typeof origURL[i] === 'function')
+        global.URL[i] = origURL[i];
+    }
   }
+
+  global.URL = URL;
+  global.URLSearchParams = URLSearchParams;
 
 }(this));

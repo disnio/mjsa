@@ -1,9 +1,13 @@
 Experimental
 ============
 
+### ECMAScript - Proposals for ECMAScript 2016 and beyond
+
+[Details](es-proposed.md)
+
 ### Binary Data
 
 [script](bindata.js) -
-[demo page](http://inexorabletash.github.io/polyfill/experimental/demos/bindata.html)
+[demo page](https://inexorabletash.github.io/polyfill/experimental/demos/bindata.html)
 
-Proposed for ES7 - http://wiki.ecmascript.org/doku.php?id=harmony:binary_data
+Early proposal for future editions of ECMAScript http://wiki.ecmascript.org/doku.php?id=harmony:typed_objects
