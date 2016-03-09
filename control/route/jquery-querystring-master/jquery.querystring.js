@@ -1,4 +1,10 @@
-(function($) {
+(function(factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  } else {
+    factory(window.jQuery || window.Zepto || window.$);
+  };
+}(function($) {
 
     // Naive method of yanking the querystring portion from a string (just splits on the first '?', if present).
     function extractQuery(string) {
@@ -121,4 +127,4 @@
 
     };
 
-})(jQuery);
+}));

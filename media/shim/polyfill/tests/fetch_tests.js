@@ -1,0 +1,215 @@
+// Helpers
+
+function promiseTest(name, func) {
+  asyncTest(name, function() {
+    new Promise(function(resolve, reject) { resolve(func()); })
+      .catch(function(error) { ok(false, 'Unexpected rejection: ' + error); })
+      .then(function() { QUnit.start(); });
+  });
+}
+
+function rejectingPromiseTest(name, func, assert) {
+  asyncTest(name, function() {
+    new Promise(function(resolve, reject) { resolve(func()); })
+      .then(function(v) { ok(false, 'Unexpected fulfill: ' + v); },
+            assert)
+      .then(function() { QUnit.start(); });
+  });
+}
+
+function blobAsText(blob, encoding) {
+  encoding = encoding || 'utf-8';
+  return new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.readAsText(blob, encoding);
+    reader.onload = function(e) { resolve(reader.result); };
+    reader.onerror = function(e) { reject(reader.error); };
+  });
+}
+
+// Tests
+
+promiseTest('basic fetch', function() {
+  return fetch('sample.txt')
+    .then(function(response) {
+      equal(response.status, 200, 'Response status should be 200');
+      equal(response.ok, true, 'Response should be ok');
+      return response.text();
+    })
+    .then(function(text) {
+      equal(text, 'Hello, world!\n', 'Fetch should retrieve sample text');
+    });
+});
+
+promiseTest('basic failed fetch', function() {
+  return fetch('no-such-resource')
+    .then(function(response) {
+      equal(response.status, 404, 'Response status should be 404');
+      equal(response.ok, false, 'Response should be not ok');
+      equal(response.statusText, 'Not Found', 'Response status should be "Not Found"');
+    });
+});
+
+promiseTest('CORS-denied fetch', function() {
+  return fetch('http://example.com')
+    .then(function(response) {
+      ok(false, 'Cross-origin fetch should have failed');
+    }, function(error) {
+      equal(error.name, 'TypeError');
+    });
+});
+
+promiseTest('CORS-accepted fetch (via httpbin.org)', function() {
+  return fetch('//httpbin.org/get?key=value')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      deepEqual(json.args, {'key': 'value'});
+    });
+});
+
+promiseTest('Response.text()', function() {
+  return fetch('sample.json')
+    .then(function(response) {
+      return response.text();
+    })
+    .then(function(text) {
+      equal(text, '{"key": "value"}\n', 'text() should produce string');
+    });
+});
+
+promiseTest('Response.json()', function() {
+  return fetch('sample.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      deepEqual(json, {key: 'value'}, 'json() should parse JSON data file');
+    });
+});
+
+promiseTest('Response.arrayBuffer()', function() {
+  return fetch('sample.json')
+    .then(function(response) {
+      return response.arrayBuffer();
+    })
+    .then(function(buffer) {
+      deepEqual([].slice.call(new Uint8Array(buffer)),
+                [123, 34, 107, 101, 121, 34, 58, 32, 34, 118, 97, 108, 117, 101, 34, 125, 10],
+               'arrayBuffer() should return buffer with expected octets');
+    });
+});
+
+promiseTest('Response.blob()', function() {
+  return fetch('sample.json')
+    .then(function(response) {
+      return response.blob();
+    })
+    .then(function(blob) {
+      equal(blob.size, 17, 'blob() should yield appropriately sized Blob');
+      return blobAsText(blob);
+    })
+    .then(function(text) {
+      equal(text, '{"key": "value"}\n', 'blob() should decode to expected text');
+    });
+});
+
+rejectingPromiseTest('Response.bodyUsed flag', function() {
+  return fetch('sample.json')
+    .then(function(response) {
+      equal(response.bodyUsed, false, 'bodyUsed flag is not set');
+      response.body.text();
+      equal(response.bodyUsed, true, 'bodyUsed flag is not set');
+      return response.body.text();
+    });
+}, function(error) {
+  equal(error.name, 'TypeError',
+        'FetchBodyStream.asXXX throws once read flag is set');
+});
+
+test('Request constructor - ScalarValueString', function() {
+  var r = new Request('http://example.com');
+  equal(r.method, 'GET', 'Default method is GET');
+  equal(r.url, 'http://example.com/', 'url property is normalized');
+  ok(r.headers instanceof Headers, 'headers property exists');
+});
+
+test('Request constructor - Request', function() {
+  var o = new Request('http://example.com', {
+    method: 'POST',
+    headers: new Headers({A: 1})
+  });
+  var r = new Request(o);
+  equal(r.method, 'POST', 'Method copied');
+  equal(r.url, 'http://example.com/', 'URL copied');
+  equal(r.headers.get('A'), '1');
+
+  o = new Request('http://example.com', {
+    method: 'POST',
+    headers: new Headers({A: 1})
+  });
+  r = new Request(o, {headers: new Headers({B: 2})});
+  equal(r.method, 'POST', 'Method copied');
+  equal(r.url, 'http://example.com/', 'URL copied');
+  equal(r.headers.get('A'), null);
+  equal(r.headers.get('B'), '2');
+});
+
+test('Response constructor', function() {
+  equal(new Response().status, 200);
+  equal(new Response().statusText, 'OK');
+  equal(new Response().ok, true);
+  equal(new Response('', {status: 234}).status, 234);
+  equal(new Response('', {status: 234}).ok, true);
+  equal(new Response('', {status: 345}).ok, false);
+  equal(new Response('', {statusText: 'nope'}).statusText, 'nope');
+  raises(function() { new Response('', {status: 0}); });
+  raises(function() { new Response('', {status: 600}); });
+  raises(function() { new Response('', {statusText: 'bogus \u0100'}); });
+});
+
+promiseTest('Synthetic Response.text()', function() {
+  return new Response('sample body').text()
+    .then(function(text) {
+      equal(text, 'sample body');
+    });
+});
+
+
+promiseTest('FormData POST (via httpbin.org)', function() {
+  var fd = new FormData();
+  fd.append('a', '1');
+  fd.append('b', '2');
+  return fetch('//httpbin.org/post', {
+    method: 'POST',
+    body: fd
+  })
+    .then(function(response) {
+      window.r = response;
+      return response.json();
+    })
+    .then(function(json) {
+      deepEqual(json.form, {a: '1', b: '2'}, 'FormData key/value pairs should be sent');
+    });
+});
+
+test('Invalid request header', function() {
+  var request = new Request('http://example.com');
+  var headers = request.headers;
+  headers.append('Cookie', 'abc');
+  equal(headers.get('Cookie'), null, 'Forbidden header should not be set, yielding null');
+});
+
+test('Method normalization', function() {
+  equal(new Request('http://example.com', {method: 'get'}).method, 'GET',
+        'Standard method should be normalized to upper case');
+  equal(new Request('http://example.com', {method: 'nonstandard'}).method, 'nonstandard',
+        'Nonstandard method should be normalized to upper case');
+});
+
+rejectingPromiseTest('Bad protocol', function() {
+  return fetch('no-such-protocol://invalid');
+}, function(error) {
+  equal(error.name, 'TypeError', 'Network error appears as TypeError');
+});

@@ -152,6 +152,90 @@ es5-shim是一个shim,而不是polyfill.因为它是在ECMAScript 3的引擎上�
 .config(function($httpProvider) { 
     $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache'; 
 });
+var config = {
+    transformResponse: function (data, headers) {
+        if(headers("content-type") == "application/xml" 
+                && angular.isString(data)) {
+            products = [];
+            var productElems = angular.element(data.trim()).find("product");
+            for (var i = 0; i < productElems.length; i++) {
+                var product = productElems.eq(i);
+                products.push({
+                    name: product.attr("name"),
+                    category: product.attr("category"),
+                    price: product.attr("price")
+                });
+            }
+            return products;
+        } else {
+            return data;
+        }
+    }
+}
+// or
+.config(function($httpProvider) {
+    $httpProvider.defaults.transformResponse.push(function (data, headers) {
+        if (headers("content-type") == "application/xml" && angular.isString(data)) {
+            products = [];
+            var productElems = angular.element(data.trim()).find("product");
+            for (var i = 0; i < productElems.length; i++) {
+                var product = productElems.eq(i);
+                products.push({
+                    name: product.attr("name"),
+                    category: product.attr("category"),
+                    price: product.attr("price")
+                });
+            }
+            return products;
+        } else {
+            return data;
+        }
+    });
+})
+$http.get("productData.xml", config).success(function (data) {
+    $scope.products = data;
+});
+// post
+var config = {
+    headers: {
+        "content-type": "application/xml"
+    },
+    transformRequest: function (data, headers) {
+        var rootElem = angular.element("<xml>");
+        for (var i = 0; i < data.length; i++) {
+            var prodElem = angular.element("<product>");
+            prodElem.attr("name", data[i].name);
+            prodElem.attr("category", data[i].category);
+            prodElem.attr("price", data[i].price);
+            rootElem.append(prodElem);
+        }
+        rootElem.children().wrap("<products>");
+        return rootElem.html();
+    }
+}
+$http.post("ajax.html", $scope.products, config);
+// 拦截
+.config(function ($httpProvider) {
+    $httpProvider.interceptors.push(function () {
+        return {
+            request: function (config) {
+                config.url = "productData.json";
+                return config;
+            },
+            response: function (response) {
+                console.log("Data Count: " + response.data.length);
+                return response;
+            }
+        }
+    });
+})
+.controller("defaultCtrl", function ($scope, $http) {
+    $scope.loadData = function () {
+        $http.get("doesnotexit.json").success(function (data) {
+            $scope.products = data;
+        });
+    }
+});
 ------------ 
 6、以让Google处理应用索引。常见的做法是使用后端程序为你的Angular应用提供服务。
 Google和其他高级搜索引擎都支持 hashbang 格式的URL，我们可以用它来识别当前要访问的
@@ -253,6 +337,9 @@ var ctrl = ele.controller('ngModel');
 通过在被选中的元素上使用injector()方法可以提取当前元素（或者包含它的元素）的注入器。 
 var injector = ele.injector(); 
 然后可以使用这个注入器在应用内实例化任意Angular对象，比如服务、其他控制器或者任意其他对象。 
+
+使用注入器返回provider定义的对象实例。实例类型，调用方法和装载模块。
+
 ---
 通过在元素上使用inheritedData()方法可以提取与该元素$scope对象关联的数据。 
 ele.inheritedData(); 
@@ -440,7 +527,7 @@ Directive Definition Object 指令定义对象
         {} 对象哈希 - 那么一个新的“孤立的”作用域就会被创建。这个“孤立的”作用域区别于一般作用域的地方在于，它不会以原型继承的方式直接继承自父作用域。这对于创建可重用的组件是非常有用的，因为可重用的组件一般不应该读或写父作用域的数据。 这个“孤立的”作用域使用一个对象哈希来表示，这个哈希定义了一系列本地作用域属性， 
         【这些本地作用域属性是从父作用域中衍生出来的。这些属性主要用来分析模板的值。】这个哈希的键值对是本地属性为键，它的来源为值。
 
-            @ 或 @attr - 将本地作用域成员和DOM属性绑定。绑定结果总是一个字符串，因为DOM的属性就是字符串。如果DOM属性的名字没有被指定，那么就和本地属性名一样。比如说<widget my-attr="hello {{name}}"> 和作用域对象: { localName:'@myAttr' }。当name值改变的时候， 作用域中的LocalName也会改变。这个name是从父作用域中读来的（而不是组件作用域）。
+            @ 或 @attr - 将本地作用域成员和DOM属性绑定。绑定结果总是一个字符串，因为DOM的属性就是字符串。如果DOM属性的名字没有被指定，那么就和本地属性名一样。比如说<widget my-attr="hello {{name}}"> 和作用域对象: scope:{ localName:'@myAttr' }。当name值改变的时候， 作用域中的LocalName也会改变。这个name是从父作用域中读来的（而不是组件作用域）。
 
             = 或 =expression(表达式) - 在本地作用域属性和父作用域属性间建立一个双向的绑定。如果没有指定父作用域属性名称，那就和本地名称一样。 比如 <widget my-attr="parentModel"> 和作用域对象: { localModel:'=myAttr' }, 本地属性localModel会反映父作用域中parentModel的值。localModel和parentModel的任一方改变都会影响对方。
 
@@ -1243,7 +1330,48 @@ app.directive('myDirective',function($log,$parse){
         })
     }
 });
-例子可以充分体现我们为什么需要$parse服务。如果属性值是name，那么我们完全可以不用$parse，只用scope[attrs.myAttr]即可。但是在上面的例子中，方括号并不管用。 
+例子可以充分体现我们为什么需要$parse服务。如果属性值是name，那么我们完全可以不用$parse，只用scope[attrs.myAttr]即可。但是在上面的例子中，方括号并不管用。
+
+.directive("evalExpression", function ($parse) {
+    return function(scope, element, attrs) {
+        scope.$watch(attrs["evalExpression"], function (newValue) {
+            try {
+                var expressionFn = $parse(scope.expr);
+                var result = expressionFn(scope);
+                if (result == undefined) {
+                    result = "No result";
+                }
+            } catch (err) {
+                result = "Cannot evaluate expression";
+            }
+            element.text(result);
+        });
+    }
+}); 
+<div class="well">
+    <p><input class="form-control" ng-model="dataValue" /></p>
+    <div>
+        Result: <span eval-expression amount="dataValue" tax="10"></span>
+    </div>
+</div>
+.directive("evalExpression", function ($parse) {
+    var expressionFn = $parse("total | currency");
+    return {
+        scope: {
+            amount: "=amount",
+            tax: "=tax"
+        },
+        link: function (scope, element, attrs) {
+            scope.$watch("amount", function (newValue) {
+                var localData = {
+                    total: Number(newValue) 
+                       + (Number(newValue) * (Number(scope.tax) /100))
+                }
+                element.text(expressionFn(scope, localData));
+            });
+        }
+    }            
+});
 -------------------------------
 ngModel：是一个用法特殊的指令，它提供更底层的API来处理控制器内的数据。
 
@@ -1298,11 +1426,12 @@ angular.module('myApp')
     <hr>
     <textarea ng-model="userContent"></textarea>
 </form>
+视图需要更新时候调用：
 定义$render方法可以定义视图具体的渲染方式。这个方法会在$parser流水线完成后被调用。 
 由于这个方法会破坏AngularJS的标准工作方式，因此一定要谨慎使用
 
 angular.module('customControl', ['ngSanitize']).
-directive('contenteditable', ['$sce',
+directive('contenteditable', ['$sce', 
     function($sce) {
         return {
             restrict: 'A', // only activate on element attribute
@@ -1734,6 +1863,22 @@ angular.module('myApp')
 .config(function($provide) { 
     $provide.decorator('githubService',githubDecorator); 
 }); 
+----------
+.config(function($provide) {
+    $provide.decorator("$log", function ($delegate) {
+        $delegate.originalLog = $delegate.log;
+        $delegate.log = function (message) {
+            $delegate.originalLog("Decorated: " + message);
+        }
+        return $delegate;
+    });
+})
+.controller("defaultCtrl", function ($scope, $log) {
+    $scope.handleClick = function () {
+        $log.log("Button Clicked");
+    };
+});
+
 ---------------------------------------------------------------------------------
 通信： P:150
 $http({ 
@@ -2524,28 +2669,43 @@ function($scope,$parse) {
 插值：
 要在字符串模板中做插值操作，需要在你的对象中注入$interpolate服务
 $interpolate服务返回一个函数，用来在特定的上下文中运算表达式。
-    <div ng-controller="MyController">
-        <input ng-model="to" type="email" placeholder="Recipient" />
-        <textarea ng-model="emailBody"></textarea>
-        <pre>{{ previewText }}</pre>
-    </div>
+<div ng-controller="MyController">
+    <input ng-model="to" type="email" placeholder="Recipient" />
+    <textarea ng-model="emailBody"></textarea>
+    <pre>{{ previewText }}</pre>
+</div>
 
-angular.module('ngRouteExample', ['ngRoute'])
-    .controller('MyController',
-        function($scope, $interpolate) {
-            $scope.to = 'ari@fullstack.io';
-            $scope.emailBody = 'Hello {{ to }},\n\nMy name is Ari too!';
-            // Set up a watch
-            $scope.$watch('emailBody', function(body) {
-                if (body) {
-                    var template = $interpolate(body);
-                    $scope.previewText =
-                        template({
-                            to: $scope.to
-                        });
-                }
-            });
+
+.controller('MyController',
+    function($scope, $interpolate) {
+        $scope.to = 'ari@fullstack.io';
+        $scope.emailBody = 'Hello {{ to }},\n\nMy name is Ari too!';
+        // Set up a watch
+        $scope.$watch('emailBody', function(body) {
+            if (body) {
+                var template = $interpolate(body);
+                $scope.previewText =
+                    template({
+                        to: $scope.to
+                    });
+            }
         });
+    });
+.config(function($interpolateProvider) {
+    $interpolateProvider.startSymbol("!!");
+    $interpolateProvider.endSymbol("!!");
+})
+var interpolationFn = $interpolate("The total is: !!amount | currency!! (including tax)");
+
+.directive("evalExpression", function($compile) {
+    return function (scope, element, attrs) {
+        var content = "<ul><li ng-repeat='city in cities'>{{city}}</li></ul>"
+        var listElem = angular.element(content);
+        var compileFn = $compile(listElem);
+        compileFn(scope);
+        element.append(listElem);
+    }
+});
 -------------------------
 表达式的开始和结束：
 如果需要在文本中使用不同于{{ }}的符号来标识表达式的开始和结束，可以在
@@ -3151,6 +3311,50 @@ app.directive("contenteditable", function () {
         }
     };
 });
+<div><tri-button ng-model="dataValue" /></div>
+<div class="well">
+        Value:
+        <select ng-model="dataValue">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not Sure">Not Sure</option>
+            <option value="Huhs">Huhs</option>
+        </select>
+</div>
+.directive("triButton", function() {
+        return {
+            restrict: "E",
+            replace: true,
+            require: "ngModel",
+            template: document.querySelector("#triTemplate").outerText,
+            link: function(scope, element, attrs, ctrl) {
+                ctrl.$formatters.push(function(value) {
+                    console.log(value)
+                    return value == "Huhs" ? "Not Sure" : value;
+                });
+                element.on("click", function(event) {
+                    setSelected(event.target.innerText);
+                    scope.$apply(function() {
+                        ctrl.$setViewValue(event.target.innerText);
+                    });
+                });
+                
+                var setSelected = function(value) {
+                    var buttons = element.find("button");
+                    buttons.removeClass("btn-primary");
+                    for (var i = 0; i < buttons.length; i++) {
+                        if (buttons.eq(i).text() == value) {
+                            buttons.eq(i).addClass("btn-primary");
+                        }
+                    }
+                }
+
+                ctrl.$render = function() {
+                    setSelected(ctrl.$viewValue || "Not Sure");
+                }
+            }
+        }
+    });
 ------------------
  <form class="form-horizontal" role="form" id="custom_form" name="custom_form" novalidate>
     <div class="form-group">
@@ -3342,4 +3546,24 @@ $scope.fullNameFn = function() {
     return $scope.user.firstName + ' ' + $scope.user.lastName;
 };
 ----------
-prs-ex chapter 06 app
+if (window.history && history.pushState) {
+    $locationProvider.html5Mode(true);
+}
+
+$anchorScrollProvider.disableAutoScrolling();
+
+$scope.throwEx = function () {
+    try {
+        throw new Error("Triggered Exception");
+    } catch (ex) {
+        $exceptionHandler(ex.message, "Button Click");
+    }
+}
+.factory("$exceptionHandler", function ($log) {
+    return function (exception, cause) {
+        $log.error("Message: " + exception.message + " (Cause: " + cause + ")");
+    }
+});
+$scope.$watch("htmlData", function (newValue) {
+    $scope.trustedData = $sce.trustAsHtml(newValue);
+});

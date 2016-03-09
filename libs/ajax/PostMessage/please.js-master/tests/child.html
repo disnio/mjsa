@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>please.js child</title>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="lib/bind.polyfill.js"></script>
+  <script src="../src/please.js"></script>
+  <script>
+    please.init(window);
+    var testVariable = 'test';
+    var testObject = {
+      property: 'test',
+      method: function () {
+        return 'test';
+      }
+    };
+    window.defined = {};
+    function sayHello () {
+      return "Hello from child!";
+    }
+    function giveMeAnApple () {
+      return "apple";
+    }
+    function giveMeApples(n) {
+      return {apples: n};
+    }
+    function errorFunction () {
+      throw new Error('something went deliberately wrong');
+    }
+
+    function echoFunction() {
+      return Array.prototype.slice.call(arguments);
+    }
+
+    function keepPromise() {
+      var deferred = new $.Deferred();
+      setTimeout(function() {
+        deferred.resolve('fulfilled');
+      }, 1000);
+      return deferred.promise();
+    }
+
+    function letMeDown() {
+      var deferred = new $.Deferred();
+      setTimeout(function() {
+        deferred.reject('sorry');
+      }, 1000);
+      return deferred.promise();
+    }
+
+    function teardownSourceOriginTest () {
+      please.defaults({
+        sourceOrigin: false
+      });
+    }
+    function setupSourceOriginTest () {
+      please.defaults({
+        sourceOrigin: function (messageEvent) {
+          if (JSON.parse(messageEvent.data).data[0] === "teardownSourceOriginTest") {
+            teardownSourceOriginTest();
+            return true;
+          }
+          return false;
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

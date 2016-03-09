@@ -5,7 +5,7 @@ c:\mongo\bin\mongod.exe --dbpath=c:\mongo\data
 mongod.exe --dbpath=d:\MongoDB\data --logpath d:\MongoDB\mongodb.log --install
 设置为随机启动服务：
 c:\Program Files\MongoDB 2.6 Standard\bin>mongod.exe --dbpath=d:\mongo\data --logpath d:\mongo\mongodb.log --install
-
+mongod.exe --install --logpath=d:\mongodb\log\mongodb.log --logappend --dbpath=d:\mongodb\data --directoryperdb --serviceName MongoDB
 service mongod start
 -------------------------------------------
 mongod 启动数据库进程

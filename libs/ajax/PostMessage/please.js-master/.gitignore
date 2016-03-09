@@ -1,0 +1,6 @@
+.settings/
+.project
+.DS_Store
+.idea/
+*.sublime-*
+node_modules/
