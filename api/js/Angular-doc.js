@@ -3567,3 +3567,28 @@ $scope.throwEx = function () {
 $scope.$watch("htmlData", function (newValue) {
     $scope.trustedData = $sce.trustAsHtml(newValue);
 });
+------------------
+ueditor:
+    yob.directive('ueditor', function($timeout) {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function(scope, element, attrs, ctrl) {
+                var id = 'ueditor_' + Date.now();
+                element[0].id = id;
+                var ue = UM.getEditor(id, {
+                    initialFrameWidth: '100%',
+                    initialFrameHeight: '200',
+                    autoHeightEnabled: true
+                });
+                ue.ready(function() {
+                    ue.addListener('contentChange', function() {
+                        ctrl.$setViewValue(ue.getContent());
+                        if (!scope.$$phase) {
+                            scope.$apply();
+                        }
+                    });
+                });
+            }
+        };
+    });
