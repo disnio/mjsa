@@ -1,21 +1,6 @@
 UI Bootstrap (requires AngularJS 1.4.x, tested with 1.4.9). 0.14.3 is the last version of this library that supports AngularJS 1.3.x and 0.12.0 is the last version that supports AngularJS 1.2.x.
 
-npm install -g yo
-npm install -g generator-angular
-yo angular                  #自动生成AngularJS项目
-bower install angular-ui    #使用Bower给你的项目安装依赖
-grunt test                  #运行单元测试
-grunt server                #预览你的程序
-grunt                       #编译你的程序用于发布
 
-npm install --global generator-webapp
-http://blog.jobbole.com/65399/
-npm install generator-angm -g
-yo angm
-yo angm:angm-module   news, company, and navbar
-grunt dev
-
-yo gulp-angular
 http://codego.net/385473/
 http://stackoverflow.com/questions/8302928/angularjs-with-django-conflicting-template-tags
 <ul id="results"></ul>

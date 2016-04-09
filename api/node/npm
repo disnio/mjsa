@@ -1,6 +1,28 @@
-http://www.tuicool.com/articles/BRVRV3j
+npm search yeoman-generator,  gulp
+https://github.com/gerlocian/generator-simple-web-prototype
+https://www.npmjs.com/package/generator-gulp-livereload
+https://www.npmjs.com/package/generator-gulplate
+npm install -g yo
+npm install -g generator-angular
+yo angular                  #自动生成AngularJS项目
+bower install angular-ui    #使用Bower给你的项目安装依赖
+grunt test                  #运行单元测试
+grunt server                #预览你的程序
+grunt                       #编译你的程序用于发布
 
+npm install --global generator-webapp
+http://blog.jobbole.com/65399/
+npm install generator-angm -g
+yo angm
+yo angm:angm-module   news, company, and navbar
+grunt dev
+
+yo gulp-angular
+--------------------------------------------------
+http://www.tuicool.com/articles/BRVRV3j
+npm install node-sass -g -ddd > npm.log 2> npm.err
 npm install forever -gd
+npm install -g n
 forever -w start ex.js
 2015-09-02
 http://ju.outofmemory.cn/entry/75502
@@ -20,6 +42,19 @@ nvm install v0.12.7 ok
 nvm use 0.10
 nvm which 0.10
 nvm alias default stable
+
+  "scripts": {
+    "start-dev": "node server/app",
+    "build": "gulp",
+    "start-release": "node server/app production",
+    "deploy": "gulp deploy"
+  },
+  "localServer": {
+    "port": 3010
+  },
+  "dependencies": {
+    "lodash": "^3.10.1"
+  },
 ----------------------------------------------------------------------------------------
 NPM：
 npm install -g cnpm --registry=https://registry.npm.taobao.org

@@ -1,18 +1,19 @@
 /* 
  * @Author: Allen
  * @Date:   2015-12-04 15:03:07
- * @Last Modified by:   anchen
- * @Last Modified time: 2016-03-18 10:42:55
+ * @Last Modified by:   Allen
+ * @Last Modified time: 2016-03-30 16:33:47
  */
+
 /*
- * web调用：jaxGetJson(opt, true) 不写第二个参数或为false 默认调用接口 ucConfig.ServerReferenceActiveCenterAPI;
+ * web调用：jaxJson(opt, true) 不写第二个参数或为false 默认调用接口 ucConfig.ServerReferenceActiveCenterAPI;
  * opt.webUrl : web地址
  * opt.name   : 具体接口
  * opt.data       : 参数
  * opt.contentType: 发送的数据编码 
  * (默认："application/x-www-form-urlencoded"，"application/json" 需要JSON.stringify() 序列化,)
  * opt.dataType: 返回的数据类型
- * opt.local: true 调用本地缓存 localstorage
+ * opt.local: true 调用本地缓存 localstorage， 返回 promise
  * opt.dataify: true 序列化参数
  * 调用：
  * jaxGetJson(opt, true).then(function(data){
@@ -47,7 +48,7 @@
     };
  * 
  */
-var UT = {};
+
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -61,7 +62,11 @@ var UT = {};
     }
 }(function(jQuery, _) {
     var baseUrl = ucConfig.ServerReferenceActiveCenterAPI;
-
+    /**
+     * [jaxJson description]
+     * @param  {[type]} opt [description]
+     * @return {[type]}     [description]
+     */
     var jaxJson = function(opt) {
 
         var isweb = _.rest(arguments)[0] || false;
@@ -102,9 +107,9 @@ var UT = {};
             });
         }
     };
-
+    
     var tplRender = function(tpl, data) {
-        var filterFn = _.rest(arguments)[0] || '';
+        var filterFn = _.last(_.toArray(arguments).slice(2)) || '';        
         if (filterFn && $.isFunction(filterFn)) {
             filterFn.call(null, data);
         }
@@ -142,12 +147,73 @@ var UT = {};
             }
         });
     };
+    var queryString = function(){
+        var parse = function(string) {
+            var parsed = {};
+            string = (string !== undefined) ? string : window.location.search;
 
-    var res = {
+            if (typeof string === "string" && string.length > 0) {
+                if (string[0] === '?') {
+                    string = string.substring(1);
+                }
+
+                string = string.split('&');
+
+                for (var i = 0, length = string.length; i < length; i++) {
+                    var element = string[i],
+                        eqPos = element.indexOf('='),
+                        keyValue, elValue;
+
+                    if (eqPos >= 0) {
+                        keyValue = element.substr(0, eqPos);
+                        elValue = element.substr(eqPos + 1);
+                    } else {
+                        keyValue = element;
+                        elValue = '';
+                    }
+
+                    elValue = decodeURIComponent(elValue);
+
+                    if (parsed[keyValue] === undefined) {
+                        parsed[keyValue] = elValue;
+                    } else if (parsed[keyValue] instanceof Array) {
+                        parsed[keyValue].push(elValue);
+                    } else {
+                        parsed[keyValue] = [parsed[keyValue], elValue];
+                    }
+                }
+            }
+
+            return parsed;
+        };
+        var stringify = function(obj) {
+            var string = [];
+
+            if (!!obj && obj.constructor === Object) {
+                for (var prop in obj) {
+                    if (obj[prop] instanceof Array) {
+                        for (var i = 0, length = obj[prop].length; i < length; i++) {
+                            string.push([encodeURIComponent(prop), encodeURIComponent(obj[prop][i])].join('='));
+                        }
+                    } else {
+                        string.push([encodeURIComponent(prop), encodeURIComponent(obj[prop])].join('='));
+                    }
+                }
+            }
+
+            return string.join('&');
+        };
+        return {
+            parse: parse,
+            stringify: stringify
+        };
+    };
+    return {
         jaxJson: jaxJson,
         tplRender: tplRender,
-        jaxPage: jaxPage
-    };
+        jaxPage: jaxPage,
+        queryString: queryString()
+    }
 
     if( typeof UT !== 'undefined' && $.isEmptyObject(UT) ){
         // 直接引入脚本文件
