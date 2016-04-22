@@ -58,6 +58,11 @@ my/cart.js
 my/inventory.js
 my/shirt.js
 
+ajax 跨域获取模板，模板定义需要：
+define(function(){
+    return 'template 字符串'
+})
+a.html -> a.html.js
 
 Define a Module as a Function
 

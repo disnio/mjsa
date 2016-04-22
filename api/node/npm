@@ -21,9 +21,18 @@ yo gulp-angular
 --------------------------------------------------
 http://www.tuicool.com/articles/BRVRV3j
 npm install node-sass -g -ddd > npm.log 2> npm.err
+https://www.npmjs.com/package/forever
 npm install forever -gd
+https://www.npmjs.com/package/n
 npm install -g n
 forever -w start ex.js
+
+npm 升级非常方便, 直接使用 npm 就可以
+$ npm update -g npm
+$ sudo npm uninstall npm -g
+sudo make uninstall
+
+
 2015-09-02
 http://ju.outofmemory.cn/entry/75502
 http://www.vmvps.com/4-ways-to-install-node-js-on-centos-7-servers.html
@@ -38,6 +47,7 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | b
 source ~/.nvm/nvm.sh
 nvm ls-remote
 nvm install v0.12.7 ok
+https://www.npmjs.com/package/nvm
 
 nvm use 0.10
 nvm which 0.10

@@ -1,7 +1,14 @@
 服务端访问控制:
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Server-Side_Access_Control
 Cross-Origin Resource Sharing: https://www.w3.org/TR/cors/
-
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
 header('Content-Type:application:json;charset=utf8');  
 header('Content-Type:text/html;charset=utf8');  
 header('Content-Type: application/xml');
@@ -39,6 +46,26 @@ header("HTTP/1.1 403 Access Forbidden");
 Access-Control-Allow-Headers Content-Type, Content-Range, Content-Disposition
 https://github.com/blueimp/jQuery-File-Upload/wiki/Browser-support
 多文件上传需要 ie10+
+-------------------------------------
+跨域 Cookie
+xhrFields: {
+    withCredentials: true
+},
+crossDomain: true,
+
+header("Access-Control-Allow-Credentials: true");
+
+There is another way. If you use SSL on the non-default https port, it will keep sending the cookies. For example, if your URL is something like this https://example.com:8443/xxxx, then it will send the cookies.
+
+I experience the same issue you have. My web app (internal web app) was working with https but in a non standard port and it just works fine. When I configure to use 443, it stops working because the cookies are not sent by XDomainRequest object.
+---------
+除了包含:
+
+ buy.api.example.com/?sessionId=$sessionId&otherparameters=test 
+
+and set your webservice to check the query string if cookies are not present.
+----------
+From my experience, if both domains are in your control better to use postMessage
 ---------------------------------------------------
 abort(), getAllResponseHeaders(), getResponseHeader()
 void open(
