@@ -1,0 +1,22 @@
+<div class="infoPageContainer">
+    <h2>Favourites</h2>
+
+    <p>{{favText}}</p>
+
+
+    <table id="favsTable">
+        <tr ng-repeat="row in tableItems">
+            <td ng-repeat="cell in row">
+                <a colorbox title="{{cell.name}}"
+                    ng-href="/app/images/{{cell.name}}">
+                    <img ng-src="/app/images/{{cell.name}}" class="favSmallIcon" />
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+

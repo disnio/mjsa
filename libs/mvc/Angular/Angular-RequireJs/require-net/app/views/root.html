@@ -1,0 +1,29 @@
+<div ng-repeat="imageitem in imageitems">
+    <table draggable resizable class="imageHolder, imageDropShadow"
+           ng-style="imageitems[$index].styleProps()">
+        <tr>
+            <td class="imageHeader">&nbsp;&nbsp;{{imageitem.name}}</td>
+        </tr>
+        <tr>
+            <td align="center">
+                <img ng-src="/app/images/{{imageitem.name}}" class="imageCell" />
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <img src="/app/images/favIcon.png" width="25%" class="favIcon"
+                    tooltip href="" title="Save To Favourites"
+                    ng-click="addToFavourites($index)" />
+                <img src="/app/images/favDelete.png" width="25%" class="favIcon"
+                    title="Remove From Favourites" tooltip
+                    ng-click="removeFromFavourites($index)" ng-show="imageitems[$index].isFavourite" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+

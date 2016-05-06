@@ -3849,3 +3849,15 @@ angular.module('ui.bootstrap.pagination', [])
     }
   };
 }]);
+-------------------------
+<div id="top-nav" ng-include="currentRoute.topNav"></div>
+$routeProvider.when('/builder/workouts', {
+    templateUrl: 'partials/workoutbuilder/workouts.html',
+    leftNav: 'partials/workoutbuilder/left-nav-main.html',
+    topNav: 'partials/workoutbuilder/top-nav.html',
+    controller: 'WorkoutListController'
+});
+$scope.$on('$routeChangeSuccess', function (event, current, previous) {
+  $scope.currentRoute = current;
+  $scope.routeHasError = false;
+});

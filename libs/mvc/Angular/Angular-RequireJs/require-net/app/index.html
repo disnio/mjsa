@@ -1,0 +1,53 @@
+<!--<!DOCTYPE html>-->
+<html>
+<!-- Do not add ng-app here as we bootstrap AngularJS manually-->
+<head>
+    <title>Angular App Using Fleck WebSockets/Rejuire.js, by Sacha Barber</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css"
+        href="styles/bootstrap.css">
+
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="styles/colorbox.css">
+</head>
+<body>
+
+
+    <div id="container">
+        <div id="main">
+            <div ng-view></div>
+        </div>
+
+        <div id="sidebar">
+            <div id="sidebarInner">
+                <h2>Actions</h2>
+
+                <span class="linkIconHolder">
+                    <a tooltip href="#/" title="Go to home page">
+                        <img src="/app/images/home.png" width="64px" class="linkIcons" />
+                    </a>
+                </span>
+                <br />
+                <span class="linkIconHolder">
+                    <a tooltip href="#/favs" title="Go to favorites page">
+                        <img src="/app/images/star.png" width="64px" class="linkIcons" />
+                    </a>
+                    <br />
+                </span>
+                <span class="linkIconHolder">
+                    <a tooltip href="#/about" title="Go to about page">
+                        <img src="/app/images/about.png" width="64px" class="linkIcons" />
+                    </a>
+                </span>
+
+            </div>
+        </div>
+
+
+    </div>
+</body>
+<script data-main="scripts/main"
+    src="scripts/vendor/require.js"></script>
+</html>

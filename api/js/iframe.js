@@ -15,6 +15,9 @@ header('Content-Type: application/xml');
 header('Content-Type: text/html');
 header('Content-Type: text/plain');
 
+Access-Control-Request-Headers
+Access-Control-Request-Method: DELETE
+
 header('Access-Control-Allow-Origin:http://client.ycdl.com');  
 header('Access-Control-Allow-Origin: x-requested-with');
 
@@ -39,7 +42,7 @@ header("Content-Length: 0");
 header('Cache-Control: no-cache');
 header('Pragma: no-cache');
 header('Access-Control-Allow-Credentials: true');
-
+Access-Control-Expose-Headers
 header("HTTP/1.1 403 Access Forbidden");
 ----------
 跨站点文件上传需要设置：

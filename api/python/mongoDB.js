@@ -1,3 +1,14 @@
+https://mlab.com/ wuaim
+wu1605test
+
+To connect using the mongo shell:
+mongo ds034279.mlab.com:34279/wu1605test -u <dbuser> -p <dbpassword>
+To connect using a driver via the standard MongoDB URI
+mongodb://<dbuser>:<dbpassword>@ds034279.mlab.com:34279/wu1605test
+dbuser:cat:cat123
+
+API key  nZSxvmIqUMZQiJzv7y7Mnhax3n5Kotxg
+------------------------------------
 yum install -y mongodb-org
 http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/
 启动服务：win10 要以管理员身份启动 cmd
