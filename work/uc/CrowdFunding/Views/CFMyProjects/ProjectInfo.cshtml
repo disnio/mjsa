@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "项目详细信息";
+    ViewBag.ContentName = "项目详细信息";
+}
+<!-- 项目id 暂时未知所以不能加载具体内容。 -->
+<script type="text/javascript">
+    // 收藏项目 url
+    var CreateCollectUrl = '@Url.Action("CreateCollect", "CFInvestingParty")';
+    // 约谈项目方 url
+    var CreateInterviewsUrl = '@Url.Action("CreateInterviews", "CFInvestingParty")';
+
+    var AccountID = '@SessionHelper.Identity.Account.ID';
+</script>
+
+<!-- 项目标签列表 -->
+<script type="text/javascript" src="~/Scripts/js/app/projectTab.js"></script>
+<!-- 评论的脚本 -->
+<script type="text/javascript" src="~/Scripts/js/app/pl.js"></script>
+
+<script type="text/javascript" src="~/Scripts/js/app/ProjectInfo.js"></script>
+
+<table class="tab1 table table-bordered">
+    <tbody id="ProjectDetail"></tbody>
+</table>
+<div class="subContent ">
+    <div class="detail"></div>
+    <div id="projectTab"></div>
+</div>

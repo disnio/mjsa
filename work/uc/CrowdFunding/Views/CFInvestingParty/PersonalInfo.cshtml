@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+
+@{
+    ViewBag.ContentName = "查看个人详细信息";
+}
+
+@using ZCPT.CrowdFunding.Entity
+@model ZCPT.CrowdFunding.Web.Models.CFFinancingPartyModule.PersonalInfoModel
+<style>
+    .tdLable {
+        background-color:#E5EFFF;
+        width:15%;
+    }
+
+    .tdField {
+        background-color:#FFFFFF;
+        width:35%;
+    }
+</style>
+
+@{ if (Model.IsExistAccount)
+    {
+        if (Model.AccountType == AccountType.Account.ToString())
+        {
+
+            <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+                <tr>
+                    <td class="tdLable">
+                        真实姓名
+                    </td>
+                    <td class="tdField">
+                        @Model.Name
+                    </td>
+                    <td class="tdLable">
+                        身份证号
+                    </td>
+                    <td class="tdField">
+                        @Model.IDCardNo
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdLable">
+                        邮箱
+                    </td>
+                    <td class="tdField">
+                        @Model.Email
+                    </td>
+                    <td class="tdLable">
+                        手机号
+                    </td>
+                    <td class="tdField">
+                        @Model.Phone
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdLable">
+                        所在城市
+                    </td>
+                    <td class="tdField">
+                        @Model.CityName
+                    </td>
+                    <td class="tdLable">
+                        个人住址
+                    </td>
+                    <td class="tdField">
+                        @Model.Address
+                    </td>
+                </tr>
+            </table>
+        }
+        else
+        {
+            @Html.Raw("个人信息不存在。")
+        }
+    }
+    else
+    {
+        @Html.Raw("个人信息不存在。")
+    }
+}
+
+<div style="text-align:right; padding-top: 20px;">
+    @Html.ActionLink("返回", "IndividualInvestingPartyList")
+</div>
+
+

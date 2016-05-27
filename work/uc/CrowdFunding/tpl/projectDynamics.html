@@ -1,0 +1,11 @@
+<!-- 项目动态 projectDynamicsTpl -->
+<%_.each(datas, function(item, index){ %>
+    <div class="DynamicBox">
+        <img src="<%= item.DynamicPicture %>" class="fl">
+        <ul class="ProjectList fl">
+            <li class="colTitle ct_2"><i class="fa fa-hand-o-right ct_7"></i><a href="#"><%= item.DynamicTitle %> </a></li>
+            <li class="slTxt"><i class="fa fa-quote-left ct_5 quote_m"></i><%= item.DynamicContent %></li>
+            <li class="date ct_4"><i class="fa fa-clock-o"></i><%= item.CreationTime %></li>
+        </ul>
+    </div>
+<%}); %>

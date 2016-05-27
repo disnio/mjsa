@@ -566,7 +566,7 @@
 			n = n.previousSibling;
 		}
 		while ( n && n.nodeType !== 1 && n.nodeType !== 3 );
-
+		// 文本和元素节点获取前一兄弟节点
 		return n;
 	}
 	function findLastTextNode( $el, $top, excludeCurrent )

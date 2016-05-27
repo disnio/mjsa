@@ -1,0 +1,275 @@
+﻿@using ZCPT.CrowdFunding.Entity.CFProjectModule
+@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "项目投资审核";
+    ViewBag.ContentName = "项目投资审核";
+}
+<style>
+    .thumbnail {
+        width: 200px;
+    }
+
+    .img {
+        width: 200px !important;
+        height: 150px;
+        margin-top: 10px;
+    }
+
+    .summary {
+        color: #666;
+       
+    }
+
+        .summary ul {
+            padding: 20px 10px;
+            padding-top: 10px;
+        }
+
+        .summary p {
+            font-size: 18px;
+            border-bottom: 1px solid #edf2f6;
+            margin-bottom: 30px;
+            line-height: 45px;
+            font-weight: bold;
+            margin: 0 30px;
+        }
+
+            .summary p span {
+                font-size: 12px;
+                padding: 3px 10px;
+                height: 30px;
+                line-height: 30px;
+                margin-top: 5px;
+                background: #ff8600;
+                font-weight: normal !important;
+                margin-left: 10px;
+            }
+
+            .summary p .time {
+                color: #999;
+                font-weight: normal;
+                font-size: 12px;
+                height: 20px;
+                line-height: 30px;
+                margin-top: 10px;
+                background: #fff;
+                float: right;
+            }
+
+        .summary ul li {
+            line-height: 30px;
+            float: left;
+            width: 33%;
+        }
+
+            .summary ul li .span {
+                color: #999;
+                font-size: 14px;
+            }
+
+    .label-info {
+        padding: 5px 10px;
+        margin-left: 0;
+    }
+
+    .detailList1 {
+        margin: 0 30px;
+        color: #999;
+        font-size: 14px;
+        line-height: 40px;
+    }
+
+        .detailList1 p {
+            color: #666;
+            line-height: 23px;
+            padding: 0px 15px;
+            margin: 0;
+            font-size: 14px;
+            font-weight: normal !important;
+            border: 0 !important;
+        }
+
+    .ct_7 {
+        font-size: 14px;
+        color: #999;
+    }
+
+    .button_list {
+        border: 0 !important;
+        text-align: right;
+    }
+
+    .font_r {
+        font-size: 18px;
+        color: #ff8600;
+        font-weight: bold;
+    }
+
+    .font_r_y {
+        font-size: 18px;
+        color: #9ab806;
+        font-weight: bold;
+    }
+
+    .cbInner {
+        border-bottom: 1px solid #edf2f6;
+    }
+</style>
+@*<table border="0" cellpadding="0" cellspacing="0" class="tab1" width="100%">
+    <tr class="col f_blue">
+
+        <th width="70">
+            项目名称
+        </th>
+        <th width="60">
+            投资金额
+        </th>
+        <th width="70">
+            状态
+        </th>
+        <th width="60">
+            投资人
+        </th>
+        <th width="90">
+            申请时间
+        </th>
+        <th width="60">投资类型</th>
+        <th width="60">
+            审核
+        </th>
+    </tr>*@
+    
+    @*@foreach (var i in ViewBag.Investments)
+    {
+        <tr class="col">
+            <td>
+                @i.Project.Name
+            </td>
+            <td>
+                @string.Format("{0:f2}", i.Amount/10000) 万
+            </td>
+            <td>
+                @i.Status.Name
+            </td>
+            <td>
+                @i.Investor.Name
+            </td>
+            <td>
+                @i.CreationDate
+            </td>
+            <td>@(i.IsLeadInvestment ? "领投" : "跟投")</td>
+            <td>*@
+                @*@Html.ActionLink("通过", "DealProjectInvestmentApplication", new { investmentId = i.Id, status=i.Status.ID},new {onclick= "dealApplication();" })
+                    @Html.ActionLink("拒绝", "EditProjectBasis", new {ID = i.Id})*@
+
+                @*@if (i.Status.Value == "Auditing")
+                {
+                    <a onclick="dealApplication(@i.Id, @CFProjectInvestmentStatus.Get("Actived").ID, @i.Project.LID);">通过</a>
+                    <a onclick="dealApplication(@i.Id, @CFProjectInvestmentStatus.Get("Rejected").ID, @i.Project.LID);">拒绝</a>
+                }
+
+            </td>
+        </tr>
+    }
+</table>*@
+
+@foreach (var i in ViewBag.Investments)
+{
+    <div class="cbInner">
+        <div class="thumbnail fl" >
+            <img alt="" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + i.Project.Icon)" />
+        </div>
+        <div class="summary fr">
+            <p>@i.Project.Name <span class="label-info">@i.Status.Name</span></p>
+            <ul>
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>投资人：</span>
+                    <em>@i.Investor.Name </em>
+                </li>
+                
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>投资金额：</span>
+                    <em>@(string.Format("{0:f2}", i.Amount/10000))万 </em>
+                </li>
+
+                
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>投资类型：</span>
+                    <em>@(i.IsLeadInvestment ? "领投" : "跟投") </em>
+                </li>
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>申请时间：</span>
+                     <em> @(i.CreationDate.ToString("yyyy-MM-dd HH:mm:ss")) </em>
+                </li>
+            </ul>
+            <br class="clear" />
+            <div class="detailList1">
+                <i style="margin-right: 5px;" class="fa fa-caret-right"></i><span class="ct_7"> 投资人简介：</span>@i.Investor.Introduction
+
+
+            </div>
+            <div class="detailList1">
+                <i style="margin-right: 5px;" class="fa fa-caret-right"></i><span class="ct_7"> 投资理由：</span>@i.InvestmentReason
+
+            </div>
+            <div class="detailList1">
+                <i style="margin-right: 5px;" class="fa fa-caret-right"></i><span class="ct_7"> 其他帮助：</span>@i.NonCapitalHelp
+
+            </div>
+
+
+            <p class="button_list">
+                @if (i.Status.Value == "Auditing")
+                {
+                    <input type="button" class="label-info" value="接受" onclick="dealApplication(@i.Id, @CFProjectInvestmentStatus.Get("Actived").ID, @i.Project.LID);" />
+                    <input type="button" class="label-info" value="拒绝" onclick="dealApplication(@i.Id, @CFProjectInvestmentStatus.Get("Rejected").ID, @i.Project.LID);" />
+                }
+            </p>
+        </div>
+
+        <br class="clear" />
+        @*<div class="detailList1">
+            <i style="margin-right: 5px;" class="fa fa-caret-right"></i><span class="ct_7">项目简介：</span>@Html.Raw(i.Introduction)
+
+        </div>*@
+
+        @*<ul class="detailList1">
+            <li><i class="fa fa-chevron-circle-right ct_7"></i><span class="ct_7"> 投资人简介：</span>@i.Investor.Introduction</li>
+           
+        </ul>
+        <ul class="detailList1">
+            <li><i class="fa fa-chevron-circle-right ct_7"></i><span class="ct_7"> 投资理由：</span>@i.InvestmentReason</li>
+
+        </ul>*@
+
+        
+    </div>
+}
+
+    <script>
+        function dealApplication(id, status, pid) {
+            if (confirm("确定要进行此操作吗？")) {
+                $.ajax(
+                {
+                    type: 'post',
+                    url: 'DealProjectInvestmentApplication?investmentId=' + id + '&status=' + status+'&pid='+pid,
+
+                    success: function(data) {
+                        alert(data);
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('操作失败');
+                    }
+
+                });
+            }
+        }
+    </script>
+
+
+
+

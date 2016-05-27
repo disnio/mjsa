@@ -1,0 +1,860 @@
+﻿@using  ZCPT.PublicPortal.Web.Models.AccountModule
+@model AccountViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutHF.cshtml";
+    ViewBag.Title = Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:CreateAccount");
+}
+
+    <link href="~/Statics/css/kjzc.css" rel="stylesheet" type="text/css" />   
+      
+    <script src="//cdn.bootcss.com/lodash.js/4.0.0/lodash.js"></script>
+    <script src="~/Statics/js/bower_components/angular/angular.min.js"></script>
+    <script src="~/Statics/js/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="~/Statics/js/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/es5-shim/4.0.3/es5-shim.min.js"></script>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>   
+    <![endif]-->
+    <script>
+        // 验证用户名是否唯一
+        var usernameUrl = '@string.Format("{0}{1}", System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenterAPI"], "/Account/IsExistUserName")';
+        // 验证图形验证码
+        var vImageCodeUrl = '@Url.Action("ImageValidateCode", "Account")';
+        // 验证短信验证码
+        var vDCodeUrl = '@Url.Action("ValidateVCode", "Account")';
+        // var getDCodeUrl = '@Url.Action("GetValidateCode", "Account")';
+        // 发送短信验证码
+        var getDCodeUrl = '@Url.Action("GetRegPhoneCode", "Account")';
+        // 前三个注册接口
+        var oriurl = ucConfig.ServerReferenceMemberCenterAPI + '/Account/AddJaguarAccount'; 
+
+        var ourl = ucConfig.ServerReferenceMemberCenterAPI + '/Account/AddInvestmentAccount';
+        var turl = ucConfig.ServerReferenceMemberCenterAPI + '/Account/AddServiceProviderAccount';
+
+        var PlatformID = @SessionHelper.Identity.PlatformID;
+
+    </script>
+    <!-- <script src="~/Statics/js/createaccount.js"></script> -->
+
+    <div class="wrap kjzc-bg"  ng-app="yoB">
+
+        <div class="container" ng-controller="MainCtrl">
+
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="btn-group ntab-btn">
+                        <label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'reg1'">个人用户</label>
+                        <label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'reg2'">客户企业</label>
+                        <label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'reg3'">众创空间运营方</label>
+                        <label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'reg4'">投资方</label>
+                        <label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'reg5'">服务商</label>
+                    </div>
+                    <div ng-view></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/ng-template" id="reg1">
+    <form class="form-horizontal kj-form" name="reg1Form" id="geRenForm" ng-submit="reg1Pub()" novalidate>
+        <div class="form-group">
+            <label for="UserName" class="col-sm-2 control-label">手机：</label>                
+            <div class="col-sm-3">                                        
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder="请输入手机号" , ng_model="geRen.UserName", email_phone="", unique_username="", required="", form="reg1Form" })
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg1Form.UserName.$dirty && reg1Form.UserName.$invalid">
+                    <span ng-show="reg1Form.UserName.$error.required">必须填写</span>
+                    <span ng-show="reg1Form.UserName.$error.emailPhone">请填写正确的手机号</span>                    
+                    <span ng-show="reg1Form.UserName.$error.uniqueUsername">已经被注册，可直接登录</span>                    
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Password" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:Password")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterPassword"), Type = "Password", ng_model="geRen.Password", ng_minlength="6", ng_maxlength="14", required="", form="reg1Form"})
+            </div>
+            <div class="col-sm-7">
+                <span class="merror" ng-show="reg1Form.Password.$dirty && reg1Form.Password.$invalid">
+                    <span ng-show="reg1Form.Password.$error.required">必须填写</span>                   
+                    <span ng-show="reg1Form.Password.$error.minlength">最少6个字符</span>                   
+                    <span ng-show="reg1Form.Password.$error.maxlength">最多14个字符</span>  
+                    <span ng-show="reg1Form.Password.$error.equalPassword">两次输入的密码不同</span>                  
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RePassword" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:RePassword")</label>
+            <div class="col-sm-3">
+            @Html.TextBoxFor(model => model.RePassword, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:ReEnterPassword"), Type = "Password", ng_model="geRen.RePassword", ng_minlength="6", ng_maxlength="14", required="", equal_password="Password", form="reg1Form"})
+            </div>
+            <div class="col-sm-7">
+                <span class="merror" ng-show="reg1Form.RePassword.$dirty && reg1Form.RePassword.$invalid">
+                    <span ng-show="reg1Form.RePassword.$error.required">必须填写</span>                   
+                    <span ng-show="reg1Form.RePassword.$error.minlength">最少6个字符</span>                   
+                    <span ng-show="reg1Form.RePassword.$error.maxlength">最多14个字符</span>                   
+                    <span ng-show="reg1Form.RePassword.$error.equalPassword">两次输入的密码不同</span>                   
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Vcode" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:ValidateCode")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Vcode, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterValidateCode"), ng_model="geRen.Vcode", v_vcode="", required="" }) 
+
+            </div>
+            <div class="col-sm-2">
+                <div class="ivcode">                
+                    <img class="btn btn-info vvcode" ng-click="getVcode($event)" src="../Account/GetSafeValidateCode"/>
+                </div>                                        
+            </div>
+            <div class="col-sm-5">
+                <span class="merror" ng-show="reg1Form.Vcode.$dirty && reg1Form.Vcode.$invalid">
+                    <span ng-show="reg1Form.Vcode.$error.vVcode">验证码不正确</span>                 
+                </span>
+            </div>
+        </div> 
+
+        <div class="SMSdlDcode form-group" ng-if="showSms()">
+            <label for="Dcode" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:DynamicCode")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Dcode, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterDynamicCode"), ng_model="geRen.Dcode", v_dcode="" , required=""})
+            </div>
+            <div class="col-sm-1">
+                <div class="SMSdl" ng-show="showSms()">
+                    <input class="btn btn-info" type="button" ng-click="getDcode($event, geRen.UserName)" value='@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:GetValidateCode")' />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <span class="merror" ng-show="reg1Form.Dcode.$dirty && reg1Form.Dcode.$invalid">
+                    <span ng-show="reg1Form.Dcode.$error.vDcode">验证码不正确</span>                 
+                </span>
+            </div>
+        </div>        
+       
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-2">
+                <div class="checkbox">
+                    <label>                                            
+                        <input  class="ckbprotocal" name="ckbprotocal" ng-model="geRen.ckbprotocal" type="checkbox" type="checkbox"> @Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:AgreeAndAccept") <a class="ckb" target="_blank" href='@string.Format("{0}{1}", System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"], "/Account/Protocal")'>@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:UserProtocal")</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <input type="submit" class="btnLogin btn btn-primary" ng-disabled="reg1Disable()" value='@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:RegisterNow")'/>
+            </div>
+        </div>
+    </form>
+</script>
+<script type="text/ng-template" id="reg2">
+    <form class="form-horizontal kj-form" name="reg2Form" id="khForm" ng-submit="reg2Pub()" novalidate>
+        <div class="form-group">
+            <label for="UserName" class="col-sm-2 control-label">手机：</label>                
+            <div class="col-sm-3">                                        
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder="请输入手机号", ng_model="kh.UserName", email_phone="", unique_username="", required="", form="reg2Form"})
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg2Form.UserName.$dirty && reg2Form.UserName.$invalid">
+                    <span ng-show="reg2Form.UserName.$error.required">必须填写</span>
+                    <span ng-show="reg2Form.UserName.$error.emailPhone">请填写正确的手机号</span>                    
+                    <span ng-show="reg2Form.UserName.$error.uniqueUsername">已经被注册，可直接登录</span>                    
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Password" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:Password")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterPassword"), Type = "Password", ng_model="kh.Password", ng_minlength="6", ng_maxlength="14", required="", form="reg2Form"})
+            </div>
+            <div class="col-sm-7">
+                <span class="merror" ng-show="reg2Form.Password.$dirty && reg2Form.Password.$invalid">
+                    <span ng-show="reg2Form.Password.$error.required">必须填写</span>                   
+                    <span ng-show="reg2Form.Password.$error.minlength">最少6个字符</span>                   
+                    <span ng-show="reg2Form.Password.$error.maxlength">最多14个字符</span>  
+                    <span ng-show="reg2Form.Password.$error.equalPassword">两次输入的密码不同</span>                  
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RePassword" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:RePassword")</label>
+            <div class="col-sm-3">
+            @Html.TextBoxFor(model => model.RePassword, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:ReEnterPassword"), Type = "Password", ng_model="kh.RePassword", ng_minlength="6", ng_maxlength="14", required="", equal_password="Password", form="reg2Form"})
+            </div>
+            <div class="col-sm-7">
+                <span class="merror" ng-show="reg2Form.RePassword.$dirty && reg2Form.RePassword.$invalid">
+                    <span ng-show="reg2Form.RePassword.$error.required">必须填写</span>                   
+                    <span ng-show="reg2Form.RePassword.$error.minlength">最少6个字符</span>                   
+                    <span ng-show="reg2Form.RePassword.$error.maxlength">最多14个字符</span>                   
+                    <span ng-show="reg2Form.RePassword.$error.equalPassword">两次输入的密码不同</span>                   
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="CompanyName" class="col-sm-2 control-label">公司名称：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="CompanyName" ng-model="kh.CompanyName" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg2Form.CompanyName.$dirty && reg2Form.CompanyName.$invalid">
+                    <span ng-show="reg2Form.CompanyName.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ContactUserName" class="col-sm-2 control-label">联系人：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="ContactUserName" ng-model="kh.ContactUserName" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg2Form.ContactUserName.$dirty && reg2Form.ContactUserName.$invalid">
+                    <span ng-show="reg2Form.ContactUserName.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Vcode" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:ValidateCode")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Vcode, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterValidateCode"), ng_model="kh.Vcode", v_vcode="", required="" })                                        
+            </div>
+            <div class="col-sm-2">
+                <div class="Emaildl">
+                    <img class="btn btn-info vvcode" ng-click="getVcode($event)" src="../Account/GetSafeValidateCode"/>
+                </div>                                        
+            </div>
+            <div class="col-sm-5">
+                <span class="merror" ng-show="reg2Form.Vcode.$dirty && reg2Form.Vcode.$invalid">
+                    <span ng-show="reg2Form.Vcode.$error.vVcode">验证码不正确</span>                 
+                </span>
+            </div>
+        </div>  
+        <div class="SMSdlDcode form-group" ng-if="showSms()">
+            <label for="Dcode" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:DynamicCode")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Dcode, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterDynamicCode"), ng_model="kh.Dcode", v_dcode="" , required=""})
+            </div>
+            <div class="col-sm-1">
+                <div class="SMSdl" ng-show="showSms()">
+                    <input class="btn btn-info" type="button" ng-click="getDcode($event, kh.UserName)" value='@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:GetValidateCode")' />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <span class="merror" ng-show="reg2Form.Dcode.$dirty && reg2Form.Dcode.$invalid">
+                    <span ng-show="reg2Form.Dcode.$error.vDcode">验证码不正确</span>                 
+                </span>
+            </div>
+        </div>        
+      
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-2">
+                <div class="checkbox">
+                    <label>                                            
+                        <input  class="ckbprotocal" name="ckbprotocal" ng-model="kh.ckbprotocal" type="checkbox" type="checkbox"> @Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:AgreeAndAccept") <a class="ckb" target="_blank" href='@string.Format("{0}{1}", System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"], "/Account/Protocal")'>@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:UserProtocal")</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <input type="submit" class="btnLogin btn btn-primary" ng-disabled="reg2Disable()" value='@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:RegisterNow")'/>
+            </div>
+        </div>
+        
+    </form>    
+</script>
+<script type="text/ng-template" id="reg3">
+    <form class="form-horizontal kj-form" name="reg3Form" id="kjForm"  ng-submit="reg3Pub()" novalidate>
+
+        <div class="form-group">
+            <label for="UserName" class="col-sm-2 control-label">手机：</label>                
+            <div class="col-sm-3">                                        
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder="请输入手机号", ng_model="kj.UserName", email_phone="", unique_username="", required="", form="reg3Form"})
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg3Form.UserName.$dirty && reg3Form.UserName.$invalid">
+                    <span ng-show="reg3Form.UserName.$error.required">必须填写</span>
+                    <span ng-show="reg3Form.UserName.$error.emailPhone">请填写正确的手机号</span>                    
+                    <span ng-show="reg3Form.UserName.$error.uniqueUsername">已经被注册，可直接登录</span>                    
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Password" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:Password")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterPassword"), Type = "Password", ng_model="kj.Password", ng_minlength="6", ng_maxlength="14", required="", form="reg3Form"})
+            </div>
+            <div class="col-sm-7">
+                <span class="merror" ng-show="reg3Form.Password.$dirty && reg3Form.Password.$invalid">
+                    <span ng-show="reg3Form.Password.$error.required">必须填写</span>                   
+                    <span ng-show="reg3Form.Password.$error.minlength">最少6个字符</span>                   
+                    <span ng-show="reg3Form.Password.$error.maxlength">最多14个字符</span>  
+                    <span ng-show="reg3Form.Password.$error.equalPassword">两次输入的密码不同</span>                  
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RePassword" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:RePassword")</label>
+            <div class="col-sm-3">
+            @Html.TextBoxFor(model => model.RePassword, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:ReEnterPassword"), Type = "Password", ng_model="kj.RePassword", ng_minlength="6", ng_maxlength="14", required="", equal_password="Password", form="reg3Form"})
+            </div>
+            <div class="col-sm-7">
+                <span class="merror" ng-show="reg3Form.RePassword.$dirty && reg3Form.RePassword.$invalid">
+                    <span ng-show="reg3Form.RePassword.$error.required">必须填写</span>                   
+                    <span ng-show="reg3Form.RePassword.$error.minlength">最少6个字符</span>                   
+                    <span ng-show="reg3Form.RePassword.$error.maxlength">最多14个字符</span>                   
+                    <span ng-show="reg3Form.RePassword.$error.equalPassword">两次输入的密码不同</span>                   
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="CompanyName" class="col-sm-2 control-label">公司名称：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="CompanyName" ng-model="kj.CompanyName" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg3Form.CompanyName.$dirty && reg3Form.CompanyName.$invalid">
+                    <span ng-show="reg3Form.CompanyName.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ContactUserName" class="col-sm-2 control-label">联系人：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="ContactUserName" ng-model="kj.ContactUserName" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg3Form.ContactUserName.$dirty && reg3Form.ContactUserName.$invalid">
+                    <span ng-show="reg3Form.ContactUserName.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="SpaceName" class="col-sm-2 control-label">众创空间名称：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="SpaceName" ng-model="kj.SpaceName" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg3Form.SpaceName.$dirty && reg3Form.SpaceName.$invalid">
+                    <span ng-show="reg3Form.SpaceName.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Address" class="col-sm-2 control-label">地点：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="Address" ng-model="kj.Address" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg3Form.Address.$dirty && reg3Form.Address.$invalid">
+                    <span ng-show="reg3Form.Address.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Vcode" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:ValidateCode")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Vcode, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterValidateCode"), ng_model="kj.Vcode", v_vcode="", required="" })                                        
+            </div>
+            <div class="col-sm-2">
+                <div class="Emaildl">
+                    <img class="btn btn-info vvcode" ng-click="getVcode($event)" src="../Account/GetSafeValidateCode"/>
+                </div>                                        
+            </div>
+            <div class="col-sm-5">
+                <span class="merror" ng-show="reg3Form.Vcode.$dirty && reg3Form.Vcode.$invalid">
+                    <span ng-show="reg3Form.Vcode.$error.vVcode">验证码不正确</span>                 
+                </span>
+            </div>
+        </div> 
+
+        <div class="SMSdlDcode form-group" ng-if="showSms()">
+            <label for="Dcode" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:DynamicCode")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Dcode, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterDynamicCode"), ng_model="kj.Dcode", v_dcode="" , required=""})
+            </div>
+            <div class="col-sm-1">
+                <div class="SMSdl" ng-show="showSms()">
+                    <input class="btn btn-info" type="button" ng-click="getDcode($event, kj.UserName)" value='@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:GetValidateCode")' />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <span class="merror" ng-show="reg3Form.Dcode.$dirty && reg3Form.Dcode.$invalid">
+                    <span ng-show="reg3Form.Dcode.$error.vDcode">验证码不正确</span>                 
+                </span>
+            </div>
+        </div>        
+       
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-2">
+                <div class="checkbox">
+                    <label>                                            
+                        <input  class="ckbprotocal" name="ckbprotocal" ng-model="kj.ckbprotocal" type="checkbox" type="checkbox"> @Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:AgreeAndAccept") <a class="ckb" target="_blank" href='@string.Format("{0}{1}", System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"], "/Account/Protocal")'>@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:UserProtocal")</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <input type="submit" class="btnLogin btn btn-primary" ng-disabled="reg3Disable()" value='@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:RegisterNow")'/>
+            </div>
+        </div>
+    </form>
+</script>
+<script type="text/ng-template" id="reg4">
+    <form class="form-horizontal kj-form" name="reg4Form" id="tzForm"  ng-submit="reg4Pub()" novalidate>
+        <div class="form-group">
+            <label for="UserType" class="col-sm-2 control-label">用户类型：</label>                
+            <div class="col-sm-3">                                        
+                <input type="radio" name="UserType" value="0" ng-model="tz.UserType" placeholder="">
+                <span>个人&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input type="radio" name="UserType" value="1" ng-model="tz.UserType" placeholder="">
+                <span>机构</span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="UserName" class="col-sm-2 control-label">手机：</label>                
+            <div class="col-sm-3">                                        
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder="请输入手机号", ng_model="tz.UserName", email_phone="", unique_username="", required="", form="reg4Form"})
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.UserName.$dirty && reg4Form.UserName.$invalid">
+                    <span ng-show="reg4Form.UserName.$error.required">必须填写</span>
+                    <span ng-show="reg4Form.UserName.$error.emailPhone">请填写正确的手机号</span>                    
+                    <span ng-show="reg4Form.UserName.$error.uniqueUsername">已经被注册，可直接登录</span>                    
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Password" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:Password")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterPassword"), Type = "Password", ng_model="tz.Password", ng_minlength="6", ng_maxlength="14", required="", form="reg4Form"})
+            </div>
+            <div class="col-sm-7">
+                <span class="merror" ng-show="reg4Form.Password.$dirty && reg4Form.Password.$invalid">
+                    <span ng-show="reg4Form.Password.$error.required">必须填写</span>                   
+                    <span ng-show="reg4Form.Password.$error.minlength">最少6个字符</span>                   
+                    <span ng-show="reg4Form.Password.$error.maxlength">最多14个字符</span>  
+                    <span ng-show="reg4Form.Password.$error.equalPassword">两次输入的密码不同</span>                  
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RePassword" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:RePassword")</label>
+            <div class="col-sm-3">
+            @Html.TextBoxFor(model => model.RePassword, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:ReEnterPassword"), Type = "Password", ng_model="tz.RePassword", ng_minlength="6", ng_maxlength="14", required="", equal_password="Password", form="reg4Form"})
+            </div>
+            <div class="col-sm-7">
+                <span class="merror" ng-show="reg4Form.RePassword.$dirty && reg4Form.RePassword.$invalid">
+                    <span ng-show="reg4Form.RePassword.$error.required">必须填写</span>                   
+                    <span ng-show="reg4Form.RePassword.$error.minlength">最少6个字符</span>                   
+                    <span ng-show="reg4Form.RePassword.$error.maxlength">最多14个字符</span>                   
+                    <span ng-show="reg4Form.RePassword.$error.equalPassword">两次输入的密码不同</span>                   
+                </span>
+            </div>
+        </div>
+
+
+        <div class="form-group" ng-if="isOrg()">
+            <label for="OrganizationType" class="col-sm-2 control-label">机构类型：</label>                
+            <div class="col-sm-3">                                        
+                <select name="OrganizationType" ng-model="tz.OrganizationType" ng-options="org.id as org.value for org in OrganizationTypes" required >
+                    <option value="">-- 请选择 --</option>
+                </select>
+            </div>
+            <div class="col-sm-11">                                        
+                <span class="merror" ng-show="reg4Form.OrganizationType.$dirty && reg4Form.OrganizationType.$invalid">
+                    <span ng-show="reg4Form.OrganizationType.$error.required">必须填写</span>                
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="isOrg()">
+            <label for="OrganizationName" class="col-sm-2 control-label">机构名称：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="OrganizationName" ng-model="tz.OrganizationName" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.OrganizationName.$dirty && reg4Form.OrganizationName.$invalid">
+                    <span ng-show="reg4Form.OrganizationName.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="isOrg()">
+            <label for="OrganizationIntroduction" class="col-sm-2 control-label">机构说明：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="OrganizationIntroduction" ng-model="tz.OrganizationIntroduction" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.OrganizationIntroduction.$dirty && reg4Form.OrganizationIntroduction.$invalid">
+                    <span ng-show="reg4Form.OrganizationIntroduction.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+        <!-- 个人 -->
+        <div class="form-group"  ng-if="!isOrg()">
+            <label for="Assets" class="col-sm-2 control-label">个人资产：</label>                
+            <div class="col-sm-10">                                        
+                <input type="radio" name="Assets" ng-model="tz.Assets" value="0" placeholder="">
+                <span>金融资产超过100万&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input type="radio" name="Assets" ng-model="tz.Assets" value="1" placeholder="">
+                <span>近3年收入超过30万</span>
+                <span>个人投资者必须符合其中一项</span>
+            </div>
+        </div>
+        <div class="form-group" ng-if="!isOrg()">
+            <label for="NickName" class="col-sm-2 control-label">昵称：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="NickName" ng-model="tz.NickName" ng-maxlength="60" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.NickName.$dirty && reg4Form.NickName.$invalid">
+                    <span ng-show="reg4Form.NickName.$error.required">必须填写</span> 
+                    <span ng-show="reg4Form.NickName.$error.maxlength">最大60个字符</span>                 
+                </span>
+            </div>
+        </div>
+        <div class="form-group" ng-if="!isOrg()">
+            <label for="Instruction" class="col-sm-2 control-label">个人说明：</label>                
+            <div class="col-sm-5">                                        
+                <input type="text" name="Instruction"  ng-model="tz.Instruction" ng-maxlength="120" required />                
+            </div>
+            <div class="col-sm-5">                                        
+                <span class="merror" ng-show="reg4Form.Instruction.$dirty && reg4Form.Instruction.$invalid">
+                    <span ng-show="reg4Form.Instruction.$error.required">必须填写</span>                  
+                    <span ng-show="reg4Form.Instruction.$error.maxlength">最大120个字符</span>                  
+                </span>
+            </div>
+            <div class="col-sm-10 col-sm-offset-2">
+                <span>如果昵称不是真实姓名，个人说明建议采用：公司+职务+真实姓名</span>
+            </div>
+        </div>
+        <!-- 公共 城市 -->
+        <div class="form-group">
+            <label for="City" class="col-sm-2 control-label">所在城市：</label>                
+            <div class="col-sm-3">                                        
+                <select name="City" ng-model="tz.City" ng-options="city.id as city.value for city in citys" required >
+                    <option value="">-- 请选择 --</option>
+                </select>
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.City.$dirty && reg4Form.City.$invalid">
+                    <span ng-show="reg4Form.City.$error.required">必须填写</span>                
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="!isOrg()">
+            <label for="RealName" class="col-sm-2 control-label">真实姓名：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="RealName" ng-model="tz.RealName" ng-maxlength="60" required/>
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.RealName.$dirty && reg4Form.RealName.$invalid">
+                    <span ng-show="reg4Form.RealName.$error.required">必须填写</span>                  
+                    <span ng-show="reg4Form.RealName.$error.maxlength">最大60个字符</span>                  
+                </span>
+            </div>
+            <div class="col-sm-10 col-sm-offset-2">
+                <span>前台不显示，用于网站运营管理人员替你办理投资手续时使用</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="!isOrg()">
+            <label for="IDCard" class="col-sm-2 control-label">身份证号：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="IDCard"  ng-model="tz.IDCard" ng-maxlength="60" v-card required/>
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.IDCard.$dirty && reg4Form.IDCard.$invalid">
+                    <span ng-show="reg4Form.IDCard.$error.required">必须填写</span>                  
+                    <span ng-show="reg4Form.IDCard.$error.maxlength">最大60个字符</span>                  
+                    <span ng-show="reg4Form.IDCard.$error.vCard">身份证号不正确</span>                  
+                </span>
+            </div>
+            <div class="col-sm-10 col-sm-offset-2">
+                <span>前台不显示，用于网站运营管理人员替你办理投资手续时使用</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="!isOrg()">
+            <label for="HomeAddress" class="col-sm-2 control-label">个人住址：</label>                
+            <div class="col-sm-5">                                        
+                <input type="text" name="HomeAddress" ng-model="tz.HomeAddress" ng-maxlength="120" required />
+            </div>
+            <div class="col-sm-5">                                        
+                <span class="merror" ng-show="reg4Form.HomeAddress.$dirty && reg4Form.HomeAddress.$invalid">
+                    <span ng-show="reg4Form.HomeAddress.$error.required">必须填写</span>                  
+                    <span ng-show="reg4Form.HomeAddress.$error.maxlength">最大120个字符</span>                  
+                </span>
+            </div>
+            <div class="col-sm-10 col-sm-offset-2">
+                <span>用于办理投资入股工商变更手续及快递接收</span>
+            </div>
+        </div>
+
+<!--         <div class="form-group" ng-if="uPhone()">
+            <label for="Phone" class="col-sm-2 control-label">手机号码：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="Phone" ng-model="tz.Phone" v-phone required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.Phone.$dirty && reg4Form.Phone.$invalid">
+                    <span ng-show="reg4Form.Phone.$error.required">必须填写</span>                  
+                    <span ng-show="reg4Form.Phone.$error.vPhone">手机号码不正确</span>                 
+                </span>
+            </div>
+            <div class="col-sm-10 col-sm-offset-2">
+                <span>前台不显示，用于网站运营管理人员替你办理投资手续时使用</span>
+            </div>
+        </div> -->
+        <!-- end 个人 -->
+        <!-- 公司 -->
+<!--         <div class="form-group" ng-if="isOrg()">
+            <label for="CompanyName" class="col-sm-2 control-label">公司名称：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="CompanyName" ng-model="tz.CompanyName" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.CompanyName.$dirty && reg4Form.CompanyName.$invalid">
+                    <span ng-show="reg4Form.CompanyName.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div> -->
+        <!-- 联系人 -->
+        <div class="form-group" ng-if="isOrg()">
+            <label for="ContactUserName" class="col-sm-2 control-label">联系人：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="ContactUserName" ng-model="tz.ContactUserName" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.ContactUserName.$dirty && reg4Form.ContactUserName.$invalid">
+                    <span ng-show="reg4Form.ContactUserName.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="isOrg()">
+            <label for="CompanyCode" class="col-sm-2 control-label">营业执照：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="CompanyCode" ng-model="tz.CompanyCode" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.CompanyCode.$dirty && reg4Form.CompanyCode.$invalid">
+                    <span ng-show="reg4Form.CompanyCode.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="isOrg()">
+            <label for="CompanyAddress" class="col-sm-2 control-label">机构地址：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="CompanyAddress" ng-model="tz.CompanyAddress" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.CompanyAddress.$dirty && reg4Form.CompanyAddress.$invalid">
+                    <span ng-show="reg4Form.CompanyAddress.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="isOrg()">
+            <label for="CompanyPhone" class="col-sm-2 control-label">联系人手机：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="CompanyPhone" ng-model="tz.CompanyPhone" v-phone required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg4Form.CompanyPhone.$dirty && reg4Form.CompanyPhone.$invalid">
+                    <span ng-show="reg4Form.CompanyPhone.$error.required">必须填写</span>                  
+                    <span ng-show="reg4Form.CompanyPhone.$error.vPhone">手机号码不正确</span>                 
+                </span>
+            </div>
+            <div class="col-sm-10 col-sm-offset-2">
+                <span>前台不显示，用于网站运营管理人员替你办理投资手续时使用</span>
+            </div>
+        </div>
+        <!-- end 公司 -->
+        <div class="form-group">
+            <label for="Vcode" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:ValidateCode")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Vcode, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterValidateCode"), ng_model="tz.Vcode", v_vcode="", required="" })                                        
+            </div>
+            <div class="col-sm-2">
+                <div class="Emaildl">
+                    <img class="btn btn-info vvcode" ng-click="getVcode($event)" src="../Account/GetSafeValidateCode"/>
+                </div>                                        
+            </div>
+            <div class="col-sm-5">
+                <span class="merror" ng-show="reg4Form.Vcode.$dirty && reg4Form.Vcode.$invalid">
+                    <span ng-show="reg4Form.Vcode.$error.vVcode">验证码不正确</span>                 
+                </span>
+            </div>
+        </div> 
+        <div class="SMSdlDcode form-group" ng-if="showSms()">
+            <label for="Dcode" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:DynamicCode")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Dcode, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterDynamicCode"), ng_model="tz.Dcode", v_dcode="" , required=""})
+            </div>
+            <div class="col-sm-1">
+                <div class="SMSdl" ng-show="showSms()">
+                    <input class="btn btn-info" type="button" ng-click="getDcode($event, tz.UserName)" value='@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:GetValidateCode")' />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <span class="merror" ng-show="reg4Form.Dcode.$dirty && reg4Form.Dcode.$invalid">
+                    <span ng-show="reg4Form.Dcode.$error.vDcode">验证码不正确</span>                 
+                </span>
+            </div>
+        </div>        
+       
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-2">
+                <div class="checkbox">
+                    <label>                                            
+                        <input  class="ckbprotocal" name="ckbprotocal" ng-model="tz.ckbprotocal" type="checkbox" type="checkbox"> @Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:AgreeAndAccept") <a class="ckb" target="_blank" href='@string.Format("{0}{1}", System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"], "/Account/Protocal")'>@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:UserProtocal")</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <input type="submit" class="btnLogin btn btn-primary" ng-disabled="reg4Disable()" value='@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:RegisterNow")'/>
+            </div>
+        </div>
+    </form>
+</script>
+<script type="text/ng-template" id="reg5">
+    <form class="form-horizontal kj-form" name="reg5Form" id="fwForm"  ng-submit="reg5Pub()" novalidate>
+        <div class="form-group">
+            <label for="UserType" class="col-sm-2 control-label">用户类型：</label>                
+            <div class="col-sm-3">                                        
+                <input type="radio" name="UserType" value="0" ng-model="fw.UserType" placeholder="">
+                <span>个人&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input type="radio" name="UserType" value="1" ng-model="fw.UserType" placeholder="">
+                <span>机构</span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="UserName" class="col-sm-2 control-label">手机：</label>                
+            <div class="col-sm-3">                                        
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder="请输入手机号", ng_model="fw.UserName", email_phone="", unique_username="", required="", form="reg5Form"})
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg5Form.UserName.$dirty && reg5Form.UserName.$invalid">
+                    <span ng-show="reg5Form.UserName.$error.required">必须填写</span>
+                    <span ng-show="reg5Form.UserName.$error.emailPhone">请填写正确的手机号</span>                    
+                    <span ng-show="reg5Form.UserName.$error.uniqueUsername">已经被注册，可直接登录</span>                    
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Password" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:Password")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterPassword"), Type = "Password", ng_model="fw.Password", ng_minlength="6", ng_maxlength="14", required="", form="reg5Form"})
+            </div>
+            <div class="col-sm-7">
+                <span class="merror" ng-show="reg5Form.Password.$dirty && reg5Form.Password.$invalid">
+                    <span ng-show="reg5Form.Password.$error.required">必须填写</span>                   
+                    <span ng-show="reg5Form.Password.$error.minlength">最少6个字符</span>                   
+                    <span ng-show="reg5Form.Password.$error.maxlength">最多14个字符</span>  
+                    <span ng-show="reg5Form.Password.$error.equalPassword">两次输入的密码不同</span>                  
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RePassword" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:RePassword")</label>
+            <div class="col-sm-3">
+            @Html.TextBoxFor(model => model.RePassword, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:ReEnterPassword"), Type = "Password", ng_model="fw.RePassword", ng_minlength="6", ng_maxlength="14", required="", equal_password="Password", form="reg5Form"})
+            </div>
+            <div class="col-sm-7">
+                <span class="merror" ng-show="reg5Form.RePassword.$dirty && reg5Form.RePassword.$invalid">
+                    <span ng-show="reg5Form.RePassword.$error.required">必须填写</span>                   
+                    <span ng-show="reg5Form.RePassword.$error.minlength">最少6个字符</span>                   
+                    <span ng-show="reg5Form.RePassword.$error.maxlength">最多14个字符</span>                   
+                    <span ng-show="reg5Form.RePassword.$error.equalPassword">两次输入的密码不同</span>                   
+                </span>
+            </div>
+        </div>
+        <div class="form-group" ng-if="isOrg()">
+            <label for="CompanyName" class="col-sm-2 control-label">公司名称：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="CompanyName" ng-model="fw.CompanyName" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg5Form.CompanyName.$dirty && reg5Form.CompanyName.$invalid">
+                    <span ng-show="reg5Form.CompanyName.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group" ng-if="isOrg()">
+            <label for="ContactUserName" class="col-sm-2 control-label">联系人：</label>                
+            <div class="col-sm-3">                                        
+                <input type="text" name="ContactUserName" ng-model="fw.ContactUserName" required />
+            </div>
+            <div class="col-sm-7">                                        
+                <span class="merror" ng-show="reg5Form.ContactUserName.$dirty && reg5Form.ContactUserName.$invalid">
+                    <span ng-show="reg5Form.ContactUserName.$error.required">必须填写</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Vcode" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:ValidateCode")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Vcode, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterValidateCode"), ng_model="fw.Vcode", v_vcode="", required="" })                                        
+            </div>
+            <div class="col-sm-2">
+                <div class="Emaildl">
+                    <img class="btn btn-info vvcode" ng-click="getVcode($event)" src="../Account/GetSafeValidateCode"/>
+                </div>                                        
+            </div>
+            <div class="col-sm-5">
+                <span class="merror" ng-show="reg5Form.Vcode.$dirty && reg5Form.Vcode.$invalid">
+                    <span ng-show="reg5Form.Vcode.$error.vVcode">验证码不正确</span>                 
+                </span>
+            </div>
+        </div> 
+        <div class="SMSdlDcode form-group" ng-if="showSms()">
+            <label for="Dcode" class="col-sm-2 control-label">@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:DynamicCode")</label>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(model => model.Dcode, new { @class = "form-control", placeholder= Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:EnterDynamicCode"), ng_model="fw.Dcode", v_dcode="" , required=""})
+            </div>
+            <div class="col-sm-1">
+                <div class="SMSdl" ng-show="showSms()">
+                    <input class="btn btn-info" type="button" ng-click="getDcode($event, fw.UserName)" value='@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:GetValidateCode")' />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <span class="merror" ng-show="reg5Form.Dcode.$dirty && reg5Form.Dcode.$invalid">
+                    <span ng-show="reg5Form.Dcode.$error.vDcode">验证码不正确</span>                 
+                </span>
+            </div>
+        </div>        
+       
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-2">
+                <div class="checkbox">
+                    <label>                                            
+                        <input  class="ckbprotocal" name="ckbprotocal" ng-model="fw.ckbprotocal" type="checkbox" type="checkbox"> @Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:AgreeAndAccept") <a class="ckb" target="_blank" href='@string.Format("{0}{1}", System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"], "/Account/Protocal")'>@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:UserProtocal")</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <input type="submit" class="btnLogin btn btn-primary" ng-disabled="reg5Disable()" value='@Html.I18NTranslate("ZCPT.PublicPortal.Web.Account.CreateAccount:RegisterNow")'/>
+            </div>
+        </div>
+
+    </form>
+</script>
+
+
+<script src="~/Statics/js/Account.Controller.js"></script>

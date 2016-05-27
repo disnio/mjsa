@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+
+<script type="text/javascript">
+    // 收藏项目 url
+    var CreateCollectUrl = '@Url.Action("CreateCollect", "CFInvestingParty")';
+    // 约谈项目方 url
+    var CreateInterviewsUrl = '@Url.Action("CreateInterviews", "CFInvestingParty")';
+
+    var AccountID = '@SessionHelper.Identity.Account.ID';
+</script>
+
+
+    <div class="wrapper">
+        <div id="pageHead"></div>
+        <div class="scrol-page k1120 mainContent clearfix memberCenter">
+
+            <aside class="asideBar fl commentBar" id="investorMenu"></aside>
+            <div class="subContent">
+
+            </div>
+
+        </div>
+        <div id="footerBar"></div>
+    </div>
+    <script type="text/javascript">
+    $(function() {
+        // var $subContent=$('.subContent');
+
+        // $subContent.load('InvestorModel/content/basicInfo.html');
+        // var url = $.url();
+        // var bid = url.param("id");
+        // 激活标签根据传进来的id
+
+        // 根据点击的 a href 确定装载的页面 Allen 标注 2016-01-13
+        // 
+        // $.memberCenter.loadInvestorMenu();
+        // $('#investorMenu').delegate('a','click',function() {
+
+        //     var $this=$(this),
+        //         thisUrl=this.href,
+        //         myFrameURL = $.commonFun.parseURL(thisUrl),
+        //         currentHash=myFrameURL.hash,
+        //         params =  parseInt(myFrameURL.params.id);
+        //     $subContent.load('InvestorModel/content/'+currentHash+'.html');
+
+        // });
+
+    })
+    </script>
+</body>
+</html>

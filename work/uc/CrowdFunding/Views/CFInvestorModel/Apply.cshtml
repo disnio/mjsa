@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+
+<script type="text/javascript">
+    // 收藏项目 url
+    var CreateCollectUrl = '@Url.Action("CreateCollect", "CFInvestingParty")';
+    // 约谈项目方 url
+    var CreateInterviewsUrl = '@Url.Action("CreateInterviews", "CFInvestingParty")';
+
+    var AccountID = '@SessionHelper.Identity.Account.ID';
+</script>
+
+
+
+    <div class="wrapper">
+        <div id="pageHead"></div>
+        <div class="scrol-page k1120 mainContent clearfix memberCenter">
+
+            <aside class="asideBar fl commentBar" id="investorMenu"></aside>
+            <div class="subContent">
+                <h1 class="font_2 ct_7 title_line">
+                    <span class="fl"><i class="fa fa-magic"></i> 申请领投资格</span>
+
+                </h1>
+
+                <table class="tab1">
+                    <tbody>
+                        <tr class="col">
+                            <th colspan="2">领投人说明</th>
+                        </tr>
+                        <tr>
+                            <td class="f_b">资质要求</td>
+                            <td class="t_txt">
+                                满足以下任一条件即可：<br>
+                                ①&nbsp;两年以上天使基金、早期VC基金经理级以上岗位从业经验；<br>
+                                ②&nbsp;两年以上创业经验（只限第一创始人经验）；<br>
+                                ③&nbsp;三年以上企业总监级以上岗位工作经验；<br>
+                                ④&nbsp;五年以上企业经理级岗位工作经验；<br>
+                                ⑤&nbsp;两个以上天使投资案例。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="f_b">优创融资审核</td>
+                            <td> 需要</td>
+                        </tr>
+                        <tr>
+                            <td class="f_b">最低出资比例</td>
+                            <td>5%</td>
+                        </tr>
+                        <tr>
+                            <td class="f_b">退出Carry分配</td>
+                            <td>15%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h1 class="font_3 ct_7 title_line"> <span class="fl"><i class="fa fa-caret-right"></i> 请选择领投项目行业：（最多不超过三项）</span> </h1>
+                <div id="u21container" class="con9_sub">
+                    <label for="u21">
+                        <input type="checkbox" name="industry[]" value="1" id="pc" onclick="checkboxes();">
+                        <label for="pc">PC互联网</label>&nbsp;&nbsp;
+                        <input type="checkbox" name="industry[]" value="2" id="yd" onclick="checkboxes();">
+                        <label for="yd">移动互联网</label>&nbsp;&nbsp;
+                        <input type="checkbox" name="industry[]" value="3" id="it" onclick="checkboxes();">
+                        <label for="it">IT软件/硬件</label>&nbsp;&nbsp;
+                        <input type="checkbox" name="industry[]" value="4" id="service" onclick="checkboxes();">
+                        <label for="service">服务业</label>&nbsp;&nbsp;
+                        <input type="checkbox" name="industry[]" value="5" id="culture" onclick="checkboxes();">
+                        <label for="culture">文化创意</label>
+                        <input type="checkbox" name="industry[]" value="6" id="culture" onclick="checkboxes();">
+                        <label for="culture">节能环保</label>
+                        <input type="checkbox" name="industry[]" value="7" id="culture" onclick="checkboxes();">
+                        <label for="culture">新能源</label>
+                        <input type="checkbox" name="industry[]" value="8" id="culture" onclick="checkboxes();">
+                        <label for="culture">生物医药</label>
+                    </label>
+                    <div id="pcTip" class="onFocus">至少选择一个</div>
+                </div>
+                <h1 class="font_3 ct_7 title_line"> <span class="fl"><i class="fa fa-caret-right"></i> 请填写机构简介：</span> </h1>
+
+                <textarea style="width:100%; height:100px;"></textarea>
+
+                <div class="tc" style="margin-top:30px;"><button class="btn btn-lg btn-primary">提交申请</button></div>
+
+            </div>
+
+        </div>
+        <div id="footerBar"></div>
+    </div>
+
+</body>
+</html>
+

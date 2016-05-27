@@ -1,0 +1,65 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using ZCPT.CrowdFunding.Web.Models
+@model PagedList<CFProjectInvestmentModel>
+
+<div id="sms_con_1">
+
+    @foreach (var i in Model)
+    {
+        <div class="cbInner">
+
+            <div class="thumbnail fl">
+                <a href="InvestProject?id=@i.Project.LID">
+                    <img alt="" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"] + "/fileupload/ImgDownload/"+ i.Project.Icon)" />
+                </a>
+            </div>
+            <div class="summary fr">
+
+                <p>@i.Project.Name <span class="label-info">@i.Project.Status.Name</span></p>
+
+                <ul>
+
+                    <li>
+                        <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>阶段：</span>
+                        <em>@(i.Project.Stage?.Name) </em>
+                    </li>
+
+                    <li>
+                        <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>行业：</span>
+                        <em>@(i.Project.Industry?.Name) </em>
+                    </li>
+
+                    <li>
+                        <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>投资类型：</span>
+                        <em>@(i.IsLeadInvestment ? "领投" : "跟投") </em>
+                    </li>
+
+                    <li>
+                        <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>投资金额：</span>
+                        <em>@(string.Format("{0:f2}", i.Amount / 10000))万 </em>
+                    </li>
+                    <li>
+                        <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>申请状态：</span>
+                        <em>@i.Status.Name </em>
+                    </li>
+                    <li>
+                        <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>申请时间：</span>
+                        @*<em>@(i.CreationDate.ToString("yyyy-MM-dd HH:mm:ss")) </em>*@
+                    </li>
+
+                </ul>
+                <br class="clear" />
+                <div class="detailList1">
+                    <i style="margin-right: 5px;" class="fa fa-caret-right"></i><span class="ct_7">项目简介：</span>@Html.Raw(i.Project.Introduction)
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+    @*@Ajax.Pager(Model, new PagerOptions { PageIndexParameterName = "id" }, new MvcAjaxOptions { UpdateTargetId = "proList"})*@
+    <div class="text-center">
+        @Ajax.Pager(Model, new PagerOptions { FirstPageText = "<<", LastPageText = ">>", NextPageText = ">", PrevPageText = "<", PageIndexParameterName = "id", ContainerTagName = "ul", CssClass = "pagination", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" }).AjaxOptions(a => a.SetUpdateTargetId("proList"))
+    </div>
+</div>

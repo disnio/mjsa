@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+}
+<link href="~/Content/css/yc_rz01.css" rel="stylesheet" type="text/css" />
+<div class="row">
+    @*<div class="col-md-12">
+            <img src=@Url.Content(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/7de40223-5336-40a7-8e66-f4ccacb61185")/>
+
+            <img src=@Url.Content(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/7de40223-5336-40a7-8e66-f4ccacb61185") />
+
+            <img src=@Url.Content(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/7de40223-5336-40a7-8e66-f4ccacb61185") />
+        </div>*@
+    <div class="rzimg">
+        <div class="yc01"><img src="/CrowdFunding/Content/img/rzimg01.jpg"></div>
+        <div class="finger-to"><a href=@Url.Content(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceProjectCenter"] + "/CFMyProjects/EditProjectBasis")>创建项目 快速融资</a></div>
+    </div>
+    <ul class="img-box">
+        <li><img src="/CrowdFunding/Content/img/lc.png"></li>
+        <li><img src="/CrowdFunding/Content/img/yc01.png"></li>
+    </ul>
+</div>

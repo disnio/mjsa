@@ -1,0 +1,102 @@
+﻿
+@model ZCPT.CrowdFunding.Web.Models.CFInvestmentLeadQualificationModule.CFInvestmentLeadQualificationModel
+
+@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "申请领投资格";}
+
+@Scripts.Render("~/bundles/inputrich")
+@Styles.Render("~/bundles/inputrich/style")
+@using (Html.BeginForm("InvestmentLeadQualificationApply", "CFInvestmentLeadQualification", FormMethod.Post, new { role = "form", id = "form1" }))
+{
+    <h2>领投资格说明</h2>
+
+    <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+        <tr>
+            <td>资质要求</td>
+            <td>
+                满足以下任一条件即可：<br/>
+                ① 两年以上天使基金、早期VC基金经理级以上岗位从业经验；<br />
+                ② 两年以上创业经验（只限第一创始人经验）；<br />
+                ③ 三年以上企业总监级以上岗位工作经验；<br />
+                ④ 五年以上企业经理级岗位工作经验；<br />
+                ⑤ 两个以上天使投资案例。
+            </td>
+        </tr>
+        <tr>
+            <td>平台审核</td>
+            <td>需要</td>
+        </tr>
+        <tr>
+            <td>最低出资比例</td>
+            <td>5%</td>
+        </tr>
+        <tr>
+            <td>退出Carry分配</td>
+            <td>15%</td>
+        </tr>
+    </table>
+    <br />
+
+    <h2>选择领投行业</h2>
+    <div>
+        @foreach (SelectListItem item in ViewBag.Industries)
+        {
+            var ischecked = "";
+            if (item.Selected)
+            {
+                ischecked = "checked='checked'";
+            }
+            <input name="Industries" type="checkbox" value="@item.Value" @ischecked/>
+            @item.Text
+
+        }
+
+        <label id="cbxMsg" style="color: red;">@ViewBag.CbxMsg</label>
+    </div>
+
+    <br/>
+
+    <h2>填写简介</h2>
+    
+        @Html.TextAreaFor(M => M.Introduction, 4, 20, new { style = "width: 100%; height: 180px;" })
+        <script type="text/javascript">$(function () { UM.getEditor('Introduction').setShow(); });</script>
+        <div>
+            @{
+                if (Model.ID > 0)
+                {
+                    <label style="color: red;">@ViewBag.Msg</label>
+                }
+                if (Model.ID == 0 || Model.Status.Value == "Denied")
+                {
+                    <input type="submit" class="btn btn-default" value="提交申请" id="btnApply"/>
+                    <label style="color: red;">@ViewBag.Msg</label>
+                }
+            }
+
+        </div>
+                }
+
+<script type="text/javascript">
+    $(function() {
+        $("[type='checkbox']").change(function() {
+            if (this.checked == false) {
+                var checkedNum = $("input[type='checkbox']:checked").length;
+                if (checkedNum == 0) {
+                    $("#cbxMsg").html("选择行业");
+                }
+            } else {
+                $("#cbxMsg").html("");
+            }
+        });
+
+        $("#btnApply").click(function () {
+            var checkedNum = $("input[type='checkbox']:checked").length;
+            if (checkedNum == 0) {
+                $("#cbxMsg").html("选择行业");
+                return false;
+            }
+        });
+    })
+</script>

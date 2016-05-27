@@ -1,0 +1,162 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    // 收藏项目 url
+    var CreateCollectUrl = '@Url.Action("CreateCollect", "CFInvestingParty")';
+    // 约谈项目方 url
+    var CreateInterviewsUrl = '@Url.Action("CreateInterviews", "CFInvestingParty")';
+
+    var AccountID = '@SessionHelper.Identity.Account.ID';
+</script>
+
+<!-- 项目标签列表 -->
+<script type="text/javascript" src="~/Scripts/js/app/projectTab.js"></script>
+<!-- 评论的脚本 -->
+<script type="text/javascript" src="~/Scripts/js/app/pl.js"></script>
+<div class="wrapper">
+    <div id="pageHead"></div>
+    <div class="scrol-page k1120 mainContent clearfix memberCenter">
+
+        <aside class="asideBar fl commentBar">
+            <h1 class="font_1 ct_7 title_line fw_normal">项目管理</h1>
+
+            <dl class="memberList">
+                <dd><a href="javascript:void(0);"><i class="fa fa-pencil-square-o"></i>项目资料编辑</a></dd>
+                <dd><a href="javascript:void(0);"><i class="fa fa-cog"></i> 项目设置</a></dd>
+                <dd><a href="javascript:void(0);"><i class="fa fa-user-secret"></i> 投资人信息</a></dd>
+                <dd><a href="javascript:void(0);"><i class="fa fa-comments-o"></i> 项目评论</a></dd>
+                <dd><a href="javascript:void(0);"><i class="fa fa-cube"></i> 项目动态</a></dd>
+                </dd>
+            </dl>
+            <h1 class="font_1 ct_7 title_line fw_normal">个人资料</h1>
+
+            <dl class="memberList">
+
+                <dd>
+                <a href="javascript:void(0);"><i class="fa fa-pencil"></i> 修改我的资料</a></dd>
+                <dd><a href="javascript:void(0);"><i class="fa fa-picture-o"></i> 修改头像</a></dd>
+                <dd><a href="javascript:void(0);"><i class="fa fa-pencil-square"></i> 修改密码</a></dd>
+                <dd><a href="javascript:void(0);"><i class="fa fa-credit-card"></i> 身份认证</a></dd>
+                </dd>
+            </dl>
+            <h1 class="font_1 ct_7 title_line fw_normal">个人资料</h1>
+
+            <dl class="memberList">
+
+                <dd>
+                    <a href="javascript:void(0);"><i class="fa fa-reply"></i> 发送新消息</a></dd>
+                <dd><a href="javascript:void(0);"><i class="fa fa-comment-o"></i> 我的消息</a>
+                </dd>
+            </dl>
+        </aside>
+        <div class="subContent">
+            <h1 class="font_2 ct_7 title_line">
+                <span class="fl"><i class="fa fa-magic"></i> 项目资料编辑</span>
+                <span class="fr" style="font-size: 12px;"><a href="#"> 项目资料编辑>>项目商业计划书撰写指南（创业者融资必看）>></a></span>
+            </h1>
+
+            <div class="con_point f_gray">温馨提示：请完整填写您的项目资料，填写完整后，页面底部将会出现提交审核按钮，点击提交才能进行项目审核！<br>
+                项目审核一般需要7个工作日，如有问题，请致电以下号码：010-12345678、44445555</div>
+            <table  class="tab1">
+                <tbody><tr>
+                    <td colspan="4" class="tr">
+                        <a href="#" class="btn btn-info"> 编 辑 </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">项目名称：</td>
+                    <td colspan="3"><span class="fl pad_01">密码管理系统</span>
+                        <span class="fl pad_01">项目完善资料中</span>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td scope="col">项目资料查看权限：</td>
+                    <td colspan="3">所有登陆用户可看</td>
+                </tr>
+                <tr>
+                    <td scope="col">项目类别：</td>
+                    <td>创投板项目</td>
+                    <td scope="col">是否有其他项目：</td>
+                    <td>没有</td>
+                </tr>
+                <tr>
+                    <td width="19%" scope="col">项目所属行业：</td>
+                    <td width="31%">
+                        IT软件/硬件			</td>
+                    <td width="15%" scope="col">项目标签：</td>
+                    <td width="35%">密码管理 </td>
+                </tr>
+                <tr>
+                    <td scope="col">项目所属阶段：</td>
+                    <td>尚未启动</td>
+                    <td scope="col">企业成立时间：</td>
+                    <td>1990年1月</td>
+                </tr>
+                <tr>
+                    <td scope="col">企业员工人数：</td>
+                    <td>0人</td>
+                    <td scope="col">企业所在城市：</td>
+                    <td>北京市</td>
+                </tr>
+                <tr>
+                    <td scope="col">企业名称：</td>
+                    <td></td>
+                    <td scope="col">办公地址：</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td><span scope="col">融资金额￥：</span><br></td>
+                    <td colspan="3">10万</td>
+
+                </tr>
+                <tr>
+                    <td scope="col">已认投金额￥：</td>
+                    <td>0.00万</td>
+                    <td scope="col">领投金额￥：</td>
+                    <td>0.00万</td>
+                </tr>
+                <tr>
+                    <td scope="col">跟投金额￥：</td>
+                    <td>0.00万</td>
+                    <td scope="col">认投完成率：</td>
+                    <td>0.00%</td>
+                </tr>
+
+
+                <tr>
+                    <td scope="col">投资款拨付方式：</td>
+                    <td colspan="3">
+                        每季度一次，每次25%
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">最低投资金额：</td>
+                    <td colspan="3">最低领投金额&nbsp;<span class="f_ora">1</span>万元，最低跟投金额&nbsp;<span class="f_ora">1</span>万元</td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="line-height:25px; padding:10px 20px;"><span scope="col">企业项目简介：</span>目前各个系统、邮箱、银行都需要密码，密码越来越多，如果都设置成一样的容易泄露，设置多了记不住，通过简单的加密处理，只需要记住密钥即可。</td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="center" scope="col">
+                        <span class="f_ora">暂未上传项目视频！</span>&nbsp;&nbsp;&nbsp;
+                        <span class="f_ora">项目审核完成前不能添加视频！</span>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <div class="detail"></div>
+            <div id="projectTab"></div> 
+
+        </div>
+
+        </div>
+    <div id="footerBar"></div>
+  </div>
+</body>
+</html>

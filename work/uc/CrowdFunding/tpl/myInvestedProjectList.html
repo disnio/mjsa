@@ -1,0 +1,30 @@
+<!-- 跟投的项目 -->
+<%_.each(datas, function(item, index){ %>
+    <div class="myProjectList">
+        <div class="cbInner">
+            <div class="thumbnail fl">
+                <img src=" + option.ProjectPicture + " alt="">
+            </div>
+            <div class="summary fl">
+                <ul>
+                    <li class="colTitle ct_2">
+                        <a href="#?id=<%= item.ID %>"><%= item.ProjectName %></a> 
+                        <span class="status_in"><%= item.Status %></span>
+                    </li>
+                    <li><i class="fa fa-caret-right"></i>地区：<%= item.ProjectCity %><span class="pad_01">行业：PC互联网</span></li>
+                </ul>
+                <ul class="proInfo">
+                    <li>融资金额:
+                        <em class="bg_1"><i class="fa fa-rmb"></i><%= item.PlanAmount %>万 </em>已融金额:
+                        <em class="bg_2"><i class="fa fa-rmb"></i><%= item.FinishedAmount %>万</em>认投完成率：
+                        <span class="f_ora ct_8"><%= item.FinishedRate %></span>
+                    </li>
+                    <li>起投金额:<span class="f_ora ct_8"><%= item.MinInvestAmount %>万</span>被投资人约谈数:
+                        <span class="f_ora ct_8"><%= item.CompanyNubmers %> 次</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="detail"><i class="fa fa-chevron-circle-right"></i>项目简介：<%= item.ProjectIntroduction %></div>
+        </div>
+    </div>
+<%}); %>

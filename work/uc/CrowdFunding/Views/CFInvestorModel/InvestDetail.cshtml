@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+
+<script type="text/javascript">
+    // 收藏项目 url
+    var CreateCollectUrl = '@Url.Action("CreateCollect", "CFInvestingParty")';
+    // 约谈项目方 url
+    var CreateInterviewsUrl = '@Url.Action("CreateInterviews", "CFInvestingParty")';
+
+    var AccountID = '@SessionHelper.Identity.Account.ID';
+</script>
+
+<!-- 项目标签列表 -->
+<script type="text/javascript" src="~/Scripts/js/app/projectTab.js"></script>
+<!-- 评论的脚本 -->
+<script type="text/javascript" src="~/Scripts/js/app/pl.js"></script>
+    <div class="wrapper">
+        <div id="pageHead"></div>
+        <div class="scrol-page k1120 mainContent clearfix memberCenter">
+
+            <aside class="asideBar fl commentBar" id="investorMenu"></aside>
+            <div class="subContent">
+                <h1 class="font_2 ct_7 title_line">
+                    <span class="fl"><i class="fa fa-magic"></i> 投资明细查询</span>
+
+                </h1>
+
+
+                <table class="tab1">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">序号</th>
+                            <th rowspan="2" class="t_l">流水名称</th>
+                            <th colspan="2">交易金额（元）</th>
+                            <th rowspan="2">交易时间</th>
+                            <th rowspan="2">交易订单号</th>
+                            <th rowspan="2">账户余额<br>（元）</th>
+                        </tr>
+                        <tr>
+                            <th>收入</th>
+                            <th>支出</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+        </div>
+        <div id="footerBar"></div>
+    </div>
+</body>
+</html>

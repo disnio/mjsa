@@ -1,0 +1,44 @@
+/*
+* @Author: anchen
+* @Date:   2016-05-10 13:05:36
+* @Last Modified by:   anchen
+* @Last Modified time: 2016-05-12 15:56:42
+*/
+*{font-family:"Microsoft YaHei";}
+.fl-title{border:solid 1px #e5e5e5;padding:15px;margin:0;padding-bottom:0;margin-bottom:15px;}
+.tztz{padding:0;}
+.fl-city,.fl-hang{overflow:hidden;}
+.fl-city dt,.fl-hang dt{float:left;width:50px; padding: 0;font-size:14px;line-height:30px;color:#999;font-weight:lighter;}
+.fl-city dd,.fl-hang dd{float:left;width:1050px;}
+.fl-city dd a,.fl-hang dd a{color:#999;margin-bottom:0;}
+.fl-hang dd a.active,.fl-hang dd a:hover,.fl-city dd a.active,.fl-city dd a:hover{text-decoration:none;border-radius:4px;}
+.navYc{background-color:#f7f5f6;border-radius:4px;border:solid 1px #e5e5e5;margin-bottom:20px;}
+.navYc li{float:left;width:200px;}
+.navYc li a{display:block;text-align:center;font-size:14px;color:#666;}
+.navYc li.active a{background-color:#c4f2ff;color:#0198c5;border-radius:4px;}
+.cbInner .thumbnail{width:280px;float:left;padding:0;margin-bottom:0;border:none;}
+.cbInner .thumbnail a{width:280px;!important;height:210px;}
+.cbInner .thumbnail a img{width:280px;!important;height:210px;display:block;}
+.fl{width:830px;}
+.ct_2{overflow:hidden;margin-bottom:5px;}
+.ct_2 a{float:left;font-size:16px;line-height:28px;color:#666;font-weight:bold;}
+.timeFb{float:right;}
+.rzje{overflow:hidden;background-color:#f7f5f6;padding:15px 0;}
+.rzje div{float:left;width:24.5%;border-right:solid 1px #e5e5e5;font-size:14px;line-height:20px;color:#666;padding-left:3%;}
+.rzje div:last-child{border:none;}
+.rzje div .ct_8{font-size:20px;font-weight:bold;margin-left:3px;}
+.detailList li span.grey{color:#999;}
+.ct_701{border-radius:4px;border:solid 1px #3ca3e8;color:#999;line-height:20px;display:block;width:70px;text-align:center;margin:6px 0;}
+.detailList li{margin:6px 0;}
+.colTitle {padding-bottom: 0px;}
+.ddse{font-size:12px;line-height:22px;color:#999;height:83px;overflow:hidden;}
+.cbInner {margin-top:15px;}
+#paging{width:200px;margin:0 auto;margin-bottom:30px;}
+.timeFb{color:#999;}
+.fl-hang dd a{margin:0 4px;color:#333;}
+.fl-city dd a{margin:0 4px;color:#333;}
+.cbInner{border-bottom:solid 1px #e5e5e5;overflow:hidden;padding-bottom:15px;margin-bottom:25px;}
+.navYc li{position:relative;}
+.jt{width:16px;position:absolute;left:50%;margin-left:-8px;top:34px;display:none;}
+.jt img{width:16px;height:10px;}
+.navYc li.active .jt{display:block;}

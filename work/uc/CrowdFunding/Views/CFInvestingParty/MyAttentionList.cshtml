@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "我关注的项目";}
+@using ZCPT.CrowdFunding.Web.Models.CFProjectAttentionModule
+@model IEnumerable<AttentionTextObject>
+<div class="switch">
+    <ul class="nav nav-tabs">
+        <li style="color:red;">@ViewBag.Message</li>
+    </ul>
+    <div class="clear"></div>
+</div>
+
+<div id="tagContent">
+    @foreach (var item in Model)
+    {
+        <div class="cbInner">
+            <div class="thumbnail fl">
+                <a href="~/CFProject/GetProjectBasis?id=@item.ProjectID"><img src="@item.ProjectPicture" alt="" /></a>
+            </div>
+            <div class="summary fr">
+                <ul>
+                    <li class="colTitle ct_2"><a href="~/CFProject/GetProjectBasis?id=@item.ProjectID">@item.ProjectName</a></li>
+                    <li>
+                        融资金额:<em class="bg_1"><i class="fa fa-rmb" style="margin-right: 5px; padding-left:5px;vertical-align: middle;"></i>@item.PlanAmount</em>
+                        已融金额:<em class="bg_2"><i class="fa fa-rmb" style="margin-right: 5px; padding-left:5px;vertical-align: middle;"></i> @item.FinishedAmount</em>
+                    </li>
+                    <li>起投金额:<span class="f_ora ct_8" style="padding-right: 20px;">@item.MinInvestAmount</span> 认投完成率：<span class="f_ora ct_8">@item.FinishedRate</span></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <ul class="detailList">
+                <li><i class="fa fa-caret-right"></i> 地区：@item.ProjectCity<span class="pad_01">行业：@item.IndustryName</span><span class="pad_01">@item.ProjectStatus</span></li>
+                <li>
+                    <i class="fa fa-chevron-circle-right ct_7"></i>
+                    <span class="ct_7"> 项目简介：</span>
+                    @Html.Raw((string)@item.ProjectContents)
+                </li>
+                <li class="date ct_4"><i class="fa fa-clock-o"></i>发布时间：@item.ProjectCreateDate.ToString("yyyy-MM-dd")</li>
+            </ul>
+        </div>
+    }
+</div>

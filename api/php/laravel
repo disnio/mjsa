@@ -1,0 +1,54 @@
+php artisan serve
+web 服务器需要拥有 storage 目录下的所有目录和 bootstrap/cache 目录的写权限。
+
+在 app 目录中的许多类可以用 Artisan 命令产生。
+在终端机执行 php artisan list make 命令。
+
+-----------------
+phpstorm "Laravel Plugin"
+https://github.com/barryvdh/laravel-ide-helper
+
+-----------------
+http://www.golaravel.com/laravel/docs/5.1/quickstart/
+创建迁移表
+php artisan make:migration create_tasks_table --create=tasks
+php artisan migrate
+根据表生成模型类
+php artisan make:model Task
+
+创建控制器
+php artisan make:controller TaskController --plain
+
+创建保险
+php artisan make:policy TaskPolicy
+
+https://segmentfault.com/a/1190000000460901
+
+php artisan key:generate
+----------------------------
+授权后登陆重定向到 /home middleware/RedirectAuthenticated Controller/Auth/AuthController
+
+{{ csrf_field() }}
+{{ method_field('DELETE') }}
+<input type="text" name="name" id="task-name" class="form-control" value="{{ old('task') }}">
+
+-------------------
+图形验证码：
+http://www.jianshu.com/p/8e4ac7852b5a
+https://packagist.org/packages/gregwar/captcha
+"gregwar/captcha": "1.*"
+
+
+You could copy your current php.ini and adjust it for the Composer run, by removing xdebug or commenting it out, like so: ;zend_extension = "/path/to/my/xdebug.so".
+
+While you are at it: setting memory_limit=-1 is helpful, too.
+
+The full command looks like so on Windows: php.exe -c php.ini-composer composer.phar %*
+
+Just clone the idea for a bash script.
+
+And you may find the full answer to your question in the Composer FAQ.
+
+https://getcomposer.org/doc/articles/troubleshooting.md#xdebug-impact-on-composer
+
+It was added/updated just a few hours ago.

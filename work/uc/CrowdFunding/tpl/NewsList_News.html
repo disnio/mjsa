@@ -1,0 +1,9 @@
+<!-- 最新资讯，媒体报道 -->
+<% $.each(hotNews, function(i, item){ %>
+    <li>
+    <% if(i > 1 ){ return false;} %>
+    <h4><span class="glyphicon glyphicon-hand-right"></span><a target="_blank" href="../cfnews/newsDetail?id=<%= item.LID %>">【<%= item.Category %>】<%= item.NewsTitle %></a></h4>
+    <div class="p_nr"><%= item.NewsContent %></div>
+    <p class="font_time"><span class="glyphicon glyphicon-dashboard"></span> <%= item.CreationTime %></p>
+    </li>
+<% }); %>

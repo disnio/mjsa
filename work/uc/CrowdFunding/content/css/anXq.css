@@ -1,0 +1,21 @@
+/*
+* @Author: anchen
+* @Date:   2016-05-16 14:36:22
+* @Last Modified by:   anchen
+* @Last Modified time: 2016-05-16 16:35:25
+*/
+*{font-family:"Microsoft YaHei";}
+.top-link{color:#1a1a1a;}
+.top-link a{color:#666;}
+.xq-con{margin:15px 0;}
+#DynamicDetail{border:solid 1px #e5e5e5;padding:40px;padding-top:10px;padding-bottom:80px;}
+h1.tc{font-size:28px;line-height:40px;font-weight:bold;}
+.con_date{border-bottom:solid 1px #e5e5e5;padding-bottom:10px;}
+.shortDescription img{margin:15px 0;max-width:760px;}
+.newsDetal{font-size:12px;line-height:28px;color:#666;margin-top:20px;}
+.panel-title{font-weight:bold;}
+.xq-right ul li{margin:10px 0;}
+.xq-right ul li a{display:block;width:100%;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;color:#666;}
+.con_date{color:#9b9a96;}
+.con_date span{margin-right:20px;}
+.newsDetal p{margin:0;}

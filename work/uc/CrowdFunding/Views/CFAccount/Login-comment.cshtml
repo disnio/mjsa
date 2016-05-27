@@ -1,0 +1,64 @@
+    @*<script type="text/javascript">
+    $(function() {
+    $("#valiCode").bind("click", function() {
+        this.src = "../CFAccount/GetValidateCode?time=" + Math.random();
+        });
+    });
+    </script>*@
+
+@*@using (Html.BeginForm("Login", "CFAccount", FormMethod.Post, new { role = "form" }))
+    {*@
+    @*<form action="@string.Format("{0}{1}",System.Configuration.ConfigurationManager.AppSettings["UserCenterappIP"],"UserCenter/Account/Login")" method="post">  
+         @Html.Hidden("FromApp",new AccountViewModel().FromAPP)*@
+        @*<div class="wrapper" style="margin-top:122px;">
+            <div class="clear"></div>
+            <div class="loginCon">
+                <div class="lo_background k1120 clearfix">
+                    <div id="login_area">
+                        <div id="login_form">
+                            <div id="login_tip">
+                                <i class="fa fa-lock" style="font-size: 19px;"></i> 用户登录&nbsp;
+                                <span  style=" padding-left:20px;font-size: 12px; color:red">@ViewBag.LoginState</span>
+                            </div>
+                            <div class="inputCol">
+                                <span class="tl">用户名：</span>
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "username" })
+
+                            </div>
+                            <div class="inputCol">
+                                <span class="tl">密  码：</span>
+                                @Html.PasswordFor(m => m.Password, new { @class = "pwd" })
+                            </div>
+                            @*<div class="inputCol">
+                                <span class="tl">验证码：</span>
+                                @Html.TextBoxFor(m => m.Vcode, new { @class = "inp_off" })&nbsp;
+                                <img id="valiCode" style="cursor: pointer;" src="../CFAccount/GetValidateCode" alt="验证码" />
+
+                            </div>*@   
+                            @*<div class="inputCol">
+                                <label for="rememberName">
+                                    @Html.CheckBoxFor(m => m.RemenberMe)
+                                    @Html.LabelFor(m => m.RemenberMe)
+                                </label>
+                                <em class="fr"><a href="@string.Format("{0}{1}",System.Configuration.ConfigurationManager.AppSettings["UserCenterappIP"],"/UserCenter/Account/ConfirmIndex")"> 找回密码？</a></em>
+                            </div>*@
+                            @*<div id="btn_area" class="tc">
+                                <input type="submit" value="登录" class="btn btn-primary" />
+                            </div>*@
+
+                            @*<div id="btn_area" class="tc">
+                                <input type="submit" value="登  录" class="btn btn-primary" style="width:162px;" />
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>*@
+
+            @*</form>*@
+       
+    @*}*@

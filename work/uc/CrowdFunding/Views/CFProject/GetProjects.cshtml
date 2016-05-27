@@ -1,0 +1,93 @@
+﻿@{
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/js/app/GetProjects.js"></script>
+<script id="zcxm-city" type="text/template">
+    <%_.each(datas, function(item, index){ %>
+        <a href="javascript:void(0);" city-id="<%= item.ID %>" city-value="<%= item.Value %>"><%= item.Name %></a>
+    <%}); %>
+</script>
+
+<script id="zcxm-hang" type="text/template">
+    <%_.each(datas, function(item, index){ %>
+        <a href="javascript:void(0);" hang-id="<%= item.ID %>" hang-value="<%= item.Value %>"><%= item.Name %></a>
+    <%}); %>
+</script>
+
+<script id="zcxm" type="text/template">
+    <%_.each(datas, function(item, index){ %>
+        <div class="cbInner">
+            <div class=" thumbnail fl" style="width:280px; height:210px;padding:0;">
+                <a href="GetProjectBasis?id=<%= item.ID %>"><img alt="" width="280" height="210" src="<%= item.ProjectPicture %>"></a>
+            </div>
+            <div class="fl" style="margin-left:20px;">
+                <ul>
+                    <li class="colTitle ct_2">
+                    <a href="GetProjectBasis?id=<%= item.ID %>"><%= item.ProjectName %></a>
+                    <div class="timeFb">发布时间：<%= item.StartTime %></div>
+                    </li>
+                    <li class="rzje">
+                        <div>融资金额:<em class="ct_8"><%= item.PlanAmount/10000 %>万</em></div>
+                        <div>已融金额:<em class="ct_8"><%= item.FinishedAmount/10000 %>万</em></div>
+                        <div>起投金额:<span class="f_ora ct_8"><%= item.MinInvestAmount/10000 %>万</span></div>
+                        <div>认投完成率：<span class="f_ora ct_8"><%= (item.FinishedRate*100).toFixed(2) %>%</span></div>
+                    </li>
+                </ul>
+                <ul class="detailList">
+                <li><i class="fa fa-caret-right"></i><span class="grey"> 地区：</span><%= item.ProjectCity %><span class="pad_01"><span class="grey" style="margin-left:10px;">行业：</span><%= item.Industry %></span><span class="pad_01"><%= item.Status %></span></li>
+                 <li class="ddse"><span class="ct_7 ct_701"> 项目简介：</span><%= item.ProjectIntroduction %></li>
+
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+    <%}); %>
+</script>
+<link href="/CrowdFunding/Content/css/tzYc.css" tyoe="text/css" rel="stylesheet">
+<div class="row fl-title">
+    <div class="col-md-12 tztz">
+        <dl class="categoryList fl-hang">
+            <dt><i class="fa fa-angle-right"></i> 行业：</dt>
+            <dd>
+                <a href="javascript:void(0);" hang-id="0" hang-value="0" class="active">全部</a>
+            </dd>
+        </dl>
+        <dl class="categoryList fl-city">
+            <dt><i class="fa fa-angle-right"></i> 城市</dt>
+            <dd>
+                <a href="javascript:void(0);" city-id="0" city-value="0" class="active">全部</a>
+            </dd>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <ul  class="nav navYc" role="tablist">
+            <li role="presentation" class="active">
+                <a aria-controls="progressProjects" role="tab" data-toggle="tab" href="#progressProjects"><i class="fa fa-ellipsis-h"></i>进行中项目</a>
+                <div class="jt"><img src="/CrowdFunding/Content/img/sanjian_con.png"></div>
+            </li>
+            <li role="presentation">
+                <a aria-controls="successProjects" role="tab" data-toggle="tab" href="#successProjects"><i class="fa fa-trophy"></i>成功项目</a>
+                <div class="jt"><img src="/CrowdFunding/Content/img/sanjian_con.png"></div>
+            </li>
+        </ul>
+        <div style="clear:both;"></div>
+        <!-- <span class="fl"><i class="fa fa-thumb-tack"></i> 创投板项目</span> -->
+        <!--成功项目-->
+        <div class="tab-content">
+            <div role="tab-panel" class="tab-pane active content" id="progressProjects">
+                <div id="xming"></div>
+                <div id="paging" class="m-pagination"></div>
+                <div id="pagings"></div>
+            </div>
+            <div role="tab-panel" class="tab-pane content" id="successProjects">
+                <div id="xmed"></div>
+                <div id="paged" class="m-pagination"></div>
+                <div id="pageds"></div>
+            </div>
+        </div>
+    </div>
+</div>

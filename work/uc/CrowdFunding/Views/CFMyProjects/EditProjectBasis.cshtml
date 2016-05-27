@@ -1,0 +1,500 @@
+﻿
+@model  ZCPT.CrowdFunding.Web.Models.ProjectBasisModel
+
+@{
+    ViewBag.ContentName = "项目资料编辑";
+}
+@Html.Partial("_ProjectTab", new ZCPT.CrowdFunding.Web.Models.ComponentModule.ProjectEditTabModule() { ID = Model.ID, Current = nameof(ZCPT.CrowdFunding.Web.Models.ProjectBasisModel) })
+
+
+@*Scripts.Render("~/bundles/inputrich")*@
+@Styles.Render("~/bundles/inputrich/style")
+@*Scripts.Render("~/bundles/jqueryval")*@
+
+<div style="height:10px;"></div>
+
+@using (Html.BeginForm("UpdataProjectBasis", "CFMyProjects", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(M => M.ID)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, "项目名称：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-6">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Name)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("项目资料查看权限：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @foreach (var item in ViewBag.ReadPermissions)
+            {
+                @Html.RadioButton("ReadPermissionID", (string)item.Value, (bool)item.Selected) @item.Text
+            }
+            <p class="text-danger" role="alert"></p>
+        </div>
+        @Html.LabelFor(m => m.IndustryID, "项目所属行业：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.DropDownListFor(m => m.IndustryID, (IEnumerable<SelectListItem>)ViewBag.Industries, new { @class = "form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.IndustryID)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CityID, "项目所在城市：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.DropDownListFor(m => m.CityID, (IEnumerable<SelectListItem>)ViewBag.Cities, new { @class = "col-sm-2  form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CityID)</p>
+        </div>
+
+        @Html.LabelFor(m => m.Tag, "项目标签：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.TextBoxFor(m => m.Tag, new { @class = "form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.Tag)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.StageID, "项目所属阶段：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.DropDownListFor(m => m.StageID, (IEnumerable<SelectListItem>)ViewBag.Stages, new { @class = "col-sm-2  form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.StageID)</p>
+        </div>
+
+        @Html.Label("是否有其他项目：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            <select id="other_project" name="info[has_otherpro]" class="form-control">
+                <option>请选择</option>
+                <option value="1">是</option>
+                <option selected="selected" value="0">否</option>
+            </select>
+            <p class="text-danger" role="alert"></p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CompanyEstablishingDate, "企业成立时间：", new { @class = "col-sm-2 control-label"})
+        <div class="col-sm-4">
+            @Html.TextBoxFor(m => m.CompanyEstablishingDate, "{0:yyyy-MM-dd}", new { @class = "form-control",  @onClick = "WdatePicker({maxDate:'" + DateTime.Now.Date.AddDays(-1) + "'})" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyEstablishingDate)</p>
+        </div>
+
+        @Html.LabelFor(m => m.CompanyNubmers, "企业员工人数：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.CompanyNubmers, new { @class = "form-control" })
+                <div class="input-group-addon">人</div>
+            </div>
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyNubmers)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CompanyName, "公司全称：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyName)</p>
+        </div>
+
+        @Html.LabelFor(m => m.CompanyAddress, "办公地址：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.TextBoxFor(m => m.CompanyAddress, new { @class = "form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyAddress)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.FinancingAmount, "融资金额：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.FinancingAmount, "{0:f2}", new { @class = "form-control" })
+                <div class="input-group-addon">万元</div>
+            </div>
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.FinancingAmount)</p>
+        </div>
+
+        @Html.Label("投资款拨付方式：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @foreach (var item in ViewBag.CapitalPatterns)
+                    {
+                @Html.RadioButton("CapitalPatternID", (string)item.Value, (bool)item.Selected) @item.Text
+                        }
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyAddress)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Introduction, "项目简介：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            @Html.TextAreaFor(m => m.Introduction, 4, 20, new { @class = "form-control", style = "width: 700px; height: 180px;" })
+            <!-- <script type="text/javascript">$(function () { UM.getEditor('Introduction').setShow(); });</script> -->
+            <p class="help-block" role="alert">您还可以输入<span id="zhishu" class="text-danger">200</span>个字</p>
+
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.Introduction)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.IconID, "上传项目图片：", new { @class = "col-sm-2 control-label text-left" })
+        <div class="col-sm-10">
+            @Html.HiddenFor(m => m.IconID)
+            <span class="inp_file">
+                <a class="btn btn-info" href="javascript:;">
+                    请选择文件
+                    <script>
+                        var ServerReferenceFileCenterAPI = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/")';
+                        var ImgSingleUploadUrl = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgSingleUpload/CrowdFunding")';
+
+                        require(['js/app/EditProjectBasisAttachment']);
+
+
+                    </script>
+                    @Html.Partial("_Attachment")
+                </a>
+            </span>
+            <div id="preview">
+                <img class="fl" style="width:320px;height:180px" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + Model.IconID)">
+            </div>
+            <p class="help-block" style="padding-left:0px;" role="alert">温馨提示：项目审核通过后将不能再更换项目图片，请选择最有吸引力的一张图片，宽高最佳尺寸为800x480像素，大小控制在1M以内。</p>
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.IconID)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-12 text-center">
+            @if (Model.ID > 0)
+            {
+                <input class="btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBasis?Step=EditProjectBusinessPattern")")' value="下一步" />
+            }
+            else
+            {
+                <input class="btn btn-warning" name="insertsubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/InsertProjectBasis")")' value="创建" />
+            }
+        </div>
+    </div>
+
+
+
+        @*<table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+            <tr>
+                <td align="right" class="col" width="17%">@Html.LabelFor(M => M.Name)：</td>
+                <td colspan="3">
+                    @Html.TextBoxFor(M => M.Name)
+                    @Html.ValidationMessageFor(M => M.Name, "", new { style = "color:red; " })
+                </td>
+            </tr>
+            <tr>
+                <td class="col">项目资料查看权限：</td>
+                <td>
+                    @foreach (var item in ViewBag.ReadPermissions)
+                {
+                        @Html.RadioButton("ReadPermissionID", (string)item.Value, (bool)item.Selected) @item.Text
+                    }
+
+                </td>
+
+                <td class="col" width="16%">项目所属行业：</td>
+                <td width="35%">
+                    @Html.DropDownList("IndustryID", (IEnumerable<SelectListItem>)ViewBag.Industries)
+                </td>
+
+
+            </tr>
+            <tr>
+                <td class="col">项目所在城市：</td>
+                <td>
+
+                    @Html.DropDownList("CityID", (IEnumerable<SelectListItem>)ViewBag.Cities)
+
+                </td>
+                <td class="col" width="16%">@Html.LabelFor(M => M.Tag)：</td>
+                <td width="35%">
+                    @Html.TextBoxFor(M => M.Tag)
+                    @Html.ValidationMessageFor(M => M.Tag, "", new { style = "color:red; " })
+                </td>
+            </tr>
+
+            <tr id="tr_phase_id">
+                <td class="col">项目所属阶段：</td>
+                <td>
+
+                    @Html.DropDownList("StageID", (IEnumerable<SelectListItem>)ViewBag.Stages)
+                </td>
+                <td class="col">是否有其他项目：</td>
+                <td>
+                    <select id="other_project" name="info[has_otherpro]">
+                        <option>请选择</option>
+                        <option value="1">是</option>
+                        <option selected="selected" value="0">否</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="tr_year_month">
+                <td class="col">@Html.LabelFor(M => M.CompanyEstablishingDate)：</td>
+                <td>
+                    @Html.TextBoxFor(M => M.CompanyEstablishingDate, "{0:yyyy-MM-dd}", new { @class = "Wdate input-control", @onClick = "WdatePicker({readOnly:true,maxDate:'" + DateTime.Now.Date.AddDays(-1) + "'})" })
+                    @Html.ValidationMessageFor(M => M.CompanyEstablishingDate, "", new { style = "color:red; " })
+                </td>
+                <td class="col">@Html.LabelFor(M => M.CompanyNubmers)：</td>
+                <td>
+                    @Html.TextBoxFor(M => M.CompanyNubmers)人
+                    @Html.ValidationMessageFor(M => M.CompanyNubmers, "", new { style = "color:red; " })
+                </td>
+            </tr>
+            <!-- 新增4个字段  钟2014.6.21 -->
+            <tr id="tr_is_company">
+                <td class="col">@Html.LabelFor(M => M.CompanyName)：</td>
+                <td>
+                    @Html.TextBoxFor(M => M.CompanyName)
+                    @Html.ValidationMessageFor(M => M.CompanyName, "", new { style = "color:red; " })
+
+                </td>
+                <td class="col">@Html.LabelFor(M => M.CompanyAddress)：</td>
+                <td>
+                    @Html.TextBoxFor(M => M.CompanyAddress)
+                    @Html.ValidationMessageFor(M => M.CompanyAddress, "", new { style = "color:red; " })
+                </td>
+            </tr>
+
+
+
+            <tr id="tr_financing_amount">
+                <td class="col">@Html.LabelFor(M => M.FinancingAmount)：</td>
+                <td>
+                    @Html.TextBoxFor(M => M.FinancingAmount, "{0:f2}")		万元
+                    @Html.ValidationMessageFor(M => M.FinancingAmount, "", new { style = "color:red; " })
+                </td>
+
+
+
+
+
+                <td class="col">投资款拨付方式：</td>
+                <td>
+                    @foreach (var item in ViewBag.CapitalPatterns)
+                {
+                        @Html.RadioButton("CapitalPatternID", (string)item.Value, (bool)item.Selected) @item.Text
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td class="col" rowspan="2" style="line-height: 40px;" valign="top">@Html.LabelFor(M => M.Introduction)：</td>
+                <td colspan="3">
+                    @Html.TextAreaFor(M => M.Introduction, 4, 20, new { style = "width: 700px; height: 180px;" })
+                    <!-- <script type="text/javascript">$(function () { UM.getEditor('Introduction').setShow(); });</script> -->
+                    @Html.ValidationMessageFor(M => M.Introduction, "", new { style = "color:red; " })
+
+                </td>
+            </tr>
+            <tr>
+                <td class="f_gray2" colspan="3">您还可以输入<span id="zhishu" class="f_red">200</span>个字</td>
+            </tr>
+            <tr>
+                <td class="col" rowspan="2" style="line-height: 40px;" valign="top">上传项目图片：</td>
+                <td colspan="3" id="projectiocnsection" class="uploadimg">
+                    @Html.HiddenFor(M => M.IconID)
+                    <span class="inp_file">
+                        <a class="file" href="javascript:;">
+                            请选择文件
+                            <script>
+                                var ServerReferenceFileCenterAPI = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/")';
+                                var ImgSingleUploadUrl = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgSingleUpload/CrowdFunding")';
+
+                                require(['js/app/EditProjectBasisAttachment']);
+
+
+                            </script>
+                            @Html.Partial("_Attachment")
+
+                        </a>
+                    </span>
+                    <div id="preview">
+                        <img class="fl" style="width:320px;height:180px" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + Model.IconID)">
+
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="f_gray2" colspan="3" style="line-height: 25px;">温馨提示：项目审核通过后将不能再更换项目图片，请选择最有吸引力的一张图片，宽高最佳尺寸为800x480像素，大小控制在1M以内。</td>
+            </tr>
+            <!--<tr>
+                  <td align="right">项目视频地址：</td>
+                  <td colspan="3"><input name="info[project_video]" type="text" value="" size="50"/></td>
+                </tr>-->
+
+            <tr>
+
+                <td colspan="4" align="center">
+
+                    @if (Model.ID > 0)
+                {
+                        <input class="btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBasis?Step=EditProjectBusinessPattern")")' value="下一步" />
+                    }
+                    else
+                    {<input class="btn btn-warning" name="insertsubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/InsertProjectBasis")")' value="创建" />
+
+                    }
+
+                    &nbsp;
+                    
+                    <p class="alert-danger" >@Html.Label((string)ViewBag.ResultMassage ?? string.Empty)</p>
+                </td>
+            </tr>
+        </table>*@
+
+}
+
+
+<style type="text/css">
+
+    .inp_file {
+            margin-top: 5px;
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+        }
+    /*.tab1 {
+        width: 100%;
+    }
+
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .tab1 .col {
+        background: rgb(230, 239, 255);
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .tab1 td {
+        background: rgb(239, 245, 255);
+        padding-left: 3px;
+    }
+
+    td {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .inp4 {
+        background: rgb(255, 255, 255);
+        border: 1px solid rgb(204, 204, 204);
+        border-image: none;
+        width: 200px;
+        height: 28px;
+        line-height: 28px;
+        padding-left: 3px;
+        margin-right: 10px;
+    }
+
+    input {
+        color: rgb(102, 102, 102);
+        font-family: Microsoft Yahei;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    input {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    select {
+        color: rgb(51, 51, 51);
+        font-family: Microsoft Yahei;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    select {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    #crgf3 {
+        display: none;
+    }
+
+    span {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .onShow {
+        color: rgb(153, 153, 153);
+        font-size: 14px;
+        display: inline-block;
+        -ms-zoom: 1;
+    }
+
+    textarea {
+        color: rgb(102, 102, 102);
+        font-family: Microsoft Yahei;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    textarea {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .f_gray2 {
+        color: rgb(153, 153, 153);
+    }
+
+    .f_red {
+        color: rgb(255, 0, 0);
+    }
+
+    .inp_file {
+        background-color: rgb(53, 174, 255);
+        padding: 2px 10px;
+        height: 24px;
+        color: rgb(255, 255, 255);
+        overflow: hidden;
+        display: inline-block;
+        position: relative;
+    }
+
+        .inp_file a:link {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+        }
+
+    a:link {
+        color: rgb(51, 51, 51);
+        text-decoration: none;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    .inp_file input {
+        top: 0px;
+        right: 0px;
+        position: absolute;
+        cursor: pointer;
+        opacity: 0;
+    }
+
+    .btn2 {
+        background: rgb(255, 102, 0);
+        padding: 0px 25px;
+        border: currentColor;
+        border-image: none;
+        height: 35px;
+        color: rgb(255, 255, 255);
+        font-size: 16px;
+        cursor: pointer;
+    }*/
+</style>

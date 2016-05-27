@@ -1,0 +1,120 @@
+﻿@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "申请成为机构投资方";}
+@model  ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule.InverstingPartyValueObject
+
+<div class="switch">
+    <ul class="nav nav-tabs">
+       @* <li class="active"><a href="javascript:void(0);"> 投资人申请</a></li>
+    <li><a href="javascript:void(0);">修改密码</a></li>
+        <li><a href="javascript:void(0);" style="border-right:1px solid #ccc;">身份认证</a></li>*@
+        <li style="color:red;">@ViewBag.Message</li>
+    </ul>
+    <div class="clear"></div>
+</div>
+
+<div id="tagContent">
+
+    <div class="conIn ">
+
+        <table width="100%" border="0" cellspacing="1" cellpadding="0" class="tab1">
+            <input type="hidden" name="siteid" value="">
+            <tbody>
+                <tr>
+                    <td width="18%" scope="col">用户类型：</td>
+                    <td>
+                        <input type="radio" value="0" name="usertype" onclick="if (this.checked) { window.location = 'PersonalApply' }" />个人
+                        <input type="radio" value="1" name="usertype" checked="checked" />机构
+                    </td>
+                </tr>
+                <tr>
+                    <td width="18%" scope="col">用户名：</td>
+                    <td style="color:blue;">@ViewData["CFAccountName"]</td>
+                </tr>
+                <tr>
+                    <td scope="col">机构类型：</td>
+                    <td>
+                        @Html.DropDownList("OrganizationTypeIdValue", (IEnumerable<SelectListItem>)ViewBag.CFOrganizationTypes, new { @class = "pc-select-cityid", style = "width: 100px;" })
+
+                        <span id="institution_typeTip" class="onShow">@ViewBag.OrganizationTypeIdValue</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">机构名称：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "inp4" })
+                        <span class="onShow" id="nicknameTip">@ViewBag.Nickname</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">机构说明：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Introduction, new { @class = "inp4", style = "width:300px;" })
+                        <span id="personal_noteTip" class="onShow">@ViewBag.Introduction </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">所在城市：</td>
+                    <td>
+                        @Html.DropDownList("CFCityIdValue", (IEnumerable<SelectListItem>)ViewBag.CFCityLists, new { @class = "pc-select-cityid", style = "width: 100px;" })
+                        <span id="personal_noteTip" class="onShow">@ViewBag.CFCityId</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="f_gray2" style="color:dodgerblue;">
+                        下面两项的真实姓名和身份证号码，用于投资转账的银行卡开户身份证号码，入股有限合伙企业的真实姓名与身份
+                        证号码，这三处必须完全一致，否则将无法进行投资，请认真填写。
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">联系人姓名：</td>
+                    <td>
+                        @if (@Model.ContactName != null && @Model.ContactName != "")
+                        {
+                            @Html.Label(Model.ContactName)
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(m => m.ContactName, new { @class = "inp4" })
+                            <span class="onShow" id="nicknameTip">@ViewBag.ContactName (前台不显示，用于网站运营管理人员替您办理投融资手续时使用)</span>
+
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <td scope="col">营业执照：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Code, new { @class = "inp4" })
+                        <span id="personal_noteTip" class="onShow">@ViewBag.Code</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">机构地址：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Address, new { @class = "inp4", style = "width:300px;" })
+                        <span id="addressTip" class="onShow">@ViewBag.Address (用于办理投资入股工商变更手续及快递接收)</span>
+                    </td>
+                </tr>
+                @*<tr>
+                    <td scope="col">微信号：</td>
+                    <td>
+                        <input type="text" id="weixin" name="weixin" class="inp4" style="width:250px;" value="">
+                        <span id="weixinTip" class="onShow">微信号最多20位</span>
+                    </td>
+                </tr>*@
+                <tr>
+                    <td scope="col">联系人手机：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "inp4", style = "width:150px;" })
+
+                        <span class="onShow" id="mobileTip">@ViewBag.Phone (前台不显示，用于网站运营管理人员替您办理投融资手续时使用)</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

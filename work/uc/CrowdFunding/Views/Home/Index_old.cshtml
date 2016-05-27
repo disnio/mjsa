@@ -1,0 +1,131 @@
+﻿<script type="text/javascript" src="~/Scripts/js/app/home.js"></script>
+<script type="text/javascript">
+
+</script>
+
+
+<!--banner-->
+<div class="row hban">
+    <div class="col-md-9 col-sm-12 pad_r">
+        <div class="banner">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-12 MallCount">
+        <h3>项目概况</h3>
+    </div>
+</div>
+
+<!--section1-->
+<div class="row m_t_ju">
+    <div class="col-md-6  col-sm-12">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">最新资讯</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">媒体报道</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <div id="homeContent" class="pane-content"></div>
+                <a href="~/CFNews/NewsList?type=6" target="_blank" class="btn btn-primary btn-sm f_r">查看更多</a>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <div id="profileContent" class="pane-content"></div>
+                <a href="~/CFNews/NewsList?type=7" target="_blank" class="btn btn-primary btn-sm f_r">查看更多</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6  col-sm-12">
+        <h5>热门认投<a href="~/CFProject/GetProjects" target="_blank" class="btn btn-primary btn-sm f_r">更多项目</a></h5>
+        <ul class="ul_zc" id="hotProject">
+            @foreach (var item in ViewBag.HotProjectList)
+            {
+                <li>
+                    <img src="@item.ProjectPicture" width="270" height="150">
+                    <p><a href="~/CFProject/GetProjectBasis?id=@item.ID">@item.ProjectName </a></p>
+                    <p class="p"><span>@item.ProjectCity</span><span>@item.Status</span><span class="span_xs">起投：@(item.MinInvestAmount)万</span><br class="clearfix"></p>
+                    <p><span class="b_r text-center">@(item.FinishedAmount)万<br><font class="font_time">认投金额</font></span><span class="b_r  text-center">@item.FinishedRate<br><font class="font_time">完成率</font></span><span class=" text-center">@(item.PlanAmount)万<br><font class="font_time">融资目标</font></span></p>
+                </li>
+            }
+        </ul>
+    </div>
+
+</div>
+
+<!--section2-->
+<div class="row m_t_ju">
+    <h5>最新上线项目<a href="~/CFProject/GetProjects" target="_blank" class="btn btn-primary btn-sm f_r">更多项目</a></h5>
+
+    <ul class="ul_list" id="latestProject">
+        @foreach (var item in ViewBag.LatestProjectList)
+        {
+            <li>
+                <a href="~/CFProject/GetProjectBasis?id=@item.ID"><img src="@item.ProjectPicture" width="270" height="150"></a>
+                <p class="p"><a href="~/CFProject/GetProjectBasis?id=@item.ID">@item.ProjectName</a></p>
+                <p class="p_nr">@Html.Raw(item.ProjectIntroduction)</p>
+                <br class="clearfix">
+                <div><span class="b_r text-center">融资金额<br> <font class="red money_info"> @(item.PlanAmount)万 </font></span><span class="b_r text-center">付款方式<br><font class="blue"> @item.PaymentType </font></span><span class="text-center">起投金额<br><font class="red money_info"> @(item.MinInvestAmount)万</font></span><br class="clearfix"></div>
+            </li>
+        }
+    </ul>
+</div>
+
+<!-- 轮播 -->
+<script id="imgBannerT" type="text/template">
+    <ol class="carousel-indicators">
+        <% $.each(imgs, function(i, item){ %>
+        <% if(i === 0){ %>
+        <li data-target="#carousel-example-generic" data-slide-to="<%= i %>" class="active"></li>
+        <% }else{ %>
+        <li data-target="#carousel-example-generic" data-slide-to="<%= i %>"></li>
+        <% } %>
+        <% }); %>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <% $.each(imgs, function(i, item){ %>
+        <% if(i === 0){ %>
+        <div class="item active">
+            <img src="<%= item %>" alt="...">
+        </div>
+        <% }else{ %>
+        <div class="item">
+            <img src="<%= item %>" alt="...">
+        </div>
+        <% } %>
+        <% }); %>
+    </div>
+</script>
+
+<!-- 项目概况 -->
+<script id="pt" type="text/template">
+    <ul class="ul_gk">
+        <li class="li1"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><br>项目总数: <%= item.ProjectsTotal %>个</li>
+        <li class="li2"><span class="glyphicon glyphicon-yen" aria-hidden="true"></span><br>累计融资额: <%= item.FinanacingAmountTotal %>万</li>
+        <li class="li3"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><br>投资人数量: <%= item.FinancingPartyTotal %>人</li>
+        <li class="li4"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><br>注册用户数量: <%= item.UserTotal %>人</li>
+    </ul>
+</script>
+
+<!-- 最新资讯 -->
+<script id="hotNewsT" type="text/template">
+    <% $.each(hotNews, function(i, item){ %>
+    <li>
+        <% if(i > 1 ){ return false;} %>
+        <h4><span class="glyphicon glyphicon-hand-right"></span><a target="_blank" href="../cfnews/newsDetail?id=<%= item.LID %>">【<%= item.Category %>】<%= item.NewsTitle %></a></h4>
+        <div class="p_nr"><%= item.NewsContent %></div>
+        <p class="font_time"><span class="glyphicon glyphicon-dashboard"></span> <%= item.CreationTime %></p>
+    </li>
+    <% }); %>
+</script>

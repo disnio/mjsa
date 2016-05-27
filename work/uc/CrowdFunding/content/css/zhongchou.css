@@ -1,0 +1,67 @@
+/*
+* @Author: anchen
+* @Date:   2016-05-23 13:51:17
+* @Last Modified by:   anchen
+* @Last Modified time: 2016-05-25 10:16:43
+*/
+*{font-family:"Microsoft YaHei";}
+.fr{width:370px;float:right;border:solid 1px #e5e5e5;padding:15px;}
+.subContent{width:750px;float:left;border:solid 1px #e5e5e5;padding:15px;padding-top:30px;padding-bottom:40px;margin-bottom:100px;}
+.zv-title{color:#000;font-weight:bold;font-size:26px;margin-top:5px;}
+.status_in{background-color:#ffa806;border-radius:10px;padding:4px;font-size:12px;}
+.title_line{border-bottom:dashed 1px #e5e5e5;}
+.con_date {padding-top: 6px;}
+.tab1 td[scope="col"], .tab1 th {background-color: #f4f4f4;color:#1a1a1a;font-weight:bold;text-align:right;}
+.tab-other th,.tab-other td{text-align:center;}
+.projectDetail .zc-details{color:#666;line-height:24px;padding:15px;}
+#projectTab .nav{border-bottom:solid 1px #0497b8;padding:0;}
+#projectTab .nav > li > a {font-size: 14px;color:#0497b8;border:none;padding: 3px 10px;}
+#projectTab .nav-pills>li.active>a, #projectTab .nav-pills>li >a:focus,
+#projectTab .nav-pills>li >a:hover {
+    color: #fff;background-color: #0497b8;border-radius:0;}
+.nav-tabs>li {float: left; margin-bottom: 0px; padding:0;}
+.list-nav{margin-top:30px;margin-bottom:20px;}
+.xm-top{border-bottom:solid 1px #e5e5e5;}
+.title_line {padding: 0;padding-bottom:5px;border-bottom:solid 1px #e5e5e5;font-size:18px;}
+.xm-con{overflow:hidden;margin:15px 0;}
+.xm-con-left{width:70px;float:left;}
+.xm-con-left img{width:70px;height:70px;}
+.xm-con-right{width:230px;float:right;}
+.r-top{font-size:16px;line-height:24px;color:#666;}
+.r-des{margin-top:5px;font-size:12px;line-height:20px;color:#999;}
+.r-fq{margin-top:5px;}
+.r-fq span{color:#000;margin-right:15px;}
+.r-fq span:first-child{border-right:solid 1px #e5e5e5;padding-right:15px;}
+.sixin{overflow:hidden;margin-top:10px;}
+.sixin li{display:inline-block;float:left;margin-right:5px;}
+.sixin li a{display:block;background-color:#f9f9f9;color:#1a1a1a;padding:3px 15px;border:solid 1px #a5a5a5;}
+.sixin li a:hover{background-color:#0099c5;color:#fff;text-decoration:none;border-color:#0099c5;}
+.titleBar {background-color:transparent;padding: 16px;border-bottom: none;
+    margin-top: 20px;font-size: 18px;padding: 8px 0;}
+.FinanceAmount dl.finance {width: 45%;display: inline-block; margin-top: 15px;border:none;border-radius:10px;background-color:#ffaa05;}
+.fl{padding:15px;}
+.FinanceAmount dl.finance dt {padding: 7px;text-align: center;font-size: 16px;background-color:transparent;border-bottom:solid 1px #fff;}
+#rz-gf,#rz-je{background-color:#fff;display:block;margin-top:6px;border-radius:4px;line-height:30px;font-size:17px;font-weight:lighter;}
+.qtje,.qtje em{font-size:18px;}
+.ren01{overflow:hidden;margin:15px 0;}
+.FinanceAmount dl.status{border:solid 1px #e5e5e5;border-radius:4px;padding:13px;width:85px;margin:0 5px;}
+.FinanceAmount dl.status dd.amount {font-size: 16px;padding-top: 8px;
+    color:#ffaa05;border-top:solid 1px #e5e5e5;margin-top:8px;font-weight:bold;}
+.comdete,.comdete em{font-size:18px;}
+.progressBar {background-color: #c9c9c9;border-radius:5px;}
+.progressBar .progressFinish {background-color: #1ed4fb;border-radius:5px;}
+.investorLink a {width: 46%;margin:0 1%;padding: 10px 0;margin-bottom: 10px;font-size: 16px;color:#009abe;background-color:#f9f9f9;border:solid 1px #e5e5e5;border-radius:4px;}
+.investorLink a:hover{background-color:#009abe;color:#fff;border-color:#009abe;}
+.top-title{padding-bottom:15px;}
+.tab1 th, .tab1 td {border: 1px solid #e5e5e5;}
+.mTitle {
+    background-color:transparent;color: #333;padding: 10px;font-size: 18px;background-image:url(../../Content/img/model01.png);background-repeat:no-repeat;background-position:left 6px;padding:0;padding-left:20px;font-weight:lighter;
+}
+#GetProjectBusinessModel dl dd{padding-left:20px;font-size:12px;line-height:20px;color:#999;margin-top:5px;}
+#GetProjectBusinessModel dl dd p{margin:0;}
+.hasOrderLi li {
+    list-style-type: decimal;
+    list-style-position: inside;
+    line-height: 24px;
+}
+.hasOrderLi li p{display:inline-block;margin:0;}

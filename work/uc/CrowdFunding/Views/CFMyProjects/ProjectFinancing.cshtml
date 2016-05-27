@@ -1,0 +1,87 @@
+﻿
+@model  ZCPT.CrowdFunding.Web.Models.ProjectBasisModel
+
+@{
+    ViewBag.ContentName = "项目融资申请";}
+
+
+
+@*Scripts.Render("~/bundles/inputrich")*@
+@Styles.Render("~/bundles/inputrich/style")
+@*Scripts.Render("~/bundles/jqueryval")*@
+
+
+
+@using (Html.BeginForm("UpdataProjectBasis", "CFMyProjects", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(M => M.ID)
+    @Html.HiddenFor(M => M.PCProjectID)
+
+    if (ViewBag.IsProjectFinancing == false)
+    { 
+    <div class="alert alert-warning" role="alert">您已经提交过申请融资，请耐心等候审核结果。</div>
+
+    }
+    else
+    {
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, "项目名称：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-6">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Name)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("项目资料查看权限：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @foreach (var item in ViewBag.ReadPermissions)
+                    {
+                @Html.RadioButton("ReadPermissionID", (string)item.Value, (bool)item.Selected) @item.Text
+            }
+            <p class="text-danger" role="alert"></p>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.FinancingAmount, "融资金额：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.FinancingAmount, "{0:f2}", new { @class = "form-control" })
+                <div class="input-group-addon">万元</div>
+            </div>
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.FinancingAmount)</p>
+        </div>
+
+
+    </div>
+    <div class="form-group">
+        @Html.Label("投资款拨付方式：", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @foreach (var item in ViewBag.CapitalPatterns)
+                    {
+                @Html.RadioButton("CapitalPatternID", (string)item.Value, (bool)item.Selected) @item.Text
+            }
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyAddress)</p>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12 text-center">
+            @if (Model.ID > 0)
+                    {
+                <input class="btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBasis?Step=EditProjectBusinessPattern")")' value="下一步" />
+            }
+            else
+            {
+                <input class="btn btn-warning" name="insertsubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/InsertProjectBasis")")' value="提交融资申请" />
+            }
+        </div>
+        
+    </div>
+
+
+    }
+    }
+
+
+

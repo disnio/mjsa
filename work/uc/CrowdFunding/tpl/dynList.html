@@ -1,0 +1,14 @@
+<% _.each(datas, function(item, index){ %>
+<div style="" class="DynamicBox">
+    <a href="<%= item.opturl %>" target="_blank"><img class="fl" src="<%= item.DynamicPicture %>"></a>
+    <ul class="ProjectList">
+        <li class="colTitle ct_2">
+            <a href="<%= item.opturl %>" target="_blank"><%= item.DynamicTitle %></a>
+            <i class="fa fa-clock-o"><%= item.CreationTime %></i>
+        </li>
+        <li><i class="fa fa-quote-left ct_5 quote_m">项目：</i><%= item.ProjectName %></li>
+        <li class="slTxt"><%= item.DynamicContent %></li>
+
+    </ul>
+</div>
+<% }); %>

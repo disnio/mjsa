@@ -1,0 +1,25 @@
+<!-- 历史情况 projectPerformancesTpl-->
+<%_.each(datas, function(item, index){ %>
+    <ul class="hasOrderLi">
+        <li>阶段名称： <%= item.Name %></li>
+        <li>起止时间： <%= item.StartDate %>--<%= item.FinishTime %></li>
+        <li>阶段达成目标描述： <%= item.Purpose %></li>
+        <li>完成阶段目标的主要措施、方法、手段： <%= item.Measure %></li>
+        <li>阶段收入：<%= item.Amounts.cadd %></li>
+        <li>阶段开支：<%= item.Amounts.csub %></li>
+    </ul>
+
+    <table class="tab1">
+        <caption>累计盈亏： （累计盈亏未计算筹备开支/ 单位：元）</caption>
+        <thead><th>开支类别</th><th>开支金额</th><th>备注</th></thead>
+        <tbody>
+        <%_.each(item.Accountings, function(account) {%>
+            <tr>
+            <td><%= account.Category %></td>
+            <td><%= account.Amount %></td>
+            <td><%= account.Remark %></td>
+            </tr>
+        <%}); %>
+        </tbody>
+    </table>
+<%}); %>

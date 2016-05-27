@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ViewBag.ContentName = "项目(融资)方介绍";}
+
+<div class="switch">
+    <ul class="nav nav-tabs">
+        <li style="color:red;">@ViewBag.Message</li>
+    </ul>
+    <div class="clear"></div>
+</div>
+
+<div id="tagContent">
+
+    <div class="conIn ">
+        作为有着敏锐目光的投资人，您可以在平台浏览所有项目，筛选心仪项目，注入资金，分享企业成长带来的收益。<br />
+        投资方可分为个人投资方和机构投资方......
+        <br/>
+        <br />
+        <br />
+        <br />
+        只有登录到系统，才能进行后续操作。<br />
+        若您已有账号，请点击<a href="../CFAccount/Login">此处</a>登录，否则请点击<a href="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Account/Register">此处</a>注册。
+
+</div>
+</div>

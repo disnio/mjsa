@@ -1,0 +1,72 @@
+﻿@{
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+}
+<link href="~/Content/css/xmdt.css" rel="stylesheet" type="text/css" />
+<div class="row" style="margin-top:30px;">
+    <div class="col-md-8">
+        <div>
+            <!-- Nav tabs -->
+            <ul class="nav-justified" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#financingmessage" aria-controls="financingmessage" role="tab" data-toggle="tab">融资资讯</a>
+                    <div class="jt"><img src="/CrowdFunding/Content/img/sanjian_con.png"></div>
+                </li>
+                <li role="presentation">
+                    <a href="#mediamessage" aria-controls="mediamessage" role="tab" data-toggle="tab">媒体报道</a>
+                    <div class="jt"><img src="/CrowdFunding/Content/img/sanjian_con.png"></div>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active content" id="financingmessage">
+                    <ul class="list-xm">
+                        @if (ViewBag.FinancingmessageList != null)
+                        {
+                            foreach (var item in ViewBag.FinancingmessageList)
+                            {
+                                <li>
+                                    <div class="name-xm"><a href="~/cfnews/newsdetail?id=@item.LID">@item.Name</a></div>
+                                    <div class="name-description">@item.Contents</div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="mediamessage">
+                    <ul class="list-xm">
+                        @if (ViewBag.MediamessageList != null)
+                        {
+                            foreach (var item in ViewBag.MediamessageList)
+                            {
+                                <li>
+                                <div class="name-xm"><a href="~/cfnews/newsdetail?id=@item.LID">@item.Name</a></div>
+                                <div class="name-description"> @item.Contents</div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">资讯排行榜</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    @if (ViewBag.TopNewsList != null)
+                    {
+                        foreach (var item in ViewBag.TopNewsList)
+                        {
+                            <li><a href="~/cfnews/newsdetail?id=@item.LID" target="_blank">@item.Name</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

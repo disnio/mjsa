@@ -1,0 +1,21 @@
+﻿<!-- @Scripts.Render("~/bundles/inputfile") -->
+<!-- <input style="position:absolute;top:0;right:0;margin:0;opacity:0;-ms-filter:'alpha(opacity=0)'; font-size:200px;direction:ltr;cursor: pointer;" id="fileupload" type="file" name="uploadedfile" multiple=""> -->
+<link rel="stylesheet" type="text/css" href="~/Content/webuploader.css" />
+<div id="uploader">
+    <div class="queueList">
+        <div id="dndArea" class="placeholder">
+            <div id="fileupload"></div>
+            <!-- <p>或将照片拖到这里，单次最多可选300张</p> -->
+        </div>
+    </div>
+    <div class="statusBar" style="display:none;">
+        <div class="progress">
+            <span class="text">0%</span>
+            <span class="percentage"></span>
+        </div><div class="info"></div>
+        <div class="btns">
+            <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/js/app/AttachmentWebuploader.js" type="text/javascript">

@@ -1,0 +1,104 @@
+﻿
+@{
+    //Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+    Layout = null;
+}
+@{ViewBag.ContentName = "投资方方管理";}
+
+@*@Scripts.Render("~/bundles/jqueryval")*@
+
+@*@section scripts
+{
+    <script language="javascript" type="text/javascript" src="~/Tools/My97DatePicker/WdatePicker.js"></script>
+<script type='text/javascript' src='~/Scripts/jquery-1.11.3.min.js'></script>
+<script type='text/javascript' src='~/Scripts/jquery.unobtrusive-ajax.min.js'></script>
+}*@
+
+@using Webdiyer.WebControls.Mvc
+@using ZCPT.CrowdFunding.Entity.CFInvestingPartyModule
+@model ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule.InverstingPartyQueryValue
+<script type='text/javascript' src='~/Scripts/jquery-1.11.3.min.js'></script>
+@*<script type='text/javascript' src='~/Scripts/jquery.unobtrusive-ajax.min.js'></script>*@
+@*@using (Html.BeginForm("InverstingPartyList", "CFInvestingParty", FormMethod.Post, new { role = "form", id = "form1" }))
+{
+    <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+        <tr>
+            <td>创建时间</td>
+            <td>@Html.TextBoxFor(model => model.CreationTime, new { @class = "Wdate input-control", @onClick = "WdatePicker({readOnly:true})" })</td>
+            <td>昵称</td>
+            <td>@Html.TextBoxFor(model => model.NickName, new { @class = "input-control" })</td>
+
+        </tr>
+
+        <tr>
+            <td>状态</td>
+            <td colspan="3">@Html.DropDownListFor(model => model.Status, ViewBag.StatusList as IEnumerable<SelectListItem>, new { @class = "input-control" })</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="right"><input type="submit" id="btnSearch" value="查询" class="btn btn-default" /></td>
+        </tr>
+    </table>
+}*@
+
+@using (Ajax.BeginForm("InverstingPartyList", new RouteValueDictionary { { "id", "" } }, new AjaxOptions { UpdateTargetId = "ProList", InsertionMode = InsertionMode.Replace }, new RouteValueDictionary { { "id", "searchForm" } }))
+{
+    <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+        <tr>
+            <td>创建时间</td>
+            <td>@Html.TextBoxFor(model => model.CreationTime, new { @class = "Wdate input-control", @onClick = "WdatePicker({readOnly:true})" })</td>
+            <td>昵称</td>
+            <td>@Html.TextBoxFor(model => model.NickName, new { @class = "input-control" })</td>
+
+        </tr>
+
+        <tr>
+            <td>状态</td>
+            <td colspan="3">@Html.DropDownListFor(model => model.Status, ViewBag.StatusList as IEnumerable<SelectListItem>, new { @class = "input-control" })</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="right"><input type="submit" id="btnSearch" value="查询" class="btn btn-default" /></td>
+        </tr>
+    </table>
+}
+<div id="ProList">
+    @{Html.RenderPartial("PartyListView", Model); }
+    </div>
+    @*@Html.Pager((IPagedList)ViewBag.SearchList).Options(o => o.SetPageIndexParameterName("id").SetHorizontalAlign("right").SetPagerItemTemplate("&nbsp;{0}").SetFirstPageText("首页").SetLastPageText("尾页").SetPrevPageText("前一页").SetNextPageText("后一页"), new AjaxOptions { UpdateTargetId = "ProList" })*@
+
+    @*<script>
+
+        function test(id, status) {
+            if (confirm("确定要进行此操作吗？")) {
+                $.ajax(
+                {
+                    type: 'post',
+                    url: 'Update?id=' + id + '&status=' + status,
+
+                    success: function (data) {
+                        alert('操作成功');
+                        $("#form1").submit();
+                    },
+                    error: function () {
+                        alert('操作失败');
+                    }
+
+                });
+            }
+        }
+    </script>*@
+
+
+@*@{Html.RegisterMvcPagerScriptResource();}*@
+
+@section Scripts
+{
+    @{Html.RegisterMvcPagerScriptResource();}
+<script type="text/javascript" src="/scripts/jquery.unobtrusive-ajax.min.js"></script>}
+
+
+
+
+
+
+
+

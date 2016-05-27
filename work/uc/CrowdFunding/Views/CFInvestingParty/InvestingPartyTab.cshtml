@@ -1,0 +1,8 @@
+﻿<div class="switch">
+    <ul class="nav nav-tabs">
+        <li @if (ViewBag.TabIndex==1){@Html.Raw(" class=\"active\" ")}  style ="width: 155px;">@Html.ActionLink("个人资质审核", "IndividualInvestingPartyList")</li>
+        <li @if (ViewBag.TabIndex==2){@Html.Raw(" class=\"active\" ")}  style ="width: 155px;">@Html.ActionLink("机构资质审核", "OrganizationInvestingPartyList")</li>
+
+    </ul>
+    <div class="clear"></div>
+</div>

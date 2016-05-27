@@ -1,0 +1,36 @@
+﻿<head>
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
+    <script src="../Scripts/fileupload/vendor/jquery.ui.widget.js"></script>
+    <script src="../Scripts/fileupload/jquery.iframe-transport.js"></script>
+    <script src="../Scripts/fileupload/jquery.fileupload.js"></script>
+    <style>
+        .uploadedfile {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+            font-size: 200px;
+            direction: ltr;
+            cursor: pointer;
+        }
+
+        .fileinput-button {
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h2>AttachmentView</h2>
+    <form class="fileinput-button"></form>
+    <div>
+        sdfsdfsfsdf
+        <input style="position:absolute;top:0;right:0;margin:0;opacity:0;-ms-filter:'alpha(opacity=0)'; font-size:200px;direction:ltr;cursor: pointer;" id="fileupload" type="file" name="uploadedfile" multiple="">
+    </div>
+    <script>
+        function uploaddone(e, data) { alert(data.result.name); }
+        $(function () { $('#fileupload').fileupload({ url: 'Upload', dataType: 'json', done: uploaddone }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled').css('position', 'relative').css('overflow', 'hidden'); });
+    </script>
+</body>

@@ -1,0 +1,27 @@
+<div class="inComment">
+    <div class="commentInfo">
+        <span class="author">
+            <span class="manicon"><img src="<%= item.CreatorIcon %>"/></span>
+            <span class="manid">ID: <%= item.ID %></span>
+            <span class="manauth">[ <%= item.CreatorName %>]：</span>
+            <span class="mandate"><%= item.CreationDate %></span>
+        </span>
+    </div>
+    <div class="body">
+        <p class="content">
+            <%= item.Content %>
+        </p>
+    </div>
+    <div class="tieOperations" style="visibility:visible;">
+        <span class="actions hidden-act"><button class="action reply"><i class="re"></i>回复</button></span>
+        <div class="replybox">
+            <div class="commenting-field">
+                <div class="textarea-wrapper">
+                    <span class="close fa fa-remove"></span>
+                    <textarea style="width:570px; height:80px;" name="rtextarea" class="rtextarea"></textarea>
+                    <div class="control-row"><span class="send" data-pid="<%= item.ID %>" data-cid="<%= item.CreatorID %>" data-pjid="<%= item.ProjectID %>" data-id="<%= item.ID %>">评论</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

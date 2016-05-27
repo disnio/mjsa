@@ -1,3 +1,17 @@
+// 注意里面 jQuery 的书写
+(function (factory) {
+    if ( typeof define === 'function' && define.amd ) {
+        // AMD. Register as an anonymous module.
+        define(['jQuery'], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS style for Browserify
+        module.exports = factory;
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {});
+
 webstorm sourcemaps, 编辑配置，设置正确端口，然后调试运行后，webpack . 右键 visualize source map。
 生成的文件 bundle.js 右键 specify local file 建立关联。
 
@@ -26,6 +40,8 @@ Polyfilla是一个英国产品,在美国称之为Spackling Paste(译者注:刮�
 npm install babel-runtime  --save
 npm install babel-plugin-transform-runtime --save-dev
 ------------------------
+https://github.com/webpack/webpack-with-common-libs/blob/master/gulpfile.js
+      //
 /*减少打包的时候重复代码，以上要注意是放在dev还是非dev上！*/
 npm install webpack-dev-server -g
 webpack-dev-server --progress --colors
@@ -77,12 +93,37 @@ var path = require('path');
 var webpack = require('webpack');
 var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 //这个可以使jquery变成全局变量，妮不用在自己文件require('jquery')了
-// var thirdPlugin = new webpack.ProvidePlugin({$: 'jquery'});
+// var thirdPlugin = new webpack.ProvidePlugin({$: 'jquery', "window.jQuery": "jquery", jQuery: "jquery",});
 var ignoreFiles = new webpack.IgnorePlugin(/\.\.\/lib\/jquery.js$/);
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+----------------------------------------------
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+// multiple extract instances
+let extractCSS = new ExtractTextPlugin('stylesheets/[name].css');
+let extractLESS = new ExtractTextPlugin('stylesheets/[name].less');
 
 module.exports = {
-
+  ...
+  module: {
+    loaders: [
+      {test: /\.scss$/i, loader: extractCSS.extract(['css','sass'])},
+      {test: /\.less$/i, loader: extractLESS.extract(['css','less'])},
+      ...
+    ]
+  },
+  plugins: [
+    extractCSS,
+    extractLESS
+  ]
+};
+----------------------------------
+路径问题：解决 window 和 linux 分隔符不同的问题。
+path.resolve(__dirname, "app/folder") 
+path.join(__dirname, "app", "folder")
+module.exports = {
+    // 默认 "web", "async-node"
+    target: "node",
     // context: __dirname + '/src', 这个会影响 css
     // entry: [
     //     'webpack/hot/dev-server',
@@ -93,10 +134,29 @@ module.exports = {
     // 想在项目中require一些其他的类库或者API，而又不想让这些类库的源码被构建到运行时文件中，
     // 可以通过配置externals参数来解决这个问题：
     externals: {
-      "jquery": "jQuery",
+        // 外部公共变量：引入到内部后的名称。然后就可以 var $ = jQuery = require("jQuery")
+      "jQuery": "jQuery",
       'react': 'window.React',
       'react-dom':'ReactDOM',
     },
+    externals: [
+        "add",
+        // Note: If using umd you can specify an object as external value with property commonjs, commonjs2, amd and root to set different values for each import kind.
+        
+        "subtract": {
+            root: "subtract",
+            commonjs2: "./subtract",
+            commonjs: ["./math", "subtract"],
+            amd: "subtract"
+        },
+    
+        "jquery": {
+            root: "jQuery",
+            commonjs: "jquery"
+            commonjs2: "jquery"
+            amd: "jquery"
+        }
+    ],
     // webpack编译输出的文件包括以下2种：
 
     // entry：入口，可以是一个或者多个资源合并而成，由html通过script标签引入
@@ -142,35 +202,24 @@ module.exports = {
     //   vendor: ["jquery", "other-lib"],
     //   app: "./entry"
     // }
-    // new CommonsChunkPlugin({
-    //   name: "vendor",
 
-    //   // filename: "vendor.js"
-    //   // (Give the chunk a different name)
-
-    //   minChunks: Infinity,
-    //   // (with more entries, this ensures that no other module
-    //   //  goes into the vendor chunk)
-    // })
-    entry: {
-        app: "./src/app.js",
-        bottom: "./src/bottom.js"
-    },
     entry:{
         app  :[path.resolve(__dirname,'app/main.js'),],
         react: ['babel-polyfill','react','react-dom']
     },
     output: {
+        // 打包文件存放的绝对路径
         path: path.resolve(debug ? '__build' : './assets/'),
         path: path.resolve(__dirname, 'public/build'),
-        // path: path.join(__dirname, "build"),
-        // publicPath: "/build/",
-        // path: "/home/proj/cdn/assets/[hash]",
-        // publicPath: "http://cdn.example.com/assets/[hash]/"
-        // filename: "[name].js"
+        // publicPath: "http://cdn.example.com/assets/[hash]/"        
+        // 打包后的文件名
         filename: debug ? '[name].js' : 'js/[chunkhash:8].[name].min.js',
         chunkFilename: debug ? '[chunkhash:8].chunk.js' : 'js/[chunkhash:8].chunk.min.js',
-        publicPath: debug ? '/__build/' : ''
+        // 网站运行时的访问路径
+        publicPath: debug ? '/__build/' : '',
+        libraryTarget : "commonjs2,"
+        library: ["MyLibrary", "[name]"],
+        // The `library` option defines the namespace.
     },
 
     // test项表示匹配的资源类型，loader或loaders项表示用来加载这种类型的资源的loader
@@ -181,6 +230,7 @@ module.exports = {
     // {test: require.resolve('pen'), loader: 'exports?window.Pen'},
     module: {
         loaders: [
+            { test: /\.json$/, loader: "json" },
             //.css 文件使用 style-loader 和 css-loader 来处理
             {
                 test: /\.css$/,
@@ -189,19 +239,20 @@ module.exports = {
             //.scss 文件使用 style-loader、css-loader 和 sass-loader 来编译处理
             { test: /\.scss$/, loader: 'style!css!scss?sourceMap'},
             
-            // {test: /\.less$/, loader: 'style!css!less'},
+            {test: /\.ts(x?)$/, loader: 'ts-loader?root='},
             {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
             },
             // /src\/lib/, !babel
-            // {test: /\.js$/, exclude: [/node_modules/], loader: 'ng-annotate'}, 
-            // {test: /\.html$/, loader: 'raw'}, 
+            {test: /\.js$/, exclude: [/node_modules/], loader: 'ng-annotate'}, 
+            {test: /\.html$/, loader: 'raw'}, 
             {
                 test: /\.(png|jpg)$/,
                 loader: 'url-loader?limit=8192'
             }
             //.js 文件使用 jsx-loader 来编译处理
+            // "include" is commonly used to match the directories
             { test: /\.js$/, loader: 'jsx-loader?harmony' },
             { 
                 test: /\.jsx?$/,
@@ -215,8 +266,11 @@ module.exports = {
                 }
 
             },
+            // coffee-script, coffee-loader
+            { test: /\.coffee$/, loader: "coffee" }
             {
                 loader : 'babel-loader',
+                // "exclude" should be used to exclude exceptions
                 exclude: [
                     //在node_modules的文件不被babel理会
                     path.resolve(__dirname, 'node_modules'),
@@ -267,6 +321,7 @@ module.exports = {
     // resolve属性中的extensions数组中用于配置程序可以自行补全哪些文件后缀：
     // resolve: {
     //     // Default: ["web_modules", process.cwd() +"node_modules"]
+    //     //查找module的话从这里开始查找
     //     root: [ path.resolve('./app/modules'), path.resolve('./vendor/modules')],
     //     alias: {
     //         'jquery': path.resolve(__dirname, 'public/lib/jquery.js'),
@@ -277,10 +332,17 @@ module.exports = {
     // 并在引用的过程中采用带[版本号的方式引用]，这就要求我们在webpack.config.js中添加相关alias配置
     // 深入源码之ModuleAliasPlugin if(request.request != aliasValue)
     ,resolve: {
-      // 查找module的话从这里开始查找
+      // 查找module的话从这里开始查找，需要绝对路径
         root: [
-            __dirname + '/app/assets/js',
-        ], //绝对路径
+            path.resolve('./app/modules'),
+            path.resolve('./vendor/modules')
+        ], 
+        // 构建类似node 的模块查询层次，只是目录名。平时不用。
+        modulesDirectories: ["mydir"],
+
+        // 没在 rroot 和 modulesDirectories 里找到，则从这里查找。
+        fallback: path.join(__dirname, "node_modules") ,
+        // 这个会覆盖默认的，所以要全在项目
         extensions: ['', 'css', 'less', '.coffee', '.js', '.jsx'],
         //模块别名定义，方便后续直接引用别名，无须多写长长的地址
         alias: {
@@ -295,7 +357,9 @@ module.exports = {
             'mod/header': '/path/mods/mod/header/0.0.1',
             'mod/slider/0.0.1': '/path/mods/mod/slider/0.0.1'
         }
-    }
+    },
+    // 用于 loader 的加载，一般不写，用于组织 loader
+    resolveLoader: { fallback: path.join(__dirname, "node_modules") }
     // ,devServer: {
     //     hot: true
     // }
@@ -305,7 +369,7 @@ module.exports = {
     plugins: [
         new webpack.ProvidePlugin({ //加载jq
             $: 'jquery',
-            jQuery: "jquery",
+            jQuery: "jquery",            
             "window.jQuery": "jquery",
             React: "react/addons",
             "window.React": "react/addons",
@@ -318,8 +382,10 @@ module.exports = {
             minChunks: 3 // 提取至少3个模块共有的部分
         }),
         new webpack.optimize.CommonsChunkPlugin('react', 'react.js'),
-
-        new ExtractTextPlugin('css/[name].css'), //单独使用link标签加载css并设置路径，相对于output配置中的publickPath
+        // 从 js 中分离出样式到单独的文件
+        new ExtractTextPlugin('css/[name].css',{
+            allChunks: true
+        }), //单独使用link标签加载css并设置路径，相对于output配置中的publickPath
         
         //HtmlWebpackPlugin，模板生成相关的配置，每个对于一个页面的配置，有几个写几个
         new HtmlWebpackPlugin({ //根据模板插入css/js等生成最终HTML
@@ -378,9 +444,61 @@ module.exports = {
         hot: true
     },
     // 调试映射生成
-    devtool: "source-map"
+    devtool: "source-map",
+        // Include polyfills or mocks for various node stuff:
+    node: {
+        console: false,
+        global: true,
+        process: true,
+        Buffer: true,
+        __filename: "mock",
+        __dirname: "mock",
+        setImmediate: true
+    }
 };
+-----------------
+imports-loader
 
+This loader allows you to put some modules or arbitrary JavaScript onto a local variable of the file.
+
+Examples:
+file.js expect a global variable $ and you have a module jquery that should be used.
+
+require("imports?$=jquery!./file.js")
+file.js expect its configuration on a global variable xConfig and you want it to be {value:123}.
+
+require("imports?xConfig=>{value:123}!./file.js")
+file.js expect that this is the global context.
+
+require("imports?this=>window!./file.js") or require("imports?this=>global!./file.js")
+--------------
+exports-loader
+
+This loader exports variables from inside the file.
+
+Examples:
+The file sets a variable in the global context with var XModule = ....
+
+var XModule = require("exports?XModule!./file.js")
+The file sets multiple variables in the global context with var XParser, Minimizer.
+
+var XModule = require("exports?Parser=XParser&Minimizer!./file.js"); XModule.Parser; XModule.Minimizer
+The file sets a global variable with XModule = ....
+
+require("imports?XModule=>undefined!exports?XModule!./file.js") (import to not leak to the global context)
+The file sets a property on window window.XModule = ....
+
+require("imports?window=>{}!exports?window.XModule!./file.js")
+----------
+expose-loader
+
+This loader exposes the exports to a module to the global context.
+require('expose?$!expose?jQuery!jquery');
+If you are planning to use a lot of global namespaces, 
+consider implementing something like Babel runtime to your project. 
+---------
+If you use "-" or "." in your module names, you may have a problem:
+convert "imports?foo-bar" to "imports?fooBar=foo-bar".
 ----------
   "scripts": {
     "prestart": "gulp",
@@ -409,6 +527,12 @@ npm install extract-text-webpack-plugin --save-dev
 ----------------------------
 ReferenceError: webpackJsonp is not defined
 用了CommonsChunkPlugin生成了公共文件，但是页面还没有引用这个公共文件
+
+function getTemplate(templateName) {
+    return require("./templates/"+templateName);
+}
+console.log(getTemplate("a"));
+console.log(getTemplate("b")());
 ---------
 // babel --presets react src --watch --out-dir build
 // 在 packages.json 中的scripts下加上：
@@ -529,6 +653,150 @@ output: {
 在项目开发中，可能会有许多额外的任务需要完成，
 比如对于使用compass生成sprites的项目，因目前webpack还不直接支持sprites，所以还需要compass watch，
 再比如工程的远程部署等，所以需要使用一些构建工具或者脚本的配合，打通研发的链路。
+----------------------
+new AggressiveMergingPlugin({
+    minSizeReduce: 1.5,
+    moveToParents: true
+})
+common.js + a, common.js + b, a + b, pageA, pageB, pageC
+common.js, a + b, pageA + a, pageB + b, pageC
+块组的合并策略，有利于减少总共的尺寸。非公共模块可以被移动父级模块。
+
+new webpack.optimize.DedupePlugin()
+对于输出的模块进行去重，只用于产品环境。不改语义，不对实例作用。
+
+对文件单独打包
+require("bundle!./file.js")(function(fileJsExports) {
+    console.log(fileJsExports);
+});
+-------------------------
+不执行模块代码，只包含，暴露函数用于内部 require
+entry: {
+    alpha: ["./alpha", "./a"],
+    beta: ["./beta", "./b"]
+},
+new webpack.DllPlugin({
+    path: path.join(__dirname, "js", "[name]-manifest.json"),
+    name: "[name]_[hash]"
+})
+引用上面生成的 dll.js
+
+new webpack.DllReferencePlugin({
+    context: path.join(__dirname, "../js"),
+    // an object containing content and name
+    manifest: require("../js/alpha-manifest.json")
+}),
+new webpack.DllReferencePlugin({
+    // prefix which is used for accessing the content of the dll
+    scope: "beta", // commonjs not used
+    sourceType:"commonjs2"
+    manifest: require("../js/beta-manifest.json")
+})
+sourceType (optional): the type how the dll is exposed (defaults to "var") (see also externals)
+Using dlls via <script> tags
+Dll bundle: output.library = "[name]_[hash]" 
+output.libraryTarget = "var" 
+DllPlugin.name = "[name]_[hash]"
+Dll consumer: DllReferencePlugin.sourceType = "var"
+---
+Using dlls via node.js
+Dll bundle: output.libraryTarget = "commonjs2"
+Dll consumer: DllReferencePlugin.sourceType = "commonjs2" 
+DllReferencePlugin.name = "./path/to/dll.js"
+=-------------------------
+url-loader引入多张图片
+const requireContext = require.context("./images", true, /^\.\/.*\.png$/); 
+const images = requireContext.keys().map(requireContext);
+--------------------------
+var commonsPlugin = new webpack.optimize.CommonsChunkPlugin({
+    name: "vendor",
+    filename: "vendor.js",
+    minChunks: Infinity,
+    // create a additional async chunk for the common modules
+    // which is loaded in parallel to the requested chunks
+    async: true
+});
+output: {
+    path: path.join(__dirname, "js"),
+    publicPath: 'js/',
+    filename: "[name].js",
+    chunkFilename: "[id].chunk.js",
+    // libraryTarget : "commonjs2"
+},
+new webpack.optimize.CommonsChunkPlugin(["pageC", "pageD"], null, false, function(module, count) {
+    // move only module "b"
+    return /b\.js$/.test(module.identifier());
+}),
+new webpack.optimize.CommonsChunkPlugin("admin-commons.js", ["adminPageA", "adminPageB"]),
+new webpack.optimize.CommonsChunkPlugin("commons.js", ["pageA", "pageB", "admin-commons.js"], 2),
+
+公共引用里面的css会被从commons.js里移入到 commons.css 里面
+multiple-entry-points-commons-chunk-css-bundle
+new webpack.optimize.CommonsChunkPlugin("commons", "commons.js", ["A", "B"]),
+----------
+new I18nPlugin(
+    languages["de"]
+)
+var I18nPlugin = require("i18n-webpack-plugin");
+var languages = {
+    "en": null,
+    "de": require("./de.json")
+};
+name: "de",
+output->filename: "de.[name].bundle.js",
+------------
+new webpack.dependencies.LabeledModulesPlugin()
+Support Labeled Modules.
+
+module.exports =
+webpackJsonp([0,1],[
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+    var __WEBPACK_LABELED_MODULE__ = __webpack_require__(1), increment = __WEBPACK_LABELED_MODULE__.increment;
+    var a = 1;
+    console.log( increment(a) ); // 2
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+    var __WEBPACK_LABELED_MODULE__ = __webpack_require__(2), add = __WEBPACK_LABELED_MODULE__.add;
+    exports: exports["increment"] = function increment(val) {
+        return add(val, 1);
+    };
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+    exports: exports["add"] = function add() {
+        var sum = 0, i = 0, args = arguments, l = args.length;
+        while (i < l) {
+            sum += args[i++];
+        }
+        return sum;
+    };
+
+/***/ }
+]);
+--------
+loader.js
+module.exports = function(content) {
+    return "exports.answer = 42;\n" + content;
+}
+file.js
+exports.foo = "bar";
+// use our loader， file.js 作为输入传到 loader.js
+console.dir(require("./loader!./file"));
+
+exports.answer = 42;
+exports.foo = "bar";
+--------
+定义内部全局变量用于构建和日志
+new webpack.DefinePlugin({
+    ENV: JSON.stringify("mobile")
+})
 --------------------------------------------------------------------------------
 // onScroll doesn't work in IE8 https://github.com/facebook/react/issues/631
 // http://facebook.github.io/react/downloads.html#individual-downloads

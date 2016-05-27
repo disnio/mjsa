@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "项目方管理";}
+@using ZCPT.CrowdFunding.Entity.CFFinancingPartyModule
+@model ZCPT.CrowdFunding.Web.Models.CFFinancingPartyModule.FinancingPartyQueryValue
+
+@using (Html.BeginForm("PartnerProjectList", "CFFinancingParty", FormMethod.Post, new {role = "form", id = "form1"}))
+        {
+            <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+                <tr>
+                    <td>创建时间</td>
+                    <td>@Html.TextBoxFor(model => model.CreationTime, new {@class = "Wdate input-control", @onClick = "WdatePicker({readOnly:true})" })</td>
+                    <td>昵称</td>
+                    <td>@Html.TextBoxFor(model => model.NickName, new {@class = "input-control"})</td>
+
+                </tr>
+
+                <tr>
+                    <td>状态</td>
+                    <td colspan="3">@Html.DropDownListFor(model => model.Status, ViewBag.StatusList as IEnumerable<SelectListItem>, new {@class = "input-control"})</td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="right"><input type="submit" id="btnSearch" value="查询" class="btn btn-default"/></td>
+                </tr>
+            </table>
+        }
+
+        <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+            <tr><th>创建时间</th><th>昵称<th>个人说明</th><th>状态</th><th>操作</th></tr>
+            @foreach (var project in ViewBag.SearchList)
+            {
+                <tr>
+                    <td>@project.CreationTime.ToString("yyyy-MM-dd")</td>
+                    <td>@project.NickName</td>
+                    <td>@project.PersonalDescription</td>
+                    <td>@project.StatusText</td>
+                    <td>
+                        @*<a id="pass" href="~/CFFinancingParty/Update?id=@project.LID&status=2">通过</a>*@
+                        @{
+                            if (project.Status == CFFinancingPartyStatus.Get("Apply").ID)
+                            {
+                                <a onclick="test(@project.LID, @CFFinancingPartyStatus.Get("Auditing").ID);">审核</a>
+                            }
+                            else if (project.Status == CFFinancingPartyStatus.Get("Auditing").ID)
+                            {
+                                <a onclick="test(@project.LID, @CFFinancingPartyStatus.Get("Passed").ID);">通过</a>
+                                <a onclick="test(@project.LID, @CFFinancingPartyStatus.Get("Denied").ID);">拒绝</a>
+                            }
+                        }
+                        
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+<script>
+
+    function test(id, status) {
+        if (confirm("确定要进行此操作吗？")) {
+            $.ajax(
+            {
+                type: 'post',
+                url: 'Update?id=' + id + '&status=' + status,
+
+                success: function(data) {
+                    alert('操作成功');
+                    $("#form1").submit();
+                },
+                error: function() {
+                    alert('操作失败');
+                }
+
+            });
+        }
+    }
+</script>
+
+
+
+

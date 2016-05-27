@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "个人项目方管理";}
+@*@model IEnumerable<ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule.IndividualInvestingPartyModle>*@
+
+@using ZCPT.CrowdFunding.Web.Models.CFFinancingPartyModule
+@using ZCPT.CrowdFunding.Entity.CFFinancingPartyModule
+@model IndividualFinancingPartyQuery
+
+@Html.Partial("FinancingParitesTab")
+
+@using (Html.BeginForm("IndividualFinancingPartyList", "CFFinancingParty", FormMethod.Post, new { role = "form", id = "form1" }))
+{
+    <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+        <tr>
+            <td>创建时间</td>
+            <td>@Html.TextBoxFor(model => model.CreationTime, new { @class = "Wdate input-control", @onClick = "WdatePicker({readOnly:true})" })</td>
+            <td>姓名</td>
+            <td>@Html.TextBoxFor(model => model.Name, new { @class = "input-control" })</td>
+
+        </tr>
+
+        <tr>
+            <td>状态</td>
+            <td colspan="3">@Html.DropDownListFor(model => model.Status, ViewBag.StatusList as IEnumerable<SelectListItem>, new { @class = "input-control" })</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="right"><input type="submit" id="btnSearch" value="查询" class="btn btn-default" /></td>
+        </tr>
+    </table>
+}
+
+<table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+    <tr><th>创建时间</th><th>姓名</th><th>身份证号</th><th>个人说明</th><th>状态</th></tr>
+    @foreach (var item in ViewBag.SearchList)
+    {
+        <tr>
+            <td>
+                @item.CreationDate.ToString("yyyy-MM-dd")
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.IdentificationCard
+            </td>
+            <td>
+                @item.Introduction
+            </td>
+            <td>
+                @(@item.Status == null ? string.Empty : item.Status.Name)
+            </td>
+        </tr>
+                    }
+
+</table>
+

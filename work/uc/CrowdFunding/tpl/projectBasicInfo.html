@@ -1,0 +1,92 @@
+<!-- 项目基本信息 -->
+<tr>
+    <td scope="col">项目名称：</td>
+    <td colspan="3"><span class="fl pad_01"><%= item.Name %></span><span class="fl pad_01"><%= item.StageText %></span></td>
+</tr>
+<tr>
+    <td scope="col">项目资料查看权限：</td>
+    <td colspan="3">
+        <%= item.ReadPermissionText %>
+    </td>
+</tr>
+<tr>
+    <td scope="col">项目类别：</td>
+    <td>创投板项目*</td>
+    <td scope="col">是否有其他项目：</td>
+    <td>没有*</td>
+</tr>
+<tr>
+    <td scope="col" width="19%">项目所属行业：</td>
+    <td width="31%">
+        <%= item.IndustryText %>
+    </td>
+    <td scope="col" width="15%">项目标签：</td>
+    <td width="35%">
+        <%= item.Tag %>
+    </td>
+</tr>
+<tr>
+    <td scope="col">项目所属阶段：</td>
+    <td>
+        <%= item.StageText %>
+    </td>
+    <td scope="col">企业成立时间：</td>
+    <td>
+        <%= item.CompanyEstablishingDate %>
+    </td>
+</tr>
+<tr>
+    <td scope="col">企业员工人数：</td>
+    <td>
+        <%= item.CompanyNubmers %>人</td>
+    <td scope="col">企业所在城市：</td>
+    <td>
+        <%= item.CityText %>
+    </td>
+</tr>
+<tr>
+    <td scope="col">企业名称：</td>
+    <td>
+        <%= item.CompanyName %>
+    </td>
+    <td scope="col">办公地址：</td>
+    <td>
+        <%= item.CompanyAddress %>
+    </td>
+</tr>
+<tr>
+    <td scope="col">融资金额￥：</td>
+    <td colspan="3">
+        <%= item.FinancingAmount %>万</td>
+</tr>
+<tr>
+    <td scope="col">已认投金额￥：</td>
+    <td>
+        <%= item.InvestmentAmount %>万</td>
+    <td scope="col">领投金额￥：</td>
+    <td>0.00万*</td>
+</tr>
+<tr>
+    <td scope="col">最低跟投金额￥：</td>
+    <td>0万</td>
+    <td scope="col">最低投资金额：</td>
+    <td>0万</td>
+</tr>
+<tr>
+    <td scope="col">投资款拨付方式：</td>
+    <td colspan="3">
+        <%= item.CapitalPatternText %>
+    </td>
+</tr>
+<tr>
+    <td scope="col">最低投资金额：</td>
+    <td colspan="3">最低领投金额&nbsp;<span class="f_ora"><%= item.MinFollowInvestmentAmount %></span>万元，最低跟投金额&nbsp;<span class="f_ora"><%= item.MinLeadInvestmentAmount %></span>万元</td>
+</tr>
+<tr>
+    <td colspan="4" style="line-height:25px; padding:10px 20px;"><span scope="col">企业项目简介：</span>
+        <%= item.Introduction %>
+    </td>
+</tr>
+<tr>
+    <td colspan="4" scope="col" align="center"><span class="f_ora">暂未上传项目视频！</span>&nbsp;&nbsp;&nbsp;<span class="f_ora">项目审核完成前不能添加视频！</span></td>
+</tr>

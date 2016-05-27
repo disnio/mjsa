@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "项目资料编辑";
+    ViewBag.ContentName = "项目资料编辑";
+}
+
+<!-- 项目标签列表 -->
+<script type="text/javascript" src="~/Scripts/js/app/projectTab.js"></script>
+<!-- 评论的脚本 -->
+<script type="text/javascript" src="~/Scripts/js/app/pl.js"></script>
+<script type="text/javascript" src="~/Scripts/js/app/ProjectInfo.js"></script>
+<div class="con_point f_gray">
+    温馨提示： <br />请完整填写您的项目资料，填写完整后，页面底部将会出现提交审核按钮，点击提交才能进行项目审核！<br>
+    项目审核一般需要7个工作日，如有问题，请致电以下号码：010-12345678、44445555
+</div>
+<table class="tab1 table table-bordered">
+    <thead>
+        <tr>
+            <td colspan="4" class="tr">
+                @if (ViewBag.IsShowEditButton)
+                {
+                    <a id="EditProjectBasis" href="~/CFMyProjects/EditProjectBasis/" class="btn btn-info" > 编 辑 </a>
+                }
+                else
+                {
+                    <a id="EditProjectBasis" class="btn btn-default disabled"> 编 辑 </a>
+                }
+            </td>
+        </tr>
+    </thead>
+    <tbody id="ProjectDetail"></tbody>
+</table>
+
+<div class="subContent">
+    <div id="projectTab"></div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        var nu = $("#EditProjectBasis").attr("href") + "@ViewBag.ID";
+        $("#EditProjectBasis").attr("href", nu);
+
+    })
+</script>

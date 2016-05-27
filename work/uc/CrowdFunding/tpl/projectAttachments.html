@@ -1,0 +1,7 @@
+<!-- 项目附件 projectAttachmentsTpl -->
+<%_.each(datas, function(item, index){ %>
+    <tr>
+        <td><%= item.LID %></td>
+        <td><a href="~/FileCenterAPI/fileupload/ImgDownload/<%= item.Icon %>"  target="_blank" ><%= item.Name %></a></td>
+    </tr>
+<%}); %>

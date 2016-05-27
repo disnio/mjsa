@@ -1,0 +1,250 @@
+﻿@{ViewBag.ContentName = "编辑项目动态";}
+@model ZCPT.CrowdFunding.Web.Models.ProjectDynamicModel
+<link href="~/Scripts/UMEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/js/app/EditProjectDynamic.js"></script>
+
+@Html.Partial("_ProjectTab", new ZCPT.CrowdFunding.Web.Models.ComponentModule.ProjectEditTabModule() { ID = Model.ID, Current = nameof(ZCPT.CrowdFunding.Web.Models.ProjectDynamicModel) })
+
+<div style="height:10px;"></div>
+
+@using (Html.BeginForm("InsertProjectDynamic", "CFMyProjects", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(M => M.ID)
+
+    <div class="form-group">
+        @Html.LabelFor(M => M.DynamicTitle, "动态标题：", new { @class = "col-sm-2" })
+        <div class="col-sm-4 ">
+            @Html.TextBoxFor(M => M.DynamicTitle, new { @class = "inp4 form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.DynamicTitle)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(M => M.IconID, "动态图片：", new { @class = "col-sm-2" })
+        <div class="col-sm-2 ">
+            @Html.HiddenFor(M => M.IconID)
+            <span class="inp_file">
+                <a class="btn btn-info" href="javascript:;">
+                    请选择文件
+                    @Html.Partial("_Attachment")
+                    <script>
+                                        var ServerReferenceFileCenterAPI = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/")';
+                                        var ImgSingleUploadUrl = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgSingleUpload/CrowdFunding")';
+                    </script>
+
+                </a>
+            </span>
+            <div id="preview" style="display:none;">
+                <img class="img" style="width:200px;height:120px" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + Model.IconID)">
+            </div>
+
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.IconID)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(M => M.DynamicContent, "动态内容：", new { @class = "col-sm-2" })
+        <div class="col-sm-10">
+            @Html.TextAreaFor(M => M.DynamicContent, new { style = "width: 80%; height: 200px; " })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.DynamicContent)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10 text-right">
+            <input type="submit" class="btn btn-warning" name="updatesubmit" value="确 认" />
+        </div>
+    </div>
+
+
+    foreach (var item in ViewBag.Dynamics)
+    {
+
+        <div class="form-group">
+            <div class="col-sm-4 col-md-4">
+                <div class="thumbnail">
+                    <img src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + item.IconID)" alt="动态图片">
+                </div>
+            </div>
+            <div class="col-sm-8 col-md-8">
+                <h3><a href="#nogo" target="_blank">@item.DynamicTitle</a></h3>
+                <p>@Html.Raw(@item.DynamicContent)......</p>
+                <p class="text-muted">@item.CreationTime</p>
+            </div>
+        </div>
+    }
+
+    @*
+            <DIV class="xm-content">
+                <DIV >
+                    <DIV class="tit">
+                        <DIV class="tit_l"><SPAN class="num"></SPAN></DIV>
+
+                    </DIV>
+                    <DIV>
+
+                        <DIV style="line-height: 40px;">
+                            <SPAN class="f_blue">动态标题：</SPAN>
+                            @Html.TextBoxFor(M => M.DynamicTitle, new { Class = "inp4", Style = "width: 400px;" })
+                            @Html.ValidationMessageFor(M => M.DynamicTitle)
+                        </DIV>
+
+                        <DIV >
+                            <table border="0" cellpadding="0" cellspacing="1" width="100%">
+                                <tr>
+                                    <td class="col" rowspan="2" style="line-height: 40px; width:70px;" valign="top">
+                                        <SPAN class="f_blue">动态图片：</SPAN>
+                                    </td>
+                                    <td id="section">
+                                        @Html.HiddenFor(M => M.IconID)
+                                        <span class="inp_file">
+                                            <a class="file" href="javascript:;">
+                                                请选择文件
+                                                @Html.Partial("_Attachment")
+                                                <script>
+                                                var ServerReferenceFileCenterAPI = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/")';
+                                                var ImgSingleUploadUrl = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgSingleUpload/CrowdFunding")';
+                                                </script>
+
+                                            </a>
+                                        </span>
+                                        <div id="preview" style="display:none;">
+                                            <img class="img" style="width:200px;height:120px" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + Model.IconID)">
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </DIV>
+
+                        <SPAN class="f_blue">动态内容：</SPAN>
+                        <DIV >
+
+                            @Html.TextAreaFor(M => M.DynamicContent, 4, 20, new { style = "width: 100%; height: 200px;" })
+                            @Html.ValidationMessageFor(M => M.DynamicContent)
+                        </DIV>
+                        <BR />
+                        <DIV style="line-height: 40px; float:right;">
+                            <input class="btn2" name="updatesubmit" type="submit" value="确 认" />
+                        </DIV>
+                    </DIV>
+                </DIV>
+
+                <BR/>
+
+        @foreach (var item in ViewBag.Dynamics)
+        {
+                <div class="DynamicBox">
+                    <img src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + item.IconID)" style="width:200px;height:120px" alt="动态图片" class="fl" />
+                    <ul class="ProjectList fl">
+                        <li class="colTitle ct_2">
+                            <i class="fa fa-hand-o-right ct_7"></i>
+                            <a href="#nogo" target="_blank">@item.DynamicTitle</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-quote-left ct_5 quote_m"></i>
+                           @Html.Raw(@item.DynamicContent)......
+                        </li>
+                        <li class="date ct_4">
+                            <i class="fa fa-clock-o"></i>
+                           @item.CreationTime
+                        </li>
+                    </ul>
+
+                </div>
+        }
+            </DIV>
+        *@
+        }
+
+
+    <style type="text/css">
+        .inp_file {
+            margin-top: 5px;
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+        }
+
+        /*.f_blue {
+            color: rgb(0, 153, 255);
+        }
+
+        .f_20 {
+            font-size: 20px;
+        }
+
+        .tab3 {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+            .tab3 .col td {
+                background: rgb(232, 243, 255);
+            }
+
+            .tab3 td {
+                padding: 0px 5px;
+                border: 1px solid rgb(204, 204, 204);
+                border-image: none;
+                height: 40px;
+            }
+
+        td {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .inp_file {
+            background-color: rgb(53, 174, 255);
+            height: 21px;
+            color: rgb(255, 255, 255);
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+        }
+
+            .inp_file a:link {
+                color: rgb(255, 255, 255);
+                text-decoration: none;
+            }
+
+        a:link {
+            color: rgb(51, 51, 51);
+            text-decoration: none;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        .inp_file input {
+            top: 0px;
+            right: 0px;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+        }
+
+        .btn2 {
+            background: rgb(255, 102, 0);
+            padding: 0px 25px;
+            border: currentColor;
+            border-image: none;
+            height: 35px;
+            color: rgb(255, 255, 255);
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+
+        .thumbnail {
+            width: 200px;
+        }
+
+        .label-left {
+            text-align: left;
+        }*/
+
+        </style > 
+    

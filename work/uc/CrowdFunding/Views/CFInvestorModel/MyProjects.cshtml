@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/js/app/MyProjects.js"></script>
+
+<div class="wrapper">
+    <div id="pageHead"></div>
+    <div class="scrol-page k1120 mainContent clearfix memberCenter">
+
+        <aside class="asideBar fl commentBar" id="investorMenu"></aside>        <div class="subContent">
+            <h1 class="font_2 ct_7 title_line">
+                <span class="fl"><i class="fa fa-magic"></i> 我跟投的项目</span>
+            </h1>
+
+            <div class="switch">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="javascript:void(0);"> 收藏的项目</a></li>
+                    <li><a href="javascript:void(0);">约谈的项目</a></li>
+                    <li><a href="javascript:void(0);">领投的项目</a></li>
+                    <li><a href="javascript:void(0);">跟投的项目</a></li>
+                    <li><a href="javascript:void(0);" style="border-right:1px solid #ccc;">完成的项目</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <div id="tagContent">
+                <div class="conIn MyFllowedProjectList">
+                    <div class="myProjectList">
+                        <div class="cbInner">
+                            <div class="thumbnail fl">
+                                <img src="~/Content/img/nophoto.jpg" alt="">
+                            </div>
+                            <div class="summary fl">
+                                <ul>
+                                    <li class="colTitle ct_2">
+                                        <a href="CFProject/GetProjectBasis.html?id=20">最新项目1</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-caret-right"></i> 地区：北京<span class="pad_01">行业：PC互联网</span><span class="pad_01">项目融资中</span>
+                                    </li>
+
+                                </ul>
+
+                                <ul class="proInfo">
+                                    <li>
+                                        融资金额:<em class="bg_1"> 0.01万 </em> 已融金额:<em class="bg_2">30万</em> 认投完成率：<span class="f_ora ct_8">null</span>
+                                    </li>
+                                    <li>
+                                        起投金额:<span class="f_ora ct_8" style="padding-right: 20px;">0.00万 </span>
+                                        跟投金额:<span class="f_ora ct_8" style="padding-right: 20px;">0.00万 </span>
+                                        被投资人约谈数:<span class="f_ora ct_8" style="padding-right: 20px;">0.00万 </span>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="conIn ">约谈的项目</div>
+                <div class="conIn ">领投的项目</div>
+                <div class="conIn MyInvestedProjectList" id="MyInvestedProjectList">跟投的项目</div>
+                <div class="conIn ">完成的项目</div>
+            </div>
+        </div>
+
+    </div>
+    <div id="footerBar"></div>
+</div>
+
+<!-- 跟投金额:<span class="f_ora ct_8" style="padding-right: 20px;">0.00万 </span> -->
+
+</body>
+</html>
+

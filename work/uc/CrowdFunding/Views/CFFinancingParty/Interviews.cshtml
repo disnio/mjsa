@@ -1,0 +1,40 @@
+﻿@model ZCPT.CrowdFunding.Web.Models.CFProjectInterviewsModule.InterviewsContentsTextObject
+@{
+    ViewBag.Title = "Interviews";
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{
+    ViewBag.ContentName = "约谈列表";
+}
+
+<script type="text/javascript">
+    var CreateInterviewsContents = '@Url.Action("CreateInterviewsContents", "CFInvestingParty")';
+</script>
+
+<table id="ytList" class="table">
+    <thead>
+        <tr>
+            <th>发话人</th>
+            <th>内容</th>
+            <th>时间</th>
+        </tr>
+        </thead>
+    <tbody>
+
+    </tbody>
+</table>
+<div id="pageList">
+ 
+</div>
+<div class="yuetan ytcomm">
+    <span id="ytReplay" class="actions"><button class="action reply"><i class="re"></i>回复</button></span>
+    <div class="replybox">
+        <div class="commenting-field">
+            <div class="textarea-wrapper"><span class="close fa fa-remove"></span>
+                <textarea cols="50" rows="2" name="rtextarea" class="rtextarea"></textarea>
+                <div class="control-row"><span class="send save highlight-background">发送回复</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/js/app/Interviews.js"></script>

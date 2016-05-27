@@ -1,0 +1,407 @@
+﻿@{ViewBag.ContentName = "股东团队说明";}
+@model ZCPT.CrowdFunding.Web.Models.ProjectTeamsModel
+
+@Html.Partial("_ProjectTab", new ZCPT.CrowdFunding.Web.Models.ComponentModule.ProjectEditTabModule() { ID = Model.ID, Current = nameof(ZCPT.CrowdFunding.Web.Models.ProjectTeamsModel) })
+<link href="~/Scripts/UMEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/js/app/EditProjectTeam.js"></script>
+
+
+@using (Html.BeginForm("EditProjectTeam", "CFMyProjects", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        @Html.HiddenFor(m => m.ID)
+        <table class="table">
+            <tbody>
+                @for (int i = 0; i < Model.TeamMembers.Count; i++)
+                {
+                    <tr id="s22">
+                        <th>姓名</th>
+                        <th>职务</th>
+                        <th>是否全职</th><!-- 新增  钟06.21 -->
+                        <th>所占股份(%)</th>
+                        <th>实际出资金额(万)</th>
+                        <th>与其他股东历史关系描述</th>
+                        <th width="100">操作</th>
+                    </tr>
+                    <tr id="s0">
+                        <td>
+                            @Html.HiddenFor(M => M.TeamMembers[i].ID)
+                            @Html.TextBoxFor(M => M.TeamMembers[i].Name, new { @class = "form-control", Style = "min-width: 90px;width: 90px;" })
+                            @Html.ValidationMessageFor(M => M.TeamMembers[i].Name, "", new { style = "color:red; " })
+                        </td>
+                        <td>@Html.TextBoxFor(M => M.TeamMembers[i].Position, new { @class = "form-control", Style = "min-width: 100px;width: 100px;" })</td>
+                        <td>
+                            @Html.DropDownListFor(M => M.TeamMembers[i].WorkTypeID, ((IEnumerable<SelectListItem>)ViewBag.WorkTypes).Select(p => new SelectListItem() { Text = p.Text, Value = p.Value, Selected = p.Value == Model.TeamMembers[i].WorkTypeID.ToString() }), new { @class = "form-control", Style = "min-width: 100px;width: 100px;" })
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                @Html.TextBoxFor(M => M.TeamMembers[i].Stake, new { @class = "form-control", Style = "min-width: 55px;width: 55px;" })
+                                <span class="input-group-addon">%</span>
+                            </div>
+                            @Html.ValidationMessageFor(M => M.TeamMembers[i].Stake, "", new { style = "color:red; " })
+                        </td>
+                        <td>@Html.TextBoxFor(M => M.TeamMembers[i].InvestmentAmount, "{0:f2}", new { @class = "form-control", Style = "min-width: 100px;width: 100px;" })</td>
+                        <td>@Html.TextBoxFor(M => M.TeamMembers[i].Relationship, new { @class = "form-control", Style = "min-width: 150px;width: 150px;" })</td>
+                        <td id="33">
+                            <a href="javascript:void(0);" Class="btn6 btn btn-info" role="button">删除</a>
+
+                            @Html.HiddenFor(M => M.TeamMembers[i].StatusID)
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td colspan="7" style="text-align: left; font-weight:bold;">
+                            &nbsp; 简介：
+                        </td>
+                    </tr>
+                    <tr>
+                        <TD colspan="7" style="text-align: left;">
+                            @Html.TextAreaFor(M => M.TeamMembers[i].Introduction, 4, 20, new { style = "width: 100%; height: 180px;" })
+                        </TD>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group text-center">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td colspan="7">
+                        <span class="t_c">
+                            <input type="submit" Class="btn6 btn btn-primary" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/InsertProjectTeam")")' value="增加成员" />
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group text-center">
+            <input class="btn2 btn btn-warning" name="updatebacksubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectTeam?Step=EditProjectBusinessPattern")")' value="上一步" />
+            &nbsp;
+            <input class="btn2 btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectTeam?Step=EditProjectPerformance")")' value="下一步" />
+            <p class="text-danger">@Html.Label((string)ViewBag.ResultMassage ?? string.Empty)</p> 
+    </div>
+}
+
+
+
+
+@*<style type="text/css">
+    .con3 {
+        padding-bottom: 30px;
+    }
+
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .con3 .tit {
+        background: rgb(223, 235, 255) url('img/v3/member_bg5.gif') no-repeat 0px 0px;
+        height: 40px;
+        color: rgb(0, 153, 255);
+        line-height: 40px;
+        padding-left: 8px;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    .con3 .num {
+        color: rgb(255, 255, 255);
+        font-family: SimHei;
+        font-size: 18px;
+        font-weight: bold;
+        margin-right: 17px;
+    }
+
+    span {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .tab2 {
+        margin: 10px 0px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .tab2 .col td {
+            background: rgb(223, 235, 255);
+            color: rgb(0, 153, 255);
+        }
+
+        .tab2 td {
+            padding: 0px 2px;
+            border: 1px solid rgb(204, 204, 204);
+            border-image: none;
+            height: 40px;
+            text-align: center;
+        }
+
+    td {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    img {
+        border: 0px currentColor;
+        border-image: none;
+        line-height: 0;
+        vertical-align: middle;
+    }
+
+    .inp4 {
+        background: rgb(255, 255, 255);
+        border: 1px solid rgb(204, 204, 204);
+        border-image: none;
+        width: 200px;
+        height: 28px;
+        line-height: 28px;
+        padding-left: 3px;
+        margin-right: 10px;
+    }
+
+    input {
+        color: rgb(102, 102, 102);
+        font-family: Microsoft Yahei;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    input {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    a:link {
+        color: rgb(51, 51, 51);
+        text-decoration: none;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    .t_c {
+        text-align: center;
+    }
+
+    .btn6 {
+        /*background: rgb(0, 153, 255);
+        padding: 4px 17px 5px;
+        border: currentColor;
+        border-image: none;
+        color: rgb(255, 255, 255);
+        cursor: pointer;*/
+    }
+
+    .con3 .name {
+        margin: 20px 0px 10px;
+        height: 30px;
+        color: rgb(0, 153, 255);
+        font-size: 16px;
+        border-bottom-color: rgb(204, 204, 204);
+        border-bottom-width: 1px;
+        border-bottom-style: dashed;
+    }
+
+    .f_ora {
+        color: rgb(255, 102, 0);
+    }
+
+    .con3 .pro {
+        padding: 10px 0px 5px;
+    }
+
+    .con3 .text {
+        padding: 15px 0px 10px;
+        line-height: 30px;
+    }
+
+    textarea {
+        color: rgb(102, 102, 102);
+        font-family: Microsoft Yahei;
+        font-size: 14px;
+        height: 120px;
+        vertical-align: middle;
+    }
+
+    textarea {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .btn2 {
+        /*background: rgb(255, 102, 0);
+        padding: 0px 25px;
+        border: currentColor;
+        border-image: none;
+        height: 35px;
+        color: rgb(255, 255, 255);
+        font-size: 16px;
+        cursor: pointer;*/
+    }
+</style>*@
+
+
+@*<DIV id="o0">
+        <DIV class="name">
+            ▍股东团队<SPAN class="f_ora">李</SPAN>简介：
+        </DIV>
+        <DIV class="pro">
+
+        </DIV>
+    </DIV>
+    <DIV id="newout" style="display: none;"></DIV>
+
+    <div class="tit"><span class="num">2</span>股东历史变更记录&nbsp;&nbsp;
+      （
+      <input type="radio" name="hasHistory" id="hasHistory" onclick="setHis(1)" value="1"  />
+      有&nbsp;
+      <input name="hasHistory" type="radio" id="noHistory" value="0"  onclick="setHis(0)" checked />
+      无）</div>
+    <div id="history" style="display:none">
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab2">
+      <tr class="col">
+        <td>变更时间</td>
+        <td>变更前股份比例</td>
+        <td>变更后股份比例</td>
+        <td>变更原因说明</td>
+        <td width="30">操作</td>
+      </tr>
+                          <tr id="hs1" rel="1">
+        <td><link rel="stylesheet" type="text/css" href="/statics/js/calendar/jscal2.css"/>
+        <link rel="stylesheet" type="text/css" href="/statics/js/calendar/border-radius.css"/>
+        <link rel="stylesheet" type="text/css" href="/statics/js/calendar/win2k.css"/>
+        <script type="text/javascript" src="/statics/js/calendar/calendar.js"></script>
+        <script type="text/javascript" src="/statics/js/calendar/lang/en.js"></script><input type="text" name="his1[change_date]" id="change_date1442210739" value="" size="10" class="date" readonly>&nbsp;<script type="text/javascript">
+        Calendar.setup({
+        weekNumbers: true,
+        inputField : "change_date1442210739",
+        trigger    : "change_date1442210739",
+        dateFormat: "%Y-%m-%d",
+        showTime: false,
+        minuteStep: 1,
+        onSelect   : function() {this.hide();},
+        onChange : function (cal){
+              try
+            {
+              document.getElementById("change_date1442210739").focus();
+            }
+            catch(err)
+            {
+
+            }
+            }
+        });
+    </script></td>
+        <td><input type="text" class="inp4" style="width:90px;" name="his1[shares_before]"/></td>
+        <td><input type="text" class="inp4" style="width:90px;" name="his1[shares_after]"/></td>
+        <td><input type="text" class="inp4" style="width:250px;" name="his1[reason]"/></td>
+        <td><a href="javascript:void(0)" onclick="deleteHistorychange(1)"><img src="/statics/img/member_icon_del.gif" alt="删除" title="删除本行" /></a></td>
+      </tr>
+                <tr id="addhaction">
+        <td colspan="5">
+        <span class="t_c">
+          <input type="button" name="addh_arow" onclick="addhistorychange()" value="增加一行"  class="btn6" />
+        </span>
+        </td>
+      </tr>
+    </table>
+    </div>
+
+    <DIV class="tit">
+        <SPAN class="num">2</SPAN>非股东管理团队&nbsp;&nbsp;          （
+        <INPUT name="hasTeam1" id="hasTeam" onclick="setTeam(1)" type="radio" value="V1"
+               checked="true">
+        有&nbsp;
+        <INPUT name="hasTeam" id="noTeam" onclick="setTeam(0)"
+               type="radio" checked="true" value="V1">           无）
+    </DIV>
+    <DIV id="fgdteam" style="display: none;">
+        <TABLE width="100%" class="tab2" border="0" cellspacing="0" cellpadding="0">
+            <TBODY>
+                <TR class="col">
+                    <TD>姓名</TD>
+                    <TD>职务</TD>
+                    <TD>是否全职</TD>
+                    <TD>入职时间</TD>
+                    <TD>与创始团队成员历史关系</TD>
+                    <TD width="30">操作</TD>
+                </TR>
+                <TR id="fs1">
+                    <TD><INPUT name="finfo1[staff]" class="inp4" style="width: 90px;" type="text"></TD>
+                    <TD><INPUT name="finfo1[position]" class="inp4" style="width: 100px;" type="text"></TD>
+                    <TD><INPUT name="finfo1[at_work]" class="inp4" style="width: 100px;" type="text"></TD>
+                    <TD><INPUT name="finfo1[entry_date]" class="inp4" style="width: 70px;" type="text"></TD>
+                    <TD><INPUT name="finfo1[relation]" class="inp4" style="width: 150px;" type="text"></TD>
+                    <TD>
+                        <A name="deletef" onclick="delf(1)" href="javascript:void(0);">
+                            <IMG title="删除本行" alt="删除" src="编辑股东及管理团队_files/member_icon_del.gif">
+                        </A>
+                    </TD>
+                </TR>
+                <TR id="fs2">
+                    <TD><INPUT name="finfo2[staff]" class="inp4" style="width: 90px;" type="text"></TD>
+                    <TD><INPUT name="finfo2[position]" class="inp4" style="width: 100px;" type="text"></TD>
+                    <TD>
+                        <INPUT name="finfo2[at_work]1" class="inp4" style="width: 100px;" type="text"
+                               size="20">
+                    </TD>
+                    <TD><INPUT name="finfo2[entry_date]" class="inp4" style="width: 70px;" type="text"></TD>
+                    <TD><INPUT name="finfo2[relation]" class="inp4" style="width: 150px;" type="text"></TD>
+                    <TD>
+                        <A name="deletef" onclick="delf(2)" href="javascript:void(0);">
+                            <IMG title="删除本行" alt="删除" src="编辑股东及管理团队_files/member_icon_del.gif">
+                        </A>
+                    </TD>
+                </TR>
+                <TR id="fs3">
+                    <TD><INPUT name="finfo3[staff]" class="inp4" style="width: 90px;" type="text"></TD>
+                    <TD><INPUT name="finfo3[position]" class="inp4" style="width: 100px;" type="text"></TD>
+                    <TD><INPUT name="finfo2[at_work]" class="inp4" style="width: 100px;" type="text"></TD>
+                    <TD><INPUT name="finfo3[entry_date]" class="inp4" style="width: 70px;" type="text"></TD>
+                    <TD><INPUT name="finfo3[relation]" class="inp4" style="width: 150px;" type="text"></TD>
+                    <TD>
+                        <A name="deletef" onclick="delf(3)" href="javascript:void(0);">
+                            <IMG title="删除本行" alt="删除" src="编辑股东及管理团队_files/member_icon_del.gif">
+                        </A>
+                    </TD>
+                </TR>
+                <TR id="addfaction">
+                    <TD colspan="6">
+                        <SPAN class="t_c">
+                            <INPUT name="addf_arow" class="btn6" onclick="addfarow()" type="button" value="增加一行">
+                        </SPAN>
+                    </TD>
+                </TR>
+            </TBODY>
+        </TABLE>
+        <DIV id="fo1">
+            <DIV class="name">▍非股东团队<SPAN class="f_ora">成员一</SPAN>简介：</DIV>
+            <TEXTAREA name="finfo1[outline]" id="foutline1" cols="20" rows="1"></TEXTAREA>
+        </DIV>
+        <DIV id="fo2">
+            <DIV class="name">▍非股东团队<SPAN class="f_ora">成员二</SPAN>简介：</DIV>
+            <TEXTAREA name="finfo2[outline]" id="foutline2" cols="20" rows="1"></TEXTAREA>
+        </DIV>
+        <DIV id="fo3">
+            <DIV class="name">▍非股东团队<SPAN class="f_ora">成员三</SPAN>简介：</DIV>
+            <TEXTAREA name="finfo3[outline]" id="foutline3" cols="20" rows="1"></TEXTAREA>
+        </DIV>
+        <DIV id="fnewout" style="display: none;"></DIV>
+    </DIV>*@
+
+<script>
+    $(".btn6").click(function btn6() {
+        $(this).parent().children(':hidden').val(0);
+        $(this).closest('TR').hide();
+        $(this).closest('TR').prev().hide();
+        $(this).closest('TR').next().hide();
+        $(this).closest('TR').next().next().hide();
+    });
+</script>

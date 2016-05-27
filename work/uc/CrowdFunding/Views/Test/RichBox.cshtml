@@ -1,0 +1,24 @@
+﻿@{
+
+    Layout = null;
+}
+@model  ZCPT.CrowdFunding.Web.Models.Testing.RichBoxModel
+<html>
+<head>    
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
+    @Scripts.Render("~/bundles/inputrich")
+    @Styles.Render("~/bundles/inputrich/style")
+    <script type="text/javascript">$(function () { UM.getEditor('Text').setShow(); });</script>
+ 
+</head>
+<body>
+    
+    <h2>AttachmentView</h2>
+    @using (Html.BeginForm("UpdataRichBox", "Test", FormMethod.Post))
+    {
+        @Html.TextAreaFor(m => m.Text);
+        <input type="submit" value="submint" />
+    }
+           
+</body>
+</html>

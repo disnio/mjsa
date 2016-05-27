@@ -1,0 +1,44 @@
+﻿@using ZCPT.CrowdFunding.Web.Models.AccountModule
+@model AccountViewModel
+@{
+    ViewBag.Title = "登录";
+}
+<br /><br /><br /><br /><br /><br />
+<div class="row" >
+    <div class="col-md-8">
+        <h2>@ViewBag.LoginState</h2>
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "CFAccount",  FormMethod.Post, new { role = "form" }))
+            {                             
+                <div class="form-group">
+                  
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })                      
+                    </div>
+                </div>
+                <div class="form-group">
+                   
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })                       
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RemenberMe)
+                            @Html.LabelFor(m => m.RemenberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="登录" class="btn btn-default" />
+                    </div>
+                </div>
+                @Html.ActionLink("找回密码", "ForgotPassword")                    
+            }
+        </section>
+    </div>
+
+</div>
+

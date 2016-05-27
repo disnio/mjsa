@@ -1,0 +1,164 @@
+﻿@model  ZCPT.CrowdFunding.Web.Models.ProjectBusinessPatternModel
+
+@{ViewBag.ContentName = "市场定位与商业模式编辑";}
+@Html.Partial("_ProjectTab", new ZCPT.CrowdFunding.Web.Models.ComponentModule.ProjectEditTabModule() { ID = Model.ID, Current = nameof(ZCPT.CrowdFunding.Web.Models.ProjectBusinessPatternModel) })
+<script type="text/javascript">
+</script>
+
+
+<link href="~/Scripts/UMEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/js/app/EditProjectBusinessPattern.js"></script>
+    @*<DIV class="con3">*@
+@using (Html.BeginForm("UpdataProjectBusinessPattern", "CFMyProjects", FormMethod.Post, new { @class= " form-horizontal" }))
+{
+    <INPUT name="siteid" type="hidden" value="1">
+    <div class="form-group">
+        <p class="bg-info">@Html.LabelFor(m => m.Target, "1 目标用户或客户群体定位", new { @class = "col-sm-5"})</p>
+        @*<p class="bg-info"><label style="text-align:left;" for="Demand" class="col-sm-5 control-label">2 目标用户或客户群体目前困扰或需求定位</label></p>*@
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.Target, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Target)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="bg-info">
+            @Html.LabelFor(m => m.Demand, "2 目标用户或客户群体目前困扰或需求定位", new { @class = "col-sm-5 control-label", style = "text-align:left;" })
+        </p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.Demand, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+<p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Demand)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="bg-info">
+            @Html.LabelFor(m => m.Solution, "3 满足目标用户或客户需求的产品或服务模式说明", new { @class = "col-sm-8 control-label", style = "text-align:left;" })
+        </p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.Solution, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+<p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Solution)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="bg-info">
+            @Html.LabelFor(m => m.ProfitModel, "4 项目赢利模式说明", new { @class = "col-sm-5 control-label", style = "text-align:left;" })
+        </p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.ProfitModel, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+<p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.ProfitModel)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="bg-info">
+            @Html.LabelFor(m => m.Competitor, "5 市场主要同行或竞争对手概述", new { @class = "col-sm-5 control-label", style = "text-align:left;" })
+        </p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.Competitor, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+<p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Competitor)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="bg-info">
+            @Html.LabelFor(m => m.Competitiveness, "6 项目主要核心竞争力说明", new { @class = "col-sm-5 control-label", style = "text-align:left;" })
+        </p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.Competitiveness, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+<p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Competitiveness)</p>
+        </div>      
+    </div>
+    <div class="form-group text-center">
+        @Html.Hidden("ID")
+        <input class="btn btn-warning" name="updatebacksubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBusinessPattern?Step=EditProjectBasis")")' value="上一步" />
+        &nbsp;
+        <input class="btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBusinessPattern?Step=EditProjectTeam")")' value="下一步" />
+
+        <p class="text-danger">@Html.Label((string)ViewBag.ResultMassage ?? string.Empty)</p>        
+    </div>
+    @*
+    <DIV class="tit">
+        <DIV class="tit_l"><SPAN class="num">1</SPAN>目标用户或客户群体定位</DIV>
+    </DIV>
+
+    <DIV class="pro">
+        @Html.TextAreaFor(M => M.Target, 5, 20, new { style = "width: 100%; height: 180px;" })
+        @Html.ValidationMessageFor(M => M.Target, "", new { style = "color:red; " })
+    </DIV>
+    <DIV class="tit"><SPAN class="num">2</SPAN>目标用户或客户群体目前困扰或需求定位</DIV>
+    <DIV class="pro">
+        @Html.TextAreaFor(M => M.Demand, 4, 20, new { style = "width: 100%; height: 180px;" })
+        @Html.ValidationMessageFor(M => M.Demand, "", new { style = "color:red; " })
+    </DIV>
+    <DIV class="tit"><SPAN class="num">3</SPAN>满足目标用户或客户需求的产品或服务模式说明</DIV>
+    <DIV class="pro">
+       @Html.TextAreaFor(M => M.Solution, 4, 20, new { style = "width: 100%; height: 180px;" })
+        @Html.ValidationMessageFor(M => M.Solution, "", new { style = "color:red; " })
+    </DIV>
+    <DIV class="tit"><SPAN class="num">4</SPAN>项目赢利模式说明</DIV>
+    <DIV class="pro">
+       @Html.TextAreaFor(M => M.ProfitModel, 4, 20, new { style = "width: 100%; height: 180px;" })
+        @Html.ValidationMessageFor(M => M.ProfitModel, "", new { style = "color:red; " })
+    </DIV>
+    <DIV class="tit"><SPAN class="num">5</SPAN>市场主要同行或竞争对手概述</DIV>
+    <DIV class="pro">
+        @Html.TextAreaFor(M => M.Competitor, 4, 20, new { style = "width: 100%; height: 180px;" })
+        @Html.ValidationMessageFor(M => M.Competitor, "", new { style = "color:red; " })
+    </DIV>
+    <DIV class="tit"><SPAN class="num">6</SPAN>项目主要核心竞争力说明</DIV>
+    <DIV class="pro">
+        @Html.TextAreaFor(M => M.Competitiveness, 4, 20, new { style = "width: 100%; height: 180px;" })
+        @Html.ValidationMessageFor(M => M.Competitiveness, "", new { style = "color:red; " })
+    </DIV>
+    <DIV class="t_c">
+        @Html.Hidden("ID")
+        <input class="btn btn-warning" name="updatebacksubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBusinessPattern?Step=EditProjectBasis")")' value="上一步" />
+        &nbsp;
+        <input class="btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBusinessPattern?Step=EditProjectTeam")")' value="下一步" />
+
+        @Html.Label((string)ViewBag.ResultMassage ?? string.Empty)
+    </DIV>
+    *@
+}
+    @*</DIV>*@
+<script type="text/javascript">
+
+    $(function() {
+        // document.domain = 'ucdl.cn';
+        // $('textarea').each(function (i, v) { 
+        //     var id = $(this).attr('id');                
+        //     UM.getEditor(id);             
+        // });
+        // UM.getEditor($(this).attr('id')).setShow();
+        // var editor = new UE.Editor('my');
+        // UE.getEditor('my')
+        
+
+    });
+
+</script>
+@*<style type="text/css">
+.con_r { width: 880px; overflow: hidden; float: right; }
+* { margin: 0px; padding: 0px; }
+.con_tit { background: url('img/v3/member_bg3.gif') no-repeat; padding: 15px 0px 0px 75px; height: 70px; color: rgb(0, 153, 255); font-size: 26px; }
+.f_blue { color: rgb(0, 153, 255); }
+.f_20 { font-size: 20px; }
+.con3 { padding-bottom: 30px; }
+form { margin: 0px; padding: 0px; }
+input { color: rgb(102, 102, 102); font-family: Microsoft Yahei; font-size: 14px; vertical-align: middle; }
+input { margin: 0px; padding: 0px; }
+/*
+ url('img/v3/member_bg5.gif') 
+ */
+.con3 .tit { background: rgb(223, 235, 255)no-repeat 0px 0px; height: 40px; color: rgb(0, 153, 255); line-height: 40px; padding-left: 8px; font-size: 18px; margin-top: 10px; }
+.con3 .tit_l { float: left; }
+.con3 .num { color: rgb(255, 255, 255); font-family: SimHei; font-size: 18px; font-weight: bold; margin-right: 17px; }
+span { margin: 0px; padding: 0px; }
+.con3 .pro { padding: 10px 0px 5px; }
+textarea { color: rgb(102, 102, 102); font-family: Microsoft Yahei; font-size: 14px; vertical-align: middle; }
+textarea { margin: 0px; padding: 0px; }
+.t_c { text-align: center; }
+.btn2 { background: rgb(255, 102, 0); padding: 0px 25px; border: currentColor; border-image: none; height: 35px; color: rgb(255, 255, 255); font-size: 16px; cursor: pointer; }
+</style>*@

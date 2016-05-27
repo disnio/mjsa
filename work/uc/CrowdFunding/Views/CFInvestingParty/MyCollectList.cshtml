@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "我收藏的项目";}
+@using ZCPT.CrowdFunding.Web.Models.CFProjectCollectModule
+@model IEnumerable<CollectTextObject>
+
+<link href="~/Content/css/pl.css" rel="stylesheet" type="text/css" id="linkbase" />
+
+<script type="text/javascript">
+var AccountID = '@SessionHelper.Identity.Account.ID';
+</script>
+<script type="text/javascript" src="~/Scripts/js/app/MyCollectList.js"></script>
+
+<div class="switch">
+    <ul class="nav nav-tabs">
+        <li style="color:red;">@ViewBag.Message</li>
+    </ul>
+    <div class="clear"></div>
+</div>
+
+<div id="tagContent">
+    @foreach (var item in Model)
+    {
+        <div class="cbInner">
+            <div class="thumbnail fl">
+                <a href="~/CFProject/GetProjectBasis?id=@item.ProjectID"><img src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"] + "/fileupload/ImgDownload/"+ item.ProjectPicture)" alt="" /></a>
+            </div>
+            <div class="summary fr">
+                <ul>
+                    <li class="colTitle ct_2"><a href="~/CFProject/GetProjectBasis?id=@item.ProjectID">@item.ProjectName</a></li>
+                    <li>
+                        融资金额:<em class="bg_1"><i class="fa fa-rmb" style="margin-right: 5px; padding-left:5px;vertical-align: middle;"></i>@item.PlanAmount</em>
+                        已融金额:<em class="bg_2"><i class="fa fa-rmb" style="margin-right: 5px; padding-left:5px;vertical-align: middle;"></i> @item.FinishedAmount</em>
+                    </li>
+                    <li>
+                        起投金额:<span class="f_ora ct_8" style="padding-right: 20px;">@item.MinInvestAmount</span>认投完成率：<span class="f_ora ct_8">@item.FinishedRate</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <ul class="detailList">
+                <li><i class="fa fa-caret-right"></i> 地区：@item.ProjectCity<span class="pad_01">行业：@item.IndustryName</span><span class="pad_01">@item.ProjectStatus</span></li>
+                <li>
+                    <i class="fa fa-chevron-circle-right ct_7"></i>
+                    <span class="ct_7"> 项目简介：</span>@Html.Raw((string)@item.ProjectContents)
+                </li>
+                <li class="date ct_4"><i class="fa fa-clock-o"></i>发布时间：@item.ProjectCreateDate.ToString("yyyy-MM-dd")</li>
+                <li class="ProjectCreateName">@item.ProjectCreateName</li>
+            </ul>
+            <a href="../CFMyProjects/ProjectLeadInvestmentApply/@item.ProjectID" class="btn btn-warning"><i class="fa fa-user-secret"></i> 我要领投</a>
+            <a href="../CFMyProjects/ProjectFollowInvestmentApply/@item.ProjectID" class="btn btn-warning"><i class="fa fa-user-plus"></i> 我要跟投</a>
+            <a href="javascript:void(0);" class="inProBtn btn btn-warning" data-pid="@item.ProjectID" data-pname="@item.ProjectCreateName">
+                <i class="fa fa-tty"></i> 约谈项目方
+            </a>
+            <a id="cCollProBtn" href="javascript:void(0);" class="btn btn-warning"><i class="fa fa-star"></i>取消收藏</a>
+        </div>
+    }
+</div>
+<!-- 约谈项目方弹出框 -->
+<div id="inProModal" class="panel panel-default">
+    <div class="panel-body">
+        <div class="row" style="margin-bottom:5px;">
+            <div class="col-sm-2">被约谈人：</div>
+            <div class="col-sm-10 cytname"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">约谈留言：</div>
+            <div class="col-sm-10">
+                <textarea id="inProTxt" name="inProTxt" class="rtextarea" style="width:440px; height:80px;"></textarea>
+                <div class="fl">（请正确填写约谈理由、时间、地点、联系电话等） </div>
+            </div>
+        </div>
+    </div>
+</div>

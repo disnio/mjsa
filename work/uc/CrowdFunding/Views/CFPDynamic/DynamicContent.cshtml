@@ -1,0 +1,27 @@
+﻿
+<script type="text/javascript" src="~/Scripts/js/app/DynamicContent.js"></script>
+<link href="../Content/css/anXq.css" rel="stylesheet" type="text/css">
+    <div class="top-link">您当前位置：<a href="">首页</a> > <a href="">推荐公告</a> > 正文</div>
+<div class="row xq-con">
+    <div class="col-md-8" id="DynamicDetail">
+
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">资讯排行榜</h3>
+            </div>
+            <div class="panel-body xq-right">
+                <ul>
+                    @if (ViewBag.TopNewsList != null)
+                    {
+                        foreach (var item in ViewBag.TopNewsList)
+                        {
+                            <li><a href="~/cfnews/newsdetail?id=@item.LID">@item.Name</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

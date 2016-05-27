@@ -1,0 +1,4 @@
+<!-- infoList 资讯排行榜 -->
+<%_.each(datas, function(item, index){ %>
+    <li><i class="fa fa-angle-right"></i> <a href="../cfnews/newsDetail?id=<%= item.LID %>">【<%= item.Category %>】<%= item.NewsTitle %></a></li>
+<%}); %>

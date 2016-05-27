@@ -1,0 +1,13 @@
+<%_.each(datas, function(item, index){ %>
+    <li class="comment">
+        <div class="comment-wrapper<% if( item.CreatorID == AccountID ){ %>  cur<% } %>">
+            <div class="namebar" CreatorID="<%= item.CreatorID %>">
+                <div class="name"><%= item.CreatorName %></div>
+                <div class="time"><%= item.CreateDate %></div>
+            </div>
+            <div class="cwrapper">
+                <div class="content"><%= item.Contents %></div>
+            </div>    
+        </div>
+    </li>
+<%}); %>

@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section FrameHeader
+{
+   @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Header(new UCFramework.Infrastructure.SDK.MenuAPI().GetHeaderMenu()))
+}
+@section FrameNav
+{
+    @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Nav(new UCFramework.Infrastructure.SDK.MenuAPI().GetNavMenu()))
+}
+
+@section FrameFooter
+{
+   @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Footer())
+}
+@RenderBody()
+@section scripts
+{
+    @RenderSection("scripts", required: false)
+}
+
+

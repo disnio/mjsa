@@ -1,0 +1,271 @@
+﻿@model ZCPT.CrowdFunding.Web.Models.CFIncubatorModule.IncubatorViewModel
+@using ZCPT.CrowdFunding.Entity.CFIncubatorModule
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>合作伙伴申请列表</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <meta name="keywords" content="">
+    <meta name="description" content="安全、高效的融资服务">
+
+    @*base*@
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/btn.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/admin.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/css/pager.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/common.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/uclib.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/js/jquery.plugz.js"></script>
+    <script type="text/javascript">
+        function DoAction(id, status) {
+            if (confirm("确定要进行此操作吗？")) {
+                $.ajax({
+                    type: 'post',
+                    url: 'Update?id=' + id + '&status=' + status,
+
+                    success: function (data) {
+                        alert('操作成功');
+                        $("#form1").submit();
+                    },
+                    error: function () {
+                        alert('操作失败');
+                    }
+
+                });
+            }
+        }
+
+        function ShowDetail(incubatorID) {
+            var optIncubator = {
+                "name":  '/CFIncubator/GetIncubatorById',
+                "data": { id: incubatorID }
+            };
+
+            UT.jaxJson(optIncubator).then(function (data) {
+                var template = _.template($("#incubatorDetailTemplate").html());
+                var tempdata = {
+                    "item": data.Data
+                };
+                $(".modal-body").empty().append(template(tempdata));
+
+                $("#detailDialog").modal();
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script id="incubatorDetailTemplate" type="text/template">
+        <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+            <tr>
+                <td width="18%" scope="col">@Html.DisplayNameFor(m => m.Name)：</td>
+                <td>
+                    <%= item.Name %>
+                </td>
+            </tr>
+            <tr>
+                <td width="18%" scope="col">@Html.DisplayNameFor(m => m.CFOrganizationOwnerId)：</td>
+                <td>
+                    <%= item.OwnerName %>
+                </td>
+            </tr>
+            <tr>
+                <td width="18%" scope="col">@Html.DisplayNameFor(m => m.CreatorName)：</td>
+                <td>
+                    <%= item.CreatorName %>
+                </td>
+            </tr>
+            <tr>
+                <td width="18%" scope="col">@Html.DisplayNameFor(m => m.CreationDate)：</td>
+                <td>
+                    <%= item.CreationDate.split('T')[0] %>
+                </td>
+            </tr>
+            <tr>
+                <td width="18%" scope="col">@Html.DisplayNameFor(m => m.ApproverName)：</td>
+                <td>
+                    <%= item.ApproverName %>
+                </td>
+            </tr>
+            <tr>
+                <td width="18%" scope="col">@Html.DisplayNameFor(m => m.ApprovedDate)：</td>
+                <td>
+                    <%= item.ApprovedDate=="0001-01-01T00:00:00" ? "":item.ApprovedDate.split('T')[0] %>
+                </td>
+            </tr>
+            <tr>
+                <td width="18%" scope="col">@Html.DisplayNameFor(m => m.Introduction)：</td>
+                <td>
+                    <%= item.Introduction %>
+                </td>
+            </tr>
+        </table>
+    </script>
+    <div class="adminFrame">
+        <div class="header">
+            <div class="imgLogo">后台系统</div>
+            <div class="welcome">欢迎您，admin</div>
+        </div>
+        <div class="mainMenu">
+            <h2 class="kindTop">功能菜单</h2>
+            <ul id="mainnav-menu" class="list-group">
+
+                <!--Menu list item-->
+                <li>
+                    <a href="javascript:void(0);" class="title">
+                        <i class="fa fa-cube"></i>
+                        <span class="menu-title">咨询管理</span>
+
+                    </a>
+                    <!--Submenu-->
+                    <ul class="collapse in">
+                        <li><i class="fa fa-angle-right"></i><a href="~/CFNews/CreateNews">新建资讯</a></li>
+                        <li><i class="fa fa-angle-right"></i><a href="~/CFNews/ManagerNewsList">维护资讯</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="title">
+                        <i class="fa fa-cube"></i>
+                        <span class="menu-title">合作伙伴管理</span>
+
+                    </a>
+                    <!--Submenu-->
+                    <ul class="collapse in">
+                        <li><i class="fa fa-angle-right"></i><a href="~/CFIncubator/IncubatorList">审批合作伙伴申请</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="mainContents">
+            @*<div class="scrol-page k1120 mainContent clearfix">*@
+            <div class="clearfix">
+                @using (Html.BeginForm("IncubatorList", "CFIncubator", FormMethod.Post, new { role = "form", id = "form1" }))
+                {
+                    <table class="table table-border">
+                        <tr>
+                            <td>@Html.DisplayNameFor(m => m.Name)</td>
+                            <td>@Html.TextBoxFor(m => m.Name, new { @class = "input-control" })</td>
+                            <td>@Html.DisplayNameFor(m => m.CFOrganizationOwnerId)</td>
+                            <td>@Html.DropDownListFor(m => m.CFOrganizationOwnerId, (IEnumerable<SelectListItem>)ViewBag.OrganizationLists, new { @class = "pc-select-cityid", style = "width: 200px;" })</td>
+                            <td>@Html.DisplayNameFor(m => m.Status)</td>
+                            <td>@Html.DropDownListFor(m => m.StatusID, (IEnumerable<SelectListItem>)ViewBag.StatusLists, new { @class = "pc-select-cityid", style = "width: 200px;" })</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" align="right">@ViewBag.LoginState<input type="submit" value="查询" class="btn btn-default" /></td>
+                        </tr>
+                    </table>
+                }
+                <div class="clearBoth"></div>
+
+                <table border="0" cellpadding="0" cellspacing="0" class="table table-border" width="100%">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(m => m.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.Owner)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.CreatorName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.CreationDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.ApproverName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.ApprovedDate)
+                        </th>
+                        <th>
+                            详细信息
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                    @foreach (var item in ViewBag.SearchIncubatorLists)
+                    {
+                        <tr class="col">
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.Owner.Name
+                            </td>
+                            @*<td>
+                            @Html.DisplayFor(modelItem => item.Introduction)
+                        </td>*@
+                            <td>
+                                @item.CreatorName
+                            </td>
+                            <td>
+                                @string.Format("{0:yyyy-MM-dd}", item.CreationDate)
+                            </td>
+                            <td>
+                                @item.Status.Name
+                            </td>
+                            <td>
+                                @item.ApproverName
+                            </td>
+                            <td>
+                                @( item.ApprovedDate == DateTime.MinValue ? "" : string.Format("{0:yyyy-MM-dd}", item.ApprovedDate))
+                            </td>
+                            <td>
+                                <a href="#" onclick="return ShowDetail(@item.ID);">详细信息</a>
+                            </td>
+                            <td>
+                                @{
+                                    if (item.Status != null && item.Status.Value == "Apply")
+                                    {
+                                        <a onclick="DoAction(@item.ID, @CFIncubatorStatus.Get("Auditing").ID);" href="#">审核</a>
+                                    }
+                                    else if (item.Status != null && item.Status.Value == "Auditing")
+                                    {
+                                        <a onclick="DoAction(@item.ID, @CFIncubatorStatus.Get("Passed").ID);" href="#">通过</a>
+                                        <a onclick="DoAction(@item.ID, @CFIncubatorStatus.Get("Denied").ID);" href="#">拒绝</a>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div><!--main Containt-->
+    </div><!--adminFrame-->
+
+    <div id="detailDialog" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">详细信息</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!--modal-content -->
+        </div><!--modal-dialog -->
+    </div><!--modal -->
+</body>
+</html>

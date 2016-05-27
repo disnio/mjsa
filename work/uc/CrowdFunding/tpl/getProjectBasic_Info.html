@@ -1,0 +1,44 @@
+<div class="font_2 title_line tc top-title"><span class="zv-title"><%= item.Name %></span>
+    <span class="status_in"><%= item.StageText %></span>
+</div>
+<div class="con_date">发布时间：<%= item.CreationDate %></div>
+
+<table class="tab1">
+    <tbody class="projectDetail">
+        <tr>
+            <td width="19%" scope="col">项目类别：</td>
+            <td width="30%">初创板*</td>
+            <td width="20%" scope="col">项目所属行业：</td>
+            <td><%= item.IndustryText %></td>
+        </tr>
+        <tr>
+            <td scope="col">企业所在城市：</td>
+            <td><%= item.CityText %></td>
+            <td scope="col">企业成立时间：</td>
+            <td><%= item.CompanyEstablishingDate %></td>
+        </tr>
+        <tr>
+            <td scope="col">企业员工人数：</td>
+            <td><%= item.CompanyNubmers %></td>
+            <td scope="col">项目标签：</td>
+            <td><%= item.Tag %></td>
+        </tr>
+        <tr>
+            <td scope="col">项目所属阶段：</td>
+            <td><%= item.StageText %></td>
+            <td scope="col">是否有其他项目：</td>
+            <td>没有*</td>
+        </tr>
+        <tr>
+            <td scope="col">公司名称：</td>
+            <td><%= item.CompanyName %></td>
+            <td scope="col">公司地址：</td>
+            <td><%= item.CompanyAddress %></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="zc-details">
+                <%= item.Introduction %>
+            </td>
+        </tr>
+    </tbody>
+</table>

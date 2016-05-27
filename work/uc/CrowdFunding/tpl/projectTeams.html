@@ -1,0 +1,13 @@
+<!-- 股东团队 projectTeamsTpl -->
+<%_.each(datas, function(item, index){ %>
+    <tr>
+        <td><%= item.Name %></td>
+        <td><%= item.Position %></td>
+        <td><%= item.Stake %></td>
+        <td><%= item.WorkTypeText %></td>
+        <td><%= item.InvestmentAmount %></td>
+        <td><%= item.Relationship %></td>
+        <td><%= item.Hiredate %></td>
+        <td><%= item.Introduction %></td>
+    </tr>
+<%}); %>

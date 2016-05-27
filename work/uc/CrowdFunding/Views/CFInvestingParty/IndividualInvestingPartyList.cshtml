@@ -1,0 +1,165 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "投资方资质审核";}
+@*@model IEnumerable<ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule.IndividualInvestingPartyModle>*@
+
+@using ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule
+@using ZCPT.CrowdFunding.Entity.CFInvestingPartyModule
+@model IndividualInvestingPartyQuery
+
+@Html.Partial("InvestingPartyTab")
+<script type="text/javascript" src="~/Scripts/js/app/IndividualInvestingPartyList.js"></script>
+<script id="individualTemplate" type="text/template">
+    <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+        <tr>
+            <td width="18%" scope="col">
+                真实姓名
+            </td>
+            <td width="32%">
+                <%= item.Name %>
+            </td>
+            <td width="18%" scope="col">
+                身份证号
+            </td>
+            <td width="32%">
+                <%= item.IDCardNo %>
+            </td>
+        </tr>
+        <tr>
+            <td width="18%" scope="col">
+                邮箱
+            </td>
+            <td>
+                <%= item.Email %>
+            </td>
+            <td width="18%" scope="col">
+                手机号
+            </td>
+            <td>
+                <%= item.Phone %>
+            </td>
+        </tr>
+        <tr>
+            <td width="18%" scope="col">
+                所在城市
+            </td>
+            <td>
+                <%= item.CityName %>
+            </td>
+            <td width="18%" scope="col">
+                个人住址
+            </td>
+            <td>
+                <%= item.Address %>
+            </td>
+        </tr>
+    </table>
+
+</script>
+
+@using (Html.BeginForm("IndividualInvestingPartyList", "CFInvestingParty", FormMethod.Post, new { role = "form", id = "form1" }))
+{
+    <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+        <tr>
+            <td>创建时间</td>
+            <td>@Html.TextBoxFor(model => model.CreationTime, new { @class = "Wdate input-control", @onClick = "WdatePicker({readOnly:true})" })</td>
+            <td>姓名</td>
+            <td>@Html.TextBoxFor(model => model.Name, new { @class = "input-control" })</td>
+
+        </tr>
+
+        <tr>
+            <td>状态</td>
+            <td colspan="3">@Html.DropDownListFor(model => model.Status, ViewBag.StatusList as IEnumerable<SelectListItem>, new { @class = "input-control" })</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="right"><input type="submit" id="btnSearch" value="查询" class="btn btn-default" /></td>
+        </tr>
+    </table>
+}
+
+<table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+    <tr><th>创建时间</th><th>姓名</th><th>身份证号</th><th>个人说明</th><th>状态</th><th style="display:none;">详细信息</th><th>操作</th></tr>
+    @foreach (var item in ViewBag.SearchList)
+    {
+        <tr>
+            <td>
+                @item.CreationDate.ToString("yyyy-MM-dd")
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.IdentificationCard
+            </td>
+            <td>
+                @item.Introduction
+            </td>
+            <td>
+                @item.Status.Name
+            </td>
+            <td style="display:none;">
+                <a href="#" class="partyListDetail" data-lid="@item.Owner.LID">详细信息</a>
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+            @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+            @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})*@
+
+                @{
+                    if (item.Status.Value == "Apply")
+                    {
+                        <a onclick="DoAction(@item.LID, @CFInvestingPartyStatus.Get("Auditing").ID);" href="#">审核</a>
+                    }
+                    else if (item.Status.Value == "Auditing")
+                    {
+                        <a onclick="DoAction(@item.LID, @CFInvestingPartyStatus.Get("Passed").ID);" href="#">通过</a>
+                        <a onclick="DoAction(@item.LID, @CFInvestingPartyStatus.Get("Denied").ID);" href="#">拒绝</a>
+                    }
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div id="detailDialog" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">个人详细信息</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!--modal-content -->
+    </div><!--modal-dialog -->
+</div><!--modal -->
+
+<script>
+
+    function DoAction(id, status) {
+        if (confirm("确定要进行此操作吗？")) {
+            $.ajax(
+            {
+                type: 'post',
+                url: 'Update?id=' + id + '&status=' + status,
+
+                success: function(data) {
+                    alert('操作成功');
+                    $("#form1").submit();
+                },
+                error: function() {
+                    alert('操作失败');
+                }
+
+            });
+        }
+    }
+</script>

@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "我投资的项目";
+    ViewBag.ContentName = "我投资的项目";
+}
+
+<script type="text/javascript">
+    // 收藏项目 url
+    var CreateCollectUrl = '@Url.Action("CreateCollect", "CFInvestingParty")';
+    // 约谈项目方 url
+    var CreateInterviewsUrl = '@Url.Action("CreateInterviews", "CFInvestingParty")';
+
+    var AccountID = '@SessionHelper.Identity.Account.ID';
+</script>
+
+
+
+<table class="tab1">
+    @*<thead>
+        <tr>
+            <td colspan="4" class="tr">
+                <a id="EditProjectBasis" href="~/CFMyProjects/EditProjectBasis/" class="btn btn-info"> 编 辑 </a>
+            </td>
+        </tr>
+    </thead>*@
+    <tbody class="projectDetail" id="ProjectDetail"></tbody>
+</table>
+
+<div class="subContent">
+    <div class="detail"></div>
+    <div id="projectTab"></div>    
+</div>
+<script type="text/javascript" src="~/Scripts/js/app/ProjectInfo.js"></script>
+<!-- 项目标签列表 -->
+<script type="text/javascript" src="~/Scripts/js/app/projectTab.js"></script>
+<!-- 评论的脚本 -->
+<script type="text/javascript" src="~/Scripts/js/app/pl.js"></script>

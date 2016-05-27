@@ -1,0 +1,36 @@
+﻿
+@using Webdiyer.WebControls.Mvc
+@using ZCPT.CrowdFunding.Entity.CFInvestingPartyModule
+@model ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule.InverstingPartyQueryValue
+
+    <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+        <tr><th>创建时间</th><th>昵称<th>个人说明</th><th>状态</th><th>操作</th></tr>
+        @foreach (var project in ViewBag.SearchList)
+            {
+            <tr>
+                <td>@project.CreationDate.ToString("yyyy-MM-dd")</td>
+                <td>@project.NickName</td>
+                <td>@project.Introduction</td>
+                <td>@project.Status.Name</td>
+                <td>
+                    @*<a id="pass" href="~/CFFinancingParty/Update?id=@project.LID&status=2">通过</a>*@
+                    @{
+                        if (project.Status.Value == "Apply")
+                        {
+                            <a onclick="test(@project.LID, @CFInvestingPartyStatus.Get("Auditing").ID);">审核</a>
+                        }
+                        else if (project.Status.Value == "Auditing")
+                        {
+                            <a onclick="test(@project.LID, @CFInvestingPartyStatus.Get("Passed").ID);">通过</a>
+                            <a onclick="test(@project.LID, @CFInvestingPartyStatus.Get("Denied").ID);">拒绝</a>
+                        }
+                    }
+
+                </td>
+            </tr>
+                        }
+
+    </table>
+    @Ajax.Pager((IPagedList)ViewBag.SearchList).Options(o => o.SetPageIndexParameterName("id").SetHorizontalAlign("right").SetPagerItemTemplate("&nbsp;{0}").SetFirstPageText("首页").SetLastPageText("尾页").SetPrevPageText("前一页").SetNextPageText("后一页")).AjaxOptions(o => o.SetUpdateTargetId("ProList").SetHttpMethod("Post").SetDataFormId("searchForm"))
+
+

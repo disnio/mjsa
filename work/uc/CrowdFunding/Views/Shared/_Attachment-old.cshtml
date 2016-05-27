@@ -1,0 +1,36 @@
+﻿<!-- @Scripts.Render("~/bundles/inputfile") -->
+<input style="position:absolute;top:0;right:0;margin:0;opacity:0;-ms-filter:'alpha(opacity=0)'; font-size:200px;direction:ltr;cursor: pointer;" id="fileupload" type="file" name="uploadedfile" multiple="">
+
+
+<script>
+jQuery(function () { 
+    require(['jquery.fileupload'], function() {        
+
+        jQuery('#fileupload').fileupload({ 
+            url: '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgSingleUpload/CrowdFunding")', 
+            dataType: 'json', 
+            done: function uploaddone(e, data) {
+                console.log(data)
+                jQuery('#projectiocnsection').children(':hidden').val(data.result.id);
+                jQuery('#projectiocnsection').find('img').attr('src',  ServerReferenceFileCenterAPI + data.result.id);
+            } 
+         })
+        .prop('disabled', !jQuery.support.fileInput).parent().addClass(jQuery.support.fileInput ? undefined : 'disabled');  
+        
+    });
+}); 
+
+
+    // $(function () { 
+    //     $('#fileupload').fileupload({ 
+    //         url: '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgSingleUpload/CrowdFunding")', 
+    //         dataType: 'json', 
+    //         done: uploaddone
+    //      })
+    //     .prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');  
+    // });    
+
+
+    /*.css('position', 'relative').css('overflow', 'hidden')*/ 
+
+</script>

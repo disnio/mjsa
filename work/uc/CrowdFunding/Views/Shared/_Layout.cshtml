@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@string.Format(System.Configuration.ConfigurationManager.AppSettings["LayoutTitle"] ?? "{0}", @ViewBag.Title ?? string.Empty)</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Content/bootstrap.min.css" type="text/css" rel="stylesheet" >    
+    <link href="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Content/global.css" type="text/css" rel="stylesheet">
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link href="~/Content/css/common.css" type="text/css" rel="stylesheet" />
+
+    @RenderSection("csslink", required: false)
+    <script src="~/Configuration/Javascript"></script>
+    <script src="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Scripts/jquery.min.js"></script>
+    <script src="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Scripts/bootstrap.min.js"></script>
+    
+    <!--[if lt IE 9]>
+        <script src="//cdn.bootcss.com/es5-shim/4.0.3/es5-shim.min.js"></script>
+        <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="~/Scripts/require.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/main.js"></script>
+
+    @RenderSection("scriptlink", required: false)
+</head>
+<body>
+    @RenderSection("FrameHeader", required: false)
+    @RenderSection("FrameNav", required: false)
+    @RenderSection("FrameLeftAside", required: false)
+    <div class="container-fluid" style="height:3px;background-color:#0198c5;"></div>
+    <div class="container framesection">
+        @RenderBody()
+    </div>
+    @RenderSection("FrameRightAside", required: false)
+    @RenderSection("FrameFooter", required: false)
+    @RenderSection("scripts", required: false)
+</body>
+</html>

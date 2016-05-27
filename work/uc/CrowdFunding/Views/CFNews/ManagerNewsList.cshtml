@@ -1,0 +1,146 @@
+﻿@using Webdiyer.WebControls.Mvc
+@using ZCPT.CrowdFunding.Web.Models.CFNewsModule
+@model ZCPT.CrowdFunding.Web.Models.CFNewsModule.CFNewsModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>最新资讯列表</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <meta name="keywords" content="">
+    <meta name="description" content="安全、高效的融资服务">
+
+    @*base*@
+    <link href="~/Content/css/btn.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/admin.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="~/Tools/My97DatePicker/WdatePicker.js"></script>
+
+    <link href="~/Content/css/pager.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="adminFrame">
+        <div class="header">
+
+            <div class="imgLogo">后台系统</div>
+            <div class="welcome">欢迎您，admin</div>
+        </div>
+        <div class="mainMenu">
+            <h2 class="kindTop">功能菜单</h2>
+            <ul id="mainnav-menu" class="list-group">
+
+                <!--Menu list item-->
+                <li>
+                    <a href="javascript:void(0);" class="title">
+                        <i class="fa fa-cube"></i>
+                        <span class="menu-title">咨询管理</span>
+
+                    </a>
+                    <!--Submenu-->
+                    <ul class="collapse">
+                        <li><i class="fa fa-angle-right"></i><a href="~/CFNews/CreateNews">新建资讯</a></li>
+                        <li><i class="fa fa-angle-right"></i><a href="~/CFNews/ManagerNewsList">维护资讯</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="title">
+                        <i class="fa fa-cube"></i>
+                        <span class="menu-title">合作伙伴管理</span>
+
+                    </a>
+                    <!--Submenu-->
+                    <ul class="collapse">
+                        <li><i class="fa fa-angle-right"></i><a href="~/CFIncubator/IncubatorList">审批合作伙伴申请</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="mainContents">
+
+            <div class="scrol-page k1120 mainContent clearfix">
+                @using (Html.BeginForm("ManagerNewsList", "CFNews", FormMethod.Post, new { role = "form" }))
+                {
+                    <table class="table table-border">
+                        <tr>
+                            <td>主题</td>
+                            <td>@Html.TextBoxFor(model => model.Name, new { @class = "input-control" })@Html.HiddenFor(model => model.NewsCategoryStr)</td>
+                            @foreach (var item in ViewBag.NewsCategories)
+                            {
+                                <td>@item.Name </td>
+                                <td>@Html.DropDownList((string)@item.Value + "ID", ViewData[@item.Value + "_" + @item.ID] as IEnumerable<SelectListItem>)</td>
+                            }
+                        </tr>
+
+                        <tr>
+                            <td>发布时间</td>
+                            <td>@Html.TextBoxFor(model => model.BeginDate, new { @class = "Wdate input-control", @onClick = "WdatePicker({readOnly:true})" })</td>
+                            <td>状态</td>
+                            <td>@Html.DropDownListFor(model => model.Status, ViewBag.NewsStatus as IEnumerable<SelectListItem>, new { @class = "input-control" })</td>
+                            <td  colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" align="right">@ViewBag.LoginState@Html.HiddenFor(model => model.NewsCategoryStr)<input type="submit" value="查询" class="btn btn-default" onclick="btnBindValue()" /></td>
+                        </tr>
+                    </table>
+                }
+                <div class="clearBoth"></div>
+
+                <table class="table table-border">
+                    <tr>
+                        <th>发布时间</th>
+                        @for (int i = 0; i < ViewBag.DDLCount; i++)
+                        {
+                            <th>@ViewBag.DDLText[i].Name</th>
+                        }
+                        <th>标题</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    @foreach (var news in ViewBag.SearchNewsLists)
+                    {
+                        <tr>
+                            <td>@news.BeginDate.ToString("yyyy-MM-dd")</td>
+                            @foreach (var item in news.NewsCategoriesDDLValue)
+                            {
+                                <td>@item.Name</td>
+                            }
+                            <td><a target="_blank" href="~/cfnews/newsDetail?id=@news.ID">@news.Name</a></td>
+                            @if (@news.Status == 1)
+                            {
+                                <td>启用</td>}
+                            else
+                            {
+                                <td>禁用</td>}
+                            <td><a target="_blank" href="~/cfnews/UpdateNews?id=@news.ID">编辑</a></td>
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+<script type="text/javascript">
+
+    function btnBindValue() {
+        var str = "";
+        var d = document.getElementsByTagName("select");
+
+        for (var i = 0; i < @ViewBag.DDLCount; i++) {
+            str += d[i].value + "|";
+        }
+        str = str.substring(0, str.length - 1);
+        document.getElementById("NewsCategoryStr").value = str;
+    }
+
+</script>

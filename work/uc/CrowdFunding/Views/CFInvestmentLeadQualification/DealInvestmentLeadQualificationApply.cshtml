@@ -1,0 +1,85 @@
+﻿
+@using ZCPT.CrowdFunding.Entity.CFInvestmentLeadQualificationModule
+@using ZCPT.CrowdFunding.Web.Models.CFInvestmentLeadQualificationModule
+@model  IEnumerable<CFInvestmentLeadQualificationModel>
+
+@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "领投资格审核";}
+
+<table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
+    <tr><th>投资方</th><th>简介</th><th>领投行业</th><th>状态</th><th>操作</th></tr>
+    @foreach (var item in Model)
+    {
+
+
+        <tr>
+            <td>
+                @item.Investor.Name
+            </td>
+            <td>
+                @Html.Raw(@item.Introduction)
+            </td>
+            <td>
+                <ul>
+                    @{
+                        foreach (var industry in @item.Industry)
+                        {
+                            <li>@industry.Name</li>
+                        }
+                    }
+                </ul>
+            </td>
+            <td>
+                @item.Status.Name
+            </td>
+
+            <td id="action">
+                @{
+                    if (item.Status.Value == "Auditing")
+                    {
+
+                        @Html.ActionLink("批准", "DealInvestmentLeadQualificationApply", new {ID=@item.ID, Status = CFInvestmentLeadQualificationStatus.Get("Active").ID})
+                        
+                        @Html.ActionLink("拒绝", "DealInvestmentLeadQualificationApply", new {ID=@item.ID, Status = CFInvestmentLeadQualificationStatus.Get("Denied").ID})
+                    }
+
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+
+    $(function() {
+        $("#action").click(function() {
+            if (confirm("确定要进行此操作吗？")) {
+                return true;
+            }
+            return false;
+        })
+  
+    })
+
+    function DoAction(id, status) {
+        if (confirm("确定要进行此操作吗？")) {
+            $.ajax(
+            {
+                type: 'post',
+                url: 'Update?id=' + id + '&status=' + status,
+
+                success: function(data) {
+                    alert('操作成功');
+                    $("#form1").submit();
+                },
+                error: function() {
+                    alert('操作失败');
+                }
+
+            });
+        }
+    }
+</script>
+

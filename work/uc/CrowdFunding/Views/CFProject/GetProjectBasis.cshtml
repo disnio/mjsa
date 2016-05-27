@@ -1,0 +1,132 @@
+﻿@{
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+}
+
+<script type="text/javascript">
+    // 收藏项目 url
+    var CreateCollectUrl = '@Url.Action("CreateCollect", "CFInvestingParty")';
+    // 约谈项目方 url
+    var CreateInterviewsUrl = '@Url.Action("CreateInterviews", "CFInvestingParty")';
+
+    var AccountID = '@SessionHelper.Identity.Account.ID';
+
+</script>
+<link href="~/Content/css/zhongchou.css" rel="stylesheet" type="text/css">
+
+<!-- 项目基本信息 -->
+<div class="fr">
+    <div class="xm-top">
+        <div class="font_1 title_line fw_normal"><i class="fa fa-thumb-tack"></i> 项目方</div>
+        <div class="xm-con pj-owner">
+            <div class="xm-con-left"><img src=""></div>
+            <div class="xm-con-right">
+                <div class="r-top">圣泉烯品</div>
+                <div class="r-des">圣泉烯品,石墨烯功能产品应用专家</div>
+                <div class="r-fq">
+                    <span>发起 <strong>1</strong></span>
+                    <span>支持 <strong>0</strong></span>
+                </div>
+                <ul class="sixin">
+                    <li><a href="#nogo" class="send-msg">发送私信</a></li>
+                    <!-- <li><a href="#nogo">联系我们</a></li> -->
+                </ul>
+            </div>
+        </div>
+        @*<div class="sideContact">项目联系人: Szmessn <a href="#" class="btn btn-sm btn-info"> <i class="fa fa-envelope"></i> 发私信</a> </div>*@
+    </div>
+    <div class="titleBar"><i class="fa fa-caret-right"></i> 融资金额及进度</div>
+    <div class="FinanceAmount">
+        <dl class="fl finance">
+            <dt>融资金额</dt>
+            <dd class="tc ct_8">
+                <i class="fa fa-caret-down ct_10"></i>
+                <span id="rz-je"></span>
+            </dd>
+        </dl>
+        <dl class="fr finance">
+            <dt>评估金额</dt>
+            <dd class="tc">
+                <i class="fa fa-caret-down ct_10"></i>
+                <span id="rz-gf" class="ct_8"></span>
+            </dd>
+        </dl>
+        <div class="clearfix"></div>
+
+        <span class="pad_02 line_dotted tc">款项拨付方式：<em id="rz-fs"></em></span> <br />
+        <span class="tc block qtje">起投金额：<em id="rz-qt"></em></span>
+        <div class="clearfix"></div>
+        <div class="ren01">
+            <dl class="status">
+                <dd>认投<br>金额</dd>
+                <dd id="rz-rt" class="amount"></dd>
+            </dl>
+            <dl class="status">
+                <dd>跟投<br>人数</dd>
+                <dd id="rz-gt" class="amount"></dd>
+            </dl>
+            <dl class="status">
+                <dd>询价<br>人数</dd>
+                <dd id="rz-xj" class="amount"></dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="finishedRate">
+        <span class="pad_02 tc comdete">认投完成率：<em id="rz-wc"></em></span>
+
+        <div class="progressBar">
+            <div class="progressTag"></div>
+            <div class="progressFinish"></div>
+        </div>
+
+        <div class="investorLink">
+            <a href="../CFMyProjects/ProjectLeadInvestmentApply/@Request["id"]" class="btn"><i class="fa fa-user-secret"></i> 我要领投</a>
+            <a id="inProBtn" href="javascript:void(0);" class="btn"><i class="fa fa-tty"></i> 约谈项目方</a>
+            <a href="../CFMyProjects/ProjectFollowInvestmentApply/@Request["id"]" class="btn"><i class="fa fa-user-plus"></i> 我要跟投</a>
+            <a id="collProBtn" href="javascript:void(0);" class="btn"><i class="fa fa-star"></i> 收藏该项目</a>
+        </div>
+    </div>
+</div>
+<div class="subContent">
+    <div class="detail"></div>
+    <div id="projectTab"></div>
+</div>
+
+
+<!-- 约谈项目方弹出框 -->
+<div id="inProModal" class="panel panel-default">
+    <div class="panel-body">
+        <div class="row" style="margin-bottom:5px;">
+            <div class="col-sm-2">被约谈人：</div>
+            <div class="col-sm-10 cytname"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">约谈留言：</div>
+            <div class="col-sm-10">
+                <textarea id="inProTxt" name="inProTxt" class="rtextarea" style="width:440px; height:80px;"></textarea>
+                <div class="fl">（请正确填写约谈理由、时间、地点、联系电话等） </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="inMsg" class="panel panel-default hide">
+    <div class="panel-body">
+<!--         <div class="row" style="margin-bottom:5px;">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10 cytname"></div>
+        </div> -->
+        <div class="row">
+            <div class="col-sm-2">私信内容：</div>
+            <div class="col-sm-10">
+                <textarea id="inMsgTxt" name="inMsgTxt" class="rtextarea" style="width:440px; height:80px;"></textarea>                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 项目基本信息 -->
+<script type="text/javascript" src="~/Scripts/js/app/GetProjectBasis.js"></script>
+<!-- 项目标签列表 -->
+<script type="text/javascript" src="~/Scripts/js/app/projectTab.js"></script>
+<!-- 评论的脚本 -->
+<script type="text/javascript" src="~/Scripts/js/app/pl.js" async="async"></script>

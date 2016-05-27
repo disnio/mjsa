@@ -118,7 +118,7 @@
         'use strict';
         // Change this to the location of your server-side upload handler:
         // var url = 'http://www.wuaim.com/upload';
-        var url = 'http://allen.ucdl.cn:3000/upload';
+        var url = 'http://localhost:9090';
         // 日志: done: [{"name":"Chrysanthemum.jpg","jqXHR":{}}] 
         // 日志: success: undefined 
         // 日志: complate upload  用 forceIframeTransport 和ie一样只拿到上传的文件名，其它属性没有。
@@ -154,13 +154,11 @@
                             });
                         } else {
                             // {"files": [{"name": "Chrysanthemum.jpg", "originalName": "Chrysanthemum.jpg", "size": 879394, "type": "image/jpeg", "deleteType": "DELETE", "url": "http://allen.ucdl.cn:3000/uploads/20160120-1441/Chrysanthemum.jpg", "deleteUrl": "http://allen.ucdl.cn:3000/upload/Chrysanthemum.jpg"}] }
-                            console.log("firefox done: ", data.files)
+                            console.log("firefox done: ",data, data.files)
                             $.each(data.files, function(index, file) {
                                 $('<p/>').text(file.name).appendTo('#files');
                             });
                         }
-
-
                     },
                     progressall: function(e, data) {
                         var progress = parseInt(data.loaded / data.total * 100, 10);

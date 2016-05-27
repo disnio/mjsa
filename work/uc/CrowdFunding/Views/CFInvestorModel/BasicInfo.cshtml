@@ -1,0 +1,267 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+
+<script type="text/javascript">
+    // 收藏项目 url
+    var CreateCollectUrl = '@Url.Action("CreateCollect", "CFInvestingParty")';
+    // 约谈项目方 url
+    var CreateInterviewsUrl = '@Url.Action("CreateInterviews", "CFInvestingParty")';
+
+    var AccountID = '@SessionHelper.Identity.Account.ID';
+</script>
+
+
+    <div class="wrapper">
+        <div id="pageHead"></div>
+        <div class="scrol-page k1120 mainContent clearfix memberCenter">
+
+            <aside class="asideBar fl commentBar" id="investorMenu"></aside>
+            <div class="subContent">
+                <h1 class="font_2 ct_7 title_line">
+                    <span class="fl"><i class="fa fa-magic"></i> 申请成为投资人</span>
+                </h1>
+                <div class="switch">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="javascript:void(0);"> 投资人申请</a></li>
+                       <li><a href="javascript:void(0);">修改密码</a></li>
+                        <li><a href="javascript:void(0);" style="border-right:1px solid #ccc;">身份认证</a></li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div id="tagContent">
+
+                    <div class="conIn ">
+
+                        <table width="100%" border="0" cellspacing="1" cellpadding="0" class="tab1">
+                            <input type="hidden" name="siteid" value="">
+                            <tbody>
+                                <tr>
+                                    <td width="18%" scope="col">用户名：</td>
+                                    <td>蓝翔&nbsp;&nbsp;<span class="f_gray2">（不能修改）</span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="col">机构类型：</td>
+                                    <td>
+                                        <select name="institution_type" id="institution_type">
+                                            <option value="0">请选择</option>
+                                            <option value="1" selected="selected">投资基金</option>
+                                            <option value="2">信托投资公司</option>
+                                            <option value="3">财务公司</option>
+                                            <option value="4">商业银行、保险公司的投资部</option>
+                                            <option value="5">公司总资产达3000万元</option>
+                                            <option value="6">其他符合条件的投资机构</option>
+                                        </select>
+
+                                        <span id="institution_typeTip" class="onShow">请选择机构类型</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="col">邮箱：</td>
+                                    <td>
+                                        <input type="text" id="mail" name="mail" class="inp4" style="width:150px;"
+                                               value="1003008558@qq.com">
+
+                                        <span id="mailTip" class="onShow">请输入邮箱</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="col">个人说明：</td>
+                                    <td>
+                                        <input type="text" id="personal_note" name="personal_note" class="inp4"
+                                               style="width:300px;" value="蓝翔驾校" placeholder="">
+
+                                        <span id="personal_noteTip" class="onShow">不超过20个汉字</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td class="f_gray2">如果昵称不是真实姓名，个人说明建议采用公司+职务+真实姓名</td>
+                                </tr>
+                                <tr>
+                                    <td scope="col">所在城市：</td>
+                                    <td>
+                                        <input type="hidden" name="info[cityid]" id="cityid" value="3362"><select class="pc-select-cityid" name="cityid-1" id="cityid-1" width="100"
+                                                                                                                  style="width: 70px;">
+                                            <option value="">请选择</option>
+                                            <option value="2" class="ld-option">北京市</option>
+                                            <option value="3" class="ld-option">上海市</option>
+                                            <option value="4" class="ld-option">天津市</option>
+                                            <option value="5" class="ld-option">重庆市</option>
+                                            <option value="6" class="ld-option">河北省</option>
+                                            <option value="7" class="ld-option">山西省</option>
+                                            <option value="8" class="ld-option">内蒙古</option>
+                                            <option value="9" class="ld-option">辽宁省</option>
+                                            <option value="10" class="ld-option">吉林省</option>
+                                            <option value="11" class="ld-option">黑龙江省</option>
+                                            <option value="12" class="ld-option">江苏省</option>
+                                            <option value="13" class="ld-option">浙江省</option>
+                                            <option value="14" class="ld-option">安徽省</option>
+                                            <option value="15" class="ld-option">福建省</option>
+                                            <option value="16" class="ld-option">江西省</option>
+                                            <option value="17" class="ld-option">山东省</option>
+                                            <option value="18" class="ld-option">河南省</option>
+                                            <option value="19" class="ld-option">湖北省</option>
+                                            <option value="20" class="ld-option">湖南省</option>
+                                            <option value="21" class="ld-option">广东省</option>
+                                            <option value="22" class="ld-option">广西</option>
+                                            <option value="23" class="ld-option">海南省</option>
+                                            <option value="24" class="ld-option">四川省</option>
+                                            <option value="25" class="ld-option">贵州省</option>
+                                            <option value="26" class="ld-option">云南省</option>
+                                            <option value="27" class="ld-option">西藏</option>
+                                            <option value="28" class="ld-option">陕西省</option>
+                                            <option value="29" class="ld-option">甘肃省</option>
+                                            <option value="30" class="ld-option">青海省</option>
+                                            <option value="31" class="ld-option">宁夏</option>
+                                            <option value="32" class="ld-option">新疆</option>
+                                            <option value="33" class="ld-option">台湾省</option>
+                                            <option value="34" class="ld-option">香港</option>
+                                            <option value="35" class="ld-option">澳门</option>
+                                        </select> <select class="pc-select-cityid" name="cityid-2" id="cityid-2" width="100"
+                                                          style="width: 70px;">
+                                            <option value="">请选择</option>
+                                            <option value="3362" class="ld-option">天津市</option>
+                                        </select>
+
+                                        <span id="cityid-2Tip" class="onShow">请选择城市</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td scope="col">真实姓名：</td>
+                                    <td>
+                                        <input type="text" id="nickname" name="nickname" class="inp4" value="王晓东">
+                                        <span class="onShow" id="nicknameTip">前台不显示，用于网站运营管理人员替您办理投融资手续时使用</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td scope="col">营业执照：</td>
+                                    <td>
+                                        5555553333333 <span class="f_gray2">（不能修改）</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="col">个人住址：</td>
+                                    <td>
+                                        <input type="text" id="address" name="address" class="inp4" style="width:250px;"
+                                               value="天津市泰山南路186号">
+
+                                        <span id="addressTip" class="onShow">用于办理投资入股工商变更手续及快递接收</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="col">微信号：</td>
+                                    <td>
+                                        <input type="text" id="weixin" name="weixin" class="inp4" style="width:250px;" value="">
+
+                                        <span id="weixinTip" class="onShow">微信号最多20位</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="col">手机号码：</td>
+                                    <td>
+                                        <input type="text" id="mobile" name="mobile" class="inp4" style="width:150px;"
+                                               value="13748446747">
+                                        <span class="onShow" id="mobileTip">前台不显示，用于网站运营管理人员替您办理投融资手续时使用</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;" colspan="2"><input type="submit" name="dosubmit" value="保 存" class="btn btn-info btn-lg"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="conIn ">
+
+                        <table class="tab1">
+                            <form method="post" action="" id="myform" name="myform"></form>
+                            <tbody>
+                                <tr>
+                                    <td width="15%" scope="col">原密码：</td>
+                                    <td class="f_gray2">
+                                        <input name="info[password]" type="password" id="password" class="inp4" style="width:200px;">
+                                        &nbsp;&nbsp;<span id="passwordTip" class="onShow">请输入密码</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="col">新密码：</td>
+                                    <td class="f_gray2">
+                                        <input name="info[newpassword]" type="password" id="newpassword" class="inp4" style="width:200px;">
+                                        &nbsp;&nbsp;<span id="newpasswordTip" class="onShow">请输入密码</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="col">确认密码：</td>
+                                    <td class="f_gray2">
+                                        <input name="info[renewpassword]" type="password" id="renewpassword" class="inp4" style="width:200px;">
+                                        &nbsp;&nbsp;<span id="renewpasswordTip" class="onShow">请输入确认密码</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center;"><input name="dosubmit" type="submit" id="dosubmit" value="提交" class="btn btn-info btn-lg"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="conIn ">
+
+                        <div class="con_point tc">
+                            <span class="ct_8"> 您还未申请身份认证！</span> <br />
+                            优创融资承诺：您上传的公司营业执照信息仅用于投资后成立有限合伙企业名称预核准的证明材料！
+                        </div>
+                        <div class="con_point tl">
+                            温馨提示： <br />
+                            为了使您提交的公司认证信息更容易通过审核，请按照以下拍摄要求进行拍摄上传：<br />
+                            1.  首先，要保证您公司营业执照与您注册的优创融资的公司名称一致；<br />
+                            2. 建议使用像素500万以上的手机或相机进行拍摄，拍照背景最好选择纯色的背景，图片能清晰显示营业执照上的信息；<br />
+                        </div>
+
+                        <table class="tab1">
+                            <tbody>
+                                <tr>
+                                    <td width="20%" scope="col">上传营业执照图片：</td>
+                                    <td>
+                                        <span class="inp_file"><a href="javascript:;" class="file">请选择文件<input type="file" name="idcard_front" id="idcard_front" style="height:40px;"></a></span>
+                                        &nbsp;&nbsp;
+                                        <span id="idcard_frontTip" class="onShow"> </span>
+                                        <!--  <input type="submit" name="input" id="input" value="上传" class="btn_1" />-->
+                                    </td>
+                                    <td width="25%" rowspan="6" valign="top"></td>
+
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <div id="preview_idcard_front">
+                                        </div>
+                                        营业执照图片预览
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td class="f_gray2">温馨提示：请上传JPG/GIF/PNG格式图片，文件大小请控制在1M以内！</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input type="submit" name="dosubmit" value="申请认证" class="btn_4" onclick="return checkforms();">
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div id="footerBar"></div>
+    </div>
+
+</body>
+</html>
+

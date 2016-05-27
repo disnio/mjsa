@@ -1,0 +1,113 @@
+﻿@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "申请成为个人投资方";}
+@model  ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule.InverstingPartyValueObject
+<script type="text/javascript">
+    function hideDiv()
+    {
+
+    }
+</script>
+<div class="switch">
+    <ul class="nav nav-tabs">
+        @*<li class="active"><a href="javascript:void(0);"> 投资人申请</a></li>
+    <li><a href="javascript:void(0);">修改密码</a></li>
+         <li><a href="javascript:void(0);" style="border-right:1px solid #ccc;">身份认证</a></li>*@
+        <li style="color:red;">@ViewBag.Message</li>
+    </ul>
+    <div class="clear"></div>
+</div>
+
+<div id="tagContent">
+
+    <div class="conIn ">
+
+        @Html.HiddenFor(M => M.ID)
+        <table width="100%" border="0" cellspacing="1" cellpadding="0" class="tab1">
+            <input type="hidden" name="siteid" value="">
+            <tbody>
+                <tr>
+                    <td width="18%" scope="col">用户类型：</td>
+                    <td>
+
+                        <input type="radio" value="0" name="usertype" checked="checked" />个人
+                        <input type="radio" value="1" name="usertype" onclick="if (this.checked) { window.location = 'OrganizationApply' }" />机构
+                    </td>
+                </tr>
+                <tr>
+                    <td width="18%" scope="col">用户名：</td>
+                    <td style="color:blue;">@ViewData["CFAccountName"]</td>
+                </tr>
+                <tr>
+                    <td scope="col">个人资产：</td>
+                    <td>
+                        @foreach (var item in ViewBag.AssetsTypeValues)
+                            {
+                            @Html.RadioButton("AssetsTypeValue", (string)item.Value) @item.Text
+                            }
+
+                       <span id="mailTip" class="onShow"> (个人投资者必须符合其中一项)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">昵称：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Nickname, new { @class = "inp4" })
+                       
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">个人说明：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Introduction, new { @class = "inp4", style = "width:300px;" })
+                       <span id="personal_noteTip" class="onShow"> (如果昵称不是真实姓名，个人说明建议采用公司+职务+真实姓名)</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td scope="col">所在城市：</td>
+                    <td>
+
+                        @Html.DropDownListFor(m =>m.CFCityIdValue, ViewBag.CFCityLists as IEnumerable<SelectListItem>, new { @class = "pc-select-cityid", style = "width: 100px;" })
+                       
+                    </td>
+                </tr>
+
+                <tr>
+                    <td scope="col">真实姓名：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "inp4" })
+                   <span class="onShow" id="nicknameTip"> (前台不显示，用于网站运营管理人员替您办理投融资手续时使用)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">身份证号：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.IdentificationCard, new { @class = "inp4", style = "width:250px;" })
+                         <span class="onShow" id="nicknameTip"> (前台不显示，用于网站运营管理人员替您办理投融资手续时使用)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="col">个人住址：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Address, new { @class = "inp4", style = "width:300px;" })
+                       <span id="addressTip" class="onShow"> (用于办理投资入股工商变更手续及快递接收)</span>
+                    </td>
+                </tr>               
+                <tr>
+                    <td scope="col">手机号码：</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "inp4", style = "width:150px;" })
+
+                        <span class="onShow" id="mobileTip"> (前台不显示，用于网站运营管理人员替您办理投融资手续时使用)</span>
+                    </td>
+                </tr>
+                @*<tr>
+                    <td style="text-align: center;" colspan="2"><input type="submit" name="dosubmit" value="申 请" class="btn btn-info btn-lg"></td>
+                </tr>*@
+            </tbody>
+        </table>
+
+    </div>
+</div>

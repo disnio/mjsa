@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "我约谈的项目";}
+@using ZCPT.CrowdFunding.Entity.CFProjectModule
+
+<link href="~/Content/css/yuetan.css" rel="stylesheet" type="text/css" />
+
+<style>
+.thumbnail { width: 200px; }
+.img { width: 200px !important; height: 150px; margin-top: 10px; }
+.summary { color: #666; }
+.summary ul { padding: 20px 10px; padding-top: 10px; }
+.summary p { font-size: 18px; border-bottom: 1px solid #edf2f6; margin-bottom: 30px; line-height: 45px; font-weight: bold; margin: 0 30px; }
+.summary p span { font-size: 12px; padding: 3px 10px; height: 30px; line-height: 30px; margin-top: 5px; background: #ff8600; font-weight: normal !important; margin-left: 10px; }
+.summary p .time { color: #999; font-weight: normal; font-size: 12px; height: 20px; line-height: 30px; margin-top: 10px; background: #fff; float: right; }
+.summary ul li { line-height: 30px; float: left; width: 33%; }
+.summary ul li .span { color: #999; font-size: 14px; }
+.label-info { padding: 5px 10px; margin-left: 0; }
+.detailList1 { margin: 0 30px; color: #999; font-size: 14px; line-height: 40px; }
+.detailList1 p { color: #666; line-height: 23px; padding: 0px 15px; margin: 0; font-size: 14px; font-weight: normal !important; border: 0 !important; }
+.ct_7 { font-size: 14px; color: #999; }
+.button_list { border: 0 !important; text-align: right; }
+.font_r { font-size: 18px; color: #ff8600; font-weight: bold; }
+.font_r_y { font-size: 18px; color: #9ab806; font-weight: bold; }
+.cbInner { border-bottom: 1px solid #edf2f6; }
+</style>
+
+
+@foreach (var i in ViewBag.ProjectList)
+{
+    <div class="cbInner">
+        <div class="thumbnail fl">
+            <a href="MyProject/@i.ID"><img alt="" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"] + "/fileupload/ImgDownload/"+ i.Icon)" class="img" /></a>
+        </div>
+        <div class="summary fr">
+            <p>@i.Name <span class="label-info">@i.StatusName</span></p>
+            <ul>
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>阶段：</span>
+                    <em>@i.StageName </em>
+                </li>
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>申请人：</span>
+                    <em>@i.CreatorName </em>
+                </li>
+                <li> <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>申请时间：</span><em> @(i.CreationDate.ToString("yyyy-MM-dd HH:mm:ss")) </em></li>
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>已融金额：</span><em class="font_r_y">@(string.Format("{0:f2}", i.FinancedAmount / 10000))万 </em>
+
+                </li>
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>融资金额：</span><em class="font_r">@(string.Format("{0:f2}", i.FinancingAmount))万 </em>
+                </li>
+            </ul>
+            <br class="clear" />
+            <div class="detailList1">
+                <i style="margin-right: 5px;" class="fa fa-caret-right"></i><span class="ct_7">项目简介：</span>@Html.Raw(i.Introduction)
+            </div>
+            <p class="button_list">
+                @foreach (var item in ViewData["Interviews_" + i.ID])
+                {
+                    <a href="~/CFFinancingParty/Interviews?id=@item.ID" class="label-info">@item.CreatorName</a>
+                    <br />
+                }
+            </p>
+        </div>
+    </div>
+}
+
+

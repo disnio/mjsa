@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+@{ViewBag.ContentName = "我约谈的项目";}
+@using ZCPT.CrowdFunding.Web.Models.CFProjectInterviewsModule
+@model InterviewsTextObject
+
+<link href="~/Content/css/yuetan.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+var AccountID = '@SessionHelper.Identity.Account.ID';
+</script>
+<script type="text/javascript" src="~/Scripts/js/app/MyInterviewsList.js"></script>
+
+<div class="switch">
+    <ul class="nav nav-tabs">
+        <li style="color:red;">@ViewBag.Message</li>
+    </ul>
+    <div class="clear"></div>
+</div>
+
+<div id="tagContent">
+    @foreach (var item in ViewBag.Interviews)
+    {
+        <div class="cbInner" id=@item.ID>
+            <div class="thumbnail fl">
+                <a href="~/CFProject/GetProjectBasis?id=@item.ProjectID"><img src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"] + "/fileupload/ImgDownload/"+ item.ProjectPicture)" alt="" /></a>
+            </div>
+            <div class="summary fr">
+                <ul>
+                    <li class="colTitle ct_2"><a href="~/CFProject/GetProjectBasis?id=@item.ProjectID">@item.ProjectName</a></li>
+                    <li>
+                        融资金额:<em class="bg_1"><i class="fa fa-rmb" style="margin-right: 5px; padding-left:5px;vertical-align: middle;"></i>@item.PlanAmount</em>
+                        已融金额:<em class="bg_2"><i class="fa fa-rmb" style="margin-right: 5px; padding-left:5px;vertical-align: middle;"></i>@item.FinishedAmount</em>
+                    </li>
+                    <li>起投金额:<span class="f_ora ct_8" style="padding-right: 20px;">@item.MinInvestAmount</span> 认投完成率：<span class="f_ora ct_8">@item.FinishedRate</span></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <ul class="detailList">
+                <li><i class="fa fa-caret-right"></i> 地区：@item.ProjectCity<span class="pad_01">行业：@item.IndustryName</span><span class="pad_01">@item.ProjectStatus</span></li>
+                <li>
+                    <i class="fa fa-chevron-circle-right ct_7"></i>
+                    <span class="ct_7"> 项目简介：</span>
+                    @Html.Raw((string)@item.ProjectContents)
+                </li>
+                <li class="date ct_4"><i class="fa fa-clock-o"></i>发布时间：@item.ProjectCreateDate.ToString("yyyy-MM-dd")</li>
+            </ul>
+            <div class="clearfix"></div>
+            
+
+            <div class="yuetan ytcomm">                
+                <ul class="child-comments">
+                  
+                </ul>
+                <div class="holder"></div>
+                <span class="actions hidden-act"><button class="action reply"><i class="re"></i>回复</button></span>
+                <div class="replybox">
+                    <div class="commenting-field">
+                        <div class="textarea-wrapper"><span class="close fa fa-remove"></span>
+                            <!-- <div contenteditable="true" data-placeholder="说点什么吧..." class="textarea" style="height: 3em;" data-parent=""></div> -->
+                            <textarea cols="50" rows="2" name="rtextarea" class="rtextarea"></textarea>
+
+                            <div class="control-row"><span class="send save highlight-background" data-id=@item.ID>发送回复</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

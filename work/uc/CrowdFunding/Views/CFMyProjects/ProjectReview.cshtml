@@ -1,0 +1,166 @@
+﻿@using ZCPT.CrowdFunding.Entity.CFProjectModule
+@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "项目列表";
+    ViewBag.ContentName = "项目申请审核";
+}
+
+<table border="0" cellpadding="0" cellspacing="0" class="tab1" width="100%">
+    <tr class="col f_blue">
+
+        <th>
+            序号
+        </th>
+        <th >
+            名称
+        </th>
+        @*<th class="t_l">
+            简介
+        </th>*@
+        <th>
+            阶段
+        </th>
+        <th >
+            融资金额
+        </th>
+        <th >
+            已融金额
+        </th>
+        <th >
+            状态
+        </th>
+        <th>
+            申请人
+        </th>
+        <th>
+            申请时间
+        </th>
+        <th >
+            详细信息
+        </th>
+        <th >
+            审核
+        </th>
+    </tr>
+    @foreach (var i in ViewBag.ProjectList)
+    {
+        <tr class="col">
+
+            <td>
+                @i.LID
+            </td>
+            <td>
+                @i.Name
+            </td>
+            @*<td>
+                @Html.Raw(i.Introduction)
+            </td>*@
+            <td>
+                @i.StageName
+            </td>
+            <td>
+                @string.Format("{0:f2}", i.FinancingAmount/10000) 万
+            </td>
+            <td>
+                @(string.Format("{0:f2}", i.FinancedAmount/10000)) 万
+            </td>
+            <td>
+                @i.StatusName
+            </td>
+            <td>
+                @i.CreatorName
+            </td>
+            <td>
+               @(i.CreationDate.ToString("yyyy-MM-dd HH:mm:ss")) 
+            </td>
+            <td>
+                @Html.ActionLink("详细信息", "ProjectInfo", new {ID = i.LID})
+
+            </td>
+            <td>
+                @if (i.Status.Value == "Auditing")
+                {
+                    <a onclick="dealProjectApplication(@i.LID, @CFProjectStatus.Get("Actived").ID);" href="#">通过</a>
+                    <a onclick="dealProjectApplication(@i.LID, @CFProjectStatus.Get("Denied").ID);" href="#">拒绝</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+@*@foreach (var i in ViewBag.ProjectList)
+{
+    <div class="cbInner">
+        <div class="thumbnail fl">
+            <a href="ProjectInfo/ID=@i.LID"><img alt="" src="../Attachment/Download/@(i.Icon)" /></a>
+        </div>
+        <div class="summary fr">
+            <ul>
+                <li>@i.Name <span class="label-info">@i.StatusName</span></li>
+                <li>
+                    阶段
+                    <em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@i.StageName </em>
+                </li>
+                <li>融资金额:<em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@(string.Format("{0:f2}", i.FinancingAmount/10000))万 </em></li>
+
+                <li>已融金额:<em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@(string.Format("{0:f2}", i.FinancedAmount / 10000))万 </em></li>
+
+                <li>
+                    申请人
+                    <em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@i.CreatorName </em>
+                </li>
+                
+                <li class="date ct_4">
+                    <i class="fa fa-clock-o">申请时间 @i.CreationDate</i>
+
+                </li>
+            </ul>
+        </div>
+        
+
+        <ul class="detailList">
+            <li><i class="fa fa-chevron-circle-right ct_7"></i><span class="ct_7"> 项目简介</span>@i.Introduction</li>
+            @if (i.Status.Value == "Auditing")
+            {
+                <li>
+                    <i>
+                        <input type="button" class="label-info" value="接受" onclick="dealProjectApplication(@i.LID, @CFProjectStatus.Get("Actived").ID, @i.LID);" />
+                        <input type="button" class="label-info" value="拒绝" onclick="dealProjectApplication(@i.LID, @CFProjectStatus.Get("Auditing").ID, @i.LID);" />
+                    </i>
+
+                </li>
+            }
+
+        </ul>
+    </div>
+}*@
+
+
+<script>
+
+    function dealProjectApplication(id, status) {
+        if (confirm("确定要进行此操作吗？")) {
+            $.ajax(
+            {
+                type: 'post',
+                url: 'DealProjectApplication?projId=' + id + '&status=' + status,
+
+                success: function(data) {
+                    alert('操作成功');
+                    location.reload();
+                },
+                error: function() {
+                    alert('操作失败');
+                }
+
+            });
+        }
+    }
+</script>
+
+
+
+

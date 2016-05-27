@@ -1,0 +1,34 @@
+﻿    <script type="text/javascript" src="~/Scripts/js/project.js"></script>
+
+    <div class="wrapper">
+        <div id="pageHead"></div>
+        <div class="scrol-page k1120 mainContent clearfix">
+
+            <div class="subContent">
+                <div class="hotNews">
+                    <div class="content">
+                        <ul class="hotNewsList">
+                            @foreach (var news in Model)
+                            {
+                                <li class="colTitle ct_2">
+                                    <i class="fa fa-hand-o-right ct_7"></i>
+                                    <a target="_blank" href="~/cfnews/newsDetail?id=@news.ID">【@news.SubCategoryName】@news.Name</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-quote-left ct_5 quote_m"></i>
+                                    @news.Contents
+                                </li>
+                                <li class="date ct_4">
+                                    <i class="fa fa-clock-o"></i>
+                                    @news.CreationDate
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="footerBar"></div>
+    </div>

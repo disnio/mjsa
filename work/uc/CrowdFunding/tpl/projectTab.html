@@ -1,0 +1,66 @@
+<ul class="switch nav nav-tabs nav-pills list-nav" role="tablist">
+    <li role="presentation" class="active"><a role="tab" data-toggle="tab" aria-controls="" href="#GetProjectBusinessModel">商业模式</a></li>
+    <li><a role="tab" data-toggle="tab" aria-controls="GetProjectTeams" href="#GetProjectTeams">创业团队</a></li>
+    <li><a role="tab" data-toggle="tab" aria-controls="GetProjectPerformances" href="#GetProjectPerformances">历史情况</a></li>
+    <li><a role="tab" data-toggle="tab" aria-controls="GetProjectSchedules" href="#GetProjectSchedules">未来计划</a></li>
+    <li><a role="tab" data-toggle="tab" aria-controls="GetProjectAttachments" href="#GetProjectAttachments">项目附件</a></li>
+    <li><a role="tab" data-toggle="tab" aria-controls="GetProjectDynamics" href="#GetProjectDynamics">项目动态</a></li>
+    <li><a role="tab" data-toggle="tab" aria-controls="GetProjectComments" href="#GetProjectComments">项目评论</a></li>
+    <!-- @*<li><a href="javascript:void(0);" style="border-right:1px solid #ccc;">投资问答</a></li>*@ -->
+</ul>
+<div id="tagContent" class="tab-content">
+    <!-- @*<div class="conIn GetProjectBusinessModel">Data里需要返回数组</div>*@ -->
+    <div role="tab-panel" id="GetProjectBusinessModel" class="tab-pane active conIn GetProjectBusinessModel"></div>
+    <div role="tab-panel" id="GetProjectTeams" class="tab-pane conIn GetProjectTeams">
+        <div class="mTitle"><i class="fa fa-arrow-circle-o-right"></i>股东团队说明</div>
+        <table class="tab1 tab-other">
+            <thead>
+                <th scope="col" style="width:60px;">姓名</th>
+                <th style="width:80px;">职务</th>
+                <th>所占股份(%)</th>
+                <th style="width:80px;">是否全职</th>
+                <th>实际出资金额(万)</th>
+                <th style="width:80px;">与其他股东历史关系描述</th>
+                <th style="width:80px;">入职时间</th>
+                <th>股东简介</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div role="tab-panel" id="GetProjectPerformances" class="tab-pane conIn GetProjectPerformances">
+        <div class="mTitle"><i class="fa fa-arrow-circle-o-right"></i>第一阶段</div>
+        <div class="info"></div>
+    </div>
+    <div role="tab-panel" id="GetProjectSchedules" class="tab-pane conIn GetProjectSchedules">
+        <div class="info"></div>
+    </div>
+    <div role="tab-panel" id="GetProjectAttachments" class="tab-pane conIn GetProjectAttachments">
+        <table class="tab1">
+            <thead>
+                <th>附件标识</th>
+                <th>附件名称</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div role="tab-panel" id="GetProjectDynamics" class="tab-pane conIn GetProjectDynamics"></div>
+    <!-- 项目评论 -->
+    <div role="tab-panel" id="GetProjectComments" class="tab-pane conIn GetProjectComments">
+        <div class="comwrap replies">
+            <div class="replybox" style="display:block;">
+                <div class="commenting-field">
+                    <div class="textarea-wrapper">
+                        <textarea name="rtextarea" class="rtextarea" style="width:700px; height:80px;"></textarea>
+                        <div class="control-row"><span class="send" data-pid="0">评论</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="space10"></div>
+            <div class="list" id="list"></div>
+            <div class="holder" id="holder"></div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,199 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+}
+<link href="~/Statics/css/index_new.css" rel="stylesheet" />
+<!--con2-->
+<div class="row">
+    <div class="col-sm-9 col-md-9 paddin_right_0">
+        <div class="panel panel-default" style="height:310px;">
+            @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Carousel(new UCFramework.Infrastructure.SDK.CarouselAPI().Query()))
+        </div>
+    </div>
+    <div class="col-sm-3 col-md-3">
+        <div class="panel panel-default zixun_right">
+            <div class="panel-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="presentation" class="active"><a href="#financingmessage" aria-controls="financingmessage" role="tab" data-toggle="tab">融资资讯</a></li>
+                    <li role="presentation"><a href="#mediamessage" aria-controls="mediamessage" role="tab" data-toggle="tab">媒体报道</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="financingmessage">
+                        <ul>
+                            @if (ViewBag.FinancingmessageList != null)
+                            {
+                                foreach (var item in ViewBag.FinancingmessageList)
+                                {
+                                    <li><a href="~/cfnews/newsdetail?id=@item.LID">@item.Name</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="mediamessage">
+                        <ul>
+                            @if (ViewBag.MediamessageList != null)
+                            {
+                                foreach (var item in ViewBag.MediamessageList)
+                                {
+                                    <li><a href="~/cfnews/newsdetail?id=@item.LID">@item.Name</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--con3-->
+<div class="row">
+    <div class="col-sm-9 col-md-9  paddin_right_0">
+        <div class="panel panel-default panel_comm_max">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-3">
+                        <span class="heading">热门认投项目</span>
+                    </div>
+                    <div class="col-md-9 text-right">
+                        <a href="~/cfproject/getprojects" class="more">更多>></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    @if (ViewBag.HotProjectList != null)
+                    {
+                        foreach (var item in ViewBag.HotProjectList)
+                        {
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <div class="thumbnail list_comm">
+                                    <a href="~/CFProject/GetProjectBasis?id=@item.ID">
+                                        <img src="@item.ProjectPicture">
+                                    </a>
+                                    <div class="caption">
+                                        <div class="biaoti">
+                                            <h3>
+                                                <a href="~/CFProject/GetProjectBasis?id=@item.ID">@item.ProjectName </a>
+                                            </h3>
+                                            <p><span>@item.ProjectCity</span><span>@item.Status</span><span>起投：@(item.MinInvestAmount)万</span><br class="clear" /></p>
+                                        </div>
+                                        <div class="jine">
+                                            <span class="border_right"><font class="font_22 orang">@(item.FinishedAmount)万</font><br />认证金额</span>
+                                            <span class="border_right"><font class="font_22 orang">@(item.FinishedRate)万</font><br />完成率</span>
+                                            <span><font class="font_22 orang">@(item.PlanAmount)万</font><br />融资目标</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default panel_comm_max">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-3">
+                        <span class="heading">最新上线项目</span>                                            </div>
+                    <div class="col-md-9 text-right">
+                        <a href="~/cfproject/getprojects" class="more">更多>></a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body pad_bottom_0">
+                <div class="row">
+                    @if (ViewBag.LatestProjectList != null)
+                    {
+                        foreach (var item in ViewBag.LatestProjectList)
+                        {
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="~/CFProject/GetProjectBasis?id=@item.ID"><img src="@item.ProjectPicture"></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="~/CFProject/GetProjectBasis?id=@item.ID">@item.ProjectName</a></h4>
+                                        <p class="hui p">@Html.Raw(item.ProjectIntroduction)</p>
+                                    </div>
+                                    <div class="jine">
+                                        <span><font class="orang">@(item.PlanAmount)万</font><br />融资金额</span><span style="width:40%"><font class="orang">@item.PaymentType</font><br />付款方式</span><span><font class="orang">@(item.MinInvestAmount)万</font><br />起投金额</span><br class="clear" />
+                                    </div>
+                                    <br class="clear" />
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default panel_comm_max">
+            <div class="panel-heading">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <span class="heading">最新项目动态</span>
+                    </div>
+                    <div class="col-md-9 text-right">
+                        <a href="~/cfpdynamic/dynamiclist" class="more">更多>></a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                @if (ViewBag.ProjectDynamicList != null)
+                {
+                    foreach (var item in ViewBag.ProjectDynamicList)
+                    {
+                        <div class="media  border_bottom">
+                            <div class="media-left">
+                                <a href="~/CFProject/GetProjectBasis?id=@item.LID">
+                                    <img src="@item.DynamicPicture" height="150" width="200">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="~/CFProject/GetProjectBasis?id=@item.LID">@item.DynamicTitle</a><span class="text-right hui time">@item.CreationTime.ToString("yyyy-MM-dd")</span></h4>
+                                <p class="hui">项目：@item.ProjectName</p>
+                                <p>简介：@Html.Raw(item.DynamicContent)</p>
+
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3 col-md-3">
+        <div class="panel panel-default panel_comm_max">
+            <div class="panel-heading" id="zhinan_heading">
+                <h3 class="panel-title">投资指南</h3>
+            </div>
+            <div class="panel-body zhinan">
+                <div class="row">
+                    <div class="col-sm col-md-4">
+                        <img src="https://newapi-dev.ucdl.cn/FileCenterAPI/fileupload/ImgDownload/00000000-0000-0000-0000-000000000122" class="img-circle" width="71" height="73">
+                    </div>
+                    <div class="col-sm col-md-8">
+                        <h3>投资指南</h3>
+                    </div>
+
+                </div>
+                <div class="border_bottom" style="padding:0 15px; margin-top:15px;"></div>
+                <div class="row">
+                    <div class="col-sm col-md-4">
+                        <img src="https://newapi-dev.ucdl.cn/FileCenterAPI/fileupload/ImgDownload/00000000-0000-0000-0000-000000000003" class="img-circle" width="71" height="73">
+                    </div>
+                    <div class="col-sm col-md-8">
+                        <h3>融资指南</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

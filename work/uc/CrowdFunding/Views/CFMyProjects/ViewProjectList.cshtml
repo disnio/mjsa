@@ -1,0 +1,225 @@
+﻿@using ZCPT.CrowdFunding.Entity.CFProjectModule
+
+@{
+    ViewBag.Title = "项目列表";
+    ViewBag.ContentName = "项目列表";
+}
+
+<style>
+    .thumbnail {
+        width: 200px;
+        border: 0;
+        margin-right: 15px;
+    }
+
+    .img {
+        width: 200px !important;
+        height: 150px !important;
+        margin-top: 10px;
+    }
+
+    .summary {
+        color: #666;
+        width: 720px;
+    }
+
+        .summary ul {
+            padding: 20px 10px;
+            padding-top: 10px;
+        }
+
+        .summary p {
+            font-size: 18px;
+            border-bottom: 1px solid #edf2f6;
+            line-height: 45px;
+            font-weight: bold;
+        }
+
+            .summary p span {
+                font-size: 12px;
+                padding: 3px 10px;
+                height: 30px;
+                line-height: 30px;
+                margin-top: 5px;
+                background: #ff8600;
+                font-weight: normal !important;
+                margin-left: 10px;
+            }
+
+            .summary p .time {
+                color: #999;
+                font-weight: normal;
+                font-size: 12px;
+                height: 20px;
+                line-height: 30px;
+                margin-top: 10px;
+                background: #fff;
+                float: right;
+            }
+
+        .summary ul li {
+            line-height: 30px;
+            float: left;
+            width: 33%;
+        }
+
+            .summary ul li .span {
+                color: #999;
+                font-size: 14px;
+            }
+
+    .label-info {
+        padding: 5px 10px;
+        margin-left: 0;
+    }
+
+    .detailList1 {
+        color: #999;
+        font-size: 14px;
+        line-height: 40px;
+        background: #edf2f6;
+        padding: 10px 25px;
+        height: 110px;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+
+        .detailList1 p {
+            color: #999;
+            line-height: 23px;
+            padding: 0px;
+            margin: 0;
+            font-size: 12px;
+            font-weight: normal !important;
+            border: 0 !important;
+        }
+
+    .ct_7 {
+        font-size: 14px;
+        color: #999;
+    }
+
+    .button_list {
+        border: 0 !important;
+        text-align: right;
+    }
+
+    .font_r {
+        font-size: 18px;
+        color: #ff8600;
+        font-weight: bold;
+    }
+
+    .font_r_y {
+        font-size: 18px;
+        color: #9ab806;
+        font-weight: bold;
+    }
+
+    .cbInner {
+        border-bottom: 1px solid #edf2f6;
+        padding-bottom: 15px;
+    }
+
+    .thumbnail {
+    }
+</style>
+
+@foreach (var i in ViewBag.ProjectList)
+{
+    @*<div class="cbInner">
+            <div class="thumbnail fl">
+                <a href="MyProject/@i.ID"><img alt="" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + i.Icon)"/></a>
+            </div>
+            <div class="summary fr">
+                <ul>
+                    <li>@i.Name <span class="label-info">@i.StatusName</span></li>
+                    <li>
+                        阶段
+                        <em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@i.StageName </em>
+                    </li>
+                    <li>融资金额:<em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@(string.Format("{0:f2}", i.FinancingAmount))万 </em></li>
+
+                    <li>已融金额:<em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@(string.Format("{0:f2}", i.FinancedAmount/10000))万 </em></li>
+
+                    <li>
+                        申请人
+                        <em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@i.CreatorName </em>
+                    </li>
+
+                    <li class="date ct_4">
+                        <i class="fa fa-clock-o">申请时间 @i.CreationDate</i>
+
+                    </li>
+
+                    <li>
+                        <i>
+                            @Html.ActionLink("详细信息", "MyProject", new {ID = i.ID}, new {@class = "label-info"})
+                            @Html.ActionLink("编辑", "EditProjectBasis", new {ID = i.ID}, new {@class = "label-info"})
+                        </i>
+
+                    </li>
+                </ul>
+            </div>
+
+
+            <ul class="detailList">
+                <li><i class="fa fa-chevron-circle-right ct_7"></i><span class="ct_7"> 项目简介</span>@Html.Raw(i.Introduction)</li>
+
+            </ul>
+        </div>*@
+
+    <div class="cbInner">
+        <div class="thumbnail fl">
+            <a href="MyProject/@i.ID"><img alt="" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"] + "/fileupload/ImgDownload/"+ i.Icon)" class="img" /></a>
+        </div>
+        <div class="summary fr">
+
+            <p>@i.Name <span class="label-info">@i.StatusName</span></p>
+
+            <ul>
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>阶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;段：</span>
+                    <em>@i.StageName </em>
+                </li>
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>申&nbsp;&nbsp;请&nbsp;人：</span>
+                    <em>@i.CreatorName </em>
+                </li>
+                <li> <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>申请时间：</span><em> @(i.CreationDate.ToString("yyyy-MM-dd HH:mm:ss")) </em></li>
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>已融金额：</span><em class="font_r_y">@(string.Format("{0:f2}", i.FinancedAmount / 10000))万 </em>
+
+                </li>
+                <li>
+                    <span class="span"><i style="margin-right: 5px;" class="fa fa-caret-right"></i>融资金额：</span><em class="font_r">@(string.Format("{0:f2}", i.FinancingAmount))万 </em>
+
+                </li>
+
+
+
+            </ul>
+            <br class="clear" />
+
+
+        </div>
+        <br class="clear" />
+        <div class="detailList1">
+            <b>项目简介：</b>@Html.Raw(i.Introduction)
+
+        </div>
+
+        <p class="button_list">
+
+            @Html.ActionLink("详细信息", "MyProject", new { ID = i.ID }, new { @class = "label-info" })
+
+            @if (i.Status != CFProjectStatus.Get("Actived") && i.Status != CFProjectStatus.Get("Finished"))
+            {
+                @Html.ActionLink("编辑", "EditProjectBasis", new { ID = i.ID }, new { @class = "label-info" })
+            }
+
+
+        </p>
+    </div>
+
+}        

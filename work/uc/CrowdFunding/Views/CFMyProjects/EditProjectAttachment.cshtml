@@ -1,0 +1,113 @@
+﻿@{ViewBag.ContentName = "编辑项目附件";}
+@model ZCPT.CrowdFunding.Web.Models.ProjectAttachmentsModel
+
+@Html.Partial("_ProjectTab", new ZCPT.CrowdFunding.Web.Models.ComponentModule.ProjectEditTabModule() { ID = Model.ID, Current = nameof(ZCPT.CrowdFunding.Web.Models.ProjectAttachmentsModel) })
+
+
+
+@using (Html.BeginForm("EditProjectAttachment", "CFMyProjects", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(m => m.ID)
+
+    <DIV class="form-group">
+        <TABLE class="table table-bordered">
+            <THEAD>
+                <TR class="col f_blue">
+                    <TD width="120" class="bg-info text-center"><p class="text-info">标题</p></TD>
+                    <TD class="bg-info text-center"><p class="text-info">下载</p></TD>
+                    <TD width="100" class="bg-info text-center"><p class="text-info">删除</p></TD>
+                </TR>
+            </THEAD>
+            <TBODY>
+                @for (int i = 0; i < Model.Attachments.Count; i++)
+                {
+                    <TR class="col" id="section">
+                        <TD width="50%">@Html.HiddenFor(M => M.Attachments[i].ID)  @Html.TextBoxFor(M => M.Attachments[i].Name, new { @class = "form-control" })</TD>
+                        <TD width="20%"><a class="btn7" href="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"] + "/fileupload/ImgDownload/"+ Model.Attachments[i].IconID)">下载</a> @Html.HiddenFor(M => M.Attachments[i].IconID) </TD>
+                        <TD width="20%"><a href="javascript:void(0);" onclick="javascript: { $(this).parent().children(':hidden').val(0); $(this).closest('#section').hide(); }" Class="btn7">删除</a>@Html.HiddenFor(M => M.Attachments[i].StatusID)</TD>
+                    </TR>
+                }
+
+                <TR>
+                    <TD colspan="7" class="text-center">
+                        <SPAN class="inp_file">
+                            <a class="btn btn-info" href="javascript:;" >
+                                添加附件
+                                <script>
+                                    var ServerReferenceFileCenterAPI = '@Url.Content("~/CFMyProjects/InsertProjectAttachment")';
+                                    var ImgSingleUploadUrl = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgSingleUpload/CrowdFunding")';
+                                    require(['./js/app/EditProjectAttachment']);
+                                </script>
+                                @Html.Partial("_Attachment")
+                            </a>
+                        </SPAN>
+                    </TD>
+                </TR>
+
+            </TBODY>
+        </TABLE>
+
+        <p id="fileerror" class="text-danger" role="alert"></p>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="text-center">
+                    （温馨提示：请点击"添加附件"按钮选择您要上传的文件进行上传，单个文件大小不超过3M）
+                </div>
+            </div>
+        </div>
+        
+        @*<TABLE width="100%" border="0" cellspacing="0" cellpadding="0">
+            <TBODY>
+                <TR>
+                    <TD style="text-align: center;">
+                        <SPAN id="spanButtonPlaceHolder"></SPAN>
+
+                        <DIV class="fieldset flash" id="fsUploadProgress" style="padding: 15px 0px; border: 1px solid rgb(204, 204, 204); border-image: none; line-height: 25px; margin-top: 10px;">（温馨提示：请点击"添加附件"按钮选择您要上传的文件进行上传，单个文件大小不超过3M）</DIV><INPUT disabled="disabled" id="btnCancel" style="display: none;" onclick="swfu.cancelQueue();" type="button" value="取消所有上传">
+                    </TD>
+                </TR>
+            </TBODY>
+        </TABLE>*@
+    </DIV>
+    <DIV class="form-group text-center">
+        <input class="btn btn-warning" name="updatebacksubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectAttachment?Step=EditProjectSchedule")")' value="上一步" />
+        &nbsp;
+        <input class="btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectAttachment")")' value="保 存" />
+        &nbsp;
+        @if (ViewBag.ShowSubmit)
+        {
+            <input class="btn btn-warning" name="submitapplication" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/ApplyProject")")' value="提交申请" />
+
+        }
+
+        <p class="text-danger" role="alert">@Html.Label((string)ViewBag.ResultMassage ?? string.Empty)</p>
+    </DIV>
+}
+
+<style type="text/css">
+        .inp_file {
+            margin-top: 5px;
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+        }
+        /*form { margin: 0px; padding: 0px; }
+    form { margin: 0px; padding: 0px; }
+    * { margin: 0px; padding: 0px; }
+    input { border-width: 1px; margin-bottom: 10px; }
+    input { color: rgb(102, 102, 102); font-family: Microsoft Yahei; font-size: 14px; vertical-align: middle; }
+    input { margin: 0px; padding: 0px; }
+    .con_tit { background: url('img/v3/member_bg3.gif') no-repeat; padding: 15px 0px 0px 75px; height: 70px; color: rgb(0, 153, 255); font-size: 26px; }
+    .f_blue { color: rgb(0, 153, 255); }
+    .f_20 { font-size: 20px; }
+    .tab3 { width: 100%; text-align: center; border-collapse: collapse; }
+    .tab3 .col td { background: rgb(232, 243, 255); }
+    .tab3 td { padding: 0px 5px; border: 1px solid rgb(204, 204, 204); border-image: none; height: 40px; }
+    td { margin: 0px; padding: 0px; }
+    span { margin: 0px; padding: 0px; }
+    div.flash { -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px; -moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px; }
+    div.fieldset { margin: 10px 0px; padding: 20px 10px; border: 1px solid rgb(175, 225, 76); border-image: none; }
+    input[disabled] { border: 1px solid rgb(204, 204, 204); border-image: none; }
+    .btn2 { background: rgb(255, 102, 0); padding: 0px 25px; border: currentColor; border-image: none; height: 35px; color: rgb(255, 255, 255); font-size: 16px; cursor: pointer; }
+    img { border: 0px currentColor; border-image: none; line-height: 0; vertical-align: middle; }
+    .btn6 { background: rgb(0, 153, 255); padding: 4px 17px 5px; border: currentColor; border-image: none; color: rgb(255, 255, 255); cursor: pointer; }*/
+</style>
