@@ -2,20 +2,17 @@
  * @Author: Allen
  * @Date:   2015-12-04 15:03:07
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-05-25 15:57:06
+ * @Last Modified time: 2016-05-31 12:21:27
  */
-(function(factory) {
+(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['jquery', '_'], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS
-        factory(require('jquery', _));
+        define(function () {
+            return (root.UI = factory(window.jQuery));
+        });
     } else {
-        // Browser globals
-        factory(jQuery, _);
+        root.UI = factory(root.jQuery);
     }
-}(function(jQuery, _) {
+}(this, function(jQuery) {
     var jsUrl = ucConfig.ServerReferenceJavaScript;
 
 
@@ -23,7 +20,7 @@
         // bootstrap modal 提示框
         inTip: function(txt) {
             var def = new $.Deferred();
-            var mtip = $("#inTip");
+            var mtip;
             var modalDialog = '<div class="modal fade" id="inTip"><div class="modal-dialog"> <div class="modal-content"> <div class="modal-body"> <h3></h3> </div> <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> </div> </div> </div></div>';
             if (_.isEmpty(mtip)) {
                 $("body").append($(modalDialog));
@@ -107,7 +104,15 @@
                     }
 
                     var temp = {};
-
+                    // if ($.browser.msie && $.browser.version < 10) {
+                    //     temp.name = result.files.files[0].name;
+                    //     temp.url = result.files.files[0].url;
+                    //     temp.id = result.files.files[0].id;
+                    // } else {
+                    //     temp.name = data.result.name;
+                    //     temp.url = data.result.url;
+                    //     temp.id = data.result.id;
+                    // }
                     temp.name = result.files.files[0].name;
                     temp.url = result.files.files[0].url;
                     temp.id = result.files.files[0].id;
@@ -308,11 +313,7 @@
         }
 
     };
-    if (typeof UI !== 'undefined' && $.isEmptyObject(UI)) {
-        // 直接引入脚本文件
-        UI = ui;
-    } else {
-        // AMD 方式引入
-        return ui
-    }
+
+    return ui
+
 }));

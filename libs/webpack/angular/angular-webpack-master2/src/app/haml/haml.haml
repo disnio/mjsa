@@ -1,0 +1,21 @@
+%h1
+  Hello, {{hello}}!
+
+%h2
+  Here is some title: #{@title}
+
+%p<>
+  %span<>
+    I am a HAML template:
+
+%pre
+  = "%h1"
+  = "  Hello, {{hello}}!"
+
+  = "%h2"
+  = "  Here is some title: \#{@title}"
+
+  = ".center<>"
+  = "%span<>"
+  = "  I am a HAML template"
+

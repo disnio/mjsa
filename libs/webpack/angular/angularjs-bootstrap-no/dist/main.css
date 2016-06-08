@@ -1,0 +1,15 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+.starter-template-alt {
+  padding: 60px 15px;
+  text-align: center;
+}
+
+.starter-template-alt p.lead {
+  font-weight: bold;
+}

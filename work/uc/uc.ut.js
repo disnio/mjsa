@@ -2,22 +2,19 @@
  * @Author: Allen
  * @Date:   2015-12-04
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-05-04 11:29:28
+ * @Last Modified time: 2016-05-31 12:21:15
  */
 
-(function(factory) {
+(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['jquery', '_'], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS
-        factory(require('jquery', '_'));
+        define(function () {
+            return (root.UT = factory(window.jQuery));
+        });
     } else {
-        // Browser globals
-        factory(jQuery, _);
+        root.UT = factory(root.jQuery);
     }
-}(function(jQuery, _) {
-    var baseUrl = ucConfig.ServerReferenceCrowdSourcingAPI;
+}(this, function(jQuery) {
+    var baseUrl = ucConfig.ServerReferenceCrowdFundingAPI;
     /**
      * [jaxJson description]
      * @param  {[type]} opt [description]
@@ -75,6 +72,8 @@
                 });
             }
         }
+
+
     };
     // 模板渲染
     var tplRender = function(tpl, data) {
@@ -275,25 +274,17 @@
         };
     };
 
-    var scout = function(data){
-        console.log(JSON.stringify(data));
-    };
 
     var res = {
         jaxJson: jaxJson,
         tplRender: tplRender,
         jaxPage: jaxPage,
-        queryString: queryString(),
-        scout: scout
+        queryString: queryString()
     };
 
-    if (typeof UT !== 'undefined' && $.isEmptyObject(UT)) {
-        // 直接引入脚本文件
-        UT = res;
-    } else {
-        // AMD 方式引入
-        return res
-    }
+
+    return res
+   
 
 
 }));

@@ -2,7 +2,7 @@
  * @Author: allen
  * @Date:   2016-03-10 16:13:32
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-03-22 16:35:55
+ * @Last Modified time: 2016-05-31 14:03:48
  */
 
 /**
@@ -17,18 +17,15 @@
  * }
  * @return {[Object]}         [lo]
  */
-(function(factory) {
+(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['jquery'], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS
-        factory(require('jquery'));
+        define(function () {
+            return (root.lo = factory(window.jQuery));
+        });
     } else {
-        // Browser globals
-        factory(jQuery);
+        root.lo = factory(root.jQuery);
     }
-}(function(jQuery) {
+}(this, function(jQuery) {
 
     /**
      * { 获取传入的缓存前缀 }
@@ -117,9 +114,9 @@
      * { Ajax 获取缓存值，过期或没有则调用 ajax 获取，同事缓存结果。 }
      *
      * @method     jaxStorage
-     * @param      {<type>}    options  { options }
-     * @param      {Function}  jax      { jaxJson执行调用 }
-     * @return     {Object}         { 返回缓存值的延迟对象 }
+     * @param      {<type>}    options  { description }
+     * @param      {Function}  jax      { description }
+     * @return     {$}         { description_of_the_return_value }
      */
     var jaxStorage = function(options, jax) {   
         var def = new $.Deferred(),
