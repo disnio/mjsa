@@ -1,0 +1,94 @@
+﻿
+@{
+    long CurrentFirstLevelItem = SessionHelper.Nav.FirstLevelID;
+    long CurrentSecondLevelItem = SessionHelper.Nav.SecondLevelID;
+    var Menus = new UCFramework.Infrastructure.SDK.MenuAPI().GetNavMenu();
+
+    List<dynamic> menus = new List<dynamic>();
+    var target = string.Empty;
+    var url = string.Empty;
+    foreach (var menuinfo in Menus.Where(t => t.ParentID == 0).OrderBy(t => t.OrderNum))
+    {
+        target = string.IsNullOrEmpty(menuinfo.LinkTargetType) ? string.Empty : menuinfo.LinkTargetType;
+        if (menuinfo.MenuUrl == "#" || target == "_blank" )
+        {
+            url = menuinfo.MenuUrl;
+        }
+        else
+        {
+            url = $"{menuinfo.MenuUrl}{(menuinfo.MenuUrl.Contains("?") ? "&" : "?")}{ConstantHelper.WebFrameNav.FirstLevelQueryKey}={menuinfo.ID}";
+            if (!menuinfo.MenuUrl.Contains("http"))
+            {
+                url = Url.Content("~/" + url);
+            }
+        }
+
+        dynamic menu = new { text = menuinfo.MenuName, href = url, target = target, @css = CurrentFirstLevelItem == menuinfo.ID ? "active" : "", subMenus = new List<dynamic>() };
+        menus.Add(menu);
+        foreach (var submenuinfo in Menus.Where(t => t.ParentID == menuinfo.ID).OrderBy(t => t.OrderNum))
+        {
+            target = string.IsNullOrEmpty(submenuinfo.LinkTargetType) ? string.Empty : submenuinfo.LinkTargetType;
+            if (submenuinfo.MenuUrl == "#" || target == "_blank" )
+            {
+                url = submenuinfo.MenuUrl;
+            }
+            else
+            {
+                url = $"{submenuinfo.MenuUrl}{(submenuinfo.MenuUrl.Contains("?") ? "&" : "?")}{ConstantHelper.WebFrameNav.FirstLevelQueryKey}={menuinfo.ID}&{ConstantHelper.WebFrameNav.SecondLevelQueryKey}={submenuinfo.ID}";
+                if (!submenuinfo.MenuUrl.Contains("http"))
+                {
+                    url = Url.Content("~/" + url);
+                }
+            }
+            menu.subMenus.Add(new { text = submenuinfo.MenuName, href = url, target = target, @css = CurrentSecondLevelItem == submenuinfo.ID ? "active" : "", subMenus = new List<dynamic>() });
+        }
+    }
+
+
+
+
+}
+<nav>
+
+    <div class="navbar-default framenav" role="navigation">
+        <div class="container  ">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferencePublicPortal"])">
+                    <img alt="Brand" src="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Content/logoinverse.png">
+                </a>
+                <div class="navbar-text hidden-xs hidden-sm">&nbsp;我的优创<br><div class="badge"><a href="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferencePublicPortal"])">返回优创首页</a></div></div>
+            </div>
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    @foreach (var menu in menus)
+                    {
+                        if (menu.subMenus.Count == 0)
+                        {
+                            <li class="@menu.css"><a href="@menu.href" target="@menu.target">@Html.Raw(menu.text)</a></li>
+                        }
+                        else
+                        {
+                            <li class="dropdown @menu.css">
+                                <a href="@menu.href" target="@menu.target" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Html.Raw(menu.text) <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    @foreach (var subMenu in menu.subMenus)
+                                    {
+                                        <li class="@subMenu.css"><a href="@subMenu.href" target="@subMenu.target">@Html.Raw(subMenu.text)</a></li>
+                                    }
+                                </ul>
+                            </li>
+
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+

@@ -1,0 +1,173 @@
+﻿@{
+    Layout = null;
+    var menus = new UCFramework.Infrastructure.SDK.MenuAPI().GetHeaderMenu();
+}
+<header>
+    <div class="navbar-default frameheader">
+        <div class="container container_nobj">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul class="nav navbar-nav col-xs-8  col-sm-12 ">
+                    @foreach (var menu in menus.Where(t => t.OrderNum < 0 && t.ParentID == 0).OrderBy(t => t.OrderNum))
+                    {
+                        var submenus = menus.Where(t => t.ParentID == menu.ID).OrderBy(t => t.OrderNum);
+                        if (submenus.Count() == 0)
+                        {
+                            <li><a href="@menu.MenuUrl">@menu.MenuName</a></li>
+                        }
+                        else
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@menu.MenuName<span class="caret"></span></a>
+                                <ul class="dropdown-menu @menu.MenuKey">
+                                    @foreach (var submenu in submenus)
+                                    {
+                                        var subsubmenus = menus.Where(t => t.ParentID == submenu.ID).OrderBy(t => t.OrderNum);
+                                        if (subsubmenus.Count() > 0)
+                                        {
+                                            <li>
+                                                @foreach (var subsubmenu in subsubmenus)
+                                                {
+                                                    <ul>
+                                                        @if (!string.IsNullOrEmpty(subsubmenu.MenuName))
+                                                        {
+                                                            <li class="dropdown-header">@subsubmenu.MenuName</li>
+                                                        }
+                                                        @foreach (var subsubsubmenu in menus.Where(t => t.ParentID == subsubmenu.ID).OrderBy(t => t.OrderNum))
+                                                        {
+                                                            if (string.IsNullOrEmpty(subsubsubmenu.MenuUrl))
+                                                            {
+                                                                <li class="dropdown-header">@subsubsubmenu.MenuName</li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li>
+                                                                    @if (string.IsNullOrEmpty(subsubsubmenu.MenuImg))
+                                                                    {
+                                                                        <a href="@menu.MenuUrl">@subsubsubmenu.MenuName</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="@menu.MenuUrl"><img src="@subsubsubmenu.MenuImg" /></a><p class="text-center">@subsubsubmenu.MenuName</p>
+                                                                    }
+                                                                </li>
+                                                            }
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            if (string.IsNullOrEmpty(submenu.MenuUrl))
+                                            {
+                                                <li class="dropdown-header">@submenu.MenuName</li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    @if (string.IsNullOrEmpty(submenu.MenuImg))
+                                                    {
+                                                        <a href="@menu.MenuUrl">@submenu.MenuName</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@menu.MenuUrl"><img src="@submenu.MenuImg" /></a><p class="text-center">@submenu.MenuName</p>
+                                                    }
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-2">
+                <ul class="nav navbar-nav">
+                    @*@Html.Partial("_Status")*@
+                    @foreach (var menu in menus.Where(t => t.OrderNum >= 0 && t.ParentID == 0).OrderBy(t => t.OrderNum))
+                    {
+                        var submenus = menus.Where(t => t.ParentID == menu.ID).OrderBy(t => t.OrderNum);
+                        if (submenus.Count() == 0)
+                        {
+                            <li><a href="@menu.MenuUrl">@menu.MenuName</a></li>
+                        }
+                        else
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@menu.MenuName<span class="caret"></span></a>
+                                <ul class="dropdown-menu @menu.MenuKey">
+                                    @foreach (var submenu in submenus)
+                                    {
+                                        var subsubmenus = menus.Where(t => t.ParentID == submenu.ID).OrderBy(t => t.OrderNum);
+                                        if (subsubmenus.Count() > 0)
+                                        {
+                                            <li>
+                                                @foreach (var subsubmenu in subsubmenus)
+                                                {
+                                                    <ul>
+                                                        @if (!string.IsNullOrEmpty(subsubmenu.MenuName))
+                                                        {
+                                                            <li class="dropdown-header">@subsubmenu.MenuName</li>
+                                                        }
+                                                        @foreach (var subsubsubmenu in menus.Where(t => t.ParentID == subsubmenu.ID).OrderBy(t => t.OrderNum))
+                                                        {
+                                                            if (string.IsNullOrEmpty(subsubsubmenu.MenuUrl))
+                                                            {
+                                                                <li class="dropdown-header">@subsubsubmenu.MenuName</li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li>
+                                                                    @if (string.IsNullOrEmpty(subsubsubmenu.MenuImg))
+                                                                    {
+                                                                        <a href="@menu.MenuUrl">@subsubsubmenu.MenuName</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="@menu.MenuUrl"><img src="@subsubsubmenu.MenuImg" /></a><p class="text-center">@subsubsubmenu.MenuName</p>
+                                                                    }
+                                                                </li>
+                                                            }
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            if (string.IsNullOrEmpty(submenu.MenuUrl))
+                                            {
+                                                <li class="dropdown-header">@submenu.MenuName</li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    @if (string.IsNullOrEmpty(submenu.MenuImg))
+                                                    {
+                                                        <a href="@menu.MenuUrl">@submenu.MenuName</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@menu.MenuUrl"><img src="@submenu.MenuImg" /></a><p class="text-center">@submenu.MenuName</p>
+                                                    }
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

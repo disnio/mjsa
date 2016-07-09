@@ -1,3 +1,26 @@
+app.config(function($conmpileProvider){
+    $compileProvider.debugInfoEnabled(false);
+})
+关闭调试类：ng-scope, ng-isolate-scope,..
+var vm = this;
+// var vm = $scope.vm = {}
+return vm;
+// controllerAs:'vm',
+// scope 绑定到 vm
+// bindToController: true, 
+{{::title}} 单次绑定在第一次$digest 完成后，将不再计算。https://github.com/Pasvaz/bindon
+<ul>
+    <li bindonce ng-repeat="person in Persons">
+        <a bo-href="'#/people/' + person.id"><img bo-src="person.imageUrl"></a>
+        <a bo-href="'#/people/' + person.id" bo-text="person.name"></a>
+        <p bo-class="{'cycled':person.generated}" bo-html="person.description"></p>
+    </li>
+</ul>
+
+插件：batarang
+
+")]},\n"
+-----------------------
 UI Bootstrap (requires AngularJS 1.4.x, tested with 1.4.9). 0.14.3 is the last version of this library that supports AngularJS 1.3.x and 0.12.0 is the last version that supports AngularJS 1.2.x.
 
 
@@ -897,7 +920,8 @@ ng-click：用来指定一个元素被点击时调用的方法或表达式。
 ng-select用来将数据同HTML的<select>元素进行绑定。这个指令可以和ng-model以及ng-options指令一同使用，构建精细且表现优良的动态表单。 
 ng-options的值可以是一个内涵表达式（comprehension  expression），其实这只是一种有趣的说法，简单来说就是它可以接受一个数组或对象，并对它们进行循环，将内部的内容提供给
 select标签内部的选项。
-
+<select ng-model="CSOptionTypeID" ng-options="optType.CSOptionTypeID as optType.TypeName for optType in optionType">
+</select>
 <div ng-controller="CityController"> 
     <select ng-model="city" 
     ng-options="city.name for city in cities"> 

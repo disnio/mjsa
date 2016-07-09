@@ -1,0 +1,9 @@
+{
+  "env": "prod",
+  "api": {
+    "url": "http://api.myapp.com"
+  },
+  "localStorage": {
+    "prefix": "myApp:"
+  }
+}

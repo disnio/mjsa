@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+<div class="loggedIn" ><i class="fa fa-caret-right"></i>
+    
+        
+            @Html.ActionLink("你好，" + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        
+        
+        <a href="javascript:document.getElementById('logoutForm').submit()">注销</a>
+    <a href="#">帮助中心</a>
+</div>
+    }
+}
+else
+{<div class="loggedStatus" ><i class="fa fa-caret-right"></i>
+   
+        @*@Html.ActionLink("注册", "Register", "CFAccount", routeValues: null, htmlAttributes: new { id = "registerLink" })*@
+     <a target="_blank" href="http://eisa.ucdl.cn/UserCenter/Account/Register?fr=http://eisa.ucdl.cn/CrowdFundingWeb">立即注册</a>
+        @Html.ActionLink("登录", "Login", "CFAccount", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    <a href="#">帮助中心</a>
+        </div>
+}
+
+
+
+                    
+       

@@ -1,0 +1,41 @@
+{
+  "name": "angular-lazyload-with-webpack-and-uirouter",
+  "version": "1.0.0",
+  "description": "A boilerplate for angular with webpack、ui-router、oclazyload.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "rm -rf dist && webpack",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "angular",
+    "webpack",
+    "lazyload"
+  ],
+  "author": "wandergis",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.2.29",
+    "angular-animate": "1.2.29",
+    "angular-local-storage": "^0.2.7",
+    "angular-ui-router": "^0.2.18",
+    "jquery": "1.12.1",
+    "oclazyload": "^1.0.9"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.3",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.10.0",
+    "json-loader": "^0.5.4",
+    "ng-annotate-loader": "^0.1.0",
+    "postcss-loader": "^0.8.2",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
+  }
+}

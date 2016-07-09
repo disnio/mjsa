@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/Views/Shared/_SelfLayoutHFN.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-9">
+        @RenderBody()
+    </div>
+    <div class="col-md-3">
+        @Html.Partial("_SelfAside")
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
+
+<script>
+$(function(){
+    $.ajax({ 
+        type: "get",
+        xhrFields:{withCredentials: true},
+        crossDomain: true, 
+        url: "https://web-demo.ucdl.cn/MemberCenter/frame/header" 
+    }).then(function (data) { 
+        $("#headsdfs").append(data); 
+    });
+
+    $.ajax({
+        type: "get",
+        xhrFields: {
+            //withCredentials: true
+        },
+        crossDomain: true,
+        url: "https://web-demo.ucdl.cn/MemberCenter/frame/footer"
+    }).then(function(data){
+        $("#footsdfs").append(data);
+    });    
+})
+</script>
+
+<!--[if lte IE 9]>
+
+<script src="./jquery.xdomainrequest.min.js"></script>
+<script>
+$(function(){    
+    $.ajax({      
+      url: 'https://web-demo.ucdl.cn/MemberCenter/frame/header',        
+      contentType: 'text/plain',
+      xhrFields:{withCredentials: true},
+      type: 'get',
+      dataType: 'html'
+    }).done(function(data) {
+      $("#headsdfs").append(data); 
+    });
+     
+    $.ajax({
+        type: "get",
+        url: "https://web-demo.ucdl.cn/MemberCenter/frame/footer"
+    }).then(function(data){
+        $("#footsdfs").append(data);
+    });     
+})
+</script><![endif]-->
+<div id="headsdfs"></div>
+<div id="footsdfs"></div>

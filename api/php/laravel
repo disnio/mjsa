@@ -52,3 +52,6 @@ And you may find the full answer to your question in the Composer FAQ.
 https://getcomposer.org/doc/articles/troubleshooting.md#xdebug-impact-on-composer
 
 It was added/updated just a few hours ago.
+---------------------------------------------
+composer.phar require intervention/image
+intervention, guzzlehttp, psr, composer, autoload

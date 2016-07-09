@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutHFN.cshtml";
+}
+    <link rel="stylesheet" type="text/css" href="~/Content/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.ui/jquery-ui-1.10.3.custom.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/systemAdmin.css" />
+
+    <script src="~/Scripts/uc.ut.js"></script>
+    <script src="~/Scripts/response.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/jquery.menu-aim.js"></script>
+    <script src="~/Scripts/jquery.scrollTo.min.js"></script>
+    <script src="~/Scripts/aside.js"></script>
+<!--[if IE 7]>
+<link rel="stylesheet" href="~/Content/font-awesome-ie7.min.css">
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="~/Content/jquery.ui/jquery.ui.1.10.3.ie.css">
+<![endif]-->
+
+<div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-3">
+        @Html.Partial("_Aside")
+    </div>
+    <div class="col-lg-10 col-md-9 col-sm-9 desktop">
+        <div id="desk" style="height:100%;">
+            <div class="tabs-scroll scroll-left" id="tabs_left_scroll"></div>
+            <div id="tab-scroll">
+                <ul class="desk__tabHeader">
+                    <li><a href="#tabs-home">首页</a></li>
+                </ul>
+            </div>
+            <div class="tabs-scroll scroll-right" id="tabs_right_scroll"></div>
+            <div id="tabs-home">
+            @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    @RenderSection("scripts", required: false)
+}

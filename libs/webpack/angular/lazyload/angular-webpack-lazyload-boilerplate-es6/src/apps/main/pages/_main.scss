@@ -1,0 +1,19 @@
+/* main module common styles */
+@import 'variables';
+
+
+html, body, .main-holder, .container-fluid {
+  height: 100%;
+}
+
+.main {
+
+  .title {
+    color: $title-color;
+  }
+
+  .subtitle {
+    color: $subtitle-color;
+  }
+
+}

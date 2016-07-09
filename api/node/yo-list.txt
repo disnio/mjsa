@@ -1,0 +1,10 @@
+generator-angular\
+generator-angular-fullstack\
+generator-gulp-angular\
+generator-gulp-bootstrap\
+generator-gulp-livereload\
+generator-karma\
+generator-react-webpack\
+generator-react-webpack-redux\
+generator-simple-web-prototype\
+generator-webapp\

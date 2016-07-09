@@ -1,0 +1,57 @@
+﻿@{
+    var Menus = new UCFramework.Infrastructure.SDK.MenuAPI().GetCategoryNavMenu();
+    long CurrentSecondLevelItem = SessionHelper.Nav.SecondLevelID;
+
+}
+
+
+<ul class="nav nav-pills nav-stacked frameaside">
+    @{
+        var roots = Menus.Where(t => (!t.ParentID.HasValue || t.ParentID == 0)).ToList();
+        var sub = roots;
+        if (roots != null && roots.Count > 0)
+        {
+            foreach (var item in roots)
+            {
+                <li class="navbar-header">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+
+                            @{
+                                sub = Menus.Where(t => t.ParentID == item.ID).ToList();
+
+                                <div class="panel-heading panel-title" role="tab" id="@item.ID">
+                                    @if (@sub.Count() == 0)
+                                    {
+                                        <a role="button" href="@item.MenuUrl">@item.MenuName</a>
+                                    }
+                                    else
+                                    {
+                                        <a role="button" data-toggle="collapse" href="#@(item.ID)collapse" aria-expanded="true" aria-controls="@(item.ID)collapse">@item.MenuName</a>
+                                    }
+                                </div>
+
+                                if (sub != null && sub.Count > 0)
+                                {
+
+                                    @Html.Partial("_CategorypartialAside", sub)
+                                }
+                            }
+                        </div>
+                    </div>
+                </li>
+                                    }
+                                }
+    }
+
+</ul>
+
+
+
+
+
+
+
+
+
+

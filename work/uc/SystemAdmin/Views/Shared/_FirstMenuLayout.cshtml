@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+@section csslink {
+
+@RenderSection("csslink", required: false)
+}
+@section scripts
+{
+    <script language="javascript" type="text/javascript" src="~/Tools/My97DatePicker/WdatePicker.js"></script>
+}
+@section aside {
+<div class="asideBar fl commentBar">
+    @Html.Partial("_NavAside")
+</div>
+}
+<div id="FRightContent" class="subContent">
+    <h1 class="font_2 ct_7 title_line">
+        <span class="fl"><i class="fa fa-magic"></i> @ViewBag.ContentName</span>
+        <span class="fr"><a href="#"> </a></span>
+    </h1>
+    @RenderBody()
+</div>
+
+    
+

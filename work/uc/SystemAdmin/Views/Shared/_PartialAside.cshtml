@@ -1,0 +1,37 @@
+﻿@model List<UCFramework.Infrastructure.SDK.MenuAPI.Menu>
+
+@{
+
+    var all = new UCFramework.Infrastructure.SDK.MenuAPI().GetAsideMenu();
+
+    var roots = Model;
+    var sub = roots;
+
+    <div id="@(Model[0].ParentID)" class="popover">
+        <ul>
+            @foreach (var menu in Model)
+            {
+                if (menu.MenuUrl.Contains("SystemAdmin"))
+                {
+                    <li class="popover__li"><a href="@menu.MenuUrl">@Html.Raw(menu.MenuName)</a></li>
+                }
+                else
+                {
+                    <li class="popover__li"><a href="@menu.MenuUrl">@Html.Raw(menu.MenuName)</a></li>
+                } 
+
+                sub = all.Where(t => t.ParentID == menu.ID).ToList();
+
+                if (sub != null && sub.Count > 0)
+                {
+                    @Html.Partial("_PartialAside", sub)
+                }
+            }
+        </ul>
+    </div>
+
+
+}
+
+
+

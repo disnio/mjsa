@@ -114,6 +114,9 @@ More script and css style
                         <div id="submenu-patas" class="popover">
                             <h3 class="popover-title">Patas</h3>
                             <div class="popover-content"><img src="img/patas.png"></div>
+                            <h3 class="popover-title">Patas</h3>
+                            <div class="popover-content"><img src="img/patas.png"></div>
+                            <div class="popover-content"><img src="img/patas.png"></div>
                         </div>
                     </li>
                     <li data-submenu-id="submenu-snub-nosed">
@@ -217,8 +220,10 @@ More script and css style
             var $row = $(row),
                 submenuId = $row.data("submenuId"),
                 $submenu = $("#" + submenuId),
-                height = $menu.outerHeight(),
-                width = $menu.outerWidth();
+                // height = $menu.outerHeight(),
+                height = $submenu.outerHeight(),
+                // width = $menu.outerWidth();
+                width = $submenu.outerWidth();
 
             // Show the submenu
             $submenu.css({

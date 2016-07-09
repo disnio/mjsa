@@ -1,0 +1,162 @@
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@{
+    long CurrentFirstLevelItem = SessionHelper.Nav.FirstLevelID; //SessionHelper.Menu.CurrentFirstLevelItem?.ID
+    long CurrentSecondLevelItem = SessionHelper.Nav.FirstLevelID;
+    //if (Session["UserCenter_CurrentSecondLevelItem"] != null)
+    //{
+    //    CurrentSecondLevelItem = (int)Session["UserCenter_CurrentSecondLevelItem"];
+    //}
+
+    IList<ZCPT.MemberCenter.Web.Models.CFMenuInfoModule.CFMenuInfoModel> Menus = SessionHelper.Nav.Items;
+    var selected = CurrentSecondLevelItem > 0;
+
+}
+
+
+<ul class="nav nav-pills nav-stacked">
+
+
+    @{
+        var subMenus = Menus.OrderBy(t => t.CategoryOrderNum);
+        if (CurrentFirstLevelItem > 0)
+        {
+
+            subMenus = Menus.Where(t => t.ParentID == CurrentFirstLevelItem).OrderBy(t => t.CategoryOrderNum);
+        }
+
+        var tempCategory = string.Empty;
+        var categories = new List<string>();
+
+        foreach (dynamic subMenu in subMenus)
+        {
+
+
+
+            if (string.IsNullOrEmpty(@subMenu.CategoryName))
+            {
+                tempCategory = @subMenu.CategoryName;
+                <li>
+                    @*<div class="panel-group" role="tablist">
+                        <div class="panel panel-default" role="tab">*@
+                    @*<div class="panel-heading" role="tab">*@
+                    <ul class="nav nav-pills nav-stacked"><li @(CurrentSecondLevelItem == @subMenu.ID ? "class=active" : "")><a href='@subMenu.MenuUrl'>@subMenu.MenuName</a></li></ul>
+                    @*</div>*@
+                    @*</div>
+                        </div>*@
+                </li>
+            }
+            else
+            {
+                if (subMenu.CategoryName == tempCategory || categories.Contains(subMenu.CategoryName))
+                {
+                    continue;
+                }
+
+                tempCategory = @subMenu.CategoryName;
+                categories.Add(tempCategory);
+
+
+                <li class="navbar-header">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading" role="tab" id="@subMenu.CategoryKey">
+                                @*<h6 class="panel-title">*@
+                                <a role="button" class="nav nav-pills nav-stacked" data-toggle="collapse" href="#@(subMenu.CategoryKey)collapse" aria-expanded="true" aria-controls="@(subMenu.CategoryKey)collapse">
+
+                                    @subMenu.CategoryName
+                                </a>
+
+                                @*</h6>*@
+
+                            </div>
+                            <div id="@(subMenu.CategoryKey)collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@subMenu.CategoryKey">
+
+                                <ul class="nav nav-pills nav-stacked">
+
+                                    @{ var url = string.Empty;
+                                        foreach (var sub in @subMenus.Where(t => t.CategoryName == subMenu.CategoryName))
+                                        {
+                                            url = sub.MenuUrl;
+                                            if (string.IsNullOrEmpty(url))
+                                            {
+                                                <li @(CurrentSecondLevelItem == @sub.ID ? "class=active" : "")>
+                                                    <a href="#">@Html.Raw(@sub.MenuName)</a>
+                                                </li>
+                                            }
+                                            else if (url.ToLower().Contains("http"))
+                                            {
+                                                <li @(CurrentSecondLevelItem == @sub.ID ? "class=active" : "")>
+                                                    <a href="@(url)">@Html.Raw(@sub.MenuName)</a>
+                                                </li>
+                                            }
+                                            else if (selected)
+                                            {
+                                                <li @(CurrentSecondLevelItem == @sub.ID ? "class=active" : "")>
+                                                    <a href="@(Url.Content("~/" + url) + "?"+ConstantHelper.WebFrameNav.SecondLevelQueryKey+"=" + sub.ID)">@Html.Raw(@sub.MenuName)</a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                selected = true;
+                                                <li class="active">
+                                                    <a href="@(Url.Content("~/" + url) + "?"+ConstantHelper.WebFrameNav.SecondLevelQueryKey+"=" + sub.ID)">@Html.Raw(@sub.MenuName)</a>
+                                                </li>
+
+
+                                            }
+
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+
+                                            }
+
+
+                                        }
+    }
+
+
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

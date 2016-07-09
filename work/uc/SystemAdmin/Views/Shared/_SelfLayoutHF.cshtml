@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (ViewBag.SelfNav == null)
+    {
+        ViewBag.SelfNav = new List<UCFramework.Infrastructure.SDK.MenuAPI.Menu>();
+    }
+}
+@section FrameHeader
+{
+    @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Header(new UCFramework.Infrastructure.SDK.MenuAPI().GetHeaderMenu()))
+}
+
+@section FrameNav
+{
+@Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Advertisement())
+    @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Search())
+   @{var menus = new UCFramework.Infrastructure.SDK.MenuAPI().GetProductMenu();
+       menus.AddRange(ViewBag.SelfNav);
+           }
+    @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().CategoryNav(menus))
+
+}
+@section FrameFooter
+{
+    @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Footer())
+}
+@RenderBody()
+@section scripts
+{
+    @RenderSection("scripts", required: false)
+}
+@section scriptlink
+{
+    @RenderSection("scriptlink", required: false)
+}
+@section csslink
+{
+    @RenderSection("csslink", required: false)
+}
+
+

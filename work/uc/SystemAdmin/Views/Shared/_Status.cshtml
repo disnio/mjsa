@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+    @if (Session["UCAccountId"] == null)
+            {
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Account/Login">登录</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["ServerReferencePublicPortal"]/Account/createaccount">注册</a></li>
+    }
+    else
+    {
+        <li class="navbar-text"><span class="glyphicon glyphicon-user"></span> 欢迎您 @Session["UCAccountName"]</li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Account/LoginOut">退出</a></li>
+    }
+
+
+
+
+
+

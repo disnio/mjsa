@@ -1,3 +1,10 @@
+https://css-tricks.com/learning-react-redux/
+http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html
+http://www.theodo.fr/blog/2016/03/getting-started-with-react-redux-and-immutable-a-test-driven-tutorial-part-2/
+https://css-tricks.com/learning-react-redux/
+中间件 让你在每个 action 对象分发出去之前，注入一个自定义的逻辑来解释你的 action 对象。
+http://cn.redux.js.org/docs/recipes/ReducingBoilerplate.html     
+------------------
 aria- 开头的 [网络无障碍] 属性
 <div data-custom-attribute="foo" />
 <div dangerouslySetInnerHTML={{__html: 'First &middot; Second'}} />
@@ -29,6 +36,29 @@ React.PropTypes 提供很多验证器 (validator) 来验证传入数据的有效
     children: React.PropTypes.element.isRequired
   },
 getDefaultProps() 可以保证 this.props.value 有默认值
+-------------------------------------------------------------------------
+Redux 就是用来确保 state 变化的可预测性，主要的约束有：
+
+    state 以单一对象存储在 store 对象中
+
+    state 只读
+
+    使用纯函数 reducer 执行 state 更新
+action 可以理解为应用向 store 传递的数据信息
+
+reducer 实际上就是一个函数：(previousState, action) => newState。
+用来执行根据指定 action 来更新 state 的逻辑
+
+combineReducers(reducers) 可以把多个 reducer 合并成一个 root reducer
+
+store 是一个单一对象：
+    管理应用的 state
+    通过 store.getState() 可以获取 state
+    通过 store.dispatch(action) 来触发 state 更新
+    通过 store.subscribe(listener) 来注册 state 变化监听器
+    通过 createStore(reducer, [initialState]) 创建
+
+
 ------
 mixin
 var React = require('react');

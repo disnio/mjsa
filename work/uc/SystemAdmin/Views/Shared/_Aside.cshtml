@@ -1,0 +1,70 @@
+﻿@{
+    var Menus = new UCFramework.Infrastructure.SDK.MenuAPI().GetAsideMenu();
+    long CurrentSecondLevelItem = SessionHelper.Nav.SecondLevelID;
+
+}
+
+<ul class="nav nav-pills nav-stacked frameaside menu">
+@{
+    var roots = Menus.Where(t => (!t.ParentID.HasValue || t.ParentID == 0)).ToList();
+    var sub = roots;
+    if (roots != null && roots.Count > 0)
+    {
+        foreach (var item in roots)
+        {
+            <li data-submenu-id="@item.ID">
+            @{
+                sub = Menus.Where(t => t.ParentID == item.ID).ToList();
+
+                
+                if (@sub.Count() == 0)
+                {
+                    <a href="@item.MenuUrl">@item.MenuName</a>
+                }
+                else
+                {
+                    <a href="#@(item.ID)collapse">@item.MenuName</a>
+                }
+                
+
+                if (sub != null && sub.Count > 0)
+                {
+                    @Html.Partial("_PartialAside", sub)
+                }
+            }
+            </li>
+        }
+    }
+}
+
+ </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

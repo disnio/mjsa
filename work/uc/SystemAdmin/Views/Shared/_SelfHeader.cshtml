@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+<header>
+    <div class="navbar-default info_tel">
+        <div class="container container_nobj">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <p class="navbar-text">客服电话：010-57113461</p>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-2">
+                <ul class="nav navbar-nav">
+                    @if (Session["UCAccountId"] == null)
+                    {
+                        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Account/Login?FromAPP=@Request.Url">登录</a></li>
+                        <li><a href="@string.Format("{0}{1}",System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"],"/Account/Register")">注册</a></li>
+                    }
+                    else
+                    {
+                        <li class="navbar-text"><span>欢迎您 @Session["UCAccountName"]</span></li>
+                        <li><a href="~/admin/auditactive">后台管理</a></li>
+                        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Account/LoginOut?FromAPP=@Request.Url">[退出]</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

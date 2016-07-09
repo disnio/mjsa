@@ -1,0 +1,32 @@
+﻿@model List<UCFramework.Infrastructure.SDK.MenuAPI.Menu>
+
+@{
+
+    var all = new UCFramework.Infrastructure.SDK.MenuAPI().GetCategoryNavMenu();
+
+    var roots = Model;
+    var sub = roots;
+
+    <div id="@(Model[0].ParentID)collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="@Model[0].ParentID">
+        <ul class="list-group">
+            @foreach (var menu in Model)
+            {
+                <li class="list-group-item"><a href="@menu.MenuUrl">@Html.Raw(menu.MenuName)</a></li>
+
+
+                sub = all.Where(t => t.ParentID == menu.ID).ToList();
+
+                if (sub != null && sub.Count > 0)
+                {
+
+                    @Html.Partial("_CategorypartialAside", sub)
+                }
+            }
+        </ul>
+    </div>
+
+
+}
+
+
+

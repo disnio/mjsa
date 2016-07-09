@@ -1,3 +1,8 @@
+npm info graceful-fs -v
+npm i graceful-fs@latest
+npm i graceful-fs@4.1.4
+
+npm list graceful-fs
 npm search yeoman-generator,  gulp
 https://github.com/gerlocian/generator-simple-web-prototype
 https://www.npmjs.com/package/generator-gulp-livereload

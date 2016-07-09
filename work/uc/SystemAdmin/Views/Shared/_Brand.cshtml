@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+
+<header>
+    @*<div class="page-header">*@
+
+    <div class="navbar-default framenav">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferencePublicPortal"])">
+                    <img alt="Brand" src="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Content/brandinverse.png">
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-3">
+                <ul class="nav navbar-nav">
+                    @*  @Html.Partial("_Status")*@
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</header>
+
+

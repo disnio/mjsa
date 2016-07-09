@@ -296,6 +296,7 @@ module.exports = {
             {test: /\.s?css$/, loader: 'style!css!sass?includePaths[]=' + bourbon },
             loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
             loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
+            loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader", { publicPath: "../" })
             // node-sass Values: `nested`, `expanded`, `compact`, `compressed`
             loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true')
 
@@ -329,6 +330,8 @@ module.exports = {
             //.js 文件使用 jsx-loader 来编译处理
             // "include" is commonly used to match the directories
             { test: /\.js$/, loader: 'jsx-loader?harmony' },
+            loaders: ["ng-annotate", 'babel?presets[]=es2015,plugins[]=add-module-exports'],
+            // http://survivejs.com/webpack/advanced-techniques/configuring-react/
             { 
                 test: /\.jsx?$/,
                 loaders: ['react-hot', 'jsx?harmony'],
@@ -345,13 +348,13 @@ module.exports = {
             { test: /\.coffee$/, loader: "coffee" }
             {
                 loader : 'babel-loader',
-                loader: "ng-annotate?add=true!babel"
+                loader: "ng-annotate?add=true!babel",
                 // "exclude" should be used to exclude exceptions
                 // exclude: /(node_modules|bower_components)/,
                 exclude: [
                     //在node_modules的文件不被babel理会
                     path.resolve(__dirname, 'node_modules'),
-                ]，
+                ],
                 include: [
                     //指定app这个文件里面的采用babel
                     path.resolve(__dirname, 'app'),
@@ -365,39 +368,48 @@ module.exports = {
                     presets: ['es2015', 'stage-0', 'react']
                 }
             },
+            {
+                test: /\.htc$/, //ie8的部分css3的修复
+                loader: 'file-loader?name=pie/[name].[ext]'
+            },
             //图片文件使用 url-loader 来处理，小于8kb的直接转为base64
             {
                 test: /\.(png|jpe?g|gif|svg)$/i,
                 loader: 'url-loader?limit=8192&name=build/[name].[ext]'
-                    // hash:8的意思是取图片内容hashsum值的前8位，这样做能够保证引用的是图片资源的最新修改版本，保证浏览器端能够即时更新。
-                loaders: [
+                loader: 'file?name=[path][name].[hash].[ext]',
+                loader: [
                     'image?{bypassOnDebug: true, progressive:true, \
                       optimizationLevel: 3, pngquant:{quality: "65-80"}}',
-                    'url?limit=10000&name=img/[hash:8].[name].[ext]',
+
+                    'url?limit=10000&name=img/[path][hash:8].[name].[ext]',
                 ]
             },
             {
-                test: /\.(woff|eot|ttf)$/i,
-                loader: 'url?limit=10000&name=fonts/[hash:8].[name].[ext]'
-            }, 
-            {
-                test: [/fontawesome-webfont\.svg/, /fontawesome-webfont\.eot/, /fontawesome-webfont\.ttf/, /fontawesome-webfont\.woff/, /fontawesome-webfont\.woff2/],
-                loader: 'file?name=fonts/[name].[ext]'
-            }, {
-                test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url?limit=10000&mimetype=application/font-woff"
-            }, {
-                test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url?limit=10000&mimetype=application/font-woff"
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'url',
+                query: {
+                    prefix: 'font/',
+                    limit: 50000,
+                    mimetype: 'application/font-woff',
+                    name: './fonts/[hash:8].[name].[ext]'
+                }
             }, {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url?limit=10000&mimetype=application/octet-stream"
+                loader: "url"
+                query: {
+                    limit: 10000,
+                    mimetype: 'application/octet-stream'
+                }
             }, {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
                 loader: "file"
             }, {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url?limit=10000&mimetype=image/svg+xml"
+                loader: "url"
+                query: {
+                    limit: 10000,
+                    mimetype: 'image/svg+xml'
+                }
             }, 
             // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
             // var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
@@ -423,6 +435,7 @@ module.exports = {
 
         ]
     }
+    postcss: [require('autoprefixer')({ browsers: ['last 2 versions'] })],
     // webpack在构建包的时候会按目录的进行文件的查找，
     // resolve属性中的extensions数组中用于配置程序可以自行补全哪些文件后缀：
     // resolve: {
@@ -470,8 +483,14 @@ module.exports = {
     singleRun: true,
     plugins: [
         webpackIsomorphicToolsPlugin
-        // var CleanPlugin = require('clean-webpack-plugin');
-        new CleanPlugin([relativeAssetsPath]),
+        // var CleanWebpackPlugin = require('clean-webpack-plugin');
+        new CleanWebpackPlugin([path], {
+            // Without `root` CleanWebpackPlugin won't point to our
+            // project and will fail to work.
+            root: process.cwd(),
+            "verbose": true, // Write logs to console.
+            "dry": false, // Do not delete anything, good for testing.
+        })
         // bower.json resolving
         new webpack.ResolverPlugin([
           new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
@@ -619,7 +638,19 @@ var nodeEnvironment = process.env.NODE_ENV
 switch (nodeEnvironment) {
   case 'production':
     config.output.path = __dirname + '/dist';
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            mangle: {
+                // Mangle matching properties
+                // props: /matching_props/,
+                // Don't mangle these
+                except: [
+                    'Array', 'BigInteger', 'Boolean', 'Buffer'
+                ]
+            }
+        }));
     config.plugins.push(new webpack.optimize.DedupePlugin());
     config.plugins.push(new webpack.optimize.OccurenceOrderPlugin());
     config.plugins.push(new webpack.optimize.CommonsChunkPlugin({name: 'vendor', minChunks: Infinity}));
