@@ -19,7 +19,7 @@ var App = angular.module('app', ['ui.router', 'oc.lazyLoad'])
                 resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
                     loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                         // you can lazy load files for an existing module
-                        return $ocLazyLoad.load('js/AppCtrl.js');
+                        return $ocLazyLoad.load(['js/AppCtrl.js', 'js/gridModule.js']);
                     }]
                 }
             })
@@ -64,14 +64,14 @@ var App = angular.module('app', ['ui.router', 'oc.lazyLoad'])
         $locationProvider.html5Mode(false);
 
         // We configure ocLazyLoad to use the lib script.js as the async loader
-        $ocLazyLoadProvider.config({
-            //debug: true,
-            //events: true,
-            modules: [{
-                name: 'gridModule',
-                files: [
-                    'js/gridModule.js'
-                ]
-            }]
-        });
+        // $ocLazyLoadProvider.config({
+        //     //debug: true,
+        //     //events: true,
+        //     modules: [{
+        //         name: 'gridModule',
+        //         files: [
+        //             'js/gridModule.js'
+        //         ]
+        //     }]
+        // });
     });

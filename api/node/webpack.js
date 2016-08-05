@@ -1,3 +1,5 @@
+关于打包：就是要把多个js和css合并成一个文件。快速开发时候可以引入html插件直接注入打包后的文件。
+也可以不用注入，通过gulp来分开生成css或进行动态刷新。
 // 注意里面 jQuery 的书写
 // 引用的组件都应该是 node_modules 里面的。bower 的不行，没有 module.exports
 (function (factory) {
