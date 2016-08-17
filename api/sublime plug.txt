@@ -13,3 +13,28 @@ html/css
 color picker
 java velocity
 javascript nodejs snippet
+------------------------------------------
+http://blog.jobbole.com/82527/
+ctrl + alt + j 带注释新文档（冲突可能）
+alt + f3 所有匹配项
+ctrl + enter 行后
+ctrl + kk, + k backspace 删除到尾， 到行头
+ctrl + ku/l 大小写
+ctrl + up 数字加减
+
+alt + down 小数位加减
+shift + alt + up 加减10
+ctrl + left 跳单词 + shift 加选单词
+ctrl + alt + enter 缩写输入框
+ctrl + alt + left 编辑点
+
+ctrl + shift + enter 插入行前 
+ctrl + shift + m 选择括号内容
+ctrl + shift + ' 选择标签
+ctrl + shift  + ; 删除标签
+ctrl + shift + . 选下一项
+shift + ctrl + y 计算数学表达
+ctrl + shift + g 键入包裹标签
+ctrl + shift + u 更改包裹标签
+
+
