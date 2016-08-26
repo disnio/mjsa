@@ -60,64 +60,69 @@
 
 @using (Html.BeginForm("OrganizationFinancingPartyList", "CFFinancingParty", FormMethod.Post, new { role = "form", id = "form1" }))
 {
-    <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
-        <tr>
-            <td>创建时间</td>
-            <td>@Html.TextBoxFor(model => model.CreationTime, new { @class = "Wdate input-control", @onClick = "WdatePicker({readOnly:true})" })</td>
-            <td>机构名称</td>
-            <td>@Html.TextBoxFor(model => model.Name, new { @class = "input-control" })</td>
-
-        </tr>
-
-        <tr>
-            <td>状态</td>
-            <td colspan="3">@Html.DropDownListFor(model => model.Status, ViewBag.StatusList as IEnumerable<SelectListItem>, new { @class = "input-control" })</td>
-        </tr>
-        <tr>
-            <td colspan="4" align="right"><input type="submit" id="btnSearch" value="查询" class="btn btn-default" /></td>
-        </tr>
-    </table>
+    <div class="panel panel-default section-filter">
+        <div class="panel-body form-horizontal collapse in" id="sectionfilter">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">机构名称：</label>
+                <div class="col-sm-5">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                </div>
+                <label class="col-sm-1 control-label">状态：</label>
+                <div class="col-sm-5">
+                    @Html.DropDownListFor(model => model.Status, ViewBag.StatusList as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">创建时间：</label>
+                <div class="col-sm-5">
+                    @Html.TextBoxFor(model => model.CreationTime, new { @class = "Wdate form-control", @onClick = "WdatePicker({readOnly:true})" })
+                </div>
+            </div>
+            <div class="form-group line-top">
+                <div class="btn-group" role="group" aria-label="...">
+                    <input type="submit" id="btnSearch" value="查询" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
-<table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
-    <tr><th>创建时间</th><th>机构名称</th><th>个人说明</th><th>状态</th><th style="display:none;">详细信息</th><th>操作</th></tr>
-
-    @foreach (var item in ViewBag.SearchList)
-    {
-        <tr>
-            <td>
-                @item.CreationDate.ToString("yyyy-MM-dd")
-            </td>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @item.Introduction
-            </td>
-            <td>
-                @(@item.Status==null?string.Empty:item.Status.Name)
-            </td>
-            <td style="display:none;">
-                <a href="#" class="partyListDetail" data-lid="@item.Owner.LID">详细信息</a>
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})*@
-                @{
-                    if (item.Status!=null && item.Status.Value == "Apply")
-                    {
-                        <a onclick="DoAction(@item.LID, @CFFinancingPartyStatus.Get("Auditing").ID);" href="#">审核</a>
+<table class="table section-table table-bordered table-hover table-striped table-condensed">
+    <thead>
+        <tr><th>机构名称</th><th>个人说明</th><th>创建时间</th><th>状态</th><th>操作</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.SearchList)
+        {
+            <tr>
+                <td class="center">
+                    @item.Name
+                </td>
+                <td>
+                    @item.Introduction
+                </td>
+                <td class="center">
+                    @item.CreationDate.ToString("yyyy-MM-dd")
+                </td>
+                <td class="center">
+                    @(@item.Status == null ? string.Empty : item.Status.Name)
+                </td>
+                <td class="center">
+                    @{
+                        if (item.Status != null && item.Status.Value == "Apply")
+                        {
+                            <a onclick="DoAction(@item.LID, @CFFinancingPartyStatus.Get("Auditing").ID);" href="#">审核</a>
+                        }
+                        else if (item.Status != null && item.Status.Value == "Auditing")
+                        {
+                            <a onclick="DoAction(@item.LID, @CFFinancingPartyStatus.Get("Passed").ID);" href="#">通过</a>
+                            <a onclick="DoAction(@item.LID, @CFFinancingPartyStatus.Get("Denied").ID);" href="#">拒绝</a>
+                        }
                     }
-                    else if (item.Status != null && item.Status.Value == "Auditing")
-                    {
-                        <a onclick="DoAction(@item.LID, @CFFinancingPartyStatus.Get("Passed").ID);" href="#">通过</a>
-                        <a onclick="DoAction(@item.LID, @CFFinancingPartyStatus.Get("Denied").ID);" href="#">拒绝</a>
-                    }
-                }
-            </td>
-        </tr>
-    }
+                </td>
+            </tr>
+                        }
+    </tbody>
 </table>
 
 <div id="detailDialog" class="modal fade">
@@ -146,11 +151,11 @@
                 type: 'post',
                 url: 'Update?id=' + id + '&status=' + status,
 
-                success: function(data) {
+                success: function (data) {
                     alert('操作成功');
                     $("#form1").submit();
                 },
-                error: function() {
+                error: function () {
                     alert('操作失败');
                 }
 
@@ -158,5 +163,4 @@
         }
     }
 </script>
-
 

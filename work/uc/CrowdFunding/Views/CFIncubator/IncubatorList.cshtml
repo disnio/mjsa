@@ -1,30 +1,22 @@
 ﻿@model ZCPT.CrowdFunding.Web.Models.CFIncubatorModule.IncubatorViewModel
 @using ZCPT.CrowdFunding.Entity.CFIncubatorModule
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+    ViewBag.Title = "合作伙伴申请列表";
 }
 
-<!DOCTYPE html>
 
-<html>
 
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>合作伙伴申请列表</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
-    <meta name="keywords" content="">
-    <meta name="description" content="安全、高效的融资服务">
-
-    @*base*@
-    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+ 
+ 
     <link href="~/Content/css/btn.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/admin.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/css/pager.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/common.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="~/Scripts/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+
+
     <script type="text/javascript" src="~/Scripts/js/uclib.js"></script>
 
     <script type="text/javascript" src="~/Scripts/js/jquery.plugz.js"></script>
@@ -64,9 +56,9 @@
             });
         }
     </script>
-</head>
 
-<body>
+
+
     <script id="incubatorDetailTemplate" type="text/template">
         <table border="0" cellpadding="0" cellspacing="1" class="tab1" width="100%">
             <tr>
@@ -113,45 +105,8 @@
             </tr>
         </table>
     </script>
-    <div class="adminFrame">
-        <div class="header">
-            <div class="imgLogo">后台系统</div>
-            <div class="welcome">欢迎您，admin</div>
-        </div>
-        <div class="mainMenu">
-            <h2 class="kindTop">功能菜单</h2>
-            <ul id="mainnav-menu" class="list-group">
-
-                <!--Menu list item-->
-                <li>
-                    <a href="javascript:void(0);" class="title">
-                        <i class="fa fa-cube"></i>
-                        <span class="menu-title">咨询管理</span>
-
-                    </a>
-                    <!--Submenu-->
-                    <ul class="collapse in">
-                        <li><i class="fa fa-angle-right"></i><a href="~/CFNews/CreateNews">新建资讯</a></li>
-                        <li><i class="fa fa-angle-right"></i><a href="~/CFNews/ManagerNewsList">维护资讯</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" class="title">
-                        <i class="fa fa-cube"></i>
-                        <span class="menu-title">合作伙伴管理</span>
-
-                    </a>
-                    <!--Submenu-->
-                    <ul class="collapse in">
-                        <li><i class="fa fa-angle-right"></i><a href="~/CFIncubator/IncubatorList">审批合作伙伴申请</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-        </div>
-
-        <div class="mainContents">
-            @*<div class="scrol-page k1120 mainContent clearfix">*@
+    
+          
             <div class="clearfix">
                 @using (Html.BeginForm("IncubatorList", "CFIncubator", FormMethod.Post, new { role = "form", id = "form1" }))
                 {
@@ -248,8 +203,7 @@
                     }
                 </table>
             </div>
-        </div><!--main Containt-->
-    </div><!--adminFrame-->
+
 
     <div id="detailDialog" class="modal fade">
         <div class="modal-dialog">
@@ -267,5 +221,4 @@
             </div><!--modal-content -->
         </div><!--modal-dialog -->
     </div><!--modal -->
-</body>
-</html>
+

@@ -1,14 +1,16 @@
 /* 
  * @Author: Allen
  * @Date:   2016-01-13 09:37:24
- * @Last Modified by:   anchen
- * @Last Modified time: 2016-03-14 14:20:12
+ * @Last Modified by:   Allen
+ * @Last Modified time: 2016-08-04 13:30:26
  */
 
 'use strict';
-require(['jquery', '_', './js/uc.ut', "text!tpl/infoList.html"],
-    function($, _, UT, infoList) {
+require(['ut', "text!tpl/infoList.html"],
+    function(UT, infoList) {
         var optInfoList = {
+            baseUrl: ucConfig.ServerReferenceJavaScript,
+            dataType: 'json',
             "name":  '/CFNews/ListTop',
             "data": ''
         };

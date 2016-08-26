@@ -1,51 +1,24 @@
 ﻿@model ZCPT.CrowdFunding.Web.Models.CFNewsModule.CFNewsModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+
+
     <script language="javascript" type="text/javascript" src="~/Tools/My97DatePicker/WdatePicker.js"></script>
     <link href="~/Tools/UMEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
     <link href="~/Content/css/btn.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/admin.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="~/Tools/UMEditor/third-party/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/Tools/UMEditor/umeditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/Tools/UMEditor/umeditor.min.js"></script>
     <script type="text/javascript" src="~/Tools/UMEditor/lang/zh-cn/zh-cn.js"></script>
     <script type="text/javascript">$(function () { UM.getEditor('Contents').setShow(); });</script>
     @Scripts.Render("~/bundles/jqueryval")
-</head>
-<body>
 
-    <div class="adminFrame">
-        <div class="header">
-            <div class="imgLogo">后台系统</div>
-            <div class="welcome">欢迎您，admin</div>
-        </div>
-        <div class="mainMenu">
-            <h2 class="kindTop">功能菜单</h2>
-            <ul id="mainnav-menu" class="list-group">
-                <!--Menu list item-->
-                <li>
-                    <a href="javascript:void(0);" class="title">
-                        <i class="fa fa-cube"></i>
-                        <span class="menu-title">咨询管理</span>
-                    </a>
-                    <!--Submenu-->
-                    <ul class="collapse">
-                        <li><i class="fa fa-angle-right"></i><a href="~/CFNews/CreateNews">新建资讯</a></li>
-                        <li><i class="fa fa-angle-right"></i><a href="~/CFNews/ManagerNewsList">维护资讯</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="mainContents">
-            <div class="contentIn">
+
+
+         
                 <div class="pageColumn">创建新闻</div>
                 @using (Html.BeginForm("CreateNews", "CFNews", FormMethod.Post, new { role = "form" }))
                 {
@@ -98,12 +71,10 @@
                     </table>
                 }
 
-            </div>
-        </div>
-    </div>
+            
+   
 
-</body>
-</html>
+
 <script type="text/javascript">
 
     function btnBindValue() {

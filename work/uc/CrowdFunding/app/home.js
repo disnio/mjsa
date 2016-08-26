@@ -1,13 +1,13 @@
 /* 
  * @Author: Allen
  * @Date:   2016-01-13 09:37:24
- * @Last Modified by:   anchen
- * @Last Modified time: 2016-03-14 14:20:12
+ * @Last Modified by:   Allen
+ * @Last Modified time: 2016-05-31 10:37:06
  */
 
 
 'use strict';
-require(['jquery', '_', 'ut' ,'loading'], function($, _, UT, purl, loading) {
+require(['ut' ,'loading'], function(UT, purl, loading) {
     $(function() {
         // 轮播
         var optSlide = {

@@ -1,13 +1,13 @@
 /* 
  * @Author: Allen
  * @Date:   2016-01-13 15:03:07
- * @Last Modified by:   anchen
- * @Last Modified time: 2016-03-14 14:20:12
+ * @Last Modified by:   Allen
+ * @Last Modified time: 2016-05-31 10:37:06
  */
 
 'use strict';
-require(['jquery', '_', './js/uc.ut', "text!tpl/myInvestedProjectList.html"],
-    function($, _, UT, myInvestedProjectList) {
+require(['ut', "text!tpl/myInvestedProjectList.html"],
+    function(UT, myInvestedProjectList) {
 
     //  投资人 项目认投管理 CrowdFundingWeb/CFInvestorModel/CMyProjects 我跟投的项目
     var optMyInvestedProjectList = {

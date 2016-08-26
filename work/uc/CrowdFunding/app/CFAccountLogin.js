@@ -1,12 +1,12 @@
 /* 
  * @Author: Allen
  * @Date:   2016-01-13 15:03:07
- * @Last Modified by:   anchen
- * @Last Modified time: 2016-01-26 11:17:30
+ * @Last Modified by:   Allen
+ * @Last Modified time: 2016-05-31 10:37:05
  */
 
 'use strict';
-require(['jquery', '_', './js/uc.ut', 'purl', "validate"], function($, _, UT, purl, validate) {
+require(['ut', 'purl', "validate"], function(UT, purl, validate) {
     var url = purl();
     var errmsg = url.param("ErrorMsg") || '';
     var qr = url.attr('query');

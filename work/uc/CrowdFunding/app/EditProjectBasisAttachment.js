@@ -1,4 +1,4 @@
-define(['jquery', 'jquery.fileupload', 'jquery.migrate'], function($) {
+define(['jquery.fileupload', 'jquery.migrate'], function($) {
     $(function() {
         var ifopt = {
             iframe: true,

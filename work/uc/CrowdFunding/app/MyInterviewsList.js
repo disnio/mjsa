@@ -1,12 +1,12 @@
 /* 
  * @Author: allen
  * @Date:   2016-01-05 15:52:00
- * @Last Modified by:   anchen
- * @Last Modified time: 2016-03-14 14:20:12
+ * @Last Modified by:   Allen
+ * @Last Modified time: 2016-05-31 10:37:06
  */
 
-require(['jquery', '_', './js/uc.ut', 'purl', "moment","text!tpl/myInterviewsList_Yt.html", "maxlength", "jPages"],
-    function($, _, UT, purl, moment, yt) {
+require(['ut', 'purl', "moment","text!tpl/myInterviewsList_Yt.html", "maxlength", "jPages"],
+    function(UT, purl, moment, yt) {
         $('.rtextarea').maxlength({
             maxCharacters: 50,
             statusText: " 字符剩下"

@@ -2,11 +2,11 @@
  * @Author: Allen
  * @Date:   2016-01-13 09:37:24
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-05-26 15:10:51
+ * @Last Modified time: 2016-05-31 10:37:41
  */
 'use strict';
-require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/Interviews.html", "loading", "jPages"],
-    function($, _, UT, UI, purl, moment, InterviewsTpl) {
+require(['ut', 'ui', 'purl', "moment", "text!tpl/Interviews.html", "loading", "jPages"],
+    function(UT, UI, purl, moment, InterviewsTpl) {
         // 约谈列表
         $(function() {
             var url = purl();

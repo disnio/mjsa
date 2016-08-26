@@ -2,12 +2,12 @@
  * @Author: anchen
  * @Date:   2016-01-13 15:03:07
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-04-14 16:48:22
+ * @Last Modified time: 2016-05-31 10:37:07
  */
 
 'use strict';
-require(['jquery', '_', './js/uc.ut', 'purl', "text!tpl/NewsList_News.html", "loading"],
-    function($, _, UT, purl, hnews) {
+require(['ut', 'purl', "text!tpl/NewsList_News.html", "loading"],
+    function(UT, purl, hnews) {
         // 最新资讯
         var optHotNews6 = {
             "name":  '/cfnews/list',

@@ -2,11 +2,11 @@
  * @Author: Allen
  * @Date:   2016-01-13 15:03:07
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-05-27 14:30:08
+ * @Last Modified time: 2016-08-04 13:35:03
  */
 // 'use strict';
-require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/getProjectBasic_Info.html", "loading", "maxlength", 'jPages'],
-    function($, _, UT, UI, purl, moment, basicInfo) {
+require(['ut', 'ui', 'purl', "moment", "text!tpl/getProjectBasic_Info.html", "loading", "maxlength", 'jPages'],
+    function(UT, UI, purl, moment, basicInfo) {
         $(function() {
 
             var url = purl();
@@ -16,6 +16,8 @@ require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/
             var CreatorName = '';
             // 项目基本信息
             var xmopt = {
+                baseUrl: ucConfig.ServerReferenceJavaScript,
+                dataType: 'json',
                 "name": '/CFProject/GetProjectBasis/',
                 "data": {
                     id: bid
@@ -76,6 +78,7 @@ require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/
                 }
                 // 跨域需要jsonp
                 var ytopt = {
+                    baseUrl: ucConfig.ServerReferenceJavaScript,
                     "name": '/cfinvestingparty/IsInterviews',
                     "data": {
                         'projectId': bid,
@@ -86,12 +89,14 @@ require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/
 
                 UT.jaxJson(ytopt).then(function(data) {
                     if (data === true) {
-                        UI.inTip("已经约谈过了");
-                        return;
-                    } else {
                         $("#inProTxt").val('');
                         $(".cytname").text(CreatorName);
                         ytDialog.width(600).show();
+
+                    } else {
+
+                        UI.inTip("已经约谈过了");
+                        return;
                     }
                 });
 
@@ -127,6 +132,8 @@ require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/
 
             // 融资金额及进度
             var rzopt = {
+                baseUrl: ucConfig.ServerReferenceJavaScript,
+                dataType: 'json',
                 "name": '/CFProject/GetPorojectFinancingInfo/' + bid,
                 "data": ''
             };
@@ -167,8 +174,9 @@ require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/
 
             // 项目创建者信息
             var pjOpt = {
+                baseUrl: ucConfig.ServerReferenceJavaScript,
                 "name": '/CFFinancingParty/GetProjectFinancingParty?id=' + bid,
-                "dataType": "jsonp",
+                "dataType": "json",
             };
 
             // 发私信

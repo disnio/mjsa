@@ -2,18 +2,17 @@
  * @Author: Allen
  * @Date:   2015-12-04 15:03:07
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-04-19 14:54:21
+ * @Last Modified time: 2016-08-12 15:25:00
  */
 
 'use strict';
-require(['jquery', '_', 'ut', 'purl', "loading", "smartpaginator", "imgLiquid"],
-    function($, _, UT) {
+require(['ut', 'purl', "loading", "smartpaginator", "imgLiquid"],
+    function(UT) {
         // 获取分类检索的城市
         var optxmcity = {
             "name": '/CFProject/ProjectsCityList',
             "data": '',
-            dataType:"jsonp",
-            
+            dataType:"json",            
         };
 
         UT.jaxJson(optxmcity).then(function(data) {

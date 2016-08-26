@@ -1,18 +1,16 @@
-bracket highlighter
 goto css
 js format
 tag
 alignment
 css 格式化
-gosublime
-sumlimeTmpl
-sumlimeCodeinter
-sumlimeLinter
-html/css
-
 color picker
 java velocity
-javascript nodejs snippet
+ExpandRegion
+doxydoxygen
+fileheader
+markdown preview/edit
+sassbeautify
+csscomb
 ------------------------------------------
 http://blog.jobbole.com/82527/
 ctrl + alt + j 带注释新文档（冲突可能）
@@ -27,14 +25,18 @@ shift + alt + up 加减10
 ctrl + left 跳单词 + shift 加选单词
 ctrl + alt + enter 缩写输入框
 ctrl + alt + left 编辑点
+ctrl + alt + down 添加下一行
 
 ctrl + shift + enter 插入行前 
 ctrl + shift + m 选择括号内容
+ctrl + ' 选择引号内
 ctrl + shift + ' 选择标签
 ctrl + shift  + ; 删除标签
 ctrl + shift + . 选下一项
 shift + ctrl + y 计算数学表达
 ctrl + shift + g 键入包裹标签
 ctrl + shift + u 更改包裹标签
+ctrl + shift + c css排序
+
 
 

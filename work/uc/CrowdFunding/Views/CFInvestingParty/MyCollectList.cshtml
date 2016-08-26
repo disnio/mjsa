@@ -19,44 +19,75 @@ var AccountID = '@SessionHelper.Identity.Account.ID';
     <div class="clear"></div>
 </div>
 
-<div id="tagContent">
     @foreach (var item in Model)
     {
-        <div class="cbInner">
-            <div class="thumbnail fl">
-                <a href="~/CFProject/GetProjectBasis?id=@item.ProjectID"><img src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"] + "/fileupload/ImgDownload/"+ item.ProjectPicture)" alt="" /></a>
+        <div class="media-list">
+            <div class="media section-media-large">
+                <div class="media-left">
+                    <a href="~/CFProject/GetProjectBasis?id=@item.ProjectID">
+                        <img alt="" class="media-object img-thumbnail" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"] + "/fileupload/ImgDownload/"+ item.ProjectPicture)" />
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        @item.ProjectName
+                        <span class="label label-info pull-right">
+                            <span class="arrow-left"></span>
+                            @item.ProjectStatus
+                        </span>
+                    </h4>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">行业：</label>
+                            <div class="col-sm-4 form-control-static">
+                              @item.IndustryName
+                            </div>
+                            <label class="col-sm-2 control-label">地区：</label>
+                            <div class="col-sm-4 form-control-static">
+                             @item.ProjectCity
+                            </div>
+                            <label class="col-sm-2 control-label">融资金额：</label>
+                            <div class="col-sm-4 form-control-static">
+                                @(item.PlanAmount)万
+                            </div>
+                            <label class="col-sm-2 control-label">已融金额：</label>
+                            <div class="col-sm-4 form-control-static">
+                                @(item.FinishedAmount)万
+                            </div>
+                            <label class="col-sm-2 control-label">起投金额：</label>
+                            <div class="col-sm-4 form-control-static">
+                                @(item.MinInvestAmount)万
+                            </div>
+                            <label class="col-sm-2 control-label">认投完成率：</label>
+                            <div class="col-sm-4 form-control-static">
+                                @item.FinishedRate
+                            </div>
+                            <label class="col-sm-2 control-label">发布时间：</label>
+                            <div class="col-sm-10 form-control-static">
+                               @item.ProjectCreateDate.ToString("yyyy-MM-dd")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-info">
+                        <label>项目简介：</label>@Html.Raw((string)item.ProjectContents)
+                    </div>
+                </div>
+                <div class="media-bottom">
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <a href="../CFMyProjects/ProjectLeadInvestmentApply/@item.ProjectID" class="btn btn-default"><i class="fa fa-user-secret"></i> 我要领投</a>
+                            <a href="../CFMyProjects/ProjectFollowInvestmentApply/@item.ProjectID" class="btn btn-default"><i class="fa fa-user-plus"></i> 我要跟投</a>
+                            <a href="javascript:void(0);" class="inProBtn btn btn-default" data-pid="@item.ProjectID" data-pname="@item.ProjectCreateName">
+                                <i class="fa fa-tty"></i> 约谈项目方
+                            </a>
+                            <a id="cCollProBtn" href="javascript:void(0);" class="btn btn-default"><i class="fa fa-star"></i>取消收藏</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="summary fr">
-                <ul>
-                    <li class="colTitle ct_2"><a href="~/CFProject/GetProjectBasis?id=@item.ProjectID">@item.ProjectName</a></li>
-                    <li>
-                        融资金额:<em class="bg_1"><i class="fa fa-rmb" style="margin-right: 5px; padding-left:5px;vertical-align: middle;"></i>@item.PlanAmount</em>
-                        已融金额:<em class="bg_2"><i class="fa fa-rmb" style="margin-right: 5px; padding-left:5px;vertical-align: middle;"></i> @item.FinishedAmount</em>
-                    </li>
-                    <li>
-                        起投金额:<span class="f_ora ct_8" style="padding-right: 20px;">@item.MinInvestAmount</span>认投完成率：<span class="f_ora ct_8">@item.FinishedRate</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="clearfix"></div>
-            <ul class="detailList">
-                <li><i class="fa fa-caret-right"></i> 地区：@item.ProjectCity<span class="pad_01">行业：@item.IndustryName</span><span class="pad_01">@item.ProjectStatus</span></li>
-                <li>
-                    <i class="fa fa-chevron-circle-right ct_7"></i>
-                    <span class="ct_7"> 项目简介：</span>@Html.Raw((string)@item.ProjectContents)
-                </li>
-                <li class="date ct_4"><i class="fa fa-clock-o"></i>发布时间：@item.ProjectCreateDate.ToString("yyyy-MM-dd")</li>
-                <li class="ProjectCreateName">@item.ProjectCreateName</li>
-            </ul>
-            <a href="../CFMyProjects/ProjectLeadInvestmentApply/@item.ProjectID" class="btn btn-warning"><i class="fa fa-user-secret"></i> 我要领投</a>
-            <a href="../CFMyProjects/ProjectFollowInvestmentApply/@item.ProjectID" class="btn btn-warning"><i class="fa fa-user-plus"></i> 我要跟投</a>
-            <a href="javascript:void(0);" class="inProBtn btn btn-warning" data-pid="@item.ProjectID" data-pname="@item.ProjectCreateName">
-                <i class="fa fa-tty"></i> 约谈项目方
-            </a>
-            <a id="cCollProBtn" href="javascript:void(0);" class="btn btn-warning"><i class="fa fa-star"></i>取消收藏</a>
         </div>
     }
-</div>
+
 <!-- 约谈项目方弹出框 -->
 <div id="inProModal" class="panel panel-default">
     <div class="panel-body">

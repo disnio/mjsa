@@ -1,13 +1,13 @@
 /* 
 * @Author: anchen
 * @Date:   2016-01-13 15:03:07
-* @Last Modified by:   anchen
-* @Last Modified time: 2016-03-14 14:20:12
+* @Last Modified by:   Allen
+* @Last Modified time: 2016-05-31 10:37:05
 */
 
 'use strict';
-require(['jquery', '_', './js/uc.ut', 'purl', "moment", "text!tpl/dynamicDetail.html"],
-    function ($, _, UT, purl, moment, detailtpl) {
+require(['ut', 'purl', "moment", "text!tpl/dynamicDetail.html"],
+    function (UT, purl, moment, detailtpl) {
         var url = purl();
         var id = url.param("id");
 

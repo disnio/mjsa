@@ -6,8 +6,8 @@
  */
 
 'use strict';
-require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/comment/owner.html", "text!tpl/comment/commer.html",  "jPages", "maxlength"],
-    function($, _, UT, UI, purl, moment, owner, commer) {
+require(['ut', 'ui', 'purl', "moment", "text!tpl/comment/owner.html", "text!tpl/comment/commer.html", "jPages", "maxlength"],
+    function(UT, UI, purl, moment, owner, commer) {
         $(function() {
             // 临时图片，以后消除
             var base = purl($("#linkbase").attr("href")).segment(1);
@@ -257,13 +257,14 @@ require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/
 
             var url = purl();
 
-            var projectId = parseInt( url.param("id") || url.segment(-1), 10);
+            var projectId = parseInt(url.param("id") || url.segment(-1), 10);
             var optgetC = {
+                "baseUrl": ucConfig.ServerReferenceCrowdFundingAPI,
                 "name": '/CFProject/GetProjectComments',
                 "data": {
                     id: projectId
                 },
-                "dataType": 'jsonp'
+                "dataType": 'json'
             };
             var regEvent = function() {
                 function combover(event) {
@@ -318,9 +319,9 @@ require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/
                 }, 20);
             });
             // 未登录不能评论和回复
-            var noComment = function(aid, txt) {               
+            var noComment = function(aid, txt) {
 
-                UI.inTip(txt);  
+                UI.inTip(txt);
 
                 return false;
             };
@@ -332,21 +333,22 @@ require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/
                         noComment(cid, "请先登录再做评论和回复！");
                     }
                     var pjid = $(this).attr("data-pjid");
-                    var pid = parseInt( $(this).attr("data-pid") );
+                    var pid = parseInt($(this).attr("data-pid"));
                     var texta = $(this).closest('.textarea-wrapper').find(".rtextarea");
                     var contents = $.trim(texta.val());
                     var opts = {
-                        ProjectID: parseInt( pjid || projectId, 10),
+                        ProjectID: parseInt(pjid || projectId, 10),
                         CreatorID: cid,
                         ParentID: pid,
                         Content: contents
                     };
 
                     var optpost = {
+                        "baseUrl": ucConfig.ServerReferenceCrowdFundingAPI,
                         name: '/CFProject/CreateProjectComment',
                         data: opts,
                         // contentType: "application/json",
-                        dataType: "jsonp"
+                        dataType: "json"
                     };
 
                     if (contents.length > 3) {
@@ -372,7 +374,7 @@ require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/
             };
             $(".comwrap .send").click(function() {
                 var cid = parseInt(AccountID, 10);
-                
+
                 if (cid <= 0) {
                     noComment(cid, "请先登录再做评论和回复！");
                     return;
@@ -380,17 +382,18 @@ require(['jquery', '_', './js/uc.ut', './js/uc.ui', 'purl', "moment", "text!tpl/
                 var texta = $(this).closest('.textarea-wrapper').find(".rtextarea");
                 var contents = texta.val();
                 var opts = {
-                    ProjectID: parseInt( projectId, 10),
+                    ProjectID: parseInt(projectId, 10),
                     CreatorID: cid,
                     ParentID: 0,
                     Content: contents
                 };
 
                 var optpost = {
+                    "baseUrl": ucConfig.ServerReferenceCrowdFundingAPI,
                     name: '/CFProject/CreateProjectComment',
                     data: opts,
                     // contentType: "application/json",
-                    dataType: 'jsonp'
+                    dataType: 'json'
                 };
                 if (contents.length > 3) {
                     texta.val('');

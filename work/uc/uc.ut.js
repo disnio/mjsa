@@ -2,78 +2,82 @@
  * @Author: Allen
  * @Date:   2015-12-04
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-05-31 12:21:15
+ * @Last Modified time: 2016-08-26 16:15:51
  */
 
-(function (root, factory) {
+(function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(function () {
+        define(function() {
             return (root.UT = factory(window.jQuery));
         });
     } else {
         root.UT = factory(root.jQuery);
     }
 }(this, function(jQuery) {
-    var baseUrl = ucConfig.ServerReferenceCrowdFundingAPI;
+    var pathName = _.compact(location.pathname.split('/'))[0] || "";
+    var host = location.protocol + '://' + location.host;
+    var baseUrl, webUrl;
+    var kindex = _.findKey(ucConfig, function(n) {
+        if (new RegExp('.*' + pathName + 'API', 'i').test(n)) {
+            return true;
+        }
+    });
+    var windex = _.findKey(ucConfig, function(n) {
+        if (new RegExp('.*' + pathName, 'i').test(n)) {
+            return true;
+        }
+        return false;
+    });
+    kindex != -1 ? baseUrl = ucConfig[kindex] : baseUrl = ucConfig.ServerReferenceLocalHost + 'API' || host;
+    windex != -1 ? webUrl = ucConfig[windex] : webUrl = ucConfig.ServerReferenceLocalHost || host;
+
     /**
      * [jaxJson description]
      * @param  {[type]} opt [description]
      * @return {[type]}     [description]
      */
     var jaxJson = function(opt) {
-
         var isweb = _.rest(arguments)[0] || false;
-        var config = {
-            "type": "get",
-            "baseUrl": baseUrl,
-            "dataType": "json"
-        };
-        config = $.extend(config, opt);
+        var config = $.extend({
+            type: "get",
+            baseUrl: baseUrl,
+            dataType: "json"
+        }, opt);
+        var optl;
 
         if (isweb) {
-            config.url = config.webUrl + config.name;
+            config.url = !_.isUndefined(config.webUrl) ? config.webUrl + config.name : webUrl;
         } else {
-            config.url = config.baseUrl + config.name;
+            config.url = !_.isUndefined(config.baseUrl) ? config.baseUrl + config.name : baseUrl;
         }
 
         if (config.dataify) {
             config.data = JSON.stringify(config.data);
         }
+        // http://tools.jb51.net/table/http_content_type
+        optl = {
+            url: config.url,
+            type: config.type,
+            data: config.data,
+            contentType: config.contentType,
+            dataType: config.dataType,
+            xhrFields: config.xhrFields || {}
+        };
 
         if (_.isFunction(config.success)) {
-            // 快速
-            $.ajax({
-                url: config.url,
-                type: config.type,
-                data: config.data,
-                contentType: config.contentType,
-                dataType: config.dataType,
+            $.ajax($.extend(optl, {
                 success: config.success
-            });
+            }));
         } else {
             if (config.local) {
                 // local storage use
                 return function() {
-                    return $.ajax({
-                        url: config.url,
-                        type: config.type,
-                        data: config.data,
-                        contentType: config.contentType,
-                        dataType: config.dataType
-                    });
+                    return $.ajax(optl);
                 }
             } else {
-                return $.ajax({
-                    url: config.url,
-                    type: config.type,
-                    data: config.data,
-                    contentType: config.contentType,
-                    dataType: config.dataType
-                });
+                return $.ajax(optl);
             }
         }
-
-
     };
     // 模板渲染
     var tplRender = function(tpl, data) {
@@ -95,12 +99,36 @@
             var defer = $.Deferred();
 
             jaxJson(opt.ajax, true).then(function(data) {
-                renderTpl(data.Data, opt.el, opt.tpl, opt.filterFn);
-                defer.resolve(data);
+                if (typeof data == 'string') {
+                    opt.el.empty();
+                    defer.resolve(data);
+                } else {
+                    if (opt.pageData) {
+                        renderTpl(data.Data[opt.pageData], opt.el, opt.tpl, opt.filterFn);
+                    } else {
+                        renderTpl(data.Data, opt.el, opt.tpl, opt.filterFn);
+                    }
+                    defer.resolve(data);
+                }
+
             });
             return defer;
         };
         getJaxPage(jaxopt).then(function(data) {
+            // error data format
+            if (typeof data == 'string') {
+                data = {
+                    Data: [],
+                    TotalNum: 0
+                }
+            }
+            if (jaxopt.pageData) {
+                data = data.Data;
+            }
+            // data change
+            if ($.isFunction(jaxopt.beforePage)) {
+                jaxopt.beforePage(data);
+            }
             jaxopt.page.pageEl.empty();
             if (data.TotalNum) {
                 jaxopt.pageFunc.call(jaxopt.page.pageEl, {
@@ -108,12 +136,20 @@
                     recordsperpage: jaxopt.page.perPage,
                     length: jaxopt.page.numLen,
                     initval: 1,
+                    go: jaxopt.page.go || "Go",
+                    next: jaxopt.page.next || "Next",
+                    prev: jaxopt.page.prev || "Prev",
+                    first: jaxopt.page.first || "First",
+                    last: jaxopt.page.last || "Last",
                     onchange: function(newPage) {
                         jaxopt.ajax.data.PageIndex = (parseInt(newPage, 10) - 1);
+                        console.log("n:", jaxopt)
                         getJaxPage(jaxopt);
                     }
                 });
             }
+
+            jaxopt.callback(data);
         });
     };
     // 查询字符串处理
@@ -273,18 +309,62 @@
             }
         };
     };
+    // 需要 jquery.cookie
+    var getCookie = function(name) {
+        return $.cookie(name);
+    };
 
+    var setCookie = function(name, value, cfg) {
+        $.cookie(name, value, cfg);
+    };
 
-    var res = {
+    var deleteCookie = function(name, cfg) {
+        $.removeCookie(name, cfg);
+    };
+    // 获取对象属性数量
+    var getObjLen = function(obj) {
+        var c = 0;
+        for (i in obj) {
+            if (obj.hasOwnProperty(i)) {
+                c += 1;
+            }
+        }
+        return c;
+    };
+    // 汉字和英文长度
+    var strlen = function(str) {
+        var len = 0;
+        for (var i = 0; i < str.length; i++) {
+            var c = str.charCodeAt(i);
+            //单字节加1   
+            if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+                len++;
+            } else {
+                len += 2;
+            }
+        }
+        return len;
+    };
+
+    // enter 按下执行 callback
+    var enterCall = function(event, callback) {
+        var e = event ? event : window.event
+        if (e.keyCode == 13) {
+            callback();
+        }
+    };
+
+    return {
         jaxJson: jaxJson,
         tplRender: tplRender,
         jaxPage: jaxPage,
-        queryString: queryString()
+        queryString: queryString(),
+        getCookie: getCookie,
+        setCookie: setCookie,
+        deleteCookie: deleteCookie,
+        getObjLen: getObjLen,
+        strlen: strlen,
+        enterCall: enterCall
     };
-
-
-    return res
-   
-
 
 }));

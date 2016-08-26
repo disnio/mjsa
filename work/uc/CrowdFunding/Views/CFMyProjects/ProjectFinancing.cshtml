@@ -1,16 +1,13 @@
-ï»¿
 @model  ZCPT.CrowdFunding.Web.Models.ProjectBasisModel
 
 @{
-    ViewBag.ContentName = "é¡¹ç›®èèµ„ç”³è¯·";}
+    ViewBag.ContentName = "ÏîÄ¿ÈÚ×ÊÉêÇë";
+}
 
-
-
-@*Scripts.Render("~/bundles/inputrich")*@
 @Styles.Render("~/bundles/inputrich/style")
-@*Scripts.Render("~/bundles/jqueryval")*@
 
-
+<script src="~/Scripts/projectfinancing.js"></script>
+<link href="~/Content/css/financingApplication.css" type="text/css" rel="stylesheet">
 
 @using (Html.BeginForm("UpdataProjectBasis", "CFMyProjects", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -18,70 +15,210 @@
     @Html.HiddenFor(M => M.PCProjectID)
 
     if (ViewBag.IsProjectFinancing == false)
-    { 
-    <div class="alert alert-warning" role="alert">æ‚¨å·²ç»æäº¤è¿‡ç”³è¯·èèµ„ï¼Œè¯·è€å¿ƒç­‰å€™å®¡æ ¸ç»“æœã€‚</div>
+    {
+        <div class="alert alert-warning" role="alert">ÄúÒÑ¾­Ìá½»¹ıÉêÇëÈÚ×Ê£¬ÇëÄÍĞÄµÈºòÉóºË½á¹û¡£</div>
 
     }
     else
     {
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name, "é¡¹ç›®åç§°ï¼š", new { @class = "col-sm-2 control-label" })
-        <div class="col-sm-6">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Name)</p>
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.Label("é¡¹ç›®èµ„æ–™æŸ¥çœ‹æƒé™ï¼š", new { @class = "col-sm-2 control-label" })
-        <div class="col-sm-4">
-            @foreach (var item in ViewBag.ReadPermissions)
-                    {
-                @Html.RadioButton("ReadPermissionID", (string)item.Value, (bool)item.Selected) @item.Text
-            }
-            <p class="text-danger" role="alert"></p>
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.FinancingAmount, "èèµ„é‡‘é¢ï¼š", new { @class = "col-sm-2 control-label" })
-        <div class="col-sm-4">
-            <div class="input-group">
-                @Html.TextBoxFor(m => m.FinancingAmount, "{0:f2}", new { @class = "form-control" })
-                <div class="input-group-addon">ä¸‡å…ƒ</div>
+        <div style="display:none;">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, "ÏîÄ¿Ãû³Æ£º", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-6">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Name)</p>
+                </div>
             </div>
-            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.FinancingAmount)</p>
+            <div class="form-group">
+                @Html.Label("Í¶×Ê¿î²¦¸¶·½Ê½£º", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-7">
+                    @*@foreach (var item in ViewBag.CapitalPatterns)
+                            {
+                            @Html.RadioButton("CapitalPatternID", (string)item.Value, (bool)item.Selected) @item.Text
+                        }*@
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("ÏîÄ¿²é¿´È¨ÏŞ£º", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-7">
+                @foreach (var item in ViewBag.ReadPermissions)
+                {
+                <label>@Html.RadioButton("ReadPermissionID", (string)item.Value, (bool)item.Selected) @item.Text</label>
+                }
+                
+                <p class="text-danger" role="alert"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.FinancingAmount, "ÈÚ×Ê½ğ¶î£º", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-6">
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.FinancingAmount, "{0:f2}", new { @class = "form-control" })
+                    <div class="input-group-addon">ÍòÔª</div>
+                </div>
+                <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.FinancingAmount)</p>
+            </div>
         </div>
 
+        <div class="form-group">
+            @Html.Label( "ÈÚ×Ê·½Ê½£º", new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-6">
+                @Html.DropDownListFor(m => m.CFInvestmentCategoryID, (IEnumerable<SelectListItem>)ViewBag.FinancingCategory, new { @class = "form-control" })
+                <div class="financing section-form">
+                    <div class="financingBox">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>¿É³Ğµ£×î¸ßÀûÏ¢£º</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(m => m.DebtFinancingInfo.CFInvestorHighestInterestRates, new { @class = "form-control" })
+                                    <span class="input-group-addon">% / Äê</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>×Ê½ğÕ¼ÓÃÊ±³¤£º</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(m => m.DebtFinancingInfo.CFMoneyUseTimeMin, new { @class = "form-control" })
+                                    <span class="input-group-addon">--</span>
+                                    @Html.TextBoxFor(m => m.DebtFinancingInfo.CFMoneyUseTimeMax, new { @class = "form-control" })
 
-    </div>
-    <div class="form-group">
-        @Html.Label("æŠ•èµ„æ¬¾æ‹¨ä»˜æ–¹å¼ï¼š", new { @class = "col-sm-2 control-label" })
-        <div class="col-sm-4">
-            @foreach (var item in ViewBag.CapitalPatterns)
-                    {
-                @Html.RadioButton("CapitalPatternID", (string)item.Value, (bool)item.Selected) @item.Text
-            }
-            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyAddress)</p>
+                                    @Html.DropDownListFor(m => m.DebtFinancingInfo.CFMoneyUseTimeUnit, new List<SelectListItem>() { new SelectListItem() { Text = "Ìì", Value = "Ìì" }, new SelectListItem { Text = "Ğ¡Ê±", Value = "Ğ¡Ê±" }, new SelectListItem { Text = "Äê", Value = "Äê" } })
+                                    <input type="hidden" value="" name="DebtFinancingInfo_CFMoneyUseTimeUnit" id="DebtFinancingInfo_CFMoneyUseTimeUnit"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>¿ÉÌá¹©·ç¿Ø£º</label>
+                            <div class="col-sm-8 js-zqtz-exit">
+                                @foreach (SelectListItem item in (IEnumerable<SelectListItem>)ViewBag.InvestmentWay)
+                                {
+                                    var ischecked = "";
+                                    if (item.Selected)
+                                    {
+                                        ischecked = "checked='checked'";
+                                    }
+                                    <label><input name="CFCFInvestmentWayID" type="checkbox" value="@item.Value" @ischecked />
+                                    @item.Text</label>
+                                }
+                                @Html.HiddenFor(m => m.DebtFinancingInfo.CFInvestmentWayStr)
+                            </div>
+                        </div>
+                        <div class="pledge-type" style="display:none;">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>µÖÑºÎïÀàĞÍ£º</label>
+                                <div class="col-sm-8 js-type-exit">
+                                    @foreach (SelectListItem item in (IEnumerable<SelectListItem>)ViewBag.FinancerMortgageType)
+                                    {
+                                        var ischecked = "";
+                                        if (item.Selected)
+                                        {
+                                            ischecked = "checked='checked'";
+                                        }
+                                        <label><input name="CFMortgageTypeID" type="checkbox" value="@item.Value" @ischecked />
+                                        @item.Text</label>
+                                    }
+                                    @Html.HiddenFor(m => m.DebtFinancingInfo.CFMortgageTypeStr)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>µÖÑºÎïÊĞÖµ£º</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(m => m.DebtFinancingInfo.CFMortgageAmount, new { @class = "form-control" })
+                                        <span class="input-group-addon">ÍòÔª</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>»¹¿îÀ´Ô´£º</label>
+                                <div class="col-sm-8 js-hkly-exit">
+                                    @foreach (SelectListItem item in (IEnumerable<SelectListItem>)ViewBag.FinancerRepayingSource)
+                                    {
+                                        var ischecked = "";
+                                        if (item.Selected)
+                                        {
+                                            ischecked = "checked='checked'";
+                                        }
+                                        <label><input name="CFRepayingSourceID" type="checkbox" value="@item.Value" @ischecked />
+                                        @item.Text</label>
+                                    }
+                                    @Html.HiddenFor(m => m.DebtFinancingInfo.CFRepayingSourceStr)
+                                </div>
+                            </div>
+                        
+                    </div>
+                    <div class="financingBox">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>ÏîÄ¿Ëù´¦½×¶Î£º</label>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.StockFinancingInfo.CFProjectStageID, (IEnumerable<SelectListItem>)ViewBag.Stages, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>Í¶×Ê·½Õ¼¹É±ÈÀı£º</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(m => m.StockFinancingInfo.CFInvestorShareProportionMin, new { @class = "form-control" })
+                                    <span class="input-group-addon">--</span>
+                                    @Html.TextBoxFor(m => m.StockFinancingInfo.CFInvestorShareProportionMax, new { @class = "form-control" })
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>Í¶×Ê·½ÍË³ö·½Ê½£º</label>
+                            @*Í¶×Ê·½ÍË³ö·½Ê½*@
+                            <div class="col-sm-8 js-tzf-exit">
+                                @foreach (SelectListItem item in (IEnumerable<SelectListItem>)ViewBag.InvestorExitWay)
+                                {
+                                    var ischecked = "";
+                                    if (item.Selected)
+                                    {
+                                        ischecked = "checked='checked'";
+                                    }
+                                    <label> <input name="CFInvestorExitWayID" type="checkbox" value="@item.Value" @ischecked />
+                                    @item.Text</label>
+                                }
+                                @Html.HiddenFor(m => m.StockFinancingInfo.CFInvestorExitWayStr)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>×î¶ÌÍË³öÄêÏŞ£º</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(m => m.StockFinancingInfo.CFInvestmentShortYears, new { @class = "form-control" })
+                                    <span class="input-group-addon">Äê</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="form-group">
+            <div class="col-sm-12 text-center">
+                @if (Model.ID > 0)
+                {
+                    <input class="btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBasis?Step=EditProjectBusinessPattern")")' value="ÏÂÒ»²½" />
+                }
+                else
+                {
+                    <input class="btn btn-warning" name="insertsubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/InsertProjectBasis")")' value="Ìá½»ÈÚ×ÊÉêÇë" />
+                    <input class="btn" type="submit" value="È¡Ïû" />
 
-    </div>
-    <div class="form-group">
-        <div class="col-sm-12 text-center">
-            @if (Model.ID > 0)
-                    {
-                <input class="btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBasis?Step=EditProjectBusinessPattern")")' value="ä¸‹ä¸€æ­¥" />
-            }
-            else
-            {
-                <input class="btn btn-warning" name="insertsubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/InsertProjectBasis")")' value="æäº¤èèµ„ç”³è¯·" />
-            }
+                }
+            </div>
+
         </div>
         
-    </div>
 
 
     }
-    }
+}
+
 
 
 

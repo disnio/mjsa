@@ -2,12 +2,12 @@
  * @Author: Allen
  * @Date:   2016-01-13 09:37:24
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-05-27 09:18:25
+ * @Last Modified time: 2016-05-31 10:37:07
  */
 
 'use strict';
-require(['jquery', '_', './js/uc.ut', 'purl', "text!tpl/projectBasicInfo.html", "moment"],
-    function($, _, UT, purl, projectBasisInfo) {
+require(['ut', 'purl', "text!tpl/projectBasicInfo.html", "moment"],
+    function(UT, purl, projectBasisInfo) {
         var url = purl();
         var id = url.param("id") || url.segment(-1);
 

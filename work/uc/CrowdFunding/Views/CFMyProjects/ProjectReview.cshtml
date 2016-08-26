@@ -1,165 +1,73 @@
-﻿@using ZCPT.CrowdFunding.Entity.CFProjectModule
+﻿@using Webdiyer.WebControls.Mvc
+@model  ZCPT.CrowdFunding.Web.Models.ProjectListQuaryModel
+
 @{
     Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
 }
+
 
 @{
     ViewBag.Title = "项目列表";
     ViewBag.ContentName = "项目申请审核";
 }
 
-<table border="0" cellpadding="0" cellspacing="0" class="tab1" width="100%">
-    <tr class="col f_blue">
+<script language="javascript" type="text/javascript" src="~/Tools/My97DatePicker/WdatePicker.js"></script>
 
-        <th>
-            序号
-        </th>
-        <th >
-            名称
-        </th>
-        @*<th class="t_l">
-            简介
-        </th>*@
-        <th>
-            阶段
-        </th>
-        <th >
-            融资金额
-        </th>
-        <th >
-            已融金额
-        </th>
-        <th >
-            状态
-        </th>
-        <th>
-            申请人
-        </th>
-        <th>
-            申请时间
-        </th>
-        <th >
-            详细信息
-        </th>
-        <th >
-            审核
-        </th>
-    </tr>
-    @foreach (var i in ViewBag.ProjectList)
-    {
-        <tr class="col">
+@{ Html.RegisterMvcPagerScriptResource();}
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
-            <td>
-                @i.LID
-            </td>
-            <td>
-                @i.Name
-            </td>
-            @*<td>
-                @Html.Raw(i.Introduction)
-            </td>*@
-            <td>
-                @i.StageName
-            </td>
-            <td>
-                @string.Format("{0:f2}", i.FinancingAmount/10000) 万
-            </td>
-            <td>
-                @(string.Format("{0:f2}", i.FinancedAmount/10000)) 万
-            </td>
-            <td>
-                @i.StatusName
-            </td>
-            <td>
-                @i.CreatorName
-            </td>
-            <td>
-               @(i.CreationDate.ToString("yyyy-MM-dd HH:mm:ss")) 
-            </td>
-            <td>
-                @Html.ActionLink("详细信息", "ProjectInfo", new {ID = i.LID})
-
-            </td>
-            <td>
-                @if (i.Status.Value == "Auditing")
-                {
-                    <a onclick="dealProjectApplication(@i.LID, @CFProjectStatus.Get("Actived").ID);" href="#">通过</a>
-                    <a onclick="dealProjectApplication(@i.LID, @CFProjectStatus.Get("Denied").ID);" href="#">拒绝</a>
-                }
-            </td>
-        </tr>
-    }
-</table>
-
-@*@foreach (var i in ViewBag.ProjectList)
+@using (Ajax.BeginForm("ProjectReview", "CFMyProjects", new AjaxOptions { UpdateTargetId = "proList", HttpMethod = "Post", InsertionMode = InsertionMode.Replace }, new { id = "searchForm", @class = "form-horizontal section-form" }))
 {
-    <div class="cbInner">
-        <div class="thumbnail fl">
-            <a href="ProjectInfo/ID=@i.LID"><img alt="" src="../Attachment/Download/@(i.Icon)" /></a>
+    <div class="panel panel-default section-filter">
+        <div class="panel-body form-horizontal collapse in userCenter-search" id="sectionfilter">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">项目名称：</label>
+                <div class="col-sm-5">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                </div>
+                <label class="col-sm-1 control-label">状态：</label>
+                <div class="col-sm-5">
+                    @Html.DropDownListFor(m => m.Status, (IEnumerable<SelectListItem>)ViewBag.StatusList, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">项目阶段：</label>
+                <div class="col-sm-5">
+                    @Html.DropDownListFor(m => m.StageID, (IEnumerable<SelectListItem>)ViewBag.Stages, new { @class = "form-control" })
+                </div>
+                <label class="col-sm-1 control-label">融资金额：</label>
+                <div class="col-sm-5">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.FinancingAmountMin, new { @class = "form-control" })
+                        <span class="input-group-addon">万元</span>
+                        <span class="input-group-addon">至</span>
+                        @Html.TextBoxFor(m => m.FinancingAmountMax, new { @class = "form-control" })
+                        <span class="input-group-addon">万元</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">申请时间：</label>
+                <div class="col-sm-5">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.CreationDateMin, new { @class = "form-control", @onClick = "WdatePicker()" })
+                        <span class="input-group-addon">至</span>
+                        @Html.TextBoxFor(m => m.CreationDateMax, new { @class = "form-control", @onClick = "WdatePicker()" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group line-top">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </div>
+            </div>
         </div>
-        <div class="summary fr">
-            <ul>
-                <li>@i.Name <span class="label-info">@i.StatusName</span></li>
-                <li>
-                    阶段
-                    <em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@i.StageName </em>
-                </li>
-                <li>融资金额:<em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@(string.Format("{0:f2}", i.FinancingAmount/10000))万 </em></li>
-
-                <li>已融金额:<em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@(string.Format("{0:f2}", i.FinancedAmount / 10000))万 </em></li>
-
-                <li>
-                    申请人
-                    <em><i style="margin-right: 5px;" class="fa fa-caret-right"></i>@i.CreatorName </em>
-                </li>
-                
-                <li class="date ct_4">
-                    <i class="fa fa-clock-o">申请时间 @i.CreationDate</i>
-
-                </li>
-            </ul>
-        </div>
-        
-
-        <ul class="detailList">
-            <li><i class="fa fa-chevron-circle-right ct_7"></i><span class="ct_7"> 项目简介</span>@i.Introduction</li>
-            @if (i.Status.Value == "Auditing")
-            {
-                <li>
-                    <i>
-                        <input type="button" class="label-info" value="接受" onclick="dealProjectApplication(@i.LID, @CFProjectStatus.Get("Actived").ID, @i.LID);" />
-                        <input type="button" class="label-info" value="拒绝" onclick="dealProjectApplication(@i.LID, @CFProjectStatus.Get("Auditing").ID, @i.LID);" />
-                    </i>
-
-                </li>
-            }
-
-        </ul>
     </div>
-}*@
+}
+
+@Html.Partial("PartialProjectReviewLists", ((PagedList<ZCPT.CrowdFunding.Web.Models.ProjectListViewModel>)ViewBag.PageList))
 
 
-<script>
-
-    function dealProjectApplication(id, status) {
-        if (confirm("确定要进行此操作吗？")) {
-            $.ajax(
-            {
-                type: 'post',
-                url: 'DealProjectApplication?projId=' + id + '&status=' + status,
-
-                success: function(data) {
-                    alert('操作成功');
-                    location.reload();
-                },
-                error: function() {
-                    alert('操作失败');
-                }
-
-            });
-        }
-    }
-</script>
 
 
 

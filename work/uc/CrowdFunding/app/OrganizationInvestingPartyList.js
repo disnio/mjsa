@@ -2,12 +2,12 @@
  * @Author: Allen
  * @Date:   2016-01-13 09:37:24
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-04-14 16:50:37
+ * @Last Modified time: 2016-05-31 10:37:07
  */
 
 
 'use strict';
-require(['jquery', '_', './js/uc.ut' ,'loading'], function($, _, UT, purl, loading) {
+require(['ut' ,'loading'], function(UT, purl, loading) {
     $(function () {
         $(".partyListDetail").click(function (e) {
 

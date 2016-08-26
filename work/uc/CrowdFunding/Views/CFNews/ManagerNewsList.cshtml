@@ -2,68 +2,19 @@
 @using ZCPT.CrowdFunding.Web.Models.CFNewsModule
 @model ZCPT.CrowdFunding.Web.Models.CFNewsModule.CFNewsModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+    ViewBag.Title = "最新资讯列表";
 }
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>最新资讯列表</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
-    <meta name="keywords" content="">
-    <meta name="description" content="安全、高效的融资服务">
 
-    @*base*@
     <link href="~/Content/css/btn.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/admin.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <script type="text/javascript" src="~/Scripts/jquery-1.11.3.min.js"></script>
     <script language="javascript" type="text/javascript" src="~/Tools/My97DatePicker/WdatePicker.js"></script>
-
     <link href="~/Content/css/pager.css" rel="stylesheet" />
-</head>
-<body>
 
-    <div class="adminFrame">
-        <div class="header">
 
-            <div class="imgLogo">后台系统</div>
-            <div class="welcome">欢迎您，admin</div>
-        </div>
-        <div class="mainMenu">
-            <h2 class="kindTop">功能菜单</h2>
-            <ul id="mainnav-menu" class="list-group">
 
-                <!--Menu list item-->
-                <li>
-                    <a href="javascript:void(0);" class="title">
-                        <i class="fa fa-cube"></i>
-                        <span class="menu-title">咨询管理</span>
-
-                    </a>
-                    <!--Submenu-->
-                    <ul class="collapse">
-                        <li><i class="fa fa-angle-right"></i><a href="~/CFNews/CreateNews">新建资讯</a></li>
-                        <li><i class="fa fa-angle-right"></i><a href="~/CFNews/ManagerNewsList">维护资讯</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" class="title">
-                        <i class="fa fa-cube"></i>
-                        <span class="menu-title">合作伙伴管理</span>
-
-                    </a>
-                    <!--Submenu-->
-                    <ul class="collapse">
-                        <li><i class="fa fa-angle-right"></i><a href="~/CFIncubator/IncubatorList">审批合作伙伴申请</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-
-        <div class="mainContents">
-
-            <div class="scrol-page k1120 mainContent clearfix">
+            
                 @using (Html.BeginForm("ManagerNewsList", "CFNews", FormMethod.Post, new { role = "form" }))
                 {
                     <table class="table table-border">
@@ -117,19 +68,13 @@
                             else
                             {
                                 <td>禁用</td>}
-                            <td><a target="_blank" href="~/cfnews/UpdateNews?id=@news.ID">编辑</a></td>
+                            <td><a href="~/cfnews/UpdateNews?id=@news.ID">编辑</a></td>
                         </tr>
                     }
 
                 </table>
 
-            </div>
-        </div>
-    </div>
 
-
-</body>
-</html>
 <script type="text/javascript">
 
     function btnBindValue() {

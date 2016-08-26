@@ -3885,3 +3885,44 @@ $scope.$on('$routeChangeSuccess', function (event, current, previous) {
   $scope.currentRoute = current;
   $scope.routeHasError = false;
 });
+------------------------------
+
+<input id="fileupload" class="fileupload" fd doo="doo(pic)" type="file" name="uploadedfile">
+angular.module('yoB').directive('fd', function($parse) {
+    return {
+        // controllerAs:'vm',
+        // scope 绑定到 vm
+        // bindToController: true, 
+        // template:'',
+        // controller:'',
+        restrict: 'A',
+        scope: {
+            'doos': '&doo'
+        },
+        link: function(scope, elem, attrs, ctrl) {
+            function npic() {
+                this.IconID = ""; // 图片id上传后
+                this.IsMainPic = false; // 需要选
+                this.Status = 1; // 默认不动
+                return this;
+            };
+            var opt = {
+                upload: jQuery.fn.fileupload,
+                container: jQuery('#fileupload'),
+                url: ImgSingleUploadUrl,
+                callback: function(temp) {
+                    var pic = new npic();
+                    pic.IconID = temp.id;
+                    pic.Url = temp.url;
+                    scope.$apply(function() {
+                        // 这里必须按对象传值
+                        scope.doos({pic:pic});                        
+                    });
+                }
+            };
+            UI.fileUpload(opt);
+
+
+        }
+    }
+});

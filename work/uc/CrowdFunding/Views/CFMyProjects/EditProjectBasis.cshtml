@@ -116,10 +116,10 @@
 
         @Html.Label("投资款拨付方式：", new { @class = "col-sm-2 control-label" })
         <div class="col-sm-4">
-            @foreach (var item in ViewBag.CapitalPatterns)
+            @*@foreach (var item in ViewBag.CapitalPatterns)
                     {
                 @Html.RadioButton("CapitalPatternID", (string)item.Value, (bool)item.Selected) @item.Text
-                        }
+                        }*@
             <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyAddress)</p>
         </div>
     </div>

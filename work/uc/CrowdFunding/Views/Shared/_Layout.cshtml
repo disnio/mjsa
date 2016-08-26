@@ -14,8 +14,14 @@
     @RenderSection("csslink", required: false)
     <script src="~/Configuration/Javascript"></script>
     <script src="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/lodash.js"></script>
     <script src="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Scripts/bootstrap.min.js"></script>
-    
+    @if (ViewBag.Angular != null && ViewBag.Angular)
+    {
+        <script src="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Scripts/angular.min.js"></script>
+        <script type="text/javascript">angular.module('Infrastructure.SDK', []);</script>
+        <script src="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceUserCenter"]/Scripts/ui-bootstrap-tpls.js"></script>
+    }
     <!--[if lt IE 9]>
         <script src="//cdn.bootcss.com/es5-shim/4.0.3/es5-shim.min.js"></script>
         <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -27,7 +33,7 @@
 
     @RenderSection("scriptlink", required: false)
 </head>
-<body>
+<body style="background-color:#f3f3f3;">
     @RenderSection("FrameHeader", required: false)
     @RenderSection("FrameNav", required: false)
     @RenderSection("FrameLeftAside", required: false)
