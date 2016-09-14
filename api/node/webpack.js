@@ -575,7 +575,7 @@ module.exports = {
         // Reference: https://github.com/kevlened/copy-webpack-plugin
         new CopyWebpackPlugin([{
             from: __dirname + '/src/public'
-        }]),
+        },{from: './index.html'}]),
         // ignore dev config
         new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
     ],
@@ -1042,3 +1042,31 @@ exports.foo = "bar";
 new webpack.DefinePlugin({
     ENV: JSON.stringify("mobile")
 })
+
+https://github.com/kenberkeley/react-demo
+路径别名 的定义位于 build/webpack.base.conf.js，好处就是引入与重构都很方便
+
+    例如，在某组件中，引入 userService 需要 import userService from '../../../services/userService'
+    但有了路径别名后，只需要 import userService from 'SERVICE/userService'
+    相比于 AngularJS 中的依赖注入，这种方式依赖于构建工具，显得更为简单
+
+    您可能会说，Webpack 只需要设定了 root属性为 src/
+    就可以 import userService from 'services/userService'
+    但在这里其实是会引起歧义的（不过这属于强迫症的范畴。。。）
+    例如，import createBrowserHistory from 'history/lib/createBrowserHistory'
+    您可能会觉得这是 src/history/lib/createBrowserHistory.js
+    但实际上 history 是一个 npm package
+    同样地，您又怎么知道 services 不是一个 npm package？
+    而且重构之后，文件夹的变动会导致相对路径的变化，services/ 目录未必仍在 src/ 下
+    因此，路径别名相当有必要。其常量的形式，让人一看就知道不是一个 npm package
+
+开发环境全局变量，由 webpack.DefinePlugin 提供（详见 build/webpack.base.conf.js）
+
+    默认有 __DEV__ / __PROD__ / __COMPONENT_DEVTOOLS__ / __WHY_DID_YOU_UPDATE__ 四个全局变量
+    若要继续添加，则还需要在 .eslintrc 中 globals 同步写入
+
+    在此需要提醒，在 package.json 中设置 NODE_ENV 要注意末尾空格的问题
+    最好就是使用前 trim 一下：process.env.NODE_ENV.trim()
+
+    拓展阅读：解读 UglifyJS
+    看看生产环境下编译 if (__PROD__) { ... } => if (true) { ... } 后 UglifyJS 会如何处理

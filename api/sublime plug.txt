@@ -1,3 +1,5 @@
+sublime text 3:
+----------------------------------------
 goto css
 js format
 tag
@@ -37,6 +39,35 @@ shift + ctrl + y 计算数学表达
 ctrl + shift + g 键入包裹标签
 ctrl + shift + u 更改包裹标签
 ctrl + shift + c css排序
+
+webstrom 
+--------------------------------------------------------
+ctrl + y 删除行
+ctrl + j 输出模板
+ctrl + b 跳转到变量声明
+ctrl + d 行复制
+ctrl + r 替换
+ctrl + w 选中单词
+ctrl + e 最近打开
+ctrl + [] 匹配 [] 或 {}
+ctrl + [+/-] 展开/折叠
+ctrl + tab 标签切换
+ctrl + left 单词为单位跳转
+
+alt + 1 项目文件结构
+alt + 7 文档结构
+alt + left/right 标签切换
+alt + insert 新建文件
+
+ctrl + shift + up 行移动
+alt + shift + up 块移动
+ctrl + shift + a 快速查找编辑器功能
+ctrl + shift + f12 编辑区域最大化
+ctrl + shift + n    通过文件名快速查找工程内的文件（必记）
+ctrl + shift + alt + n    通过一个字符快速查找位置（必记）
+
+shift + enter 重新开始一行
+
 
 
 

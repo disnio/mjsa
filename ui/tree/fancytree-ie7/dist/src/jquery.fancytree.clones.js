@@ -4,13 +4,13 @@
  * Support faster lookup of nodes by key and shared ref-ids.
  * (Extension module for jquery.fancytree.js: https://github.com/mar10/fancytree/)
  *
- * Copyright (c) 2014, Martin Wendt (http://wwWendt.de)
+ * Copyright (c) 2008-2016, Martin Wendt (http://wwWendt.de)
  *
  * Released under the MIT license
  * https://github.com/mar10/fancytree/wiki/LicenseInfo
  *
- * @version 2.0.0-12
- * @date 2014-04-29T19:55
+ * @version 2.19.0
+ * @date 2016-08-11T15:51
  */
 
 ;(function($, window, document, undefined) {
@@ -155,7 +155,7 @@ function calcUniqueKey(node) {
 		path = $.map(node.getParentList(false, true), function(e){ return e.refKey || e.key; });
 	path = path.join("/");
 	key = "id_" + hashMurmur3(path, true);
-	node.debug(path + " -> " + key);
+	// node.debug(path + " -> " + key);
 	return key;
 }
 
@@ -163,8 +163,10 @@ function calcUniqueKey(node) {
 /**
  * [ext-clones] Return a list of clone-nodes or null.
  * @param {boolean} [includeSelf=false]
- * @requires jquery.fancytree.clones.js
  * @returns {FancytreeNode[] | null}
+ *
+ * @alias FancytreeNode#getCloneList
+ * @requires jquery.fancytree.clones.js
  */
 $.ui.fancytree._FancytreeNodeClass.prototype.getCloneList = function(includeSelf){
 	var key,
@@ -190,8 +192,10 @@ $.ui.fancytree._FancytreeNodeClass.prototype.getCloneList = function(includeSelf
 
 /**
  * [ext-clones] Return true if this node has at least another clone with same refKey.
- * @requires jquery.fancytree.clones.js
  * @returns {boolean}
+ *
+ * @alias FancytreeNode#isClone
+ * @requires jquery.fancytree.clones.js
  */
 $.ui.fancytree._FancytreeNodeClass.prototype.isClone = function(){
 	var refKey = this.refKey || null,
@@ -202,16 +206,17 @@ $.ui.fancytree._FancytreeNodeClass.prototype.isClone = function(){
 
 /**
  * [ext-clones] Update key and/or refKey for an existing node.
- * @param {FancytreeNode} [node]
  * @param {string} key
  * @param {string} refKey
- * @requires jquery.fancytree.clones.js
  * @returns {boolean}
+ *
+ * @alias FancytreeNode#reRegister
+ * @requires jquery.fancytree.clones.js
  */
 $.ui.fancytree._FancytreeNodeClass.prototype.reRegister = function(key, refKey){
 	key = (key == null) ? null :  "" + key;
 	refKey = (refKey == null) ? null :  "" + refKey;
-	this.debug("reRegister", key, refKey);
+	// this.debug("reRegister", key, refKey);
 
 	var tree = this.tree,
 		prevKey = this.key,
@@ -225,7 +230,7 @@ $.ui.fancytree._FancytreeNodeClass.prototype.reRegister = function(key, refKey){
 	// Key has changed: update all references
 	if( key != null && key !== this.key ) {
 		if( keyMap[key] ) {
-			$.error("[ext-clones] reRegister(" + key + "): already exists.");
+			$.error("[ext-clones] reRegister(" + key + "): already exists: " + this);
 		}
 		// Update keyMap
 		delete keyMap[prevKey];
@@ -266,11 +271,26 @@ $.ui.fancytree._FancytreeNodeClass.prototype.reRegister = function(key, refKey){
 
 
 /**
+ * [ext-clones] Define a refKey for an existing node.
+ * @param {string} refKey
+ * @returns {boolean}
+ *
+ * @alias FancytreeNode#setRefKey
+ * @requires jquery.fancytree.clones.js
+ * @since 2.16
+ */
+$.ui.fancytree._FancytreeNodeClass.prototype.setRefKey = function(refKey){
+	return this.reRegister(null, refKey);
+};
+
+
+/**
  * [ext-clones] Return all nodes with a given refKey (null if not found).
  * @param {string} refKey
  * @param {FancytreeNode} [rootNode] optionally restrict results to descendants of this node
- * @requires jquery.fancytree.clones.js
  * @returns {FancytreeNode[] | null}
+ * @alias Fancytree#getNodesByRef
+ * @requires jquery.fancytree.clones.js
  */
 $.ui.fancytree._FancytreeClass.prototype.getNodesByRef = function(refKey, rootNode){
 	var keyMap = this.keyMap,
@@ -294,12 +314,35 @@ $.ui.fancytree._FancytreeClass.prototype.getNodesByRef = function(refKey, rootNo
 };
 
 
+/**
+ * [ext-clones] Replace a refKey with a new one.
+ * @param {string} oldRefKey
+ * @param {string} newRefKey
+ * @alias Fancytree#changeRefKey
+ * @requires jquery.fancytree.clones.js
+ */
+$.ui.fancytree._FancytreeClass.prototype.changeRefKey = function(oldRefKey, newRefKey) {
+	var i, node,
+		keyMap = this.keyMap,
+		refList = this.refMap[oldRefKey] || null;
+
+	if (refList) {
+		for (i = 0; i < refList.length; i++) {
+			node = keyMap[refList[i]];
+			node.refKey = newRefKey;
+		}
+		delete this.refMap[oldRefKey];
+		this.refMap[newRefKey] = refList;
+	}
+};
+
+
 /*******************************************************************************
  * Extension code
  */
 $.ui.fancytree.registerExtension({
 	name: "clones",
-	version: "0.0.3",
+	version: "2.19.0",
 	// Default options for this extension.
 	options: {
 		highlightActiveClones: true, // set 'fancytree-active-clone' on active clones and all peers
@@ -307,7 +350,7 @@ $.ui.fancytree.registerExtension({
 	},
 
 	treeCreate: function(ctx){
-		this._super(ctx);
+		this._superApply(arguments);
 		ctx.tree.refMap = {};
 		ctx.tree.keyMap = {};
 	},
@@ -319,7 +362,12 @@ $.ui.fancytree.registerExtension({
 			return calcUniqueKey(node);
 		};
 		// The default implementation loads initial data
-		this._super(ctx);
+		this._superApply(arguments);
+	},
+	treeClear: function(ctx){
+		ctx.tree.refMap = {};
+		ctx.tree.keyMap = {};
+		return this._superApply(arguments);
 	},
 	treeRegisterNode: function(ctx, add, node) {
 		var refList, len,
@@ -331,13 +379,13 @@ $.ui.fancytree.registerExtension({
 
 //		ctx.tree.debug("clones.treeRegisterNode", add, node);
 
-		if( key === "_statusNode" ){
-			return this._super(ctx, add, node);
+		if( node.isStatusNode() ){
+			return this._superApply(arguments);
 		}
 
 		if( add ) {
 			if( keyMap[node.key] != null ) {
-				$.error("clones.treeRegisterNode: node.key already exists: " + node.key);
+				$.error("clones.treeRegisterNode: node.key already exists: " + node);
 			}
 			keyMap[key] = node;
 			if( refKey ) {
@@ -352,7 +400,7 @@ $.ui.fancytree.registerExtension({
 				} else {
 					refMap[refKey] = [key];
 				}
-				node.debug("clones.treeRegisterNode: add clone =>", refMap[refKey]);
+				// node.debug("clones.treeRegisterNode: add clone =>", refMap[refKey]);
 			}
 		}else {
 			if( keyMap[key] == null ) {
@@ -361,7 +409,7 @@ $.ui.fancytree.registerExtension({
 			delete keyMap[key];
 			if( refKey ) {
 				refList = refMap[refKey];
-				node.debug("clones.treeRegisterNode: remove clone BEFORE =>", refMap[refKey]);
+				// node.debug("clones.treeRegisterNode: remove clone BEFORE =>", refMap[refKey]);
 				if( refList ) {
 					len = refList.length;
 					if( len <= 1 ){
@@ -376,17 +424,17 @@ $.ui.fancytree.registerExtension({
 							keyMap[refList[0]].renderStatus();
 						}
 					}
-					node.debug("clones.treeRegisterNode: remove clone =>", refMap[refKey]);
+					// node.debug("clones.treeRegisterNode: remove clone =>", refMap[refKey]);
 				}
 			}
 		}
-		return this._super(ctx, add, node);
+		return this._superApply(arguments);
 	},
 	nodeRenderStatus: function(ctx) {
 		var $span, res,
 			node = ctx.node;
 
-		res = this._super(ctx);
+		res = this._superApply(arguments);
 
 		if( ctx.options.clones.highlightClones ) {
 			$span = $(node[ctx.tree.statusClassPropName]);
@@ -403,11 +451,11 @@ $.ui.fancytree.registerExtension({
 			scpn = ctx.tree.statusClassPropName,
 			node = ctx.node;
 
-		res = this._super(ctx, flag);
+		res = this._superApply(arguments);
 
 		if( ctx.options.clones.highlightActiveClones && node.isClone() ) {
 			$.each(node.getCloneList(true), function(idx, n){
-				n.debug("clones.nodeSetActive: ", flag !== false);
+				// n.debug("clones.nodeSetActive: ", flag !== false);
 				$(n[scpn]).toggleClass("fancytree-active-clone", flag !== false);
 			});
 		}

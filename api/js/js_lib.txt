@@ -116,8 +116,8 @@ babel:
 
     http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js
 jQuery UI：
-<script src="http://libs.baidu.com/jqueryui/1.9.2/jquery-ui.min.js "></script>
-<link rel="stylesheet" type="text/css" media="screen" href="http://libs.baidu.com/jqueryui/1.9.2/themes/base/jquery-ui.css" />
+<script src="//cdn.bootcss.com/jqueryui/1.12.0/jquery-ui.min.js"></script>
+<link href="//cdn.bootcss.com/jqueryui/1.12.0/jquery-ui.min.css" rel="stylesheet">
 支持的版本：1.10.2, 1.10.1, 1.10.0, 1.9.2, 1.9.1, 1.9.0, 1.8.24, 1.8.23, 1.8.22, 1.8.21, 1.8.20, 1.8.19, 1.8.18, 1.8.17, 1.8.16, 1.8.15, 1.8.14, 1.8.13, 1.8.12, 1.8.11, 1.8.10, 1.8.9, 1.8.8, 1.8.7, 1.8.6, 1.8.5, 1.8.4, 1.8.2, 1.8.1, 1.8.0, 1.7.3, 1.7.2, 1.7.1, 1.7.0, 1.6.0, 1.5.3, 1.5.2
 
 angular：
@@ -239,3 +239,5 @@ function isArray(vArg) {
 中文unicode：
 if (/[\u4E00-\uFA29]/.test(str.charAt(i))) 
 
+var ESCAPE_KEY = 27;
+var ENTER_KEY = 13;

@@ -7,6 +7,8 @@
 /doc/jsdoc_new
 /doc/jsdoc_old
 /node_modules
+/doc/screenshots
+/src/skin-custom-*
 *.log
 sauce_connect.*
-/doc/screenshots
+.pyftpsync-meta.json

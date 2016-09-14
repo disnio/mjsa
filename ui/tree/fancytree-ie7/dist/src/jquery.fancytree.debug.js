@@ -4,13 +4,13 @@
  * Miscellaneous debug extensions.
  * (Extension module for jquery.fancytree.js: https://github.com/mar10/fancytree/)
  *
- * Copyright (c) 2014, Martin Wendt (http://wwWendt.de)
+ * Copyright (c) 2008-2016, Martin Wendt (http://wwWendt.de)
  *
  * Released under the MIT license
  * https://github.com/mar10/fancytree/wiki/LicenseInfo
  *
- * @version 2.0.0-12
- * @date 2014-04-29T19:55
+ * @version 2.19.0
+ * @date 2016-08-11T15:51
  */
 
 ;(function($, window, document, undefined) {
@@ -41,7 +41,7 @@ for(i=0; i<EVENT_NAMES.length; i++){ EVENT_NAME_MAP[EVENT_NAMES[i]] = true; }
  */
 $.ui.fancytree.registerExtension({
 	name: "tracecalls",
-	version: "0.0.1",
+	version: "2.19.0",
 	// Default options for this extension.
 	options: {
 		logTarget: null,   // optional redirect logging to this <div> tag
@@ -59,7 +59,7 @@ $.ui.fancytree.registerExtension({
 			tree.debug("COOKIE " + document.cookie);
 		});
 		// Init the tree
-		this._super(ctx);
+		this._superApply(arguments);
 	},
 	nodeClick: function(ctx) {
 		if(this.options.tracecalls.traceHooks){
@@ -124,7 +124,7 @@ $.ui.fancytree.registerExtension({
 ;(function($, window, document, undefined) {
 	$.ui.fancytree.registerExtension({
 		name: "profiler",
-		version: "0.0.1",
+		version: "2.19.0",
 		// Default options for this extension
 		options: {
 			prefix: ""
@@ -135,7 +135,7 @@ $.ui.fancytree.registerExtension({
 			var s = this.options.prefix + "render '" + ctx.node + "'";
 			/*jshint expr:true */
 			window.console && window.console.time && window.console.time(s);
-			this._super(ctx, force, deep, collapsed);
+			this._superApply(arguments);
 			window.console && window.console.timeEnd && window.console.timeEnd(s);
 		}
 	 });

@@ -1,3 +1,7 @@
+http://taobaofed.org/
+Redux-Devtools
+redux !!! 优化：http://dev.qq.com/topic/579083d1c9da73584b02587d
+框架的稳定性和业务的稳定性是两个不同的方向，业务需要的是容错，而框架需要的是兜底。
 https://css-tricks.com/learning-react-redux/
 http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html
 http://www.theodo.fr/blog/2016/03/getting-started-with-react-redux-and-immutable-a-test-driven-tutorial-part-2/
@@ -133,6 +137,23 @@ findDOMNode()仅在挂载的组件上有效（也就是说，组件已经被放�
 refs属性允许你引用 render() 返回的相应的支撑实例（ backing instance ）。
 这样就可以确保在任何时间总是拿到正确的实例。
 你可以通过调用 this.refs.myInput.getDOMNode() 直接获取到组件的 DOM 节点。
+var MyComponent = React.createClass({
+    componentDidMount: function () {        
+        $(this.myTextInput).css('border','1px solid red');
+        this.myTextInput.focus();
+    },
+    render: function () {
+        // The ref attribute is a callback that saves a reference to the
+        // component to this.myTextInput when the component is mounted.
+        return (
+            <div>
+                <input type="text" ref={(c) => this.myTextInput = c}/>
+            </div>
+        );
+    }
+});
+
+
 
 require('react/addons')
 TransitionGroup和CSSTransitionGroup，用于处理动画和过渡，这些通常实现起来都不简单，例如在一个组件移除之前执行一段动画。
@@ -183,6 +204,8 @@ ReactDOM.render(
     <LikeButton />,
     document.getElementById('example')
 );
+
+-----------------
 // https://facebook.github.io/react/docs/reusable-components.html
 // PropTypes exports a range of validators 确认你收到的是正确的数据. 
 // 性能的原因 propTypes is only checked in development mode.
@@ -197,8 +220,22 @@ var ComponentWithDefaultProps = React.createClass({
   /* ... */
 });
 
+------------------
 Transferring Props: A Shortcut {...this.props}
+var CheckLink = React.createClass({
+  render: function() {
+    // This takes any props passed to CheckLink and copies them to <a>
+    return <a {...this.props}>{'√ '}{this.props.children}</a>;
+  }
+});
 
+ReactDOM.render(
+  <CheckLink href="/checked.html">
+    Click here!
+  </CheckLink>,
+  document.getElementById('example')
+);
+----------------------
 Mixins : mixins: [SetIntervalMixin]
 
 var SetIntervalMixin = {
@@ -298,26 +335,46 @@ var update = require('react-addons-update');
 // Another difference is that propTypes and defaultProps are defined as properties on the constructor instead of in the class body.
 
 // You'll have to explicitly use .bind(this) or arrow functions =>.
+class Counter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {count: parseInt(props.initialCount, 10)};
+        this.tick = this.tick.bind(this);
+    }
 
-export class Counter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {count: props.initialCount};
-  }
-  tick() {
-    this.setState({count: this.state.count + 1});
-  }
-  render() {
-    return (
-      <div onClick={this.tick.bind(this)}>
-        Clicks: {this.state.count}
-      </div>
-    );
-  }
+    tick() {
+        this.setState({count: this.state.count + 1});
+    }
+
+    render() {
+        return (
+            <div onClick={this.tick}>
+                Clicks: {this.state.count}
+            </div>
+        );
+    }
 }
-Counter.propTypes = { initialCount: React.PropTypes.number };
-Counter.defaultProps = { initialCount: 0 };
+Counter.propTypes = {initialCount: React.PropTypes.number};
+Counter.defaultProps = {initialCount: 0};
 
+require("../styles/main.scss");
+import Counter from "./tick.jsx"; // or
+var Counter = require("./tick.jsx").Counter;
+
+ReactDOM.render(
+    <Counter initialCount={1} />,
+    $("#counter")[0]
+);
+----------------------------
+const HelloMessage = (props) => <div>Hello, {props.name}</div>;
+HelloMessage.propTypes = {
+  name: React.PropTypes.string
+}
+HelloMessage.defaultProps = {
+  name: 'John Doe'
+}
+ReactDOM.render(<HelloMessage name="Mădălina"/>, mountNode);
+----------------------------
 // Transferring with ... in JSX 
 var FancyCheckbox = React.createClass({
   render: function() {
@@ -364,6 +421,8 @@ render: function() {
     return <input type="text" defaultValue="Hello!" />; 
 }
 
+<select multiple={true} value={['B', 'C']}>
+----------------------------------
 // Mounting
 
 //     getInitialState(): object is invoked before a component is mounted. Stateful components should implement this and return the initial state data.
@@ -443,3 +502,422 @@ if (this.props.swapped) {
     right: this.props.rightChildren
   });
 }
+
+顶层API：
+--------------------------------------------------
+React.Component 是通过 es6 类定义的。用于es6 的组件创建。
+----
+React.createClass 通过指定的格式创建一个组件类。一个组件执行 render 方法 返回单一的子结构。
+这个子类结构可以很深，不同于标准的原型类，调用不需要 new。已经在后方包装好了。
+----
+React.createElement (string/ReactClass type, object props, children) 创建并返回一个新的 
+ReactElement 通过指定的格式创建一个组件类。一个组件执行给定的类型。type 参数可以是 html 标签名
+或一个 ReactClass(通过 React.createClass 创建的)
+----
+React.cloneElement( ReactElement element, object props, children)
+新的 children 将替换原来的children。 保留原来的 props 并与新的 props 浅合并。 不像
+React.addons.cloneWithProps key 和 ref 将被保留。
+----
+React.createFactory(string/ReactClass type) 返回一个函数，这个函数处理给定 type 的 ReactElement.
+和 createElement 相似，也可以是 html 标签。
+----
+React.isValidElement(* object) 验证对象是一个 ReactElement
+
+React.DOM  提供了createElement 比较便利的包装对 DOM组件。仅仅在不使用 jsx 的情况下。 
+例如：React.DOM.div(null, 'hello')
+----
+React.PropTypes 包含好多类型，组件的 propTypes 对象使用它验证传递到组件的 props 的类型。
+https://facebook.github.io/react/docs/reusable-components.html
+----
+React.Children 提供了处理 this.props.children 的不透明数据结构。
+  React.Children.map/forEach/count/only/toArray
+--------
+ReactDOM 提供了DOM 特定的方法，脱离 react model。
+----
+ReactDOM.render( ReactElement, DOMElement, function callback)
+把 ReactElement 渲染到提供的容器，并返回一个组件的引用，或返回空对无状态组件。
+如果 ReactElement 已经渲染到了容器，他将执行一个【更新】仅操作DOM根据需要，显示最后的组件。
+回调在渲染完或更新后调用。
+将来版本渲染可恩是异步的在某些情况下。如果你需要一个根组件实例的引用，优选方案是添加一个回调 ref 给根元素。
+----
+ReactDOM.unmountComponentAtNode(DOMElement container)
+移除React 组件从 DOM 并且清除事件句柄和状态(handlers state)。 如果组件没映射在容器，那什么都不做。
+返回 true 解除成功。 false 如果无组件可可移除。
+----
+ReactDOM.findDOMNode(ReactComponent component)
+组件已映射到DOM, 返回对应的浏览器的 DOM 元素。多数情况可以附加 ref 到节点避免使用这个函数。
+这个方法主要用在读 DOM 外面的值。不能被用在无状态的组件上。也必须在映射以后才可调用。
+
+组件 API：
+----------------------------------------
+ReactComponent 的实例创建是在渲染的时候。可以重用在后面的渲染，也可以通过组件方法的 this 访问。
+通过存储 render的返回值，可以在组件外面访问它。内部的其他组件可以使用 refs 达到同样的结果。
+----
+setState(func|object nextState, func callback) 执行浅合并，nextState 到 current state.
+这是一个基本的方法去触发 UI 更新从 event handlers 和 服务端请求回调。
+setState(function(previousState, currentProps) {
+  return {myInteger: previousState.myInteger + 1};
+});
+第二个参数的回调在setState 执行完，组件重新渲染完。
+绝不要直接操作 this.state, 一定要通过调用 setState。
+总是触发 re-render 除非渲染逻辑条件在 shouldComponentUpdate() 执行。
+它也不直接操作，而是建立一个挂起的状态转换。
+如果操作的对象在被使用，并且逻辑不能执行在 shouldComponentUpdate()，
+在调用的 setState() 仅当新状态不同于以前的状态将避免不必要的 re-renders.
+----
+replaceState 像 setState() 但是要删除已不在nextState中存在的 state keys。
+不能在 es6 class 组件中用。
+----
+forceUpdate(callback) 通常组件的 state 或 props 发生变化，组件将重新渲染。
+然而如果一些改变比较隐晦（如深度的对象）或者你的 render() 方法依赖一些其他的数据，
+你需要告诉 React 重新运行下 render() 通过调用 forceUpdate().
+调用 forceUpdate() 引起 render() 被调用在组件上，但跳过组件自己的 shouldComponentUpdate().
+调用将触发方法正常的生命周期在子组件中，包括他们的 shouldComponentUpdate().
+React 仅更新 DOM 如果标记改变。
+通常要避免都使用 forceUpdate, 并且 render() 仅来自于 props 和 state。
+----
+isMounted 返回 true 如果组件渲染到 DOM。可以使用这个方法图监视异步调用：setState or forceUpdate。
+不能在es6 class 组件中使用。
+----------------------------------
+组件规范和生命期
+当通过 React.createClass 创建组件，应该提高规范的对象，他包含 render 方法和其他可选的包含在
+生命期的方法描述在这里。
+----
+ReactElement render() 必须的。
+当调用，检查 this.props 和 this.state 并且返回一个单一的子元素。这个子元素既是一个虚拟的本地DOM组件的描述，
+（如： <div /> or React.DOM.div()）也是其他你定义的复合组件。
+你也可以返回 null 或 false 来表示你不想有任何的渲染。
+render 函数并不修改组件的 state, 不从Dom读或写 及其他的交互在浏览器。
+想交互则通过 componentDidMount或其他方法代替。保证 render 的纯性。
+----
+getInitialState 在组件映射后调用一次。返回值当做 this.state 的初值。
+----
+getDefaultProps 当类被创建后，调用一次并缓存。值在映射中根据 this.props 来设置如果父组没指定 prop。
+在任何实例被建立前调用也不依赖于 this.props。避免返回复杂的对象，他是跨实例共享而不是复制的。
+
+propTypes object 验证 props。
+
+mixins array mixins 共享行为在多个组件。
+
+statics object 定义静态方法，在组件类中调用。
+var MyComponent = React.createClass({
+  statics: {
+    customMethod: function(foo) {
+      return foo === 'bar';
+    }
+  },
+  render: function() {
+  }
+});
+
+MyComponent.customMethod('bar');  // true
+
+displayName 显示调试信息用于. jsx 自动设置。
+------------------------------------------
+生命期方法：
+----
+Mounting: componentWillMount 调用一次在初始化渲染发生时。如果在里面调用了 setState，
+render() 将查看更新后的 state 并且根据期望的状态改变执行一次 render 。
+----
+Mounting: componentDidMount 执行一次在渲染时候。在这个周期点，你可以访问 refs 。
+子组件的该方法要先调用。集成其他js 或 ajax 应在这个方法里。
+----
+Updating: componentWillReceiveProps (object nextPorps) 当组件接受新 props 时调用。
+不在初始时调用。使用这个的时机是反映 prop 转换在 render 调用前通过更新状态使用 this.setState()。
+在这个函数内调用 this.setState 不触发 render。
+componentWillReceiveProps: function(nextProps) {
+  this.setState({
+    likesIncreasing: nextProps.likeCount > this.props.likeCount
+  });
+}
+http://reactjs.cn/react/blog/2016/01/08/A-implies-B-does-not-imply-B-implies-A.html
+class Component extends React.Component {
+    componentWillReceiveProps(nextProps) {
+        console.log('componentWillReceiveProps', nextProps.data.bar);
+    }
+    render() {
+        return <div>Bar {this.props.data.bar}!</div>;
+    }
+}
+
+var container = document.getElementById('example');
+
+var mydata = {bar: 'drinks'};
+ReactDOM.render(<Component data={mydata} />, container);
+mydata.bar = 'food'
+ReactDOM.render(<Component data={mydata} />, container);
+mydata.bar = 'noise'
+ReactDOM.render(<Component data={mydata} />, container);
+
+----
+优化：http://taobaofed.org/blog/2016/08/12/optimized-react-components/
+        //  
+
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+class FooComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+  }
+
+  render() {
+    return <div className={this.props.className}>foo</div>;
+  }
+}
+Updating: shouldComponentUpdate(nextProps, nextState)
+收到新的 props 和 state 渲染前调用。不能在初始化和 forceUpdate 触发。
+
+当调用这个返回 false 的时候，你必然确认新的state 和 props 不需要组件更新。
+render 将完全跳过直到下一次 state 变化。另外 componentWillMount componentDidMount 也不被调用。
+----
+Updating: componentWillUpdate(nextProps, nextState)
+渲染前调用当新的 props 和 state 收到。用于执行预处理在更新前。不能调用 this.setState在这里。
+
+----
+Updating: componentDidUpdate(prevProps, prevState) 组件更新完Dom后调用。
+
+--
+Unmounting: componentWillUnmount 组件去除映射前调用。
+-------------------------------------------------
+SyntheticEvent 综合事件：
+boolean        bubbles
+boolean        cancelable
+DOMEventTarget currentTarget
+boolean        defaultPrevented
+number         eventPhase
+boolean        isTrusted
+DOMEvent       nativeEvent
+void           preventDefault()
+boolean        isDefaultPrevented()
+void           stopPropagation()
+boolean        isPropagationStopped()
+DOMEventTarget target
+number         timeStamp
+string         type
+http://reactjs.cn/react/docs/events.html
+this.setState({eventType: event.type}); 
+If you want to access the event properties in an asynchronous way, 
+you should call event.persist() on the event, which will remove the 
+synthetic event from the pool and allow references to the event to be retained by user code.
+-------------------------------------
+虚拟DOM
+React Elements 的基本类型：type props key ref。
+轻量、无状态、不可变、虚拟表示的DOM元素。
+var child = React.createElement('li', null, "text content");
+React.createElement('ul', {className: 'my-list'}, child);
+
+工厂 ：创建元素的快捷方式
+var div = React.createFactory('div');
+var root = div({ className: 'my-div' });
+ReactDOM.render(root, document.getElementById('example'));
+
+var root = React.DOM.ul({ className: 'my-list' },
+             React.DOM.li(null, 'Text Content')
+           );
+使用 jsx 则不需要工厂。
+
+节点：ReactElement ReactText Array of ReactNode/ReactFragment
+
+组件：http://reactjs.cn/react/docs/glossary.html
+var componentA = ReactDOM.render(<MyComponent />, document.getElementById('example'));
+var componentB = ReactDOM.render(<MyComponent />, document.getElementById('example'));
+componentA === componentB; // true
+----------------------------------------------
+内联样式：
+var divStyle = {
+  color: 'white',
+  backgroundImage: 'url(' + imgUrl + ')',
+  WebkitTransition: 'all', // note the capital 'W' here
+  msTransition: 'all' // 'ms' is the only lowercase vendor prefix
+};
+
+ReactDOM.render(<div style={divStyle}>Hello World!</div>, mountNode);
+------
+If-Else in JSX
+if-else 语句不能工作在 JSX. 因为JSX 是函数调用和对象构造的语法糖. 
+// This JSX:
+ReactDOM.render(<div id="msg">Hello World!</div>, mountNode);
+// 被转换成 this JS:
+ReactDOM.render(React.createElement("div", {id:"msg"}, "Hello World!"), mountNode);
+可以在内部使用三元运算符（ternary)
+ReactDOM.render(<div id={condition ? 'msg' : null}>Hello World!</div>, mountNode);
+或者 if 语句放在 jsx 外面：
+var loginButton;
+if (loggedIn) {
+  loginButton = <LogoutButton />;
+} else {
+  loginButton = <LoginButton />;
+}
+
+return (
+  <nav>
+    <Home />
+    {loginButton}
+  </nav>
+);
+如果你更喜欢内联，定义立即调用表达式可以：
+return (
+  <section>
+    <h1>Color</h1>
+    <h3>Name</h3>
+    <p>{this.state.color || "white"}</p>
+    <h3>Hex</h3>
+    <p>
+      {(() => {
+        switch (this.state.color) {
+          case "red":   return "#FF0000";
+          case "green": return "#00FF00";
+          case "blue":  return "#0000FF";
+          default:      return "#FFFFFF";
+        }
+      })()}
+    </p>
+  </section>
+);
+jsx root 要返回一个node, 三元符里也是一个。像素px 可以不写。
+
+通常组件组件子元素是一个组件数组。
+var GenericWrapper = React.createClass({
+  componentDidMount: function() {
+    console.log(Array.isArray(this.props.children)); // => true
+  },
+
+  render: function() {
+    return <div />;
+  }
+});
+
+ReactDOM.render(
+  <GenericWrapper><span/><span/><span/></GenericWrapper>,
+  mountNode
+);
+当仅有一个子元素时候，就没有被包装成数组：
+var GenericWrapper = React.createClass({
+  componentDidMount: function() {
+    console.log(Array.isArray(this.props.children)); // => false
+
+    // warning: yields 5 for length of the string 'hello', not 1 for the
+    // length of the non-existent array wrapper!
+    console.log(this.props.children.length);
+  },
+
+  render: function() {
+    return <div />;
+  }
+});
+
+ReactDOM.render(<GenericWrapper>hello</GenericWrapper>, mountNode);
+--------------------
+加载初始化数据通过 ajax:
+获取数据在componentDidMount 当响应到达，保存数据到state,触发ui 的更新渲染。
+当获取异步使用 componentWillUnmount 去取消请求。
+
+var UserGist = React.createClass({
+  getInitialState: function() {
+    return {
+      username: '',
+      lastGistUrl: ''
+    };
+  },
+
+  componentDidMount: function() {
+    this.serverRequest = $.get(this.props.source, function (result) {
+      var lastGist = result[0];
+      this.setState({
+        username: lastGist.owner.login,
+        lastGistUrl: lastGist.html_url
+      });
+    }.bind(this));
+  },
+
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
+  render: function() {
+    return (
+      <div>
+        {this.state.username}s last gist is
+        <a href={this.state.lastGistUrl}>here</a>.
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(
+  <UserGist source="https://api.github.com/users/octocat/gists" />,
+  mountNode
+);
+-----
+No child:
+ReactDOM.render(<div>{false}</div>, mountNode);
+String "false" as input value:
+ReactDOM.render(<input value={false} />, mountNode);
+-----
+父子组件通信通过传递 props.
+子组件相互通信可以通过设置全局事件
+var handleClick = function(i, props) {
+    console.log('You clicked: ' + props.items[i]);
+};
+
+function GroceryList(props) {
+    return (
+        <div>
+            {props.items.map(function(item, i) {
+                return (
+                    <div onClick={handleClick.bind(this, i, props)} key={i}>{item}</div>
+                );
+            })}
+        </div>
+    );
+}
+
+ReactDOM.render(
+    <GroceryList items={['Apple', 'Banana', 'Cranberry']} />, document.getElementById('example2')
+);
+也可以暴露子组件的方法供父组件来调用：
+
+var Todo = React.createClass({
+    render: function() {
+        return <div onClick={this.props.onClick}>{this.props.title}</div>;
+    },
+
+    //this component will be accessed by the parent through the `ref` attribute
+    animate: function() {
+        console.log('Pretend %s is animating', this.props.title);
+    }
+});
+
+var Todos = React.createClass({
+    getInitialState: function() {
+        return {items: ['Apple', 'Banana', 'Cranberry']};
+    },
+
+    handleClick: function(index) {
+
+        var items = this.state.items.filter(function(item, i) {
+            return index !== i;
+        });
+        this.setState({items: items}, function() {
+            if (items.length === 1) {
+                this.refs.item0.animate();
+            }
+        }.bind(this));
+    },
+
+    render: function() {
+        return (
+            <div>
+                {this.state.items.map(function(item, i) {
+                    console.log(this)
+                    var boundClick = this.handleClick.bind(this, i);
+                    return (
+                        <Todo onClick={boundClick} key={i} title={item} ref={'item' + i} />
+                    );
+                }, this)}
+            </div>
+        );
+    }
+});
+
+ReactDOM.render(<Todos />, document.getElementById('example2'));

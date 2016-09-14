@@ -44,8 +44,8 @@
         defaults = {
             'position': "right",        // right | inside | overlay
             'text': "",                 // Text to display next to the loader
-            'class': "icon-refresh",    // loader CSS class
-            'tpl': '<span class="isloading-wrapper %wrapper%">%text%<i class="%class% icon-spin"></i></span>',    // loader base Tag
+            'class': "glyphicon-refresh",    // loader CSS class
+            'tpl': '<span class="isloading-wrapper %wrapper%">%text%<i class="%class% glyphicon"></i></span>',    // loader base Tag
             'disableSource': true,      // true | false
             'disableOthers': []
         };

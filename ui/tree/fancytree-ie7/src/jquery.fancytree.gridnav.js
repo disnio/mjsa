@@ -4,7 +4,7 @@
  * Support keyboard navigation for trees with embedded input controls.
  * (Extension module for jquery.fancytree.js: https://github.com/mar10/fancytree/)
  *
- * Copyright (c) 2014, Martin Wendt (http://wwWendt.de)
+ * Copyright (c) 2008-2016, Martin Wendt (http://wwWendt.de)
  *
  * Released under the MIT license
  * https://github.com/mar10/fancytree/wiki/LicenseInfo
@@ -115,7 +115,7 @@ function findNeighbourTd($target, keyCode){
  */
 $.ui.fancytree.registerExtension({
 	name: "gridnav",
-	version: "0.0.1",
+	version: "@VERSION",
 	// Default options for this extension.
 	options: {
 		autofocusInput:   false,  // Focus first embedded input if node gets activated
@@ -125,7 +125,7 @@ $.ui.fancytree.registerExtension({
 	treeInit: function(ctx){
 		// gridnav requires the table extension to be loaded before itself
 		this._requireExtension("table", true, true);
-		this._super(ctx);
+		this._superApply(arguments);
 
 		this.$container.addClass("fancytree-ext-gridnav");
 
@@ -150,7 +150,7 @@ $.ui.fancytree.registerExtension({
 
 		flag = (flag !== false);
 
-		this._super(ctx, flag);
+		this._superApply(arguments);
 
 		if( flag ){
 			if( ctx.options.titlesTabbable ){
@@ -192,8 +192,8 @@ $.ui.fancytree.registerExtension({
 			}
 			return true;
 		}
-		ctx.tree.debug("ext-gridnav NOT HANDLED", event, inputType);
-		return this._super(ctx);
+		// ctx.tree.debug("ext-gridnav NOT HANDLED", event, inputType);
+		return this._superApply(arguments);
 	}
 });
 }(jQuery, window, document));

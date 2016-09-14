@@ -6,13 +6,13 @@
  *
  * @see http://jqueryui.com/themeroller/
  *
- * Copyright (c) 2014, Martin Wendt (http://wwWendt.de)
+ * Copyright (c) 2008-2016, Martin Wendt (http://wwWendt.de)
  *
  * Released under the MIT license
  * https://github.com/mar10/fancytree/wiki/LicenseInfo
  *
- * @version 2.0.0-12
- * @date 2014-04-29T19:55
+ * @version 2.19.0
+ * @date 2016-08-11T15:51
  */
 
 ;(function($, window, document, undefined) {
@@ -24,7 +24,7 @@
  */
 $.ui.fancytree.registerExtension({
 	name: "themeroller",
-	version: "0.0.1",
+	version: "2.19.0",
 	// Default options for this extension.
 	options: {
 		activeClass: "ui-state-active",
@@ -34,7 +34,7 @@ $.ui.fancytree.registerExtension({
 	},
 
 	treeInit: function(ctx){
-		this._super(ctx);
+		this._superApply(arguments);
 		var $el = ctx.widget.element;
 
 		if($el[0].nodeName === "TABLE"){
@@ -49,17 +49,17 @@ $.ui.fancytree.registerExtension({
 			var node = $.ui.fancytree.getNode(event.target),
 				flag = (event.type === "mouseenter");
 			node.debug("hover: " + flag);
-			$(node.span).toggleClass("ui-state-hover ui-corner-all", flag);
+			$(node.tr ? node.tr : node.span).toggleClass("ui-state-hover ui-corner-all", flag);
 		});
 	},
 	treeDestroy: function(ctx){
-		this._super(ctx);
+		this._superApply(arguments);
 		ctx.widget.element.removeClass("ui-widget ui-widget-content ui-corner-all");
 	},
 	nodeRenderStatus: function(ctx){
 		var node = ctx.node,
-			$el = $(node.span);
-		this._super(ctx);
+			$el = $(node.tr ? node.tr : node.span);
+		this._superApply(arguments);
 /*
 		.ui-state-highlight: Class to be applied to highlighted or selected elements. Applies "highlight" container styles to an element and its child text, links, and icons.
 		.ui-state-error: Class to be applied to error messaging container elements. Applies "error" container styles to an element and its child text, links, and icons.
@@ -73,7 +73,6 @@ $.ui.fancytree.registerExtension({
 		$el.toggleClass("ui-state-active", node.isActive());
 		$el.toggleClass("ui-state-focus", node.hasFocus());
 		$el.toggleClass("ui-state-highlight", node.isSelected());
-//		node.debug("ext-themeroller.nodeRenderStatus: ", node.span.className);
 	}
 });
 }(jQuery, window, document));

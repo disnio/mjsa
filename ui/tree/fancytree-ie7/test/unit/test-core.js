@@ -74,27 +74,30 @@ test("Static members", function() {
 	if( $("#tree").is(":ui-fancytree") ){
 		$("#tree").fancytree("destroy");
 	}
-	expect(1);
+	expect(5);
 
 	ok($.isFunction($.ui.fancytree.debug), "ui.fancytree.debug function is defined");
-	// equal($(":ui-fancytree").length, 0, "no tree instance exists");
+	equal($(":ui-fancytree").length, 0, "no tree instance exists");
 	// equal($.ui.fancytree._nextId, 1, "next tree instance counter is 1");
+
+	equal($.ui.fancytree.getTree(), null, "getTree() no tree instance exists");
+	equal($.ui.fancytree.getTree(0), null, "getTree(0) no tree instance exists");
+	equal($.ui.fancytree.getTree(1), null, "getTree(0) no tree instance exists");
 });
 
 
 test("Create fancytree", function() {
-	tools.setupAsync();
-	expect(25);
+	expect(31);
 
-	var widget,
+	tools.setupAsync();
+
+	var tree, widget,
 		insideConstructor = true;
 
 	$("#tree").fancytree({
 		source: TEST_DATA,
 		generateIds: true, // for testing
 		create: function(event, data){
-			var tree, widget;
-
 			equal(event.type, "fancytreecreate", "receive `create` callback");
 			ok(insideConstructor, "running synchronously");
 			ok(!!data, "event data is empty");
@@ -108,6 +111,7 @@ test("Create fancytree", function() {
 		},
 		init: function(event, data){
 			equal(event.type, "fancytreeinit", "receive `init` callback");
+			equal(data.status, true, "`init` status is true");
 			ok(insideConstructor, "running synchronously");
 			ok(!!data.tree.rootNode, "`data.tree` is the tree object");
 			equal(data.options.source.length, TESTDATA_TOPNODES, "data.options.contains widget options");
@@ -142,8 +146,15 @@ test("Create fancytree", function() {
 	ok(!!widget.tree, "widget.tree is defined");
 //    equal(widget.tree._id, 1, "tree id is 1");
 
-	ok($("#tree").fancytree("getTree") === widget.tree, "$().fancytree('getTree')");
+	ok($("#tree").fancytree("getTree") === tree, "$().fancytree('getTree')");
 	ok($("#tree").fancytree("getActiveNode") === null, "$().fancytree('getActiveNode')");
+
+	equal($.ui.fancytree.getTree(), tree, "getTree() exists");
+	ok($.ui.fancytree.getTree(0) === tree, "getTree(0) exists");
+	ok($.ui.fancytree.getTree("#tree") === tree, "getTree('#tree') exists");
+
+	ok($.ui.fancytree.getTree(1) === null, "getTree(1) does not exist");
+	ok($.ui.fancytree.getTree("#foobar") === null, "getTree(#foobar) does not exist");
 
 	equal($("div#tree ul").length, 2, "collapsed choldren are NOT rendered");
 	equal($("div#tree li").length, TESTDATA_VISIBLENODES, "collapsed nodes are NOT rendered");
@@ -194,23 +205,127 @@ test("Init node with custom data", function() {
 });
 
 
+test("Custom icons (node.icon)", function() {
+	tools.setupAsync();
+	expect(13);
+
+	var children = [
+			{key: "1", title: "node 1" },
+			{key: "2", title: "node 2", icon: true},
+			{key: "3", title: "node 3", icon: false},
+			{key: "4", title: "node 4", icon: "custom-class"},
+			{key: "5", title: "node 5", icon: "custom_icon.png"},
+			{key: "6", title: "node 6", iconClass: "custom-class"}
+		];
+
+	$("#tree").fancytree({
+		source: children,
+		generateIds: true,
+		init: function(event, data){
+			equal( tools.getNode("4").data.icon, undefined, "node.data.icon is not set");
+			equal( tools.getNode("4").icon, "custom-class", "node.icon is set");
+			equal( tools.getNode("5").icon, "custom_icon.png", "node.icon is set");
+
+			ok( $("#ft_1 span.fancytree-icon").length === 1, "icon span exists by default");
+			ok( $("#ft_2 span.fancytree-icon").length === 1, "icon: true shows icon");
+			ok( $("#ft_3 span.fancytree-icon").length === 0, "icon: false hides icon");
+			// custom class
+			ok( $("#ft_4 span.fancytree-custom-icon").length === 1, "custom icons have span.fancytree-custom-icon");
+			ok( $("#ft_4 span.fancytree-custom-icon").hasClass("custom-class"), "custom icons have custom class added");
+			ok( $("#ft_4 .fancytree-icon").length === 0, "custom icons don't have .fancytree-icon");
+			// custom image
+			// Note: IE <= 7 prepends the path to the src attribute, so we must test with indexOf:
+//			ok( $("#ft_5 img.fancytree-icon").attr("src") === "custom_icon.png", "image icon <img> exists");
+			ok( $("#ft_5 img.fancytree-icon").attr("src").indexOf("custom_icon.png") >= 0, "image icon <img> exists");
+			ok( $("#ft_5 span.fancytree-icon").length === 0, "image icon <span> not exists");
+			ok( $("#ft_5 .fancytree-custom-icon").length === 0, "image icons don't have .fancytree-custom-icon");
+			// auto-migration for iconClass
+			ok( $("#ft_6 span.fancytree-custom-icon").hasClass("custom-class"), "migration for deprecated iconClass");
+
+			start();
+		}
+	});
+});
+
+test("Custom icons (options.icon)", function() {
+	tools.setupAsync();
+	expect(16);
+
+	var children = [
+			{key: "1", title: "node 1" },
+			{key: "2", title: "node 2" },
+			{key: "3", title: "node 3" },
+			{key: "4", title: "node 4" },
+			{key: "5", title: "node 5" },
+			{key: "6", title: "node 6", icon: false },
+			{key: "7", title: "node 7", icon: false },
+			{key: "8", title: "node 8", icon: true },
+			{key: "9", title: "node 9", icon: true },
+			{key: "10", title: "node 10", icon: "custom-class-2" },
+			{key: "11", title: "node 11", icon: "custom-class-2" }
+		];
+
+	$("#tree").fancytree({
+		source: children,
+		generateIds: true,
+		icon: function(event, data){
+			switch( data.node.key ){
+			case "2": return true;
+			case "3": return false;
+			case "4": return "custom-class";
+			case "5": return "custom_icon.png";
+			case "7": return true;
+			case "9": return false;
+			case "11": return "custom-class";
+			}
+		},
+		init: function(event, data){
+			equal( tools.getNode("8").data.icon, undefined, "node.data.icon is not set");
+
+			ok( $("#ft_1 span.fancytree-icon").length === 1, "icon span exists by default ('undefined')");
+			ok( $("#ft_2 span.fancytree-icon").length === 1, "icon: true shows icon");
+			ok( $("#ft_3 span.fancytree-icon").length === 0, "icon: false hides icon");
+			// custom class
+			ok( $("#ft_4 span.fancytree-custom-icon").length === 1, "custom icons have span.fancytree-custom-icon");
+			ok( $("#ft_4 span.fancytree-custom-icon").hasClass("custom-class"), "custom icons have custom class added");
+			ok( $("#ft_4 .fancytree-icon").length === 0, "custom icons don't have .fancytree-icon");
+			// custom image
+			// Note: IE <= 7 prepends the path to the src attribute, so we must test with indexOf:
+//			ok( $("#ft_5 img.fancytree-icon").attr("src") === "custom_icon.png", "image icon <img> exists");
+			ok( $("#ft_5 img.fancytree-icon").attr("src").indexOf("custom_icon.png") >= 0, "image icon <img> exists");
+			ok( $("#ft_5 span.fancytree-icon").length === 0, "image icon <span> not exists");
+			ok( $("#ft_5 .fancytree-custom-icon").length === 0, "image icons don't have .fancytree-custom-icon");
+			// callback overrides node.icon
+			ok( $("#ft_6 span.fancytree-icon").length === 0, "icon hidden (node.icon=false, options.icon=undefined)");
+			ok( $("#ft_7 span.fancytree-icon").length === 1, "icon visible (node.icon=false, options.icon=true)");
+			ok( $("#ft_8 span.fancytree-icon").length === 1, "icon visible (node.icon=true, options.icon=undefined)");
+			ok( $("#ft_9 span.fancytree-icon").length === 0, "icon hidden (node.icon=true, options.icon=false)");
+			ok( $("#ft_10 span.fancytree-custom-icon").hasClass("custom-class-2"), "using custom-class-2 (node.icon='custom-class-2', options.icon=undefined)");
+			ok( $("#ft_11 span.fancytree-custom-icon").hasClass("custom-class"), "using custom-class (node.icon='custom-class-2', options.icon='custom-class')");
+
+			start();
+		}
+	});
+});
+
+
 /*******************************************************************************
  *
  */
 module("API");
 
-test("FancytreeNode class", function() {
+test("FancytreeNode class methods", function(assert) {
 //  tools.setupAsync();
 	QUnit.reset();
 	if( $("#tree").is(":ui-fancytree") ){
 		$("#tree").fancytree("destroy");
 	}
-	expect(28);
+	expect(39);
 
 	$("#tree").fancytree({
 		source: TEST_DATA
 	});
-	var res, ROOT_NODE_KEY,
+	var res, ROOT_NODE_KEY, nodeAdded,
 		tree = $("#tree").fancytree("getTree"),
 		root = tree.rootNode,
 		node = tools.getNode("10_1_2");
@@ -227,7 +342,38 @@ test("FancytreeNode class", function() {
 
 	// Methods
 //  addChildren: function(children){
-//  addNode: function(node, mode){
+
+	// addNode
+	assert.throws(function(){
+		root.addNode({"title": "my title"}, "undefined mode");
+	}, "Fancytree assertion failed: Invalid mode: undefined mode");
+
+	nodeAdded = root.addNode({"title": "my title 1", "key": "add-node-1"});
+	assert.equal(root.children.slice(-1)[0].key, "add-node-1", "Node added at the last position");
+
+	nodeAdded.addNode({"title": "my title 2", "key": "add-node-2"});
+	assert.equal(nodeAdded.countChildren(), 1, "Children added");
+	assert.equal(nodeAdded.children[0].key, "add-node-2", "Children at first position");
+
+	nodeAdded.addNode({"title": "my title 3", "key": "add-node-3"}, "child");
+	assert.equal(nodeAdded.countChildren(), 2, "Children added");
+	assert.equal(nodeAdded.children.slice(-1)[0].key, "add-node-3", "Children added at last position");
+
+	nodeAdded.addNode({"title": "my title 4", "key": "add-node-4"}, "firstChild");
+	assert.equal(nodeAdded.countChildren(), 3, "Children added");
+	assert.equal(nodeAdded.children[0].key, "add-node-4", "Children add at the first position");
+
+	nodeAdded.children[0].addNode({"title": "my title 5", "key": "add-node-5"}, "before");
+	assert.equal(nodeAdded.children[0].key, "add-node-5", "Children added before element");
+
+	nodeAdded.children[0].addNode({"title": "my title 6", "key": "add-node-6"}, "after");
+	assert.equal(nodeAdded.children[1].key, "add-node-6", "Children added after element");
+
+	nodeAdded.removeChildren();
+	nodeAdded.addNode({"title": "my title 7", "key": "add-node-7"}, "firstChild");
+	assert.equal(nodeAdded.countChildren(), 1, "Children added at first even if no child");
+	nodeAdded.remove();
+
 //  applyPatch: function(patch) {
 //  collapseSiblings: function() {
 //  copyTp: function(targetNode, mode, map) {
@@ -333,7 +479,7 @@ test("FancytreeNode class", function() {
 });
 
 
-test("Fancytree class", function() {
+test("Fancytree class methods", function() {
 //  tools.setupAsync();
 	QUnit.reset();
 	if( $("#tree").is(":ui-fancytree") ){
@@ -380,6 +526,7 @@ test("Fancytree class", function() {
 	equal(tree.getNodeByKey("10_2_1", node).key, "10_2_1", "getNodeByKey(.., root)");
 	equal(tree.getNodeByKey("10_1_1", node), null, "getNodeByKey(.., root) not found");
 
+	// tree.getSelectedNodes()
 	deepEqual(tools.getNodeKeyArray(tree.getSelectedNodes()), [], "getSelectedNodes() - empty");
 	deepEqual(tools.getNodeKeyArray(tree.getSelectedNodes(true)), [], "getSelectedNodes(true) - empty");
 	tools.getNode("10_2").setSelected();
@@ -393,10 +540,11 @@ test("Fancytree class", function() {
 //  reactivate: function(source) {
 //  reload: function(source) {
 //    render: function(force, deep) {
-
+	// tree.toString()
 	equal(tree.toString(), "<Fancytree(#" + tree._id + ")>", "toString()");
 	equal("" + tree, tree.toString(), "toString() implicit");
 
+	// tree.visit()
 	c = 0;
 	tree.visit(function(n){
 		c += 1;
@@ -420,6 +568,7 @@ test("Fancytree class", function() {
 		}
 	});
 	equal(c, 21, "visit() - skip branch");
+
 });
 
 
@@ -521,7 +670,7 @@ test(".click() to activate a node", function() {
 			start();
 		}
 	});
-	$("#tree #ft_2").click();
+	$("#tree #ft_2 span.fancytree-title").click();
 });
 
 
@@ -547,7 +696,7 @@ test(".click() to activate a folder (clickFolderMode 3 triggers expand)", functi
 			start();
 		}
 	});
-	$("#tree #ft_10").click();
+	$("#tree #ft_10 span.fancytree-title").click();
 });
 
 

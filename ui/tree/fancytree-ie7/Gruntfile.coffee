@@ -23,25 +23,6 @@ module.exports = (grunt) ->
                 "<%= pkg.homepage ? '  * ' + pkg.homepage + '\\n' : '' %>" +
                 "  * Copyright (c) <%= grunt.template.today('yyyy') %> <%= pkg.author.name %>;" +
                 " Licensed <%= _.pluck(pkg.licenses, 'type').join(', ') %> */\n"
-    bumpup:
-        options:
-            dateformat: "YYYY-MM-DD HH:mm"
-            normalize: true
-            updateProps: 
-                pkg: "package.json"
-        files: ["package.json", "bower.json", "fancytree.jquery.json"]
-
-    checkrepo:
-      beforeBump:
-          tag:
-              eq: "<%= pkg.version %>" # Check if highest repo tag == pkg.version
-#          tagged: false # Require last commit (HEAD) to be tagged
-          clean: true # // Require repo to be clean (no unstaged changes)
-      beforeRelease:
-          tag:
-              lt: "<%= pkg.version %>" # Check if highest repo tag is lower than pkg.version
-#          tagged: false # Require last commit (HEAD) to be tagged
-          clean: true # // Require repo to be clean (no unstaged changes)
 
     clean:
         build:
@@ -51,13 +32,13 @@ module.exports = (grunt) ->
         extMin:
             src: [ "build/jquery.fancytree.*.min.js" ]
 
-    compress:
-        dist:
-            options:
-                archive: "archive/<%= pkg.name %>-<%= pkg.version %>.zip"
-            files: [
-                {expand: true, cwd: "dist/", src: ["**/*"], dest: ""}
-                ]
+    # compress:
+    #     dist:
+    #         options:
+    #             archive: "archive/<%= pkg.name %>-<%= pkg.version %>.zip"
+    #         files: [
+    #             {expand: true, cwd: "dist/", src: ["**/*"], dest: ""}
+    #             ]
 
     concat:
         core:
@@ -77,7 +58,7 @@ module.exports = (grunt) ->
                 # "lib/intro.js"
                 "src/jquery.fancytree.js"
                 "src/jquery.fancytree.childcounter.js"
-#                "src/jquery.fancytree.clones.js"
+                "src/jquery.fancytree.clones.js"
 #                "src/jquery.fancytree.columnview.js"
                 "src/jquery.fancytree.dnd.js"
                 "src/jquery.fancytree.edit.js"
@@ -88,6 +69,7 @@ module.exports = (grunt) ->
                 "src/jquery.fancytree.persist.js"
                 "src/jquery.fancytree.table.js"
                 "src/jquery.fancytree.themeroller.js"
+                "src/jquery.fancytree.wide.js"
                 # "lib/outro.js"
                 ]
             dest: "build/<%= pkg.name %>-all.js"
@@ -108,7 +90,7 @@ module.exports = (grunt) ->
                 "lib/intro.js"
                 "build/jquery.fancytree.min.js"
                 "build/jquery.fancytree.childcounter.min.js"
-#                "build/jquery.fancytree.clones.min.js"
+                "build/jquery.fancytree.clones.min.js"
 #                "build/jquery.fancytree.columnview.min.js"
                 "build/jquery.fancytree.dnd.min.js"
                 "build/jquery.fancytree.edit.min.js"
@@ -119,9 +101,10 @@ module.exports = (grunt) ->
                 "build/jquery.fancytree.persist.min.js"
                 "build/jquery.fancytree.table.min.js"
                 "build/jquery.fancytree.themeroller.min.js"
+                "build/jquery.fancytree.wide.min.js"
                 "lib/outro.js"
                 ]
-            dest: "build/<%= pkg.name %>-custom.min.js"
+            dest: "build/<%= pkg.name %>-all.min.js"
 
     connect:
         forever:
@@ -129,7 +112,7 @@ module.exports = (grunt) ->
                 port: 8080
                 base: "./"
                 keepalive: true
-        dev: # pass on, so subsequent tastks (like watch) can start
+        dev: # pass on, so subsequent tasks (like watch) can start
             options:
                 port: 8080
                 base: "./"
@@ -146,16 +129,28 @@ module.exports = (grunt) ->
             files: [{
                 expand: true # required for cwd
                 cwd: "src/"
-                src: ["skin-**/*.{css,gif,png}", "*.txt"]
+                src: [
+                    "skin-**/*.{css,gif,md,png,less}"
+                    "skin-common.less"
+                    "*.txt"
+                    ]
                 dest: "build/"
             }, {
                 expand: true
                 cwd: "src/"
-                src: ["jquery.*.js"]
+                src: [
+                    "jquery.*.js"
+                    ]
+                # src: [
+                #   "skin-**/*.{css,gif,png,less,md}"
+                #   "*.txt"
+                #   "jquery.*.js"
+                #   "skin-common.less"
+                #   ]
                 dest: "build/src/"
             }, {
                 # src: ["*.txt", "*.md"]
-                src: ["MIT-LICENSE.txt"]
+                src: ["LICENSE.txt"]
                 dest: "build/"
             }]
         dist: # copy build folder to dist
@@ -170,6 +165,12 @@ module.exports = (grunt) ->
             src: ["**/*.fancytree.css", "!*.min.css"]
             dest: "build/"
             ext: ".fancytree.min.css"
+
+    devUpdate:
+        main:
+            options:
+                reportUpdated: true
+                updateType: 'prompt'  # 'report'
 
     docco:
         docs:
@@ -188,19 +189,19 @@ module.exports = (grunt) ->
             cmd: "pyftpsync --progress upload . ftp://www.wwwendt.de/tech/fancytree --delete-unmatched --omit build,node_modules,.*,_*  -x"
 #            cmd: "pyftpsync --progress upload . ftp://www.wwwendt.de/tech/fancytree --omit build,node_modules,.*,_*  -x"
 
-    htmllint:
-        all: ["demo/**/*.html", "doc/**/*.html", "test/**/*.html"]
+    # htmllint:
+    #     all: ["demo/**/*.html", "doc/**/*.html", "test/**/*.html"]
 
-    jsdoc:
-        build:
-            src: ["src/*.js", "doc/README.md", "doc/jsdoctest.js"]
-            options:
-                destination: "doc/jsdoc_new"
-#                template: "bin/jsdoc3-moogle",
-#                template: "node_modules/ink-docstrap/template",
-                template: "../docstrap/template",
-                configure: "doc/jsdoc.conf.json"
-                verbose: true
+#     jsdoc:
+#         build:
+#             src: ["src/*.js", "doc/README.md", "doc/jsdoctest.js"]
+#             options:
+#                 destination: "doc/jsdoc_new"
+# #                template: "bin/jsdoc3-moogle",
+# #                template: "node_modules/ink-docstrap/template",
+#                 template: "../docstrap/template",
+#                 configure: "doc/jsdoc.conf.json"
+#                 verbose: true
 
     jshint:
         options:
@@ -211,6 +212,7 @@ module.exports = (grunt) ->
             "src/*.js"
             "3rd-party/**/jquery.fancytree.*.js"
             "test/unit/*.js"
+            "demo/**/*.js"
             ]
         afterConcat: [
             "<%= concat.core.dest %>"
@@ -235,6 +237,7 @@ module.exports = (grunt) ->
         ]
         develop: [ 
             "test/unit/test-core.html"
+            "test/unit/test-ext-filter.html"
             "test/unit/test-ext-table.html"
             "test/unit/test-ext-misc.html"
         ]
@@ -265,30 +268,28 @@ module.exports = (grunt) ->
         all:
             options:
                 urls: ["http://localhost:9999/test/unit/test-core.html"]
-                tunnelTimeout: 5
+                # tunnelTimeout: 5
                 build: process.env.TRAVIS_JOB_ID
-                concurrency: 3
+                # concurrency: 3
+                throttled: 8
                 browsers: [
-                    { browserName: "chrome", platform: "Windows 7" }
-                    { browserName: "firefox", platform: "Windows 7" }
-                    { browserName: "firefox", platform: "Windows XP" }
-                    { browserName: "firefox", platform: "Linux" }
-                    { browserName: "internet explorer", version: "6", platform: "Windows XP" }
-                    { browserName: "internet explorer", version: "7", platform: "Windows XP" }
-                    { browserName: "internet explorer", version: "8", platform: "Windows XP" }
-                    { browserName: "internet explorer", version: "9", platform: "Windows 7" }
-                    { browserName: "internet explorer", version: "10", platform: "Windows 8" }
-                    { browserName: "internet explorer", version: "11", platform: "Windows 8.1" }
-                    { browserName: "safari", platform: "OS X 10.8" }
+                  { browserName: "chrome", platform: "Windows 7" }
+                  { browserName: "firefox", platform: "Windows 7" }
+                  # { browserName: "firefox", platform: "Windows XP" }
+                  { browserName: "firefox", platform: "Linux" }
+                  { browserName: "internet explorer", version: "6", platform: "Windows XP" }
+                  { browserName: "internet explorer", version: "7", platform: "Windows XP" }
+                  { browserName: "internet explorer", version: "8", platform: "Windows 7" }
+                  { browserName: "internet explorer", version: "9", platform: "Windows 7" }
+                  { browserName: "internet explorer", version: "10", platform: "Windows 8" }
+                  { browserName: "internet explorer", version: "11", platform: "Windows 8.1" }
+                  { browserName: "microsoftedge", platform: "Windows 10" }
+                  { browserName: "safari", version: "6", platform: "OS X 10.8" }
+                  { browserName: "safari", version: "7", platform: "OS X 10.9" }
+                  { browserName: "safari", version: "8", platform: "OS X 10.10" }
+                  { browserName: "safari", version: "9", platform: "OS X 10.11" }
                 ]
                 testname: "fancytree qunit tests"
-
-    tagrelease:
-        file: "package.json"
-        commit:  true
-        message: "Tagging the %version% release."
-        prefix:  "v"
-        annotate: true
 
     uglify:
         # build:
@@ -307,9 +308,10 @@ module.exports = (grunt) ->
         #         "build/<%= pkg.name %>-all.min.js": ["<%= concat.all.dest %>"]
 
         custom:
-            options:
+            options:  # see https://github.com/gruntjs/grunt-contrib-uglify/issues/366
                 report: "min"
-                preserveComments: "some"
+                # preserveComments: "some"
+                preserveComments: /(?:^!|@(?:license|preserve|cc_on))/
             files: [
               {
                   src: ["**/jquery.fancytree*.js", "!*.min.js"]
@@ -323,6 +325,18 @@ module.exports = (grunt) ->
                       return dest + folder + filename + ".min.js"
               }
               ]
+        # map_all:
+        #     options:
+        #         compress: false
+        #         mangle: false
+        #         sourceMap: true
+        #         preserveComments: 'all'
+        #     files: [
+        #       {
+        #           src: 'build/jquery.fancytree-all.min.js'
+        #           dest: 'build/jquery.fancytree-all.min.js.map'
+        #       }
+        #       ]
 
     watch:
         less:
@@ -331,9 +345,28 @@ module.exports = (grunt) ->
         jshint:
             options:
                 atBegin: true
-            files: ["src/*.js", "test/unit/*.js"]
+            files: ["src/*.js", "test/unit/*.js", "demo/**/*.js"]
             tasks: ["jshint:beforeConcat"]
 
+    yabs:
+        release:
+            common: # defaults for all tools
+              manifests: ['package.json', 'bower.json']
+            # The following tools are run in order:
+            run_test: { tasks: ['test'] }
+            check: { branch: ['master'], canPush: true, clean: true, cmpVersion: 'gte' }
+            bump: {} # 'bump' also uses the increment mode `yabs:release:MODE`
+            run_build: { tasks: ['make_release'] }
+            commit: { add: '.' }
+            tag: {}
+            push: { tags: true, useFollowTags: true },
+            githubRelease:
+              repo: 'mar10/fancytree'
+              draft: false
+            npmPublish: {}
+            bump_develop: { inc: 'prepatch' }
+            commit_develop: { message: 'Bump prerelease ({%= version %}) [ci skip]' }
+            push_develop: {}
 
   # ----------------------------------------------------------------------------
 
@@ -351,6 +384,7 @@ module.exports = (grunt) ->
   grunt.registerTask "test", [
       "jshint:beforeConcat",
       # "csslint",
+      # "htmllint",
       "qunit:develop"
   ]
 
@@ -363,11 +397,12 @@ module.exports = (grunt) ->
       grunt.registerTask "travis", ["test", "sauce"]
 
   grunt.registerTask "default", ["test"]
+  grunt.registerTask "ci", ["test"]  # Called by 'npm test'
 
   grunt.registerTask "build", [
       "less:development"
       "test"
-      "jsdoc:build"
+      # "jsdoc:build"
       "docco:docs"
       "clean:build"
       "copy:build"
@@ -384,16 +419,13 @@ module.exports = (grunt) ->
       ]
   
   grunt.registerTask "make_release", [
-      "checkrepo:beforeRelease"
       "exec:tabfix"
       "build"
       "clean:dist"
       "copy:dist"
       "clean:build"
       "replace:release"
-      "compress:dist"
-      "tagrelease"
-      "bumpup:prerelease"
+      # "compress:dist"
       ]
 
   grunt.registerTask "upload", [

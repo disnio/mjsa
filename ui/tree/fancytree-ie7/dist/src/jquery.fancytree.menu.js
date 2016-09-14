@@ -6,13 +6,13 @@
  *
  * @see http://api.jqueryui.com/menu/
  *
- * Copyright (c) 2014, Martin Wendt (http://wwWendt.de)
+ * Copyright (c) 2008-2016, Martin Wendt (http://wwWendt.de)
  *
  * Released under the MIT license
  * https://github.com/mar10/fancytree/wiki/LicenseInfo
  *
- * @version 2.0.0-12
- * @date 2014-04-29T19:55
+ * @version 2.19.0
+ * @date 2016-08-11T15:51
  */
 
 ;(function($, window, document, undefined) {
@@ -49,7 +49,7 @@ $.ui.fancytree.registerExtension({
 		var opts = ctx.options,
 			tree = ctx.tree;
 
-		this._super(ctx);
+		this._superApply(arguments);
 
 		// Prepare an object that will be passed with menu events
 		tree.ext.menu.data = {
@@ -94,7 +94,7 @@ $.ui.fancytree.registerExtension({
 		}).hide();
 	},
 	treeDestroy: function(ctx){
-		this._super(ctx);
+		this._superApply(arguments);
 	},
 	_openMenu: function(ctx){
 		var data,
@@ -149,7 +149,7 @@ $.ui.fancytree.registerExtension({
 //			ctx.tree.ext.menu._openMenu(ctx);
 //			return false;
 //		}
-//		this._super(ctx);
+//		this._superApply(arguments);
 //	}
 });
 }(jQuery, window, document));

@@ -28,10 +28,14 @@ ul.fancytree-container {
   border: 1px dotted gray;
   overflow: auto;
   min-height: 0%;
+  position: relative;
 }
 ul.fancytree-container ul {
   padding: 0 0 0 16px;
   margin: 0;
+}
+ul.fancytree-container ul > li:before {
+  content: none;
 }
 ul.fancytree-container li {
   list-style-image: none;
@@ -46,17 +50,21 @@ ul.fancytree-container li {
   background-repeat: repeat-y;
   background-image: none;
   margin: 0;
-  padding: 1px 0 0 0;
 }
 ul.fancytree-container li.fancytree-lastsib {
-  background-image: none;
-}
-ul.fancytree-no-connector > li {
   background-image: none;
 }
 .ui-fancytree-disabled ul.fancytree-container {
   opacity: 0.5;
   background-color: silver;
+}
+ul.fancytree-connectors.fancytree-container li {
+  background-image: url("data:image/gif;base64,R0lGODlhEAAQAPcAAAAAAIAAAACAAICAAAAAgIAAgACAgMDAwMDcwKbK8P///6Wlpf/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////78KCgpICAgP8AAAD/AP//AAAA//8A/wD//////yH5BAEAAP4ALAAAAAAQABAAAAgpAP0JFHhvoMGDCBMiLKiwocOBDB9KXDixosGIFidizPhwI8eGHj8KDAgAOw==");
+  background-position: 0 0;
+}
+ul.fancytree-container li.fancytree-lastsib,
+ul.fancytree-no-connector > li {
+  background-image: none;
 }
 /*------------------------------------------------------------------------------
  * Common icon definitions
@@ -78,15 +86,27 @@ span.fancytree-drag-helper-img,
   background-image: url("icons.gif");
   background-position: 0px 0px;
 }
-/* Used by iconclass option */
+span.fancytree-icon,
+span.fancytree-checkbox,
+span.fancytree-expander,
+span.fancytree-radio,
 span.fancytree-custom-icon {
+  margin-top: 0px;
+}
+/* Used by icon option: */
+span.fancytree-custom-icon {
+  width: 16px;
+  height: 16px;
   display: inline-block;
+  margin-left: 3px;
+  background-position: 0px 0px;
 }
 /* Used by 'icon' node option: */
-.fancytree-container img {
+img.fancytree-icon {
   width: 16px;
   height: 16px;
   margin-left: 3px;
+  margin-top: 0px;
   vertical-align: top;
   border-style: none;
 }
@@ -106,14 +126,20 @@ span.fancytree-expander {
 }
 .fancytree-exp-n span.fancytree-expander,
 .fancytree-exp-nl span.fancytree-expander {
+  background-image: none;
   cursor: default;
 }
-.fancytree-exp-n span.fancytree-expander,
-.fancytree-exp-n span.fancytree-expander:hover {
+.fancytree-connectors .fancytree-exp-n span.fancytree-expander,
+.fancytree-connectors .fancytree-exp-nl span.fancytree-expander {
+  background-image: url("icons.gif");
+  margin-top: 0;
+}
+.fancytree-connectors .fancytree-exp-n span.fancytree-expander,
+.fancytree-connectors .fancytree-exp-n span.fancytree-expander:hover {
   background-position: 0px -64px;
 }
-.fancytree-exp-nl span.fancytree-expander,
-.fancytree-exp-nl span.fancytree-expander:hover {
+.fancytree-connectors .fancytree-exp-nl span.fancytree-expander,
+.fancytree-connectors .fancytree-exp-nl span.fancytree-expander:hover {
   background-position: -16px -64px;
 }
 .fancytree-exp-c span.fancytree-expander {
@@ -156,10 +182,17 @@ span.fancytree-expander {
 .fancytree-exp-edl span.fancytree-expander:hover {
   background-position: -48px -96px;
 }
-.fancytree-loading span.fancytree-expander,
-.fancytree-loading span.fancytree-expander:hover {
-  background-image: url("loading.gif");
-  background-position: 0px 0px;
+/* Fade out expanders, when container is not hovered or active */
+.fancytree-fade-expander span.fancytree-expander {
+  transition: opacity 1.5s;
+  opacity: 0;
+}
+.fancytree-fade-expander:hover span.fancytree-expander,
+.fancytree-fade-expander.fancytree-treefocus span.fancytree-expander,
+.fancytree-fade-expander .fancytree-treefocus span.fancytree-expander,
+.fancytree-fade-expander [class*='fancytree-statusnode-'] span.fancytree-expander {
+  transition: opacity 0.6s;
+  opacity: 1;
 }
 /*------------------------------------------------------------------------------
  * Checkbox icon
@@ -183,13 +216,25 @@ span.fancytree-checkbox:hover {
 .fancytree-selected span.fancytree-checkbox:hover {
   background-position: -48px -32px;
 }
+.fancytree-unselectable span.fancytree-checkbox {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+.fancytree-unselectable span.fancytree-checkbox:hover {
+  background-position: 0px -32px;
+}
+.fancytree-unselectable.fancytree-partsel span.fancytree-checkbox:hover {
+  background-position: -64px -32px;
+}
+.fancytree-unselectable.fancytree-selected span.fancytree-checkbox:hover {
+  background-position: -32px -32px;
+}
 /*------------------------------------------------------------------------------
  * Radiobutton icon
  * This is a customization, that may be activated by overriding the 'checkbox'
  * class name as 'fancytree-radio' in the tree options.
  *----------------------------------------------------------------------------*/
 .fancytree-radio span.fancytree-checkbox {
-  margin-left: 3px;
   background-position: 0px -48px;
 }
 .fancytree-radio span.fancytree-checkbox:hover {
@@ -206,6 +251,10 @@ span.fancytree-checkbox:hover {
 }
 .fancytree-radio .fancytree-selected span.fancytree-checkbox:hover {
   background-position: -48px -48px;
+}
+.fancytree-radio .fancytree-unselectable span.fancytree-checkbox,
+.fancytree-radio .fancytree-unselectable span.fancytree-checkbox:hover {
+  background-position: 0px -48px;
 }
 /*------------------------------------------------------------------------------
  * Node type icon
@@ -255,13 +304,16 @@ span.fancytree-icon {
 .fancytree-ico-ef span.fancytree-icon:hover {
   background-position: -80px -16px;
 }
-/* Status node icons */
-.fancytree-statusnode-wait span.fancytree-icon,
-.fancytree-statusnode-wait span.fancytree-icon:hover {
-  background-image: url("loading.gif");
+.fancytree-loading span.fancytree-expander,
+.fancytree-loading span.fancytree-expander:hover,
+.fancytree-statusnode-loading span.fancytree-icon,
+.fancytree-statusnode-loading span.fancytree-icon:hover {
+  background-image: url("data:image/gif;base64,R0lGODlhEAAQAKIFAAAAAAAApUJC/4SE/8bGxgAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCgAFACwAAAAAEAAQAAADKli63K4hPBZLJWTWhZ0QU7d8YTadxTCgosqa6CM6c1Eztw3rJZ83v1gjAQAh+QQFCgAFACwBAAIACwAHAAADFFgqUhEOrqZiGaNqhbf/BUGA4QgmACH5BAUKAAUALAIAAQAMAAUAAAMTWKoi+2OUVkKAcllFyHtW92lBAgAh+QQFCgAFACwEAAEACwAIAAADFlg6o16EFFaEcPHZx1UInfOFZDeSXwIAIfkEBQoABQAsBwABAAcACwAAAxRIVMxaYzQWZxPCYstZ4F83BWFDJgAh+QQFCgAFACwKAAIABQAMAAADFEhUrPxjQPlqEeJhy0J4XhF2H5MAACH5BAUKAAUALAcABAAIAAsAAAMUWKpEu+3JOQa1cwqh+QrBF4LilAAAIfkEBQoABQAsBAAHAAsABwAAAxRYukvE0MFJyxjV4hCYEAtXiN+SAAAh+QQFCgAFACwCAAoADAAFAAADEhhR3ExEOQeZbGM4KUTJE9NNCQAh+QQFCgAFACwBAAcACwAIAAADFhhR3K0uSglnqbYI4QhpWzEMhSeNTQIAIfkEBQoABQAsAgAEAAcACwAAAxMYUczaMC4ZKxMiYjtG7AVBRGICACH5BAUKAAUALAEAAgAFAAwAAAMTWBqhxa8t6ZQQ7tY9husbQThiAgA7");
   background-position: 0px 0px;
 }
-.fancytree-statusnode-error span.fancytree-icon {
+/* Status node icons */
+.fancytree-statusnode-error span.fancytree-icon,
+.fancytree-statusnode-error span.fancytree-icon:hover {
   background-position: 0px -112px;
 }
 /*------------------------------------------------------------------------------
@@ -271,16 +323,23 @@ span.fancytree-node {
   /* See #117 */
   display: inherit;
   width: 100%;
+  margin-top: 1px;
+  min-height: 16px;
 }
 span.fancytree-title {
-  display: inline-block;
-  padding-left: 3px;
-  padding-right: 3px;
   color: black;
-  vertical-align: top;
-  margin: 0px;
-  margin-left: 3px;
   cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  min-height: 16px;
+  padding: 0 3px 0 3px;
+  margin: 0px 0 0 3px;
+  border: 0 solid transparent;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
 }
 span.fancytree-node.fancytree-error span.fancytree-title {
   color: red;
@@ -288,20 +347,35 @@ span.fancytree-node.fancytree-error span.fancytree-title {
 /*------------------------------------------------------------------------------
  * Drag'n'drop support
  *----------------------------------------------------------------------------*/
-div.fancytree-drag-helper a {
+div.fancytree-drag-helper span.fancytree-childcounter,
+div.fancytree-drag-helper span.fancytree-dnd-modifier {
+  display: inline-block;
+  color: #fff;
+  background: #337ab7;
   border: 1px solid gray;
-  background-color: white;
-  padding-left: 5px;
-  padding-right: 5px;
-  opacity: 0.8;
+  min-width: 10px;
+  height: 10px;
+  line-height: 1;
+  vertical-align: baseline;
+  border-radius: 10px;
+  padding: 2px;
+  text-align: center;
+  font-size: 9px;
 }
-div.fancytree-drag-helper.fancytree-drop-reject {
-  border-color: red;
+div.fancytree-drag-helper span.fancytree-childcounter {
+  position: absolute;
+  top: -6px;
+  right: -6px;
 }
-div.fancytree-drop-accept span.fancytree-drag-helper-img {
+div.fancytree-drag-helper span.fancytree-dnd-modifier {
+  background: #5cb85c;
+  border: none;
+  font-weight: bolder;
+}
+div.fancytree-drag-helper.fancytree-drop-accept span.fancytree-drag-helper-img {
   background-position: -32px -112px;
 }
-div.fancytree-drop-reject span.fancytree-drag-helper-img {
+div.fancytree-drag-helper.fancytree-drop-reject span.fancytree-drag-helper-img {
   background-position: -16px -112px;
 }
 /*** Drop marker icon *********************************************************/
@@ -323,19 +397,10 @@ div.fancytree-drop-reject span.fancytree-drag-helper-img {
   background-position: -32px -128px;
 }
 /*** Source node while dragging ***********************************************/
-span.fancytree-drag-source {
-  background-color: #e0e0e0;
-}
-span.fancytree-drag-source span.fancytree.title {
-  color: gray;
+span.fancytree-drag-source.fancytree-drag-remove {
+  opacity: 0.15;
 }
 /*** Target node while dragging cursor is over it *****************************/
-span.fancytree-drop-target.fancytree-drop-accept a {
-  background-color: #3169C6 !important;
-  color: white !important;
-  /* @ IE6 */
-  text-decoration: none;
-}
 /*------------------------------------------------------------------------------
  * 'table' extension
  *----------------------------------------------------------------------------*/
@@ -344,6 +409,7 @@ table.fancytree-ext-table {
 }
 table.fancytree-ext-table span.fancytree-node {
   display: inline-block;
+  box-sizing: border-box;
 }
 /*------------------------------------------------------------------------------
  * 'columnview' extension
@@ -371,7 +437,6 @@ table.fancytree-ext-columnview tbody tr td > ul li {
   background-image: none;
   /* no v-lines */
   margin: 0;
-  padding: 1px 0 0 0;
 }
 table.fancytree-ext-columnview span.fancytree-node {
   position: relative;
@@ -382,9 +447,12 @@ table.fancytree-ext-columnview span.fancytree-node.fancytree-expanded {
   background-color: #CBE8F6;
 }
 table.fancytree-ext-columnview .fancytree-has-children span.fancytree-cv-right {
-  background-position: 0px -80px;
   position: absolute;
   right: 3px;
+  background-position: 0px -80px;
+}
+table.fancytree-ext-columnview .fancytree-has-children span.fancytree-cv-right:hover {
+  background-position: -16px -80px;
 }
 /*------------------------------------------------------------------------------
  * 'filter' extension
@@ -417,6 +485,53 @@ table.fancytree-ext-columnview .fancytree-has-children span.fancytree-cv-right {
   color: black;
   font-weight: normal;
 }
+.fancytree-ext-childcounter span.fancytree-icon,
+.fancytree-ext-filter span.fancytree-icon {
+  position: relative;
+}
+.fancytree-ext-childcounter span.fancytree-childcounter,
+.fancytree-ext-filter span.fancytree-childcounter {
+  color: #fff;
+  background: #777;
+  border: 1px solid gray;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 10px;
+  height: 10px;
+  line-height: 1;
+  vertical-align: baseline;
+  border-radius: 10px;
+  padding: 2px;
+  text-align: center;
+  font-size: 9px;
+}
+/*------------------------------------------------------------------------------
+ * 'wide' extension
+ *----------------------------------------------------------------------------*/
+ul.fancytree-ext-wide {
+  position: relative;
+  min-width: 100%;
+  z-index: 2;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+ul.fancytree-ext-wide span.fancytree-node > span {
+  position: relative;
+  z-index: 2;
+}
+ul.fancytree-ext-wide span.fancytree-node span.fancytree-title {
+  position: absolute;
+  z-index: 1;
+  left: 0px;
+  min-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 /*******************************************************************************
  * Styles specific to this skin.
  *
@@ -426,7 +541,7 @@ table.fancytree-ext-columnview .fancytree-has-children span.fancytree-cv-right {
  * Tree container
  */
 ul.fancytree-container li {
-  background-image: url("vline.gif");
+  background-image: url("data:image/gif;base64,R0lGODlhEAAQAPcAAAAAAIAAAACAAICAAAAAgIAAgACAgMDAwMDcwKbK8P///6Wlpf/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////78KCgpICAgP8AAAD/AP//AAAA//8A/wD//////yH5BAEAAP4ALAAAAAAQABAAAAgpAP0JFHhvoMGDCBMiLKiwocOBDB9KXDixosGIFidizPhwI8eGHj8KDAgAOw==");
   background-position: 0 0;
 }
 ul.fancytree-container li.fancytree-lastsib {
@@ -434,6 +549,18 @@ ul.fancytree-container li.fancytree-lastsib {
 }
 ul.fancytree-no-connector > li {
   background-image: none;
+}
+.fancytree-exp-n span.fancytree-expander,
+.fancytree-exp-nl span.fancytree-expander {
+  background-image: url("icons.gif");
+}
+.fancytree-exp-n span.fancytree-expander,
+.fancytree-exp-n span.fancytree-expander:hover {
+  background-position: 0px -64px;
+}
+.fancytree-exp-nl span.fancytree-expander,
+.fancytree-exp-nl span.fancytree-expander:hover {
+  background-position: -16px -64px;
 }
 /*******************************************************************************
  * Node titles
