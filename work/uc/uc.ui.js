@@ -1,8 +1,8 @@
-/* 
+﻿/* 
  * @Author: Allen
  * @Date:   2015-12-04 15:03:07
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-08-26 15:17:38
+ * @Last Modified time: 2016-09-30 11:41:53
  */
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -13,21 +13,36 @@
         root.UI = factory(root.jQuery);
     }
 }(this, function(jQuery) {
-
-    var host = location.protocol + '://' + location.host;
     var localUrl = ucConfig.ServerReferenceLocalHost || host;
+    var pathName = ucConfig.ServerApplicationName;
+    var host = location.protocol + '://' + location.host;
+    var baseUrl, webUrl;
+    var kindex = _.findKey(ucConfig, function(n) {
+        if (new RegExp('.*' + pathName + 'API', 'i').test(n)) {
+            return true;
+        }
+    });
+    var windex = _.findKey(ucConfig, function(n) {
+        if (new RegExp('.*' + pathName, 'i').test(n)) {
+            return true;
+        }
+        return false;
+    });
+    kindex != -1 ? baseUrl = ucConfig[kindex] : baseUrl = ucConfig.ServerReferenceLocalHost + 'API' || host;
+    windex != -1 ? webUrl = ucConfig[windex] : webUrl = ucConfig.ServerReferenceLocalHost || host;
 
     var ui = {
         zindex: 1000,
         // bootstrap modal 提示框
         inTip: function(txt) {
             var def = new $.Deferred();
-            var mtip = $("#inTip");
+            var mtip;
+            $("#inTip").remove();
             var modalDialog = '<div class="modal fade" id="inTip"><div class="modal-dialog"> <div class="modal-content"> <div class="modal-body"> <h3></h3> </div> <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> </div> </div> </div></div>';
-            if (_.isEmpty(mtip)) {
-                $("body").append($(modalDialog));
-                mtip = $("#inTip");
-            }
+
+
+            $("body").append($(modalDialog));
+            mtip = $("#inTip");
 
             $(".modal-body h3", mtip).text(txt);
             mtip.modal('show');
@@ -38,7 +53,6 @@
         },
         // 文件上传
         fileUpload: function(options) {
-
             var fopt = options;
             if (options.onlyImg) {
                 $.blueimp.fileupload.prototype.options.processQueue.push({
@@ -46,24 +60,30 @@
                     always: true,
                     acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                 });
-            }
+                $.blueimp.fileupload.prototype.processActions.vimg = function(data, options) {
+                    var dfd = $.Deferred();
+                    var file = data.files[data.index];
 
-            $.blueimp.fileupload.prototype.processActions.vimg = function(data, options) {
-                var dfd = $.Deferred();
-                var file = data.files[data.index];
-
-                if (!!options.disabled) {
-                    return data;
+                    if (!!options.disabled) {
+                        return data;
+                    }
+                    var onlyimg = $(data.container).attr("onlyImg") == "false" ? false : true;
+                    var testtype;
+                    if ($.browser.msie && $.browser.version < 10) {
+                        var ext = file.name.substr(file.name.indexOf('.'));                       
+                        testtype = !options.acceptFileTypes.test(ext);
+                    }else{
+                        testtype = !options.acceptFileTypes.test(file.type);
+                    }                    
+                    
+                    if (onlyimg && testtype) {
+                        file.error = '错误的文件类型.';
+                        dfd.rejectWith(this, [data]);
+                    } else {
+                        dfd.resolveWith(this, [data]);
+                    }
+                    return dfd.promise();
                 }
-                var onlyimg = $(data.container).attr("onlyImg")=="false" ? false : true;
-                var testtype = !options.acceptFileTypes.test(file.type);                
-                if (onlyimg && testtype) {
-                    file.error = '错误的文件类型.';
-                    dfd.rejectWith(this, [data]);
-                } else {
-                    dfd.resolveWith(this, [data]);
-                }
-                return dfd.promise();
             }
 
             function fsu() {
@@ -84,9 +104,14 @@
                     add: function(e, data) {
 
                         $.blueimp.fileupload.prototype.options.add.call(this, e, data)
+                        var ferrs = [];
                         var allOk = _.every(data.files, function(v) {
+                            if (!_.isUndefined(v.error)) {
+                                ferrs.push(v.error)
+                            }
                             return _.isUndefined(v.error);
                         });
+
                         if (allOk) {
                             //this will 'force' the submit in IE < 10 必须的  
                             $.each(data.files, function(i, file) {
@@ -96,12 +121,13 @@
                                     .complete(function(result, textStatus, jqXHR) {});
                             });
                         } else {
-                            UI.inTip("只允许上传 jpg, png, gif")
+                            UI.inTip(ferrs[0])
                             return false;
                         }
 
                     },
                     always: function(e, data) {
+                        console.log(data)
                         var result;
                         if (data.textStatus == 'parsererror') {
                             // IE9 fails on upload's JSON response
@@ -111,28 +137,30 @@
                         }
 
                         var temp = {};
-                        // if ($.browser.msie && $.browser.version < 10) {
-                        //     temp.name = result.files.files[0].name;
-                        //     temp.url = result.files.files[0].url;
-                        //     temp.id = result.files.files[0].id;
-                        // } else {
-                        //     temp.name = data.result.name;
-                        //     temp.url = data.result.url;
-                        //     temp.id = data.result.id;
-                        // }
-                        temp.name = result.files.files[0].name;
-                        temp.url = result.files.files[0].url;
-                        temp.id = result.files.files[0].id;
-                        temp.message = result.files.files[0].message;
-                        temp.isUploaded = result.files.files[0].isUploaded;
+                        if ($.browser.msie && $.browser.version < 10) {
+                            temp.name = result.files.files[0].name;
+                            temp.url = result.files.files[0].url;
+                            temp.id = result.files.files[0].id;
+                            temp.message = result.files.files[0].message;
+                            temp.isUploaded = result.files.files[0].isUploaded;
+                        } else {
+                            temp.name = data.result.name;
+                            temp.url = data.result.url;
+                            temp.id = data.result.id;
+                            temp.message = result.message;
+                            temp.isUploaded = result.isUploaded;
+                        }
 
                         options.callback(temp);
 
                     }
                 };
-                opt = $.extend(true, opt, ifopt, options);
-                options.container.attr("onlyImg", options.onlyImg);
+                if ($.browser.msie && $.browser.version < 10) {
+                    opt = $.extend(true, opt, fopt, ifopt);
+                }
+                opt = $.extend(true, opt, fopt);
 
+                options.container.attr("onlyImg", options.onlyImg);
                 return function(container) {
                     options.upload.call(container, opt);
                 }
@@ -332,12 +360,28 @@
                 btnCloseName: opt.btnCloseName || '关闭',
                 title: opt.title || '',
                 body: opt.body || null,
+                before: opt.before || $.noop,
                 callback: opt.callback || $.noop,
                 close: opt.close || $.noop,
                 save: opt.save || $.noop,
                 // function || false
-                cond: opt.cond || false
+                cond: opt.cond || false,
+                valid: opt.valid || false
+                    // {
+                    //     form: "",
+                    //     rules:{},
+                    //     messages:{},
+                    //     errorPlacement: func,
+                    //     submitHandler: func,
+                    // }
             };
+            if(_.isUndefined(opt.cond) && _.isUndefined(opt.valid)){
+                opt.cond = function(){
+                    return true;
+                }
+            }
+            // save validator object
+            var validObj = {};
 
             var modal = $('<div class="modal" id="js-myModal"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close js-modal-topclose"><span aria-hidden="true">&times;</span></button> <h4 class="modal-title"></h4> </div> <div class="modal-body"> </div> <div class="modal-footer"> <button type="button" class="btn btn-default js-modal-close">关闭</button> <button type="button" class="btn btn-primary js-modal-save">保存</button> </div> </div> </div> </div>');
             var $modal = $("#js-myModal");
@@ -362,24 +406,45 @@
             $('.modal-backdrop').undelegate();
             $modal.undelegate();
 
+
+            if (opt.before) {
+                opt.before($modal);
+            }
+
             $modal.delegate('.js-modal-save', 'click', function(event) {
+
                 var saveDef = function() {
                     var deferSave = $.Deferred();
-                    if (opt.cond && $.isFunction(opt.cond) && opt.cond($modal)) {
-                        config.save($modal);
-                        deferSave.resolve(true);
-                    } else {
-                        config.save($modal);
-                        deferSave.resolve(true);
+                    var condFlag;
+                    // cond 做简单验证
+                    if (opt.cond && $.isFunction(opt.cond)) {
+                        condFlag = opt.cond($modal);
+                        if (condFlag) {
+                            config.save($modal);
+                            deferSave.resolve(true);
+                        } else {
+                            deferSave.reject(true);
+                        }
                     }
+                    // cond and valid is exclusion，valid 做复杂表单验证
+                    if (!opt.cond) {
+                        var vintLen = $(opt.valid.form, $modal).find(".js-vinit:visible").length;
+                        if (opt.valid && validObj.errorList && validObj.errorList.length > 0 && vintLen > 0) {
+                            deferSave.reject(true);
+                        } else if ($(opt.valid.form, $modal).hasClass('js-dirty') && vintLen == 0 && validObj.errorList.length == 0) {
+                            config.save($modal);
+                            deferSave.resolve(true);
+                        }
+                    }
+                    // 验证通过才可执行 save 
                     return deferSave;
                 };
+                // 错误信息有 valid 处理
                 saveDef().then(function(data) {
                     $modal.modal('hide');
                     $modal.undelegate();
                 });
             });
-
 
             $modal.delegate('.js-modal-close, .js-modal-topclose, .modal-backdrop', 'click', function(event) {
                 config.close($modal);
@@ -391,8 +456,45 @@
                 show: true,
                 backdrop: true
             });
+            // 切换时候的验证需要添加
+            if (!!opt.valid) {
+                console.log("valid")
+                _.each(opt.valid.rules, function(v, i) {
+                    $('*[name="' + i + '"]', $modal).addClass('js-vinit');
+                });
 
-            config.callback($modal);
+                $(opt.valid.form, $modal).addClass('js-vinit');
+
+                $(opt.valid.form, $modal).find("input").bind("blur", function() {
+                    if (!_.isEmpty($(this).val())) {
+                        $(this).removeClass('js-vinit').addClass('js-dirty');
+                    } else {
+                        $(this).removeClass('js-dirty').addClass('js-vinit');
+                    }
+                    $(opt.valid.form, $modal).removeClass('js-vinit').addClass('js-dirty');
+                });
+
+
+                var validOpt = {
+                    debug: opt.valid.debug || false,
+                    errorPlacement: opt.valid.errorPlacement || function(error, element) {
+                        var errEl = element.closest(".row").find("#errorMsg");
+                        errEl.empty();
+                        error.appendTo(errEl);
+                    },
+                    submitHandler: opt.valid.submitHandler || function(form) {
+                        return false;
+                    },
+                    rules: opt.valid.rules,
+                    messages: opt.valid.messages
+                };
+
+                validObj = $(opt.valid.form, $modal).validate(validOpt);
+                console.log(validObj)
+                config.callback($modal, opt.valid);
+            } else {
+                config.callback($modal);
+            }
         },
         calculateScrollbarWidth: function() {
             if (!this.scrollbarWidth) {

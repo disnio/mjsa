@@ -2,7 +2,7 @@
  * @Author: Allen
  * @Date:   2015-12-04
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-08-26 16:15:51
+ * @Last Modified time: 2016-09-30 11:42:03
  */
 
 (function(root, factory) {
@@ -14,7 +14,8 @@
         root.UT = factory(root.jQuery);
     }
 }(this, function(jQuery) {
-    var pathName = _.compact(location.pathname.split('/'))[0] || "";
+    var localUrl = ucConfig.ServerReferenceLocalHost || host;
+    var pathName = ucConfig.ServerApplicationName;
     var host = location.protocol + '://' + location.host;
     var baseUrl, webUrl;
     var kindex = _.findKey(ucConfig, function(n) {
@@ -93,7 +94,7 @@
         var renderTpl = function(data, el, tpl, filterFn) {
             el.empty().append(tplRender(tpl, {
                 "datas": data
-            }), filterFn);
+            }, filterFn));
         };
         var getJaxPage = function(opt) {
             var defer = $.Deferred();
@@ -129,6 +130,7 @@
             if ($.isFunction(jaxopt.beforePage)) {
                 jaxopt.beforePage(data);
             }
+            
             jaxopt.page.pageEl.empty();
             if (data.TotalNum) {
                 jaxopt.pageFunc.call(jaxopt.page.pageEl, {
@@ -143,7 +145,7 @@
                     last: jaxopt.page.last || "Last",
                     onchange: function(newPage) {
                         jaxopt.ajax.data.PageIndex = (parseInt(newPage, 10) - 1);
-                        console.log("n:", jaxopt)
+                        
                         getJaxPage(jaxopt);
                     }
                 });

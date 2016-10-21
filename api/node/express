@@ -1,3 +1,6 @@
+415 内容编码不支持
+400 请求失败
+413 请求体太大
 $ npm install -g express-generator 
 
 可以用Express生成器来生成Express应用。 默认是jade， 加 -e 是 ejs
