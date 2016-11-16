@@ -1,0 +1,16 @@
+/* 
+* @Author: czy
+* @Date:   2016-07-27 10:25:46
+* @Last Modified by:   czy
+* @Last Modified time: 2016-07-27 15:41:38
+*/
+.detail-title span{color:#009ec3;}
+.info-status{font-weight: bold;margin:20px 0;}
+.info-status span{color:#009ec3;font-weight:bold;margin-left: 10px;}
+.info-title{font-weight:bold;}
+.info-list{border-bottom:1px solid #e5e5e5;padding-bottom: 20px;overflow:hidden;margin:20px 0;}
+.info-list li{width:50%;display:inline-block;float:left;margin:10px 0;}
+.info-list li div:first-child{width:70px;float:left;text-align:right;color:#999;}
+.ServiceNote{margin:20px 0;}
+.ServiceNote li{color:#999;margin:15px 0;}
+.nolist{text-align:center;color:#009ec3;font-weight:bold;margin:50px 0;}

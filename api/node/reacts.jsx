@@ -17,7 +17,7 @@ aria- 开头的 [网络无障碍] 属性
 React.initializeTouchEvents(true); 启用触摸事件处理。
 
 React 把用户界面当作简单状态机。
-React 里，只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。
+React 只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。
 React 来决定如何最高效地更新 DOM
 
 ** 尝试把尽可能多的组件无状态化。** 
@@ -44,14 +44,13 @@ getDefaultProps() 可以保证 this.props.value 有默认值
 Redux 就是用来确保 state 变化的可预测性，主要的约束有：
 
     state 以单一对象存储在 store 对象中
-
     state 只读
-
     使用纯函数 reducer 执行 state 更新
-action 可以理解为应用向 store 传递的数据信息
 
-reducer 实际上就是一个函数：(previousState, action) => newState。
-用来执行根据指定 action 来更新 state 的逻辑
+  action 可以理解为应用向 store 传递的数据信息
+
+  reducer 实际上就是一个函数：(previousState, action) => newState。
+  用来执行根据指定 action 来更新 state 的逻辑
 
 combineReducers(reducers) 可以把多个 reducer 合并成一个 root reducer
 
@@ -59,9 +58,8 @@ store 是一个单一对象：
     管理应用的 state
     通过 store.getState() 可以获取 state
     通过 store.dispatch(action) 来触发 state 更新
-    通过 store.subscribe(listener) 来注册 state 变化监听器
+    通过 store.subscribe(listener) 来注册 state 变化监听器，也是操作state的中间件
     通过 createStore(reducer, [initialState]) 创建
-
 
 ------
 mixin
@@ -120,7 +118,7 @@ var FancyCheckbox = React.createClass({
     );
   }
 });
-React.render(
+ReactDOM.render(
   <FancyCheckbox checked={true} onClick={console.log.bind(console)}>
     Hello world!
   </FancyCheckbox>,
@@ -138,23 +136,24 @@ refs属性允许你引用 render() 返回的相应的支撑实例（ backing ins
 这样就可以确保在任何时间总是拿到正确的实例。
 你可以通过调用 this.refs.myInput.getDOMNode() 直接获取到组件的 DOM 节点。
 var MyComponent = React.createClass({
-    componentDidMount: function () {        
+    componentDidMount: function () {
         $(this.myTextInput).css('border','1px solid red');
-        this.myTextInput.focus();
+        console.log("x: ", this.myTextInput)
+    },
+    getInput: function () {
+      console.log(this.myTextInput.value);
     },
     render: function () {
         // The ref attribute is a callback that saves a reference to the
         // component to this.myTextInput when the component is mounted.
         return (
             <div>
-                <input type="text" ref={(c) => this.myTextInput = c}/>
+                <input type="text" ref={(c) => this.myTextInput = c} onKeyUp={this.getInput}/>
             </div>
         );
     }
 });
-
-
-
+------------------------------------------------------------------------addons
 require('react/addons')
 TransitionGroup和CSSTransitionGroup，用于处理动画和过渡，这些通常实现起来都不简单，例如在一个组件移除之前执行一段动画。
 LinkedStateMixin，用于简化用户表单输入数据和组件 state 之间的双向数据绑定。
@@ -236,42 +235,7 @@ ReactDOM.render(
   document.getElementById('example')
 );
 ----------------------
-Mixins : mixins: [SetIntervalMixin]
 
-var SetIntervalMixin = {
-    componentWillMount: function() {
-        this.intervals = [];
-    },
-    setInterval: function() {
-        this.intervals.push(setInterval.apply(null, arguments));
-    },
-    componentWillUnmount: function() {
-        this.intervals.forEach(clearInterval);
-    }
-};
-// https://facebook.github.io/react/docs/working-with-the-browser.html
-var TickTock = React.createClass({
-    mixins: [SetIntervalMixin], // Use the mixin
-    getInitialState: function() {
-        return {seconds: 0};
-    },
-    componentDidMount: function() {
-        this.setInterval(this.tick, 1000); // Call a method on the mixin
-    },
-    tick: function() {
-        this.setState({seconds: this.state.seconds + 1});
-    },
-    render: function() {
-        return (
-            <p>React has been running for {this.state.seconds} seconds</p>
-        );
-    }
-});
-
-ReactDOM.render(
-    <TickTock />,
-    document.getElementById('example')
-);/
 require('./test.scss');
 // var ReactCSSTransitionGroup = require('react-addons-linked-state-mixin');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
@@ -291,8 +255,10 @@ var TodoList = React.createClass({
     this.setState({items: newItems});
   },
   render: function() {
+    // 拼接 html，只要函数里面用到了 this 就要用 bind 把 this 传进去。
     var items = this.state.items.map(function(item, i) {
       return (
+        // 注意这里，传值的规范 this.handleRemove.bind(this, i)，函数要用 bind 传值。
         <div key={item} onClick={this.handleRemove.bind(this, i)}>
           {item}
         </div>
@@ -313,7 +279,7 @@ ReactDOM.render(
   <TodoList />,
   document.getElementById('example')
 );
-
+-----------
 var WithoutLink = React.createClass({
   mixins: [LinkedStateMixin],
   getInitialState: function() {
@@ -357,6 +323,8 @@ class Counter extends React.Component {
 Counter.propTypes = {initialCount: React.PropTypes.number};
 Counter.defaultProps = {initialCount: 0};
 
+import React from 'react'
+import ReactDOM from 'react-dom'
 require("../styles/main.scss");
 import Counter from "./tick.jsx"; // or
 var Counter = require("./tick.jsx").Counter;
@@ -375,35 +343,7 @@ HelloMessage.defaultProps = {
 }
 ReactDOM.render(<HelloMessage name="Mădălina"/>, mountNode);
 ----------------------------
-// Transferring with ... in JSX 
-var FancyCheckbox = React.createClass({
-  render: function() {
-    var { checked, ...other } = this.props;
-    var fancyClass = checked ? 'FancyChecked' : 'FancyUnchecked';
-    // `other` contains { onClick: console.log } but not the checked property
-    return (
-      <div {...other} className={fancyClass} />
-    );
-  }
-});
 
-ReactDOM.render(
-  <FancyCheckbox checked={true} onClick={console.log.bind(console)}>
-    Hello world!
-  </FancyCheckbox>,
-  document.getElementById('example')
-);
-
-var FancyCheckbox = React.createClass({
-  render: function() {
-    var checked = this.props.checked;
-    var other = _.omit(this.props, 'checked');
-    var fancyClass = checked ? 'FancyChecked' : 'FancyUnchecked';
-    return (
-      React.DOM.div(_.extend({}, other, { className: fancyClass }))
-    );
-  }
-});
 // form: 
 getInitialState: function() {
     return {value: 'Hello!'};
@@ -448,48 +388,7 @@ render: function() {
 // ReactDOM.render() will return a reference to your component's backing instance 
 // https://facebook.github.io/react/docs/more-about-refs.html
 // The ref Callback Attribute The referenced component will be passed in as a parameter, and the callback function may use the component immediately, or save the reference for future use (or both).
-    <script src="../build/react.js"></script>
-    <script src="lib/react-with-addons-0.14.6.js"></script>
-    <script src="../build/react-dom.js"></script>
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-var TodoList = React.createClass({
-    getInitialState: function() {
-        return {items: ['hello', 'world', 'click', 'me']};
-    },
-    handleAdd: function() {
-        var newItems =
-            this.state.items.concat([prompt('Enter some text')]);
-        this.setState({items: newItems});
-    },
-    handleRemove: function(i) {
-        var newItems = this.state.items.slice();
-        newItems.splice(i, 1);
-        this.setState({items: newItems});
-    },
-    render: function() {
-        var items = this.state.items.map(function(item, i) {
-            return (
-                <div key={item} onClick={this.handleRemove.bind(this, i)}>
-                    {item}
-                </div>
-            );
-        }.bind(this));
-        return (
-            <div>
-                <button onClick={this.handleAdd}>Add Item</button>
-                <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                    {items}
-                </ReactCSSTransitionGroup>
-            </div>
-        );
-    }
-});
-
-ReactDOM.render(
-    <TodoList />,
-    document.getElementById('example')
-);
 // https://facebook.github.io/react/docs/create-fragment.html
 if (this.props.swapped) {
   children = createFragment({
@@ -788,7 +687,7 @@ var GenericWrapper = React.createClass({
 });
 
 ReactDOM.render(
-  <GenericWrapper><span/><span/><span/></GenericWrapper>,
+  <GenericWrapper><span>{1}</span><b>{"he"}</b></GenericWrapper>,
   mountNode
 );
 当仅有一个子元素时候，就没有被包装成数组：
@@ -876,7 +775,7 @@ ReactDOM.render(
     <GroceryList items={['Apple', 'Banana', 'Cranberry']} />, document.getElementById('example2')
 );
 也可以暴露子组件的方法供父组件来调用：
-
+-------
 var Todo = React.createClass({
     render: function() {
         return <div onClick={this.props.onClick}>{this.props.title}</div>;

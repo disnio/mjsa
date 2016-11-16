@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "设置权限";
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+<link rel="stylesheet" href="~/Content/css/jquery.treetable.css" />
+<link rel="stylesheet" href="~/Content/css/jquery.treetable.theme.default.css" />
+<link rel="stylesheet" href="~/Content/css/assignfunctions.css" />
+<script type="text/javascript">
+    var roleID = "@ViewBag.RoleID";
+    var roleName = "@ViewBag.RoleName";
+    var organizationID = "@ViewBag.OrganizationID";
+    //var readOnly = "@ViewBag.ReadOnly";
+    var readOnly = 0;
+
+</script>
+ <div class="main-con">
+    <div class="page-head"><span>设置权限</span></div>
+    <table id="js-role" class="table section-table table-bordered table-hover table-striped table-condensed">
+    <caption><span class="glyphicon glyphicon-user"></span>角色名称：<span id="jsmc"></span></caption>
+        <thead>
+            <tr>
+                <th style="width:50%;">菜单名称：<span id="js-role-name"></span></th>
+                <th style="text-align:center;" class="btn-select">选择 <label>全选</label><input type="checkbox" id="js-sel-all" /></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="groups"><button type="button" id="js-ok">确定</button></div>
+    
+</div>
+<script src="~/Scripts/lodash.min.js"></script>
+<script src="~/Scripts/js/uc.ut.js"></script>
+<script src="~/Scripts/js/uc.ui.js"></script>
+<script src="~/Scripts/js/lib/jquery.treetable.js"></script>
+<script src="~/Scripts/js/app/RoleManagement/AssignFunctions.js"></script>
+<script type="text/html" id="treeTpl">
+<% _.each(datas, function(v, i){ %>
+    <tr data-function-id="<%= v.FunctionID %>"  data-parent-id="<%= v.ParentID %>">
+        <td><%= v.FunctionName %></td>
+        <td style="text-align:center;">
+            <input type="checkbox" ck="<%= v.Checked %>" data-fid="<%= v.FunctionID %>" />
+        </td>
+    </tr>
+<% }) %>
+</script>

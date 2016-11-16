@@ -1,0 +1,109 @@
+﻿@using ZCPT.ProjectCenter.Entity.CFProjectModule
+
+
+@{
+    ViewBag.Title = "项目列表";
+    ViewBag.ContentName = "项目申请审核";
+}
+
+<table class="table section-table table-bordered table-hover table-striped table-condensed">
+    <thead>
+        <tr>
+            <th>
+                序号
+            </th>
+            <th>
+                名称
+            </th>
+            <th>
+                阶段
+            </th>
+            <th>
+                融资金额
+            </th>
+            <th>
+                已融金额
+            </th>
+            <th>
+                状态
+            </th>
+            <th>
+                申请人
+            </th>
+            <th>
+                申请时间
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in ViewBag.ProjectList)
+        {
+            <tr>
+                <td class="center">
+                    @i.LID
+                </td>
+                <td>
+                    @i.Name
+                </td>
+                <td class="center">
+                    @i.StageName
+                </td>
+                <td class="right">
+                    @string.Format("{0:f2}", i.FinancingAmount/10000) 万
+                </td>
+                <td class="right">
+                    @(string.Format("{0:f2}", i.FinancedAmount/10000)) 万
+                </td>
+                <td class="center">
+                    @i.StatusName
+                </td>
+                <td class="center">
+                    @i.CreatorName
+                </td>
+                <td class="center">
+                    @(i.CreationDate.ToString("yyyy-MM-dd"))
+                </td>
+                <td class="center">
+                    @Html.ActionLink("详细信息", "ProjectInfo", new { ID = i.LID })
+                    @if (i.Status.ID == CFProjectStatus.SeedFunding.ID)
+                {
+                <a onclick="dealProjectApplication(@i.LID, @CFProjectStatus.Actived.ID);" href="JavaScript:void(0);">通过</a>
+                <a onclick="dealProjectApplication(@i.LID, @CFProjectStatus.Denied.ID);" href="JavaScript:void(0);">拒绝</a>
+                }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+<script>
+
+    function dealProjectApplication(id, status) {
+        if (confirm("确定要进行此操作吗？")) {
+            $.ajax(
+            {
+                type: 'post',
+                url: 'DealProjectVentureCapitalApplication?projId=' + id + '&status=' + status,
+
+                success: function(data) {
+                    alert('操作成功');
+                    location.reload();
+                },
+                error: function() {
+                    alert('操作失败');
+                }
+
+            });
+        }
+    }
+</script>
+
+
+
+

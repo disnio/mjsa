@@ -1,0 +1,98 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="js/json2.js"></script>
+    <script>
+//        跨子域测试，带cookie ok ie89。需要服务端有代理页面 result.html 里面含jquery
+        $.cookie("aa", 11);
+        document.domain = "localhost";
+        $(function () {
+
+            $('#btn').click(function (evt) {
+                console.log("click")
+                var iframe = document.getElementById('result').contentWindow.$;
+
+                iframe.ajax({
+                    url: "http://localhost:8000/cors",
+                    type: "post",
+                    data: {name: "allen"},
+                    xhrFields: {withCredentials: true}
+                }).then(function (data) {
+                    console.log(data)
+                });
+            });
+//            图片需要单独传，不能和其它数据混杂。
+            $('#upload').click(function (evt) {
+                evt.preventDefault();
+                var iframe = document.getElementById('result').contentWindow.$;
+                var form = $("#upform");
+//                利于 FormData 传。ie10+
+                var fd = new FormData();
+
+                $.each(form.find(':file')[0].files, function (i, v) {
+                    fd.append("file", v);
+                });
+                iframe.ajax(form.prop('action'), {
+                    type: "post",
+                    data: fd,
+                    cache: false,
+                    mimeTypes:"multipart/form-data",
+                    contentType: false,
+                    processData: false
+                }).done(function (data) {
+                    console.log(data);
+                    $.each(data.files, function (idx, file) {
+                        $('<li class="list-group-item">' +
+                                '<h4 class="list-group-item-heading"></h4>' +
+                                '<p class="list-group-item-text"><img src="" alt=""><span class="size"></span>, <span class="mime"></span></p></li>')
+                                .find('img').attr("src", "http://localhost:8000/"+file.path).end()
+                                .find('h4').text(file.name).end()
+                                .find('.size').text(formatSize(file.size)).end()
+                                .find('.mime').text(file.type).end()
+                                .appendTo('#filelist');
+                    });
+                    form.find(':file').val('');
+                });
+            });
+
+            function formatSize(size) {
+                var units = ['B', 'KB', 'MB', 'GB'],
+                        idx = 0;
+                if (!size) {
+                    return '0 bytes';
+                }
+                while (size >= 1024) {
+                    size /= 1024;
+                    idx++;
+                }
+                return size.toFixed(0) + ' ' + units[idx];
+            }
+        });
+    </script>
+</head>
+
+<body>
+<form role="form" id="upform" action="http://localhost:8000/uploads" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="file-field">Select files to upload:</label>
+        <input type="file" id="file-field" name="file" multiple>
+        <button id="upload">upload file</button>
+    </div>
+    <div class="form-group">
+        <label for="comment-field">Comment:</label>
+              <textarea name="comment" id="comment-field" class="form-control"
+                        placeholder="Enter comment" rows="2" cols="50"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default btn-submit">submit</button>
+    </div>
+</form>
+<button id="btn">iframe</button>
+<iframe id="result" src="http://localhost:8000/result" frameborder="0"></iframe>
+<ul id="filelist" class="list-group"></ul>
+</body>
+
+</html>

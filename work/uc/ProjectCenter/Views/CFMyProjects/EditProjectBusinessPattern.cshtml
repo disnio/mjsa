@@ -1,0 +1,78 @@
+﻿@model  ZCPT.ProjectCenter.Web.Models.ProjectBusinessPatternModel
+
+@{ViewBag.ContentName = "市场定位与商业模式编辑";}
+@Html.Partial("_ProjectTab", new ZCPT.ProjectCenter.Web.Models.ComponentModule.ProjectEditTabModule() { ID = Model.ID, Current = nameof(ZCPT.ProjectCenter.Web.Models.ProjectBusinessPatternModel) })
+
+<link href="~/Scripts/UMEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/js/app/EditProjectBusinessPattern.js"></script>
+
+@using (Html.BeginForm("UpdataProjectBusinessPattern", "CFMyProjects", FormMethod.Post, new { @class = " form-horizontal" }))
+{
+    <input name="siteid" type="hidden" value="1">
+    <div class="form-group">
+        <p class="bg-info">@Html.LabelFor(m => m.Target, "1 目标用户或客户群体定位", new { @class = "col-sm-5" })</p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.Target, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Target)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="bg-info">
+            @Html.LabelFor(m => m.Demand, "2 目标用户或客户群体目前困扰或需求定位", new { @class = "col-sm-5 control-label", style = "text-align:left;" })
+        </p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.Demand, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Demand)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="bg-info">
+            @Html.LabelFor(m => m.Solution, "3 满足目标用户或客户需求的产品或服务模式说明", new { @class = "col-sm-8 control-label", style = "text-align:left;" })
+        </p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.Solution, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Solution)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="bg-info">
+            @Html.LabelFor(m => m.ProfitModel, "4 项目赢利模式说明", new { @class = "col-sm-5 control-label", style = "text-align:left;" })
+        </p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.ProfitModel, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.ProfitModel)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="bg-info">
+            @Html.LabelFor(m => m.Competitor, "5 市场主要同行或竞争对手概述", new { @class = "col-sm-5 control-label", style = "text-align:left;" })
+        </p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.Competitor, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Competitor)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="bg-info">
+            @Html.LabelFor(m => m.Competitiveness, "6 项目主要核心竞争力说明", new { @class = "col-sm-5 control-label", style = "text-align:left;" })
+        </p>
+        <div class="col-sm-12">
+            @Html.TextAreaFor(M => M.Competitiveness, 5, 20, new { @class = "form-control", style = "width: 100%; height: 180px;" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Competitiveness)</p>
+        </div>
+    </div>
+
+    <div class="form-group text-center">
+        @Html.Hidden("ID")
+        <input class="btn btn-warning btn-prev" name="updatebacksubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBusinessPattern?Step=EditProjectBasis")")' value="上一步" />
+        &nbsp;
+        <input class="btn btn-warning btn-down" name="updatesubmit" type="submit" @*onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBusinessPattern?Step=EditProjectTeam")")'*@ value="下一步" />
+
+        <!-- <p class="text-danger">@Html.Label((string)ViewBag.ResultMassage ?? string.Empty)</p> -->
+    </div>
+}

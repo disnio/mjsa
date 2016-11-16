@@ -1,0 +1,191 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>uc tpl</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/font-awesome.css">
+    <link rel="stylesheet" href="styles/jquery.ui.base.css">
+    <link rel="stylesheet" href="styles/jquery.ui.theme.css">
+    <link rel="stylesheet" href="styles/panemenu.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="container">
+        <div class="header" style="height:300px;">
+            <h3 class="text-muted">uc tpl</h3>
+        </div>
+        <div class="row" style="border:1px solid #ff0088; width:720px;">
+        <div id="pm" style="width:300px">
+            <div>
+                <div><a data-icon="fa-file-o">File</a></div>
+                <div>
+                    <ul>
+                        <li><a data-icon="fa-plus">New</a>
+                            <ul>
+                                <li><a>Project</a></li>
+                                <li><a>Other</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Open</a></li>
+                        <li><a>Quit</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div><a data-icon="fa-edit">Edit</a></div>
+                <div>
+                    <ul>
+                        <li><a data-icon="fa-mail-forward">Undo</a></li>
+                        <li><a data-icon="fa-mail-reply">Redo</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div><a data-icon="fa-question">Help</a></div>
+                <div>
+                    <ul>
+                        <li><a>Contents</a></li>
+                        <li><a data-icon="fa-search">Search</a>
+                            <ul>
+                                <li><a>Text</a>
+                                    <ul>
+                                        <li><a>Workspace</a></li>
+                                    </ul>
+                                </li>
+                                <li><a>File</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div><a data-icon="fa-gear">Actions</a></div>
+                <div>
+                    <ul>
+                        <li><a data-icon="fa-pencil">Edit</a>
+                            <ul>
+                                <li><a data-icon="fa-save">Save</a></li>
+                                <li><a data-icon="fa-save">Update</a></li>
+                            </ul>
+                        </li>
+                        <li><a data-icon="fa-phone">Other</a>
+                            <ul>
+                                <li><a data-icon="fa-minus">Delete</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row marketing ui-menu" style="display:none;">
+            <ul id="tm1">
+                <li> <a data-icon="fa-file-o">File</a>
+                    <ul>
+                        <li><a data-icon="fa-plus">New</a></li>
+                        <li><a>Open</a></li>
+                        <li><a>Quit</a></li>
+                    </ul>
+                </li>
+                <!-- 
+                <li> <a data-icon="fa-edit">Edit</a>
+                    <ul>
+                        <li><a data-icon="fa-mail-forward">Undo</a></li>
+                        <li><a data-icon="fa-mail-reply">Redo</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a data-icon="fa-question">Help</a>
+                    <ul>
+                        <li><a>Contents</a></li>
+                        <li>
+                            <a data-icon="fa-search">Search</a>
+                            <ul>
+                                <li><a>Text</a>
+                                    <ul>
+                                        <li><a>Workspace</a></li>
+                                    </ul>
+                                </li>
+                                <li><a>File</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a data-icon="fa-gear">Actions</a>
+                    <ul>
+                        <li><a data-icon="fa-refresh">Edit</a>
+                            <ul>
+                                <li><a data-icon="fa-save">Save</a></li>
+                                <li><a data-icon="fa-save">Update</a></li>
+                            </ul>
+                        </li>
+                        <li><a data-icon="fa-phone">Other1</a>
+                            <ul>
+                                <li><a data-icon="fa-minus">Delete</a></li>
+                            </ul>
+                        </li>
+                        <li><a data-icon="fa-phone">Other2</a>
+                            <ul>
+                                <li><a data-icon="fa-minus">Delete</a></li>
+                            </ul>
+                        </li>
+                        <li><a data-icon="fa-phone">Other3</a>
+                            <ul>
+                                <li><a data-icon="fa-minus">Delete</a></li>
+                            </ul>
+                        </li>
+                        <li><a data-icon="fa-phone">Other4</a>
+                            <ul>
+                                <li><a data-icon="fa-minus">Delete1</a></li>
+                                <li><a data-icon="fa-minus">Delete31</a></li>
+                                <li><a data-icon="fa-minus">Delete31</a></li>
+                                <li><a data-icon="fa-minus">Delete21</a></li>
+                                <li><a data-icon="fa-minus">Delete21</a></li>
+                                <li><a data-icon="fa-minus">Delete11</a></li>
+                                <li><a data-icon="fa-minus">Delete11</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li> -->
+            </ul>
+        </div>
+        <div class="footer" style="">
+            <p>xx</p>
+        </div>
+    </div>
+    <!-- <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>  -->
+    <script src="/bower_components/jquery-1.11.3.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" type="text/javascript"></script>
+    <!-- <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script> -->
+    <script src="/bower_components/lodash/dist/lodash.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script src="scripts/jquery.ui.core.js"></script>
+    <script src="scripts/jquery.ui.widget.js"></script>
+    <script src="scripts/jquery.ui.position.js"></script>
+    <script src="scripts/pui.core.js"></script>
+    <!-- <script src="scripts/tabview.js"></script> -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>

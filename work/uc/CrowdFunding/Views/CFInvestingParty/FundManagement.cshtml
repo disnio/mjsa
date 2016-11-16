@@ -1,0 +1,72 @@
+﻿@using ZCPT.CrowdFunding.Entity.CFInvestingPartyModule
+@using ZCPT.CrowdFunding.Entity
+@using UCFramework.Infrastructure.Web
+@using Webdiyer.WebControls.Mvc
+@model PagedList<CFFundForManagement>
+
+@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+    ViewBag.Title = "基金管理";
+    ViewBag.ContentName = ViewBag.Title;
+}
+
+<script src="~/Scripts/js/app/FundManagement.js"></script>
+
+<div class="main-right-white">
+    <h1 class="page-head"><span>@ViewBag.Title</span></h1>
+
+    <div class="panel panel-default section-filter">
+        <div class="panel-heading"><a expanded="true" data-toggle="collapse" href="#sectionfilter" aria-expanded="true" class="">筛选条件</a> </div>
+        <div class="panel-body form-horizontal userCenter-search collapse in" id="sectionfilter" aria-expanded="true">
+            @using (Ajax.BeginForm("FundManagement", "CFInvestingParty", new RouteValueDictionary { { "id", "" } }, new AjaxOptions { UpdateTargetId = "searchResult", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }, htmlAttributes: new RouteValueDictionary { { "id", "searchForm" }, { "class", "form-horizontal section-form" } }))
+            {
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">创建时间：</label>
+                    <div class="col-sm-4">
+                        @Html.TextBox("CreationTime", null, new RouteValueDictionary { { "class", "form-control laydate-icon Wdate" }, { "placeholder", "" }, { "onClick", "WdatePicker()" } })
+                    </div>
+                    <label class="col-sm-1 control-label">名称：</label>
+                    <div class="col-sm-4">
+                        @Html.TextBox("Word", null, new RouteValueDictionary { { "class", "form-control" }, { "placeholder", "" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">投资分类：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="CFInvestmentCategoryID" name="CFInvestmentCategoryID" placeholder=""><option value="1">股权投资</option><option value="2">债权投资</option><option value="3">众筹投资</option></select>
+                    </div>
+                    <label class="col-sm-1 control-label">状态：</label>
+                    <div class="col-sm-4">
+                        @Html.DropDownList("Status", ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetSelectList(typeof(Fund_Status)), "所有", new RouteValueDictionary { { "class", "form-control" }, { "placeholder", "" } })
+                    </div>
+                </div>
+                
+                <div class="form-group line-top">
+
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="submit" class="btn btn-default">筛选</button>
+                        <button type="button" class="btn btn-default">清除筛选条件</button>
+                    </div>
+
+                </div>
+            }
+        </div>
+
+    </div>
+
+    <input type="hidden" value="@SessionIdentity.Instance.AccountID" id="CreatorID">
+    <input type="hidden" value="@SessionIdentity.Instance.OrgainzationID" id="OrgainzationID">
+
+    <div class="media-list" id="searchResult">
+        @Html.Partial("FundManagementListPartView", Model)
+    </div>
+
+</div>
+
+
+@section scripts
+{
+    @{ Html.RegisterMvcPagerScriptResource();}
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}
+

@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutHFN.cshtml";
+}
+    <script>
+       $(function(){
+            var emLeftHeight=$(".em-ll").height();
+            $(".em-rr").css({minHeight:emLeftHeight-30});
+       })
+    </script>
+<div class="row" style="margin-bottom:50px;">
+    <div class="col-lg-2 col-md-3 col-sm-3 em-ll">
+        @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Aside(new UCFramework.Infrastructure.SDK.MenuAPI().GetAsideMenu()))
+    </div>
+    <div class="col-lg-10 col-md-9 col-sm-9 em-rr" style="background-color:#fff;margin-top:20px;padding:30px;">
+         @RenderBody()
+    </div>
+</div>
+@section scripts
+{
+    @RenderSection("scripts", required: false)
+}

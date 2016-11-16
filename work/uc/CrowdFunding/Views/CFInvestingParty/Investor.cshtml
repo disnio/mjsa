@@ -1,0 +1,65 @@
+﻿@using ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule
+@using UCFramework.Infrastructure.Web
+@using UCFramework.Infrastructure.SDK
+@using ZCPT.CrowdFunding.Entity
+@model InvestorVM
+
+@{
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+    ViewBag.Title = "投资人详情";
+    ViewBag.ContentName = ViewBag.Title;
+}
+<link rel="stylesheet" href="~/Content/css/Investor.css" />
+@*<script src="~/scripts/js/app/Investor.js"></script>*@
+<script type="text/javascript">
+    var AccountID = '@SessionHelper.Identity.Account.ID';
+</script>
+<div class="containerinvestor">
+    <div class="row investor-name">
+        <div class="col-sm-3 detail-img">
+            <img src="@string.Format("{0}/fileupload/MediaMedium/{1}", ConfigTool.ServerReferenceFileCenterAPI, Model.Icon)" alt="@Model.Name" />
+
+        </div>
+        <div class="col-sm-3 investor-area">
+            <h2>@Model.Name</h2>
+            <p class="incestor-intro">@Model.Introduction</p>
+            <p>所在地区：<span>@Model.AreaStation</span></p>
+            <p>投资地区：<span>@Model.InvestmentStation</span></p>
+        </div>
+        <div class="col-sm-3 investor-area">
+            <p class="investor-industry">投资行业：<span>@Model.Industrys</span></p>
+
+        </div>
+    </div>
+
+
+
+
+    <div class="investor-list">
+        <p class="fund-list">基金列表</p>
+        <div class="inve-fund">
+            @foreach (var item in Model.InvestorFunds)
+            {
+                <div class="inve-span">
+                    <img src="~/Content/img/right.jpg" />
+                    <span class="investor-fundname"><a href="@(Url.Action("Fund", "CFInvestingParty", new { id = item.CFFundID }))">@(item.FundName)</a></span>
+                    <span class="investor-fundtime"><span class="glyphicon glyphicon-time"></span>&nbsp;发布时间：@(item.CreationTime)</span>
+                    <span class="investor-fundtype">投资类型：@(item.InvestmentCategory)</span>
+                    <span class="investor-fundamount">基金金额&nbsp;&nbsp;&nbsp;&nbsp;<span class="investor-back">@(item.InvestmentAmount)</span></span>
+                    <br />
+                </div>
+                    }
+                </div>
+    </div>
+ </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+}
+
+

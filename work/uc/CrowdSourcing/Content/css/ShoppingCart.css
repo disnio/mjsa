@@ -1,0 +1,44 @@
+﻿@charset "UTF-8";
+/* CSS Document */
+p{ margin-top:0; }
+.list-group-item{ margin-bottom: 0; }
+.check, .allCheck, .information, .white, .price, .num, .allPrice, .oper, .img1, .text, .space, .num .btn, .num .txt, .num .btn2, .allPriceText, .last, .shop2, .bottomChec, .bottom .delete, .bottom .favorite, .bottom .haveGoods, .bottom .rmb, .bottom .accounts { float: left; }
+.text { width: 200px; margin-left: 10px; }
+.space { width: 130px; height: 150px; }
+.money del { display: block; margin-top: -15px; }
+.money span { display: block; margin-top: 0px; font-weight: 600; text-align:center; }
+.num .btn { width: 20px; height: 20px; line-height:8px; border: none; border-radius: 0px; }
+.num .txt { width: 40px; line-height:20px; height: 20px; border: 1px solid #ccc; text-align: center; }
+.num .btn2 { width: 20px; height: 20px; border: none; }
+.last span { display: block; margin-top: -15px; }
+.glyphicon { font-family: ""; top: 0; }
+.bottom { height: 50px; background: #e5e5e5; line-height: 50px; padding-left:20px; }
+.bottom .haveGoods { margin-left: 60px; }
+.bottom .haveGoods span { font-weight: 600; color: #f40; font-size: 16px; }
+.bottom .rmb { margin-left: 50px; }
+.bottom .rmb span { font-weight: 600; color: #f40; font-size: 16px; }
+.bottom .accounts { width: 100px; border: none; margin-left: 30px; font-weight: 600; font-size: 24px; }
+*{ font-family: "Microsoft YaHei"; }
+.shopcard-title-common{ margin-bottom:10px; }
+.shopcard-title-common span{ color:#009ec3; }
+.shopcard-title{ border-bottom:3px solid #009ec3; padding-bottom: 5px; margin:15px 0; }
+.shopcard-title span{ color:#009ec3; font-size:20px; font-weight:bold; }
+.top{ overflow:hidden; margin:10px 0; }
+.top .ng-binding{ margin-right: 15px; }
+.top p{ line-height:22px; }
+.allCheck{ float:left; width:80px; }
+.information{ width:290px; }
+.price{ width:100px; float:left; text-align:center; }
+.num{ width:150px; float:left; text-align:center; }
+.allPrice{ width:110px; float:left; color: #f40; text-align:center; }
+.oper{ width:170px; text-align:center; }
+.check{ width:50px; float:left; }
+.img1{ width:102px; border:solid 1px #efefef; float:left; }
+.main222 ul li { padding: 10px; border: 1px solid #e5e5e5; overflow:hidden; margin-bottom:20px; }
+.text{ float:left; }
+.price  p{ margin-bottom:20px; }
+.bottom{ overflow:hidden; }
+.bottom .delete{ margin-right: 10px; }
+.bottom .accounts { width: 100px; border: none; margin-left: 10px; font-weight: 600; font-size: 24px; float:right; background-color: #009ec3; color:#fff; }
+.bottom .rmb { margin-left: 50px; float:right; }
+.bottom .haveGoods { margin-left: 60px; float:right; }

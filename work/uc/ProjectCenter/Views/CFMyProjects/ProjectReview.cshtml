@@ -1,0 +1,63 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model  ZCPT.ProjectCenter.Web.Models.ProjectListQuaryModel
+
+@{
+    ViewBag.Title = "项目列表";
+    ViewBag.ContentName = "项目申请审核";
+}
+<link href="~/css/projectreview.css" type="text/css" rel="stylesheet">
+@section scripts
+{
+    <script language="javascript" type="text/javascript" src="~/Scripts/My97DatePicker/WdatePicker.js"></script>
+
+    @{ Html.RegisterMvcPagerScriptResource();}
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}
+
+<div class="page-head"><span>项目列表</span></div>
+@using (Ajax.BeginForm("ProjectReview", "CFMyProjects", new AjaxOptions { UpdateTargetId = "proList", HttpMethod = "Post", InsertionMode = InsertionMode.Replace }, new { id = "searchForm", @class = "form-horizontal section-form" }))
+{
+    <div class="panel panel-default section-filter">
+        <div class="panel-body form-horizontal collapse in userCenter-search" id="sectionfilter">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">项目名称</label>
+                <div class="col-sm-5">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                </div>
+                @*<label class="col-sm-1 control-label">申请人</label>
+                <div class="col-sm-5">
+                    @Html.TextBoxFor(m => m.ApplyName, new { @class = "form-control" })
+                </div>*@
+                <label class="col-sm-1 control-label">申请时间</label>
+                <div class="col-sm-5">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.CreationDateMin, new { @class = "form-control", @onClick = "WdatePicker()" })
+                        <span class="input-group-addon">至</span>
+                        @Html.TextBoxFor(m => m.CreationDateMax, new { @class = "form-control", @onClick = "WdatePicker()" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">项目阶段</label>
+                <div class="col-sm-5">
+                    @Html.DropDownListFor(m => m.StageID, (IEnumerable<SelectListItem>)ViewBag.Stages, new { @class = "form-control" })
+                </div>
+                <label class="col-sm-1 control-label">状态</label>
+                <div class="col-sm-5">
+                    @Html.DropDownListFor(m => m.Status, (IEnumerable<SelectListItem>)ViewBag.StatusList, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group line-top">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@Html.Partial("PartialProjectReviewLists", ((PagedList<ZCPT.ProjectCenter.Web.Models.ProjectListViewModel>)ViewBag.PageList))
+
+
+
+

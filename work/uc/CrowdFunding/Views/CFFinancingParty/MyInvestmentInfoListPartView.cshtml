@@ -1,0 +1,167 @@
+﻿@using ZCPT.CrowdFunding.Web.Models.CFFinancingPartyModule
+@using UCFramework.Infrastructure.Web
+@using Webdiyer.WebControls.Mvc
+@model PagedList<InvestmentInfoItem>
+
+
+<table class="table section-table table-bordered table-hover table-striped table-condensed">
+    <caption>
+        <button class="btn pull-right" type="button">
+            共<span class="badge">@Model.TotalItemCount</span>条记录
+        </button>
+    </caption>
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                投资人
+            </th>
+            <th>
+                基金名称
+            </th>
+            <th>
+                申请金额
+            </th>
+            <th>
+                真实投资金额
+            </th>
+            <th>
+                申请项目
+            </th>
+            <th>
+                申请时间
+            </th>
+            <th>
+                投资类型
+            </th>
+            <th>
+                申请状态
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr pid="@(item.CFInvestmentInfoID)">
+                <td class="center">
+                    @(item.CFInvestmentInfoID)
+                    <input type="hidden" id="CFInvestmentInfoID" name="dataID@(item.CFInvestmentInfoID)" value="@(item.CFInvestmentInfoID)" />
+                </td>
+                <td class="center">
+                    <a href="@(Url.Action("Investor", "CFInvestingParty", new { id = item.FundCreaterID }))">@(item.FundCreaterName)</a>
+                </td>
+                <td class="center">
+                    <a href="@(Url.Action("Fund", "CFInvestingParty", new { id = item.CFFundID }))">@(item.FundName)</a>
+                </td>
+                <td class="center">
+                    @(item.InvestmentAmount)
+                </td>
+                <td class="center">
+                    @(item.RealInvestmentAmount)
+                </td>
+                <td class="center">
+                    @if (item.CFInvestmentCategoryID == 3)
+                    {
+                        <a href="@(Url.Action("GetProjectBasis", "CFProject", new { id = item.CFProjectId }))">@Html.Raw(item.ProjectName)</a>
+                    }
+                    else
+                    {
+                        <a href="@(Url.Action("financingdetails", "CFProject", new { id = item.CFProjectId }))">@Html.Raw(item.ProjectName)</a>
+                    }
+                </td>
+                <td class="center">
+                    @(item.CreationTime)
+                </td>
+                <td class="center">
+                    @(item.InvestmentCategory)
+                </td>
+                <td class="center">
+                    @(ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetDescription(item.Status))
+                </td>
+                <td class="center" id="deal@(item.CFInvestmentInfoID)">
+                    <input type="hidden" name="AmountUnits@(item.CFInvestmentInfoID)" value="@(ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetDescription(item.AmountUnits))" />
+                    @if (item.Status == ZCPT.CrowdFunding.Entity.InvestmentInfo_Status.Verifing)
+                    {
+                        <input type="button" class="btn btn-default btn-sm" style="vertical-align:middle;" value="接受" name="updateInvestmentInfoStatus_Accepted" />
+                        <input type="button" class="btn btn-default btn-sm" style="vertical-align:middle;" value="拒绝" name="updateInvestmentInfoStatus_NotAccepted" />
+                    }
+                    else if (item.Status == ZCPT.CrowdFunding.Entity.InvestmentInfo_Status.Approved)
+                    {
+                        <input type="button" class="btn btn-default btn-sm" style="vertical-align:middle;" value="确认" name="updateInvestmentInfoStatus_Confirmed" />
+                    }
+                    else if (item.Status != ZCPT.CrowdFunding.Entity.InvestmentInfo_Status.Confirmed)
+                    {
+                        <input type = "button" class="btn btn-default" style="vertical-align:middle;" value="确认" name="updateInvestmentInfoStatus_Confirmed" disabled="disabled" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<input type="hidden" name="CreatorID" value="@SessionIdentity.Instance.AccountID">
+<input type="hidden" name="OrgainzationID" value="@SessionIdentity.Instance.OrgainzationID">
+<input type="hidden" name="FinancingPartyID" value="@SessionIdentity.Instance.OrgainzationID">
+
+<div class="text-center">
+    @Ajax.Pager(Model, new PagerOptions
+{
+    PageIndexParameterName = "page",
+    ContainerTagName = "ul",
+    CssClass = "pagination pagination-centered",
+    CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+    DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+    PagerItemTemplate = "<li>{0}</li>",
+    PageIndexBoxId = "PageCurrentIndex",
+    GoToButtonId = "btnGo"
+},
+    new MvcAjaxOptions
+    {
+        UpdateTargetId = "searchResult",
+        HttpMethod = "Post",
+        DataFormId = "searchForm"
+    })
+    <ul class="pagination pagination-centered">
+        <li><span>共<font>@Model.TotalPageCount</font>页</span></li>
+        <li><span>共<font>@Model.TotalItemCount</font>条</span></li>
+        <li>
+            <div class="input-group">
+
+                <input type="text" class="form-control" id="PageCurrentIndex" placeholder="">
+                <span class="input-group-addon" id="sizing-addon1">页</span>
+                <span class="input-group-btn"><button class="btn btn-default" type="button" id="btnGo">跳转</button></span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<input type="hidden" name="hiddenInvestmentInfoStatus_Accepted" value="@((int)ZCPT.CrowdFunding.Entity.InvestmentInfo_Status.Accepted)" />
+<input type="hidden" name="hiddenInvestmentInfoStatus_NotAccepted" value="@((int)ZCPT.CrowdFunding.Entity.InvestmentInfo_Status.NotAccepted)" />
+<input type="hidden" name="hiddenInvestmentInfoStatus_Confirmed" value="@((int)ZCPT.CrowdFunding.Entity.InvestmentInfo_Status.Confirmed)" />
+
+@*接受弹出框*@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" pid="">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">确认投资</h4>
+            </div>
+            <div class="modal-body">
+                确认投资金额:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="investsum" value="" /><span>万元</span>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-invest" data-dismiss="modal">确认</button>
+                <button type="button" class="btn btn-primary">取消</button>
+                <input type="hidden" value="@SessionIdentity.Instance.AccountID" id="CreatorID">
+                <input type="hidden" value="@SessionIdentity.Instance.OrgainzationID" id="OrganizationID">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "我的购物车";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/css/ShoppingCart.css" />
+<div class="main222">
+    <div class="top">
+
+        <div class="allCheck">
+            <label>
+                <input type="checkbox" />&nbsp;&nbsp;全选
+            </label>
+        </div>
+
+        <p class="information">商品信息</p>
+        <div class="white">
+        </div>
+        <p class="price">单价(元)</p>
+        <p class="num">数量</p>
+        <p class="allPrice">金额(元)</p>
+        <p class="oper">操作</p>
+    </div>
+    <ul>
+        <li>
+            <input type="checkbox" class="check" />
+            <div class="img1"><img src="1.png" alt=""></div>
+            <p class="text"><a href="#">飞利浦 WP4120净水器家用非直饮活性炭净水机自来水过滤器 包安装</a></p>
+            <div class="space">
+            </div>
+            <div class="price money">
+                <del>1599.00</del>
+                <span>1199.00</span>
+            </div>
+            <div class="num">
+                <input type="button" class="btn" value="" />
+                <input type="text" class="txt" value="1" />
+                <input type="button" class="glyphicon glyphicon-plus btn2" value="+" />
+            </div>
+            <p class="allPrice allPriceText">1199.00</p>
+            <div class="price oper last">
+                <p><a href="#">移入文件夹</a></p>
+                <span><a href="#">删除</a></span>
+            </div>
+        </li>
+        <li>
+            <input type="checkbox" class="check" />
+            <div class="img1"><img src="1.png" alt=""></div>
+            <p class="text"><a href="#">飞利浦 WP2806净水壶家用直饮净水器滤水壶 户外便携净水杯过滤器</a></p>
+            <div class="space">
+            </div>
+            <div class="price money">
+                <del>298.00</del>
+                <span>199.00</span>
+            </div>
+            <div class="num">
+                <input type="button" class="btn" value="" />
+                <input type="text" class="txt" value="1" />
+                <input type="button" class="glyphicon glyphicon-plus btn2" value="+" />
+            </div>
+            <p class="allPrice allPriceText">199.00</p>
+            <div class="price oper last">
+                <span><a href="#">删除</a></span>
+                <p><a href="#">移入文件夹</a></p>
+            </div>
+        </li>
+    </ul>
+    <div class="top">
+        <div class="shop2">
+            <input type="checkbox" />&nbsp;&nbsp;店铺2
+        </div>
+    </div>
+    <ul>
+        <li>
+            <input type="checkbox" class="check" />
+            <div class="img1"><img src="1.png" alt=""></div>
+            <p class="text"><a href="#">water plus/沃德加净水器家用直饮水龙头陶瓷通用内置滤芯配件</a></p>
+            <div class="space">
+            </div>
+            <div class="price money">
+                <del>1599.00</del>
+                <span>1199.00</span>
+            </div>
+            <div class="num">
+                <input type="button" id="btnone" class="btn" value="" />
+                <input type="text" id="count" class="txt" value="1" />
+                <input type="button" id="btntwo" class="glyphicon glyphicon-plus btn2" value="+" />
+            </div>
+            <p class="allPrice allPriceText">1199.00</p>
+            <div class="price oper last">
+                <p><a href="#">移入文件夹</a></p>
+                <span><a href="#">删除</a></span>
+            </div>
+        </li>
+    </ul>
+    <div class="bottom">
+        <div class="allCheck bottomChec">
+            <label>
+                <input type="checkbox" />&nbsp;&nbsp;全选
+            </label>
+        </div>
+        <p class="delete">删除</p>
+        <p class="favorite">移入收藏夹</p>
+        <!-- <p class="share">分享</p>
+        <p class="begin">开始对比</p> -->
+        <p class="haveGoods">已选商品 <span>3</span> 件</p>
+        <p class="rmb">合计(不含运费) <span>¥2597.00</span></p>
+        <input class="accounts" type="button" value="结 算" />
+    </div>
+</div>
+
+<script>
+    var btnTwo = document.getElementById("btntwo");
+    var btnOne = document.getElementById("btnone");
+    var oCount = document.getElementById("count");
+    btnTwo.onclick = function(){
+       oCount.value=parseInt(oCount.value)+1
+    }
+    btnOne.onclick = function(){
+        if(oCount.value>1){
+           
+             oCount.value=parseInt(oCount.value)-1
+
+        }
+        
+    }
+</script>
+<script src="~/Scripts/js/app/ShoppingCart.js"></script>
+@section Scripts{
+}

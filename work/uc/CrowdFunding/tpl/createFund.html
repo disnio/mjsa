@@ -1,0 +1,15 @@
+<div class="caseBox" id="InvestmentCases[<%= index %>]" data-pid="<%= index %>">
+    <div class="case-title">
+        <input type="text" id="InvestmentCases-InvestmentTime" name="_InvestmentCases[<%= index %>].InvestmentTime" class="case-title laydate-icon Wdate" onClick="WdatePicker()" value="<%= InvestmentTime %>">
+        <input type="text" id="InvestmentCases-InvestmentAmount" name="_InvestmentCases[<%= index %>].InvestmentAmount" placeholder="投资金额" value="<%= InvestmentAmount %>">
+        <select id="InvestmentCases-AmountUnits" name="_InvestmentCases[<%= index %>].AmountUnits">
+            <option value="1" <% if(AmountUnits==1){%> selected="true" <% } %> >万元</option>
+            <option value="2" <% if(AmountUnits==2){%> selected="true" <% } %> >亿元</option>
+        </select>
+        <input type="text" id="InvestmentCases-Name" name="_InvestmentCases[<%= index %>].Name" placeholder="投资的企业名称" value="<%= Name %>" class="company-name">
+    </div>
+    <textarea type="text" id="InvestmentCases-Introduction" name="_InvestmentCases[<%= index %>].Introduction"><%= Introduction %></textarea>
+    <input type="hidden" id="InvestmentCases-CFInvestmentCaseID" name="_InvestmentCases[<%= index %>].CFInvestmentCaseID" value="<%= CFInvestmentCaseID %>">
+    <input type="hidden" id="InvestmentCases-CFFundID" name="_InvestmentCases[<%= index %>].CFFundID" value="<%= CFFundID %>">
+    <input class="delete" type="button" value="删除">
+</div>

@@ -1,0 +1,310 @@
+<form ng-controller="MainController" class="form form-default form-horizontal" name="mainForm" novalidate>
+    <!-- 分类 -->
+        <ul class="productdetail-main-status">
+            <li><span>1，选择商品类目</span></li>
+            <li ng-class="status(0)"><span>2，编辑商品信息</span></li>
+            <li ng-class="status(1)"><span>3，等待商品审核</span></li>
+            <li ng-class="status(2)"><span>4，审核通过</span></li>
+            <li ng-class="status(3)"><span>5，发布成功</span></li>
+        </ul>
+    <div class="form-group row">
+        <label class="col-sm-2" for="CategoryID">商品分类(*)</label>
+        <div class="col-sm-10">
+            <div class="cate-selected">
+                <a ng-show="noCate()" href="./publishproduct/" >返回选择商品类别</a>
+                <ul>
+                    <li ng-repeat="s in cate">{{s.Name}}<span ng-show='!$last'>&gt;</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2" for="">商品标题(*)</label>
+        <div class="col-sm-3">
+            <input ng-model="produs.Name" type="text" placeholder="商品标题" name="Name" class="form-control" ng-minlength="2" ng-maxlength="40" required err-field />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2" for="Price">商品价格(*)</label>
+        <div class="col-sm-3">
+            <span ng-show="hasSkuList()">{{produs.Price}} 元</span>
+            <input ng-show="!hasSkuList()" ng-model="produs.Price" gt-zero type="text" placeholder="商品价格" name="Price" class="form-control" required ng-minlength="1" , ng-maxlength="10" err-field />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2" for="Num">商品数量(*)</label>
+        <div class="col-sm-3">
+            <span ng-show="hasSkuList()">{{produs.Num}}</span>
+            <input ng-show="!hasSkuList()" ng-model="produs.Num" integer type="text" placeholder="商品数量" name="Num" class="form-control" required ng-minlength="1" ng-maxlength="4" err-field/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-4">
+            <div class="checkbox">
+                <label for="IsOuterProduct">
+                    <input ng-model="produs.IsOuterProduct" type="checkbox" name="IsOuterProduct" />是否为外部商品
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <span class="merror" ng-show="mainForm.OuterUrl.$pristine && produs.IsOuterProduct">
+                    <span>请输入下面的商品链接</span>
+            </span>
+        </div>
+    </div>
+    <hr>
+    <!-- 外部链接 -->
+    <div class="form-group row" ng-show="isOuterProduct()">
+        <label class="col-sm-2" for="OuterUrl">商品链接</label>
+        <div class="col-sm-4">
+            <input ng-model="produs.OuterUrl" type="text" name="OuterUrl" out-link class="form-control" err-field />
+        </div>
+    </div>
+    <!-- 购买人群 -->
+    <div class="form-group row">
+        <label class="col-sm-2" for="accessT">购买人群(*)</label>
+        <div class="col-sm-4">
+            <select name="accessT" ng-model="produs.AccessType" ng-options="act.ID as act.AccessName for act in accessT" class="form-control">
+                <option value="0">选择购买人群</option>
+            </select>
+        </div>
+    </div>
+    <!-- 图片列表 -->
+    <div class="form-group row">
+        <label class="col-sm-2" for="">商品图片(*)</label>
+        <div class="col-sm-4 uploadimg">
+            <input id="fileupload" class="fileupload" type="file" name="uploadedfile">
+            <input type="button" class="btn btn-default fileupload-btn" value="选择图片" />
+            <span class="merror" ng-show="uploadFlag()">
+                    <span>至少1张商品图片</span>
+            </span>
+        </div>
+        <div class="col-sm-9 col-sm-offset-2">
+            <div class="preview" style="display:inline;">
+                <div ng-repeat="pic in produs.PictureList" class="pull-left imgBox" ng-click="imgSelect(pic)" ng-class="isMainPic(pic)">
+                    <div class="imgLiquidFill imgLiquid" style="width:100px; height:100px;">
+                        <img ng-src="{{pic.Url}}" alt="" class="img-thumbnail">
+                        <span class="glyphicon glyphicon-remove pic-del" ng-click="delPic($event, pic)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 描述 -->
+    <div class="form-group row">
+        <label class="col-sm-2" for="">商品描述(*)</label>
+        <div class="col-sm-8">
+            <div ueditor ng-model="produs.Description" class="form-control"  err-field></div>
+            <div id="rletter"></div>
+        </div>
+    </div>
+    <!-- 添加属性 -->
+    <div class="form-group ">
+        <div class="col-sm-2">
+            <b>商品属性添加(*)</b>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-default btn-sm" ng-click="addOrEditOption(0, 0)">添加属性</button>
+        </div>
+    </div>
+    <!-- 属性列表 -->
+    <div class="form-group col-sm-12" ng-show="hasOpts()">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>属性名</th>
+                    <th>属性值</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="optlist in produs.OptionList track by $index " ng-show="optlist.IsSKU==false">
+                    <td>
+                        <span>{{optlist.OptionName}}</span>
+                    </td>
+                    <td>
+                        <div data-pindex={{$index}}>
+                            <p ng-repeat="oitem in optlist.OptionValueList">
+                                <span>{{oitem.OptionValueName}}</span>
+                                <!-- <button ng-click="delOptionValue($index, $event)" class="btn btn-default btn-sm">删除</button> -->
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-default btn-sm" ng-click="addOrEditOption(0, 1, $index)">编辑</button>
+                        <button class="btn btn-default btn-sm" ng-click="delOpt(0,$index)">删除</button>                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 添加规格 -->
+    <div class="form-group">
+        <div class="col-sm-2">
+            <b>商品规格添加(*)</b>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-default btn-sm" ng-click="addOrEditOption(1, 0)">添加规格</button>
+        </div>
+    </div>
+    <!-- 规格列表 -->
+    <div class="form-group col-sm-12" ng-show="hasSkus()">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>规格名</th>
+                    <th>规格值</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="optlist in produs.OptionList track by $index " ng-show="optlist.IsSKU==true">
+                    <td>
+                        <span>{{optlist.OptionName}}</span>
+                    </td>
+                    <td>
+                        <div data-pindex={{$index}}>
+                            <p ng-repeat="oitem in optlist.OptionValueList">
+                                <span>{{oitem.OptionValueName}}</span>
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-default btn-sm" ng-click="addOrEditOption(1,1,$index)">编辑</button>
+                        <button class="btn btn-default btn-sm" ng-click="delOpt(1,$index)">删除</button>                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 规格项列表 -->
+    <div class="form-group col-sm-12" ng-show="hasSkuList()">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>规格组</th>
+                    <th>价格项明细</th>
+                    <th>数量</th>
+                    <th>价格</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="opt in produs.SKUList track by $index">
+                    <td>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th ng-repeat="ps in opt.Properties">{{ps[0]}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td ng-repeat="ps in opt.Properties">{{ps[1]}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <div class="pull-left">
+                            <button ng-hide="opt.PriceList.length > 0" data-index="{{$index}}" ng-click="skuItemCE(opt, 0)">添加</button>
+                        </div>
+                        <table class="table pull-right" ng-show="opt.PriceList.length>0">
+                            <thead>
+                                <tr>
+                                    <th>价格名</th>
+                                    <th>价格</th>
+                                    <th>循环付费</th>
+                                    <th>循环单位</th>
+                                    <th>
+                                        <button ng-show="opt.PriceList.length > 0" data-index="{{$index}}" ng-click="skuItemCE(opt, 1)">编辑</button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="plist in opt.PriceList">
+                                    <td>{{plist.AmountName}}</td>
+                                    <td>{{plist.Amount}}</td>
+                                    <!--   -->
+                                    <td>{{plist.IsRecuring | toTF}}</td>
+                                    <td>{{plist.TypeName}}</td>
+                                </tr>
+                                <tr></tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <input ng-model="opt.Num" cal-num integer type="text" name="skuNum" class="form-control skuNum w80" />
+                        <span class="merror lerror" ng-show="mainForm.skuNum.$dirty && mainForm.skuNum.$invalid">
+                                <span ng-show="mainForm.skuNum.$error.integer">必须填写大于0的整数</span>
+                        </span>
+                    </td>
+                    <td>
+                        <span data-index="{{$index}}" cal-price>{{opt.Price}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 其他信息 -->
+<!--     <div class="form-group">
+        <div class="col-sm-2">
+            <b>其他信息(*)</b>
+        </div>
+    </div> -->
+<!--     <div class="form-group">
+        <div class="col-sm-2">
+            <b>开始时间(*)：</b>
+        </div>
+        <div class="col-sm-8">
+            <input type="radio" name="timeRadio" ng-model="timeRadio" value="0" />
+            <label>立刻</label>
+            <input type="radio" name="timeRadio" ng-model="timeRadio" value="1" />
+            <label>设定</label>
+            <input type="text" name="startTime" ng-model="produs.startTime" wdate-time ng-show="showStartTime()" />
+        </div>
+    </div> -->
+    <div class="form-group">
+        <div class="col-sm-2">
+            <b>发货区域(*)：</b>
+        </div>
+        <div class="col-sm-8">
+            <select class="form-control" style="width:120px;display:inline-block;" name="Province" ng-model="ProvinceID" ng-options="prov.LID as prov.Name for prov in Province" ng-change="changeProvince()">
+                <!-- <option value="">-- 全国 --</option> -->
+            </select>
+            <select class="form-control" ng-show="hasProvinceID()" style="width:120px;display:inline-block;" name="City" ng-model="CityID" ng-options="cit.LID as cit.Name for cit in City" ng-change="changeCity()">
+                <option value="">-- 市 --</option>
+            </select>
+            <select class="form-control" ng-show="hasCityID()" style="width:120px;display:inline-block;" name="Area" ng-model="AreaID" ng-options="are.LID as are.Name for are in Areas">
+                <option value="">-- 县/区 --</option>
+            </select>
+            <button ng-click="addRegion()" id="regionbtn" type="button" class="btn btn-default">添加</button>
+        </div>
+        <div class="col-sm-10 col-sm-offset-2">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>区域</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="regs in regList">
+                        <td>{{regs.ProvinceName}} {{ regs.CityName}} {{ regs.AreaName}}</td>
+                        <td>
+                            <button ng-click="delRegion(regs)" type="button" class="btn btn-default btn-sm">删除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group btn-groups">
+        <div class="col-sm-12">
+            <button ng-click="pubSave()" id="savebtn" type="button" class="btn btn-default">保存</button>
+            <!-- <button ng-click="preview()" id="previewbtn" type="button" class="btn btn-default">预览</button> -->
+            <button ng-disabled="disablePub()" ng-click="pub()" id="pubbtn" type="button" class="btn btn-default">发布</button>
+        </div>
+    </div>
+
+    
+</form>

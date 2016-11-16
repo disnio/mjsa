@@ -1,0 +1,137 @@
+﻿@{ViewBag.ContentName = "项目历史执行情况";}
+@model ZCPT.ProjectCenter.Web.Models.ProjectPerformancesModel
+
+@Scripts.Render("~/bundles/inputrich")
+@Styles.Render("~/bundles/inputrich/style")
+
+<link href="~/Scripts/UMEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/js/app/EditProjectPerformance.js"></script>
+
+@Html.Partial("_ProjectTab", new ZCPT.ProjectCenter.Web.Models.ComponentModule.ProjectEditTabModule() { ID = Model.ID, Current = nameof(ZCPT.ProjectCenter.Web.Models.ProjectPerformancesModel) })
+@using (Html.BeginForm("EditProjectTeam", "CFMyProjects", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(m => m.ID)
+
+    <!--项目历史执行资料-->
+    for (int i = 0; i < Model.Performances.Count; i++)
+    {
+    <div id="section" class="row">
+        @Html.HiddenFor(M => M.Performances[i].ID)
+        @Html.HiddenFor(M => M.Performances[i].Index)
+        <div class="form-group">
+            <p class="bg-info text-right tit">
+                <a href="javascript:void(0);" onclick="javascript: { $(this).parent().children(':hidden').val(0); $(this).closest('#section').hide(); }" Class="btn btn-primary">删除</a>
+                @Html.HiddenFor(M => M.Performances[i].StatusID)
+            </p>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(M => M.Performances[i].Name, "1、阶段名称：", new { @class = "col-sm-2" })
+            <div class="col-sm-6">
+                @Html.TextBoxFor(M => M.Performances[i].Name, new { @class = "form-control" })
+                <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Performances[i].Name)</p>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(M => M.Performances[i].StartDate, "2、起止时间：", new { @class = "col-sm-2" })
+            <div class="col-sm-2">
+                @Html.TextBoxFor(M => M.Performances[i].StartDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @onClick = "WdatePicker()", Style = "min-width: 150px;width: 100px;" })
+                <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Performances[i].StartDate)</p>
+            </div>
+            @Html.LabelFor(M => M.Performances[i].FinishTime, "至", new { @class = "col-sm-1 text-center" })
+            <div class="col-sm-2">
+                @Html.TextBoxFor(M => M.Performances[i].FinishTime, "{0:yyyy-MM-dd}", new { @class = "form-control", @onClick = "WdatePicker()", Style = "min-width: 150px;width: 100px;" })
+                <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Performances[i].FinishTime)</p>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(M => M.Performances[i].Purpose, "3、阶段达成目标描述：", new { @class = "col-sm-3" })
+            <div class="col-sm-12">
+                @Html.TextAreaFor(M => M.Performances[i].Purpose, 4, 20, new { style = "width: 100%; height: 180px;" })
+                <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Performances[i].Purpose)</p>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(M => M.Performances[i].Measure, "4、完成阶段目标的主要措施、方法、手段：", new { @class = "col-sm-4 label-left" })
+            <div class="col-sm-12">
+                @Html.TextAreaFor(M => M.Performances[i].Measure, 4, 20, new { style = "width: 100%; height: 180px;" })
+                <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Performances[i].Measure)</p>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(M => M.Performances[i].Measure, "5、阶段帐目：", new { @class = "col-sm-2 label-left" })
+            <div class="col-sm-12">
+                <TABLE width="100%" class="tab2 table table-bordered" id="sr_1" border="0" cellspacing="0"
+                       cellpadding="0">
+                    <TBODY>
+                        <TR class="col">
+                            <td width="20%" class="bg-info text-center"><p class="text-info">帐目类别</p></td>
+                            <td width="15%" class="bg-info text-center"><p class="text-info">帐目金额￥</p></td>
+                            <td class="bg-info text-center"><p class="text-info">备注</p></td>
+                            <td class="bg-info text-center"><p class="text-info"></p></td>
+                        </TR>
+                        @{
+                            decimal total = 0;
+                        }
+                        @for (int j = 0; j < Model.Performances[i].Accountings.Count; j++)
+                        {
+                            <TR id="section">
+                                <TD>
+                                    @Html.HiddenFor(M => M.Performances[i].Accountings[j].ID)
+                                    @Html.TextBoxFor(M => M.Performances[i].Accountings[j].Category, new { @class = "form-control", Style = "min-width: 150px;width: 150px;" })
+                                </TD>
+                                <TD>@Html.TextBoxFor(M => M.Performances[i].Accountings[j].Amount, "{0:f2}", new { @class = "form-control", Style = "min-width: 150px;width: 100px;" })</TD>
+                                <TD>@Html.TextBoxFor(M => M.Performances[i].Accountings[j].Remark, new { @class = "form-control", Style = "width: 440px;" })</TD>
+                                <td><a href="javascript:void(0);" onclick="javascript: $(this).parent().children(':hidden').val(0); $(this).closest('#section').hide();" Class="btn7">删除</a>@Html.HiddenFor(M => M.Performances[i].Accountings[j].StatusID)</td>
+                            </TR>
+                            total = total + Model.Performances[i].Accountings[j].Amount;
+                        }
+                        <TR id="intotalrow1">
+                            <TD>合计</TD>
+                            <TD id="intotal1">@string.Format("{0:f2}", total)</TD>
+                            <TD colspan="2"><input type="submit" Class="btn btn-info" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/InsertProjectPerformanceAccounting")?PerformanceID=@Model.Performances[@i].Index")' value="添加帐目" /></TD>
+                        </TR>
+                    </TBODY>
+                </TABLE>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!--添加阶段-->
+    <div class="form-group text-center">
+        <input type="submit" Class="btn btn-primary" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/InsertProjectPerformance")")' value="添加阶段" />
+    </div>
+
+    <!--累计盈亏-->
+    <div class="form-group">
+        @Html.Label("累计盈亏：", new { @class = "col-sm-4" })
+        <div>
+            <TABLE class="table table-bordered">
+                <TBODY>
+                    <TR>
+                        <td width="30%" class="bg-info text-center"><p class="text-info">累计收入金额￥</p></td>
+                        <td width="30%" class="bg-info text-center"><p class="text-info">累计开支金额￥</p></td>
+                        <td class="bg-info text-center"><p class="text-info">累计盈亏金额￥</p></td>
+                    </TR>
+                    <TR>
+                        <TD id="totalsr">&nbsp;@string.Format("{0:f2}", ViewBag.Income)</TD>
+                        <TD id="totalkz">&nbsp;@string.Format("{0:f2}", ViewBag.Expenditure)</TD>
+                        <TD id="totalyk">&nbsp;@string.Format("{0:f2}", (decimal)ViewBag.Expenditure + (decimal)ViewBag.Income)</TD>
+                    </TR>
+                </TBODY>
+            </TABLE>
+        </div>
+    </div>
+
+    <div class="form-group text-center">
+        <input class="btn btn-warning" name="updatebacksubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectPerformance?Step=EditProjectTeam")")' value="上一步" />
+        &nbsp;
+        <input class="btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectPerformance?Step=EditProjectSchedule")")' value="下一步" />
+        <p class="text-danger">@Html.Label((string)ViewBag.ResultMassage ?? string.Empty)</p>
+    </div>
+}
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript" src="~/Scripts/My97DatePicker/WdatePicker.js"></script>
+}

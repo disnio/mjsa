@@ -1,4 +1,11 @@
 服务端访问控制:
+https://boutell.com/newfaq/misc/urllength.html
+IE8's maximum URL length is 2,048 chars and 5165 characters when following a link.
+ie9 4043
+Firefox  65,536 characters
+
+apache 4000, 8,192-byte limit on an individual field in a request. 
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Preflighted_requests
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Server-Side_Access_Control
 Cross-Origin Resource Sharing: https://www.w3.org/TR/cors/
 app.all('*', function(req, res, next) {
@@ -44,6 +51,44 @@ header('Pragma: no-cache');
 header('Access-Control-Allow-Credentials: true');
 Access-Control-Expose-Headers
 header("HTTP/1.1 403 Access Forbidden");
+
+    <?php  
+    $ret = array(  
+        'name' => isset($_POST['name'])? $_POST['name'] : '',  
+        'gender' => isset($_POST['gender'])? $_POST['gender'] : ''  
+    );  
+      
+    header('content-type:application:json;charset=utf8');  
+      
+    $origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '';  
+      
+    $allow_origin = array(  
+        'http://www.client.com',  
+        'http://www.client2.com'  
+    );  
+      
+    if(in_array($origin, $allow_origin)){  
+        header('Access-Control-Allow-Origin:'.$origin);  
+        header('Access-Control-Allow-Methods:POST');  
+        header('Access-Control-Allow-Headers:x-requested-with,content-type');  
+    }  
+      
+    echo json_encode($ret);  
+    ?>  
+----------------FormData--------------------
+var fd = new FormData();
+
+fd.append("file", form.find(':file')[0].files[0]);
+
+$.ajax(form.prop('action'), {
+    type: "post",
+    cache: false,
+    // 不能有其他的 fileds，否则不能发送
+    data: fd,
+    mimeTypes:"multipart/form-data",
+    contentType: false,
+    processData: false
+})
 ----------
 跨站点文件上传需要设置：
 Access-Control-Allow-Headers Content-Type, Content-Range, Content-Disposition
@@ -61,6 +106,24 @@ header("Access-Control-Allow-Credentials: true");
 There is another way. If you use SSL on the non-default https port, it will keep sending the cookies. For example, if your URL is something like this https://example.com:8443/xxxx, then it will send the cookies.
 
 I experience the same issue you have. My web app (internal web app) was working with https but in a non standard port and it just works fine. When I configure to use 443, it stops working because the cookies are not sent by XDomainRequest object.
+
+XDomainRequest ie8-9 发送请求是不包含cookie信息的，浏览器本身机制决定。而且只支持 content-type: "text/plain"
+不能跨协议发送数据 http->https 是不允许的。
+跨域发送授权信息只能通过 post body 或 url
+
+有一种跨域需要特别注意就是在 https 协议下发送 https 请求，除了使用 proxy 代理外其他方法都无解，会被浏览器直接block掉。
+www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html
+WIRESHARK Fiddler
+
+postMessage()方法允许来自不同源的脚本采用异步方式进行有限的通信，可以实现跨文本档、多窗口、跨域消息传递。
+ostMessage的使用方式也相当简单：
+otherWindow.postMessage(message, targetOrigin, [transfer]);
+otherWindow是对接收方窗口的引用，一般可以是以下几种方式：
+window.frames[0].postMessage
+document.getElementsByTagName('iframe')[0].contentWindow
+window.opener.postMessage
+event.source.postMessage
+window.open 返回的引用
 ---------
 除了包含:
 
@@ -248,55 +311,42 @@ $(function() {
 });
 
 --------------------------
-DOM方法：
-父窗口操作IFRAME：
-window.frames["iframeSon"].document
-IFRAME操作父窗口: window.parent.document
+http://www.cnblogs.com/duankaige/archive/2012/09/20/2695012.html
+iframe的调用包括以下几个方面：（调用包含html dom，js全局变量，js方法）
 
-jquery方法:
-在父窗口中操作 选中IFRAME中的所有输入框： 
-$(window.frames["iframeSon"].document).find(":text");
-在IFRAME中操作 选中父窗口中的所有输入框：
-$(window.parent.document).find(":text");
+主页面调用iframe；
+iframe页面调用主页面；
+主页面的包含的iframe之间相互调用； 
 
-1、 内容里有两个ifame
-<iframe id="leftiframe"></iframe> 
-<iframe id="mainiframe"></iframe>
+跨域是不能获取iframe内节点的。
 
-leftiframe中jQuery改变mainiframe的src代码： 
-$("#mainframe",parent.document.body).attr("src","http://www.radys.cn")
+主要知识点
+1：document.getElementById("ii").contentWindow 得到iframe对象后，就可以通过contentWindow得到iframe包含页面的window对象，然后就可以正常访问页面元素了；
 
-2、 如果内容里面有一个ID为mainiframe的ifame 
-<iframe id="mainifame"></ifame> 
-ifame包含一个someID 
-<div id="someID">you want to get this content</div> 
-得到someID的内容
+2：$("#ii")[0].contentWindow  如果用jquery选择器获得iframe，需要加一个【0】；
 
-$("#mainiframe").contents().find("someID").html() 
-$("#mainiframe").contains().find("someID").text()
+3：$("#ii")[0].contentWindow.$("#dd").val() 可以在得到iframe的window对象后接着使用jquery选择器进行页面操作;
+
+4：$("#ii")[0].contentWindow.hellobaby="dsafdsafsdafsdafsdafsdafsadfsadfsdafsadfdsaffdsaaaaaaaaaaaaa"; 可以通过这种方式向iframe页面传递参数，在iframe页面window.hellobaby就可以获取到值，hellobaby是自定义的变量；
+
+5：在iframe页面通过parent可以获得主页面的window，接着就可以正常访问父亲页面的元素了；
+
+6：parent.$("#ii")[0].contentWindow.ff; 同级iframe页面之间调用，需要先得到父亲的window，然后调用同级的iframe得到window进行操作；
+
+$(iframe, window.top.document).contents().find('body')[0].scrollHeight
+
+$(iframe.contentWindow.document).height() 
+
+$(iframe.contentWindow.document.body).height()
+
+iframe = $("<iframe src='javascript:false;' name='" + name +
+            "' id='" + name + "' style='display:none'></iframe>");
+iframe.one("load", function() {
+    var doc = this.contentWindow ? this.contentWindow.document : (this.contentDocument ? this.contentDocument : this.document);
+    var root = doc.documentElement ? doc.documentElement : doc.body;
+    var textarea = root.getElementsByTagName("textarea")[0],
 ---------------------------------
-window.frames["frameName"];
-window.frames.frameName
-window.frames[index]
-2．子框架到父框架的引用
-每个window对象都有一个parent属性，表示它的父框架。如果该框架已经是顶层框架，则window.parent还表示该框架本身。
 
-3．兄弟框架间的引用
-可以通过父框架来实现互相引用，
-
-4．不同层次框架间的互相引用
-框架的层次是针对顶层框架而言的。当层次不同时，只要知道自己所在的层次以及另一个框架所在的层次和名字，利用框架引用的window对象性质，可以很容易地实现互相访问，例如：
-
-self.parent.frames["childName"].frames["targetFrameName"];
-
-5．对顶层框架的引用
-
-和parent属性类似，window对象还有一个top属性。它表示对顶层框架的引用，这可以用来判断一个框架自身是否为顶层框架，例如：
-
-//判断本框架是否为顶层框架
-if(self==top){
-//dosomething
-} 
 -------------------------------------------------
 自适应IFRAME高度 - jquery.cvautoheight.js
 

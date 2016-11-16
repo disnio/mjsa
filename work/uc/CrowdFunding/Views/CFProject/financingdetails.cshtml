@@ -1,0 +1,255 @@
+﻿@using UCFramework.Infrastructure.Web
+@using UCFramework.Infrastructure.SDK
+@using ZCPT.CrowdFunding.Entity
+@{
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+    ViewBag.Title = "股权/债权详细信息";
+}
+<link href="~/Content/css/yc_rz01.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/zhongchou.css" rel="stylesheet" type="text/css" />
+
+@model  ZCPT.CrowdFunding.Web.Models.ProjectBasisViewModel
+<script type="text/javascript">
+    // 
+    var AccountID = '@SessionHelper.Identity.Account.ID';
+
+</script>
+<div class="col-sm-12">
+<div class="main-container col-sm-9">
+            <div class="row row-title">
+                <h2>@Model.Name</h2>
+                <p>@Model.CreationDate.ToString("d")</p>
+            </div>
+            <div class="row credit-type">
+                <div class="col-sm-4 col-left">
+                    <p>所在地区：<span>@Model.CityName</span></p>
+                    <p>
+                        融资方式：
+                        @if (Model.CFInvestmentCategoryID == 1)
+                        {
+                            <span>股权融资</span>
+                        }
+                        else if (Model.CFInvestmentCategoryID == 2)
+                        {
+                            <span>债权融资</span>
+                        }
+                        else if (Model.CFInvestmentCategoryID == 3)
+                        {
+                            <span>众筹融资</span>
+                        }
+                    </p>
+                </div>
+                <div class="col-sm-4 col-right">
+                    <p>所属行业：<span>@Model.IndustryName</span></p>
+                    <p>融资金额：<span>@(string.Format("{0:f2}", Model.FinancingAmount / 10000))万</span></p>
+                </div>
+            </div>
+            <div class="row">
+                @if (Model.CFInvestmentCategoryID == 1)
+                {
+                    <div class="financingCategory">
+                        <div class=""><span><img src="~/Content/img/gqtz.jpg" /></span></div>
+                        <div class="parameters-shares">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dl class="dl-horizontal">
+                                        <dt>项目所处阶段：</dt>
+                                        <dd>@Model.StageName</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-6">
+                                    <dl class="dl-horizontal dl-style">
+                                        <dt>资金方占股比例：</dt>
+                                        <dd>@(string.Format("{0}-{1}%", string.Format("{0:f2}", Model.StockFinancingInfo?.CFInvestorShareProportionMin), string.Format("{0:f2}", Model.StockFinancingInfo?.CFInvestorShareProportionMax)))</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-6">
+                                    <dl class="dl-horizontal">
+                                        <dt>投资退出方式：</dt>
+                                        <dd>@(Model.StockFinancingInfo?.CFInvestorExitWayTextName)</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-6">
+                                    <dl class="dl-horizontal dl-stylea">
+                                        <dt>最短退出年限：</dt>
+                                        <dd>@(Model.StockFinancingInfo?.CFInvestmentShortYears)年</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="financingCategory">
+                        <div class="financingCategory__title"><span>股权融资</span></div>
+                        <div class="parameters-shares">
+                            <div class="row border_bottomrow">
+                                <div class="col-md-4">
+                                    <dl class="dl-horizontal">
+                                        <dt>可承担最高利息：</dt>
+                                        <dd>@(string.Format("{0:f2}", Model.DebtFinancingInfo?.CFInvestorHighestInterestRates))%/年</dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt class="zq-available">课提供风控：</dt>
+                                        <dd>@(Model.DebtFinancingInfo?.CFInvestmentWayTextName)</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-4 credit-typeright">
+                                    <dl class="dl-horizontal">
+                                        <dt>资金占用时长：</dt>
+                                        <dd>@(string.Format("{0}-{1}{2}", Model.DebtFinancingInfo?.CFMoneyUseTimeMin, Model.DebtFinancingInfo?.CFMoneyUseTimeMax, Model.DebtFinancingInfo?.CFMoneyUseTimeUnit))</dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt class="zq-source">还款来源：</dt>
+                                        <dd>@(Model.DebtFinancingInfo?.CFRepayingSourceTextName)</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-6">
+
+                                </div>
+                                @if (ViewBag.IsShowMortgageTypeAndMortgageAmount == true)
+                                {
+                                    <div class="col-md-4">
+                                        <dl class="dl-horizontal">
+                                            <dt>抵押物类型：</dt>
+                                            <dd>@(Model.DebtFinancingInfo?.CFMortgageTypeTextName)</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <dl class="dl-horizontal">
+                                            <dt>抵押物市值：</dt>
+                                            <dd>@(string.Format("{0:f2}", Model.DebtFinancingInfo?.CFMortgageAmount))万</dd>
+                                        </dl>
+                                    </div>
+                                }
+                               
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row description">
+                <div class="description__title">项目简介</div>
+                <div class="description__details">@Html.Raw(Model.Introduction)</div>
+            </div>
+
+
+            <div class="interviewBtn">
+                <input type="hidden" name="CFInvestmentCategoryID" value="@(Model.CFInvestmentCategoryID)" />
+                <input type="hidden" name="InvestmentCategoryName" value="@(Model.InvestmentCategoryName)" />
+                <button class="btn btn-default js-shen-tz btn-shenqing">申请投资</button>
+                <button type="button" class="btn btn-default btn-yt" data-toggle="modal">约谈项目方</button>
+            </div>
+
+            <div id="projectTab">
+
+            </div>
+
+        </div>
+
+        
+   
+    <div class="col-sm-3 zq-details">
+        <p class="rz-detail">融资详情记录</p>
+        <div class="row rz-information">
+            <div class="rz-img"></div>
+            <p>飘摇客</p>
+            <p>投资金额:<span>2万</span>&nbsp;&nbsp;申请金额<span>:2万</span></p>
+            <p>申请时间:2016-7-7</p>
+        </div>
+        <div class="row rz-information">
+            <div class="rz-img"></div>
+            <p>飘摇客</p>
+            <p>投资金额:<span>2万</span>&nbsp;&nbsp;申请金额<span>:2万</span></p>
+            <p>申请时间:2016-7-7</p>
+        </div>
+        <div class="row rz-information">
+            <div class="rz-img"></div>
+            <p>飘摇客</p>
+            <p>投资金额:<span>2万</span>&nbsp;&nbsp;申请金额<span>:2万</span></p>
+            <p>申请时间:2016-7-7</p>
+        </div>
+        <div class="row rz-information">
+            <div class="rz-img"></div>
+            <p>飘摇客</p>
+            <p>投资金额:<span>2万</span>&nbsp;&nbsp;申请金额<span>:2万</span></p>
+            <p>申请时间:2016-7-7</p>
+        </div>
+        <a>查看更多>></a>
+
+    </div>
+</div>
+@*申请投资弹出框*@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" pid="">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">确认投资</h4>
+            </div>
+            <div class="modal-body">
+                <dl class="dl-horizontal">
+                    <dt><span>*</span>申请投资的基金名称：</dt>
+                    <dd>
+                        <select class="form-control" id="FinancingPartyProject" name="FinancingPartyProject" placeholder=""></select>
+                    </dd>
+                </dl>
+
+                <dl class="dl-horizontal">
+                    <dt><span>*</span>投资类型：</dt>
+                    <dd>
+                        <input type="text" disabled="disabled" class="form-control" id="CFInvestmentCategoryIDinput" name="CFInvestmentCategoryID" val=""/>
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt><span>*</span>投资金额：</dt>
+                    <dd>
+                        <input type="text" class="InvestmentAmount" id="InvestmentAmount">
+                        @Html.DropDownList("AmountUnits", ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetSelectList(typeof(AmountUnits)), new RouteValueDictionary { { "class", "form-control" }, { "placeholder", "" } })
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    
+                    <dt><span>*</span>投资理由:</dt>
+                    <dd>
+                        <textarea id="InvestmentReasons" class="InvestmentReasons"></textarea>
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="modal-footer footer-btns">
+                <button type="button" class="btn submit-Industrys" data-dismiss="modal" id="submit-Industrys">提交申请</button>
+
+                <input type="hidden" name="UCAccouontID" value="@(ViewBag.UCAccouontID)" />
+                <input type="hidden" name="PCOrganizationID" value="@(ViewBag.PCOrganizationID)" />
+
+                <input type="hidden" value="@SessionIdentity.Instance.AccountID" id="CreatorID">
+                <input type="hidden" value="@SessionIdentity.Instance.OrgainzationID" id="OrgainzationID">
+                <input type="hidden" value="@SessionHelper.Identity.InvestingParty.ID" id="InvestingPartyID">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/html" id="ytHtml">
+    <dl class="dl-horizontal">
+        <dt><span>*</span>申请投资的基金名称：</dt>
+        <dd>
+            <select class="form-control" id="InvestingPartyInvestor" name="InvestingPartyInvestor" placeholder=""></select>
+        </dd>
+    </dl>
+    <dl class="dl-horizontal">
+        <dt class="dt-explain"><span>*</span>约见说明:</dt>
+        <dd>
+            <textarea id="yt-state"></textarea>
+        </dd>
+    </dl>
+</script>
+<!-- 项目标签列表 -->
+<script type="text/javascript" src="~/Scripts/js/app/projectTab.js"></script>
+<!-- 评论的脚本 -->
+<script type="text/javascript" src="~/Scripts/js/app/pl.js" async="async"></script>
+<script type="text/javascript" src="~/Scripts/js/app/financingdetails.js"></script>
+

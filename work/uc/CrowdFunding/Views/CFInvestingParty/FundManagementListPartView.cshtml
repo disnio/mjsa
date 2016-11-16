@@ -1,0 +1,105 @@
+﻿@using ZCPT.CrowdFunding.Entity.CFInvestingPartyModule
+@using UCFramework.Infrastructure.Web
+@using Webdiyer.WebControls.Mvc
+@model PagedList<CFFundForManagement>
+
+
+<table class="table section-table table-bordered table-hover table-striped table-condensed">
+    <caption>
+        <button class="btn pull-right" type="button">
+            共<span class="badge">@Model.TotalItemCount</span>条记录
+        </button>
+    </caption>
+    <thead>
+        <tr>
+            <th>
+                创建时间
+            </th>
+            <th>
+                基金类型
+            </th>
+            <th>
+                所属机构/个人
+            </th>
+            <th>
+                基金名称
+            </th>
+            <th>
+                状态
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr pid="@(item.CFFundID)">
+                <td class="center">
+                    @(item.CreationTime.ToString("d"))
+                    <input type="hidden" id="dataID@(item.CFFundID)" name="dataID@(item.CFFundID)" value="@(item.CFFundID)" />
+                </td>
+                <td class="center">
+                    @(item.InvestmentCategory)
+                </td>
+                <td class="center">
+                    <a href="@Url.Action("Investor", "CFInvestingParty", new { id = item.CreatorID })">@(item.CreatorOrganizationName + "/" + item.CreatorName)</a>
+                </td>
+                <td class="center">
+                    <a href="@Url.Action("Fund", "CFInvestingParty", new { id = item.CFFundID })">@(item.CFFundName)</a>
+                </td>
+                <td class="center">
+                    @(ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetDescription(item.Status))
+                </td>
+                <td class="center" id="deal@(item.CFFundID)">
+                    @if (item.Status == ZCPT.CrowdFunding.Entity.Fund_Status.Verifing)
+                    {
+                        <input type="button" class="btn btn-default btn-sm" style="vertical-align:middle;" name="updateCFFundForManagement_Approved" value="通过" />
+                        <input type="button" class="btn btn-default btn-sm" style="vertical-align:middle;" name="updateCFFundForManagement_NotApproved" value="拒绝" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-center">
+    @Ajax.Pager(Model, new PagerOptions
+{
+    PageIndexParameterName = "page",
+    ContainerTagName = "ul",
+    CssClass = "pagination pagination-centered",
+    CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+    DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+    PagerItemTemplate = "<li>{0}</li>",
+    PageIndexBoxId = "PageCurrentIndex",
+    GoToButtonId = "btnGo"
+},
+    new MvcAjaxOptions
+    {
+        UpdateTargetId = "searchResult",
+        HttpMethod = "Post",
+        DataFormId = "searchForm"
+    })
+    <ul class="pagination pagination-centered">
+        <li><span>共<font>@Model.TotalPageCount</font>页</span></li>
+        <li><span>共<font>@Model.TotalItemCount</font>条</span></li>
+        <li>
+            <div class="input-group">
+
+                <input type="text" class="form-control" id="PageCurrentIndex" placeholder="">
+                <span class="input-group-addon" id="sizing-addon1">页</span>
+                <span class="input-group-btn"><button class="btn btn-default" type="button" id="btnGo">跳转</button></span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<input type="hidden" name="hiddenCFFundForManagement_Approved" value="@((int)ZCPT.CrowdFunding.Entity.Fund_Status.Approved)" />
+<input type="hidden" name="hiddenCFFundForManagement_NotApproved" value="@((int)ZCPT.CrowdFunding.Entity.Fund_Status.NotApproved)" />
+
+<script type="text/javascript">
+    var _AccountID = "@SessionIdentity.Instance.AccountID";
+    var _OrgainzationID = "@SessionIdentity.Instance.OrgainzationID";
+</script>

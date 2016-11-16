@@ -1,0 +1,194 @@
+﻿
+@model  ZCPT.ProjectCenter.Web.Models.ProjectBasisModel
+
+@{ViewBag.ContentName = "项目资料编辑";}
+
+@Html.Partial("_ProjectTab", new ZCPT.ProjectCenter.Web.Models.ComponentModule.ProjectEditTabModule() { ID = Model.ID, Current = nameof(ZCPT.ProjectCenter.Web.Models.ProjectBasisModel) })
+<link href="~/Scripts/UMEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+<link href="~/css/editprojectbasis.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/js/app/EditProjectBasis.js"></script>
+ 
+@using (Html.BeginForm("UpdataProjectBasis", "CFMyProjects", FormMethod.Post, new { @class = "form-horizontal section-form" }))
+{
+    @Html.HiddenFor(M => M.ID)
+    <br>
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>项目名称</label>
+        <div class="col-sm-6">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.Name, "", new { @class = "" })</p>
+        </div>
+        @if (SessionHelper.Identity.IsIndividual)
+        {
+            <div class="col-sm-2">
+                <!--a class="btn btn-default cre-btn" href="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceProfileCenter"] + "/OrganizationProfile/upgraded")" role="button" target="_blank">创建公司</a-->
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <div style="display:none;">
+            @Html.LabelFor(m => m.ReadPermissionID, "项目资料查看权限", new { @class = "col-sm-2 control-label user-type" })
+            <div class="col-sm-4">
+                @foreach (var item in ViewBag.ReadPermissions)
+                {
+                    @Html.RadioButton("ReadPermissionID", (string)item.Value, (bool)item.Selected) @item.Text
+                }
+                <p class="text-danger" role="alert"></p>
+            </div>
+        </div>
+        @Html.LabelFor(m => m.StageID, "项目所属阶段", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.DropDownListFor(m => m.StageID, (IEnumerable<SelectListItem>)ViewBag.Stages, new { @class = "col-sm-2  form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.StageID)</p>
+        </div>
+        @Html.LabelFor(m => m.IndustryID, "项目所属行业", new { @class = "col-sm-2 control-label user-type" })
+        <div class="col-sm-4">
+            @Html.DropDownListFor(m => m.IndustryID, (IEnumerable<SelectListItem>)ViewBag.Industries, new { @class = "form-control" })
+            
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.IndustryID)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CityID, "项目所在城市", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.DropDownListFor(m => m.CityID, (IEnumerable<SelectListItem>)ViewBag.Cities, new { @class = "col-sm-2  form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CityID)</p>
+        </div>
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>项目标签</label>
+        <div class="col-sm-4">
+            @Html.TextBoxFor(m => m.Tag, new { @class = "form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.Tag)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+
+        @Html.Label("是否有其他项目", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            <select id="other_project" name="info[has_otherpro]" class="form-control">
+                <option value="1">是</option>
+                <option selected="selected" value="0">否</option>
+            </select>
+            <p class="text-danger" role="alert"></p>
+        </div>
+    </div>
+
+    <div class="form-group" style="display:none;">
+        @Html.LabelFor(m => m.CompanyEstablishingDate, "企业成立时间", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.TextBoxFor(m => m.CompanyEstablishingDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @onClick = "WdatePicker({maxDate:'" + DateTime.Now.Date.AddDays(-1) + "'})" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyEstablishingDate)</p>
+        </div>
+
+        @Html.LabelFor(m => m.CompanyNubmers, "企业员工人数", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.CompanyNubmers, new { @class = "form-control" })
+                <div class="input-group-addon">人</div>
+            </div>
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyNubmers)</p>
+        </div>
+    </div>
+
+    <div class="form-group" style="display:none;">
+        @Html.LabelFor(m => m.CompanyName, "公司全称", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyName)</p>
+        </div>
+
+        @Html.LabelFor(m => m.CompanyAddress, "办公地址", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @Html.TextBoxFor(m => m.CompanyAddress, new { @class = "form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.CompanyAddress)</p>
+        </div>
+    </div>
+
+    <div class="form-group" style="display:none;">
+        @Html.LabelFor(m => m.FinancingAmount, "融资金额", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.FinancingAmount, "{0:f2}", new { @class = "form-control" })
+                <div class="input-group-addon">万元</div>
+            </div>
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.FinancingAmount)</p>
+        </div>
+
+        @Html.Label("投资款拨付方式", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-4">
+            @foreach (var item in ViewBag.CapitalPatterns)
+                {
+                @Html.RadioButton("CapitalPatternID", (string)item.Value, (bool)item.Selected) @item.Text
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>项目简介</label>
+        <div class="col-sm-10">
+            @Html.TextAreaFor(m => m.Introduction, 6, 20, new { @class = "form-control", style = "width: 735px; height: 120px;" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.Introduction)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" style="line-height:32px;">上传项目图片</label>
+        <div class="col-sm-10">
+            @Html.HiddenFor(m => m.IconID)
+            <span class="inp_file">
+                <a class="btn btn-info" href="javascript:;">
+                    请选择文件
+                    <script>
+                        var ServerReferenceFileCenterAPI = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/")';
+                        var ImgSingleUploadUrl = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgSingleUpload/ProjectCenter")';
+
+                        require(['js/app/EditProjectBasisAttachment']);
+                    </script>
+                    <input onlyImg=true style="position:absolute;top:0;right:0;margin:0;opacity:0;-ms-filter:'alpha(opacity=0)'; font-size:200px;direction:ltr;cursor: pointer;" id="fileupload" type="file" name="uploadedfile" multiple="">
+
+                </a>
+            </span>
+            <div id="preview">
+                @if (Model.IconID != null && Model.IconID != "" && Model.IconID != "00000000-0000-0000-0000-000000000000")
+            {
+                    <img class="fl" style="width:320px;height:180px" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + Model.IconID)">
+                }
+            </div>
+            <p class="help-block" style="padding-left:0px;" role="alert">温馨提示：项目审核通过后将不能再更换项目图片，请选择最有吸引力的一张图片，宽高最佳尺寸为800x480像素，大小控制在1M以内。</p>
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(m => m.IconID)</p>
+        </div>
+    </div>
+
+    <div class="form-group line-top">
+        <div class="btn-group" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+                @if (Model.ID > 0)
+                {
+                    <input class="btn btn-warning btn-submit" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectBasis?Step=EditProjectBusinessPattern")")' value="下一步" style="padding:6px 40px;"/>
+                }
+                else
+                {
+                    <input class="btn btn-warning btn-submit" name="insertsubmit" id="cjBtn" type="submit"value="创建"  style="padding:6px 40px;"/>
+                     <!-- onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/InsertProjectBasis")")'  -->
+                }
+
+                <p class="text-danger">@Html.Label((string)ViewBag.ResultMassage ?? string.Empty)</p>
+            </div>
+        </div>
+    </div>
+}
+
+<style type="text/css">
+    .inp_file {
+        margin-top: 5px;
+        overflow: hidden;
+        display: inline-block;
+        position: relative;
+    }
+</style>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript" src="~/Scripts/My97DatePicker/WdatePicker.js"></script>
+}

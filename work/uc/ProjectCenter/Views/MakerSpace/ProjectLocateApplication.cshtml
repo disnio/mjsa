@@ -1,0 +1,119 @@
+﻿@model ZCPT.ProjectCenter.Web.Models.MakerSpaceModule.ProjectLocateApplicationViewModel
+
+@{
+    ViewBag.Title = "View";
+}
+
+
+
+@using (Html.BeginForm("SubmitProjectLocateApplication", "MakerSpace", FormMethod.Post))
+{
+    @*@Html.AntiForgeryToken()*@
+    
+    <div class="form-horizontal">
+    
+    
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4 form-control-static ">
+                @Html.TextBoxFor(model => model.ProjectName, new { @class = "form-control",@readonly="readonly" })                
+                @Html.HiddenFor(m=>m.ProjectID)
+            </div>
+            @Html.LabelFor(model => model.ApplicationStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4  form-control-static ">
+                @(ZCPT.ProjectCenter.Entity.MakerSpaceModule.MakerSpaceProjectStatus.Get(Model.ApplicationStatus)?.Name)
+            </div>
+        </div>
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.CityID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.CityID, Model.Cities, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+               
+            </div>
+         
+            @Html.LabelFor(model => model.MakerSpaceID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div class="input-group ">
+                    @Html.DropDownListFor(model => model.MakerSpaceID, Model.MakerSpaces, new { SelectList = "SelectList", @class = "form-control" })
+                    <a class="input-group-addon">众创空间详情</a>
+                    @Html.ValidationMessageFor(model => model.MakerSpaceID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.CompanyStaffNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div class="input-group ">
+                    @Html.TextBoxFor(model => model.CompanyStaffNumber, new { @class = "form-control" })
+                    <div class="input-group-addon">人</div>
+                    @Html.ValidationMessageFor(model => model.CompanyStaffNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CompanyEstablishingDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(model => model.CompanyEstablishingDate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompanyEstablishingDate, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.CompanyCapital, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div class="input-group ">
+                    @Html.TextBoxFor(model => model.CompanyCapital, new { @class = "form-control" })
+                    <div class="input-group-addon">万元</div>
+                    @Html.ValidationMessageFor(model => model.CompanyCapital, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LeasingArea, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div class="input-group ">
+                    @Html.TextBoxFor(model => model.LeasingArea, new { @class = "form-control" })
+                    <div class="input-group-addon">平米</div>
+                    @Html.ValidationMessageFor(model => model.LeasingArea, "", new { @class = "text-danger" })
+                </div>
+            </div>
+ 
+
+            @Html.LabelFor(model => model.ProjectIndustry, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.ProjectIndustry, Model.Industries, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProjectIndustry, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApplicantName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4  form-control-static " >
+               @Model.ApplicantName
+            </div>
+
+            @Html.LabelFor(model => model.ApplicationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4 form-control-static ">
+                @Model.ApplicationDate
+            </div>
+        </div>
+
+
+
+        <div class="form-group  text-center">           
+            @if (Model.ApplicationStatus == ZCPT.ProjectCenter.Entity.MakerSpaceModule.MakerSpaceProjectStatus.Initial.ID )
+            {
+                <input type="submit" value="提交" class="btn btn-default" />
+            }
+        </div>
+    </div>
+}
+
+

@@ -1,0 +1,172 @@
+﻿@model ZCPT.CrowdSourcing.Web.Models.ServiceProviderModule.CSShopModel
+
+@{
+    ViewBag.Title = "创建商铺";
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+@using ZCPT.CrowdSourcing.Web.Models.ServiceProviderModule
+
+<link rel="stylesheet" type="text/css" href="~/Scripts/UMEditor/themes/default/css/umeditor.css">
+<link rel="stylesheet" type="text/css" href="~/Content/main.css">
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    var imgUrl = ucConfig.ServerReferenceFileCenterAPI + '/fileupload/ImgDownload/', ImgSingleUploadUrl = ucConfig.ServerReferenceFileCenterAPI + '/fileupload/ImgSingleUpload/' + ucConfig.ServerApplicationName;
+</script>
+<script src="~/Scripts/js/lib/jquery.ui.widget.js"></script>
+<script src="~/Scripts/jQuery.FileUpload/cors/jquery.xdr-transport.js"></script>
+<script src="~/Scripts/jQuery.FileUpload/jquery.iframe-transport.js"></script>
+<script src="~/Scripts/jQuery.FileUpload/jquery.fileupload.js"></script>
+<script src="~/Scripts/js/lib/imgLiquid-min.js"></script>
+<script src="~/Scripts/UMEditor/umeditor.config.js"></script>
+<script src="~/Scripts/UMEditor/umeditor.js"></script>
+<script src="~/Scripts/UMEditor/lang/zh-cn/zh-cn.js"></script>
+<script src="~/Scripts/js/lib/jquery.mockjax.js"></script>
+
+<script src="~/Scripts/js/app/setting.js"></script>
+
+@if (ViewBag.IsCreateShop == true || ViewBag.IsAudit == false)
+{
+    if (ViewBag.IsCreateShop == true)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">温馨提示：</h3>
+            </div>
+            <div class="panel-body">
+                <p>1.您已经创建店铺，可直接前往进行修改店铺信息；</p>
+                <p>2.您已经创建店铺，可直接前往进行修改店铺信息；</p>
+                <p>3.您已经创建店铺，可直接前往进行修改店铺信息；</p>
+                <a class="btn btn-warning" href="~/shop/setting" role="button" target="_blank">店铺修改</a>
+            </div>
+        </div>
+    }
+    else if (ViewBag.IsAudit == false)
+    {
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">温馨提示：</h3>
+            </div>
+            <div class="panel-body">
+                <p>1.为保证安全性请进行身份认证；</p>
+                <p>2.为保证安全性请进行身份认证；</p>
+                <p>3.为保证安全性请进行身份认证；</p>
+
+                @if (SessionHelper.Identity.IsIndividual)
+                    {
+                    <a class="btn btn-warning" href="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceProfileCenter"]/AccountProfile/authentication" role="button">身份认证</a>
+                }
+                else
+                {
+                    <a class="btn btn-warning" href="@System.Configuration.ConfigurationManager.AppSettings["ServerReferenceProfileCenter"]/organizationprofile/authentication" role="button">身份认证</a>
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    using (Html.BeginForm("add", "shop", FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-10 form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })*
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control",　@maxlength="100" } })
+                    </div>
+                    <div class="col-md-2">
+                        <div class="errors err-name"></div>
+                        @*Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })*
+                    <div class="col-md-8" style="position:relative;">
+                        @*@Html.DropDownListFor(model => model.CategoryID, ViewBag.ShopCategoryLists as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                            @Html.Hidden("CategoryName", "营销推广")*@
+                        <!-- 点击添加类别 -->
+                        <div class="selected-Industrys">
+                            <input type="text" readonly="readonly" value="" id="Industrys-value" style="height:32px; line-height:30px; width:300px;">
+                            @*<button type="button" class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
+                                添加类别
+                            </button>*@
+                            <input type="button" class="btn btn-default" value="添加类别" data-toggle="modal" data-target="#myModal" />
+                        </div>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">请选择</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="check-Industrys">
+                                            @if (ViewBag.ShopCategoryLists != null && ViewBag.ShopCategoryLists.Count > 0)
+                                            {
+                                                foreach (var category in ViewBag.ShopCategoryLists)
+                                                {
+                                                    <label><input type="checkbox" value="@category.ID" attr-text="@category.Name" name="Industrys">@category.Name</label>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default submit-Industrys" data-dismiss="modal">确定</button>
+                                        @*<button type="button" class="btn btn-primary" onclick="javascript: void ($('#myModal').hide())">取消</button>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fileupload" class="control-label col-md-2">图片上传</label>*
+                    <div class="col-md-8">
+                        <div class="uploadimg">
+                            <input id="fileupload" class="fileupload" type="file" name="uploadedfile">
+                            <input type="button" class="btn btn-default fileupload-btn" value="选择图片" />
+                            <div id="preview">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="errors err-pic"></div>
+                        @*Html.ValidationMessageFor(model => model.PictureListStrs, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })*
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.Description, new { style = " width:550px; height:300px;", @class = "form-control" ,@maxlength="4000"})
+                    </div>
+                    <div class="col-md-2">
+                        <div class="errors err-des"></div>
+                        @*Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        @*<input id="btn-submit" type="submit" title="开店" value="完成" class="btn btn-info" />*@
+                        <input id="btn-submit" type="button" title="开店" value="创建" class="btn btn-info" />
+                        <span>@ViewBag.ResultMessage</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}

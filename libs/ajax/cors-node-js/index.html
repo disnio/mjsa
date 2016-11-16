@@ -1,0 +1,55 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+<head>
+    <script src="js/jquery.js"></script>
+    <script src="js/jQuery.XDomainRequest.js"></script>
+    <script src="js/jquery.iframe-post-form.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="js/json2.js"></script>
+    <script>
+        $(function () {
+            $.cookie("cat", "123")
+            console.log($.cookie("cat"))
+
+            $.ajax({
+                url: 'http://localhost:8000/cors',
+                crossDomain:true,
+                xhrFields: {withCredentials: true},
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    "foo": "bar"
+                }
+            }).done(function (data) {
+                console.log("get:", data)
+                $("#getter").append(JSON.stringify(data));
+            });
+
+            $.ajax({
+                url: 'http://localhost:8000/cors',
+                contentType: 'text/plain',
+                crossDomain:true,
+                xhrFields: {withCredentials: true},
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    "cat": $.cookie("cat") || 0,
+                    "poo": "par"
+
+                }
+            }).then(function (data) {
+                console.log("post:", data)
+                $("#poster").append(JSON.stringify(data));
+            }, function (err) {
+                console.log("err: ", err)
+            });
+        })
+    </script>
+</head>
+<body>
+
+<h3>json cors</h3>
+<div id="getter"></div>
+<div id="poster"></div>
+</body>
+</html>

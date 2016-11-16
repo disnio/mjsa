@@ -1,0 +1,77 @@
+<!-- 属性及规格添加 -->
+<form class="form form-default form-horizontal" name="optForm" novalidate>
+    <div class="modal-header">
+        <h3 class="modal-title">{{whichOp.title}}</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-2" for="OptionName" id="optNameLabel">{{whichOp.name}}</label>
+                <div class="col-sm-4">
+                    <input id="optName" ng-model="opt.OptionName" ng-maxlength="10" ng-pattern="/^[a-zA-Z\u4E00-\u9FA5]+$/" required type="text" name="OptionName" class="form-control" />
+                </div>
+                <div class="col-sm-4">
+                    <span class="merror" ng-show="optForm.OptionName.$dirty && optForm.OptionName.$invalid">
+                            <span ng-show="optForm.OptionName.$error.required">必须填写</span>
+                    <span ng-show="optForm.OptionName.$error.maxlength">最多10个字符</span>
+                    <span ng-show="optForm.OptionName.$error.pattern">只能输入字母或汉字字符</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--             <div class="row">
+                <div class="form-group">
+                    <label class="col-sm-2" for="OptionName" id="optNameLabel">类型</label>
+                    <div class="col-sm-4">
+                        <select ng-model="opt.CSOptionTypeID" ng-options="optType.CSOptionTypeID as optType.TypeName for optType in optionType" class="form-control"> 
+                            <option value="0" ng-selected="0">选择类型</option>                               
+                        </select>
+                    </div>
+
+                </div>
+            </div> -->
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-2" for="OptionValueName" id="optValueLabel">{{whichOp.value}}</label>
+                <div class="col-sm-4">
+                    <input id="optValue" ng-model="optV.OptionValueName" ng-maxlength="10" required type="text" name="OptionValueName" class="form-control" />
+                </div>
+                <!-- ng-pattern="/^[a-zA-Z0-9\u4E00-\u9FA5]+$/" -->
+                <div class="col-sm-4">
+                    <span class="merror" ng-show="optForm.OptionValueName.$dirty && optForm.OptionValueName.$invalid">
+                        <span ng-show="optForm.OptionValueName.$error.required">必须填写</span>
+                        <span ng-show="optForm.OptionValueName.$error.maxlength">最多10个字符</span>
+                    <!-- <span ng-show="optForm.OptionValueName.$error.pattern">只能输入字母数字或汉字字符</span> -->
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1">                
+                    <button ng-disabled="canAdd()" class="btn btn-default btn-sm" ng-click="addOptionValue()">添加</button>
+                </div>
+                <div class="col-sm-4">
+                    <span class="merror" ng-show="opt.OptionValueList.length >=10">
+                            <span>最多可有10个值</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- ng-show="hasOptionValue()" -->
+            <table class="table">
+                <tr ng-repeat="optval in opt.OptionValueList track by $index">
+                    <td><span>{{optval.OptionValueName}}</span></td>
+                    <td>
+                        <button ng-click="delOptLastItem($index)" class="btn btn-default btn-sm">删除</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" ng-click="ok()" ng-show="canOkOpt()">保存</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">关闭</button>
+    </div>
+</form>

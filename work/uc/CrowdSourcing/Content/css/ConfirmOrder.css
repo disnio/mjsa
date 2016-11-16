@@ -1,0 +1,42 @@
+/* 
+* @Author: czy
+* @Date:   2016-07-19 13:30:25
+* @Last Modified by:   czy
+* @Last Modified time: 2016-07-19 17:22:08
+*/
+.order-title{}
+.order-title span{color:#009ec3;}
+.orderStep{width:641px;height:31px;margin:40px auto;background-image:url(../../Content/img/stepBack.png);}
+.orderStep li{display:inline-block;float:left;text-align:center;width:25%;color:#009fc3;line-height:31px;font-weight:bold;}
+.orderStep li:first-child{color:#fff;}
+.confirm-title{font-weight:bold;color:#666;border-bottom:1px solid #efefef;padding-bottom:5px;margin-top:50px;font-size:14px;}
+.default-addr{padding:10px 0;background-color:#e7faff;border:1px solid #c7f3fe;overflow:hidden;margin-top: 15px;;}
+.default-addr-icon{float:left;margin-left:15px;font-weight:bold;font-size:14px;background-image: url(../../Content/img/icon_03.png);background-repeat:no-repeat;background-position:left center;padding-left:20px;margin-top:3px;margin-right:10px;}
+.default-addr label{float:left;line-height:24px;margin-top:0;margin-bottom:0;}
+
+.default-mark{float:left;color:#ccc;line-height:24px;margin-left: 10px;font-size:12px;}
+.default-tel{float:left;margin-left:5px;line-height:24px;font-weight:bold;}
+.modify{float:right;margin-right: 10px;line-height:24px;}
+.modify a{color:#009ec5;text-decoration: underline;}
+.other-addr{margin:10px 0;margin-left: 104px;}
+.other-addr label{display:block;}
+.order-info-title{border-bottom: 3px solid #c7f3fe;}
+.order-info-title th{text-align:center;line-height:38px;}
+.order-info-shop{line-height:36px;color:#009cc4;padding-top:20px;}
+.order-info-shop .ng-binding{margin-right:20px;}
+.order-info-list{}
+.order-info-list tr{border-bottom:3px solid #f2f6ff;}
+.order-info-list .title-order{border-bottom:1px solid #cadefa;margin-top: 30px;}
+.img1{margin-top:10px;margin-bottom:10px;margin-left:0;}
+.img1 img{border:solid 1px #e5e5e5;}
+.order-info-list td{text-align:center;}
+.order-info-list td p{margin-top:0;}
+.allPriceText{color:red;font-weight:bold;}
+.message{background-image: url(../../Content/img/icon_05.png);background-repeat:no-repeat;background-position:45px center;padding-left:20px;}
+.totalCost{overflow:hidden;margin:30px 0;}
+.costBox{width:600px;border:1px solid #009ec3;float:right;padding:20px;}
+.costBox li{margin:10px 0;}
+.costBox li span{color:#ea0830;font-weight:bold;font-size:18px;}
+.submitBtn{width:600px;float:right;margin-top:20px;}
+.submitBtn input{width:200px;background-color:#009ec3;border:none;color:#fff;line-height:36px;font-size:14px;}
+.submitBtn input:hover{background-color:#08b1d9;}

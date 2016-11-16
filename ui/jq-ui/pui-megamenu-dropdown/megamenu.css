@@ -1,0 +1,42 @@
+.ui-menu { position: relative; width: 12.5em; padding: .3em; }
+
+.ui-menu-list { position: static; }
+
+.ui-menu .ui-menu-list .ui-menuitem { border: none; }
+
+.ui-menu .ui-menuitem { float: left; clear: both; width: 100%; margin: 1px 0; padding: 0; }
+
+.ui-menu .ui-menuitem-link { font-weight: 400; line-height: 16px; display: block; float: left; width: 92%; padding: .3em; cursor: pointer; text-decoration: none; border: solid 1px transparent; outline: none; }
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon { display: inline-block; float: left; }
+
+.ui-menu .ui-menuitem-text { float: left; }
+
+.ui-menu .ui-menu-parent .ui-menu-child { font-size: 100%; line-height: 1.3; position: absolute; display: none; width: 12.5em; margin: 0; padding: .3em; list-style: none; text-decoration: none; outline: 0; }
+
+.ui-menu .ui-menu-parent { position: relative; }
+
+.ui-menu .ui-menu-parent .ui-submenu-icon { float: right; margin-right: -5px; }
+
+/** Menubar **/
+.ui-menubar { width: auto; }
+
+.ui-menubar .ui-menuitem { clear: none; width: auto; }
+
+.ui-menubar .ui-menu-child .ui-menuitem { width: 100%; }
+
+.ui-menubar .ui-menu-child { top: 25px; left: 0; }
+
+.ui-menubar .ui-menuitem-link { width: auto; padding: .4em .3em; }
+
+.ui-menubar .ui-menu-child .ui-menuitem-link { width: 92%; }
+/** MegaMenu **/
+
+.ui-megamenu .ui-megamenu-panel.ui-menu-child { width: auto; }
+
+.ui-megamenu .ui-megamenu-panel .ui-menu-list { width: 12.5em; }
+
+/** MegaMenu and TieredMenus **/
+
+.ui-menuitem-active > .ui-submenu > ul,
+.ui-menuitem-active > .ui-megamenu-panel { display: block !important; }

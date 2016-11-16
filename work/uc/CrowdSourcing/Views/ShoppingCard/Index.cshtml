@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "购物车";
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/css/ShoppingCart.css" />
+ 
+<script src="~/Scripts/bower_components/angular/angular.min.js"></script>
+<script src="~/Scripts/js/lib/imgLiquid-min.js"></script>
+<script type="text/javascript">
+    var imgUrl = ucConfig.ServerReferenceFileCenterAPI + '/fileupload/ImgDownload/'; 
+    var yob = angular.module('yoB', []);
+</script>
+<script src="~/Scripts/js/app/shoppingCart.service.js"></script>
+<script src="~/Scripts/js/app/shoppingCart.controller.js"></script>
+<div class="main222" ng-controller="MainController as vm">
+    <div class="shopcard-title-common">我的订单/<span>购物车</span></div>
+    <div class="shopcard-title"><span>购物车</span></div>
+
+    <div class="top">
+        <div class="allCheck">
+            <label>
+                <input type="checkbox" ng-click="vm.selAll($event)" ng-checked="vm.AllChecked" />&nbsp;&nbsp;全选
+            </label>
+        </div>
+        <p class="information">商品信息</p>
+        <p class="price">单价(元)</p>
+        <p class="num">数量</p>
+        <p class="allPrice">金额(元)</p>
+        <p class="oper">操作</p>
+    </div>
+    <div class="js-shop" ng-repeat="shopCart in vm.groupScl">
+        <div class="top">
+           <input type="checkbox" ng-checked="vm.checkedShop(shopCart)" ng-click="vm.selShop($event, shopCart)" />&nbsp;&nbsp;店铺：<span ng-bind="shopCart[0].ShopName"></span> -- 卖家：<span ng-bind="shopCart[0].SellerName"></span>           
+        </div>
+        <ul>
+            <li ng-repeat="cart in shopCart">
+                <input type="checkbox" class="check" ng-checked="cart.Checked" ng-click="vm.selCart($event, cart)" />
+                <div class="img1"><a ng-href="{{cart.productUrl}}"><img ng-src="{{cart.Pic}}" alt="" width="100" height="100"></a></div>
+                <p class="text"><a ng-href="{{cart.productUrl}}" ng-bind="cart.ProductName"></a></p>
+                <div class="price money" style="margin-top:20px;">                    
+                    <span ng-bind="cart.ProPrice"></span>
+                </div>
+                <div class="num" style="width:120px;margin-top:20px;margin-left:30px;">
+
+                    <input type="button" class="btn js-sub-num" value="-" ng-click="vm.calNum($event, cart, '-')" ng-if="cart.Num>1" />
+                    <input type="text" class="txt" value="{{cart.Num}}" ng-keyUp="vm.changeNum($event, cart)" />
+                    <input type="button" class="glyphicon glyphicon-plus btn2 js-add-num" value="+" ng-click="vm.calNum($event, cart, '+')" />
+                </div>
+                <p class="allPrice allPriceText" ng-bind="cart.TotalAmount" style="margin-top:20px;"></p>
+                <div class="price oper last" style="margin-top:20px;">
+                    <!-- <p><a href="#">移入文件夹</a></p> -->
+                    <span><a href="#" ng-click="vm.delCart($event, shopCart, cart)">删除</a></span>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="bottom">
+        <div class="allCheck bottomChec">
+            <label>
+                <input type="checkbox" ng-click="vm.selAll($event)"  ng-checked="vm.AllChecked" />&nbsp;&nbsp;全选
+            </label>
+        </div>
+        <p class="delete" ng-click="vm.delCarts()">删除</p>
+        <p class="favorite">移入收藏夹</p>
+        <!-- <p class="share">分享</p>
+        <p class="begin">开始对比</p> -->
+        <button class="accounts" ng-disabled="vm.canShop()" type="button" class="btn btn-default" ng-click="vm.endShop()">结算</button>
+        <p class="rmb">合计(不含运费) <span>¥ {{vm.TotalPrice}}</span></p>
+        <p class="haveGoods">已选商品 <span>{{vm.TotalNum}}</span> 件</p>
+    </div>
+    <!-- <pre style="width:900px;">
+        {{vm.groupScl | json}}        
+    </pre> -->
+</div>
+
+
+

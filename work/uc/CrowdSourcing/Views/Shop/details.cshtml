@@ -1,0 +1,76 @@
+﻿@model ZCPT.CrowdSourcing.Web.Models.ServiceProviderModule.CSShopModel
+
+@{
+    ViewBag.Title = "店铺详情";
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/main.css">
+<link rel="stylesheet" type="text/css" href="~/Content/css/yc_productlist.css" />
+
+<div>
+
+    <div class="row" id="demo-img">
+
+    </div>
+    <div class="xq-top"><span>店主推荐</span></div>
+    <div class="row m_t_ju">
+        <ul class="ul-list" id="ul-list"></ul>
+    </div>
+</div>
+<!-- 店铺页面详情页 -->
+<script type="text/template" id="ShopxqTpl">
+    <div class="col-md-8">
+        <ul class="xq-design">
+            <li class="de-title"><%= datas.Name %></li>
+            <li>店铺类别：<span>
+                <%= datas.CategoryName %></span></li>
+            <li>店铺简介：</li>
+            <li><%= datas.Description %></li>
+        </ul>
+    </div>
+    <div class="col-md-4" id="jcl-demo">
+        <div class="custom-container widget">
+            <div class="mid">
+                <img class="img-thumbnail" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"])/fileupload/ImgDownload/<%= datas.PictureList[0].IconID %>" />
+            </div>
+            <a href="#" class="prev">&lsaquo;</a>
+            <div class="carousel">
+                <ul>
+                    <%_.each(datas.PictureList, function(item, i){ %>
+                    <% if(item.IsMainPic == true){ %>
+                    <li class="selected"><img class="img-thumbnail" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"])/fileupload/ImgDownload/<%= item.IconID %>" /></li>
+                    <% }else{ %>
+                    <li><img class="img-thumbnail" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"])/fileupload/ImgDownload/<%= item.IconID %>" /></li>
+                    <% } %>
+                    <%}); %>
+                </ul>
+            </div>
+            <a href="#" class="next">&rsaquo;</a>
+            <div class="clear"></div>
+        </div>
+    </div>
+</script>
+
+<!-- 店铺页面店主推荐列表 -->
+<script type="text/template" id="ShopProductTpl">
+    <%_.each(datas, function(item, i){ %>
+    <li>
+        <div class="commend-img">
+            <a href="../productlist/productdetail/<%= item.ID %>"><img src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"])/fileupload/ImgDownload/<%= item.IconID %>"></a>
+            <dl>
+                <dd class="comName"><a href="../productlist/productdetail?id=<%= item.ID %>"><%= item.Name %></a></dd>
+                <dd class="comPrice"><%= item.Price %> 元</dd>
+            </dl>
+        </div>
+        <div class="des">服务介绍</div>
+        <div class="des-detail"><%= item.Description %></div>
+    </li>
+    <%}); %>
+</script>
+
+<script src="~/Scripts/js/lib/jquery.easing-1.3.js"></script>
+<script src="~/Scripts/js/lib/jquery.mousewheel-3.1.12.js"></script>
+<script src="~/Scripts/js/lib/jquery.jcarousellite.js"></script>
+<script src="~/Scripts/js/app/ShopDetails.js"></script>
+<script src="~/Scripts/js/app/Details.js"></script>

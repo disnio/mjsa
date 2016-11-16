@@ -1,0 +1,63 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.clear{ clear:both}
+.f_l{ float:left}
+.thumbnail{ border:none; padding:0;}
+.thumbnail img{ width:100%}
+.thumbnail h3{background:#ebebeb; font-size:13px; padding:10px; line-height:22px;}
+.backgronud_hui{ background:#ebebeb}
+.thumbnail .caption{ padding:0; margin-top:-18px; margin-bottom:20px!important;}
+.thumbnail .caption p{ color:#666; padding:0 10px;}
+
+.border_comm{ border:1px solid #efebeb}
+.panel-default{ border:none;}
+.img-thumbnail{ border:0;}
+
+.list-group-item{ margin-bottom:0; border:0; padding:0;border-bottom:1px dotted #dddada;}
+.nav_orang{background:#feb044;}
+.nav_orang .panel-body{ padding-top:0; padding-bottom:0;}
+.nav_orang .panel-heading{ background:#feb044; margin-bottom:0;line-height:30px; font-size:16px; font-weight:bold; color:#fff; border:0;}
+.nav_orang ul{ background:#fff; border:0!important; padding:10px 20px;-moz-border-radius:8px;-webkit-border-radius:8;border-radius:8px; } 
+.nav_orang ul li{ line-height:34px;  }
+.nav_orang ul li a { font-size:14px;}
+.nav_orang ul li span{background:#feb044; margin-right:15px; float:left; width:4px;-moz-border-radius:8px;-webkit-border-radius:8;border-radius:8px; height:15px; margin-top:12px;}
+.banner img{ width:100%; height:369px;}
+.panel_comm_max{ border:1px solid #f1f0f0; border-radius:0; -webkit-box-shadow:0 0 0!important;box-shadow:0 0 0!important;}
+.panel_comm_max .panel-heading .heading{line-height:45px; font-size:22px; font-weight:bold; border-bottom:3px solid #0198c5; padding-bottom:5px}
+.panel_comm_max .panel-heading .more{ line-height:45px; color:#999}
+.heading_small{line-height:30px; font-size:15px; font-weight:bold; padding-bottom:5px}
+.panel_comm_max .panel-heading{border:0!important; background:#f5f5f5!important;}
+
+.panel_comm_max .panel-heading .nav li{font-size:22px; font-weight:bold;}
+.panel_comm_max .panel-heading .nav-tabs>li>a{border-radius:0; padding:10px 30px;border-top:3px solid #fff; color:#666}
+.biaoti{ font-size:22px; font-weight:bold;}
+.panel_comm_max .panel-heading .nav-tabs>li.active>a,.panel_comm_max .panel-heading .nav-tabs>li.active>a:focus,.panel_comm_max .panel-heading .nav-tabs>li.active>a:hover{ padding:10px 30px; border-top:3px solid #22aad2; color:#22aad2;border-right:1px solid #f1f0f0;border-left:1px solid #f1f0f0;}
+.panel_comm_max .panel-body{border-top:0;}
+.panel_comm_max .panel-body .media{}
+.panel_comm_max .panel-body .media-body .media-heading{ font-size:14px; font-weight:bold;}
+.panel_comm_max .panel-body .media-body .jianjie{ height:46px!important; overflow:hidden; line-height:23px; color:#999}
+.panel_comm_max .panel-body .media-body .jianjie p{ color:#999}
+.panel_comm_max .panel-body .media-body p{ margin:0;}
+.panel_comm_max .panel-body .media-body { height:46px!important; overflow:hidden; line-height:23px;}
+.panel_comm_max .panel-body .thumbnail{ border:0;}
+.panel_comm_max .panel-heading .nav-tabs{border-bottom:1px solid #f1f0f0;}
+.list_comm{ padding:0; margin-bottom:0;}
+.list_comm img {width:256px!important; height:120px!important;}
+.list_comm a img {width:256px!important; height:120px!important;}
+.list_comm .caption h3,.list_comm .caption h3 a{ font-size:14px; font-weight:bold; color:#333; line-height:35px; padding:0; margin:0;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; width:100%} 
+.list_comm .caption h3{ font-size:14px; font-weight:bold; color:#333; line-height:35px; padding:0 15px; margin:0;border-bottom:1px dotted #ddd; margin-bottom:10px;} 
+.list_comm .caption .biaoti{ background:#f5f5f5; padding:0 10px;} 
+.list_comm .caption .biaoti span{ width:33%; font-weight:lighter; color:#666; float:left; line-height:35px;}
+.list_comm .caption .jine span{ width:33%; font-weight:lighter;  float:left; line-height:35px; padding-left:15px; line-height:20px;}
+.list_comm .caption{ padding:0; margin:0;}
+.list_comm .caption .jianjie{ height:46px; overflow:hidden; color:#999}
+.list_comm .caption .jianjie p{ color:#999}
+.list_comm .caption p{ padding:0; margin:0; line-height:23px;}
+.border_fg{border-right:1px solid #ddd} 
+.orang{ color:#ff6d00;}
+.hui{ color:#999}
+.m_b_15{ margin-bottom:15px;}
+.clear{ clear:both;}
+.font_22{ font-size:18px; font-weight:bold;}
+
+.p_left_0{ padding-left:0px;}

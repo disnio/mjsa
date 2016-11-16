@@ -1,0 +1,231 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<ZCPT.CrowdSourcing.Entity.ProductOrderModule.CSOrderList>
+@{
+    ViewBag.Title = "我的订单";
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+
+<link href="~/Content/css/orderconfirm.css" rel="stylesheet" />
+<script src="~/Tools/My97DatePicker/WdatePicker.js"></script>
+<div class="panel panel-default section-filter">
+    <div class="panel-heading"><a expanded="true" data-toggle="collapse" href="#sectionfilter">筛选条件</a> </div>
+    <div class="panel-body form-horizontal collapse in userCenter-search" id="sectionfilter">
+        @using (Ajax.BeginForm("ProductOrderList",
+                        new RouteValueDictionary { { "id", "" } },
+                        new AjaxOptions { UpdateTargetId = "divDataList", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" },
+                        new RouteValueDictionary { { "id", "searchForm" }, { "class", "form-horizontal " } }
+                    ))
+        {
+            <div class="form-group">
+                <label class="col-sm-1 control-label">名称：</label>
+                <div class="col-sm-5">
+                    <input type="text" name="ProductName" class="form-control" id="ProductName" placeholder="">
+                </div>
+                <label class="col-sm-1 control-label">订单状态：</label>
+                <div class="col-sm-5">
+                    @Html.DropDownList("Status", ViewBag.StatusList as List<SelectListItem>, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group line-top">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="submit" id="btnSearch" class="btn btn-default">搜索</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div id="divDataList" style="padding-top:10px;" class="grid-c">
+    @Html.Partial("ProductOrderListPartView", Model)
+</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">申请分批收款</h4>
+            </div>
+            <div id="divData" class="modal-body">
+                <div class="container-fluid">
+                    <div class="row hidden">
+                        <div class="col-md-3 col-md-offset-1">订单号：</div>
+                        <div class="col-md-4"><span id="orderNum"></span><input type="hidden" id="orderId" /></div>
+                    </div>
+                    <div class="row hidden">
+                        <div class="col-md-3 col-md-offset-1">订单金额：</div>
+                        <div class="col-md-4"><span id="orderAmount"></span>元</div>
+                    </div>
+                    <div class="row hidden">
+                        <div class="col-md-3 col-md-offset-1">已申请：</div>
+                        <div class="col-md-4"><span id="orderHasAmount"></span>元</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">待收服务费：</div>
+                        <div class="col-md-4"><span id="orderBalance"></span>元</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">申请收取金额：</div>
+                        <div class="col-md-4"><input type="number" style="width:100px;" id="txtapplyAmount" />元</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="BathPayingSave()">确认</button>
+                <p id="info" style="display:none;" class="text-warning"></p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="amountModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改订单金额</h4>
+            </div>
+            <div id="divData" class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">订单号：</div>
+                        <div class="col-md-4"><span id="amountOrderId"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">订单金额：</div>
+                        <div class="col-md-4"><span id="amountOrderAmount"></span>元</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">修改金额：</div>
+                        <div class="col-md-4"><input type="number" style="width:100px;" id="txtAmount" />元</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateOrderAmountSave()">确认</button>
+                <p id="infoamount" style="display:none;" class="text-warning"></p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="refundModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">申请退款</h4>
+            </div>
+            <div id="divData" class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">订单号：</div>
+                        <div class="col-md-4">
+                            <span id="refundOrderNum"></span>
+                            <input type="hidden" id="refundOrderId" />
+                            <input type="hidden" id="refundProductOrderId" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">店铺宝贝：</div>
+                        <div class="col-md-4"><span id="refundProductName"></span>元</div>
+                    </div>
+                    <div class="row hidden">
+                        <div class="col-md-3 col-md-offset-1">订单金额：</div>
+                        <div class="col-md-4"><span id="refundOrderAmount"></span>元</div>
+                    </div>
+                    <div class="row hidden">
+                        <div class="col-md-3 col-md-offset-1">已收款金额：</div>
+                        <div class="col-md-4"><span id="refundOrderHasAmount"></span>元</div>
+                    </div>
+                    <div class="row hidden">
+                        <div class="col-md-3 col-md-offset-1">剩余金额：</div>
+                        <div class="col-md-4"><span id="refundOrderBalance"></span>元</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">退款金额：</div>
+                        <div class="col-md-4"><input type="number" id="refundAmount" />元</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">退款原因：</div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("refundReason", ViewBag.ReasonList as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="RefundOrderSave()">确认</button>
+                <p id="refundInfo" style="display:none;" class="text-warning"></p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="deliveryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">发货</h4>
+            </div>
+            <div id="divData" class="modal-body">
+                <div class="container-fluid">
+                    <div class="row" id="rowOrderNum">
+                        <div class="col-md-3 col-md-offset-1">订单号：</div>
+                        <div class="col-md-4">
+                            <span id="deliveryOrderNum"></span>
+                            <input type="hidden" id="deliveryOrderId" />
+                            <input type="hidden" id="deliveryProductOrderId" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="DeliverySave()">确认</button>
+                <p id="deliveryInfo" style="display:none;" class="text-warning"></p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<script type="text/template" id="OrderDeliveryTpl">
+    <%_.each(datas, function(item, i){ %>
+    <%if(i>0) {%>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">&nbsp;&nbsp;</div>
+        <div class="col-md-4">&nbsp;&nbsp;</div>
+    </div>
+    <%}%>
+
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">店铺宝贝：</div>
+        <div class="col-md-4">
+            <%=item.ProductName%>
+            <input type="hidden" class="deliveryProductOrderId" id="deliveryProductOrderId" value="<%=item.LID%>" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">套餐：</div>
+        <div class="col-md-4"><%=item.propertiesname%></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">买家：</div>
+        <div class="col-md-4"><%=item.BuyerName%></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">截止日期(*)：</div>
+        <div class="col-md-4"><input type="text" class="deliveryDueDate" id="deliveryDueDate" onclick="WdatePicker({minDate:GetCurrentDate(), readOnly:true});" /></div>
+    </div>
+    <%}); %>
+</script>
+
+@section Scripts
+{
+    @{ Html.RegisterMvcPagerScriptResource();}
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

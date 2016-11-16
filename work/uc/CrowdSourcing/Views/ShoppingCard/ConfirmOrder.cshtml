@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "确认购买";
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+<script src="~/Scripts/bower_components/angular/angular.min.js"></script>
+<script src="~/Scripts/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="~/Scripts/js/lib/imgLiquid-min.js"></script>
+<script type="text/javascript">
+    var imgUrl = ucConfig.ServerReferenceFileCenterAPI + '/fileupload/ImgDownload/'; 
+    var yob = angular.module('yoB', ["ui.bootstrap", "ui.bootstrap.tpls"]);
+</script>
+<script src="~/Scripts/js/app/shoppingCart.service.js"></script>
+<script src="~/Scripts/js/app/confirmOrder.controller.js"></script>
+<script src="~/Scripts/js/app/addressUp.controller.js"></script>
+<link href="~/Content/css/ConfirmOrder.css" type="text/css" rel="stylesheet">
+<div ng-controller="MainController as vm">
+
+    <div class="order-title">我的订单/<span>订单确认页面</span></div>
+    <ul class="orderStep">
+        <li>1 确认订单信息</li> 
+        <li>2 付款到优创</li> 
+        <li>3 确认收货</li> 
+        <li>4 评价商品</li> 
+    </ul>
+    <div class="confirm-title">确认收获地址</div>
+    <div class="default-addr">
+        <div class="default-addr-icon">寄送到：</div>
+        <label>{{vm.sendAddress.Address}}&nbsp;&nbsp;{{vm.sendAddress.RegionAddress}}&nbsp;&nbsp;（{{vm.sendAddress.ReceiverName}}&nbsp;&nbsp;收）&nbsp;&nbsp;{{vm.sendAddress.ReceiverContact}}</label>
+        <span class="default-mark" ng-if="vm.sendAddress.IsDefault == true">默认地址</span>
+        <div class="modify"><a href="" ng-click="vm.addressUp(vm.sendAddress)">修改</a></div>           
+        
+    </div>
+    <div ng-repeat="ad in vm.adl" class="address-list">
+        <div class="other-addr">
+                <label ng-click="vm.changeSend(ad)"><input type="radio" name="address">{{ad.Address}}&nbsp;&nbsp;{{ad.RegionAddress}}&nbsp;&nbsp;（{{ad.ReceiverName}}&nbsp;&nbsp;收）&nbsp;&nbsp;{{ad.ReceiverContact}}</label>
+        </div>
+    </div>
+
+
+    <div class="confirm-title">确认订单信息</div>
+
+    <table class="order-info">
+        <thead>
+            <tr class="order-info-title">
+                <th colspan="2">店铺宝宝</th>
+                <th>单价(元)</th>
+                <th>数量</th>
+                <th>小计(元)</th>
+                <th>给卖家留言</th>
+            </tr>
+        </thead>
+        <tbody class="order-info-list">
+            <tr ng-repeat-start="shopCart in vm.groupScl" class="title-order">
+                <td colspan="6" class="order-info-shop" style="text-align:left;">店铺：<span ng-bind="shopCart[0].ShopName"></span> -- 卖家：<span ng-bind="shopCart[0].SellerName"></span> </td>
+            </tr>
+            <tr ng-repeat="cart in shopCart">
+                <td><div class="img1"><a ng-href="{{cart.productUrl}}"><img ng-src="{{cart.Pic}}" alt="" width="100" height="100"></a></div></td>
+                <td><a ng-href="{{cart.productUrl}}" ng-bind="cart.ProductName"></a></td>
+                <td><span ng-bind="cart.ProPrice"></span></td>
+                <td>{{cart.Num}}</td>
+                <td><p class="allPrice allPriceText" ng-bind="cart.TotalAmount"></p></td>
+                <td><span ng-click="vm.msgBoard(cart)">留言</span></td>
+            </tr>
+            <tr ng-repeat-end></tr>
+        </tbody>
+    </table>
+    <div class="totalCost">
+        <ul class="costBox">
+            <li><strong>总费用：</strong><span>¥ {{vm.TotalPrice}}</span></li>
+            <li><strong>寄送至：</strong><label>{{vm.sendAddress.Address}}</label></li>
+            <li><strong>收货人：</strong>{{vm.sendAddress.ReceiverName}}&nbsp;&nbsp;{{vm.sendAddress.ReceiverContact}}</li>
+        </ul>
+        <div style="clear:both;"></div>
+        <div class="submitBtn js-create-order"><input type="submit" value="确定提交订单" ng-disabled="vm.canBuy()" ng-click="vm.createOrder()"></div>
+    </div>
+</div>
+<!-- 留言 -->
+<script type="text/ng-template" id="msgDialog">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="msg.cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title app-same">给卖家留言：</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">                        
+            <div class="col-sm-12">
+                <textarea class="form-control" rows="10" ng-model="msg.Requirement"></textarea>
+                <p ng-show="msg.maxL()">内容过长，200字以内。</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-click="msg.ok()" class="btn btn-primary">确认</button>
+    </div>
+</script>

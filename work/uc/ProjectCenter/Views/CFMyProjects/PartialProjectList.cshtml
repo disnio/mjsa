@@ -1,0 +1,95 @@
+﻿
+@using Webdiyer.WebControls.Mvc
+@using ZCPT.ProjectCenter.Entity.CFProjectModule
+
+@model PagedList<ZCPT.ProjectCenter.Web.Models.ProjectListViewModel>
+
+<div class="media-list">
+    @foreach (var i in Model)
+    {
+        <div class="media section-media-large">
+            <div class="media-left">
+                <a href="MyProject/@i.ID">
+                    <img alt="" class="media-object img-thumbnail" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"] + "/fileupload/MediaLarge/" + i.Icon)" />
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    @i.Name
+                    <span class="label label-info pull-right">
+                        <span class="arrow-left"></span>
+                        @i.StatusName
+                    </span>
+                </h4>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">阶段：</label>
+                        <div class="col-sm-10 form-control-static">
+                            @i.StageName
+                        </div>
+                        <label class="col-sm-2 control-label">行业：</label>
+                        <div class="col-sm-4 form-control-static">
+                            @i.IndustryName
+                        </div>
+                        <label class="col-sm-2 control-label">申请人：</label>
+                        <div class="col-sm-4 form-control-static">
+                            @i.CreatorName
+                        </div>
+                        <label class="col-sm-2 control-label">城市：</label>
+                        <div class="col-sm-4 form-control-static">
+                            @i.CityName
+                        </div>
+
+                        <label class="col-sm-2 control-label">申请时间：</label>
+                        <div class="col-sm-4  form-control-static">
+                            @(i.CreationDate.ToString("d"))
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-info">
+                    <label>项目简介：</label>@Html.Raw(i.Introduction)
+                </div>
+            </div>
+            <div class="media-bottom">
+                <div class="btn-group pull-right" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" onclick='javascrtpt:window.location.href ="@Url.Content("~/CFMyProjects/MyProject/" + @i.ID)"'>详细信息</button>
+
+                        @if (i.Status != CFProjectStatus.Get("Auditing") && i.Status != CFProjectStatus.Get("Finished"))
+                        {
+                            <button type="button" class="btn btn-default" onclick='javascrtpt:window.location.href ="@Url.Content("~/CFMyProjects/EditProjectBasis/" + @i.ID)"'>编辑</button>
+                        }
+
+                        @if (i.Status == CFProjectStatus.Get("Actived"))
+                        {
+                            <button type="button" class="btn btn-default" onclick='javascrtpt:window.location.href ="@Url.Content(@ConfigurationHelper.ServerReference.CrowdFunding + "/CFMyProjects/ProjectFinancing?pcProjectID=" + @i.ID)"'>申请项目融资</button>
+                            <button type="button" class="btn btn-default" onclick='javascrtpt:window.location.href ="@Url.Content(@ConfigurationHelper.ServerReference.PublicPortal + "/MakerSpace/Index?projectid=" + @i.ID)"'>申请入驻众创空间</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="text-center">
+    @Ajax.Pager(Model, new PagerOptions
+   {
+       FirstPageText = "首页",
+       LastPageText = "尾页",
+       NextPageText = "下页",
+       PrevPageText = "上页",
+       PageIndexParameterName = "pid",
+       ContainerTagName = "ul",
+       PageIndexBoxId = "PageCurrentIndex",
+       GoToButtonId = "btnGo",
+       CssClass = "pagination pagination-centered",
+       CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+       DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li >",
+       PagerItemTemplate = "<li>{0}</li>"
+   }).AjaxOptions(a => a.SetUpdateTargetId("proList").SetDataFormId("searchForm").SetHttpMethod("Post")).Options(o => o.DisableAutoHide())
+    <ul class="pagination pagination-centered">
+        <li><span>共<font>@Model.TotalPageCount</font>页</span></li>
+        <li><span>共<font>@Model.TotalItemCount</font>条</span></li>
+    </ul>
+</div>

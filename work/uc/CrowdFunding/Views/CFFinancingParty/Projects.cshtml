@@ -1,0 +1,137 @@
+﻿@using ZCPT.CrowdFunding.Web.Models.CFFinancingPartyModule
+@using UCFramework.Infrastructure.Web
+@using ZCPT.CrowdFunding.Entity
+@using Webdiyer.WebControls.Mvc
+@model PagedList<ProjectItem>
+
+@{
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+    ViewBag.Title = ViewBag.InvestmentCategoryID == "3" ? "众筹融资项目展示" : "股权债权融资项目展示";
+    ViewBag.ContentName = ViewBag.Title;
+}
+
+<link href="~/Content/css/funds.css" type="text/css" rel="stylesheet">
+
+<script src="~/Scripts/js/app/projects.js"></script>
+<div class="main-right-white">
+    <div class="pane-top">
+        <h1 class="page-head"><span>@ViewBag.Title</span></h1>
+        <div class="selectedBox">
+            <div class="row" pid="InvestmentCategoryID">
+                <div class="col-md-1"> <strong>融资方式：</strong></div>
+                <div class="col-md-11">
+                    <div class="modes" id="investmentMode">
+                        <a data-id="">不限</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" pid="CityID">
+                <div class="col-md-1"> <strong>所在地区：</strong></div>
+                <div class="col-md-11">
+                    <div class="modes" id="regionAdd">
+                        <a data-id="">不限</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" pid="IndustryID">
+                <div class="col-md-1"> <strong>所属行业：</strong></div>
+                <div class="col-md-11">
+                    <div class="modes" id="industryIn">
+                        <a data-id="">不限</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" pid="AmountRange">
+                <div class="col-md-1"> <strong>投资金额：</strong></div>
+                <div class="col-md-11">
+                    <div class="modes" id="investmentAmount">
+                        <a data-id="">不限</a>
+                        <a data-id="5">5万</a>
+                        <a data-id="10">10万</a>
+                        <a data-id="50">50万</a>
+                        <a data-id="100">50-100万</a>
+                        <a data-id="500">100-500万</a>
+                        <a data-id="1000">500万以上</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row searchBox">
+            <div class="col-md-3">
+                 <input type="text" class="form-control" id="inputPassword" placeholder="在当前条件下搜索">
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-default search-btn01">搜索</button>
+            </div>
+        </div>
+    </div>
+    
+    <input type="hidden" name="CreatorID" value="@SessionIdentity.Instance.AccountID" >
+    <input type="hidden" name="OrgainzationID" value="@SessionIdentity.Instance.OrgainzationID" >
+    <input type="hidden" name="InvestingPartyID" value="@SessionHelper.Identity.InvestingParty.ID" >
+
+    <div class="media-list" id="searchResult">
+        <div class="search-result">
+            <div class="search-title">基金列表</div>
+            <div class="search-num">共有<span>@(Model.TotalItemCount > 100 ? "100+" : Model.TotalItemCount.ToString())</span>个符合要求的项目信息</div>
+        </div>
+        @Html.Partial("ProjectsListPartView", Model)
+    </div>
+</div>
+<!--约谈项目方弹窗-->
+<script type="text/html" id="yuetanTpl">
+    <div class="model-common">
+        <div class="row">
+            <div class="col-md-4"><span>*</span>申请投资的项目名称</div>
+            <div class="col-md-8">
+                <select class="form-control" id="projectnameList"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><span>*</span>您的约见说明</div>
+            <div class="col-md-8"><textarea class="form-control" id="Contents"></textarea></div>
+        </div>
+    </div>
+</script>
+<!--申请融资弹窗-->
+<script type="text/html" id="rongziTpl">
+    <div class="model-common model-common-rongzi">
+        <div class="row">
+            <div class="col-md-4"><span>*</span>申请投资的基金名称</div>
+            <div class="col-md-7">
+                <select class="form-control" id="entryName">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><span>*</span>投资类型</div>
+            <div class="col-md-7">
+                <input type="text" disabled="disabled" class="form-control" id="CFInvestmentCategoryIDval" name="CFInvestmentCategoryID" val=""/>
+                    
+                
+            </div>
+        </div>
+        <div class="row long">
+            <div class="col-md-4"><span>*</span>申请融资金额</div>
+            <div class="col-md-7">
+                <input type="text" class="form-control" id="amount">
+                <select class="form-control" id="amountUnit">
+                    <option value="1">万元</option>
+                    <option value="2">亿元</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><span>*</span>投资理由</div>
+            <div class="col-md-7"><textarea class="form-control" id="reason"></textarea></div>
+        </div>
+    </div>
+</script>
+
+
+@section scripts
+{
+    @{ Html.RegisterMvcPagerScriptResource();}
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

@@ -53,5 +53,8 @@ https://getcomposer.org/doc/articles/troubleshooting.md#xdebug-impact-on-compose
 
 It was added/updated just a few hours ago.
 ---------------------------------------------
+图形操作
+https://packagist.org/packages/intervention/image
+
 composer.phar require intervention/image
 intervention, guzzlehttp, psr, composer, autoload

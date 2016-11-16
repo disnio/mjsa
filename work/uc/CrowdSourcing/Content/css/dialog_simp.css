@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+/* common start */
+.aui_outer { text-align:left; }
+.aui_border, .aui_inner { border:0; margin:0; border-collapse:collapse; width:auto; }
+.aui_nw, .aui_n, .aui_ne, .aui_w, .aui_center, .aui_e, .aui_sw, .aui_s, .aui_se, {padding:0; }
+
+/*.aui_state_noTitle .aui_title {display:none; }*/
+
+/*.aui_main {text-align:center; padding:30px 30px 20px 30px;}*/
+/*.aui_content { display:inline-block; *zoom:1; *display:inline; text-align:left; border:none 0; }*/
+/*.aui_content.aui_state_full { display:block; width:100%; margin:0; padding:0!important; height:100%; }*/
+.aui_loading { width:96px; height:32px; text-align:left; text-indent:-999em; overflow:hidden; background:url(icons/loading.gif) no-repeat center center; }
+.aui_icon { vertical-align: middle; }
+.aui_icon div { width:48px; height:48px; margin:10px 0 10px 10px; background-position: center center; background-repeat:no-repeat; }
+
+/* common end */
+.aui_inner {background:#FFF; }
+.aui_outer, .aui_center { border:1px solid rgba(0, 0, 0, .3)!important; border:1px solid #333\9!important; }
+.aui_outer { border-radius:3px; }
+.aui_border { border-radius:2px; box-shadow: inset 0 0 1px rgba(255, 255, 255, .9); }
+.aui_nw, .aui_ne, .aui_sw, .aui_se { width:8px; height:8px; }
+.aui_nw, .aui_n, .aui_ne, .aui_w, .aui_e, .aui_sw, .aui_s, .aui_se { background:rgba(0, 0, 0, .2); background:#000\9!important; filter:alpha(opacity=20); }
+/*.aui_state_focus .aui_inner { box-shadow: 0 0 3px rgba(0, 0, 0, 0.4); }*/
+.aui_state_focus .aui_outer { box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); }
+.aui_state_drag .aui_outer { box-shadow:none; border:1px solid rgba(0, 0, 0, .4)!important; border:1px solid #333\9!important; }
+
+.aui_state_drag .aui_titleBar {box-shadow:none;}
+
+/*关闭窗体样式*/
+.aui_close {display:block; position:absolute; outline:none; padding:0; top:0px; right:0px; width:41px; height:40px; background:url(../img/v3/bg_close.gif) center center no-repeat; width:41px; height:40px; cursor:pointer; }
+.aui_close:hover {display:block; background:#0077c6 url(../img/v3/bg_close_on.gif) center center no-repeat; width:41px; height:40px;}
+.aui_close:active { box-shadow: none; }
+
+/*窗体修订部分样式*/
+
+/*窗体标题*/
+.aui_titleBar {position:relative; height:100%;}
+.aui_title {overflow:hidden; text-overflow: ellipsis; }
+.aui_title {height:40px; line-height:39px; padding-left:25px; font-size:20px; color:#fff; background:#09f;}
+
+/*窗体内容*/
+.aui_content {}
+
+/*窗体按钮*/
+.aui_buttons {text-align:center; margin-bottom:40px;}
+.aui_buttons button {background:#F60; border:none; padding:6px 17px; margin-right:10px; color:#fff; font-family: Microsoft Yahei,SimHei; font-size:14px; cursor:pointer;}
+
+
+

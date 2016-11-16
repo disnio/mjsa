@@ -1,0 +1,55 @@
+﻿@charset "UTF-8";
+/* CSS Document */
+.Goods-Audit{
+    width:940px;
+    height:110px;
+    background:#dff8fd;
+    overflow:hidden;
+}
+.form-assets{
+    margin-top:20px;
+}
+.form-group {
+    margin-bottom: 62px;
+}
+.col-sm-5 {
+    width: 39.666667%;
+}
+.col-sm-1 {
+    width: 10.333333%;
+}
+label{
+    font-weight:100;
+}
+.btn-group > .btn:first-child{
+    margin:20px 0 40px 400px;
+    width:88px;
+    height:30px;
+    background:#d4f6ff;
+    color:#039fc7;
+    border:1px solid #7fe3fa;
+    border-radius:0;
+}
+.table{
+    text-align:center;
+}
+.tr-title td{
+    background:#f7f5f6;
+    font-weight:600;
+    
+}
+.table-color .tr-title td:nth-of-type(6){
+    color:#555;
+}
+.table-color tr td:nth-of-type(6){
+    color:#ff8901;
+}
+.table-color tr td a{
+    text-decoration:underline;
+}
+.table-color tr td a:nth-of-type(1){
+    color:#4b9407;
+}
+.table-color tr td a:nth-of-type(2){
+    color:#d50100;
+}

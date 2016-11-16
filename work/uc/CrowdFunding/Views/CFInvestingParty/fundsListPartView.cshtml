@@ -1,0 +1,75 @@
+﻿@using ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule
+@using Webdiyer.WebControls.Mvc
+@model PagedList<fundItem>
+
+@foreach (var item in Model)
+{
+    <div class="media section-media-large">
+        <div class="media-body">
+            <h4 class="media-heading">
+                <a href="@Url.Action("Fund", "CFInvestingParty", new { id = item.CFFundID })">@(item.FundName)</a>
+                <span class="label label-info pull-right">
+                    @(item.Time)
+                </span>
+            </h4>
+            <div class="InvestmentAmount">融资基金：<span>@(item.InvestmentAmount)</span></div>
+            <div class="params-main">
+                <ul class="params-mains">
+                    <li>投资方式：@(item.InvestmentCategory)</li>
+                    <li>投资类型：@(item.InvestmentWays)</li>
+                    <li>投资地区：@(item.InvestmentStation)</li>
+                    <li>投资行业：@(item.Industrys)</li>
+                    <li>资金类型：@(item.FundMajor)</li>
+                    <li>投资阶段：@(item.ProjectStages)</li>
+                </ul>
+                <div class="params-addr">
+                    <div class="contact-person"><strong><a href="@Url.Action("Investor", "CFInvestingParty", new { id = item.CreatorID })">@(item.CreatorOrganizationName)</a></strong></div>
+                    <div class="contact-address">@(item.AreaStation)</div>
+                    <div class="openBtn">
+                        <input type="hidden" name="CFFundID" value="@(item.CFFundID)" />
+                        <input type="hidden" name="CFInvestmentCategoryID" value="@(item.CFInvestmentCategoryID)" />
+                        <input type="button" value="约谈投资方" class="yuetan">
+                        <input type="button" value="投递项目" class="toudi">
+                    </div>
+                </div>
+            </div>
+          
+            @*<div class="bg-info">
+                <label>@Html.DisplayNameFor(m => m.Introduction)：</label>@Html.Raw(item.Introduction)
+            </div>*@
+        </div>
+    </div>
+}
+
+
+<div class="text-center">
+    @Ajax.Pager(Model, new PagerOptions
+{
+    PageIndexParameterName = "page",
+    ContainerTagName = "ul",
+    CssClass = "pagination pagination-centered",
+    CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+    DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+    PagerItemTemplate = "<li>{0}</li>",
+    PageIndexBoxId = "PageCurrentIndex",
+    GoToButtonId = "btnGo"
+},
+    new MvcAjaxOptions
+    {
+        UpdateTargetId = "searchResult",
+        HttpMethod = "Post",
+        DataFormId = "searchForm"
+    })
+    <ul class="pagination pagination-centered">
+        <li><span>共<font>@Model.TotalPageCount</font>页</span></li>
+        <li><span>共<font>@Model.TotalItemCount</font>条</span></li>
+        <li>
+            <div class="input-group">
+
+                <input type="text" class="form-control" id="PageCurrentIndex" placeholder="">
+                <span class="input-group-addon" id="sizing-addon1">页</span>
+                <span class="input-group-btn"><button class="btn btn-default" type="button" id="btnGo">跳转</button></span>
+            </div>
+        </li>
+    </ul>
+</div>

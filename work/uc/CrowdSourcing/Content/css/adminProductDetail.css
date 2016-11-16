@@ -1,0 +1,19 @@
+/* 
+* @Author: czy
+* @Date:   2016-07-21 14:44:11
+* @Last Modified by:   Allen
+* @Last Modified time: 2016-08-11 09:24:21
+*/
+.productdetail-main-status{margin:20px 0;overflow: hidden;}
+.productdetail-main-status li{width:174px;margin-right:2px;display:inline-block;float:left;border-bottom:4px solid #c0f1fc;padding-bottom:5px;}
+.productdetail-main-status li span{color:#249EC0;text-align:center;display:block;font-size:14px;}
+.productdetail-main-status li.status-current{border-color:#25a0c2;}
+.pull-left btn,.btn-default{border-radius: 0;border:none;background-color:#25a0c2;color:#fff;padding:4px 15px;}
+.btn-default:visited{background-color:#29abcf;color:#fff;}
+.btn-default:active{background-color:#29abcf;color:#fff;}
+.btn-default:hover{background-color:#29abcf;color:#fff;}
+.btn-groups .col-sm-12{text-align: center;}
+#regionbtn,.addBtn{margin-top: -4px;}
+.btn-sm{margin-right: 20px;}
+
+.table p, .modal p {margin:0 0 10px 0;}

@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutHFN.cshtml";
+}
+<div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-3">
+        @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Aside(new UCFramework.Infrastructure.SDK.MenuAPI().GetAsideMenu()))
+    </div>
+    <div class="col-lg-10 col-md-9 col-sm-9">
+        <div class="main-right-white">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    @RenderSection("scripts", required: false)
+}

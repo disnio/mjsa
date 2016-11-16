@@ -1,0 +1,24 @@
+﻿
+
+
+
+    <ul class="nav nav-tabs new-titletab" role="tablist">
+        
+     
+  
+        <li role="presentation" @if (nameof(ZCPT.ProjectCenter.Web.Models.ProjectBasisModel) == Model.Current){@Html.Raw(" class=\"active\" ")}  >@Html.ActionLink("项目资料", "EditProjectBasis", new { ID = Model.ID })</li>
+       @if( Model.ID > 0)
+        {
+        <li role="presentation" @if (nameof(ZCPT.ProjectCenter.Web.Models.ProjectBusinessPatternModel) == Model.Current){@Html.Raw(" class=\"active\" ")}  >@Html.ActionLink("商业模式", "EditProjectBusinessPattern", new { ID = Model.ID })</li>
+        <li role="presentation" @if (nameof(ZCPT.ProjectCenter.Web.Models.ProjectTeamsModel) == Model.Current){@Html.Raw(" class=\"active\" ")}  >@Html.ActionLink("创业团队", "EditProjectTeam", new { ID = Model.ID })</li>
+        <li role="presentation" @if (nameof(ZCPT.ProjectCenter.Web.Models.ProjectPerformancesModel) == Model.Current){@Html.Raw(" class=\"active\" ")}  >@Html.ActionLink("历史情况", "EditProjectPerformance", new { ID = Model.ID })</li>
+        <li role="presentation" @if (nameof(ZCPT.ProjectCenter.Web.Models.ProjectSchedulesModel) == Model.Current){@Html.Raw(" class=\"active\" ")}  >@Html.ActionLink("未来计划", "EditProjectSchedule", new { ID = Model.ID })</li>
+        <li role="presentation" @if (nameof(ZCPT.ProjectCenter.Web.Models.ProjectAttachmentsModel) == Model.Current){@Html.Raw(" class=\"active\" ")}  >@Html.ActionLink("项目附件", "EditProjectAttachment", new { ID = Model.ID })</li>
+
+        <li role="presentation" @if (nameof(ZCPT.ProjectCenter.Web.Models.ProjectDynamicModel) == Model.Current){@Html.Raw(" class=\"active\" ")}  >@Html.ActionLink("项目动态", "EditProjectDynamic", new { ID = Model.ID })</li>
+        }
+    </ul>
+    
+  <div class="switch" style="width:100%;">
+    <div class="clear"></div>
+</div>

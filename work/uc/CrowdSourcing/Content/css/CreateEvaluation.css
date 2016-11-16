@@ -1,0 +1,37 @@
+/* 
+* @Author: czy
+* @Date:   2016-07-26 11:43:22
+* @Last Modified by:   czy
+* @Last Modified time: 2016-07-26 15:30:22
+*/
+.common-title span{color:#019dc3;}
+.order-step{width:640px;height:32px;margin:50px auto;overflow:hidden;background-image: url(../../Content/img/stepBack04.png);}
+.order-step li{width:25%;display:inline-block;float:left;font-size:14px;color:#009ec5;line-height:32px;text-align:center;}
+.order-step .curr-step{color:#fff;}
+.shop{margin:30px 0;}
+.shop__title{border-bottom: 1px solid #e5e5e5;line-height:28px;padding:0 10px;}
+.shop__info{padding:20px 0;}
+.shop__info .col-md-2 img{width:102px;border:none;}
+.logo-img--label{width:102px;line-height:26px;color:#009ec3;text-align:center;background-image: url(../../Content/img/label-back.png);margin-top:10px;}
+.name{line-height:26px;color:#009ec3;font-size:14px;}
+.shop__info .col-md-8{padding-top:30px;}
+.description{color:#999;}
+.create-title{background-color:#f1fcfe;margin:20px 0;}
+.create-title div{color:#009ec3;line-height:36px;}
+.create-list{margin:30px 0;}
+.create-list li{margin:20px 0;border-bottom: 3px solid #f3f7ff;overflow:hidden;padding:0 15px;padding-bottom: 10px;}
+.shop-pro{width:50%;float:left;}
+.shop-pro__img{width:150px;float:left;}
+.shop-pro__name{float:left;margin-left:10px;margin-top:30px;}
+.shop-pro__name a{}
+.shop-pro__name a:hover{color:#009ec3;}
+.shop-evaluation{width:50%;float:left;}
+.star{margin-bottom:10px;}
+.level .level_solid,.level .level_hollow{float:left; background-image:url(../../Content/img/icon2.png);background-repeat:no-repeat;display:inline-block;width:15px;height:15px; cursor:pointer;margin-right:3px;}
+.level .level_solid{background-position:0px 0px;}
+.level .level_hollow{background-position:-21px 0px;}
+.revgrade{margin-left:20px;color:#808080; font-size:12px; }
+.shop-evaluation__text textarea{border:1px solid #e5e5e5;width:100%;height:80px;}
+.evaluation__submitBtn{margin:10px 0;overflow:hidden;}
+.evaluation__submitBtn input{width:100px;float:right;background-color:#009ec3;border:none;color:#fff;padding:5px 0;}
+.evaluation__submitBtn input:hover{background-color:#02a6cd;}

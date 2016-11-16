@@ -1,0 +1,56 @@
+﻿@charset "UTF-8";
+/* CSS Document */
+.shop-State a{
+    color:#f9114d;
+    font-weight:600;
+}
+.shop-Info{
+    font-weight:600;
+    color:#545454;
+}
+.shop-State span{
+    color:#555;
+    margin-left:30px;
+}
+.shop-State .shop-Price{
+   color:#f9114d;
+}
+.shop-State .shop-attribute{
+   color:#f9114d;
+}
+.shop-State .describe{
+   float:left;
+}
+.shop-State .shop-Describe{
+    width:800px;
+    height:50px;
+    float:left;
+    margin-left:30px;
+}
+.shop-State img{
+    margin-left:30px;
+}
+.table{
+    width:70%;
+    float:left;
+    margin-left:80px;
+    margin-top:-10px;
+}
+.name-Td{
+    background:#f7f7f7;
+    font-weight:600;
+}
+tr p{
+    margin-top:10px;
+}
+.month-Copy{
+    float:left;
+    margin-left:80px;
+    margin-bottom:20px;
+}
+.btn-Pass{
+    margin:30px 20px 0 240px;
+}
+.btn-Refuse{
+    margin:30px 20px 0 20px;
+}

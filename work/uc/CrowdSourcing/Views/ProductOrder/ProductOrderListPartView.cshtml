@@ -1,0 +1,640 @@
+﻿@using Webdiyer.WebControls.Mvc
+@using ZCPT.CrowdSourcing.Entity
+@model PagedList<ZCPT.CrowdSourcing.Entity.ProductOrderModule.CSOrderList>
+
+<table cellspacing="0" cellpadding="0" class="order-table">
+    <thead>
+        
+        <tr>
+            <th class="s-title">店铺宝贝<hr /></th>
+            <th class="s-price">单价(元)<br /><span>基础费/月费(元)</span><hr /></th>
+            <th class="s-amount" style="width:95px;">数量<hr style="width:95px;"/></th>
+            <th class="s-amount">商品操作<hr style="width:130px;"/></th>
+            <th class="s-total">应收款(元)<hr /></th>            
+            <th class="s-total">实收款(元)<hr /></th>
+            <th class="s-agio">交易状态<hr /></th>
+            <th class="s-agio">交易操作<hr /></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    @*<tr class="first"><td colspan="5"></td></tr>*@
+                    <tr class="shop blue-line" style="background-color:aliceblue;">
+                        <td colspan="8">
+                            时间：@item.CreationDate.ToString("yyyy-MM-dd")
+                            <span class="seller">订单号：@item.OrderNum</span>
+                            <span class="seller">买家：<a href="javascript:void(0)">@item.BuyerName</a></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <table cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    @foreach (var subItem in item.ProductOrderList)
+                                    {
+                                        <tr class="item" >
+                                            <td class="s-title">
+                                                <a href="javascript:void(0)" onclick="javascript: window.open('../productlist/ProductDetail?id=@(subItem.CSProductID)')" title="@subItem.ProductName">
+                                                    <img src="@string.Format("{0}{1}", System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"], "/fileupload/ImgDownload/" + subItem.IconID)" class="itempic"><span class="title">@subItem.ProductName</span>
+                                                </a>
+                                            </td>
+                                            <td class="s-price">
+                                                <span class='price '>
+                                                        @if (subItem.IsRecuring)
+                                                        {
+                                                            <em class="style-normal-small-black" >
+                                                                @subItem.BaseFee.ToString("0.00")/@subItem.MonthlyFee.ToString("0.00")
+                                                            </em>
+                                                        }
+                                                        else
+                                                        {
+                                                            <em class="style-normal-small-black" >
+                                                                @subItem.ProPrice.ToString("0.00")
+                                                            </em>
+                                                        }
+                                                </span>
+                                            </td>
+                                            <td class="s-amount" data-point-url="">
+                                                @subItem.Num
+                                            </td>
+
+                                            <td class="s-agio s-goodsoperate">
+                                                <div id="divProductState_@(subItem.LID)" class="J_Promotion promotion">
+                                                    @if (subItem.Status == (int)ProductOrderStatus.RefundSuccess)
+                                                    {
+                                                        <span>@ZCPT.CrowdSourcing.Web.InfrastructureExtension.EnumHelper.ToEnumDescriptionString(subItem.Status, typeof(ProductOrderStatus))<br /></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        if ((item.Status == (int)SummaryOrderStatus.HasPayment || item.Status == (int)SummaryOrderStatus.Sent)
+                                                            && (subItem.Status == (int)ProductOrderStatus.HasPayment || subItem.Status == (int)ProductOrderStatus.Sent) 
+                                                            && (subItem.TransType != (int)ProductOrderOperation.BuyerRefund || subItem.TransStatus != (int)CSProductOrderTransaction.ToAudit))
+                                                        {
+                                                            @*退款*@
+                                                            <a id="btnRefund_@(subItem.LID)" href="javascript:void(0);" onclick="RefundOrder(@item.LID, @subItem.LID)">申请退款</a><br />
+                                                        }
+                                                    }
+
+                                                    @if (subItem.CSProductOrderTransactionApplicationID != 0 && subItem.TransStatus == (int)CSProductOrderTransaction.ToAudit)
+                                                    {
+                                                        @*待审核*@
+                                                        <span>@ZCPT.CrowdSourcing.Web.InfrastructureExtension.EnumHelper.ToEnumDescriptionString(subItem.TransType, typeof(ProductOrderOperation)), 金额 @(subItem.TransAmount.ToString("0.00"))元</span>
+                                                    }
+                                                    else if (subItem.CSProductOrderTransactionApplicationID != 0 && subItem.TransStatus == (int)CSProductOrderTransaction.Agreed)
+                                                    {
+                                                        @*同意*@
+                                                        <span>@ZCPT.CrowdSourcing.Web.InfrastructureExtension.EnumHelper.ToEnumDescriptionString(subItem.TransType, typeof(ProductOrderOperation)), 金额 @(subItem.TransAmount.ToString("0.00"))元。已同意</span>
+                                                    }
+                                                    else if (subItem.CSProductOrderTransactionApplicationID != 0 && subItem.TransStatus == (int)CSProductOrderTransaction.Refused)
+                                                    {
+                                                        @*拒绝*@
+                                                        <span>@ZCPT.CrowdSourcing.Web.InfrastructureExtension.EnumHelper.ToEnumDescriptionString(subItem.TransType, typeof(ProductOrderOperation)), 金额 @(subItem.TransAmount.ToString("0.00"))元。已拒绝</span>
+                                                    }
+
+
+                                                    @if (subItem.TransType == (int)ProductOrderOperation.BuyerRefund && subItem.TransStatus == (int)CSProductOrderTransaction.ToAudit)
+                                                    {
+                                                        <div id="divBuyerRefund_@(subItem.LID)">
+                                                            <a href="javascript:void(0);" style="color:blue;" onclick="BuyerRefund(@item.LID, @subItem.LID,@(subItem.CSProductOrderTransactionApplicationID),@(subItem.TransAmount),1)">同意</a>
+                                                            <a href="javascript:void(0);" style="color:blue;" onclick="BuyerRefund(@item.LID, @subItem.LID,@(subItem.CSProductOrderTransactionApplicationID),@(subItem.TransAmount),0)">拒绝</a>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="s-agio s-agiooperate">
+                            <div class="J_Promotion promotion">@item.ReceivableAmount.ToString("0.00")</div>
+                        </td>
+                        <td class="s-agio s-agiooperate">                           
+                                <div class="J_Promotion promotion">@item.ActualReceivableAmount.ToString("0.00")</div>
+                        </td>
+                        <td class="s-agio s-trade">
+                            @*交易状态*@
+                            <div id="divState_@(item.LID)" class="J_Promotion promotion">
+                                @ZCPT.CrowdSourcing.Web.InfrastructureExtension.EnumHelper.ToEnumDescriptionString(item.Status, typeof(SummaryOrderStatus))<br />
+                                @if (item.CSOrderTransactionApplicationID != 0 && item.TransStatus == (int)CSOrderTransaction.ToAudit)
+                                {
+                                    @*待审核*@
+                                    <span>@ZCPT.CrowdSourcing.Web.InfrastructureExtension.EnumHelper.ToEnumDescriptionString(item.TransType, typeof(OrderOperation)), 金额 @(item.TransAmount.ToString("0.00"))元</span>
+                                }
+                                else if (item.CSOrderTransactionApplicationID != 0 && item.TransStatus == (int)CSOrderTransaction.Agreed)
+                                {
+                                    @*同意*@
+                                    <span>@ZCPT.CrowdSourcing.Web.InfrastructureExtension.EnumHelper.ToEnumDescriptionString(item.TransType, typeof(OrderOperation)), 金额 @(item.TransAmount.ToString("0.00"))元。已同意</span>
+                                }
+                                else if (item.CSOrderTransactionApplicationID != 0 && item.TransStatus == (int)CSOrderTransaction.Refused)
+                                {
+                                    @*拒绝*@
+                                    <span>@ZCPT.CrowdSourcing.Web.InfrastructureExtension.EnumHelper.ToEnumDescriptionString(item.TransType, typeof(OrderOperation)), 金额 @(item.TransAmount.ToString("0.00"))元。已拒绝</span>
+                                }
+                            </div>
+                            @if (item.TransType == (int)OrderOperation.BuyerRefund && item.TransStatus == (int)CSOrderTransaction.ToAudit)
+                            {
+                                <div id="divBuyerRefund_@(item.LID)">
+                                    <a href="javascript:void(0);" style="color:blue;" onclick="BuyerRefund(@item.LID,@(item.CSOrderTransactionApplicationID),@(item.TransAmount),1)">同意</a>
+                                    <a href="javascript:void(0);" style="color:blue;" onclick="BuyerRefund(@item.LID,@(item.CSOrderTransactionApplicationID),@(item.TransAmount),0)">拒绝</a>
+                                </div>
+                            }
+                        </td>
+
+                        <td class="s-agio s-operatetd">
+                            @*交易操作*@
+                            @*未完成*@
+                            @if (item.Status <= (int)SummaryOrderStatus.NotPaying)
+                            {
+                                <a id="btnUpAmount_@(item.LID)" href="javascript:void(0);" onclick="UpdateOrderAmount(@(item.LID),'@(item.TotalAmount)')">修改金额</a><br />
+                            }
+                            @*已支付*@
+                            else if (item.Status == (int)SummaryOrderStatus.HasPayment)
+                            {
+                                if (!item.IsRecuring)
+                                {
+                                    <a id="btnBathPaying_@(item.LID)" href="javascript:void(0);" onclick="BathPaying(@item.LID)">申请分批收款</a><br />
+                                }
+                                <a id="btnDelivery_@(item.LID)" href="javascript:void(0);" onclick="Delivery(@item.LID, '@item.IsRecuring.ToString()')">发货</a><br />
+                            }
+                            <a href="javascript:void(0);" onclick="window.open('../ProductOrder/ProductOrderDetail?orderId=@(item.LID)')">订单详情</a>
+                        </td>
+
+                    </tr>
+                    
+                    <tr class="item-service">
+                        <td colspan="8" class="servicearea" style="display: none"></td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+
+</table>
+<div class="text-center">
+    @Ajax.Pager(Model, new PagerOptions { PageIndexParameterName = "PageIndex", ContainerTagName = "ul", CssClass = "pagination", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" }, new MvcAjaxOptions { UpdateTargetId = "divDataList", HttpMethod = "Post", DataFormId = "searchForm" })
+</div>
+
+<script type="text/javascript">
+    //接单
+    function AcceptOrder(orderId) {
+        if (confirm("是否确认接单操作？")) {
+            var url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/AcceptOrder"))";
+            var data = { orderId: orderId};
+            $.post(url, data, function (result) {
+                if (result == "True") {
+                    $("#divState_" + orderId).html("等待买家付款");
+                    $("#btn_" + orderId).remove();
+                }
+                else {
+                    alert("操作失败!");
+                }
+            });
+        }
+    }
+    //取消订单
+    function CancelOrder(orderId) {
+        if (confirm("是否确认取消订单？")) {
+            var url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/CancelOrder"))";
+            var data = { orderId: orderId};
+            $.post(url, data, function (result) {
+                if (result == "True") {
+                    $("#divState_" + orderId).html("交易取消");
+                    $("#btnCancel_" + orderId).remove();
+                }
+                else {
+                    alert("操作失败!");
+                }
+            });
+        }
+    }
+    //卖方申请退款
+    function RefundOrder(summaryOrderId, productOrderId) {
+        // 查看子订单是否有未完成的申请
+        var url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/Common/GetProductOrderTransaction"))";
+        var data = { productOrderId: productOrderId };
+        var productName = "";
+        $.post(url, data, function (result) {
+            if (result == "True") {
+                alert("当前订单有其他申请未完成，不能申请退款！");
+                return false;
+            }
+            else {
+                url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/GetProductOrder"))";
+                data = { orderId: productOrderId };
+                $.post(url, data, function (result) {
+                    if (result != null) {
+                        var data = eval(result);
+                        if (data != "") {
+                            $("#refundProductOrderId").text(data.LID);
+                            productName = data.ProductName;
+                        }
+                    }
+                    else {
+                        alert("获取信息失败！");
+                    }
+                });
+            }
+        });
+
+        // 查看总订单是否有未完成的申请
+        url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/Common/GetOrderTransaction"))";
+        data = { orderId: summaryOrderId, searchProductOrder: false };
+        $.post(url, data, function (result) {
+            if (result == "True") {
+                alert("当前订单有其他申请未完成，不能申请退款！");
+                return false;
+            }
+            else {
+                if (confirm("退款操作需要经买方同意才能退款，是否确认退款操作？")) {
+
+                    $("#info").hide();
+                    url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/GetOrder"))";
+                    data = { orderId: summaryOrderId };
+                    $.post(url, data, function (result) {
+                        if (result != null) {
+                            var data = eval(result);
+                            if (data != "") {
+                                $("#refundOrderId").text(data.LID);
+                                $("#refundOrderNum").text(data.OrderNum);
+                                $("#refundOrderAmount").text(data.TotalAmount.toFixed(2));
+                                $("#refundOrderHasAmount").text(data.ActualReceivableAmount.toFixed(2));
+                                $("#refundOrderBalance").text(parseFloat(data.TotalAmount - data.ActualReceivableAmount).toFixed(2));
+                                $("#refundProductName").text(productName);
+                                $("#refundModal").modal('show');
+                            }
+                        }
+                        else {
+                            alert("获取信息失败！");
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function RefundOrderSave()
+    {
+        var orderId = $("#refundOrderId").text();
+        var productOrderId = $("#refundProductOrderId").text();
+        var refundAmount = $("#refundAmount").val();
+        var balanceAmount = $("#refundOrderBalance").text();
+        var reason = $("#refundReason").val();
+        if (refundAmount == "") {
+            alert("请填写退款金额");
+            return false;
+        }
+
+        if (isNaN(parseFloat(refundAmount)))
+        {
+            alert("退款金额格式错误，请修改。");
+            return false;
+        }
+
+        if (parseFloat(refundAmount) > parseFloat(balanceAmount))
+        {
+            alert("当前订单的剩余金额为" + parseFloat(balanceAmount).toFixed(2) + "元， 退款金额不能大于该金额");
+            return false;
+        }
+
+        var data = { orderId: orderId, productOrderId: productOrderId, refundAmount: refundAmount, reason: reason };
+        url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/RefundOrder"))";
+        $.post(url, data, function (result) {
+            if (result == "True") {
+                $("#divProductState_" + productOrderId).html("退款申请已发送");
+                $("#btnRefund_" + productOrderId).remove();
+                $("#refundModal").modal('hide');
+            }
+            else {
+                alert("操作失败!");
+            }
+        });
+    }
+
+    //分批收款
+    function BathPaying(orderId) {
+        var url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/Common/GetOrderTransaction"))";
+        var data = { orderId: orderId, searchProductOrder: true };
+        $.post(url, data, function (result) {
+            if (result == "True") {
+                alert("当前订单有其他申请未完成，不能申请分批收款！");
+                return false;
+            }
+            else {
+                $("#txtapplyAmount").val('');
+                $("#info").hide();
+                url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/GetOrder"))";
+                $.post(url, data, function (result) {
+                    if (result != null) {
+                        var data = eval(result);
+                        if (data != "") {
+                            $("#orderId").val(data.LID);
+                            $("#orderNum").text(data.OrderNum);
+                            $("#orderAmount").text(data.ActualPayableAmount.toFixed(2));
+                            $("#orderHasAmount").text(data.ActualReceivableAmount.toFixed(2));
+                            $("#orderBalance").text(parseFloat(data.ActualPayableAmount - data.ActualReceivableAmount).toFixed(2));
+                        }
+                    }
+                    else {
+                        alert("获取信息失败！");
+                    }
+                });
+
+                $("#myModal").modal('show');
+            }
+        });
+    }
+
+    function BathPayingSave() {
+        var orderBalance = $("#orderBalance").text();
+        var applyAmount = $("#txtapplyAmount").val();
+        if (!applyAmount || applyAmount == "") {
+            $("#info").html("请填写申请收取金额");
+            $("#info").show();
+            return false;
+        }
+
+        if (parseFloat(applyAmount) <= 0)
+        {
+            $("#info").html("申请收取金额必须大于0。");
+            $("#info").show();
+            return false;
+        }
+
+        if (parseFloat(orderBalance) >= parseFloat(applyAmount)) {
+            if (confirm("是否确认申请分批收款操作？")) {
+                var url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/BathPaying"))";
+                var data = { orderId: $("#orderId").val(), applyAmount: applyAmount };
+                $.post(url, data, function (result) {
+                    if (result == "True") {
+                        $("#myModal").modal('hide');
+                        $("#divState_" + $("#orderId").val()).html("收款申请已发送");
+                    }
+                    else {
+                        alert("操作失败!");
+                    }
+                });
+            }
+        }
+        else {
+            $("#info").html("申请收取金额不能大于待收服务费");
+            $("#info").show();
+        }
+    }
+
+    //卖家退款
+    function BuyerRefund(summaryorderId, productorderId, transId, transAmount, approval) {
+        var val = approval == 1 ? "同意" : "拒绝";
+        if (confirm("是否确定" + val + "买家的退款申请？")) {
+            var url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/BuyerRefund"))";
+            var data = { orderId: summaryorderId, productOrderId : productorderId, TransID: transId, TransAmount: transAmount, approval: approval };
+            $.post(url, data, function (result) {
+                if (result == "True") {
+                    $("#divProductState_" + productorderId).html("订单处理中");
+                    $("#btnRefund_" + productorderId).remove();
+                    $("#btnBathPaying_" + productorderId).remove();
+                }
+                else {
+                    alert("操作失败!");
+                }
+            });
+        }
+    }
+
+    //修改订单金额
+    function UpdateOrderAmount(orderId, amount) {
+        $("#amountOrderId").text(orderId);
+        $("#amountOrderAmount").text(Number(amount).toFixed(2));
+        $("#infoamount").hide();
+        $("#txtAmount").val("");
+        $("#amountModal").modal('show');
+    };
+
+    function UpdateOrderAmountSave() {
+        var orderId = $("#amountOrderId").text();
+        var amount = $("#txtAmount").val();
+        if (amount == "") {
+            $("#infoamount").html("请填写修改金额");
+            $("#infoamount").show();
+            return false;
+        }
+
+        if (!amount)
+        {
+            $("#infoamount").html("您输入的金额，不是有效的数字");
+            $("#infoamount").show();
+            return false;
+        }        
+
+        if (amount <= 0)
+        {
+            $("#infoamount").html("金额必须大于0");
+            $("#infoamount").show();
+            return false;
+        }
+
+        if (confirm("是否确认修改金额操作？")) {
+            var url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/UpdateOrderAmount"))";
+            var data = { orderId: orderId, amount: amount };
+            $.post(url, data, function (result) {
+                if (result == "True") {
+                    //window.location.href = "../ProductOrder/ProductOrderList";
+                    $("#amountModal").modal('hide');
+                    $("#searchForm").submit();
+                }
+                else {
+                    alert("修改订单金额失败。");
+                }
+            });
+        }
+    }
+
+    //发货
+    function Delivery(orderId, isRecuring) {
+        // 查看订单是否有未完成的申请
+        var url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/Common/GetOrderTransaction"))";
+        var data = { orderId: orderId, searchProductOrder: true };
+
+        $.post(url, data, function (result) {
+            if (result == "True") {
+                alert("当前订单有其他申请未完成，不能发货！");
+                return false;
+            }
+            else {
+                ShowDeliveryModel(orderId, isRecuring)
+            }
+        });
+    }
+
+    function ShowDeliveryModel(orderId, isRecuring)
+    {
+        if (isRecuring == "False") {
+            // 没有循环计费，直接发货
+            OrderSend(orderId);
+        }
+        else {
+            url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/GetOrder"))";
+            data = { orderId: orderId };
+            $.post(url, data, function (result) {
+                console.log(result);
+                if (result != null) {
+                    var data = eval(result);
+                    if (data != "")
+                    {
+                        $("#deliveryOrderId").val(data.LID);
+                        $("#deliveryOrderNum").text(data.OrderNum);
+                    }
+                }
+            });
+
+            // 有循环计费，需要填写截止日期
+            url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/GetRecuringReadyToSendProductOrderList"))";
+            data = { orderId: orderId };
+            $.get(url, data, function (result) {
+                console.log(result);
+                if (result != null) {
+                    $("#rowOrderNum").nextAll().empty();
+                    $("#rowOrderNum").after(UT.tplRender($("#OrderDeliveryTpl").html(), {
+                        datas: result
+                    }));
+                    $("#deliveryModal").modal('show');
+                }
+            });
+        }
+    }
+
+    // 提交发货信息
+    function DeliverySave()
+    {
+        var orderId = $("#deliveryOrderId").val();
+        var productOrderID = $(".deliveryProductOrderId");
+        var dueDate = $(".deliveryDueDate");
+        var orderList = new Array();
+        var success = true;
+        $.each(productOrderID, function (i, item) {
+            var value = $(item).val();
+            if (value == "")
+            {
+                success = false;
+                return false;
+            }
+            orderList[i] = value;
+        });
+
+        if (success == false)
+        {
+            $("#deliveryInfo").html("获取订单信息失败。");
+            $("#deliveryInfo").show();
+
+            return;
+        }
+
+        success = true;
+        var dateList = new Array();
+        $.each(dueDate, function (i, item) {
+            var value = $(item).val();
+            if (value == "") {
+                success = false;
+                return false;
+            }
+            dateList[i] = value;
+        });
+
+        if (success == false) {
+            $("#deliveryInfo").html("请输入截止日期。");
+            $("#deliveryInfo").show();
+            return;
+        }
+
+        var j;
+        var createServiceSuccess = new Array();
+        for (j = 0; j < orderList.length; j++)
+        {
+            var productOrderId = orderList[j];
+            var dueDate = dateList[j];
+
+            var url = ucConfig.ServerReferenceCrowdSourcingAPI + "/ServiceManagement/CreateService";
+            var data = { orderId: productOrderId, dueDate: dueDate, organizationId: "@SessionHelper.Identity.OrgainzationID" };
+            $.get(url, data, function (result) {
+                if (result != null) {
+                    var data = eval(result);
+                    if (data != "") {
+                        if (data.Success == true) {
+                            createServiceSuccess[j] = true;
+                        }
+                        else {
+                            alert("发货失败。原因： " + data.Msg);
+                            createServiceSuccess[j] = false;
+                        }
+                    }
+                    else {
+                        alert("发货失败。")
+                        createServiceSuccess[j] = false;
+                    }
+                }
+                else {
+                    alert("发货失败！");
+                    createServiceSuccess[j] = false;
+                }
+            });
+        }
+
+        var hasFailed = false;
+        $.each(createServiceSuccess, function (i, item) {
+            if (item == false) {
+                hasFailed = true;
+                return false;
+            }
+        });
+
+        if (hasFailed == false) {
+            $("#deliveryModal").modal('hide');
+            OrderSend(orderId);
+        }
+    }
+
+    function OrderSend(orderId) {
+        var data = { orderId: orderId };
+        var url = "@(Request.Url.Scheme+"://"+Request.Url.Host+Url.Content("~/ProductOrder/SendOrder"))";
+        $.post(url, data, function (result) {
+            if (result == "True") {
+                $("#divState_" + orderId).html("待收货");
+                $("#btnDelivery_" + orderId).remove();
+                $("#btnBathPaying_" + orderId).remove();
+            }
+            else {
+                alert("发货失败!");
+            }
+        });
+    }
+
+    function GetCurrentDate()
+    {
+        var tomorrow = new Date();
+        tomorrow.setDate(new Date().getDate() + 1);
+        var year = tomorrow.getFullYear();
+        var month = tomorrow.getMonth() + 1;
+        var day = tomorrow.getDate();
+        var hh = tomorrow.getHours();
+        var mm = tomorrow.getMinutes();
+        var clock = year + "-";
+        if (month < 10)
+            clock += "0";
+        clock += month + "-";
+        if (day < 10)
+            clock += "0";
+        clock += day + " ";
+        if (hh < 10)
+            clock += "0";
+        clock += hh + ":";
+        if (mm < 10) clock += '0';
+        clock += mm;
+        return (clock);
+    }
+</script>

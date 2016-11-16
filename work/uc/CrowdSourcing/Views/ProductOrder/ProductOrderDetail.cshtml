@@ -1,0 +1,166 @@
+﻿@using ZCPT.CrowdSourcing.Entity
+@model ZCPT.CrowdSourcing.Entity.ProductOrderModule.CSOrderList
+@{
+    ViewBag.Title = "订单详情";
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+<link rel="stylesheet" href="~/Content/css/productorderDetail.css"/>
+<div class="order-state">
+<span class="order-statea">订单状态：</span><span class="order-type"> @ZCPT.CrowdSourcing.Web.InfrastructureExtension.EnumHelper.ToEnumDescriptionString(Model.Status, typeof(EmployerSummaryOrderStatus))</span>
+    </div>
+<div class="row order-details">
+
+<p class="order-detail"> 订单详情</p>
+<p class="consigeaddress"> 收货地址： <span>@Model.BuyerAddress</span></p>
+</div>
+<div class="row buyer-information">
+<p class="buyer-info"> 买家信息</p>
+<div class="col-sm-4">
+<p>姓名： @ViewBag.BuyerName </p>
+<p class="order-city">城市： @ViewBag.BuyerCityName</p>
+    </div>
+    <div class="col-sm-4">
+    <p>手机号：@ViewBag.BuyerPhone </p>
+    </div>
+    <div class="col-sm-4">
+    <p>邮箱：@ViewBag.BuyerEmail</p>
+    </div>
+    </div>
+
+
+<div class="row order-information">
+<p class="order-info"> 订单信息：</p>
+<div class="col-sm-4">
+<p>订单号：@Model.OrderNum</p>
+<p class="pay-time">付款时间：@(Model.PaidDate == DateTimeOffset.MinValue ? "" : Model.PaidDate?.ToString("g"))</p>
+    </div>
+    <div class="col-sm-4">
+    <p> 交易号：@Model.LID </p>
+    <p>发货时间：@(Model.SentDate == DateTimeOffset.MinValue ? "" : Model.SentDate?.ToString("g"))</p>
+    </div>
+    <div class="col-sm-4">
+    <p> 创建时间：@(Model.CreationDate == DateTimeOffset.MinValue ? "" : Model.CreationDate.ToString("g"))</p>
+    <p>成交时间：@(Model.CompletedDate == DateTimeOffset.MinValue ? "" : Model.CompletedDate?.ToString("g"))</p>
+
+    </div>
+    </div>
+
+   
+
+<table cellspacing="0" cellpadding="0" class="order-table order-tabletr">
+    <thead class="order-thead">
+        <tr>
+            <th class="s-title s-shop">店铺宝贝<hr /></th>
+            <th class="s-title s-shopstate">宝贝状态<hr /></th>
+            <th class="s-price s-shopprice">单价(元)<br />基础费/月费(元)<hr /></th>
+            <th class="s-amount s-shopamount">数量<hr /></th>
+            <th class="s-total">小计(元)<hr /></th>
+            <th class="s-agio">给卖家的留言<hr /></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            if (Model != null)
+            {
+
+                @*<tr class="first"><td colspan="5"></td></tr>*@
+                <tr class="shop blue-line">
+                    <td colspan="6">
+                       
+                        <span class="seller">
+                            店铺：<a href="javascript:void(0)" onclick="window.open('../shop/details?id=@(Model.CSShopID)')" title="@Model.ShopName">@Model.ShopName</a>
+                        </span>
+                        <span class="seller seller-sell">卖家：<a href="javascript:void(0)">@Model.SellerName</a></span>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td colspan="6">
+                            <table cellspacing="0" cellpadding="0" class="order-table">
+                                <tbody>
+                                    @foreach (var subItem in Model.ProductOrderList)
+                                    {
+                                        <tr class="item">
+                                            <td class="s-title s-titlecontent">
+                                                <a href="javascript:void(0)" onclick="window.open('../productlist/ProductDetail?id=@(subItem.CSProductID)')" title="@subItem.ProductName">
+                                                    <img src="@string.Format("{0}{1}", System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"], "/fileupload/ImgDownload/" + subItem.IconID)" class="Modelpic"><span class="title">@subItem.ProductName</span>
+                                                </a>
+                                            </td>
+                                            <td class="order-condition s-condition">
+                                                @ZCPT.CrowdSourcing.Web.InfrastructureExtension.EnumHelper.ToEnumDescriptionString(subItem.Status, typeof(ProductOrderStatus))
+                                            </td>
+                                            <td class="s-price order-price">
+                                                <span class='price '>
+                                                    @if (subItem.IsRecuring)
+                                                    {
+                                                        <em class="style-normal-small-black">
+                                                            @subItem.BaseFee.ToString("0.00")/@subItem.MonthlyFee.ToString("0.00")
+                                                        </em>
+                                                    }
+                                                    else
+                                                    {
+                                                        <em class="style-normal-small-black">
+                                                            @subItem.ProPrice.ToString("0.00")
+                                                        </em>
+                                                    }
+                                                </span>
+                                            </td>
+                                            <td class="s-amount order-amount" data-point-url="">
+                                            <span> @subItem.Num</span>
+                                            </td>
+                                            <td class="s-agio">
+                                                @subItem.TotalAmount.ToString("0.00")
+                                            </td>
+                                            <td class="order-message">
+                                            <a href="javascript:void(0);" style="color:blue;" onclick="showRequirement('@subItem.Requirement')"><img src="~/Content/img/message.jpg"/></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="Model-service">
+                        <td colspan="6" class="servicearea" style="display: none"></td>
+                    </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="requirementModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">给卖家的留言</h4>
+            </div>
+            <div id="divData" class="modal-body">
+                <div class="container-fluid">
+                    <div class="row" id="rowOrderNum">
+                        <div class="col-md-12">
+                            <span id="spanRequirement"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <p id="refundInfo" style="display:none;" class="text-warning"></p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+
+<script type="text/javascript">
+    function showRequirement(requirement)
+    {
+        $("#spanRequirement").text(requirement);
+        $("#requirementModal").modal('show');
+    }
+
+</script>

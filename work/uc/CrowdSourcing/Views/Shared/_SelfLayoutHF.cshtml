@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (ViewBag.SelfNav == null)
+    {
+        ViewBag.SelfNav = new List<UCFramework.Infrastructure.SDK.MenuAPI.Menu>();
+    }
+
+    //ViewBag.SelfNav = new List<UCFramework.Infrastructure.SDK.MenuAPI.Menu>();
+    ViewBag.SelfNav.Add(new UCFramework.Infrastructure.SDK.MenuAPI.Menu() { MenuName = "服务商城首页", MenuUrl = ConfigurationHelper.ServerReference.CrowdSourcing + "/home/index", OrderNum = 10, IsHidden = false, MenuKey = "Product", ParentID = 0, ID = 10, LinkTargetType = string.Empty, CategoryName = string.Empty, CategoryKey = string.Empty, MenuRole = string.Empty, CategoryOrderNum = 0 });
+    ViewBag.SelfNav.Add(new UCFramework.Infrastructure.SDK.MenuAPI.Menu() { MenuName = "服务库", MenuUrl = ConfigurationHelper.ServerReference.CrowdSourcing+"/productlist/productlist", OrderNum = 20, IsHidden = false, MenuKey = "Product", ParentID = 0, ID = 20, LinkTargetType = string.Empty, CategoryName = string.Empty, CategoryKey = string.Empty, MenuRole = string.Empty, CategoryOrderNum = 0 });
+    ViewBag.SelfNav.Add(new UCFramework.Infrastructure.SDK.MenuAPI.Menu() { MenuName = "店铺街", MenuUrl = ConfigurationHelper.ServerReference.CrowdSourcing + "/service/shoplists", OrderNum = 30, IsHidden = false, MenuKey = "Product", ParentID = 0, ID = 30, LinkTargetType = string.Empty, CategoryName = string.Empty, CategoryKey = string.Empty, MenuRole = string.Empty, CategoryOrderNum = 0 });
+    ViewBag.SelfNav.Add(new UCFramework.Infrastructure.SDK.MenuAPI.Menu() { MenuName = "我是服务商", MenuUrl = ConfigurationHelper.ServerReference.CrowdSourcing + "/product/productlist", OrderNum = 40, IsHidden = false, MenuKey = "Product", ParentID = 0, ID = 40, LinkTargetType = string.Empty, CategoryName = string.Empty, CategoryKey = string.Empty, MenuRole = string.Empty, CategoryOrderNum = 0 });
+    ViewBag.SelfNav.Add(new UCFramework.Infrastructure.SDK.MenuAPI.Menu() { MenuName = "我是雇主", MenuUrl = ConfigurationHelper.ServerReference.CrowdSourcing + "/employerorder/employerorderList", OrderNum = 50, IsHidden = false, MenuKey = "Product", ParentID = 0, ID = 50, LinkTargetType = string.Empty, CategoryName = string.Empty, CategoryKey = string.Empty, MenuRole = string.Empty, CategoryOrderNum = 0 });
+    ViewBag.SelfNav.Add(new UCFramework.Infrastructure.SDK.MenuAPI.Menu() { MenuName = "购物车", MenuUrl = ConfigurationHelper.ServerReference.CrowdSourcing + "/shoppingcard/index", OrderNum = 60, IsHidden = false, MenuKey = "Product", ParentID = 0, ID = 60, LinkTargetType = string.Empty, CategoryName = string.Empty, CategoryKey = string.Empty, MenuRole = string.Empty, CategoryOrderNum = 0 });
+
+
+}
+@section FrameHeader
+{
+    @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Header(new UCFramework.Infrastructure.SDK.MenuAPI().GetPublicHeaderMenu()))
+}
+
+@section FrameNav
+{
+@Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Advertisement())
+    @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Search())
+   @{var menus = new UCFramework.Infrastructure.SDK.MenuAPI().GetProductMenu();
+       menus.AddRange(ViewBag.SelfNav);
+           }
+    @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().CategoryNav(menus))
+
+}
+@section FrameFooter
+{
+    @Html.Raw(new UCFramework.Infrastructure.SDK.MenuAPI().Footer())
+}
+@RenderBody()
+@section scripts
+{
+    @RenderSection("scripts", required: false)
+}
+@section scriptlink
+{
+    @RenderSection("scriptlink", required: false)
+}
+@section csslink
+{
+    @RenderSection("csslink", required: false)
+}
+
+

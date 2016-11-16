@@ -1,0 +1,54 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>显示图表</title>
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+    var gg = "dsafdsafdsafdsafsdaf";
+
+    function ggMM() {
+        alert("2222222222222222222222222222222");
+    }
+
+    function callIframeMethod() {
+        //document.getElementById("sub1").contentWindow.test();
+        $("#sub1")[0].contentWindow.test(); //用jquery调用需要加一个[0]
+    }
+
+    function callIframeField() {
+        alert($("#sub1")[0].contentWindow.ff);
+    }
+
+    function callIframeHtml() {
+        alert($("#sub1")[0].contentWindow.$("#dd").val());
+        //alert($("#sub1")[0].contentWindow.document.getElementById("dd").value);
+        //alert($("#sub1")[0].contentWindow.document.getElementById("dd").value);                
+    }
+
+    function giveParameter() {
+        $("#sub1")[0].contentWindow.hellobaby = "main-111-222";
+    }
+    $(function() {
+
+        $("#sub1")[0].contentWindow.onload= function() {
+            var sub1text = $("#sub1")[0].contentWindow.$("#dd").val();
+            alert(sub1text);
+        }
+
+    })
+    </script>
+</head>
+
+<body>
+    <a href="#" onClick="giveParameter();">参数传递</a>
+    <a href="#" onClick="callIframeMethod();">调用子iframe方法</a>
+    <a href="#" onClick="callIframeField();">调用子iframe变量</a>
+    <a href="#" onClick="callIframeHtml();">调用子iframe组件</a>
+    <br/>
+    <iframe id="sub1" name="sub1" src="sub1.html" width="100%" frameborder="0"></iframe>
+    <iframe id="new" src="sub2.html" width="100%" frameborder="0"></iframe>
+</body>
+
+</html>

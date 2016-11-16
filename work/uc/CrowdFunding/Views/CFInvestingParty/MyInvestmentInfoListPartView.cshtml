@@ -1,0 +1,155 @@
+﻿@using ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule
+@using UCFramework.Infrastructure.Web
+@using Webdiyer.WebControls.Mvc
+@model PagedList<InvestmentInfoItem>
+
+
+<table class="table section-table table-bordered table-hover table-striped table-condensed js-table">
+    <caption>
+        <button class="btn pull-right" type="button">
+            共<span class="badge">@Model.TotalItemCount</span>条记录
+        </button>
+    </caption>
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                基金名称
+            </th>
+            <th>
+                申请项目
+            </th>
+            <th>
+                项目联系人
+            </th>
+            
+            <th>
+                投资类型
+            </th>
+            <th>
+                申请状态
+            </th>
+            <th>
+                申请时间
+            </th>
+            <th>
+                申请金额
+            </th>
+            <th>
+                真实投资金额
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="center">
+                    @(item.CFInvestmentInfoID)
+                    <input type="hidden" id="CFInvestmentInfoID" name="dataID@(item.CFInvestmentInfoID)" value="@(item.CFInvestmentInfoID)" />
+                </td>
+                <td class="center">
+                    <a href="@(Url.Action("Fund", "CFInvestingParty", new { id = item.CFFundID }))">@(item.FundName)</a>
+                </td>
+                <td class="center">
+                    @if (item.CFInvestmentCategoryID == 3)
+                    {
+                        <a href="@(Url.Action("GetProjectBasis", "CFProject", new { id = item.CFProjectId }))">@Html.Raw(item.ProjectName)</a>
+                    }
+                    else
+                    {
+                        <a href="@(Url.Action("financingdetails", "CFProject", new { id = item.CFProjectId }))">@Html.Raw(item.ProjectName)</a>
+                    }
+                </td>
+                <td class="center">
+                    <a href="">@(item.ProjectCreaterName)</a>
+                </td>
+                <td class="center">
+                    @(item.InvestmentCategory)
+                </td>
+                <td class="center">
+                    @(ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetDescription(item.Status))
+                </td>
+                <td class="center">
+                    @(item.CreationTime)
+                </td>
+                <td class="center">
+                    @(item.InvestmentAmount)
+                </td>
+                <td class="center js-realInvestmentAmount">
+                    @(item.RealInvestmentAmount)
+                </td>
+                <td class="center">
+                    <input type="hidden" name="AmountUnits@(item.CFInvestmentInfoID)" value="@(ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetDescription(item.AmountUnits))" />
+
+                    @if (item.Status == ZCPT.CrowdFunding.Entity.InvestmentInfo_Status.Accepted)
+                    {
+                        <input type="button" class="btn btn-default btn-sm" style="vertical-align:middle;" name="updateInvestmentInfoStatus_Approved" value="确认投资" fid="@(item.CFInvestmentInfoID)"/>
+                    }
+                    else if (item.Status == ZCPT.CrowdFunding.Entity.InvestmentInfo_Status.Verifing)
+                    {
+                        <input type="button" class="btn btn-default" style="vertical-align:middle;" name="updateInvestmentInfoStatus_Approved" value="确认投资" disabled="disabled" fid="@(item.CFInvestmentInfoID)" />
+                    }
+                    else
+                    {
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-center">
+    @Ajax.Pager(Model, new PagerOptions
+{
+    PageIndexParameterName = "page",
+    ContainerTagName = "ul",
+    CssClass = "pagination pagination-centered",
+    CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+    DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+    PagerItemTemplate = "<li>{0}</li>",
+    PageIndexBoxId = "PageCurrentIndex",
+    GoToButtonId = "btnGo"
+},
+    new MvcAjaxOptions
+    {
+        UpdateTargetId = "searchResult",
+        HttpMethod = "Post",
+        DataFormId = "searchForm"
+    })
+    <ul class="pagination pagination-centered">
+        <li><span>共<font>@Model.TotalPageCount</font>页</span></li>
+        <li><span>共<font>@Model.TotalItemCount</font>条</span></li>
+        <li>
+            <div class="input-group">
+
+                <input type="text" class="form-control" id="PageCurrentIndex" placeholder="">
+                <span class="input-group-addon" id="sizing-addon1">页</span>
+                <span class="input-group-btn"><button class="btn btn-default" type="button" id="btnGo">跳转</button></span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<input type="hidden" name="hiddenInvestmentInfoStatus_Approved" value="@((int)ZCPT.CrowdFunding.Entity.InvestmentInfo_Status.Approved)" />
+
+<input type="hidden" value="@SessionIdentity.Instance.AccountID" id="CreatorID" name="UCAccountID"/>
+<input type="hidden" value="@SessionIdentity.Instance.OrgainzationID" id="OrganizationID" name="PCOrgainzationID"/>
+
+<script type="text/javascript">
+    var _AccountID = "@SessionIdentity.Instance.AccountID";
+    var _OrgainzationID = "@SessionIdentity.Instance.OrgainzationID";
+</script>
+<script type="text/html" id="investH">
+    
+        <div>
+            确认投资金额:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="investsum" value="" /><span>万元</span>
+        </div>
+     
+</script>
+<script src="~/Scripts/js/app/MyinvestmentInfoView.js"></script>

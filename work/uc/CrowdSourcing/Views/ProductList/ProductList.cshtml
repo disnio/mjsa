@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "服务库";
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+}
+@using ZCPT.CrowdSourcing.Web.Models.ServiceProviderModule
+@model List<CSProductModel>
+
+@*@Html.Partial("../Service/ShopAndProductTab")*@
+@using (Html.BeginForm("productlist", "productlist", FormMethod.Get, new { role = "form", @class = "form-horizontal", id = "form1" }))
+{
+    @*<div class="col-sm-2"></div>
+    <div class="col-sm-5">
+        <input type="text" value="@ViewBag.Name" id="name" name="name" class="form-control"/>
+    </div>
+    <div class="col-sm-5">
+        <input type="submit" id="btnSearch" value="搜索" class="btn btn-info" />
+        </div>*@
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/yc_productlist.css"  />
+<div class="row yc_container">
+    <div class="col-md-8 yc_left">
+            <ul class="row yc_list" id="yc_list01"></ul>
+    </div>
+    <div class="col-md-4">
+        <div class="yc_right">
+            <div class="recommend_top">优质服务推荐</div>
+            <ul class="recommend" id="recommend01"></ul>
+        </div>
+    </div>
+</div>
+<!-- 左侧服务库列表 -->
+  <script type="text/template" id="productListTpl">
+
+    <%_.each(datas, function(item, i){ %>
+        <li class="col-md-4">
+            <div class="img_box">
+                <a href="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceCrowdSourcing"])/productlist/productdetail/<%= item.ID %>"><img src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"])/fileupload/ImgDownload/<%= item.IconID %>"/></a>
+                <dl class="mess_yc">
+                    <dd><a href="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceCrowdSourcing"])/productlist/productdetail/<%= item.ID %>"><%= item.Name %></a></dd>
+                    <dd class="yc_price"><%= item.Price %> 元</dd>
+                </dl>
+                <dl class="jc_yc">
+                    <dd class="jc_title"><%= item.Shop %></dd>
+                    <dd class="yc_description"><%= item.Description %></dd>
+                </dl>
+            </div>
+        </li>
+    <%}); %>
+</script>
+<!-- 右侧优质服务推荐列表 -->
+  <script type="text/template" id="productServiceTpl">
+
+    <%_.each(datas, function(item, i){ %>
+        <li class="row">
+            <div class="col-md-4">
+                <a href="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceCrowdSourcing"])/productlist/productdetail/<%= item.ID %>"><img src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"])/fileupload/ImgDownload/<%= item.IconID %>"/></a>
+            </div>
+            <div class="col-md-8">
+                <dl class="mess_yc mess_yc01">
+                    <dd><a href="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceCrowdSourcing"])/productlist/productdetail/<%= item.ID %>"><%= item.Name %></a></a></dd>
+                    <dd class="yc_price"><%= item.Price %> 元</dd>
+                    <dd class="comm_yc"><%= item.Description %></dd>
+                </dl>
+            </div>
+        </li>
+    <%}); %>
+</script>
+<script src="~/Scripts/js/app/productList.js"></script>
+
+
+
+

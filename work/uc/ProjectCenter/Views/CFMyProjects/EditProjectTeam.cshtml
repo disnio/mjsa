@@ -1,0 +1,97 @@
+﻿@{ViewBag.ContentName = "股东团队说明";}
+@model ZCPT.ProjectCenter.Web.Models.ProjectTeamsModel
+
+@Html.Partial("_ProjectTab", new ZCPT.ProjectCenter.Web.Models.ComponentModule.ProjectEditTabModule() { ID = Model.ID, Current = nameof(ZCPT.ProjectCenter.Web.Models.ProjectTeamsModel) })
+
+<link href="~/Scripts/UMEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/js/app/EditProjectTeam.js"></script>
+
+@*<DIV class="tit"><SPAN class="num">1</SPAN>股东团队说明</DIV>*@
+@using (Html.BeginForm("EditProjectTeam", "CFMyProjects", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        @Html.HiddenFor(m=>m.ID)
+        <table class="table">
+            <tbody>
+            @for (int i = 0; i < Model.TeamMembers.Count; i++)            
+            {
+                <tr id="s22">
+                    <th>姓名</th>
+                    <th>职务</th>
+                    <th>是否全职</th><!-- 新增  钟06.21 -->
+                    <th>所占股份(%)</th>
+                    <th>实际出资金额(万)</th>
+                    <th>与其他股东历史关系描述</th>
+                    <th width="100">操作</th>
+                </tr>
+                <tr id="s0" >
+                    <td>
+                        @Html.HiddenFor(M => M.TeamMembers[i].ID)
+                        @Html.TextBoxFor(M => M.TeamMembers[i].Name, new { @class = "form-control", Style = "min-width: 90px;width: 90px;" })
+                        @Html.ValidationMessageFor(M => M.TeamMembers[i].Name, "", new { style = "color:red; " })
+                    </td>
+                    <td>@Html.TextBoxFor(M => M.TeamMembers[i].Position, new { @class = "form-control", Style = "min-width: 100px;width: 100px;" })</td>
+                    <td>
+                        @Html.DropDownListFor(M => M.TeamMembers[i].WorkTypeID, ((IEnumerable<SelectListItem>)ViewBag.WorkTypes).Select(p => new SelectListItem() { Text = p.Text, Value = p.Value, Selected = p.Value == Model.TeamMembers[i].WorkTypeID.ToString() }), new { @class = "form-control", Style = "min-width: 100px;width: 100px;" })
+                    </td>
+                    <td>
+                        <div class="input-group" style="min-width: 65px;width: 65px;">
+                            @Html.TextBoxFor(M => M.TeamMembers[i].Stake, new { @class = "form-control", style = "min-width: 55px;width: 55px;" })
+                            <span class="input-group-addon">%</span>
+                        </div>
+                        @Html.ValidationMessageFor(M => M.TeamMembers[i].Stake, "", new { style = "color:red; " })
+                    </td>
+                    <td>@Html.TextBoxFor(M => M.TeamMembers[i].InvestmentAmount, "{0:f2}", new { @class = "form-control", Style = "min-width: 100px;width: 100px;" })</td>
+                    
+                    <td>@Html.TextBoxFor(M => M.TeamMembers[i].Relationship, new { @class = "form-control" })</td>
+                    <td id="33">
+                        <a href="javascript:void(0);" Class="btn6 btn btn-info" role="button">删除</a>
+
+                        @Html.HiddenFor(M => M.TeamMembers[i].StatusID)
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7" style="text-align: left; font-weight:bold;">
+                        &nbsp; 简介：
+                    </td>
+                </tr>
+                <tr>
+                    <TD colspan="7" style="text-align: left;">
+                        @Html.TextAreaFor(M => M.TeamMembers[i].Introduction, 4, 20, new { style = "width: 100%; height: 180px;" })
+                    </TD>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group text-center">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td colspan="7">
+                        <span class="t_c">
+                            <input type="submit" Class="btn6 btn btn-primary" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/InsertProjectTeam")")' value="增加成员" />
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group text-center">
+        <input class="btn2 btn btn-warning" name="updatebacksubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectTeam?Step=EditProjectBusinessPattern")")' value="上一步" />
+        &nbsp;
+        <input class="btn2 btn btn-warning" name="updatesubmit" type="submit" onclick='javascript: $("form").attr("action", "@Url.Content("~/CFMyProjects/UpdataProjectTeam?Step=EditProjectPerformance")")' value="下一步" />
+        <p class="text-danger">@Html.Label((string)ViewBag.ResultMassage ?? string.Empty)</p>
+    </div>
+}
+
+<script>
+    $(".btn6").click(function btn6() {
+        $(this).parent().children(':hidden').val(0);
+        $(this).closest('TR').hide();
+        $(this).closest('TR').prev().hide();
+        $(this).closest('TR').next().hide();
+        $(this).closest('TR').next().next().hide();
+    });
+</script>

@@ -1,0 +1,38 @@
+﻿@charset "UTF-8";
+/* CSS Document */
+.check{
+    width:100%;
+    height:200px;
+    padding:30px;
+}
+.check-self select{
+    width:150px;
+}
+.check-shopState select{
+    width:150px;
+}
+.check-category select {
+    width:150px;
+}
+.check-seller, .check-shopState, .check-shop, .check-Time, .check-self, .check-category{
+    float:left;
+    margin-top:20px;
+}
+
+.check-shopState{
+    margin-left:300px;
+   
+}
+ .check-Time{
+      margin-left:300px;
+ }
+
+.check-category {
+    margin-left:254px;
+}
+ .check-inquire{
+     float:left;
+     margin-left:520px;
+     width:80px;
+     margin-top:20px;
+ }

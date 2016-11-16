@@ -1,0 +1,129 @@
+﻿@using Webdiyer.WebControls.Mvc
+@using ZCPT.ProjectCenter.Entity.CFProjectModule
+@model PagedList<ZCPT.ProjectCenter.Web.Models.ProjectListViewModel>
+
+<div id="proList">
+    <table class="table section-table table-bordered table-hover table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>
+                    序号
+                </th>
+                <th>
+                    名称
+                </th>
+                <th>
+                    阶段
+                </th>
+                <th>
+                    融资金额
+                </th>
+                <th>
+                    已融金额
+                </th>
+                <th>
+                    状态
+                </th>
+                <th>
+                    申请人
+                </th>
+                <th>
+                    申请时间
+                </th>
+                <th>
+                    审核
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td class="center">
+                        @i.LID
+                    </td>
+                    <td class="center">
+                        @i.Name
+                    </td>
+                    <td class="center">
+                        @i.StageName
+                    </td>
+                    <td class="right">
+                        @string.Format("{0:f2}", i.FinancingAmount / 10000) 万
+                    </td>
+                    <td class="right">
+                        @(string.Format("{0:f2}", i.FinancedAmount / 10000)) 万
+                    </td>
+                    <td class="center">
+                        @i.StatusName
+                    </td>
+                    <td class="center">
+                        @i.CreatorName
+                    </td>
+                    <td class="center">
+                        @(i.CreationDate.ToString("yyyy-MM-dd"))
+                    </td>
+                    <td class="center">
+                        @Html.ActionLink("详细信息", "MyProject", new { ID = i.LID })
+                        @if (i.Status == ZCPT.ProjectCenter.Entity.CFProjectModule.CFProjectStatus.Auditing)
+                        {
+                            <a onclick="dealProjectApplication(@i.LID, @ZCPT.ProjectCenter.Entity.CFProjectModule.CFProjectStatus.Actived.ID);" href="#">通过</a>
+                            <a onclick="dealProjectApplication(@i.LID, @ZCPT.ProjectCenter.Entity.CFProjectModule.CFProjectStatus.Denied.ID);" href="#">拒绝</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        @Ajax.Pager(Model, new PagerOptions
+   {
+       FirstPageText = "首页",
+       LastPageText = "尾页",
+       NextPageText = "下页",
+       PrevPageText = "上页",
+       PageIndexParameterName = "pid",
+       ContainerTagName = "ul",
+       PageIndexBoxId = "PageCurrentIndex",
+       GoToButtonId = "btnGo",
+       CssClass = "pagination pagination-centered",
+       CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+       DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li >",
+       PagerItemTemplate = "<li>{0}</li>"
+   }).AjaxOptions(a => a.SetUpdateTargetId("proList").SetDataFormId("searchForm").SetHttpMethod("Post")).Options(o => o.DisableAutoHide())
+        <ul class="pagination pagination-centered">
+            <li><span>共<font>@Model.TotalPageCount</font>页</span></li>
+            <li><span>共<font>@Model.TotalItemCount</font>条</span></li>
+            @*<li>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="PageCurrentIndex" placeholder="">
+                    <span class="input-group-addon" id="sizing-addon1">页</span>
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" id="btnGo">跳转</button></span>
+                </div>
+            </li>*@
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    function dealProjectApplication(id, status) {
+        if (confirm("确定要进行此操作吗？")) {
+            $.ajax(
+            {
+                type: 'post',
+                url: 'DealProjectApplication?projId=' + id + '&status=' + status,
+
+                success: function (data) {
+                    alert('操作成功');
+                    location.reload();
+                },
+                error: function () {
+                    alert('操作失败');
+                }
+
+            });
+        }
+    }
+</script>

@@ -1,0 +1,44 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>显示图表1</title>
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+    var ff = "111sub";
+
+    function test() {
+        alert($("#dd").val());
+    }
+
+    function callMainField() {
+        alert(parent.gg);
+    }
+
+    function callMainMethod() {
+        parent.ggMM();
+    }
+
+    function callMainHtml() {
+        alert(parent.$("#sub1").attr("id"));
+    }
+
+    function getParameter() {
+        alert(window.hellobaby);
+    }
+
+    
+    </script>
+</head>
+
+<body>
+<h3>sub1</h3>
+    <a href="#" onClick="getParameter();">接受参数</a>
+    <a href="#" onClick="callMainMethod();">调用父iframe方法</a>
+    <a href="#" onClick="callMainField();">调用父窗口变量</a>
+    <a href="#" onClick="callMainHtml();">调用父iframe组件</a>
+    <input id="dd" type="text" value="sub111" />
+</body>
+
+</html>

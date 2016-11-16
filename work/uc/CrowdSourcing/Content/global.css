@@ -1,0 +1,106 @@
+.padding0tb {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.framesection {
+    min-height: 500px;
+    padding-top: 15px;
+}
+
+.frameheader {           
+}
+
+    .frameheader .nav A {
+        padding-top: 7px;
+        padding-bottom: 7px;
+       
+    }
+    .frameheader .navbar-nav > li>A,.frameheader .navbar-text,.frameheader .dropdown-menu > li{
+         font-size:12px;
+          color:#333;
+          font-family: "Microsoft YaHei";
+    }
+    .frameheader .navbar-text {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.framenav {
+    background: #009ec3;
+}
+
+    .framenav .navbar-brand {
+        padding-top: 2px;
+        padding-bottom: 0px;
+    }
+
+    .framenav .navbar-nav > li > a
+     {padding-top: 10px;
+        padding-bottom: 10px;
+        color: #fff;
+        font-size: 16px;
+    }
+     .framenav .navbar-header .navbar-text {
+         margin-top: 5px;
+         margin-left: 0px;
+          margin-bottom: 0px;
+        color: #fff;
+        font-size: 18px;
+    }
+    .framenav .navbar-header .badge {
+        font-size:12px;border: 1px solid #04b2da;-moz-border-radius: 15px;-webkit-border-radius: 15px; border-radius:15px; padding:2px 5px;
+        background-color: #009ec3;
+    }
+        .framenav .navbar-header .badge A {
+        color:#87e9ff; font-size:12px;font-family: "Microsoft YaHei";font-weight: 400;
+    }
+        .framenav .navbar-nav  {
+       padding-top: 10px;
+    }
+    .framenav .container {
+         padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .framenav .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+         background:#fff; position:relative; color:#333;
+    }
+
+.frameaside {
+}
+
+.framefooter {
+     
+}
+.framefooter .navbar-inverse{
+     background: #676060;
+}
+.framefooter .navbar-text{
+    float:none;
+    color:#ccc;
+    font-size:12px;
+}
+
+.btn-img {
+    border-color: #ccc;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    height: 34px;
+}
+
+.stepbar {
+    height: 36px;
+}
+
+    .stepbar .progress-bar {
+        line-height: 36px;
+    }
+
+        .stepbar .progress-bar .badge {
+            margin-top: 9px;
+            margin-left: 3px;
+        }
+
+/*CrowdSourcing/EmployerOrder/EmployerOrderList*/

@@ -1,0 +1,15 @@
+/*
+* @Author: anchen
+* @Date:   2016-06-01 13:37:46
+* @Last Modified by:   anchen
+* @Last Modified time: 2016-06-01 14:35:43
+*/
+*{font-family:"Microsoft YaHei";}
+.employer-right{}
+.employer-right h4{display:inline-block;border-bottom:solid 2px #009ec3;color:#009ec3;padding-bottom:5px;}
+.dl-horizontal{margin-top:30px;overflow:hidden;}
+.dl-horizontal dt{clear:none;width:180px;display:block;color:#666;font-weight:lighter;margin:10px 0;}
+.dl-horizontal dd{width:250px;float:left;display:block;color:#333;font-weight:bold;margin:10px 0;margin-left:20px;}
+.em-list{}
+.em-list a{width:150px;display:block;margin:30px auto;background-color:skyblue;font-size:14px;line-height:30px;color:#fff;text-align:center;border:solid 1px #009ec3;}
+.em-list a:hover{text-decoration:none;background-color:#009ec3;}

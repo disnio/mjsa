@@ -1,0 +1,177 @@
+<html ng-app="app" class="ng-scope">
+
+<head>
+    <style type="text/css">
+    @charset "UTF-8";
+    [ng\:cloak],
+    [ng-cloak],
+    [data-ng-cloak],
+    [x-ng-cloak],
+    .ng-cloak,
+    .x-ng-cloak,
+    .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+    }
+    
+    ng\:form {
+        display: block;
+    }
+    
+    .ng-animate-shim {
+        visibility: hidden;
+    }
+    
+    .ng-animate-anchor {
+        position: absolute;
+    }
+    </style>
+    <meta charset="utf-8">
+    <title>angular-toastr examples</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="css/toastr.css">
+    <link type="text/css" rel="stylesheet" href="css/custom.css">
+    <script src="vendor/angular.js"></script>
+    <script src="vendor/angular-animate.js"></script>
+    <script src="js/toastr.js"></script>
+    <script src="js/toastr.tpl.js"></script>
+    <script src="js/app.js"></script>
+</head>
+
+<body ng-controller="DemoCtrl" class="container ng-scope">
+    <script id="default.html" type="text/ng-template">
+        <div class="{{toastClass}} {{toastType}}" ng-click="tapToast()">
+            <div ng-switch on="allowHtml">
+                <div ng-switch-default ng-if="title" class="{{titleClass}}" aria-label="{{title}}">{{title}}</div>
+                <div ng-switch-default class="{{messageClass}}" aria-label="{{message}}">{{message}}</div>
+                <div ng-switch-when="true" ng-if="title" class="{{titleClass}}" ng-bind-html="title"></div>
+                <div ng-switch-when="true" class="{{messageClass}}" ng-bind-html="message"></div>
+            </div>
+            <progress-bar ng-if="progressBar"></progress-bar>
+        </div>
+    </script>
+    <a href="https://github.com/Foxandxss/angular-toastr"><img data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" src="https://github-camo.global.ssl.fastly.net/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" style="position: absolute; top: 0; right: 0; border: 0;"></a>
+    <h1 class="text-center">angular-toastr demo</h1>
+    <div class="well row col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="toastTitle">Title</label>
+                    <input type="text" placeholder="Toast title" id="toastTitle" class="form-control ng-pristine ng-untouched ng-valid" ng-model="toast.title">
+                </div>
+                <div class="form-group">
+                    <label for="toastMessage">Message</label>
+                    <textarea placeholder="Toast message" id="toastMessage" ng-model="toast.message" class="form-control ng-pristine ng-untouched ng-valid"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="toastButton">Close button html</label>
+                    <input type="text" ng-disabled="!options.closeButton" id="toastbutton" class="form-control ng-pristine ng-untouched ng-valid" ng-model="options.closeHtml" disabled="disabled">
+                </div>
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="options.newestOnTop" class="ng-pristine ng-untouched ng-valid"> New toasts on top?
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="options.tapToDismiss" class="ng-pristine ng-untouched ng-valid"> Tap to dismiss?
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="options.progressBar" class="ng-pristine ng-untouched ng-valid"> Progress bar
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="options.closeButton" class="ng-pristine ng-untouched ng-valid"> Close button?
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="options.html" class="ng-pristine ng-untouched ng-valid"> Allow html?
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="options.preventDuplicates" class="ng-pristine ng-untouched ng-valid"> Prevent duplicates
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="options.preventOpenDuplicates" class="ng-pristine ng-untouched ng-valid"> Prevent open duplicates
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="options.customTemplate" class="ng-pristine ng-untouched ng-valid"> Custom template
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Toast type</label>
+                    <label class="radio">
+                        <input type="radio" value="success" ng-model="options.type" class="ng-pristine ng-untouched ng-valid" name="3">Success
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="info" ng-model="options.type" class="ng-pristine ng-untouched ng-valid" name="4">Info
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="warning" ng-model="options.type" class="ng-pristine ng-untouched ng-valid" name="5">Warning
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="error" ng-model="options.type" class="ng-pristine ng-untouched ng-valid" name="6">Error
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Toast position</label>
+                    <label class="radio">
+                        <input type="radio" value="toast-top-right" ng-model="options.position" class="ng-pristine ng-untouched ng-valid" name="7">Top Right
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="toast-bottom-right" ng-model="options.position" class="ng-pristine ng-untouched ng-valid" name="8">Bottom Right
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="toast-bottom-left" ng-model="options.position" class="ng-pristine ng-untouched ng-valid" name="9">Bottom Left
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="toast-top-left" ng-model="options.position" class="ng-pristine ng-untouched ng-valid" name="10">Top Left
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="toast-top-full-width" ng-model="options.position" class="ng-pristine ng-untouched ng-valid" name="11">Top Full Width
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="toast-bottom-full-width" ng-model="options.position" class="ng-pristine ng-untouched ng-valid" name="12">Bottom Full Width
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="toast-top-center" ng-model="options.position" class="ng-pristine ng-untouched ng-valid" name="13">Top Center
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="toast-bottom-center" ng-model="options.position" class="ng-pristine ng-untouched ng-valid" name="14">Bottom Center
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="toastTimeout">Timeout</label>
+                    <input type="text" id="toastTimeout" class="form-control ng-pristine ng-untouched ng-valid" ng-model="options.timeout">
+                    <em>If you set it to 0, it will stick</em>
+                </div>
+                <div class="form-group">
+                    <label for="toastExtendedTimeout">Extended timeout</label>
+                    <input type="text" id="toastExtendedTimeout" class="form-control ng-pristine ng-untouched ng-valid" ng-model="options.extendedTimeout">
+                </div>
+                <div class="form-group">
+                    <label for="maxNumberToasts">Maximum number of toasts</label>
+                    <input type="text" id="maxNumberToasts" class="form-control ng-pristine ng-untouched ng-valid" ng-model="options.maxOpened">
+                    <em>0 means no limit</em>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="options.autoDismiss" class="ng-pristine ng-untouched ng-valid"> Auto dismiss?
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!-- ngIf: options.customTemplate -->
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" ng-click="openToast()">Open Toast</button>
+                <button class="btn btn-primary" ng-click="refreshToast()">Refresh Toast</button>
+                <button class="btn btn-primary" ng-click="openRandomToast()">Open Random Toast</button>
+                <button class="btn btn-danger" ng-click="clearToasts()">Clear Toasts</button>
+                <button class="btn btn-danger" ng-click="clearLastToast()">Clear Last Toast</button>
+                <button class="btn btn-pink" ng-click="openPinkToast()">Custom Pink Toast</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

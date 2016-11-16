@@ -1,0 +1,72 @@
+﻿@{ViewBag.ContentName = "编辑项目动态";}
+@model ZCPT.ProjectCenter.Web.Models.ProjectDynamicModel
+
+<link href="~/Scripts/UMEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/js/app/EditProjectDynamic.js"></script>
+<link href="~/css/editprojectdynamic.css" type="text/css" rel="stylesheet" />
+@Html.Partial("_ProjectTab", new ZCPT.ProjectCenter.Web.Models.ComponentModule.ProjectEditTabModule() { ID = Model.ID, Current = nameof(ZCPT.ProjectCenter.Web.Models.ProjectDynamicModel) })
+
+
+@using (Html.BeginForm("InsertProjectDynamic", "CFMyProjects", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(m => m.ID)
+<div class="user-container project-information">
+    <div class="form-group">
+        @Html.LabelFor(M => M.DynamicTitle, "动态标题：", new { @class = "col-sm-2 control-label user-padding" })
+        <div class="col-sm-8">
+            @Html.TextBoxFor(M => M.DynamicTitle, new { @class = "inp4 form-control" })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.DynamicTitle)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(M => M.IconID, "动态图片：", new { @class = "col-sm-2 control-label user-padding" })
+        <div class="col-sm-8">
+            @Html.HiddenFor(M => M.IconID)
+            <span class="inp_file">
+                <a class="btn btn-info" href="javascript:;">
+                    请选择文件
+                    @Html.Partial("_Attachment")
+                    <script>
+                        var ServerReferenceFileCenterAPI = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/")';
+                        var ImgSingleUploadUrl = '@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgSingleUpload/ProjectCenter")';
+                    </script>
+
+                </a>
+            </span>
+            <div id="preview" style="display:none;">
+                <img class="img" src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + Model.IconID)">
+            </div>
+
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.IconID)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(M => M.DynamicContent, "动态内容：", new { @class = "col-sm-2 control-label user-padding" })
+        <div class="col-sm-8">
+            @Html.TextAreaFor(M => M.DynamicContent, new { style = "width: 100%; height: 200px; " })
+            <p class="text-danger" role="alert">@Html.ValidationMessageFor(M => M.DynamicContent)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-7">
+            <input type="submit" class="btn btn-default btn-save" name="updatesubmit" value="确 认" />
+        </div>
+    </div>
+</div>
+    foreach (var item in ViewBag.Dynamics)
+    {
+        <div class="form-group" style="padding:0 17%;">
+            <div class="col-sm-4 col-md-4">
+                <div class="thumbnail">
+                    <img src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"]+ "/fileupload/ImgDownload/" + item.IconID)" alt="动态图片">
+                </div>
+            </div>
+            <div class="col-sm-8 col-md-8 bt">
+                <h4>@item.DynamicTitle</h4>
+                <p>@Html.Raw(@item.DynamicContent)</p>
+                <p class="text-muted">@item.CreationTime</p>
+            </div>
+        </div>
+    }
+}
+

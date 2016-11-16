@@ -1,0 +1,371 @@
+﻿@{
+    ViewBag.Title = "商品详情";
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+}
+
+@model  ZCPT.CrowdSourcing.Web.Models.ServiceProviderModule.CSProductModel
+<link rel="stylesheet" type="text/css" href="~/Content/main.css">
+<link rel="stylesheet" type="text/css" href="~/Content/css/yc_productlist.css"  />
+<script src="~/Scripts/js/lib/purl.js"></script>
+<div class="row productDetail">
+    <div class="col-md-4" id="jcl-demo">
+        <div class="custom-container widget">
+            <div class="mid">
+                <img src="">
+            </div>
+            <a href="#" class="prev">&lsaquo;</a>
+            <div class="carousel"></div>
+            <a href="#" class="next">&rsaquo;</a>
+            <div class="clear"></div>
+        </div>
+<!--         <div class="collection-share">
+            <button class="collection">收藏宝贝（97人气）</button>
+            <button class="share">分享</button>
+        </div> -->
+    </div>
+    <div class="col-md-5 detail_right">
+        <div id="zbInfo">
+            <div id="name" class="js-name">
+                <h1></h1>
+            </div>
+            <div id="summary" class="clearfix">
+                <div class="zb-item">
+                    <div class="dt">价格：</div>
+                    <div class="dd">
+                        <strong id="p-price"></strong>
+                        <strong>元</strong>
+                    </div>
+                </div>
+
+                <div id="zbOpt">
+        <div class="dt">数量：</div>
+        <div class="dd">
+            <strong id="p-num"></strong>
+            <strong>个</strong>
+        </div>
+    </div>
+                <div id="zbOpt">
+
+                </div>
+            </div>
+            
+            <div class="choose clearfix" id="deliverGoods">
+                <div class="li p-choose">
+                    <div class="dt" data-key="">发货到：</div>
+                    <div class="addrBox">
+                        <div class="select-addr">
+                        <div class="default-address">
+                            <span class="locationCity" id="locationCity"></span>
+                            <span class="delegete"><img src="~/Content/img/xiala.png"></span>
+                        </div>
+                            <div class="addrBox-area">
+                                <div class="addrBox-area-title"><strong>请选择地址</strong></div>
+                                <div class="selectBox">
+                                    <ul class="area-title">
+                                        <li id="provinceID">--请选择--</li>
+                                        <li id="cityID">--请选择--</li>
+                                        <li id="countyID">--请选择--</li>
+                                    </ul>
+                                    <div style="width:100%;height:2px;background-color:#edd28b;margin-bottom:20px;"></div>
+                                    <ul class="provinceBox" id="provinceBox">
+                                        
+                                    </ul>
+                                    <ul class="cityBox" id="cityBox">
+                                        
+                                    </ul>
+                                    <ul class="areaBox" id="areaBox">
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-statics"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+            <div class="choose clearfix" id="numberCount">
+                <div class="li p-choose">
+                    <div class="dt" data-key="">数量：</div>
+                    <div class="dd" style="float:left;">
+                        <input type="button" id="reduce" value="-">
+                        <input type="text" value="1" id="Number" class="numInput">
+                        <input type="button" id="plus" value="+">
+                    </div>
+                    <span class="stock-em">件</span>
+                    <div class="stock">(库存<span id="stockNum"></span>件)</div>
+                </div>
+                <div style="clear:both;"></div>
+                <div id="errorTip"><span class="glyphicon glyphicon-minus-sign" id="iconTip"></span><span id="errorMsg"></span></div>
+            </div>
+            <div class="choose clearfix" id="skuList"></div>
+            <div class="priceItem"></div>
+            <!-- allen  商品加入购物车 -->
+            <div class="p-buy">
+                <button class="btn btn-warning js-buy" data-buy="0">立即购买</button>
+                <button class="btn btn-warning js-buy" data-buy="1">加入购物车</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="recommend">
+            <div class="media">
+                <a class="pull-left" href="" id="imgIcon">
+                    <img class="img-thumbnail" src="" width="100" height="80" />
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading" id="media-heading"><a  href=""></a></h4>
+                    <div class="table-classification">优创自营</div>
+                </div>
+            </div>
+            <div class="jianjie" id="jianjie"><span>简介：</span></div>
+            <div class="shopRecommend">
+                <a href="" class="enterShop">进入店铺</a>
+                <!-- <a href="@(Model != null ? Model.ShopID : 0)" class="collectionShop">收藏店铺</a> -->
+            </div>
+        </div>
+        <div class="recommend other-commodity">
+            <div class="other-commodity-title">店内其他商品</div>
+            <div class="row" id="otherPro">
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="details-tab">
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">商品详情</a></li>
+        <li><a href="#tab2" data-toggle="tab">累计评价</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <!-- <ul class="detail-parameter">
+                <li>商品名称：小米红米</li>
+                <li>商品编号：23567</li>
+                <li>商品毛重：340.00g</li>
+                <li>商品产地：中国大陆</li>
+                <li>商品名称：小米红米</li>
+                <li>商品编号：23567</li>
+                <li>商品毛重：340.00g</li>
+                <li>商品产地：中国大陆</li>
+            </ul> -->
+            <div id="p-description">
+                <div class="p-detail"></div>
+            </div>
+            
+        </div>
+
+        <div class="tab-pane" id="tab2">
+            <div class="evaluate-summary row">
+                <div class="evaluate-summary_overview col-md-2"><span>96%</span><br>好评度</div>
+                <div class="col-md-1"></div>
+                <div class="evaluate-summary_Separate col-md-9">
+                    <div class="barBox js-bar-hao">
+                        <div class="barBox-percent">好评（96%）</div>
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only">60% Complete</span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="barBox js-bar-zhong">
+                        <div class="barBox-percent">中评（3%）</div>
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only">3% Complete</span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="barBox js-bar-cha">
+                        <div class="barBox-percent">差评（93%）</div>
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only">3% Complete</span>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="details-tab evaluate-box">
+                <div class="tabbable">
+                <!-- 需要分类返回 -->
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab01" data-toggle="tab" class="js-tab-pl" data-degree="0"></a></li>
+                    <li><a href="#tab02" data-toggle="tab" class="js-tab-pl"  data-degree="3"></a></li>
+                    <li><a href="#tab03" data-toggle="tab" class="js-tab-pl"  data-degree="2"></a></li>
+                    <li><a href="#tab04" data-toggle="tab" class="js-tab-pl"  data-degree="1"></a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="tab01">
+                        <ul class="comment-box js-all-comment"></ul>
+                        <div class="page js-all-page"></div>
+                    </div>
+                    <div class="tab-pane" id="tab02">
+                        <ul class="comment-box js-hao-comment"></ul>
+                        <div class="page js-hao-page"></div>
+                    </div>
+                    <div class="tab-pane" id="tab03">
+                        <ul class="comment-box js-zhong-comment"></ul>
+                        <div class="page js-zhong-page"></div>
+                    </div>
+                    <div class="tab-pane" id="tab04">
+                        <ul class="comment-box js-cha-comment"></ul>
+                        <div class="page js-cha-page"></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <!--评价-->
+      </div>
+    </div>
+</div>
+<!-- 评论-->
+<script type="text/template" id="plTpl">
+<% if(!_.isEmpty(datas)) { %>
+    <%_.each(datas, function(item){ %>
+        <li>
+            <div class="commentBox-ordor"> 
+                <div class="stars star<%= item.Star %>"></div>
+                <div class="comment-date">下单<%= item.CommentDays %>天后评论<br><%= item.CSProductOrderTime %></div>
+
+            </div>
+            <div class="customerComment">
+                <div class="preliminaryAssessment"><%= item.Content %></div>
+                <div class="comment-date"><%= item.CreationDate %></div>
+                <!-- 买家追加的评论 -->
+                <% if(!_.isEmpty(item.AppendComment)) { %>
+                <div class="appendComment">
+                    <div class="preliminaryAssessment">【买家追加】<%= item.AppendComment.Content %></div>
+                    <div class="comment-date"><%= item.AppendComment.CreationDate %></div>
+                </div>
+                <% } %>
+                <!-- 卖家回复 -->
+                <% if(!_.isEmpty(item.ReplyComment)) { %>
+                <div class="replay">
+                    <div class="preliminaryAssessment" style="color:red;">【卖家回复】<%= item.ReplyComment.Content %></div>
+                    <div class="comment-date"><%= item.ReplyComment.CreationDate %></div>
+                </div>
+                <% } %>
+                <!-- 回复按钮？ -->
+                <div class="replayBtn">
+                    <!-- <div class="Zambia">点赞（0）</div> -->
+                    <!-- <div class="replay">回复</div> -->
+                </div>
+            </div>
+            <div class="buyers">
+                <!-- 头像？ -->
+                <!-- <img src="" width="30" height="30"> -->
+                <div class="user-name"><%= item.CommentatorName %></div>
+            </div>
+        </li>
+    <%}); %>
+<%} %>
+</script>
+<!-- 基本信息 -->
+<script type="text/template" id="skuTpl">
+<%_.each(datas.skus, function(item){ %>
+    <div class="li p-choose">
+        <div class="dt" data-key="<%= item.OptionName %>"><%= item.OptionName %>：</div>
+        <div class="dd">
+            <%_.each(item.OptionValueList, function(ovl, i){ %>
+                 <% if( _.includes(datas.curobj.PropertiesName, ovl.OptionValueName) ){%>
+                <div class="item selected">
+                    <b></b>
+                    <a href="javascript:;"><i><%= ovl.OptionValueName %></i></a>
+                </div>
+                <%}else{ %>
+                <div class="item">
+                    <b></b>
+                    <a href="javascript:;"><i><%= ovl.OptionValueName %></i></a>
+                </div>
+                <%}; %>
+            <%}); %>
+        </div>
+    </div>
+<%}); %>
+</script>
+<!-- 价格项 -->
+<script type="text/template" id="priceItemTpl">
+<table class="table table-bordered">
+    <caption><h3>价格项明细</h3></caption>
+    <thead>
+    <tr>
+        <th>名称</th>
+        <th>价格</th>
+        <th>是否循环付费</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%_.each(datas, function(item){ %>
+        <tr>
+            <td><div class="tt"><%= item.AmountName %></div></td>
+            <td><div class="tt"><%= item.Amount %></div></td>
+            <td><div class="tt"><%= item.IsRecuring ? "是" : "否" %></div></td>
+        </tr>
+    <%}); %>
+    </tbody>
+</table>
+</script>
+<!-- 图片列表 -->
+<script type="text/template" id="pictureTpl">
+<ul>
+<%_.each(datas, function(item, i){ %>
+    <% if(item.IsMainPic == true){ %>
+    <li class="selected"><img class="img-thumbnail" src="<%= item.Url %>"/></li>
+    <% }else{ %>
+    <li><img class="img-thumbnail" src="<%= item.Url %>"/></li>
+    <% } %>
+<%}); %>
+</ul>
+</script>
+<!-- 商品属性 -->
+<script type="text/template" id="optTpl">
+
+<%_.each(datas, function(item, i){ %>
+<div class="zb-item">
+    <div class="dt"><%= item.OptionName %>：</div>
+    <%_.each(item.OptionValueList, function(v, k){ %>
+    <div class="dd">
+        <strong><%= v.OptionValueName %></strong>
+    </div>
+    <%}); %>
+</div>
+<%}); %>
+
+</script>
+
+<script type="text/template" id="buyInfoTpl">
+    <tr>
+        <td class="td-left"><img src="<%= Picture.Url %>" /></td>
+        <td class="td-right">
+            <div class="td-right-name"><%= Name %></div>
+            <div class="td-right-dp"><span>库存：</span><%= Num %></div>
+            <div class="td-right-price"><span>价格：</span><%= Price %></div>
+        </td>
+    </tr>
+</script>
+
+<!--店内其他商品-->
+<script type="text/template" id="otherProTpl">
+    <%_.each(datas, function(item, i){ %>
+        <div class="col-md-6">
+            <div class="other-commodity-img"><a href="<%= item.href %>"><img src="@(System.Configuration.ConfigurationManager.AppSettings["ServerReferenceFileCenterAPI"])/fileupload/ImgDownload/<%= item.IconID %>" width="107" height="77" /></a></div>
+            <div class="other-commodity-title"><a href="<%= item.href %>"><%= item.Name %></a></div>
+            <div class="other-commodity-price">￥<span><%= item.Amount %></span>元</div>
+        </div>
+    <%}); %>
+</script>
+
+<script src="~/Scripts/js/lib/jquery.cookie.js"></script>
+<script src="~/Scripts/js/lib/jquery.easing-1.3.js"></script>
+<script src="~/Scripts/js/lib/jquery.mousewheel-3.1.12.js"></script>
+<script src="~/Scripts/js/lib/jquery.jcarousellite.js"></script>
+<script src="~/Scripts/js/lib/smartpaginator.js"></script>
+
+<script src="~/Scripts/js/app/productDetail.js"></script>
+
+
+

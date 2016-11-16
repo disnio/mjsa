@@ -120,6 +120,7 @@
 
         // get the iframe body height and set inline style to that plus a little
         var $body = $(iframe, window.top.document).contents().find('body');
+        
         var strategy = findStrategy($.browser);
         var newHeight = strategy(iframe, $body, options, $.browser);
         debug(newHeight);

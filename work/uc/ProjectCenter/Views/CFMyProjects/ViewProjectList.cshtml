@@ -1,0 +1,26 @@
+﻿<link href="~/css/projectList.css" type="text/css" rel="stylesheet" />
+<link href="~/Scripts/UMEditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+
+@using Webdiyer.WebControls.Mvc
+@{
+    ViewBag.Title = "项目列表";
+    ViewBag.ContentName = "项目列表";
+}
+
+@section scripts
+{
+    @{ Html.RegisterMvcPagerScriptResource();}
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}
+
+@using (Ajax.BeginForm("ViewProjectList", "CFMyProjects", new AjaxOptions { UpdateTargetId = "proList", HttpMethod = "Post", InsertionMode = InsertionMode.Replace }, new { id = "searchForm", @class = "form-horizontal section-form" }))
+{
+
+}
+<div class="page-head"><span>项目列表</span></div>
+<div id="proList">
+    @Html.Partial("PartialProjectList", ((PagedList<ZCPT.ProjectCenter.Web.Models.ProjectListViewModel>)ViewBag.ProjectList))
+</div>
+
+
+

@@ -1,0 +1,247 @@
+﻿@using ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule
+@using UCFramework.Infrastructure.Web
+@using ZCPT.CrowdFunding.Entity
+@model fundDetail
+
+@{
+    Layout = "~/Views/Shared/_SelfLayoutHF.cshtml";
+    ViewBag.Title = "基金详情";
+    ViewBag.ContentName = ViewBag.Title;
+}
+
+<link rel="stylesheet" href="~/Content/css/fund.css" />
+
+<div class="row fund-titlebottom">
+    <div class="col-sm-12 fund-title">
+        <h1>@Model.FundName</h1>
+        <p>
+            <span>@Model.Time</span>
+            <a href="#" class="fund-collect" style="display:none;">
+                <span class="glyphicon glyphicon-heart fund-heart"></span>
+                <span>收藏</span>
+            </a>
+        </p>
+
+    </div>
+</div>
+
+<div class="row fund-type">
+    <div class="col-sm-4 type-classify">
+        <p>资金主体：<span>@Model.FundMajor</span></p>
+        <p>投资地区：<span>@Model.InvestmentStation</span></p>
+        @*<p>需投递资料：<span>主要包括研发设计费用</span></p>*@
+    </div>
+    <div class="col-sm-4">
+        <p>所在地区：<span>浙江省 所属行业:汽车汽配</span></p>
+        <p>投资金额：<span>@Model.InvestmentAmount</span></p>
+
+    </div>
+
+    <div class="col-sm-4">
+        <p>投资行业：<span>@Model.Industrys</span></p>
+        @*<p>前期费用：<span>股权融资</span></p>*@
+    </div>
+</div>
+
+<div class="row">
+    @if (Model.InvestmentCategoryID == 1)
+    {
+        <div class="row">
+            <div class="col-sm-6"><p><img src="~/Content/img/gqtz.jpg" /></p></div>
+
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">投递项目</h4>
+                    </div>
+                    <div class="modal-body">
+                        <dl class="dl-horizontal">
+                            <dt>申请融资的项目名称：</dt>
+                            <dd>
+                                <select class="form-control" id="FinancingPartyProject" name="FinancingPartyProject" placeholder=""></select>
+                            </dd>
+                        </dl>
+                        @*<dl class="dl-horizontal">
+                                <dt>投资类型：</dt>
+                                <dd>
+                                    <select class="form-control" id="CFInvestmentCategoryID" name="CFInvestmentCategoryID" placeholder=""></select>
+                                </dd>
+                            </dl>*@
+                        <dl class="dl-horizontal">
+                            <dt>申请融资金额：</dt>
+                            <dd>
+                                <input type="text" id="FinancingAmount">
+                                @Html.DropDownList("AmountUnits", ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetSelectList(typeof(AmountUnits)), new RouteValueDictionary { { "class", "form-control" }, { "placeholder", "" } })
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>投递理由</dt>
+                            <dd>
+                                <textarea id="InvestmentReasons"></textarea>
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="modal-footer footer-btns">
+                        <button type="button" class="btn submit-Industrys" data-dismiss="modal" id="submit-Industrys">提交申请</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row tz-type">
+            <div class="col-sm-4">
+                <p>股权投资类型：<span>@Model.InvestmentWays</span></p>
+                <p class="tz-deadline">投资期限：<span>@Model.InvestmentTime</span></p>
+            </div>
+            <div class="col-sm-4">
+                <p>投资阶段：<span>@Model.ProjectStages</span></p>
+            </div>
+            <div class="col-sm-4">
+                @*<p>投资退出方式：<span>IPO,股权转让,股份回购</span></p>*@
+            </div>
+        </div>
+        <div class="row tz-button">
+            <div class="col-sm-12">
+                <p>
+                    <button class="btn btn-default btn-investor btn-yttzf">约谈投资方</button>
+                    <button type="button" class="btn btn-default js-tou-xm btn-delivor" data-toggle="modal">投递项目</button> <!-- data-target="#myModal" -->
+                </p>
+            </div>
+        </div>
+    }
+    else if (Model.InvestmentCategoryID == 2)
+    {
+        <div class="row">
+            <div class="col-sm-6"><p><span style="background-color: #F33C05;color: #fff;font-size: 14px;line-height: 30px;display: inline-block;padding: 0px 3px;">债权投资</span></p></div>
+            <div class="col-sm-6"><p><a class="btn btn-default" href="#">约谈投资方</a></p></div>
+        </div>
+
+        <div class="col-sm-6">
+            <p><span>风控要求：@Model.InvestmentWays</span></p>
+            <p><span>投资期限：@Model.InvestmentTime</span></p>
+        </div>
+        <div class="col-sm-6">
+            <p><span>投资阶段：@Model.ProjectStages</span></p>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-sm-6"><p><span style="background-color: #F33C05;color: #fff;font-size: 14px;line-height: 30px;display: inline-block;padding: 0px 3px;">众筹投资</span></p></div>
+            <div class="col-sm-6"><p><a class="btn btn-default" href="#">约谈投资方</a></p></div>
+        </div>
+
+        <div class="col-sm-6">
+            <p><span>投资期限：@Model.InvestmentTime</span></p>
+        </div>
+        <div class="col-sm-6">
+            <p><span>投资阶段：@Model.ProjectStages</span></p>
+        </div>
+    }
+</div>
+
+<div class="row">
+
+    <ul id="myTab" class="nav nav-tabs tabs-space">
+        <li class="active">
+            <a href="#home" data-toggle="tab">
+                投资要求概述
+            </a>
+        </li>
+        <li><a href="#ios" data-toggle="tab">投资案例</a></li>
+        <li><a href="#java" data-toggle="tab">其他备注</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content tab-contentline">
+        <div class="tab-pane fade in active" id="home">
+            <p>@Html.Raw(Model.Introduction)</p>
+        </div>
+        <div class="tab-pane fade" id="ios">
+            <p>
+                <div class="row">
+                    @if (null != Model.InvestmentCases)
+                    {
+                        foreach (var item in Model.InvestmentCases)
+                        {
+                            <div class="row">
+                                <div class="col-sm-4">@Html.Raw(item.Name)</div>
+                                <div class="col-sm-4">@Html.Raw(item.InvestmentAmount.ToString("N2") + ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetDescription(item.AmountUnits))</div>
+                                <div class="col-sm-4">@(item.InvestmentTime.ToString("d"))</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">@Html.Raw(item.Introduction)</div>
+                            </div>
+                            <br />
+                        }
+                    }
+                </div>
+            </p>
+        </div>
+        <div class="tab-pane fade" id="java">
+            <p>
+                @Html.Raw(Model.Notes)
+                <div class="row">
+                    标签：
+                    @Html.Raw(Model.Tag)
+                </div>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="display:none;">
+    <ul class="user-message">
+        <li>用户留言</li>
+        <li><span>20</span>条留言</li>
+        <li>您还可以输入<span>300</span>个字</li>
+    </ul>
+
+</div>
+<div class="row message-content" style="display:none;">
+    <textarea></textarea>
+    <div class="message-type">
+        <select>
+            <option>公开</option>
+            <option>保密</option>
+        </select>
+        <button>发布留言</button>
+
+    </div>
+</div>
+
+<div class="row user-information" style="display:none;">
+    <div class="user-img col-sm-2"><img src="" /></div>
+    <div class="user-news col-sm-10">
+        <p>吴先生</p>
+        <p>北京市海淀区某上市公司老总</p>
+        <p>当下百亿大市场等待整合,投资骑车用品尤其是汽车坐垫及小配饰用品生产销售行业前途无量  从整个汽车长夜获利过程中可以看到百亿大市场等待整合,投资骑车用品尤其是汽车坐垫及小配饰用品生产销售行业前途无量百亿大市场等待整合,投资骑车用品尤其是汽车坐垫及小配饰用品生产销售行业前途无量</p>
+    </div>
+</div>
+
+<input type="hidden" name="CFInvestmentCategoryID" value="@(Model.InvestmentCategoryID)" />
+
+<input type="hidden" value="@SessionIdentity.Instance.AccountID" id="CreatorID">
+<input type="hidden" value="@SessionIdentity.Instance.OrgainzationID" id="OrgainzationID">
+<input type="hidden" value="@SessionIdentity.Instance.OrgainzationID" id="FinancingPartyID">
+<input type="hidden" name="IsFinancingParty" value="@ViewBag.IsFinancingParty">
+
+<script type="text/html" id="ytHtml">
+    <dl class="dl-horizontal">
+    <dt><span>*</span>申请融资的项目名称：</dt>
+         <dd>
+             <select class="form-control" id="FinancingPartyProjectid" name="FinancingPartyProjectid" placeholder=""></select>
+         </dd>
+     </dl>
+    <dl class="dl-horizontal">
+        <dt class="dt-explain"><span>*</span>约见说明:</dt>
+        <dd>
+            <textarea id="yt-state"></textarea>
+        </dd>
+    </dl>
+
+</script>
+
+<script src="~/Scripts/js/app/fund.js"></script>

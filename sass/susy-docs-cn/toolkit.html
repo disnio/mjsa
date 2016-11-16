@@ -1,0 +1,1946 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body {
+  width: 45em;
+  border: 1px solid #ddd;
+  outline: 1300px solid #fff;
+  margin: 16px auto;
+}
+
+body .markdown-body
+{
+  padding: 30px;
+}
+
+@font-face {
+  font-family: fontawesome-mini;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+@font-face {
+  font-family: octicons-anchor;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+
+.markdown-body {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #333333;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  background: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline: 0;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.markdown-body sup {
+  top: -0.5em;
+}
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.markdown-body img {
+  border: 0;
+}
+
+.markdown-body hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+.markdown-body pre {
+  overflow: auto;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.markdown-body input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body html input[disabled] {
+  cursor: default;
+}
+
+.markdown-body input {
+  line-height: normal;
+}
+
+.markdown-body input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body .codehilitetable {
+  border: 0;
+  border-spacing: 0;
+}
+
+.markdown-body .codehilitetable tr {
+  border: 0;
+}
+
+.markdown-body .codehilitetable pre,
+.markdown-body .codehilitetable div.codehilite {
+  margin: 0;
+}
+
+.markdown-body .linenos,
+.markdown-body .code,
+.markdown-body .codehilitetable td {
+  border: 0;
+  padding: 0;
+}
+
+.markdown-body td:not(.linenos) .linenodiv {
+  padding: 0 !important;
+}
+
+.markdown-body .code {
+  width: 100%;
+}
+
+.markdown-body .linenos div pre,
+.markdown-body .linenodiv pre,
+.markdown-body .linenodiv {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.markdown-body .code div pre,
+.markdown-body .code div {
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.markdown-body * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font: 13px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.4;
+}
+
+.markdown-body a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.markdown-body a:hover,
+.markdown-body a:focus,
+.markdown-body a:active {
+  text-decoration: underline;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown-body hr:before,
+.markdown-body hr:after {
+  display: table;
+  content: " ";
+}
+
+.markdown-body hr:after {
+  clear: both;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.markdown-body h1 {
+  font-size: 30px;
+}
+
+.markdown-body h2 {
+  font-size: 21px;
+}
+
+.markdown-body h3 {
+  font-size: 16px;
+}
+
+.markdown-body h4 {
+  font-size: 14px;
+}
+
+.markdown-body h5 {
+  font-size: 12px;
+}
+
+.markdown-body h6 {
+  font-size: 11px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body kbd {
+  background-color: #e7e7e7;
+  background-image: -moz-linear-gradient(#fefefe, #e7e7e7);
+  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
+  background-image: linear-gradient(#fefefe, #e7e7e7);
+  background-repeat: repeat-x;
+  border-radius: 2px;
+  border: 1px solid #cfcfcf;
+  color: #000;
+  padding: 3px 5px;
+  line-height: 10px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  display: inline-block;
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body .headeranchor-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding-right: 6px;
+  padding-left: 30px;
+  margin-left: -30px;
+}
+
+.markdown-body .headeranchor-link:focus {
+  outline: none;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.markdown-body h1 .headeranchor,
+.markdown-body h2 .headeranchor,
+.markdown-body h3 .headeranchor,
+.markdown-body h4 .headeranchor,
+.markdown-body h5 .headeranchor,
+.markdown-body h6 .headeranchor {
+  display: none;
+  color: #000;
+  vertical-align: middle;
+}
+
+.markdown-body h1:hover .headeranchor-link,
+.markdown-body h2:hover .headeranchor-link,
+.markdown-body h3:hover .headeranchor-link,
+.markdown-body h4:hover .headeranchor-link,
+.markdown-body h5:hover .headeranchor-link,
+.markdown-body h6:hover .headeranchor-link {
+  height: 1em;
+  padding-left: 8px;
+  margin-left: -30px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .headeranchor-link .headeranchor,
+.markdown-body h2:hover .headeranchor-link .headeranchor,
+.markdown-body h3:hover .headeranchor-link .headeranchor,
+.markdown-body h4:hover .headeranchor-link .headeranchor,
+.markdown-body h5:hover .headeranchor-link .headeranchor,
+.markdown-body h6:hover .headeranchor-link .headeranchor {
+  display: inline-block;
+}
+
+.markdown-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+.markdown-body h4 {
+  font-size: 1.25em;
+}
+
+.markdown-body h5 {
+  font-size: 1em;
+}
+
+.markdown-body h6 {
+  font-size: 1em;
+  color: #777;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body .admonition {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.markdown-body code,
+.markdown-body samp {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .codehilite {
+  margin-bottom: 16px;
+}
+
+.markdown-body .codehilite pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+
+.markdown-body .codehilite pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after {
+  content: normal;
+}
+
+/* Admonition */
+.markdown-body .admonition {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  position: relative;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+  border-left: 6px solid #333;
+  padding: 10px 10px 10px 30px;
+}
+
+.markdown-body .admonition table {
+  color: #333;
+}
+
+.markdown-body .admonition p {
+  padding: 0;
+}
+
+.markdown-body .admonition-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.markdown-body .admonition>.admonition-title {
+  color: #333;
+}
+
+.markdown-body .attention>.admonition-title {
+  color: #a6d796;
+}
+
+.markdown-body .caution>.admonition-title {
+  color: #d7a796;
+}
+
+.markdown-body .hint>.admonition-title {
+  color: #96c6d7;
+}
+
+.markdown-body .danger>.admonition-title {
+  color: #c25f77;
+}
+
+.markdown-body .question>.admonition-title {
+  color: #96a6d7;
+}
+
+.markdown-body .note>.admonition-title {
+  color: #d7c896;
+}
+
+.markdown-body .admonition:before,
+.markdown-body .attention:before,
+.markdown-body .caution:before,
+.markdown-body .hint:before,
+.markdown-body .danger:before,
+.markdown-body .question:before,
+.markdown-body .note:before {
+  font: normal normal 16px fontawesome-mini;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  line-height: 1.5;
+  color: #333;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.markdown-body .admonition:before {
+  content: "\f056\00a0";
+  color: 333;
+}
+
+.markdown-body .attention:before {
+  content: "\f058\00a0";
+  color: #a6d796;
+}
+
+.markdown-body .caution:before {
+  content: "\f06a\00a0";
+  color: #d7a796;
+}
+
+.markdown-body .hint:before {
+  content: "\f05a\00a0";
+  color: #96c6d7;
+}
+
+.markdown-body .danger:before {
+  content: "\f057\00a0";
+  color: #c25f77;
+}
+
+.markdown-body .question:before {
+  content: "\f059\00a0";
+  color: #96a6d7;
+}
+
+.markdown-body .note:before {
+  content: "\f040\00a0";
+  color: #d7c896;
+}
+
+.markdown-body .admonition::after {
+  content: normal;
+}
+
+.markdown-body .attention {
+  border-left: 6px solid #a6d796;
+}
+
+.markdown-body .caution {
+  border-left: 6px solid #d7a796;
+}
+
+.markdown-body .hint {
+  border-left: 6px solid #96c6d7;
+}
+
+.markdown-body .danger {
+  border-left: 6px solid #c25f77;
+}
+
+.markdown-body .question {
+  border-left: 6px solid #96a6d7;
+}
+
+.markdown-body .note {
+  border-left: 6px solid #d7c896;
+}
+
+.markdown-body .admonition>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .admonition>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* progress bar*/
+.markdown-body .progress {
+  display: block;
+  width: 300px;
+  margin: 10px 0;
+  height: 24px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #ededed;
+  position: relative;
+  box-shadow: inset -1px 1px 3px rgba(0, 0, 0, .1);
+}
+
+.markdown-body .progress-label {
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  width: 100%; margin: 0;
+  line-height: 24px;
+  color: #333;
+  text-shadow: 1px 1px 0 #fefefe, -1px -1px 0 #fefefe, -1px 1px 0 #fefefe, 1px -1px 0 #fefefe, 0 1px 0 #fefefe, 0 -1px 0 #fefefe, 1px 0 0 #fefefe, -1px 0 0 #fefefe, 1px 1px 2px #000;
+  -webkit-font-smoothing: antialiased !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.markdown-body .progress-bar {
+  height: 24px;
+  float: left;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #96c6d7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .1);
+  background-size: 30px 30px;
+  background-image: -webkit-linear-gradient(
+    135deg, rgba(255, 255, 255, .4) 27%,
+    transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%,
+    transparent 77%, transparent
+  );
+  background-image: -moz-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -ms-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: -o-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .4) 27%, transparent 27%,
+    transparent 52%, rgba(255, 255, 255, .4) 52%,
+    rgba(255, 255, 255, .4) 77%, transparent 77%,
+    transparent
+  );
+}
+
+.markdown-body .progress-100plus .progress-bar {
+  background-color: #a6d796;
+}
+
+.markdown-body .progress-80plus .progress-bar {
+  background-color: #c6d796;
+}
+
+.markdown-body .progress-60plus .progress-bar {
+  background-color: #d7c896;
+}
+
+.markdown-body .progress-40plus .progress-bar {
+  background-color: #d7a796;
+}
+
+.markdown-body .progress-20plus .progress-bar {
+  background-color: #d796a6;
+}
+
+.markdown-body .progress-0plus .progress-bar {
+  background-color: #c25f77;
+}
+
+.markdown-body .candystripe-animate .progress-bar{
+  -webkit-animation: animate-stripes 3s linear infinite;
+  -moz-animation: animate-stripes 3s linear infinite;
+  animation: animate-stripes 3s linear infinite;
+}
+
+@-webkit-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@-moz-keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+.markdown-body .gloss .progress-bar {
+  box-shadow:
+    inset 0 4px 12px rgba(255, 255, 255, .7),
+    inset 0 -12px 0 rgba(0, 0, 0, .05);
+}
+
+/* Multimarkdown Critic Blocks */
+.markdown-body .critic_mark {
+  background: #ff0;
+}
+
+.markdown-body .critic_delete {
+  color: #c82829;
+  text-decoration: line-through;
+}
+
+.markdown-body .critic_insert {
+  color: #718c00 ;
+  text-decoration: underline;
+}
+
+.markdown-body .critic_comment {
+  color: #8e908c;
+  font-style: italic;
+}
+
+.markdown-body .headeranchor {
+  font: normal normal 16px octicons-anchor;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.headeranchor:before {
+  content: '\f05c';
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 4px 0.25em -20px;
+  vertical-align: middle;
+}
+
+/* Media */
+@media only screen and (min-width: 480px) {
+  .markdown-body {
+    font-size:14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .markdown-body {
+    font-size:16px;
+  }
+}
+
+@media print {
+  .markdown-body * {
+    background: transparent !important;
+    color: black !important;
+    filter:none !important;
+    -ms-filter: none !important;
+  }
+
+  .markdown-body {
+    font-size:12pt;
+    max-width:100%;
+    outline:none;
+    border: 0;
+  }
+
+  .markdown-body a,
+  .markdown-body a:visited {
+    text-decoration: underline;
+  }
+
+  .markdown-body .headeranchor-link {
+    display: none;
+  }
+
+  .markdown-body a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  .markdown-body abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .markdown-body .ir a:after,
+  .markdown-body a[href^="javascript:"]:after,
+  .markdown-body a[href^="#"]:after {
+    content: "";
+  }
+
+  .markdown-body pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .markdown-body pre,
+  .markdown-body blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  .markdown-body .progress,
+  .markdown-body .progress-bar {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .markdown-body .progress {
+    border: 1px solid #ddd;
+  }
+
+  .markdown-body .progress-bar {
+    height: 22px;
+    border-right: 1px solid #ddd;
+  }
+
+  .markdown-body tr,
+  .markdown-body img {
+    page-break-inside: avoid;
+  }
+
+  .markdown-body img {
+    max-width: 100% !important;
+  }
+
+  .markdown-body p,
+  .markdown-body h2,
+  .markdown-body h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .markdown-body h2,
+  .markdown-body h3 {
+    page-break-after: avoid;
+  }
+}
+</style><style>/*github*/
+.codehilite {background-color:#fff;color:#333333;}
+.codehilite .hll {background-color:#ffffcc;}
+.codehilite .c{color:#999988;font-style:italic}
+.codehilite .err{color:#a61717;background-color:#e3d2d2}
+.codehilite .k{font-weight:bold}
+.codehilite .o{font-weight:bold}
+.codehilite .cm{color:#999988;font-style:italic}
+.codehilite .cp{color:#999999;font-weight:bold}
+.codehilite .c1{color:#999988;font-style:italic}
+.codehilite .cs{color:#999999;font-weight:bold;font-style:italic}
+.codehilite .gd{color:#000000;background-color:#ffdddd}
+.codehilite .ge{font-style:italic}
+.codehilite .gr{color:#aa0000}
+.codehilite .gh{color:#999999}
+.codehilite .gi{color:#000000;background-color:#ddffdd}
+.codehilite .go{color:#888888}
+.codehilite .gp{color:#555555}
+.codehilite .gs{font-weight:bold}
+.codehilite .gu{color:#800080;font-weight:bold}
+.codehilite .gt{color:#aa0000}
+.codehilite .kc{font-weight:bold}
+.codehilite .kd{font-weight:bold}
+.codehilite .kn{font-weight:bold}
+.codehilite .kp{font-weight:bold}
+.codehilite .kr{font-weight:bold}
+.codehilite .kt{color:#445588;font-weight:bold}
+.codehilite .m{color:#009999}
+.codehilite .s{color:#dd1144}
+.codehilite .n{color:#333333}
+.codehilite .na{color:teal}
+.codehilite .nb{color:#0086b3}
+.codehilite .nc{color:#445588;font-weight:bold}
+.codehilite .no{color:teal}
+.codehilite .ni{color:purple}
+.codehilite .ne{color:#990000;font-weight:bold}
+.codehilite .nf{color:#990000;font-weight:bold}
+.codehilite .nn{color:#555555}
+.codehilite .nt{color:navy}
+.codehilite .nv{color:teal}
+.codehilite .ow{font-weight:bold}
+.codehilite .w{color:#bbbbbb}
+.codehilite .mf{color:#009999}
+.codehilite .mh{color:#009999}
+.codehilite .mi{color:#009999}
+.codehilite .mo{color:#009999}
+.codehilite .sb{color:#dd1144}
+.codehilite .sc{color:#dd1144}
+.codehilite .sd{color:#dd1144}
+.codehilite .s2{color:#dd1144}
+.codehilite .se{color:#dd1144}
+.codehilite .sh{color:#dd1144}
+.codehilite .si{color:#dd1144}
+.codehilite .sx{color:#dd1144}
+.codehilite .sr{color:#009926}
+.codehilite .s1{color:#dd1144}
+.codehilite .ss{color:#990073}
+.codehilite .bp{color:#999999}
+.codehilite .vc{color:teal}
+.codehilite .vg{color:teal}
+.codehilite .vi{color:teal}
+.codehilite .il{color:#009999}
+.codehilite .gc{color:#999;background-color:#EAF2F5}
+</style><title>toolkit</title></head><body><article class="markdown-body"><h1 id="toolkit"><a name="user-content-toolkit" href="#toolkit" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Toolkit</h1>
+<p>The Susy 2.0 toolkit is built around our :<code>shorthand syntax</code>.<br />
+Use the shorthand to control every detail, and adjust your defaults on-the-fly,<br />
+so you are never tied down to just one grid, or just one output style.</p>
+<hr />
+<p>.. _tools-span-mixin:</p>
+<h2 id="span-mixin"><a name="user-content-span-mixin" href="#span-mixin" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Span [mixin]</h2>
+<p>Set any element to span a portion of your layout.<br />
+For a floated or isolated layout,<br />
+this will add necessary floats, widths, and margins.</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>span($span) { @content }</code><br />
+  :$span: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code><br />
+  :@content: Sass content block</p>
+<p>There are many ways to use the span mixin&hellip;</p>
+<p>.. _tools-span-width:</p>
+<p>Arbitrary Widths<br />
+<del>~</del><del>~</del><del>~</del>~</p>
+<p>For the simplest use,<br />
+pass any width directly to the mixin:</p>
+<p>.. code-block:: scss</p>
+<p>// arbitrary width<br />
+  .item { @include span(25%); }</p>
+<p>// float output (without gutters)<br />
+  .item {<br />
+    float: left;<br />
+    width: 25%;<br />
+  }</p>
+<p>.. _tools-span-span:</p>
+<p>Grid Widths<br />
+<del>~</del><del>~</del>~</p>
+<p>If you are using a grid,<br />
+you can also span columns on the grid:</p>
+<p>.. code-block:: scss</p>
+<p>// grid span<br />
+  .item { @include span(3); }</p>
+<p>// output (7-column grid with 1/2 gutters after)<br />
+  .item {<br />
+    float: left;<br />
+    width: 40%;<br />
+    margin-right: 5%;<br />
+  }</p>
+<p>.. _tools-span-edge:</p>
+<p>Row Edges<br />
+<del>~</del>~~~~</p>
+<p>When you use a grid with gutters <code>before</code> or <code>after</code>,<br />
+you sometimes need to mark the <code>first</code> or <code>last</code><br />
+elements in a row,<br />
+so Susy can remove the extra gutters:</p>
+<p>.. code-block:: scss</p>
+<p>// grid span<br />
+  @include span(last 3);</p>
+<p>// output (same 7-column grid)<br />
+  .item {<br />
+    float: right;<br />
+    width: 40%;<br />
+    margin-right: 0;<br />
+  }</p>
+<p>For legacy reasons,<br />
+<code>alpha</code> and <code>omega</code> can be used<br />
+in place of <code>first</code> and <code>last</code>.</p>
+<p>.. _tools-span-context:</p>
+<p>Context<br />
+<del>~</del>~~</p>
+<p>Context is required any time you are using fluid math,<br />
+and nesting grid elements inside other elements:</p>
+<p>.. code-block:: scss</p>
+<p>// 10-column grid<br />
+  .outer {<br />
+    @include span(5);<br />
+    .inner { @include span(2 of 5); }<br />
+  }</p>
+<p>The <code>of</code> flag is used to signal context.<br />
+The context is always equal to the grid-span of the parent.<br />
+In some cases, you can imply changes in context<br />
+by nesting elements inside the span tag itself:</p>
+<p>.. code-block:: scss</p>
+<p>// 10-column grid<br />
+  .outer {<br />
+    // out here, the context is 10<br />
+    @include span(5) {<br />
+      // in here, the context is 5<br />
+      .inner { @include span(2); }<br />
+    }<br />
+  }</p>
+<p>.. _tools-span-nesting:</p>
+<p>Nesting<br />
+<del>~</del>~~</p>
+<p>Grids with <code>inside</code>, <code>inside-static</code>, or <code>split</code> gutters<br />
+don&rsquo;t need to worry about the edge cases,<br />
+but they do have to worry about nesting.</p>
+<p>If an element will have grid-aligned children,<br />
+you should mark it as a <code>nest</code>:</p>
+<p>.. code-block:: scss</p>
+<p>// inside, inside-static, or split gutters<br />
+  .outer {<br />
+    @include span(5 nest);<br />
+    .inner { @include span(2 of 5); }<br />
+  }</p>
+<p>.. _tools-span-location:</p>
+<p>Location<br />
+<del>~</del>~~~</p>
+<p>Asymmetrical grids and isolated output<br />
+also need to know the desired <code>location</code> of the span.<br />
+In both cases,<br />
+use the <code>at</code> flag to set a location.</p>
+<p>For isolation,<br />
+you can use either an arbitrary width<br />
+or a column index (starting with 1).<br />
+For asymmetrical grid spans,<br />
+the location setting must be a column index:</p>
+<p>.. code-block:: scss</p>
+<p>.width { @include span(isolate 500px at 25%); }<br />
+  .index { @include span(isolate 3 at 2); }</p>
+<p>.. _tools-span-spread:</p>
+<p>narrow, wide, and wider<br />
+<del>~</del><del>~</del><del>~</del><del>~</del>~~~</p>
+<p>By default,<br />
+a grid span only spans the gutters <em>between</em> columns.<br />
+So a span of <code>2</code> includes 1 internal gutter (<code>narrow</code>).<br />
+In some cases you want to span additional gutters on either side.<br />
+So that same span of 2<br />
+could include the internal gutter,<br />
+and one (<code>wide</code>) or both (<code>wider</code>) external gutters.</p>
+<p>.. code-block:: scss</p>
+<p>// grid span<br />
+  .narrow { @include span(2); }<br />
+  .wide { @include span(2 wide); }<br />
+  .wider { @include span(2 wider); }</p>
+<p>// width output (7 columns, .25 gutters)<br />
+  // (each column is 10%, and each gutter adds 2.5%)<br />
+  .narrow { width: 22.5%; }<br />
+  .wide { width: 25%; }<br />
+  .wider { width: 27.5%; }</p>
+<p>If you are using inside gutters,<br />
+the spans are wide by default<br />
+but can be overridden manually.</p>
+<p>.. _tools-span-other:</p>
+<p>Other Settings<br />
+<del>~</del><del>~</del>~~~~</p>
+<p>Use the <code>full</code> keyword<br />
+to span the entire context available,<br />
+use <code>break</code> to start a new :ref:<code>tools-row</code><br />
+by clearing previous floats,<br />
+and <code>nobreak</code> to clear none.<br />
+Use <code>no-gutters</code><br />
+to remove gutter output from an individual span,<br />
+and use <code>border-box</code> or <code>content-box</code><br />
+to output changes in :ref:<code>box-sizing &lt;tools-box-sizing&gt;</code><br />
+on the fly.</p>
+<p>You can set an arbitrary gutter override,<br />
+by passing a map (e.g. <code>(gutter-override: 1.5em)</code>)<br />
+as part of the shorthand syntax.</p>
+<p>You can also change the :ref:<code>output &lt;settings-output&gt;</code> style,<br />
+grid context,<br />
+and other :doc:<code>global settings &lt;settings&gt;</code> on the fly:</p>
+<p>.. code-block:: scss</p>
+<p>// grid span<br />
+  .item { @include span(isolate 4 at 2 of 8 (4em 1em) inside rtl break); }</p>
+<p>// output<br />
+  .item {<br />
+    clear: both;<br />
+    float: right;<br />
+    width: 50%;<br />
+    padding-left: .5em;<br />
+    padding-right: .5em;<br />
+    margin-left: 25%;<br />
+    margin-right: -100%;<br />
+  }</p>
+<hr />
+<p>.. _tools-span-function:</p>
+<h2 id="span-function"><a name="user-content-span-function" href="#span-function" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Span [function]</h2>
+<p>The span function is identical to the<br />
+:ref:<code>span mixin &lt;tools-span-mixin&gt;</code>,<br />
+but returns only the span width value,<br />
+so you can use it with custom output.</p>
+<p>.. describe:: function</p>
+<p>:format: <code>span($span)</code><br />
+  :$span: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>.. code-block:: scss</p>
+<p>.item {<br />
+    width: span(2);<br />
+    margin-left: span(3 wide);<br />
+    margin-right: span(1) + 25%;<br />
+  }</p>
+<hr />
+<p>.. _tools-gutter:</p>
+<h2 id="gutters"><a name="user-content-gutters" href="#gutters" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Gutters</h2>
+<p>.. describe:: function/mixin</p>
+<p>:format: <code>gutters($span)</code><br />
+  :alternate: <code>gutter($span)</code><br />
+  :$span: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>Use <code>gutter</code> or <code>gutters</code><br />
+as a <strong>function</strong> to return the width of a gutter<br />
+given your settings and current context.</p>
+<p>.. code-block:: scss</p>
+<p>// default context<br />
+  margin-left: gutter();</p>
+<p>// nested in a 10-column context<br />
+  margin-left: gutter(10);</p>
+<p>Use the <strong>mixin</strong> version<br />
+to apply gutters to any element.<br />
+Gutters are output<br />
+as <code>margin</code> or <code>padding</code><br />
+depending on the <code>gutter-position</code> setting.</p>
+<p>.. code-block:: scss</p>
+<p>// default gutters<br />
+  .item { @include gutters; }</p>
+<p>You can also set explicit gutter widths:</p>
+<p>.. code-block:: scss</p>
+<p>// explicit gutters<br />
+  .item { @include gutters(3em); }</p>
+<p>Or use the shorthand syntax<br />
+to adjust settings on the fly:</p>
+<p>.. code-block:: scss</p>
+<p>// inside gutters<br />
+  .item { @include gutters(3em inside); }</p>
+<p>// gutters after, in an explicit (10 1/3) layout context<br />
+  .item { @include gutters(10 1/3 after); }</p>
+<hr />
+<p>.. _tools-container:</p>
+<h2 id="container"><a name="user-content-container" href="#container" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Container</h2>
+<p>.. describe:: function/mixin</p>
+<p>:format: <code>container($layout)</code><br />
+  :$layout: :ref:<code>\&lt;layout\&gt; &lt;shorthand-layout&gt;</code></p>
+<p>Use the <code>container</code> <strong>function</strong><br />
+to return a container-width based on an optional layout argument,<br />
+or your global settings.</p>
+<p>.. code-block:: scss</p>
+<p>// global settings<br />
+  width: container();</p>
+<p>// 12-column grid<br />
+  $large-breakpoint: container(12);</p>
+<p>Use the <strong>mixin</strong> to<br />
+apply container settings to an element directly.</p>
+<p>.. code-block:: scss</p>
+<p>body {<br />
+    @include container(12 center static);<br />
+  }</p>
+<p>Note that :ref:<code>static math &lt;settings-math&gt;</code> requires a valid<br />
+:ref:<code>column-width &lt;settings-column-width&gt;</code> setting</p>
+<hr />
+<p>.. _tools-nested:</p>
+<h2 id="nested-context"><a name="user-content-nested-context" href="#nested-context" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Nested Context</h2>
+<p>.. describe:: function/mixin</p>
+<p>:function: <code>nested($span)</code><br />
+  :mixin: <code>nested($span) { @content }</code><br />
+  :$span: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code><br />
+  :@content: Sass content block</p>
+<p>Sass is not aware of the :abbr:<code>DOM (Document Object Model)</code>,<br />
+or the specific markup of your site,<br />
+so Susy mixins don&rsquo;t know about any ancestor/child relationships.<br />
+If your container creates a grid context<br />
+that is different from the default,<br />
+you will need to pass that new context explicitly to nested elements.</p>
+<p>You can pass that context along with the shorthand syntax.</p>
+<p>.. code-block:: scss</p>
+<p>body { @include container(8); }<br />
+  .span { @include span(3 of 8); }</p>
+<p>But that gets repetitive if you have large blocks of code<br />
+using a given context.<br />
+The <code>nested</code> <strong>mixin</strong> provides a shortcut<br />
+to change the default context for a section of code.</p>
+<p>.. code-block:: scss</p>
+<p>@include nested(8) {<br />
+    .span { @include span(3); }<br />
+  }</p>
+<p>Context is a bit more complex<br />
+when you are using asymmetrical grids,<br />
+because we need to know<br />
+not just <em>how many</em> columns,<br />
+but <em>which</em> columns are available.</p>
+<p>.. code-block:: scss</p>
+<p>.outer {<br />
+    @include span(3 of (1 2 3 2 1) at 2);</p>
+<div class="codehilite"><pre><span class="sx">//</span> <span class="sx">context</span> <span class="kr">is</span> <span class="nv">now</span> <span class="kt">(2</span> <span class="mi">3</span> <span class="sx">2)...</span>
+<span class="kr">.inner</span> <span class="nc">{</span> <span class="sx">@include</span> <span class="sx">span(2</span> <span class="sx">of</span> <span class="sx">(2</span> <span class="mi">3</span> <span class="sx">2)</span> <span class="sx">at</span> <span class="sx">1);</span> <span class="sx">}</span>
+</pre></div>
+
+
+<p>}</p>
+<p>The <code>nested</code> <strong>function</strong> can help you<br />
+manage context more easily,<br />
+without having to calculate it yourself.</p>
+<p>.. code-block:: scss</p>
+<p>$grid: (1 2 3 2 1);</p>
+<p>.outer {<br />
+    $context: 3 of $grid at 2;<br />
+    @include span($context);</p>
+<div class="codehilite"><pre><span class="sx">@include</span> <span class="sx">nested($context)</span> <span class="sx">{</span>
+  <span class="kr">.inner</span> <span class="nc">{</span> <span class="sx">@include</span> <span class="sx">span(2</span> <span class="sx">at</span> <span class="sx">1);</span> <span class="sx">}</span>
+<span class="sx">}</span>
+</pre></div>
+
+
+<p>}</p>
+<hr />
+<p>.. _tools-box-sizing:</p>
+<h2 id="global-box-sizing"><a name="user-content-global-box-sizing" href="#global-box-sizing" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Global Box Sizing</h2>
+<p>Set the <code>box-sizing</code> on a <code>global</code>_ selector,<br />
+and set the :ref:<code>global-box-sizing &lt;settings-global-box-sizing&gt;</code><br />
+to match.</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>global-box-sizing($box [, $inherit])</code><br />
+  :shortcut: <code>border-box-sizing([$inherit])</code><br />
+  :$box: <code>content-box</code> | <code>border-box</code><br />
+  :$inherit: [optional] <code>true</code> | <code>false</code></p>
+<p>Setting the optional argument, <code>$inherit</code>, to <code>true</code><br />
+will still globally set the <code>box-sizing</code>, but in<br />
+a way such that a component can easily override the<br />
+global <code>box-sizing</code> by setting its own <code>box-sizing</code><br />
+property. By setting <code>box-sizing</code> once on the<br />
+component, all nested elements within the component<br />
+will also be modified. The default behavior, where<br />
+<code>$inherit</code> is <code>false</code>, would only update the<br />
+<code>box-sizing</code> of the component itself. Nested<br />
+elements are not affected when <code>$inherit</code> is<br />
+<code>false</code>.</p>
+<p>You can pass a <code>box-sizing</code> argument<br />
+to the <code>span</code> mixin<br />
+as part of the shorthand syntax,<br />
+and Susy will set the element&rsquo;s box-sizing to match.</p>
+<p>.. code-block:: scss</p>
+<p>// input<br />
+  .item { @include span(25em border-box); }</p>
+<p>// sample output (depending on settings)<br />
+  .item {<br />
+    float: left;<br />
+    width: 25em;<br />
+    box-sizing: border-box;<br />
+  }</p>
+<p>We highly recommend using<br />
+a <code>global</code>_ <code>border-box</code> setting,<br />
+especially if you are using inside gutters<br />
+of any kind.</p>
+<p>.. code-block:: scss</p>
+<p>// the basics with default behavior:<br />
+  * { box-sizing: border-box; }</p>
+<p>// the basics with $inherit set to true:<br />
+  html { box-sizing: border-box; }<br />
+  * { box-sizing: inherit; }</p>
+<p>Susy needs to know what box model you are using,<br />
+so the best approach is to set global box sizing<br />
+using one of Susy&rsquo;s shortcuts.</p>
+<p>.. code-block:: scss</p>
+<p>// the flexible version:<br />
+  @include global-box-sizing(border-box);</p>
+<p>// the shortcut:<br />
+  @include border-box-sizing;</p>
+<p>If you want to change the global box-sizing by hand,<br />
+or it has already been changed by another library,<br />
+update the<br />
+:ref:<code>global-box-sizing &lt;settings-global-box-sizing&gt;</code> setting<br />
+to let Susy know.</p>
+<p>If you need to supprot IE6/7,<br />
+there is a simple <code>polyfill</code>_<br />
+to make it work.</p>
+<p>.. _global: <a href="http://www.paulirish.com/2012/box-sizing-border-box-ftw/">http://www.paulirish.com/2012/box-sizing-border-box-ftw/</a><br />
+.. _polyfill: <a href="https://github.com/Schepp/box-sizing-polyfill">https://github.com/Schepp/box-sizing-polyfill</a></p>
+<hr />
+<p>.. _tools-row:</p>
+<h2 id="rows-edges"><a name="user-content-rows-edges" href="#rows-edges" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Rows &amp; Edges</h2>
+<p>Floated layouts sometimes require<br />
+help maintaining rows and edges.</p>
+<hr />
+<p>.. _tools-row-break:</p>
+<p>Break<br />
+<del>~</del></p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>break()</code><br />
+  :reset: <code>nobreak()</code><br />
+  :keywords: <code>break</code> | <code>nobreak</code></p>
+<p>To create a new row,<br />
+you need to clear all previous floats.<br />
+This can usually be done using keywords<br />
+with the :ref:<code>span mixin &lt;tools-span-edge&gt;</code>.<br />
+When you need to apply a row-break on it&rsquo;s own,<br />
+we have a <code>break</code> mixin.</p>
+<p>.. code-block:: scss</p>
+<p>.new-line { @include break; }</p>
+<p>If you ever need to override that,<br />
+you can use <code>nobreak</code><br />
+to set <code>clear: none;</code>.</p>
+<p>.. code-block:: scss</p>
+<p>.no-new-line { @include nobreak; }</p>
+<p>Both <code>break</code> and <code>nobreak</code><br />
+can also be used as keywords<br />
+with the :ref:<code>span mixin &lt;tools-span-mixin&gt;</code>.</p>
+<hr />
+<p>.. _tools-row-first:</p>
+<p>First<br />
+<del>~</del></p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>first($context)</code><br />
+  :alternate: <code>alpha($context)</code><br />
+  :$context: :ref:<code>\&lt;layout\&gt; &lt;shorthand-layout&gt;</code></p>
+<p>.. note::</p>
+<p>Only useful when<br />
+  :ref:<code>gutter-position &lt;settings-gutter-position&gt;</code><br />
+  is set to <code>before</code>.</p>
+<p>When :ref:<code>gutter-position &lt;settings-gutter-position&gt;</code><br />
+is set to <code>before</code><br />
+we need to remove the gutter<br />
+from the first element in every row.<br />
+This can often be solved<br />
+using a keyword in the :ref:<code>span mixin &lt;tools-span-edge&gt;</code>.<br />
+Sometimes you need to set an item as <code>first</code><br />
+outside the span mixin.</p>
+<p>.. code-block:: scss</p>
+<p>.first { @include first; }</p>
+<p>We also support an <code>alpha</code> mixin<br />
+with the same syntax and output.</p>
+<p>Both <code>first</code> and <code>alpha</code><br />
+can also be used as keywords<br />
+with the :ref:<code>span mixin &lt;tools-span-mixin&gt;</code>.</p>
+<hr />
+<p>.. _tools-row-last:</p>
+<p>Last<br />
+~~~~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>last($context)</code><br />
+  :alternate: <code>omega($context)</code><br />
+  :$context: :ref:<code>\&lt;layout\&gt; &lt;shorthand-layout&gt;</code></p>
+<p>.. note::</p>
+<p>Only required when<br />
+  :ref:<code>gutter-position &lt;settings-gutter-position&gt;</code><br />
+  is set to <code>after</code>,<br />
+  but can be useful in any context<br />
+  to help with sub-pixel rounding issues.</p>
+<p>When :ref:<code>gutter-position &lt;settings-gutter-position&gt;</code><br />
+is set to <code>after</code><br />
+we need to remove the gutter<br />
+from the last element in every row,<br />
+and :ref:<code>optionally float in the opposite direction &lt;settings-last-flow&gt;</code>.<br />
+This can often be solved<br />
+using a keyword in the :ref:<code>span mixin &lt;tools-span-edge&gt;</code>.<br />
+Sometimes you need to set an item as <code>last</code><br />
+outside the span mixin.</p>
+<p>.. code-block:: scss</p>
+<p>.last { @include last; }</p>
+<p>We also support an <code>omega</code> mixin<br />
+with the same syntax and output.</p>
+<p>Both <code>last</code> and <code>omega</code><br />
+can also be used as keywords<br />
+with the :ref:<code>span mixin &lt;tools-span-mixin&gt;</code>.</p>
+<hr />
+<p>.. _tools-row-full:</p>
+<p>Full<br />
+~~~~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>full($context)</code><br />
+  :$context: :ref:<code>\&lt;layout\&gt; &lt;shorthand-layout&gt;</code></p>
+<p>This is a shortcut for<br />
+<code>span(full)</code>,<br />
+used to create elements<br />
+that span their entire context.</p>
+<p>.. code-block:: scss</p>
+<p>.last { @include full; }</p>
+<p><code>full</code> can also be used as a keyword<br />
+with the :ref:<code>span mixin &lt;tools-span-mixin&gt;</code>.</p>
+<hr />
+<p>.. _tools-margin:</p>
+<h2 id="margins"><a name="user-content-margins" href="#margins" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Margins</h2>
+<p>Shortcut mixins<br />
+for applying left/right margins.</p>
+<hr />
+<p>.. _tools-margin-pre:</p>
+<p>Pre<br />
+~~~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>pre($span)</code><br />
+  :alternate: <code>push($span)</code><br />
+  :$span: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>Add margins before an element,<br />
+depending on the :ref:<code>flow &lt;settings-flow&gt;</code> direction.</p>
+<p>.. code-block:: scss</p>
+<p>.example1 { @include pre(25%); }<br />
+  .example2 { @include push(2 of 7); }</p>
+<hr />
+<p>.. _tools-margin-post:</p>
+<p>Post<br />
+~~~~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>post($span)</code><br />
+  :$span: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>Add margins after an element,<br />
+depending on the :ref:<code>flow &lt;settings-flow&gt;</code> direction.</p>
+<p>.. code-block:: scss</p>
+<p>.example1 { @include post(25%); }<br />
+  .example2 { @include post(2 of 7); }</p>
+<hr />
+<p>.. _tools-margin-pull:</p>
+<p>Pull<br />
+~~~~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>pull($span)</code><br />
+  :$span: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>Add negative margins before an element,<br />
+pulling it against the direction of :ref:<code>flow &lt;settings-flow&gt;</code>.</p>
+<p>.. code-block:: scss</p>
+<p>.example1 { @include pull(25%); }<br />
+  .example2 { @include pull(2 of 7); }</p>
+<hr />
+<p>.. _tools-margin-squish:</p>
+<p>Squish<br />
+<del>~</del>~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>squish($pre [, $post])</code><br />
+  :$pre: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code><br />
+  :$post: [optional] :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>Shortcut for adding both :ref:<code>pre &lt;tools-margin-pre&gt;</code><br />
+and :ref:<code>post &lt;tools-margin-post&gt;</code> margins<br />
+to the same element.</p>
+<p>.. code-block:: scss</p>
+<p>// equal pre and post<br />
+  .example1 { @include squish(25%); }</p>
+<p>// distinct pre and post<br />
+  .example2 { @include squish(1, 3); }</p>
+<p>When they share identical context,<br />
+you can pass <code>pre</code> and <code>post</code> spans<br />
+in the same argument.<br />
+This is often the case,<br />
+and saves you from repeating yourself.</p>
+<p>.. code-block:: scss</p>
+<p>// shared context<br />
+  .shared {<br />
+    @include squish(1 3 of 12 no-gutters);<br />
+  }</p>
+<p>// distinct context<br />
+  .distinct {<br />
+    @include squish(1 at 2, 3 at 6);<br />
+  }</p>
+<hr />
+<p>.. _tools-padding:</p>
+<h2 id="padding"><a name="user-content-padding" href="#padding" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Padding</h2>
+<p>Shortcut mixins<br />
+for applying left/right padding.</p>
+<p>.. note::</p>
+<p>The interaction between padding and width changes<br />
+  depending on your given :ref:<code>box-model &lt;tools-box-sizing&gt;</code>.<br />
+  In the browser-default <code>content-box</code> model,<br />
+  width and padding are added together,<br />
+  so that an item with <code>span(3)</code> and <code>prefix(2)</code><br />
+  will occupy a total of 5 columns.<br />
+  In the recommended <code>border-box</code> model,<br />
+  padding is subtracted from the width,<br />
+  so that an item with <code>span(3)</code> will always<br />
+  occupy 3 columns,<br />
+  no matter what padding is applied.</p>
+<hr />
+<p>.. _tools-padding-prefix:</p>
+<p>Prefix<br />
+<del>~</del>~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>prefix($span)</code><br />
+  :$span: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>Add padding before an element,<br />
+depending on the :ref:<code>flow &lt;settings-flow&gt;</code> direction.</p>
+<p>.. code-block:: scss</p>
+<p>.example1 { @include prefix(25%); }<br />
+  .example2 { @include prefix(2 of 7); }</p>
+<hr />
+<p>.. _tools-padding-suffix:</p>
+<p>Suffix<br />
+<del>~</del>~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>suffix($span)</code><br />
+  :$span: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>Add padding after an element,<br />
+depending on the :ref:<code>flow &lt;settings-flow&gt;</code> direction.</p>
+<p>.. code-block:: scss</p>
+<p>.example1 { @include suffix(25%); }<br />
+  .example2 { @include suffix(2 of 7); }</p>
+<hr />
+<p>.. _tools-padding-pad:</p>
+<p>Pad<br />
+~~~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>pad($prefix [, $suffix])</code><br />
+  :$prefix: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code><br />
+  :$suffix: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>Shortcut for adding both :ref:<code>prefix &lt;tools-padding-prefix&gt;</code><br />
+and :ref:<code>suffix &lt;tools-padding-suffix&gt;</code> padding<br />
+to the same element.</p>
+<p>.. code-block:: scss</p>
+<p>// equal pre and post<br />
+  .example1 { @include pad(25%); }</p>
+<p>// distinct pre and post<br />
+  .example2 { @include pad(1, 3); }</p>
+<p>When they share identical context,<br />
+you can pass <code>pre</code> and <code>post</code> spans<br />
+in the same argument.<br />
+This is often the case,<br />
+and saves you from repeating yourself.</p>
+<p>.. code-block:: scss</p>
+<p>// shared context<br />
+  .shared {<br />
+    @include pad(1 3 of 12 no-gutters);<br />
+  }</p>
+<p>// distinct context<br />
+  .distinct {<br />
+    @include pad(1 at 2, 3 at 6);<br />
+  }</p>
+<hr />
+<p>.. _tools-bleed:</p>
+<h2 id="bleed"><a name="user-content-bleed" href="#bleed" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Bleed</h2>
+<p>.. describe:: mixin</p>
+<p>:format: <code>bleed($bleed)</code><br />
+  :$bleed: :abbr:<code>TRBL (Top Right Bottom Left)</code><br />
+           :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>Apply negative margins<br />
+and equal positive padding,<br />
+so that element borders and backgrounds &ldquo;bleed&rdquo;<br />
+outside of their containers,<br />
+without the content be affected.</p>
+<p>This uses the standard :ref:<code>span shorthand &lt;shorthand-span&gt;</code>,<br />
+but takes anywhere from one to four widths,<br />
+using the common :abbr:<code>TRBL (Top Right Bottom Left)</code> pattern<br />
+from CSS.</p>
+<p>.. code-block:: scss</p>
+<p>// input<br />
+  .example1 { @include bleed(1em); }<br />
+  .example2 { @include bleed(1em 2 20px 5% of 8 .25); }</p>
+<p>// output<br />
+  .example1 {<br />
+    margin: -1em;<br />
+    padding: 1em;<br />
+  }</p>
+<p>.example2 {<br />
+    margin-top: -1em;<br />
+    padding-top: 1em;<br />
+    margin-right: -22.5%;<br />
+    padding-right: 22.5%;<br />
+    margin-bottom: -20px;<br />
+    padding-bottom: 20px;<br />
+    margin-left: -5%;<br />
+    padding-left: 5%;<br />
+  }</p>
+<p>When possible,<br />
+the <code>bleed</code> mixins will attempt<br />
+to keep gutters intact.<br />
+Use the <code>no-gutters</code> keyword<br />
+to override that behavior.</p>
+<hr />
+<p>.. _tools-bleed-x:</p>
+<p>Bleed-x<br />
+<del>~</del>~~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>bleed-x($bleed)</code><br />
+  :$bleed: :abbr:<code>LR (Left Right)</code><br />
+           :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>A shortcut for applying only left and right<br />
+(horizontal) bleed.</p>
+<p>.. code-block:: scss</p>
+<p>// input<br />
+  .example { @include bleed-x(1em 2em); }</p>
+<p>// output<br />
+  .example {<br />
+    margin-left: -1em;<br />
+    padding-left: 1em;<br />
+    margin-right: -2em;<br />
+    padding-right: 2em;<br />
+  }</p>
+<hr />
+<p>.. _tools-bleed-y:</p>
+<p>Bleed-y<br />
+<del>~</del>~~</p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>bleed-y($bleed)</code><br />
+  :$bleed: :abbr:<code>TB (Top Bottom)</code><br />
+           :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>A shortcut for applying only top and bottom<br />
+(vertical) bleed.</p>
+<p>.. code-block:: scss</p>
+<p>// input<br />
+  .example { @include bleed-y(1em 2em); }</p>
+<p>// output<br />
+  .example {<br />
+    margin-top: -1em;<br />
+    padding-top: 1em;<br />
+    margin-bottom: -2em;<br />
+    padding-bottom: 2em;<br />
+  }</p>
+<hr />
+<p>.. _tools-isolate:</p>
+<h2 id="isolate"><a name="user-content-isolate" href="#isolate" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Isolate</h2>
+<p>.. describe:: mixin</p>
+<p>:format: <code>isolate($isolate)</code><br />
+  :$isolate: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code></p>
+<p>Isolation is a layout technique based on floats,<br />
+but adjusted to <code>address sub-pixel rounding issues</code>_.<br />
+Susy supports it as a global :ref:<code>output &lt;settings-output&gt;</code> setting,<br />
+or as a :doc:<code>shorthand</code> keyword for the <code>span</code> mixin,<br />
+or as a stand-alone mixin.</p>
+<p>The <code>$isolate</code> argument takes a standard<br />
+:ref:<code>span shorthand &lt;shorthand-span&gt;</code>,<br />
+but any length or grid-index given<br />
+is interpreted as an isolation location<br />
+(unless location is otherwise specified with the <code>at</code> flag).<br />
+The function returns a length value.</p>
+<p>.. code-block:: scss</p>
+<p>// input<br />
+  .function {<br />
+    margin-left: isolate(2 of 7 .5 after);<br />
+  }</p>
+<p>// output<br />
+  .function {<br />
+    margin-left: 15%;<br />
+  }</p>
+<p>And the mixin returns<br />
+all the properties required for isolation.</p>
+<p>.. code-block:: scss</p>
+<p>// input<br />
+  .mixin { @include isolate(25%); }</p>
+<p>// output<br />
+  .mixin {<br />
+    float: left;<br />
+    margin-left: 25%;<br />
+    margin-right: -100%;<br />
+  }</p>
+<p>.. _<code>address sub-pixel rounding issues</code>: <a href="http://www.palantir.net/blog/responsive-design-s-dirty-little-secret">http://www.palantir.net/blog/responsive-design-s-dirty-little-secret</a></p>
+<hr />
+<p>.. _tools-gallery:</p>
+<h2 id="gallery"><a name="user-content-gallery" href="#gallery" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Gallery</h2>
+<p>.. describe:: mixin</p>
+<p>:format: <code>gallery($span, $selector)</code><br />
+  :$span: :ref:<code>\&lt;span\&gt; &lt;shorthand-span&gt;</code><br />
+  :$selector: (nth-) <code>child</code>:abbr:<code>* (default)</code> | <code>of-type</code></p>
+<p>Gallery is a shortcut for creating gallery-style layouts,<br />
+where a large number of elements are laid out on a consistent grid.<br />
+We take the standard :ref:<code>span shorthand &lt;shorthand-span&gt;</code><br />
+and apply it to all the elements,<br />
+using <code>nth-child</code> or <code>nth-of-type</code> selectors<br />
+and the isolation technique to arrange them on the grid.</p>
+<p>.. code-block:: scss</p>
+<p>// each img will span 3 of 12 columns,<br />
+  // with 4 images in each row:<br />
+  .gallery img {<br />
+    @include gallery(3 of 12);<br />
+  }</p>
+<p>.. warning::</p>
+<p>The <code>nth-child</code> selector<br />
+<code>has issues on iOS8 Safari</code>_.<br />
+  Use <code>nth-of-type</code> for iOS8 support.</p>
+<p>.. _has issues on iOS8 Safari: <a href="http://stackoverflow.com/questions/26032513/ios8-safari-after-a-pushstate-the-nth-child-selectors-not-works">http://stackoverflow.com/questions/26032513/ios8-safari-after-a-pushstate-the-nth-child-selectors-not-works</a></p>
+<hr />
+<p>.. _tools-show-grid:</p>
+<h2 id="show-grid"><a name="user-content-show-grid" href="#show-grid" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Show Grid</h2>
+<p>.. describe:: mixin</p>
+<p>:format: <code>show-grid($grid)</code><br />
+  :$grid: :ref:<code>\&lt;layout\&gt; &lt;shorthand-layout&gt;</code></p>
+<p>The easiest way to show you grids<br />
+is by adding a :ref:<code>keyword &lt;settings-debug-image&gt;</code><br />
+to your :ref:<code>container &lt;tools-container&gt;</code> mixin.<br />
+If you need to apply the grid separately,<br />
+the <code>show-grid</code> mixin takes exactly the same<br />
+:ref:<code>layout shorthand &lt;shorthand-layout&gt;</code> arguments,<br />
+and can output the debugging grid image<br />
+as either a background, or a triggered overlay.</p>
+<p>.. code-block:: scss</p>
+<p>body {<br />
+    @include container;<br />
+    @include show-grid(overlay);<br />
+  }</p>
+<p>.. warning::</p>
+<p>Grid images are not exact.<br />
+  Browsers have extra trouble with<br />
+  sub-pixel rounding on background images.<br />
+  These are meant for rough debugging,<br />
+  not for pixel-perfect measurements.<br />
+  Expect the <code>to</code> side of your grid image<br />
+  (<code>right</code> if your flow is <code>ltr</code>)<br />
+  to be off by several pixels.</p>
+<hr />
+<p>.. _tools-breakpoint:</p>
+<h2 id="breakpoint"><a name="user-content-breakpoint" href="#breakpoint" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Breakpoint</h2>
+<p>Susy has built-in media-query handling,<br />
+and also supports integration with the <code>Breakpoint</code>_ plugin.<br />
+To install Breakpoint,<br />
+follow the instuctions on their site.</p>
+<p>.. _Breakpoint: <a href="http://breakpoint-sass.com/">http://breakpoint-sass.com/</a></p>
+<hr />
+<p>.. _tools-susy-breakpoint:</p>
+<p>Susy Breakpoint<br />
+<del>~</del><del>~</del><del>~</del></p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>susy-breakpoint($query, $layout, $no-query)</code><br />
+  :$query: media query shorthand (see :ref:<code>susy-media &lt;tools-susy-media&gt;</code>)<br />
+  :$layout: :ref:<code>\&lt;layout\&gt; &lt;shorthand-layout&gt;</code><br />
+  :$no-query: <boolean> | <string> (see :ref:<code>susy-media &lt;tools-susy-media&gt;</code>)</p>
+<p><code>susy-breakpoint()</code> acts as a shortcut<br />
+for changing layout settings at different media-query breakpoints,<br />
+using either :ref:<code>susy-media &lt;tools-susy-media&gt;</code> or<br />
+the third-party <code>Breakpoint</code>_ plugin.</p>
+<p>If you are using the third-party plugin,<br />
+see <code>Breakpoint: Basic Media Queries</code><em> and<br />
+<code>Breakpoint: No Query Fallbacks</code></em> for details.</p>
+<p>This mixin acts as a wrapper,<br />
+adding media-queries and<br />
+changing the layout settings for any susy functions or mixins<br />
+that are nested inside.</p>
+<p>.. code-block:: scss</p>
+<p>@include susy-breakpoint(30em, 8) {<br />
+    // nested code uses an 8-column grid,<br />
+    // starting at a 30em min-width breakpoint&hellip;<br />
+    .example { @include span(3); }<br />
+  }</p>
+<p>.. <em><code>Breakpoint: Basic Media Queries</code>: <a href="https://github.com/Team-Sass/breakpoint/wiki/Basic-Media-Queries"><a href="https://github.com/Team-Sass/breakpoint/wiki/Basic-Media-Queries">https://github.com/Team-Sass/breakpoint/wiki/Basic-Media-Queries</a></a><br />
+.. </em><code>Breakpoint: No Query Fallbacks</code>: <a href="https://github.com/Team-Sass/breakpoint/wiki/No-Query-Fallbacks">https://github.com/Team-Sass/breakpoint/wiki/No-Query-Fallbacks</a></p>
+<hr />
+<p>.. _tools-susy-media:</p>
+<p>Susy Media<br />
+<del>~</del><del>~</del></p>
+<p>.. describe:: mixin</p>
+<p>:format: <code>susy-media($query, $no-query)</code><br />
+  :$query: <min-width> [<max-width>] | <string> | <pair> | <map><br />
+  :$no-query: <boolean> | <string></p>
+<p>The <code>susy-media</code> mixin provides basic media-query handling,<br />
+and handles the built-in functionality for <code>susy-breakpoint</code>.</p>
+<p><code>$query</code><br />
+  A single length will be used as a <code>min-width</code> query,<br />
+  two lengths will become <code>min-</code> and <code>max-</code> width queries,<br />
+  a property-value pair, or map of pairs<br />
+  will become <code>(property: value)</code> queries,<br />
+  and a lonely string will be used directly.</p>
+<p>.. code-block:: scss</p>
+<p>// min<br />
+  // &mdash;<br />
+  @include susy-media(30em) { /<em>&hellip;</em>/ }</p>
+<p>@media (min-width: 30em) { /<em>&hellip;</em>/ }</p>
+<p>// min/max pair<br />
+  // ------------<br />
+  @include susy-media(30em 60em) { /<em>&hellip;</em>/ }</p>
+<p>@media (min-width: 30em) and (max-width: 60em) { /<em>&hellip;</em>/ }</p>
+<p>// property/value pair<br />
+  // -------------------<br />
+  @include susy-media(min-height 30em) { /<em>&hellip;</em>/ }</p>
+<p>@media (min-height: 30em) { /<em>&hellip;</em>/ }</p>
+<p>// map<br />
+  // &mdash;<br />
+  @include susy-media((<br />
+    min-height: 30em,<br />
+    orientation: landscape,<br />
+  )) { /<em>&hellip;</em>/ }</p>
+<p>@media (min-height: 30em) and (orientation: landscape) { /<em>&hellip;</em>/ }</p>
+<p><code>$no-query</code><br />
+<code>true</code> will render the contents to css without any media-query.<br />
+  This can be useful for creating separate no-query fallback files.</p>
+<p>For inline fallbacks using a target class,<br />
+  pass in a string (e.g. <code>.no-mqs</code>) to use as your fallback selector.<br />
+  The contents will be output both inside a media-query<br />
+  and again inside the given selector.</p>
+<p>This can be set globally with the <code>$susy-media-fallback</code> variable.</p>
+<p><code>susy-media</code> also supports named media-queries,<br />
+which can be set using the <code>$susy-media</code> variable:</p>
+<p>.. code-block:: scss</p>
+<p>$susy-media: (<br />
+    min: 20em,<br />
+    max: 80em 60em,<br />
+    string: &lsquo;screen and (orientation: landscape)&rsquo;,<br />
+    pair: min-height 40em,<br />
+    map: (<br />
+      media: screen,<br />
+      max-width: 30em<br />
+    ),<br />
+  );</p>
+<p>@include susy-media(min);</p></article></body></html>

@@ -1,0 +1,256 @@
+﻿@using ZCPT.CrowdFunding.Web.Models.CFInvestingPartyModule
+@using ZCPT.CrowdFunding.Entity
+@model CreateFund
+
+@{
+    Layout = "~/Views/Shared/_FirstMenuLayout.cshtml";
+    ViewBag.Title = "创建基金";
+    ViewBag.ContentName = ViewBag.Title;
+}
+<link href="~/Content/css/createFund.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+        var imgUrl = ucConfig.ServerReferenceFileCenterAPI + '/fileupload/ImgDownload/', ImgSingleUploadUrl = ucConfig.ServerReferenceFileCenterAPI + '/fileupload/ImgSingleUpload/CrowdFunding';
+</script>
+
+<script language="javascript" type="text/javascript" src="~/Tools/My97DatePicker/WdatePicker.js"></script>
+
+<div class="main-right-white">
+    <h1 class="page-head"><span>@ViewBag.Title</span></h1>
+    @using (Html.BeginForm("CreateFund", "CFInvestingParty", FormMethod.Post, new { id = "fundForm", @class = "form-horizontal section-form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>@Html.DisplayNameFor(model => model.InvestmentCategoryID)：</label>
+        <div class="col-sm-8 classification">
+            @foreach (var item in (List<SelectListItem>)ViewBag.InvestmentCategoryIDs)
+            {
+                <label class="checkbox-inline">
+                    <input type="radio" name="InvestmentCategoryID" value="@item.Value" > @Html.Raw(item.Text)
+                </label>
+            }
+            @Html.ValidationMessageFor(model => model.InvestmentCategoryID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>@Html.DisplayNameFor(model => model.FundName)：</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model => model.FundName, new { htmlAttributes = new { @class = "form-control", @placeholder = "" } })
+            @Html.ValidationMessageFor(model => model.FundName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>@Html.DisplayNameFor(model => model.FundMajorID)：</label>
+        <div class="col-sm-8">
+            @Html.DropDownListFor(model => model.FundMajorID, (List<SelectListItem>)ViewBag.FundMajors, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FundMajorID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group create-city">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>@Html.DisplayNameFor(model => model.ProvinceID)：</label>
+        <div class="col-sm-8">
+
+            @Html.DropDownListFor(model => model.ProvinceID, new List<SelectListItem>(), "-- 省 --", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.CityID, new List<SelectListItem>(), "-- 市 --", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.AreaID, new List<SelectListItem>(), "-- 县/区 --", new { @class = "form-control" })
+           
+            @Html.ValidationMessageFor(model => model.ProvinceID, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group create-Industrys">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>@Html.DisplayNameFor(model => model.Industrys)：</label>
+        <div class="col-sm-8">
+            <button type="button" class="btn btn-left" data-toggle="modal" data-target="#myModal" >选择投资行业</button>
+            <div class="selected-Industrys">
+                <div id="industry-text" class="form-control"></div>
+            </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">选择投资行业</h4>
+                      </div>
+                      <div class="modal-body">
+                            <div class="check-Industrys" id="check-Industrys">
+                                 
+                            </div>
+                      </div>
+                      <div class="modal-footer footer-btns">
+                            <button type="button" class="btn btn-default submit-Industrys" data-dismiss="modal">确定</button>
+                            <button type="button" class="btn btn-primary">取消</button>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+            @Html.HiddenFor(model => model.Industrys)
+            @Html.ValidationMessageFor(model => model.Industrys, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group create-areas">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>@Html.DisplayNameFor(model => model.Areas)：</label>
+        <div class="col-sm-8">
+            <button type="button" class="btn btn-tz" data-toggle="modal" data-target="#myModal-area">选择投资地区</button>
+            <div class="selected-areas">
+                <div id="Areas-text" class="form-control"></div>
+            </div>
+            <div class="modal fade" id="myModal-area" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">选择投资地区</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="check-areas" id="check-areas">
+                             
+                        </div>
+                      </div>
+                      <div class="modal-footer footer-btns">
+                        <button type="button" class="btn btn-default submit-areas" data-dismiss="modal">确定</button>
+                        <button type="button" class="btn btn-primary">取消</button>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            @Html.HiddenFor(model => model.Areas)
+            @Html.ValidationMessageFor(model => model.Areas, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group create-money">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>@Html.DisplayNameFor(model => model.InvestmentMinAmount)：</label>
+        <div class="col-sm-8">
+            <div class="input-group">
+                @Html.EditorFor(model => model.InvestmentMinAmount, new { htmlAttributes = new { @class = "form-control", @placeholder = "" } })
+                <span class="money-gradually">--</span>
+                @Html.EditorFor(model => model.InvestmentMaxAmount, new { htmlAttributes = new { @class = "form-control", @placeholder = "" } })
+                @Html.DropDownListFor(model => model.AmountUnits, ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetSelectList(typeof(AmountUnits), (int)AmountUnits.Billion), new { @class = "form-control" })
+            </div>
+
+            @Html.ValidationMessageFor(model => model.InvestmentMinAmount, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.InvestmentMaxAmount, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.AmountUnits, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group select-mode">
+        <label class="col-sm-2 control-label">
+            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+            <span class="kk"></span>
+        </label>
+        <div class="col-sm-8" id="select-demo">
+            @Html.ValidationMessageFor(model => model.InvestmentWays, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>@Html.DisplayNameFor(model => model.ProjectStages)：</label>
+        <div class="col-sm-8">
+            @foreach (var item in (List<SelectListItem>)ViewBag.ProjectStages)
+            {
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="ProjectStages" value="@item.Value" > @Html.Raw(item.Text)
+                </label>
+            }
+            @Html.ValidationMessageFor(model => model.ProjectStages, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group create-time-limited">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>@Html.DisplayNameFor(model => model.InvestmentMinTime)：</label>
+        <div class="col-sm-8 js-time-num">
+            <div class="input-group">
+                @Html.EditorFor(model => model.InvestmentMinTime, new { htmlAttributes = new { @class = "form-control", @placeholder = "" } })
+                <span class="money-gradually">--</span>
+                @Html.EditorFor(model => model.InvestmentMaxTime, new { htmlAttributes = new { @class = "form-control", @placeholder = "" } })
+                @Html.DropDownListFor(model => model.TimeUnits, ZCPT.CrowdFunding.Web.Extension.EnumHelper.GetSelectList(typeof(TimeUnits), (int)TimeUnits.Year), new { @class = "form-control" })
+            </div>
+
+            @Html.ValidationMessageFor(model => model.InvestmentMinTime, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.InvestmentMaxTime, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.TimeUnits, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>@Html.DisplayNameFor(model => model.Introduction)：</label>
+        <div class="col-sm-8">
+            @Html.TextAreaFor(model => model.Introduction, new { @class = "form-control", rows = "6", cols = "30" })
+            @Html.ValidationMessageFor(model => model.Introduction, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@Html.DisplayNameFor(model => model.InvestmentCases)：</label>
+        <div class="col-sm-8">
+            @Html.HiddenFor(model => model.InvestmentCases, new { @value = "[]" })
+            @Html.ValidationMessageFor(model => model.InvestmentCases, "", new { @class = "text-danger" })
+            <div id="insertBox"></div>
+            <input type="button" value="+ 添加一条新的成功案例" class="insetBtn">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@Html.DisplayNameFor(model => model.Notes)：</label>
+        <div class="col-sm-8">
+            @Html.TextAreaFor(model => model.Notes, new { @class = "form-control", rows = "6", cols = "30" })
+            @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@Html.DisplayNameFor(model => model.Tag)：</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model => model.Tag, new { htmlAttributes = new { @class = "form-control", @placeholder = "" } })
+            @Html.ValidationMessageFor(model => model.Tag, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@Html.DisplayNameFor(model => model.FileIconID)：</label>
+        <div class="col-sm-8">
+            <div class="uploadimg">
+                <input id="fileupload" class="fileupload" type="file" name="uploadedfile" style="display:none;">
+                <input type="button" class="btn btn-default fileupload-btn" value="选择图片" />
+                <div id="preview" class="picBox">
+                </div>
+            </div>
+
+            @Html.HiddenFor(M => M.FileIconID)
+            @Html.ValidationMessageFor(model => model.FileIconID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="fileupload" class="col-sm-2 control-label">@Html.DisplayNameFor(model => model.FileID)：</label>
+        <div class="col-sm-8">
+            <div class="uploadimg">
+                <input id="fileupload-file" class="fileupload-file" type="file" name="uploadedfile" style="display:none;">
+                <input type="button" class="btn btn-default fileupload-btn01" value="选择附件" />
+                <div id="preview-file" class="picBox">
+                </div>
+            </div>
+            
+            @Html.HiddenFor(M => M.FileID)
+            @Html.HiddenFor(M => M.FileName)
+            @Html.HiddenFor(M => M.FileType)
+            @Html.ValidationMessageFor(model => model.FileID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="alert alert-success" role="alert">@ViewBag.SuccessInfo</div>
+    <div class="alert alert-danger" role="alert">@ViewBag.FailureInfo</div>
+    <div class="form-group text-center btn-group-comm">
+        <div class="btn-group" role="group" aria-label="...">
+            <div class="btn-group submitBtns" role="group">
+                <input id="js-isDraft" type="hidden" name="isDraft" value="0" />
+                <button  class="btn btn-default js-submit" data-draft="0">提交审核</button>
+                <button  class="btn btn-default js-save" data-draft="1">保存草稿</button>
+            </div>
+        </div>
+    </div>
+}
+</div>
+
+
+@section scripts
+{
+    <!--前台验证-->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<script src="~/Scripts/js/app/createFund.js"></script>
