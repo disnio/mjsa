@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "商品详情";
+    Layout = "~/Views/Shared/_LayoutHFNA.cshtml";
+}
+
+    <link rel="stylesheet" type="text/css" href="~/Scripts/UMEditor/themes/default/css/umeditor.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/adminProductDetail.css">
+     
+    <script>
+        var imgUrl = ucConfig.ServerReferenceFileCenterAPI + '/fileupload/ImgDownload/', ImgSingleUploadUrl = ucConfig.ServerReferenceFileCenterAPI + '/fileupload/ImgSingleUpload/' + ucConfig.ServerApplicationName; 
+    </script> 
+    <script src="~/Scripts/js/lib/jquery-migrate-1.3.0.js"></script>
+    <script src="~/Scripts/bower_components/angular/angular.min.js"></script>
+    <script src="~/Scripts/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+
+    <script src="~/Scripts/js/lib/imgLiquid-min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/My97DatePicker/WdatePicker.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script type="text/javascript">
+        var yob = angular.module('yoB', ['ngSanitize']);
+    </script>
+    <script src="~/Scripts/js/app/product.service.js"></script>
+    <script src="~/Scripts/js/app/product.directive.js"></script>
+    <script src="~/Scripts/js/app/product.filter.js"></script>
+    <script src="~/Scripts/js/app/productDetail.controller.js"></script>
+<div>
+    <form ng-controller="MainController" class="form form-default form-horizontal" name="mainForm" novalidate>
+        <!-- 分类 -->
+        <ul class="productdetail-main-status">
+            <li><span>1，选择商品类目</span></li>
+            <li ng-class="status(0)"><span>2，编辑商品信息</span></li>
+            <li ng-class="status(1)"><span>3，等待商品审核</span></li>
+            <li ng-class="status(2)"><span>4，审核通过</span></li>
+            <li ng-class="status(5)"><span>5，发布成功</span></li>
+        </ul>
+        <div class="form-group row">
+            <label class="col-sm-2">商品分类：</label>
+            <div class="col-sm-10 cate-selected" style="clear:none;">
+                <ul>
+                    <li ng-repeat="s in cates">{{s.Name}}<span ng-show='!$last'>&gt;</span></li>
+                </ul>
+            </div>    
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2" for="">商品标题：</label>
+            <div class="col-sm-3">
+                <span>{{produs.Name}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2" for="Price">商品价格：</label>
+            <div class="col-sm-3">
+                <span>{{produs.Price}} 元</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2" for="Num">商品数量：</label>
+            <div class="col-sm-3">
+                <span>{{produs.Num}}</span>
+            </div>
+        </div>
+        <!-- 外部链接 -->
+        <div class="form-group row" ng-show="isOuterProduct()">
+            <label class="col-sm-2" for="OuterUrl">商品链接：</label>
+            <div class="col-sm-4">
+                {{produs.OuterUrl}}
+            </div>
+        </div>
+        <!-- 购买人群 -->
+        <div class="form-group row">
+            <label class="col-sm-2" for="accessT">购买人群：</label>
+            <div class="col-sm-4">
+                {{accessType}}
+            </div>
+        </div>
+
+
+        <!-- 图片列表 -->
+        <div class="form-group row">
+            <label class="col-sm-2" for="">商品图片：</label>
+            <div class="col-sm-9 col-sm-offset-2">
+                <div class="preview" style="display:inline;">
+                    <div ng-repeat="pic in produs.PictureList" class="pull-left imgBox" ng-class="isMainPic(pic)">
+                        <div class="imgLiquidFill imgLiquid" style="width:100px; height:100px;">
+                            <img ng-src="{{pic.Url}}" alt="" class="img-thumbnail">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 描述 -->
+        <div class="form-group row">
+            <label class="col-sm-2" for="">商品描述：</label>
+            <div class="col-sm-8">                
+                <div ng-bind-html="produs.Description"></div> 
+            </div>
+        </div>
+        <!-- 属性列表 -->
+        <div class="form-group col-sm-12" ng-show="hasOpts()">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>属性名</th>
+                        <th>属性值</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="optlist in produs.OptionList track by $index " ng-show="optlist.IsSKU==false">
+                        <td>
+                            <span>{{optlist.OptionName}}</span>
+                        </td>
+                        <td>
+                            <div data-pindex={{$index}}>
+                                <p ng-repeat="oitem in optlist.OptionValueList">
+                                    <span>{{oitem.OptionValueName}}</span>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 规格列表 -->
+        <div class="form-group col-sm-12" ng-show="hasSkus()">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>规格名</th>
+                        <th>规格值</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="optlist in produs.OptionList track by $index " ng-show="optlist.IsSKU==true">
+                        <td>
+                            <span>{{optlist.OptionName}}</span>
+                        </td>
+                        <td>
+                            <div data-pindex={{$index}}>
+                                <p ng-repeat="oitem in optlist.OptionValueList">
+                                    <span>{{oitem.OptionValueName}}</span>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 规格项列表 -->
+        <div class="form-group col-sm-12" ng-show="hasSkuList()">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>规格组</th>
+                        <th>价格项明细</th>
+                        <th>数量</th>
+                        <th>价格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="opt in produs.SKUList track by $index">
+                        <td>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th ng-repeat="ps in opt.Properties">{{ps[0]}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td ng-repeat="ps in opt.Properties">{{ps[1]}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="table pull-right" ng-show="opt.PriceList.length>0">
+                                <thead>
+                                    <tr>
+                                        <th>价格名</th>
+                                        <th>价格</th>
+                                        <th>循环付费</th>
+                                        <th>循环单位</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="plist in opt.PriceList">
+                                        <td>{{plist.AmountName}}</td>
+                                        <td>{{plist.Amount}}</td>
+                                        <td>{{plist.IsRecuring | toTF}}</td>
+                                        <td>{{plist.TypeName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            {{opt.Num}}
+                        </td>
+                        <td>
+                            <span data-index="{{$index}}" cal-price>{{opt.Price}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 其他信息 -->
+<!--         <div class="form-group">
+            <div class="col-sm-2">
+                <b>其他信息(*)</b>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <b>开始时间(*)：</b>
+            </div>
+            <div class="col-sm-8">
+                {{produs.startTime}}
+            </div>
+        </div> -->
+        <div class="form-group">
+            <div class="col-sm-2">
+                <b>发货区域：</b>
+            </div>
+            <div class="col-sm-10 col-sm-offset-2">
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="regs in regList">
+                            <td>{{regs.ProvinceName}} {{ regs.CityName}} {{ regs.AreaName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>

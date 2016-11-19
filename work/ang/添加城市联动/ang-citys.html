@@ -1,76 +1,98 @@
 <script>
+
+// 编辑地区
 var register = {
-    "UserRegionID": 156310000000000,
+    "RegionID": 156000000000000,
 };
 
-app.controller('RegisterFormController', ['$scope', '$q', 'getProvince', 'getCity', 'getAre', function($scope, $q, getProvince, getCity, getAre) {
-    $scope.Register = register;
-
-    var orgRea = getRea($scope.Register.OrganizationRegionID);
-
+app.controller('FormController', ['$scope', '$q', 'getProvince', 'getCity', 'getAre', 'getRea', function($scope, $q, getProvince, getCity, getAre, getRea) {
+    // 存放结果
+    $scope.region = register;
+    var reas = getRea($scope.region.RegionID);
 
     $q.when(getProvince).then(function(data) {
-        $scope.SourceOrganizationProvinceList = data;
-        $scope.Register.OrganizationProvinceID = orgRea.ProvinceID;
+        $scope.ProvinceList = data;
+        $scope.region.ProvinceID = reas.ProvinceID;
+        $scope.region.CityID = 156000000000000;
+        $scope.region.RegionID = 156000000000000;
+        if (reas.Regions[2] !== "00") {
+            $q.when(getCity(reas.ProvinceID)).then(function(citys) {
+                $scope.CityList = citys;
+                $scope.region.CityID = reas.CityID;
 
-
-        if (orgRea.Regions[2] !== "00") {
-            $q.when(getCity(orgRea.ProvinceID)).then(function(citys) {
-                $scope.SourceOrganizationCityList = citys;
-                $scope.Register.OrganizationCityID = orgRea.CityID;
-
-                if (orgRea.Regions[3] !== "00") {
-                    $q.when(getAre(orgRea.CityID)).then(function(areas) {
-                        $scope.SourceOrganizationAreaList = areas;
-                        $scope.Register.OrganizationRegionID = orgRea.AreaID;
-
+                if (reas.Regions[3] !== "00") {
+                    $q.when(getAre(reas.CityID)).then(function(areas) {
+                        $scope.AreaList = areas;
+                        $scope.region.RegionID = reas.AreaID;
                     });
                 }
             });
         }
     });
 
-    $scope.SourceOrganizationTypes = sourceOrganizationTypes;
+    $scope.changeProvince = function() {
+        $q.when(getCity($scope.region.ProvinceID)).then(function(data) {
+            $scope.CityList = data;
+            $scope.region.CityID = null;
+            $scope.region.RegionID = null;
+        }, function(data) {
+            toastr.error(data.Message);
+        })        
+    };
+
+    $scope.changeCity = function() {
+        $q.when(getAre($scope.region.CityID)).then(function(data) {
+            $scope.AreaList = data;
+        }, function(data) {
+            toastr.error(data.Message);
+        })
+    };
+
 }]);
 </script>
-<form ng-app="RegisterFormModule" ng-controller="RegisterFormController" novalidate role="form" name="RegisterForm" class="form-horizontal section-form">
-<div class="form-group">
-    <label class="col-sm-2 control-label"><span aria-hidden="true" class="glyphicon glyphicon-asterisk"></span>注册地址:</label>
-    <div ng-class="{'has-error':RegisterForm.OrganizationProvinceID.$invalid&&(RegisterForm.activedRegisterInformation_Save ||RegisterForm.OrganizationProvinceID.$dirty)}" class="col-sm-2">
-        <select required ntszae ng-change="changeOrganizationProvince()" ng-model="Register.OrganizationProvinceID" name="OrganizationProvinceID" class="form-control">
-            <option value="">请选择</option>
-            <option ng-repeat="x in SourceOrganizationProvinceList" value="{{x.ID}}">{{x.Name}}</option>
-        </select>
-        <div role="tooltip" class="tooltip bottom tooltip-error">
-            <div class="tooltip-arrow"></div>
-            <div class="tooltip-inner">
-                <p ng-show="RegisterForm.OrganizationProvinceID.$error.required">请选择注册地址！</p>
+<form ng-app="myApp" role="form" class="section-form form-horizontal" ng-controller="FormController" novalidate name="myform">
+    <div class="form-group txaddr">
+        <label class="col-sm-2 control-label"><span aria-hidden="true" class="glyphicon glyphicon-asterisk"></span>通信地址:</label>
+        <div class="col-sm-10">
+            <div ng-class="{'has-error':myform.ProvinceID.$invalid&&(myform.submit ||myform.ProvinceID.$dirty)}" class="col-sm-2">
+                <select required ntszae ng-change="changeProvince()" ng-model="region.ProvinceID" name="ProvinceID" class="form-control">
+                    <option value="156000000000000">请选择</option>
+                    <option ng-repeat="x in ProvinceList" value="{{x.ID}}">{{x.Name}}</option>
+                </select>
+                <div role="tooltip" class="tooltip bottom tooltip-error">
+                    <div class="tooltip-arrow"></div>
+                    <div class="tooltip-inner">
+                        <p ng-show="myform.ProvinceID.$error.required">请选择注册地址！</p>
+                    </div>
+                </div>
+            </div>
+            <div ng-class="{'has-error':myform.CityID.$invalid&&(myform.submit ||myform.CityID.$dirty)}" class="col-sm-2">
+                <select required ntszae ng-change="changeCity()" ng-model="region.CityID" name="CityID" class="form-control">
+                    <option value="156000000000000">请选择</option>
+                    <option ng-repeat="x in CityList" value="{{x.ID}}">{{x.Name}}</option>
+                </select>
+                <div role="tooltip" class="tooltip bottom tooltip-error">
+                    <div class="tooltip-arrow"></div>
+                    <div class="tooltip-inner">
+                        <p ng-show="myform.CityID.$error.required">请选择注册地址！</p>
+                    </div>
+                </div>
+            </div>
+            <div ng-class="{'has-error':myform.RegionID.$invalid&&(myform.submit ||myform.RegionID.$dirty)}" class="col-sm-2">
+                <select required ntszae ng-model="region.RegionID" name="RegionID" class="form-control">
+                    <option value="156000000000000">请选择</option>
+                    <option ng-repeat="x in AreaList" value="{{x.ID}}">{{x.Name}}</option>
+                </select>
+                <div role="tooltip" class="tooltip bottom tooltip-error">
+                    <div class="tooltip-arrow"></div>
+                    <div class="tooltip-inner">
+                        <p ng-show="myform.RegionID.$error.required">请选择注册地址！</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ses">
+                <input type="text" class="form-control txxq" />
             </div>
         </div>
     </div>
-    <div ng-class="{'has-error':RegisterForm.OrganizationCityID.$invalid&&(RegisterForm.activedRegisterInformation_Save ||RegisterForm.OrganizationCityID.$dirty)}" class="col-sm-2">
-        <select required ntszae ng-change="changeOrganizationCity()" ng-model="Register.OrganizationCityID" name="OrganizationCityID" class="form-control">
-            <option value="">请选择</option>
-            <option ng-repeat="x in SourceOrganizationCityList" value="{{x.ID}}">{{x.Name}}</option>
-        </select>
-        <div role="tooltip" class="tooltip bottom tooltip-error">
-            <div class="tooltip-arrow"></div>
-            <div class="tooltip-inner">
-                <p ng-show="RegisterForm.OrganizationCityID.$error.required">请选择注册地址！</p>
-            </div>
-        </div>
-    </div>
-    <div ng-class="{'has-error':RegisterForm.OrganizationRegionID.$invalid&&(RegisterForm.activedRegisterInformation_Save ||RegisterForm.OrganizationRegionID.$dirty)}" class="col-sm-2">
-        <select required ntszae ng-model="Register.OrganizationRegionID" name="OrganizationRegionID" class="form-control">
-            <option value="">请选择</option>
-            <option ng-repeat="x in SourceOrganizationAreaList" value="{{x.ID}}">{{x.Name}}</option>
-        </select>
-        <div role="tooltip" class="tooltip bottom tooltip-error">
-            <div class="tooltip-arrow"></div>
-            <div class="tooltip-inner">
-                <p ng-show="RegisterForm.OrganizationRegionID.$error.required">请选择注册地址！</p>
-            </div>
-        </div>
-    </div>
-</div>
 </form>

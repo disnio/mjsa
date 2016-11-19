@@ -1,0 +1,50 @@
+<!-- 时间 -->
+<div ng-class="{'has-error':ScheduleForm.BeginDate.$invalid&&(ScheduleForm.Save ||ScheduleForm.BeginDate.$dirty)}" class="col-sm-4">
+    <input datepicker required type="text" ng-model="Schedule.BeginDate" name="BeginDate" class="form-control" />
+</div>
+<!-- 上传 -->
+<div class="form-group">
+    <label class="col-sm-3 control-label"><span aria-hidden="true" class="glyphicon glyphicon-asterisk"></span>单位法人证书</label>
+    <div class="col-sm-6">
+        <span class="btn btn-default btn-file">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>选择图片</span>
+        <input type="file" onlyImg done="uploaded(data)" uc-file-upload>
+        </span>
+    </div>
+</div>
+<!-- 分页 -->
+<script>
+app.controller('EFPorjectAchievementMyListController', ['$scope', 'EFPorjectAchievementMyListService', 'toastr', function($scope, EFPorjectAchievementMyListService, toastr) {
+    $scope.list = {
+        size: 15,
+        page: 1,
+        max: 15
+    };
+    $scope.year = '@DateTime.Now.Year';
+    $scope.query = function() {
+        EFPorjectAchievementMyListService.Query($scope.year, $scope.projectName, $scope.list.size, $scope.list.page).then(function(data) {
+            $scope.list.items = data.Data.List;
+            $scope.list.count = data.Data.Count;
+        });
+    };
+    $scope.query();
+
+}]);
+app.service('EFPorjectAchievementMyListService', ['$http', 'HttpUtility', function($http, HttpUtility) {
+    return {
+        Query: function(year, projectName, size, page) {
+            return HttpUtility.wrapResponse($http.get('@Url.Content("~/EFProjectAchievement/MyQuery")', {
+                params: {
+                    year: year,
+                    projectName: projectName,
+                    size: size,
+                    page: page - 1
+                }
+            }));
+        }
+    }
+}]);
+</script>
+<uib-pagination total-items="list.count" ng-model="list.page" max-size="list.max" ng-change="query()" items-per-page="list.size" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页" class="pull-right" boundary-links="true" style="margin-right:12%;"></uib-pagination>
+<!--  -->

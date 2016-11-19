@@ -1,0 +1,110 @@
+<!-- 价格项编辑 -->
+<form class="form form-default form-horizontal" name="skuForm" novalidate>
+    <div class="modal-header">
+        <h3>规格项</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-2" for="AmountName">价格项
+                </label>
+                <div class="col-sm-4">
+                    <input type="text" id="AmountName" required ng-model="priceItem.AmountName" name="AmountName" class="form-control" />
+                </div>
+                <div class="col-sm-4">
+                    <span class="merror" ng-show="skuForm.AmountName.$dirty && skuForm.AmountName.$invalid">
+                            <span ng-show="skuForm.AmountName.$error.required">必须填写</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-2" for="Amount">价格
+                </label>
+                <div class="col-sm-4">
+                    <input type="text" id="Amount" ng-model="priceItem.Amount" required gt-zero name="Amount" class="form-control" />
+                </div>
+                <div class="col-sm-4">
+                    <span class="merror" ng-show="skuForm.Amount.$dirty && skuForm.Amount.$invalid">
+                            <span ng-show="skuForm.Amount.$error.required">必须填写</span>
+                    <span ng-show="skuForm.Amount.$error.gtzero">请填写大于0的数字</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input type="checkbox" ng-model="priceItem.IsRecuring" id="IsRecuring" name="IsRecuring" />
+                    <label for="IsRecuring">是否循环付费</label>
+                </div>
+                <div class="col-sm-4" ng-show="hasRecuring()" style="height:27px; line-height:27px;">
+                    <label for="CSRecuringTypeID">循环单位：</label>
+                    <select name="CSRecuringTypeID" ng-model="priceItem.CSRecuringTypeID">
+                        <option value="0">请选择</option>
+                        <option value="{{recType.CSRecuringTypeID}}" ng-repeat="recType in recuringType">
+                            {{recType.TypeName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button ng-disabled="canAddPriceItem()" ng-click="addPriceItem()" class="btn btn-default btn-sm">添加</button>
+                </div>
+            </div>
+        </div>
+        <!-- ng-show="skuitem.PriceList.length>0" -->
+        <div class="row">
+            <div class="from-group">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>规格项名</th>
+                            <th>单项价格</th>
+                            <th>循环</th>
+                            <th>单位</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pl in skuitem.PriceList">
+                            <td>
+                                <span ng-show="!skuItemIsEdit(pl)">{{pl.AmountName}}</span>
+                                <input ng-show="skuItemIsEdit(pl)" type="text" ng-model="editItem.eAmountName" name="eAmountName" class="form-control" />
+                            </td>
+                            <td>
+                                <span ng-show="!skuItemIsEdit(pl)">{{pl.Amount}}</span>
+                                <input ng-show="skuItemIsEdit(pl)" required gt-zero type="text" ng-model="editItem.eAmount" name="eAmount" ng-class="{ error: skuForm.eAmount.$error.required || skuForm.eAmount.$error.gtzero }" class="form-control" />
+                            </td>
+                            <td>
+                                <span ng-show="!skuItemIsEdit(pl)">{{pl.IsRecuring | toTF}}</span>
+                                <input ng-show="skuItemIsEdit(pl)" type="checkbox" ng-model="editItem.eIsRecuring" name="eIsRecuring" />
+                            </td>
+                            <td>
+                                <span ng-show="!skuItemIsEdit(pl)">{{pl.TypeName}}</span>
+                                <select ng-show="skuItemIsEdit(pl) && editItem.eIsRecuring" name="eCSRecuringType" ng-model="editItem.eCSRecuringType">
+                                    <option value="0">无</option>
+                                    <option ng-selected="{{pl.CSRecuringTypeID == rec.CSRecuringTypeID}}" value="{{rec.CSRecuringTypeID}}" ng-repeat="rec in recuringType">{{rec.TypeName}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <a ng-click="delPriceItem($event, $index)" class="btn btn-default btn-sm">删除</a>
+                                <a ng-show="!skuItemIsEdit(pl)" ng-click="editPriceListItem($event, $index)" class="btn btn-default btn-sm">编辑</a>
+                                <a ng-show="skuItemIsEdit(pl)" ng-disabled="canSavePriceListItem()" ng-click="savePriceListItem($event, $index)" class="btn btn-default btn-sm">保存</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="ok()" ng-show="canOkSku()" type="button" class="btn btn-default">保存</button>
+        <button ng-click="ok()" ng-show="canModifySku()" type="button" class="btn btn-default">修改</button>
+        <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+    </div>
+</form>

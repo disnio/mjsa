@@ -1,3 +1,5 @@
+window:
+http://nginx.org/en/docs/windows.html
 Nginx：
 
 add_header 'Access-Control-Allow-Origin' '*';

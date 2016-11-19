@@ -1,0 +1,39 @@
+<div ng-controller="CategoryController">
+    <ul class="productdetail-main-status">
+        <li class="status-current"><span>1，选择商品类目</span></li>
+        <li ng-class="status(0)"><span>2，编辑商品信息</span></li>
+        <li ng-class="status(1)"><span>3，等待商品审核</span></li>
+        <li ng-class="status(2)"><span>4，审核通过</span></li>
+        <li ng-class="status(3)"><span>5，发布成功</span></li>
+    </ul>
+    <div class="cate-select-box">
+        <ul class="cate-box">
+            <li ng-repeat="t in vm.Arr[0]" ng-click="vm.openChild($event, t, 1)">
+                <a href="">{{t.Name}}</a><span ng-show="vm.hasChild(t)">&gt;</span>
+            </li>
+        </ul>
+        <ul class="cate-box" ng-show="vm.Arr[1].length">
+            <li ng-repeat="t in vm.Arr[1]" ng-click="vm.openChild($event, t, 2)">
+                <a href="">{{t.Name}}</a><span ng-show="vm.hasChild(t)">&gt;</span>
+            </li>
+        </ul>
+        <ul class="cate-box" ng-show="vm.Arr[2].length">
+            <li ng-repeat="t in vm.Arr[2]" ng-click="vm.openChild($event, t, 3)">
+                <a href="">{{t.Name}}</a><span ng-show="vm.hasChild(t)">&gt;</span>
+            </li>
+        </ul>
+        <ul class="cate-box" ng-show="vm.Arr[3].length">
+            <li ng-repeat="t in vm.Arr[3]" ng-click="vm.openChild($event, t, 4)">
+                <a href="">{{t.Name}}</a><span ng-show="vm.hasChild(t)">&gt;</span>
+            </li>
+        </ul>
+    </div>
+    <div class="cate-selected">
+        <span>你选择的是：</span>
+        <ul>
+            <li ng-repeat="s in vm.sel">{{s.Name}}<span ng-show='!$last'>&gt;</span></li>
+        </ul>
+    </div>
+    <div class="btn btn-default" ng-click="vm.selCate()" ng-disabled="vm.disClick()">确定</div>
+</div>
+

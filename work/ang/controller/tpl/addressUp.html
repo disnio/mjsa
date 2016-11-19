@@ -1,0 +1,60 @@
+<!-- 属性及规格添加 -->
+<form class="form form-default form-horizontal" name="optForm" novalidate>
+    <div class="modal-header">
+        <h3 class="modal-title">地址修改</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <b>区域(*)：</b>
+            </div>
+            <div class="col-sm-8">
+                <select class="form-control" style="width:120px;display:inline-block;" name="Province" ng-model="vm.address.ProvinceID" ng-change="vm.changeProvince()">
+                    <option value="{{prov.ID}}" ng-repeat="prov in vm.Province" ng-selected="prov.ID == vm.address.ProvinceID">{{prov.Name}}</option>
+                </select>
+                <select class="form-control" ng-show="vm.hasProvinceID()" style="width:120px;display:inline-block;" name="City" ng-model="vm.address.CityID" ng-change="vm.changeCity()">                    
+                    <option value="{{cit.ID}}" ng-repeat="cit in vm.City" ng-selected="cit.ID == vm.address.CityID">{{cit.Name}}</option>
+                </select>
+                <select class="form-control" ng-show="vm.hasCityID()" style="width:120px;display:inline-block;" name="Area" ng-model="vm.address.AreaID">
+                    <option value="{{are.ID}}" ng-repeat="are in vm.Areas" ng-selected="are.ID == vm.address.AreaID">{{are.Name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <b>地址(*)：</b>
+            </div>
+            <div class="col-sm-8">
+                <input ng-model="vm.address.RegionAddress" type="text" name="RegionAddress" class="form-control" required err-field/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <b>姓名(*)：</b>
+            </div>
+            <div class="col-sm-8">
+                <input ng-model="vm.address.ReceiverName" type="text" name="ReceiverName" class="form-control" required err-field/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <b>手机(*)：</b>
+            </div>
+            <div class="col-sm-8">
+                <input ng-model="vm.address.ReceiverContact" type="text" name="ReceiverContact" class="form-control" required err-field/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <b>邮编(*)：</b>
+            </div>
+            <div class="col-sm-8">
+                <input ng-model="vm.address.ZipCode" type="text" name="ZipCode" class="form-control" required err-field/>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" ng-click="vm.ok()">保存</button>
+        <button class="btn btn-default" type="button" ng-click="vm.cancel()">关闭</button>
+    </div>
+</form>
