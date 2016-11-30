@@ -1,3 +1,88 @@
+https://ui-router.github.io/docs/0.3.1/#/api/ui.router.state.$stateProvider
+$stateProvider:
+聚焦在纯状态。 在应用中的导航和所有的UI组件中保持状态的一致性。
+一个状态描述了UI的形式和它的行为在相应的地址下通过（controller/template/view 这些属性）。
+状态通常存在共性，基本上生成这些共性在这个模型是通过状态继承。父子也称为嵌套。
+$stateProvider 提供了接口去描述这些应用状态。
+
+依赖：    $urlRouterProvider    $urlMatcherFactoryProvider
+
+方法：
+
+decorator(name, func) 装饰
+扩展或覆盖 $stateProvider 内部使用的 stateBuilder 对象。 用作添加自定义功能到 ui-router，
+比如，猜测(inferring) templateUrl 根据状态名。
+
+state(name, stateConfig)
+注册一个状态名下的状态配置。一些属性：
+
+resolve 一个依赖映射，将被注入到控制器。如果是 promises，在控制器实例化前都要履行。
+如果所有的 promises 履行， $stateChangeSuccess事件触发。 $stateChangeError 任一失败触发。
+映射对象；
+key 被注入的依赖
+factory {string|func} 字符串被作为服务的别名。函数被注入，返回值作为依赖。
+
+onEnter onExit 
+reloadOnSearch： true
+data 抽象数据对象，用在自定义配置。 父状态的 data 被原型继承。添加一个 data 属性，所有子都可以继承。
+params 配置参数声明在url，或定义附加的非 url 参数。
+
+$urlRouterProvider：
+监视 $location 的能力。
+依赖：
+    $urlMatcherFactoryProvider
+    $locationProvider
+
+deferIntercept(defer) 禁止或开启地址变化的拦截。
+如果想自定义同步 url 行为，调用这个方法在配置时候。然后在运行时，调用 $urlRouter.listen() 
+在配置自己的 $locationChangeSuccess 事件处理函数后。
+
+app.config(function($urlRouterProvider) {
+    $urlRouterProvider.deferIntercept();
+}).run(function($rootScope, $urlRouter, UserService) {
+
+    $rootScope.$on('$locationChangeSuccess', function(e) {
+        // UserService is an example service for managing user state
+        if (UserService.isLoggedIn()) return;
+        // Prevent $urlRouter's default handler from firing
+        e.preventDefault();
+        UserService.handleLogin().then(function() {
+            // Once the user has logged in, sync the current URL to the router:
+            $urlRouter.sync();
+        });
+    });
+
+    // Configures $urlRouter's listener *after* your custom listener
+    $urlRouter.listen();
+});
+
+rule(ruleFunc($injector, $location)) 定义路由规则 匹配指定的 urls
+
+app.config(function($urlRouterProvider) {
+    // Here's an example of how you might allow case insensitive urls
+    $urlRouterProvider.rule(function($injector, $location) {
+        var path = $location.path(),
+            normalized = path.toLowerCase();
+
+        if (path !== normalized) {
+            return normalized;
+        }
+    });
+});
+
+when(what, handler)
+
+如果 handler 是字符串则看作是重定向。 如果是函数那么是可注入的。
+app.config(function($urlRouterProvider) {
+            $urlRouterProvider.when($state.url, function($match, $stateParams) {
+                    if ($state.$current.navigable !== state ||
+                        !equalForKeys($match, $stateParams) {
+                            $state.transitionTo(state, $match, false);
+                        }
+                    });
+            });
+
+----------------------------------------------------------
 http://angular-ui.github.io/ui-router/
 $urlRouter 服务：
 href(urlMatcher, params, options) url 生成方法，通过给定的 UrlMatcher生成编译后的 url。

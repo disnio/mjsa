@@ -3928,3 +3928,60 @@ angular.module('yoB').directive('fd', function($parse) {
         }
     }
 });
+
+--------------------------
+templateCache：
+
+angular.module('app', ['toastr', 'ngAnimate'])
+
+.controller('DemoCtrl', function($scope, $templateCache, $templateRequest, toastr, toastrConfig) {
+    var openedToasts = [];
+
+    $scope.$watchCollection('options', function(newValue) {
+        toastrConfig.autoDismiss = newValue.autoDismiss;
+        toastrConfig.allowHtml = newValue.html;
+
+        if (newValue.customTemplate) {
+            toastrConfig.templates.toast = 'custom';
+        } else {
+            toastrConfig.templates.toast = 'directives/toast/toast.html';
+        }
+    });
+
+    $scope.$watch('toast.customTemplate', function(newVal) {
+        if ($templateCache.get('custom')) {
+            $templateCache.remove('custom');
+        }
+        $templateCache.put('custom', newVal);
+    });
+    // 
+    $templateRequest('default.html').then(function(tpl) {
+        $scope.toast.customTemplate = tpl;
+    });
+    
+    $scope.clearLastToast = function() {
+        var toast = openedToasts.pop();
+        toastr.clear(toast);
+    };
+
+    $scope.clearToasts = function() {
+        toastr.clear();
+    };
+
+    $scope.openPinkToast = function() {
+        openedToasts.push(toastr.info('I am totally custom!', 'Happy toast', {
+            iconClass: 'toast-pink'
+        }));
+    };
+
+
+    $scope.openToast = function() {
+        openedToasts.push(toastr[$scope.options.type]($scope.toast.message, $scope.toast.title));
+    };
+
+});
+
+angular.module("toastr").run(["$templateCache", function($templateCache) {
+    $templateCache.put("directives/progressbar/progressbar.html", "<div class=\"toast-progress\"></div>\n");
+    $templateCache.put("directives/toast/toast.html", "<div class=\"{{toastClass}} {{toastType}}\" ng-click=\"tapToast()\">\n  <div ng-switch on=\"allowHtml\">\n    <div ng-switch-default ng-if=\"title\" class=\"{{titleClass}}\" aria-label=\"{{title}}\">{{title}}</div>\n    <div ng-switch-default class=\"{{messageClass}}\" aria-label=\"{{message}}\">{{message}}</div>\n    <div ng-switch-when=\"true\" ng-if=\"title\" class=\"{{titleClass}}\" ng-bind-html=\"title\"></div>\n    <div ng-switch-when=\"true\" class=\"{{messageClass}}\" ng-bind-html=\"message\"></div>\n  </div>\n  <progress-bar ng-if=\"progressBar\"></progress-bar>\n</div>\n");
+}]);

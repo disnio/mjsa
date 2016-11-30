@@ -1,3 +1,14 @@
+http://www.zcfy.cc/article/11-simple-npm-tricks-that-will-knock-your-wombat-socks-off-1206.html
+打开 package Github 仓库 运行: npm repo $package
+检查 package 的过时依赖 运行: npm outdated
+检查 package.json 中未声明的 package 运行: npm prune
+锁定依赖版本 运行: npm shrinkwrap
+改变所有项目的默认前缀运行: npm config set save-prefix ~
+
+使用 --save 或 --save-dev 标志安装新 package 时，使用 ~ 比默认的 ^ 行为更加保守。
+~ 将依赖锁定在小版本（minor version），允许使用 npm update 安装补丁版本。
+^ 将依赖锁定在主版本，允许使用 npm update更新小版本。
+----------------
 版本号：http://dev.qq.com/topic/579083d1c9da73584b02587d
 ，经常出现形如 ~1.0.4、^2.1.1 这样的标记法，这种标记法标记的是「版本号范围（version range）」，
 它表示依赖的三方包其版本号只要落在定义版本号范围内，即算合法。
@@ -79,6 +90,7 @@ nvm alias default stable
   "dependencies": {
     "lodash": "^3.10.1"
   },
+
 ----------------------------------------------------------------------------------------
 NPM：
 npm install -g cnpm --registry=https://registry.npm.taobao.org

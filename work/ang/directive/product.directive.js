@@ -786,3 +786,35 @@ app.directive("richbox", [function() {
         }
     };
 }]);
+app.directive('richSize', function() {
+    return {
+        priority: 0,
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attr, ngModel) {
+            var ws = parseInt(attr["richSize"], 10);
+            var leaveWords = ws;
+            element.after('<p id="lwd"></p>');
+            var _editorId = attr.id;
+            var editor = UM.getEditor(_editorId);
+
+            scope.$watch(function() {
+                return ngModel.$modelValue;
+            }, function(n) {
+                var nm = editor.getContentTxt();
+                if (nm.length <= ws) {
+                    leaveWords = ws - nm.length;
+                    console.log(nm, leaveWords)
+                    $("#lwd").text("剩余字数：" + leaveWords);
+
+                    ngModel.$setValidity('richSize', true);
+
+                } else {
+                    ngModel.$setValidity('richSize', false);
+                    return undefined;
+                }
+            });
+
+        }
+    }
+});

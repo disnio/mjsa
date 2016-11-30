@@ -574,3 +574,29 @@ http://segmentfault.com/blog/kk_470661/1190000000593885
 另一个ES6中的新特性是WeakMap。
 简单的说，一个 WeakMap实例能够使用对象引用作为键，然后和一个数据相联系，而不需要真正把数据存储在对象上。
 
+被标记的模板语法：
+如果你尝试调用一个普通方法去调用模板语法函数你只能从第一个参数得到一个字符串。如果你用特殊的被标记模板语法调用方式，那么你就会得到一个模板语法的组合体。你将会获得所有字符串碎片，并且得到所有每个插入式表达式的结果。
+function greeting(strings, value1) {
+  console.log('Strings:', strings);
+  console.log('Value1:', value1);
+}
+
+var place = 'World';
+
+// If we try to call our function in the normal way, we're really just passing a string as the first argument
+greeting(`Hello ${place}`);
+// Log output:
+// Strings: 'Hello World'
+// Value1: undefined
+
+// invoking our function as a Tagged Template Literal - note the lack of parenthesis
+greeting`Hello ${place}`
+// Log output:
+// Strings: ['Hello ', '']
+// Value1: 'World'
+
+
+react项目在 IE9 10 中上来就报错了。 
+经过一系列排查是因为底层 base 这个模块有问题。
+就算es5在各个浏览器里实现的也不近相同， 所以es2015是标准模块，在IE这个坑爹的浏览器里一些方法不同，导致报错。 
+所以 引入babel-preset-es2015-loose 来解决次问题。
