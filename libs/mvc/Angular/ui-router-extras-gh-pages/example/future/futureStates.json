@@ -1,0 +1,33 @@
+[
+  {
+    "stateName": "iframe2",
+    "url": "/iframe2",
+    "type": "iframe",
+    "src": "iframe2.html"
+  },
+  {
+    "stateName": "iframe1",
+    "url": "/iframe1",
+    "type": "iframe",
+    "src": "iframe1.html"
+  },
+  {
+    "stateName": "module1",
+    "url": "/module1",
+    "type": "ngload",
+    "src": "module1.js"
+  },
+  {
+    "stateName": "module2",
+    "url": "/module2",
+    "type": "ngload",
+    "src": "module2.js"
+  },
+  {
+    "stateName": "lazyCtrl",
+    "url": "/lazyCtrl",
+    "templateUrl": "lazyCtrl.html",
+    "type": "requireCtrl",
+    "src": "lazyController.js"
+  }
+]

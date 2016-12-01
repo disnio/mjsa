@@ -1,0 +1,14 @@
+{
+  "name": "ui-router-extras-pages",
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-ui-router": "~0.2.15",
+    "angular-bootstrap": "latest",
+    "bootstrap": "latest",
+    "lodash": "latest",
+    "ui-router-extras": "latest",
+    "requirejs": "latest",
+    "angularAMD": "latest",
+    "d3": "latest"
+  }
+}

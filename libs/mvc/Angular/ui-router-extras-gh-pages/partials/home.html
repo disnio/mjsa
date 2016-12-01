@@ -1,0 +1,45 @@
+<div class="container">
+    <h3>UI-Router Extras</h3>
+    <aside class="well">
+        <a href="http://angular-ui.github.io/ui-router/">UI-Router</a> is the defacto router for AngularJS.  
+        The UI-Router-Extras project enhances UI-Router with four additional features.
+    </aside>
+    
+    <h4><a ui-sref="^.sticky">Sticky States</a> <small>(aka Parallel States)</small></h4>
+    <section class="well-sm">
+        <p>
+            Sticky States allows two or more trees of states to run concurrently along side each other.
+            This is also sometimes referred to as Parallel States.
+        <p>
+        <p>
+            The initial use case for this functionality is to implement "tabs".  Using Sticky States,
+            a single app can implement one state tree for each tab, and have them operate
+            at the same time, in parallel to each other.
+        </p>
+    </section>
+
+    <h4><a ui-sref="^.dsr">Deep State Redirect</a></h4>
+    <section class="well-sm">
+        <p> Deep State Redirect facilitates stateful navigation between different modules with complicated nested states.</p>
+        <p> Individual states can be marked as Deep State Redirect.  When navigated to, these states will redirect
+            to their most recently active substate.
+        </p>
+    </section>
+
+    <h4><a ui-sref="^.future">Future States</a></h4>
+    <section class="well-sm">
+        <p>
+            Future States allow the UI-Router state tree to be late-bound.  The application's state tree can be loaded
+            at Runtime.  Also, states can be lazy loaded (late binding), waiting until there is a request to transition
+            to the state.
+        </p>
+    </section>
+
+    <h4><a ui-sref="^.previous">Previous States</a></h4>
+    <section class="well-sm">
+        <p>
+            Previous States is a service that can be used to remember which state was the entry point to a complex
+            state tree and/or workflow.  It can then be used to return to the entry point when the workflow is complete.
+        </p>
+    </section>
+</div>

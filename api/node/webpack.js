@@ -79,7 +79,8 @@ http://localhost:8080/webpack-dev-server/bundle 内嵌 iframe 模式加载页面
 entry参数定义了打包后的入口文件，可以是个字符串或数组或者是对象；
 如果是数组，数组中的所有文件会打包生成一个filename文件；
 如果是对象，可以将不同的文件构建成不同的文件:
-
+不要在开发环境中使用 [chunkhash]，因为它会增加编译时间。区分开发和生产环境的配置，使用 [name].js 应用于开发，使用 [name].[chunkhash].js 用于生产。
+保证哈希值是根据文件内容生成的，请使用 webpack-md5-hash 插件。这里是使用示例：https://github.com/okonet/webpack-long-term-cache-demo/pull/3/files。
 plugins: [
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
 ]
@@ -578,6 +579,39 @@ module.exports = {
         },{from: './index.html'}]),
         // ignore dev config
         new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
+
+        // http://www.zcfy.cc/article/long-term-caching-of-static-assets-with-webpack-1204.html 缓存
+        // 也可以使用 https://www.npmjs.com/package/webpack-manifest-plugin 
+        // 或者 https://www.npmjs.com/package/assets-webpack-plugin 导出 JSON 文件。
+        function() {
+            this.plugin("done", function(stats) {
+                require("fs").writeFileSync(
+                    path.join(__dirname, "...", "stats.json"),
+                    JSON.stringify(stats.toJson()));
+            });
+        }
+        // 在我们的配置下的 webpack-manifest-plugin 的一个输出看起来是：
+
+        {
+          “main.js”: “main.155567618f4367cd1cb8.js”,
+          “vendor.js”: “vendor.c2330c22cd2decb5da5a.js”
+        }
+        // 或者你的应用不依赖于任何服务端渲染技术，生成一个单独的 index.html 就足够了，那么建议使用下面两个称赞的插件，https://github.com/ampedandwired/html-webpack-plugin 
+        // 和 https://github.com/szrenwei/inline-manifest-webpack-plugin，它们会显著地简化设置。
+        // 问题与之前相同：当我们更改了代码的任何一部分，即使剩下的文件内容没有被修改，
+        // 入口也会被更新以放入新的清单。这样反过来也就导致新的哈希值，影响了长期缓存。
+        // 为了修复这个问题，我们应该使用 chunk-manifest-webpack-plugin 插件来把清单导出到单独的 JSON 文件中。
+        var ManifestPlugin = require('webpack-manifest-plugin');
+        var ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+        var WebpackMd5Hash = require('webpack-md5-hash');
+        new WebpackMd5Hash(),
+        new ManifestPlugin(),
+        new ChunkManifestPlugin({
+          filename: "chunk-manifest.json",
+          manifestVariable: "webpackManifest"
+        }),
+        new webpack.optimize.OccurenceOrderPlugin()
+        // 第二个问题是 webpack 如何获取模块：默认地对于同样的依赖集合，模块在包中的顺序不是确定的。意思是：在两次构建之间，模块可能获取到不同的标识符，导致不同的内容，也就有了不同的哈希值。这是出现在 Github 上的 issue，建议使用 OccurenceOrderPlugin 来解决这个问题。
     ],
     tslint: {
         emitErrors: true,

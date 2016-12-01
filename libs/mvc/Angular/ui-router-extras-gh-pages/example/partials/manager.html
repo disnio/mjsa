@@ -1,0 +1,16 @@
+<a ui-sref="^.managerlist">Managers</a>
+<div scope-age ></div>
+<div>
+<dl class="dl-horizontal">
+    <dt>Manager Name:</dt>
+    <dd>{{manager.name}}</dd>
+    
+    <dt>email:</dt>
+    <dd>{{manager.email}}</dd>
+    
+    <dt>gender:</dt>
+    <dd>{{manager.gender}}</dd>
+</dl>
+</div>
+<a ui-sref=".emplist">View {{manager.name}}'s team</a>
+<div ui-view></div>        

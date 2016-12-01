@@ -8,6 +8,13 @@ http://www.zcfy.cc/article/11-simple-npm-tricks-that-will-knock-your-wombat-sock
 使用 --save 或 --save-dev 标志安装新 package 时，使用 ~ 比默认的 ^ 行为更加保守。
 ~ 将依赖锁定在小版本（minor version），允许使用 npm update 安装补丁版本。
 ^ 将依赖锁定在主版本，允许使用 npm update更新小版本。
+
+生产环境下去除 devDependencies 依赖
+项目准备上到生产环境时，确保使用 --production 标志安装依赖
+
+使用 .npmignore 要当心
+如果还没使用过 .npmignore，会默认使用 .gitignore 文件，加上一些更健全的默认选项。
+很多人不明白都是，一旦在项目中添加了 .npmignore 文件，.gitignore 的规则就会被忽略
 ----------------
 版本号：http://dev.qq.com/topic/579083d1c9da73584b02587d
 ，经常出现形如 ~1.0.4、^2.1.1 这样的标记法，这种标记法标记的是「版本号范围（version range）」，
