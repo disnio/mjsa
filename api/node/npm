@@ -17,7 +17,7 @@ http://www.zcfy.cc/article/11-simple-npm-tricks-that-will-knock-your-wombat-sock
 很多人不明白都是，一旦在项目中添加了 .npmignore 文件，.gitignore 的规则就会被忽略
 ----------------
 版本号：http://dev.qq.com/topic/579083d1c9da73584b02587d
-，经常出现形如 ~1.0.4、^2.1.1 这样的标记法，这种标记法标记的是「版本号范围（version range）」，
+经常出现形如 ~1.0.4、^2.1.1 这样的标记法，这种标记法标记的是「版本号范围（version range）」，
 它表示依赖的三方包其版本号只要落在定义版本号范围内，即算合法。
 另外，当运行 npm update 时，依赖的包将升级到版本号范围支持的最高版本。
 含义  最简写法  使用通配符的写法  使用模糊符的写法  表达的版本号范围

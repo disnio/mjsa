@@ -338,6 +338,7 @@ module.exports = {
             { 
                 test: /\.jsx?$/,
                 loaders: ['react-hot', 'jsx?harmony'],
+                loaders: ['react-hot', 'babel'],
                 include: [
                     path.resolve(__dirname, "app/src"),
                     path.resolve(__dirname, "app/test")
@@ -438,7 +439,11 @@ module.exports = {
 
         ]
     }
-    postcss: [require('autoprefixer')({ browsers: ['last 2 versions'] })],
+    postcss: [
+        require('autoprefixer')({ browsers: ['last 2 versions'] })
+        require('autoprefixer-core'),
+        require('postcss-color-rebeccapurple')
+    ],
     // webpack在构建包的时候会按目录的进行文件的查找，
     // resolve属性中的extensions数组中用于配置程序可以自行补全哪些文件后缀：
     // resolve: {
@@ -460,7 +465,7 @@ module.exports = {
             path.resolve('./vendor/modules')
         ], 
         // 构建类似node 的模块查询层次，只是目录名。平时不用。
-        modulesDirectories: ["mydir"],
+        modulesDirectories: ["mydir", 'node_modules', 'components']
 
         // 没在 rroot 和 modulesDirectories 里找到，则从这里查找。
         fallback: path.join(__dirname, "node_modules") ,
@@ -485,6 +490,7 @@ module.exports = {
     resolveLoader: { fallback: path.join(__dirname, "node_modules") }
     singleRun: true,
     plugins: [
+    new webpack.NoErrorsPlugin(),
         webpackIsomorphicToolsPlugin
         // var CleanWebpackPlugin = require('clean-webpack-plugin');
         new CleanWebpackPlugin([path], {

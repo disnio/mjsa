@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<title>DOM Polyfill Unit Tests</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.0.1.css">
+<script src="https://code.jquery.com/qunit/qunit-2.0.1.js"></script>
+
+<div id="qunit"></div>
+<div id="qunit-fixture">
+
+test markup, will be hidden
+
+<div>
+  <div id="foo" class="alpha">
+    <div id="bar" class="beta">
+      <span id="baz" class="beta delta epsilon phi"></span>
+    </div>
+  </div>
+  <span id="bat" class="alpha"></span>
+</div>
+
+<div id="datadiv" data-foo="bar" data-bar="123">
+  <span id="dataspan" data-123="blah"></span>
+</div>
+
+<div id="sectiondiv">
+  <section id="section">
+    <span id="sectionspan">
+    </span>
+  </section>
+</div>
+
+<div id="mixed">
+  <span id="one">1</span>
+  a <!-- comment --> b
+  <span id="two">2</span>
+  c <!-- comment --> d
+  <span id="three">3</span>
+</div>
+
+<div id=mixin-parentnode></div>
+<div id=mixin-childnode><span></span></div>
+
+</div>
+
+<script type="text/javascript" src="../es5.js"></script>
+<script type="text/javascript" src="../dom.js"></script>
+
+<script type="text/javascript" src="dom_tests.js"></script>

@@ -1,4 +1,5 @@
-JSON.stringify 注意发送json 要序列化
+接口调用文档，返回值，是否有其他影响返回值的接口。杜绝被动引入后端设置的变量。
+
 tweenlitejs
 swiper.js 
 touch.js 

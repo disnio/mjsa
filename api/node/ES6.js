@@ -282,6 +282,7 @@ fs.readFile('file2.txt', 'utf8', done());
 上述代码中，done执行了两次，每次执行的过程中，将计数器count加一，然后返回一个函数。当fs.readFile这个异步调用结束后，done执行后的回调函数会得到执行，计数器减一。当计数器回到0的时候，意味着多个异步调用的回调函数都已经执行，此时执行传入的回调函数。因为非阻塞的原因，done()生成的函数不会立即执行，使得计数器可以正常地增加值，结束后才慢慢减少值。
 -----------------------
 Generator：
+https://ponyfoo.com/articles/es6-generators-in-depth
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/The_Iterator_protocol
 constructor GeneratorFunction {}
 @@iterator @@iterator()
@@ -298,6 +299,19 @@ next next()
     toSource toSource()
     toString toString()
 throw throw()
+
+var g = generator()
+// a generator object g is built using the generator function
+typeof g[Symbol.iterator] === 'function'
+// it's an iterable because it has an @@iterator
+typeof g.next === 'function'
+// it's also an iterator because it has a .next method
+g[Symbol.iterator]() === g
+// the iterator for a generator object is the generator object itself
+console.log([...g])
+// <- ['f', 'o', 'o']
+console.log(Array.from(g))
+// <- ['f', 'o', 'o']
 --------------------
 只有火狐：
 function double5() {
