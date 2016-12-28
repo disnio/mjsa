@@ -48,7 +48,7 @@ https://github.com/webpack/webpack-with-common-libs/blob/master/gulpfile.js
 /*减少打包的时候重复代码，以上要注意是放在dev还是非dev上！*/
 npm install webpack-dev-server -g
 webpack-dev-server --progress --colors
-"dev":"webpack-dev-sever --devtool eval --progress --colors --hot --content-base build"
+"dev":"webpack-dev-sever --devtool eval --progress --colors --hot --inline --content-base ./build"
 //webpack-dev-server 创建一个服务器8080端口的
 //devtool eval --为你的代码创建源地址，可以代码快速定位
 //progress --显示进度条
@@ -464,7 +464,7 @@ module.exports = {
             path.resolve('./app/modules'),
             path.resolve('./vendor/modules')
         ], 
-        // 构建类似node 的模块查询层次，只是目录名。平时不用。
+        // 构建类似node 的模块查询层次            ，只是目录名。平时不用。
         modulesDirectories: ["mydir", 'node_modules', 'components']
 
         // 没在 rroot 和 modulesDirectories 里找到，则从这里查找。
