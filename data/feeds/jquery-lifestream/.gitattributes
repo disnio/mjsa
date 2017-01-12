@@ -1,7 +1,0 @@
-# Default
-* text=auto
-
-# LF Please
-*.js text
-*.json text
-*.html text

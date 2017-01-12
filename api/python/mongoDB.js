@@ -18,6 +18,8 @@ mongod.exe --dbpath=d:\MongoDB\data --logpath d:\MongoDB\mongodb.log --install
 c:\Program Files\MongoDB 2.6 Standard\bin>mongod.exe --dbpath=d:\mongo\data --logpath d:\mongo\mongodb.log --install
 mongod.exe --install --logpath=d:\mongodb\log\mongodb.log --logappend --dbpath=d:\mongodb\data --directoryperdb --serviceName MongoDB
 service mongod start
+
+mongod.exe --remove --serviceName "MongoDB"
 -------------------------------------------
 mongod 启动数据库进程
 --dbpath 指定数据库的目录
