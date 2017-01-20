@@ -1,4 +1,50 @@
+pip install hacking flake8
+Successfully installed flake8-2.5.5 hacking-0.13.0 mccabe-0.2.1 pbr-1.10.0 pep8-1.5.7 pyflakes-0.8.1 six-1.10.0
 
+https://foxmask.trigger-happy.eu/post/2016/02/17/pycharm-running-flake8/
+--max-complexity 10 $FileDir$/$FileName$
+
+
+pip install nose 测试运行 test 目录中以 test_开始的文件
+
+unitstest 标准模块文档
+
+fixture 表示测试前创建，测试后销毁的组件。模块帮助测试。
+
+装饰器本质就是一个函数，他接收其他函数作为参数，并返回一个新的修改后的函数。
+-------------
+对于第三方库最好的办法是用包装器对外部库进行封装。将其与自己的源代码隔离。
+
+atexit 注册在程序退出时调用的函数
+argparse  解析命令行参数
+bisect 排序列表的二分查找算法
+calendar 日期相关函数
+codecs 编码解码
+collections 数据结构
+copy  复制数据
+csv 
+datetime
+fnmatch 匹配 unix 风格文件名的函数
+glob unix 风格路径模式的函数
+io StringIO
+json
+logging 内置日志访问
+multiprocessing 应用程序中运行多个子进程，提供api 让这些进程看上去像线程
+operator 运算符功能
+random
+re
+select 提供对函数 select pool 的访问，用于创建事件循环
+shutil 高级文件处理函数
+signal 处理 posix 信号
+tempfile 临时文件和目录
+threading 高级线程功能
+urllib urllib2 urlparse 
+uuid
+--------
+django, pylons, turbogears, tornado, zope, plone
+twisted, circuits
+
+编码风格
 
 >>> for i, v in enumerate(['tic', 'tac', 'toe']):
 ...     print i, v
