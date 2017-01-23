@@ -2,7 +2,7 @@
  * @Author: Allen
  * @Date:   2015-12-04
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-09-30 11:42:03
+ * @Last Modified time: 2017-01-12 09:58:00
  */
 
 (function(root, factory) {
@@ -87,19 +87,23 @@
             filterFn.call(null, data);
         }
         var template = _.template(tpl);
+
         return template(data);
     };
     // ajax 分页
-    var jaxPage = function(jaxopt) {
+    var jaxPage = function(jaxopt) {        
         var renderTpl = function(data, el, tpl, filterFn) {
-            el.empty().append(tplRender(tpl, {
+            var ht = tplRender(tpl, {
                 "datas": data
-            }, filterFn));
+            }, filterFn);
+
+            el.empty().append(ht);
         };
         var getJaxPage = function(opt) {
             var defer = $.Deferred();
 
             jaxJson(opt.ajax, true).then(function(data) {
+
                 if (typeof data == 'string') {
                     opt.el.empty();
                     defer.resolve(data);
@@ -130,7 +134,7 @@
             if ($.isFunction(jaxopt.beforePage)) {
                 jaxopt.beforePage(data);
             }
-            
+
             jaxopt.page.pageEl.empty();
             if (data.TotalNum) {
                 jaxopt.pageFunc.call(jaxopt.page.pageEl, {
@@ -145,7 +149,7 @@
                     last: jaxopt.page.last || "Last",
                     onchange: function(newPage) {
                         jaxopt.ajax.data.PageIndex = (parseInt(newPage, 10) - 1);
-                        
+
                         getJaxPage(jaxopt);
                     }
                 });
@@ -356,6 +360,14 @@
         }
     };
 
+    var log = function() {
+        if (console && console.log) {
+            console.log([].slice.call(arguments))
+        } else {
+            alert([].slice.call(arguments))
+        }
+    };
+
     return {
         jaxJson: jaxJson,
         tplRender: tplRender,
@@ -366,7 +378,8 @@
         deleteCookie: deleteCookie,
         getObjLen: getObjLen,
         strlen: strlen,
-        enterCall: enterCall
+        enterCall: enterCall,
+        log: log
     };
 
 }));

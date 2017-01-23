@@ -2,7 +2,7 @@
  * @Author: Allen
  * @Date:   2015-12-04 15:03:07
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-09-30 11:41:53
+ * @Last Modified time: 2016-12-13 18:07:28
  */
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -52,14 +52,34 @@
             return def;
         },
         // 文件上传
-        fileUpload: function(options) {
+        fileUpload: function(options) {            
             var fopt = options;
-            if (options.onlyImg) {
+            if (parseInt(options.maxFileSize, 10) > 0) {
+                $.blueimp.fileupload.prototype.processActions.vsize = function(data, options) {
+                    var dfd = $.Deferred();
+                    var file = data.files[data.index];
+
+                    if (!!options.disabled) {
+                        return data;
+                    }
+                    var maxFileSize = parseInt(data.maxFileSize, 10) > parseInt(data.minFileSize, 10) ? true : false;
+                    var testSize = parseInt(data.maxFileSize, 10) < file.size;
+
+                    if (maxFileSize && testSize) {
+                        file.error = '文件大小超出.';
+                        dfd.rejectWith(this, [data]);
+                    } else {
+                        dfd.resolveWith(this, [data]);
+                    }
+                    return dfd.promise();
+                };
                 $.blueimp.fileupload.prototype.options.processQueue.push({
-                    action: 'vimg',
-                    always: true,
-                    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                    action: 'vsize',
+                    always: true
                 });
+            }
+
+            if (options.onlyImg) {
                 $.blueimp.fileupload.prototype.processActions.vimg = function(data, options) {
                     var dfd = $.Deferred();
                     var file = data.files[data.index];
@@ -70,12 +90,12 @@
                     var onlyimg = $(data.container).attr("onlyImg") == "false" ? false : true;
                     var testtype;
                     if ($.browser.msie && $.browser.version < 10) {
-                        var ext = file.name.substr(file.name.indexOf('.'));                       
+                        var ext = file.name.substr(file.name.indexOf('.'));
                         testtype = !options.acceptFileTypes.test(ext);
-                    }else{
+                    } else {
                         testtype = !options.acceptFileTypes.test(file.type);
-                    }                    
-                    
+                    }
+
                     if (onlyimg && testtype) {
                         file.error = '错误的文件类型.';
                         dfd.rejectWith(this, [data]);
@@ -83,7 +103,13 @@
                         dfd.resolveWith(this, [data]);
                     }
                     return dfd.promise();
-                }
+                };
+
+                $.blueimp.fileupload.prototype.options.processQueue.push({
+                    action: 'vimg',
+                    always: true,
+                    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                });
             }
 
             function fsu() {
@@ -98,12 +124,11 @@
                     autoUpload: true,
                     sequentialUploads: true,
 
-                    maxFileSize: 1000000, // 1MB
+                    maxFileSize: 5000000, // 5MB
                     minFileSize: 1000, // 1k
 
                     add: function(e, data) {
-
-                        $.blueimp.fileupload.prototype.options.add.call(this, e, data)
+                        $.blueimp.fileupload.prototype.options.add.call(this, e, data);
                         var ferrs = [];
                         var allOk = _.every(data.files, function(v) {
                             if (!_.isUndefined(v.error)) {
@@ -111,7 +136,6 @@
                             }
                             return _.isUndefined(v.error);
                         });
-
                         if (allOk) {
                             //this will 'force' the submit in IE < 10 必须的  
                             $.each(data.files, function(i, file) {
@@ -122,36 +146,37 @@
                             });
                         } else {
                             UI.inTip(ferrs[0])
-                            return false;
+                            data.abort();
                         }
 
                     },
                     always: function(e, data) {
-                        console.log(data)
                         var result;
-                        if (data.textStatus == 'parsererror') {
-                            // IE9 fails on upload's JSON response
-                            result = JSON.parse(data.jqXHR.responseText);
-                        } else if (data.textStatus == 'success') {
-                            result = data.result;
-                        }
+                        if (data.textStatus !== "abort") {
+                            if (data.textStatus == 'parsererror') {
+                                // IE9 fails on upload's JSON response
+                                result = JSON.parse(data.jqXHR.responseText);
+                            } else if (data.textStatus == 'success') {
+                                result = data.result;
+                            }
 
-                        var temp = {};
-                        if ($.browser.msie && $.browser.version < 10) {
-                            temp.name = result.files.files[0].name;
-                            temp.url = result.files.files[0].url;
-                            temp.id = result.files.files[0].id;
-                            temp.message = result.files.files[0].message;
-                            temp.isUploaded = result.files.files[0].isUploaded;
-                        } else {
-                            temp.name = data.result.name;
-                            temp.url = data.result.url;
-                            temp.id = data.result.id;
-                            temp.message = result.message;
-                            temp.isUploaded = result.isUploaded;
-                        }
+                            var temp = {};
+                            if ($.browser.msie && $.browser.version < 10) {
+                                temp.name = result.files.files[0].name;
+                                temp.url = result.files.files[0].url;
+                                temp.id = result.files.files[0].id;
+                                temp.message = result.files.files[0].message;
+                                temp.isUploaded = result.files.files[0].isUploaded;
+                            } else {
+                                temp.name = data.result.name;
+                                temp.url = data.result.url;
+                                temp.id = data.result.id;
+                                temp.message = result.message;
+                                temp.isUploaded = result.isUploaded;
+                            }
 
-                        options.callback(temp);
+                            options.callback(temp);
+                        }
 
                     }
                 };
@@ -375,8 +400,8 @@
                     //     submitHandler: func,
                     // }
             };
-            if(_.isUndefined(opt.cond) && _.isUndefined(opt.valid)){
-                opt.cond = function(){
+            if (_.isUndefined(opt.cond) && _.isUndefined(opt.valid)) {
+                opt.cond = function() {
                     return true;
                 }
             }
@@ -458,7 +483,6 @@
             });
             // 切换时候的验证需要添加
             if (!!opt.valid) {
-                console.log("valid")
                 _.each(opt.valid.rules, function(v, i) {
                     $('*[name="' + i + '"]', $modal).addClass('js-vinit');
                 });
@@ -490,7 +514,6 @@
                 };
 
                 validObj = $(opt.valid.form, $modal).validate(validOpt);
-                console.log(validObj)
                 config.callback($modal, opt.valid);
             } else {
                 config.callback($modal);
