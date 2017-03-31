@@ -1,0 +1,53 @@
+{
+  "name": "data-tree",
+  "version": "1.2.5",
+  "description": "Data oriented tree structure that unleashes the power of callbacks to create, search and traverse the tree.",
+  "main": "index.js",
+  "homepage": "https://github.com/cchandurkar/Data-Tree#readme",
+  "icon": "http://cchandurkar.github.io/data-tree/icon/icon.png",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine",
+    "build": "grunt build",
+    "dev-server": "grunt dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cchandurkar/Data-Tree.git"
+  },
+  "keywords": [
+    "node",
+    "graph",
+    "tree",
+    "binary",
+    "data-tree",
+    "data",
+    "binary-tree",
+    "search-tree",
+    "BFS",
+    "DFS",
+    "import tree",
+    "export tree",
+    "search",
+    "BST",
+    "traversal",
+    "traverse"
+  ],
+  "author": "Chaitanya Chandurkar <cchandurkar@gmail.com> (http://cchandurkar.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cchandurkar/Data-Tree/issues"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^4.0.1",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^0.11.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jsdoc": "^1.0.0",
+    "grunt-jsdoc-to-markdown": "^1.1.1",
+    "ink-docstrap": "^1.1.2",
+    "jasmine": "^2.4.1",
+    "minami": "^1.1.1"
+  }
+}

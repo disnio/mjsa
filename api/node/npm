@@ -101,7 +101,7 @@ nvm alias default stable
 ----------------------------------------------------------------------------------------
 NPM：
 npm install -g cnpm --registry=https://registry.npm.taobao.org
-
+npm set registry https://registry.npm.taobao.org/
 npm run:
     "build-js": "browserify -r robot.js:my-module -o  | uglifyjs -mc > static/robot.js",
 

@@ -1,3 +1,4 @@
+<system.webServer>  
 <httpProtocol>
   <customHeaders>
     <add name="P3P" value="CP=CAO PSA OUR" />
@@ -6,3 +7,4 @@
     <add name="Access-Control-Allow-Methods" value="GET, POST, PUT, DELETE, OPTIONS" />
   </customHeaders>
 </httpProtocol>
+</system.webServer>

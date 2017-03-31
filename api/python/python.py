@@ -1,3 +1,7 @@
+
+python -m SimpleHTTPServer [端口]
+
+
 pip install hacking flake8
 Successfully installed flake8-2.5.5 hacking-0.13.0 mccabe-0.2.1 pbr-1.10.0 pep8-1.5.7 pyflakes-0.8.1 six-1.10.0
 

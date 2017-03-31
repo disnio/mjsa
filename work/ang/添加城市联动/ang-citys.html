@@ -2,7 +2,7 @@
 
 // 编辑地区
 var register = {
-    "RegionID": 156000000000000,
+    "RegionID": "156000000000000",
 };
 
 app.controller('FormController', ['$scope', '$q', 'getProvince', 'getCity', 'getAre', 'getRea', function($scope, $q, getProvince, getCity, getAre, getRea) {
@@ -13,8 +13,8 @@ app.controller('FormController', ['$scope', '$q', 'getProvince', 'getCity', 'get
     $q.when(getProvince).then(function(data) {
         $scope.ProvinceList = data;
         $scope.region.ProvinceID = reas.ProvinceID;
-        $scope.region.CityID = 156000000000000;
-        $scope.region.RegionID = 156000000000000;
+        $scope.region.CityID = "156000000000000";
+        $scope.region.RegionID = "156000000000000";
         if (reas.Regions[2] !== "00") {
             $q.when(getCity(reas.ProvinceID)).then(function(citys) {
                 $scope.CityList = citys;
@@ -96,3 +96,15 @@ app.controller('FormController', ['$scope', '$q', 'getProvince', 'getCity', 'get
         </div>
     </div>
 </form>
+
+<dt>联系地址</dt>
+<dd class="new-addr">
+    <div name="StateID" ucregionlist ng-model="vm.rfp.StateID"></div>
+    <input name="Address" ng-model="vm.rfp.Address" type="text" class="form-control" word-size="50" word-show="0">
+</dd>
+
+<dt>意向级别</dt>
+<dd>
+    <select name="Rating" class="form-control" ng-model="vm.SalesLeadInfo.Rating" ng-options="s.Name for s in vm.RatingList">
+    </select>
+</dd>

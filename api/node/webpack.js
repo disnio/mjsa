@@ -490,8 +490,20 @@ module.exports = {
     resolveLoader: { fallback: path.join(__dirname, "node_modules") }
     singleRun: true,
     plugins: [
+      new BrowserSyncPlugin({
+            host: '127.0.0.1',
+            port: 9090,
+            proxy: 'http://127.0.0.1:9000/',
+            logConnections: false,
+            notify: false
+          }, {
+            reload: false
+          })
+        // 生成html
+    HtmlWebpackPlugin() 
+    // 报错但不退出webpack进程
     new webpack.NoErrorsPlugin(),
-        webpackIsomorphicToolsPlugin
+        webpackIsomorphicToolsPlugin(),
         // var CleanWebpackPlugin = require('clean-webpack-plugin');
         new CleanWebpackPlugin([path], {
             // Without `root` CleanWebpackPlugin won't point to our
@@ -500,7 +512,7 @@ module.exports = {
             "verbose": true, // Write logs to console.
             "dry": false, // Do not delete anything, good for testing.
         })
-        // bower.json resolving
+        // bower.json resolving 替换上下文的插件
         new webpack.ResolverPlugin([
           new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
         ], ['normal', 'loader']),
@@ -529,6 +541,7 @@ module.exports = {
             }
         }),
         // 打包进了bundle 所以不用引入了
+        // 自动加载模块，当配置（$:'jquery'）例如当使用$时，自动加载jquery
         new webpack.ProvidePlugin({ //加载jq
             $: 'jquery',
             jQuery: "jquery",            
@@ -543,7 +556,7 @@ module.exports = {
           'angular': 'exports?window.angular!bower/angular',
           '_': 'lodash'
         }),
-
+        // 多个 html共用一个js文件(chunk)
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendors', // 将公共模块提取，生成名为`vendors`的chunk
             chunks: ['index','list','about'], //提取哪些模块共有的部分
@@ -574,16 +587,24 @@ module.exports = {
         // Only emit files when there are no errors
         new webpack.NoErrorsPlugin(),
         // OccurenceOrderPlugin: Assign the module and chunk ids by occurrence count. : https://webpack.github.io/docs/list-of-plugins.html#occurenceorderplugin
+        // 根据模块调用次数，给模块分配ids，常被调用的ids分配更短的id，使得ids可预测，降低文件大小，该模块推荐使用
         new webpack.optimize.OccurenceOrderPlugin(),
 
         // Deduplication: find duplicate dependencies & prevents duplicate inclusion : https://github.com/webpack/docs/wiki/optimization#deduplication
+        // 打包的时候删除重复或者相似的文件
         new webpack.optimize.DedupePlugin()
+        // 把多个小模块进行合并，以减少文件的大小,根据chars大小，如果小于设定的最小值，就合并这些小模块，以减少文件的大小
+        new webpack.optimize.MinChunkSizePlugin(),
+        // 使用ng-annotate来管理AngularJS的一些依赖
+        new webpack.optimize.ngAnnotatePlugin(),
+        // 限制打包文件的个数
+        new webpack.optimize.LimitChunkCountPlugin(),
         new webpack.HotModuleReplacementPlugin() //热加载
         // Reference: https://github.com/kevlened/copy-webpack-plugin
         new CopyWebpackPlugin([{
             from: __dirname + '/src/public'
         },{from: './index.html'}]),
-        // ignore dev config
+        // ignore dev config 不打包匹配文件
         new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
 
         // http://www.zcfy.cc/article/long-term-caching-of-static-assets-with-webpack-1204.html 缓存
@@ -618,6 +639,15 @@ module.exports = {
         }),
         new webpack.optimize.OccurenceOrderPlugin()
         // 第二个问题是 webpack 如何获取模块：默认地对于同样的依赖集合，模块在包中的顺序不是确定的。意思是：在两次构建之间，模块可能获取到不同的标识符，导致不同的内容，也就有了不同的哈希值。这是出现在 Github 上的 issue，建议使用 OccurenceOrderPlugin 来解决这个问题。
+        // 进度条
+        new NyanProgressPlugin() 
+
+        // 匹配resourceRegExp，替换为newResource
+        NormalModuleReplacementPlugin(),
+        // 替换上下文的插件
+        ContextReplacementPlugin(),
+        // 预加载的插件，提高性能
+        PrefetchPlugin()
     ],
     tslint: {
         emitErrors: true,

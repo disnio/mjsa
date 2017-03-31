@@ -252,3 +252,13 @@ function codePointLength(text) {
 <embed id="pcplayer" src="http://player.youku.com/player.php/sid/{{$yartic->vname}}/v.swf" allowFullScreen="true" quality="high" width="600" height="450" align="middle" allowScriptAccess="always" AutoPlay="false" type="application/x-shockwave-flash"/>
 <!-- <embed type="application/x-shockwave-flash"src="http://static.youku.com/v1.0.0535/v/swf/loader.swf" id="movie_player" name="movie_player" bgcolor="#FFFFFF" quality="high" allowfullscreen="true" wmode="Opaque" allowscriptaccess="always" allownetworking="internal" flashvars="isShowRelatedVideo=false&VideoIDS={{$yartic->vname}}&embedid=MTEzLjE0My4xNTkuOTYCMTUwNjk2NTE3AmkueW91a3UuY29tAi91L1VOakl6T1RjMk1UVXk%3D&isAutoPlay=false&isDebug=false&UserID=&playMovie=true&MMControl=false&MMout=false" pluginspage="http://www.macromedia.com/go/getflashplayer"height="450" width="600"></embed> -->
 <iframe id="miplayer" style="display:none;" align="" src="http://player.youku.com/embed/{{$yartic->vname}}==" frameborder="0" scrolling="no" width="600" height="450"></iframe>
+
+  function camelize(string) {
+    string = string.replace(/[\-_\s]+(.)?/g, function(match, chr) {
+      return chr ? chr.toUpperCase() : '';
+    });
+    // Ensure 1st char is always lowercase
+    return string.replace(/^([A-Z])/, function(match, chr) {
+      return chr ? chr.toLowerCase() : '';
+    });
+  }
