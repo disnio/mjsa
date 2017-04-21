@@ -83,11 +83,13 @@
                     container.find('span').remove();
                     var upper = (pageIndex + 1) * settings.recordsperpage;
                     if (upper > settings.totalrecords) upper = settings.totalrecords;
-                    container.append($('<span/>').append($('<b/>').text(pageIndex * settings.recordsperpage + 1)))
-                    .append($('<span/>').text('-'))
-                    .append($('<span/>').append($('<b/>').text(upper)))
-                    .append($('<span/>').text('of'))
-                    .append($('<span/>').append($('<b/>').text(settings.totalrecords)));
+                    container.prepend($('<span/>').append('<div>共<b>'+totalpages+'</b>页</div>'))
+                        // .text(pageIndex * settings.recordsperpage + 1)))
+                    // .append($('<span/>').text('-'))
+                    // .append($('<span/>').append($('<b/>').text(upper)))
+                    // .append($('<span/>').text('of'))
+                    .prepend($('<span/>').append('<div>共<b>'+settings.totalrecords+'</b>条</div>'))
+
                 }
                 function buildNavigation(startPage) {
                     list.find('li').remove();
@@ -128,8 +130,8 @@
                             else if (totalpages > settings.length)
                                 startIndex = totalpages - settings.length;
                         }
-                        buildNavigation(startIndex);
                         showLabels(currentPage);
+                        buildNavigation(startIndex);
                         list.find('li a').removeClass('active');
                         inputPage.val(currentPage + 1);
                         list.find('li a[id="' + (index + 1) + '"]').addClass('active');
