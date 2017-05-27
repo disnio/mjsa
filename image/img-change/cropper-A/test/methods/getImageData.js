@@ -9,13 +9,12 @@ $(function () {
   }
 
   $image.cropper({
-    built: function () {
+    ready: function () {
 
-      QUnit.test('methods.getImageData', function (assert) {
+      QUnit.test('methods#getImageData', function (assert) {
         var data = $image.cropper('getImageData');
 
         // Not rotate
-        assert.ok($.isPlainObject(data));
         assert.ok(isNumber(data.naturalWidth));
         assert.ok(isNumber(data.naturalHeight));
         assert.ok(isNumber(data.aspectRatio));

@@ -1,8 +1,8 @@
-/* 
+/*
  * @Author: Allen
  * @Date:   2015-12-04
- * @Last Modified by:   Allen
- * @Last Modified time: 2017-01-12 09:58:00
+ * @Last Modified by:   czy
+ * @Last Modified time: 2017-05-05 11:01:57
  */
 
 (function(root, factory) {
@@ -38,7 +38,8 @@
      * @return {[type]}     [description]
      */
     var jaxJson = function(opt) {
-        var isweb = _.rest(arguments)[0] || false;
+        var args = [].slice.call(arguments);
+        var isweb = args.length > 1 ? args[1] : false;
         var config = $.extend({
             type: "get",
             baseUrl: baseUrl,
@@ -87,23 +88,19 @@
             filterFn.call(null, data);
         }
         var template = _.template(tpl);
-
         return template(data);
     };
     // ajax 分页
-    var jaxPage = function(jaxopt) {        
+    var jaxPage = function(jaxopt) {
         var renderTpl = function(data, el, tpl, filterFn) {
-            var ht = tplRender(tpl, {
+            el.empty().append(tplRender(tpl, {
                 "datas": data
-            }, filterFn);
-
-            el.empty().append(ht);
+            }, filterFn));
         };
         var getJaxPage = function(opt) {
             var defer = $.Deferred();
 
             jaxJson(opt.ajax, true).then(function(data) {
-
                 if (typeof data == 'string') {
                     opt.el.empty();
                     defer.resolve(data);
@@ -148,8 +145,7 @@
                     first: jaxopt.page.first || "First",
                     last: jaxopt.page.last || "Last",
                     onchange: function(newPage) {
-                        jaxopt.ajax.data.PageIndex = (parseInt(newPage, 10) - 1);
-
+                        jaxopt.ajax.data.PageIndex = (parseInt(newPage, 10)) - 1;
                         getJaxPage(jaxopt);
                     }
                 });
@@ -342,7 +338,7 @@
         var len = 0;
         for (var i = 0; i < str.length; i++) {
             var c = str.charCodeAt(i);
-            //单字节加1   
+            //单字节加1
             if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
                 len++;
             } else {
@@ -350,6 +346,30 @@
             }
         }
         return len;
+    };
+
+    var cutStr = function(str, len) {
+        var str_length = 0;
+        var str_len = 0;
+        var str_cut = new String();
+        str_len = (str == null) ? 0 : str.length;
+        for (var i = 0; i < str_len; i++) {
+            a = str.charAt(i);
+            str_length++;
+            if (escape(a).length > 4) {
+                //中文字符的长度经编码之后大于4
+                str_length++;
+            }
+            str_cut = str_cut.concat(a);
+            if (str_length >= len) {
+                str_cut = str_cut.concat("...");
+                return str_cut;
+            }
+        }
+        //如果给定字符串小于指定长度，则返回源字符串；
+        if (str_length < len) {
+            return str;
+        }
     };
 
     // enter 按下执行 callback
@@ -378,6 +398,7 @@
         deleteCookie: deleteCookie,
         getObjLen: getObjLen,
         strlen: strlen,
+        cutStr: cutStr,
         enterCall: enterCall,
         log: log
     };

@@ -6,25 +6,23 @@ $(function () {
 
   $image.on('cropmove.cropper', function (e) {
 
-    QUnit.test('events.cropmove', function (assert) {
+    QUnit.test('events#cropmove', function (assert) {
       assert.equal(e.type, 'cropmove');
-      assert.equal(e.namespace, 'cropper');
       assert.equal(e.action, 'crop');
     });
 
   }).cropper({
-    built: function () {
+    ready: function () {
       var $dragBox = $image.data('cropper').$dragBox;
 
-      // Triggers events manually when built
+      // Triggers events manually when ready
       $dragBox.trigger('mousedown').trigger('mousemove').trigger('mouseup');
     },
 
     cropmove: function (e) {
 
-      QUnit.test('options.cropmove', function (assert) {
+      QUnit.test('options#cropmove', function (assert) {
         assert.equal(e.type, 'cropmove');
-        assert.equal(e.namespace, 'cropper');
         assert.equal(e.action, 'crop');
       });
 

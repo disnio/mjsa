@@ -6,16 +6,13 @@ $(function () {
 
   $image.cropper({
 
-    built: function () {
-      var cropper = $(this).data('cropper');
-      var image = cropper.image;
-      var scaleX = -2;
-      var scaleY = 2;
+    ready: function () {
 
-      QUnit.test('methods.scale', function (assert) {
-        $image.cropper('scale', scaleX, scaleY);
-        assert.equal(image.scaleX, scaleX);
-        assert.equal(image.scaleY, scaleY);
+      QUnit.test('methods#scale', function (assert) {
+        var imageData = $image.cropper('scale', -1, -1).cropper('getImageData');
+
+        assert.equal(imageData.scaleX, -1);
+        assert.equal(imageData.scaleY, -1);
       });
 
     }

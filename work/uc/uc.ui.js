@@ -1,8 +1,8 @@
-﻿/* 
+﻿/*
  * @Author: Allen
  * @Date:   2015-12-04 15:03:07
  * @Last Modified by:   Allen
- * @Last Modified time: 2016-12-13 18:07:28
+ * @Last Modified time: 2017-05-25 10:33:06
  */
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -52,7 +52,7 @@
             return def;
         },
         // 文件上传
-        fileUpload: function(options) {            
+        fileUpload: function(options) {
             var fopt = options;
             if (parseInt(options.maxFileSize, 10) > 0) {
                 $.blueimp.fileupload.prototype.processActions.vsize = function(data, options) {
@@ -76,6 +76,41 @@
                 $.blueimp.fileupload.prototype.options.processQueue.push({
                     action: 'vsize',
                     always: true
+                });
+            }
+
+            options.preview = options.preview == undefined ? false : true;
+
+            options.exclude = options.exclude == undefined ? false : options.exclude;
+
+            if (options.exclude) {
+                $.blueimp.fileupload.prototype.processActions.exclude = function(data, ioption) {
+                    var dfd = $.Deferred();
+                    var file = data.files[data.index];
+
+                    if (!!ioption.disabled) {
+                        return data;
+                    }
+
+                    var re = new RegExp('(' + options.exclude + ')', "i");
+                    var testtype;
+
+                    var ext = file.name.substr(file.name.indexOf('.'));
+                    testtype = re.test(ext);
+                    if (testtype) {
+                        file.error = '错误的文件类型.';
+                        dfd.rejectWith(this, [data]);
+                    } else {
+                        dfd.resolveWith(this, [data]);
+                    }
+                    return dfd.promise();
+                };
+
+                $.blueimp.fileupload.prototype.options.processQueue.push({
+                    action: 'exclude',
+                    always: true,
+                    // 其实是不接受
+                    // acceptFileTypes: /(\.|\/)(java|exe|dll)$/i
                 });
             }
 
@@ -118,6 +153,7 @@
                     forceIframeTransport: true,
                     redirect: localUrl + "/Scripts/cors/result.html?%s"
                 };
+
                 var opt = {
                     url: options.url,
                     dataType: 'json',
@@ -137,7 +173,7 @@
                             return _.isUndefined(v.error);
                         });
                         if (allOk) {
-                            //this will 'force' the submit in IE < 10 必须的  
+                            //this will 'force' the submit in IE < 10 必须的
                             $.each(data.files, function(i, file) {
                                 file.jqXHR = data.submit()
                                     .success(function(result, textStatus, jqXHR) {})
@@ -162,12 +198,16 @@
 
                             var temp = {};
                             if ($.browser.msie && $.browser.version < 10) {
+                                temp.state = result.files.files[0].state;
+                                temp.size = result.files.files[0].size;
                                 temp.name = result.files.files[0].name;
                                 temp.url = result.files.files[0].url;
                                 temp.id = result.files.files[0].id;
                                 temp.message = result.files.files[0].message;
                                 temp.isUploaded = result.files.files[0].isUploaded;
                             } else {
+                                temp.state = data.result.state;
+                                temp.size = data.result.size;
                                 temp.name = data.result.name;
                                 temp.url = data.result.url;
                                 temp.id = data.result.id;
@@ -180,17 +220,101 @@
 
                     }
                 };
+
                 if ($.browser.msie && $.browser.version < 10) {
                     opt = $.extend(true, opt, fopt, ifopt);
                 }
                 opt = $.extend(true, opt, fopt);
 
                 options.container.attr("onlyImg", options.onlyImg);
+
                 return function(container) {
-                    options.upload.call(container, opt);
+
+                    opt.upload.call(container, opt);
+                    var uploadButton;
+                    var previewBtn = options.previewBtn == undefined ? false : true;
+                    if (!options.autoUpload) {
+                        container.unbind("fileuploadprocessdone").bind('fileuploadprocessdone', function(e, data) {
+                            uploadButton = $('<button/>')
+                                .addClass('btn btn-primary')
+                                .prop('disabled', true)
+                                .text('处理中...');
+                            uploadButton.on('click', function() {
+                                var $this = $(this);
+                                var data = $this.data();
+
+                                $this.off('click')
+                                    .text('Abort')
+                                    .on('click', function() {
+                                        $this.remove();
+                                        data.abort();
+                                    });
+                                data.submit().always(function() {
+                                    $this.remove();
+                                });
+                            });
+
+                            data.context = $('<div/>').appendTo(options.previewContainer);
+                            $.each(data.files, function(index, file) {
+                                var nodeEl = $('<p/>')
+                                    .append($('<span/>').text(file.name));
+                                if (!index && previewBtn) {
+                                    nodeEl.append('<br>').append(uploadButton.clone(true).data(data));
+                                }
+                                nodeEl.appendTo(data.context);
+                            });
+
+                            var index = data.index;
+                            var file = data.files[index];
+                            // var node = $(options.previewContainer).find(">div:last");
+                            var node = $(data.context.children()[index]);
+
+                            if (file.preview && options.preview) {
+                                node
+                                    .prepend('<br>')
+                                    .prepend(file.preview);
+                            }
+                            if (file.error) {
+                                node
+                                    .append('<br>')
+                                    .append($('<span class="text-danger"/>').text(file.error));
+                            }
+                            if (index + 1 === data.files.length && previewBtn) {
+                                data.context.find('button')
+                                    .text('上传')
+                                    .prop('disabled', !!data.files.error);
+                            }
+                        });
+                    }
                 }
             }
             fsu()(options.container)
+        },
+
+        base64Upload: function(opt){
+            // $http({
+            //     url: ucConfig.ServerReferenceFileCenterAPI + '/fileupload/ngImgCropHandler/Community',
+            //     data: {
+            //         base64: p,
+            //         FileName: trans.photoName.split(".")[0]
+            //     },
+            //     method: 'POST',
+            //     transformRequest: $httpParamSerializerJQLike,
+            //     headers: {
+            //         'Accept': '*/*',
+            //         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            //     }
+            // })
+            return $.ajax({
+                type: "post",
+                url: opt.url,
+                data: opt.data,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                headers: {
+                    'Accept': '*/*',
+                }
+            });
+
         },
         // 联动，data： {ID:1, ParentID:0} opt: {list: tlist, container: $("#catelist")}
         genSelect: function(opt) {
@@ -362,7 +486,7 @@
 
             });
 
-            // 初始化 UI.genSelect({ list: xd, container: $("#test"), activeID: 8 }); 
+            // 初始化 UI.genSelect({ list: xd, container: $("#test"), activeID: 8 });
             _.each(getPathList(ls, opt.activeID), function(v, i) {
                 var nextList = getNextLs(opt.list, ls, v);
                 if (!_.isEmpty(nextList)) {
@@ -461,7 +585,7 @@
                             deferSave.resolve(true);
                         }
                     }
-                    // 验证通过才可执行 save 
+                    // 验证通过才可执行 save
                     return deferSave;
                 };
                 // 错误信息有 valid 处理

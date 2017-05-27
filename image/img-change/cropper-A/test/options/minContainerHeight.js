@@ -8,11 +8,11 @@ $(function () {
   $image.cropper({
     minContainerHeight: minContainerHeight,
 
-    built: function () {
+    ready: function () {
       var cropper = $image.data('cropper');
       var container = cropper.container;
 
-      QUnit.test('options.minContainerHeight', function (assert) {
+      QUnit.test('options#minContainerHeight', function (assert) {
         assert.ok(Math.round(container.height) === minContainerHeight);
       });
 

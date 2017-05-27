@@ -7,10 +7,10 @@ $(function () {
   $image.cropper({
     guides: false,
 
-    built: function () {
+    ready: function () {
       var cropper = $image.data('cropper');
 
-      QUnit.test('options.guides', function (assert) {
+      QUnit.test('options#guides', function (assert) {
         assert.ok(cropper.$cropper.find('.cropper-dashed').hasClass('cropper-hidden'));
       });
 

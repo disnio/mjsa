@@ -1,82 +1,111 @@
-  $.extend(prototype, {
-    initPreview: function () {
-      var url = this.url;
+import $ from 'jquery';
+import * as utils from './utilities';
 
-      this.$preview = $(this.options.preview);
-      this.$viewBox.html('<img src="' + url + '">');
-      this.$preview.each(function () {
-        var $this = $(this);
+const DATA_PREVIEW = 'preview';
 
-        // Save the original size for recover
-        $this.data(PREVIEW, {
-          width: $this.width(),
-          height: $this.height(),
-          original: $this.html()
-        });
+export default {
+  initPreview() {
+    const self = this;
+    const crossOrigin = utils.getCrossOrigin(self.crossOrigin);
+    const url = crossOrigin ? self.crossOriginUrl : self.url;
+    let $clone2;
 
-        /**
-         * Override img element styles
-         * Add `display:block` to avoid margin top issue
-         * (Occur only when margin-top <= -height)
-         */
-        $this.html(
-          '<img src="' + url + '" style="display:block;width:100%;' +
-          'min-width:0!important;min-height:0!important;' +
-          'max-width:none!important;max-height:none!important;' +
-          'image-orientation:0deg!important">'
-        );
+    self.$preview = $(self.options.preview);
+    self.$clone2 = $clone2 = $(`<img ${crossOrigin} src="${url}">`);
+    self.$viewBox.html($clone2);
+    self.$preview.each((i, element) => {
+      const $this = $(element);
+
+      // Save the original size for recover
+      $this.data(DATA_PREVIEW, {
+        width: $this.width(),
+        height: $this.height(),
+        html: $this.html()
       });
-    },
 
-    resetPreview: function () {
-      this.$preview.each(function () {
-        var $this = $(this);
+      /**
+       * Override img element styles
+       * Add `display:block` to avoid margin top issue
+       * (Occur only when margin-top <= -height)
+       */
+      $this.html(
+        `<img ${crossOrigin} src="${url}" style="` +
+        'display:block;width:100%;height:auto;' +
+        'min-width:0!important;min-height:0!important;' +
+        'max-width:none!important;max-height:none!important;' +
+        'image-orientation:0deg!important;">'
+      );
+    });
+  },
 
-        $this.html($this.data(PREVIEW).original).removeData(PREVIEW);
-      });
-    },
+  resetPreview() {
+    this.$preview.each((i, element) => {
+      const $this = $(element);
+      const data = $this.data(DATA_PREVIEW);
 
-    preview: function () {
-      var image = this.image;
-      var canvas = this.canvas;
-      var cropBox = this.cropBox;
-      var width = image.width;
-      var height = image.height;
-      var left = cropBox.left - canvas.left - image.left;
-      var top = cropBox.top - canvas.top - image.top;
+      $this.css({
+        width: data.width,
+        height: data.height
+      }).html(data.html).removeData(DATA_PREVIEW);
+    });
+  },
 
-      if (!this.cropped || this.disabled) {
-        return;
+  preview() {
+    const self = this;
+    const image = self.image;
+    const canvas = self.canvas;
+    const cropBox = self.cropBox;
+    const cropBoxWidth = cropBox.width;
+    const cropBoxHeight = cropBox.height;
+    const width = image.width;
+    const height = image.height;
+    const left = cropBox.left - canvas.left - image.left;
+    const top = cropBox.top - canvas.top - image.top;
+
+    if (!self.cropped || self.disabled) {
+      return;
+    }
+
+    self.$clone2.css({
+      width,
+      height,
+      transform: utils.getTransform($.extend({
+        translateX: -left,
+        translateY: -top,
+      }, image)),
+    });
+
+    self.$preview.each((i, element) => {
+      const $this = $(element);
+      const data = $this.data(DATA_PREVIEW);
+      const originalWidth = data.width;
+      const originalHeight = data.height;
+      let newWidth = originalWidth;
+      let newHeight = originalHeight;
+      let ratio = 1;
+
+      if (cropBoxWidth) {
+        ratio = originalWidth / cropBoxWidth;
+        newHeight = cropBoxHeight * ratio;
       }
 
-      this.$viewBox.find('img').css({
-        width: width,
-        height: height,
-        marginLeft: -left,
-        marginTop: -top,
-        transform: getTransform(image)
+      if (cropBoxHeight && newHeight > originalHeight) {
+        ratio = originalHeight / cropBoxHeight;
+        newWidth = cropBoxWidth * ratio;
+        newHeight = originalHeight;
+      }
+
+      $this.css({
+        width: newWidth,
+        height: newHeight
+      }).find('img').css({
+        width: width * ratio,
+        height: height * ratio,
+        transform: utils.getTransform($.extend({
+          translateX: -left * ratio,
+          translateY: -top * ratio,
+        }, image)),
       });
-
-      this.$preview.each(function () {
-        var $this = $(this);
-        var data = $this.data(PREVIEW);
-        var ratio = data.width / cropBox.width;
-        var newWidth = data.width;
-        var newHeight = cropBox.height * ratio;
-
-        if (newHeight > data.height) {
-          ratio = data.height / cropBox.height;
-          newWidth = cropBox.width * ratio;
-          newHeight = data.height;
-        }
-
-        $this.width(newWidth).height(newHeight).find('img').css({
-          width: width * ratio,
-          height: height * ratio,
-          marginLeft: -left * ratio,
-          marginTop: -top * ratio,
-          transform: getTransform(image)
-        });
-      });
-    }
-  });
+    });
+  },
+};

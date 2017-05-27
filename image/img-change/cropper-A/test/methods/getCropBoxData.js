@@ -9,12 +9,11 @@ $(function () {
   }
 
   $image.cropper({
-    built: function () {
+    ready: function () {
 
-      QUnit.test('methods.getCropBoxData', function (assert) {
+      QUnit.test('methods#getCropBoxData', function (assert) {
         var data = $image.cropper('getCropBoxData');
 
-        assert.ok($.isPlainObject(data));
         assert.ok(isNumber(data.left));
         assert.ok(isNumber(data.top));
         assert.ok(isNumber(data.width));

@@ -5,17 +5,15 @@ $(function () {
   var $image = $(window.createCropperImage());
 
   $image.cropper({
-    strict: false,
+    ready: function () {
 
-    built: function () {
-
-      QUnit.test('methods.getCroppedCanvas', function (assert) {
+      QUnit.test('methods#getCroppedCanvas', function (assert) {
         var canvas = $image.cropper('getCroppedCanvas');
 
         assert.ok(canvas instanceof HTMLCanvasElement);
       });
 
-      QUnit.test('methods.getCroppedCanvas: resize', function (assert) {
+      QUnit.test('methods#getCroppedCanvas: resize', function (assert) {
         var canvas = $image.cropper('getCroppedCanvas', {
               width: 160,
               height: 90
@@ -25,7 +23,7 @@ $(function () {
         assert.equal(canvas.height, 90);
       });
 
-      QUnit.test('methods.getCroppedCanvas: fillColor', function (assert) {
+      QUnit.test('methods#getCroppedCanvas: fillColor', function (assert) {
         var canvas = $image.cropper('rotate', 90).cropper('getCroppedCanvas', {
               fillColor: '#010101'
             });
@@ -36,6 +34,13 @@ $(function () {
         assert.strictEqual(pixelData[2], 1, 'blue is 1');
         assert.strictEqual(pixelData[3], 255, 'color is opaque');
 
+      });
+
+      QUnit.test('methods#getCroppedCanvas: clear', function (assert) {
+        $image.cropper('clear');
+        var canvas = $image.cropper('getCroppedCanvas');
+
+        assert.ok(canvas instanceof HTMLCanvasElement);
       });
 
     }

@@ -1,6 +1,14 @@
 # Files to ignore
 
-bower_components
+build
+docs
+examples
+test
+/_*
+/.*
 *.map
-_*
-!src/scss/_*.scss
+bower.json
+postcss.config.json
+rollup.config.js
+CONTRIBUTING.md
+ISSUE_TEMPLATE.md

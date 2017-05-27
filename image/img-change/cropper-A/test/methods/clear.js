@@ -5,12 +5,12 @@ $(function () {
   var $image = $(window.createCropperImage());
 
   $image.cropper({
-    built: function () {
+    ready: function () {
       var cropper = $image.data('cropper');
 
-      QUnit.test('methods.clear', function (assert) {
+      QUnit.test('methods#clear', function (assert) {
         $image.cropper('clear');
-        assert.ok(!cropper.cropped);
+        assert.equal(cropper.cropped, false);
         assert.ok(cropper.$cropBox.is(':hidden'));
         assert.deepEqual($image.cropper('getCropBoxData'), {});
       });
