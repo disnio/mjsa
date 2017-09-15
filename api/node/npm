@@ -1,3 +1,6 @@
+node-inspector -g
+node test.js --debug-brk
+
 http://www.zcfy.cc/article/11-simple-npm-tricks-that-will-knock-your-wombat-socks-off-1206.html
 打开 package Github 仓库 运行: npm repo $package
 检查 package 的过时依赖 运行: npm outdated
@@ -143,7 +146,7 @@ module.exports = function (s) { return s.toUpperCase() + '？？' };
   "browser": "browser.js"
 }
 
-Now when somebody does require('mypkg') in node, they will get the exports from main.js , but when they do require('mypkg') in a browser, they will get the exports from browser.js . 
+Now when somebody does require('mypkg') in node, they will get the exports from main.js , but when they do require('mypkg') in a browser, they will get the exports from browser.js .
 ---
  You can configure transforms to be automatically applied when a module is loaded in a package's browserify.transform field. For example, we can automatically apply the brfs transform with this package.json:
 
@@ -160,15 +163,15 @@ Now when somebody does require('mypkg') in node, they will get the exports from 
 
 A querystring parser that supports nesting and arrays, with a depth limit
 var Qs = require('qs');
- 
-var obj = Qs.parse('a=c');    // { a: 'c' } 
-var str = Qs.stringify(obj);  // 'a=c' 
+
+var obj = Qs.parse('a=c');    // { a: 'c' }
+var str = Qs.stringify(obj);  // 'a=c'
 Qs.parse('a=b&c=d', { parameterLimit: 1 });
-// { a: 'b' } 
+// { a: 'b' }
 An optional delimiter can also be passed:
 
 Qs.parse('a=b;c=d', { delimiter: ';' });
-// { a: 'b', c: 'd' } 
+// { a: 'b', c: 'd' }
 
 Delimiters can be a regular expression too:
 
@@ -180,42 +183,42 @@ Parsing Arrays
 qs can also parse arrays using a similar [] notation:
 
 Qs.parse('a[]=b&a[]=c');
-// { a: ['b', 'c'] } 
+// { a: ['b', 'c'] }
 
 You may specify an index as well:
 
 Qs.parse('a[1]=c&a[0]=b');
-// { a: ['b', 'c'] } 
-// 
+// { a: ['b', 'c'] }
+//
 // qs will also limit specifying indices in an array to a maximum index of 20. Any array members with an index of greater than 20 will instead be converted to an object with the index as the key:
 
 Qs.parse('a[100]=b');
-// { a: { '100': 'b' } } 
+// { a: { '100': 'b' } }
 // This limit can be overridden by passing an arrayLimit option:
 
 Qs.parse('a[1]=b', { arrayLimit: 0 });
-// { a: { '1': 'b' } } 
-// 
+// { a: { '1': 'b' } }
+//
 -------------
 // When arrays are stringified, by default they are given explicit indices:
 
 Qs.stringify({ a: ['b', 'c', 'd'] });
-// 'a[0]=b&a[1]=c&a[2]=d' 
+// 'a[0]=b&a[1]=c&a[2]=d'
 
 You may override this by setting the indices option to false:
 
 Qs.stringify({ a: ['b', 'c', 'd'] }, { indices: false });
-// 'a=b&a=c&a=d' 
+// 'a=b&a=c&a=d'
 You may use the arrayFormat option to specify the format of the output array
 
 Qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'indices' })
-// 'a[0]=b&a[1]=c' 
+// 'a[0]=b&a[1]=c'
 Qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'brackets' })
-// 'a[]=b&a[]=c' 
+// 'a[]=b&a[]=c'
 Qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'repeat' })
-// 'a=b&a=c' 
+// 'a=b&a=c'
 /Qs.stringify({ a: 'b', c: 'd' }, { delimiter: ';' });
-// 'a=b;c=d' 
+// 'a=b;c=d'
 -----------------------------------------------------------------------------------------
 router：
 http://cnpmjs.org/package/router
@@ -284,7 +287,7 @@ $ browserify -t coffeeify main.coffee > bundle.js
 
 coffeeify：
 https://github.com/jnordberg/coffeeify
-browserify transform to compile coffee-script automatically 
+browserify transform to compile coffee-script automatically
 
 foo.coffee:
 console.log(require './bar.js')
@@ -349,7 +352,7 @@ process.stdin.on('readable', function () {
 
 代码运行结果如下所示：
 
-$ (echo abc; sleep 1; echo def; sleep 1; echo ghi) | node consume0.js 
+$ (echo abc; sleep 1; echo def; sleep 1; echo ghi) | node consume0.js
 <Buffer 61 62 63 0a>
 <Buffer 64 65 66 0a>
 <Buffer 67 68 69 0a>
@@ -381,7 +384,7 @@ process.stdin.on('readable', function () {
     process.stdin.unshift(buf);
 });
 代码的运行结果如下所示：
-$ tail -n +50000 /usr/share/dict/american-english | head -n10 | node lines.js 
+$ tail -n +50000 /usr/share/dict/american-english | head -n10 | node lines.js
 -----------------------
 writable流
 
@@ -398,7 +401,7 @@ ws._write = function (chunk, enc, next) {
 };
 
 process.stdin.pipe(ws);
-$ (echo beep; sleep 1; echo boop) | node write0.js 
+$ (echo beep; sleep 1; echo boop) | node write0.js
 
 第一个参数，chunk代表写进来的数据。
 
@@ -423,11 +426,11 @@ setTimeout(function () {
 
 如果你在创建writable流时指定了highWaterMark参数，那么当没有更多数据写入时，调用.write()方法将会返回false。
 
-如果你想要等待缓存情况，可以监听drain事件。 
+如果你想要等待缓存情况，可以监听drain事件。
 -----------------------
 transform流
 
-你可以将transform流想象成一个流的中间部分，它可以读也可写，但是并不保存数据，它只负责处理流经它的数据。 
+你可以将transform流想象成一个流的中间部分，它可以读也可写，但是并不保存数据，它只负责处理流经它的数据。
 -----------------------
 duplex流
 
@@ -458,7 +461,7 @@ var concat = require('concat-stream');
 process.stdin.pipe(concat(function (body) {
     console.log(JSON.parse(body));
 }));
-$ echo '{"beep":"boop"}' | node concat.js 
+$ echo '{"beep":"boop"}' | node concat.js
 { beep: 'boop' }
 
 你可以使用readable-stream模块来确保你的stream2代码兼容node 0.8及其之前的代码。
@@ -493,7 +496,7 @@ $ curl -X POST -d 'beep=boop&dinosaur=trex' http://localhost:5005
 -----------------------
 emit-stream：
 https://github.com/substack/emit-stream
-turn event emitters into streams and streams into event emitters 
+turn event emitters into streams and streams into event emitters
 server:
 var emitStream = require('emit-stream');
 var JSONStream = require('JSONStream');
@@ -546,25 +549,25 @@ ev.on('x', function (x) {
 ---------
 https://github.com/dominictarr/event-stream
 
-var util = require("util");  
-var events = require("events");//EventEmitter通过events模块来访问  
-  
-function MyStream() {//新建一个类  
-    events.EventEmitter.call(this);  
-}  
-  
-util.inherits(MyStream, events.EventEmitter);//使这个类继承EventEmitter  
-  
-MyStream.prototype.write = function(data) {//定义一个新方法  
-    this.emit("data", data);//在此触发名为"data"事件  
-}  
-  
-var stream = new MyStream();  
-  
-stream.on("data", function(data) {//注册监听器，监听名为"data"事件  
-    console.log('Received data: "' + data + '"');  
-})  
-stream.write("It works!"); // Received data: "It works!"  
+var util = require("util");
+var events = require("events");//EventEmitter通过events模块来访问
+
+function MyStream() {//新建一个类
+    events.EventEmitter.call(this);
+}
+
+util.inherits(MyStream, events.EventEmitter);//使这个类继承EventEmitter
+
+MyStream.prototype.write = function(data) {//定义一个新方法
+    this.emit("data", data);//在此触发名为"data"事件
+}
+
+var stream = new MyStream();
+
+stream.on("data", function(data) {//注册监听器，监听名为"data"事件
+    console.log('Received data: "' + data + '"');
+})
+stream.write("It works!"); // Received data: "It works!"
 -----------------------
 request：
 https://www.npmjs.com/package/request
@@ -608,7 +611,7 @@ browserify()
 
 command line example
 
-browserify main.js --debug | exorcist bundle.js.map > bundle.js 
+browserify main.js --debug | exorcist bundle.js.map > bundle.js
 ---
 Gulp
 To use exorcist in gulp with gulp-browserify, you must wrap the exorcist call using vinyl-transform like so:
@@ -653,7 +656,7 @@ $ node example/show.js rawr --beep [ boop -a 3 ] -n4 --robots [ -x 8 -y 6 ]
 { _: [ 'rawr' ],
   beep: { _: [ 'boop' ], a: 3 },
   n: 4,
-  robots: { _: [], x: 8, y: 6 } 
+  robots: { _: [], x: 8, y: 6 }
 }
 ----------------------------------------------------------------------------------------
 formidable：A node.js module for parsing form data, especially file uploads.

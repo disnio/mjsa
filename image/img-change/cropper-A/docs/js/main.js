@@ -52,7 +52,7 @@ $(function () {
       console.log(e.type, e.x, e.y, e.width, e.height, e.rotate, e.scaleX, e.scaleY);
     },
     zoom: function (e) {
-      console.log(e.type, e.ratio);
+      console.log("z:", e.type, e.ratio);
     }
   }).cropper(options);
 
@@ -109,6 +109,7 @@ $(function () {
     var data = $this.data();
     var $target;
     var result;
+    console.log(data)
 
     if ($this.prop('disabled') || $this.hasClass('disabled')) {
       return;
@@ -167,6 +168,8 @@ $(function () {
 
           break;
       }
+
+      console.log($target)
 
       if ($.isPlainObject(result) && $target) {
         try {

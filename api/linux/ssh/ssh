@@ -1,0 +1,26 @@
+-----------------------------------------------------------------
+SSH：
+sudo apt-get update 这个必须先做，在新安装的系统
+sudo apt-get install openssh-server
+安装完后启动ssh服务：
+sudo /etc/init.d/ssh start
+其中端口默认为22。
+----------------------------------------------------------------
+ssh rsa:
+http://www.linuxidc.com/Linux/2013-07/87458.htm
+
+公钥必须放在服务器中 ~/ssh/authorized_keys
+私钥必须放在用来登录的客户机中 ~/ssh 目录
+ssh 配置文件 /etc/ssh/sshd_config
+设置自动认证需要：
+登录到远程主机创建 ssh 密钥
+将生成的公钥传输到远程主机，并加入到 ~/ssh/authorized_keys
+
+ssh-keygen -t rsa
+在 ~/.ssh/id_rsa.pub ~/.ssh/is_rsa 生成了。
+
+ssh user@remote_host "cat >> ~/.ssh/authorized_keys" < ~/.ssh/id_rsa.pub
+
+挂载远程文件
+sshfs user@remote_hot:/home/path /mnt/mountpoint
+umount /mnt/mountpoint

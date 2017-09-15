@@ -1,3 +1,7 @@
+sudo apt-get update
+sudo apt-get dist-upgrade
+sudo apt-get install --reinstall software-center
+
 root:
 vi /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf
 加入这行，并重启就行了。
@@ -31,7 +35,7 @@ $sudo dpkg -i xxxx.deb ##这样xxxx软件就可以安装完成了
 
 sudo dpkg -p package_name卸载软件包及其配置文件，但无法解决依赖关系！
 
-sudo aptitude purge pkgname卸载软件包及其配置文件与依赖关系包！ 
+sudo aptitude purge pkgname卸载软件包及其配置文件与依赖关系包！
 清除所有已删除包的残馀配置文件
 dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
 如果报如下错误，证明你的系统中没有残留配置文件了，无须担心。
@@ -51,21 +55,15 @@ sudo apt-get install php5 libapache2-mod-php5 php5-mysql
 
 webadmin：
 sudo apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions
-apt-get -f install libapt-pkg-perl libnet-ssleay-perl openssl libauthen-pam-perl libio-pty-perl apt-show-versions   
+apt-get -f install libapt-pkg-perl libnet-ssleay-perl openssl libauthen-pam-perl libio-pty-perl apt-show-versions
 wget http://prdownloads.sourceforge.net/webadmin/webmin_1.740_all.deb
 
+
 -----------------------------------------------------------------
-SSH：
-sudo apt-get update 这个必须先做，在新安装的系统
-sudo apt-get install openssh-server
-安装完后启动ssh服务：
-sudo /etc/init.d/ssh start
-其中端口默认为22。
------------------------------------------------------------------
-sudo apt-add-repository ppa:fcitx-team/nightly    #添加源  
-sudo apt-get update                               #更新源  
+sudo apt-add-repository ppa:fcitx-team/nightly    #添加源
+sudo apt-get update                               #更新源
 sudo apt-get remov
-e fcitx*                        #如果以前安装过fcitx，需要将其删除（可以输入“fcitx”查看是否安装）  
+e fcitx*                        #如果以前安装过fcitx，需要将其删除（可以输入“fcitx”查看是否安装）
 sudo apt-get install fcitx-sogoupinyin    #安装搜狗拼音（注意：“sogoupinyin”而不是“sougoupinyin”）
 --------------------------------------------------
 git：
@@ -144,7 +142,7 @@ nameserver 192.168.159.2
 nameserver 8.8.8.8
 
 清除所有IP配置：
-ip addr flush eth0 
+ip addr flush eth0
 
 动态IP：
 auto eth0
@@ -160,7 +158,7 @@ nameserver 8.8.8.8
 # /etc/init.d/networking restart
 ----
 sudo ifup eth0
-sudo ifdown eth0 
+sudo ifdown eth0
 
 静态主机名：配置文件：/etc/hosts，IP到主机名的映射。
 http://www.2cto.com/os/201404/292853.html
@@ -173,9 +171,6 @@ Class A 1.0.0.0 - 126.255.255.255 255.0.0.0 === /8
 Class B 128.0.0.0 - 191.255.255.255 255.255.0.0 === /16
 
 Class C 192.0.0.0 - 223.255.255.255 255.255.255.0 === /24
-----------------------------------------------------------------
-ssh rsa:
-http://www.linuxidc.com/Linux/2013-07/87458.htm
 
 -----------------------------
 挂载共享文件夹

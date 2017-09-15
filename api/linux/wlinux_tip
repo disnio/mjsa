@@ -6,7 +6,7 @@ date +'%Y-%m-%d %H-%M-%S'
 tar -zcvf hxay130201.tar.gz * --exclude video --exclude download
 tar -zxvf
 wget http://nchc.dl.sourceforge.net/sourceforge/awstats/awstats-7.1-1.noarch.rpm
-wget http://prdownloads.sourceforge.net/webadmin/webmin-1.700-1.noarch.rpm 
+wget http://prdownloads.sourceforge.net/webadmin/webmin-1.700-1.noarch.rpm
 tar -zcf hxay160113.tar.gz * --exclude video --exclude download --exclude assets --exclude framework --exclude gc --exclude imag --exclude jc --exclude js --exclude themes --exclude lovebaby.* --exclude resources/kindeditor
 
 http://www.hxay2005.net/hxay160113.tar.gz
@@ -28,8 +28,8 @@ cp rar_static /usr/local/bin/rar
 安装模式：　　　　　　rpm　–i　[安装选项]　　<软件包>
 查询模式：　　　　　　rpm　–q　[查询选项]
 验证模式：　　　　　　rpm　–V　或　–verify　[验证选项]
-删除模式：　　　　　　rpm　–e　　<软件包> 
-查询的命令格式如下：　　rpm　–q　　[查询选项] 
+删除模式：　　　　　　rpm　–e　　<软件包>
+查询的命令格式如下：　　rpm　–q　　[查询选项]
 信息选项：
 -i　　显示软件包的信息，包括名称、版本、描述信息。
 -R　　显示这个软件包所依赖的软件包。　同--requires。
@@ -39,30 +39,30 @@ cp rar_static /usr/local/bin/rar
 
 rpm -qa |grep vsftpd 查询是否安装了vsftpd（提示无）
 强制安装：
-#　rpm　–ivh　bar-1.0-1.i386.rpm　--nodeps 
+#　rpm　–ivh　bar-1.0-1.i386.rpm　--nodeps
 rpm -ivh webmin-1.700-1.noarch.rpm
 升级软件包：
-#　rpm　–Uhv　　xanim-27064-1.i386.rpm 
+#　rpm　–Uhv　　xanim-27064-1.i386.rpm
 删除：--allmatches 删除所有版本
-#　rpm　–e　xanim 
+#　rpm　–e　xanim
 --allmatches
 删除<软件包>所指定的所有版本的软件，如果有多个版本存在的话，一般会给出错误码信息。
 
 --nodeps
 如果要删除的软件包是别的软件所必需的，在删除时用户会得到警告。这时，如果确认要强行删除，可以使用
 
---nodeps这个选项。这样一来，相关的软件就不能运行了。 
+--nodeps这个选项。这样一来，相关的软件就不能运行了。
 
 --test　　　不真正删除，只是测试。
 -------------------------------------------------------------
 df -h 查看文件系统使用
 
-查看：查询档案或目录的磁盘使用空间 
-能以指定的目录下的子目录为单位，显示每个目录内所有档案所占用的磁盘空间大小。例如： 
+查看：查询档案或目录的磁盘使用空间
+能以指定的目录下的子目录为单位，显示每个目录内所有档案所占用的磁盘空间大小。例如：
 du -h/etc
 du * -sh 显示目录的总大小
 du --exclude <video, gc> -sh *
-# du /etc | sort -nr | more  
+# du /etc | sort -nr | more
 sort 的参数 -nr 表示要以数字排序法进行反向排序
 du -c log30.tar.gz log31.tar.gz 文件总和
 
@@ -97,6 +97,9 @@ find *.c -exec cp ‘{}’ /tmp ‘;’ 将find出来的东西拷到另一个地
 find . -user 48 | xargs chown -R hxftp:apache
 git一个有用的地方，去除对pyc的跟踪
 find . -regex '.*\.pyc' -exec git rm --cached {} \;
+# 一定在正则里加相对路径
+find -regex './dd.*'
+find -path './shell/*'
 ----------------------------------------------------------------------------------
 ps：将某个时间点的程序运作情况撷取下来
 [root@linux ~]# ps aux
@@ -116,13 +119,13 @@ j ：工作的格式 (jobs format)
 而且有没有加上 - 差很多！详细的用法应该要参考 man ps 喔！
 
 范例1：将目前属于您自己这次登入的 PID 与相关信息列示出来
- 
+
 [root@linux ~]# ps -l
 F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
 0 S 0 5881 5654 0 76 0 - 1303 wait pts/0 00:00:00 su
 4 S 0 5882 5881 0 75 0 - 1349 wait pts/0 00:00:00 bash
 4 R 0 6037 5882 0 76 0 - 1111 - pts/0 00:00:00 ps
- 
+
 # 上面这个信息其实很多喔！各相关信息的意义为：
 # F 代表这个程序的旗标 (flag)， 4 代表使用者为 super user；
 # S 代表这个程序的状态 (STAT)，关于各 STAT 的意义将在内文介绍；
@@ -149,7 +152,7 @@ root 3 0.0 0.0 0 0 ? S< Jul25 0:00 [events/0]
 root 5881 0.0 0.3 5212 1204 pts/0 S 10:22 0:00 su
 root 5882 0.0 0.3 5396 1524 pts/0 S 10:22 0:00 bash
 root 6142 0.0 0.2 4488 916 pts/0 R+ 11:45 0:00 ps aux
- 
+
 • USER：该 process 属于那个使用者账号的？
 • PID ：该 process 的号码。
 • %CPU：该 process 使用掉的 CPU 资源百分比；

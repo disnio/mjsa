@@ -1,11 +1,11 @@
-<<<<<<< .mine
+
 http://localhost/awstats/awstats.pl?config=hxay2005.net
 selinux:
 http://www.cnblogs.com/xiaoluo501395377/archive/2013/05/26/3100444.html
 awstats:
 http://cuijunwei.com/1962
 http://blog.chinaunix.net/uid-20076215-id-1978280.html
-配置ubuntu linux中apache2支持perl 
+配置ubuntu linux中apache2支持perl
 sudo apt-get install libapache2-mod-perl2
 先前装awstats已经对apache2.conf做了修改,在apache2.conf后面加上如下配置:
 AddHandler cgi-script .cgi .pl  //一定要加上这个
@@ -77,21 +77,21 @@ nginx (pid 54797 54796 54795) is running...
 SUCCESS! MySQL running (55254)
 Apache is running.
 Active Internet connections (only servers)
-Proto Recv-Q Send-Q Local Address           Foreign Address         State      
-tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN     
-tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN     
-tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN     
-tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
-tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN     
-tcp        0      0 127.0.0.1:88            0.0.0.0:*               LISTEN     
-tcp6       0      0 :::22                   :::*                    LISTEN     
-tcp6       0      0 ::1:631                 :::*                    LISTEN     
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN
+tcp        0      0 127.0.0.1:88            0.0.0.0:*               LISTEN
+tcp6       0      0 :::22                   :::*                    LISTEN
+tcp6       0      0 ::1:631                 :::*                    LISTEN
 Install lnmp V1.2 completed! enjoy it.
 -------------------------------------
 CentOS7.0 使用root登录桌面
 编辑/etc/gdm/custom.conf，修改以下两行：
-AutomaticLoginEnable=true 这个修改为 true 
-AutomaticLogin=root              这个修改为 root 
+AutomaticLoginEnable=true 这个修改为 true
+AutomaticLogin=root              这个修改为 root
 -----------------------------
 更新源：
 http://mirrors.163.com/.help/centos.html
@@ -114,7 +114,7 @@ reboot
 -------------------------------
 >>>>>>> .theirs
 http://www.kafan.cn/edu/828094.html
-yum remove 
+yum remove
 ---------------------------------------------------------
 ctrl + alt + f1 -- f6
 内存清理：
@@ -124,7 +124,7 @@ SecureFX 乱码：
 c:\Users\Administrator\AppData\Roaming\VanDyke\Config\Sessions
 
 在SecureFx中选择Options->Global Options菜单，在打开的Global Options的对话框中选择General。Configuration folder。里面的路径就是SecureFX的配置文件路径。在Sessions子目录下找到对应的Session的ini配置文件。
-将"Filenames Always Use UTF8"=00000000修改为"Filenames Always Use UTF8"=00000001保存重新连接即可。 
+将"Filenames Always Use UTF8"=00000000修改为"Filenames Always Use UTF8"=00000001保存重新连接即可。
 Session Options（会话选项） -> Terminal（终端） -> Appearance（显示）, 将Charater（字符）选择成 UTF-8就支持中文了。
 
 --------------------------------------------------------
@@ -162,9 +162,9 @@ http://linuxunix.xyz/2015/08/30/CentOS6-5-%E9%85%8D%E7%BD%AEvsftpd/
 -----------------------------------------------------------
 python 升级：
 python2.6.6 -> python2.7.8
-wget https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz 
+wget https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz
 ./configure --enable-shared --prefix=/usr/local/python2.7
---enable-unicode=ucs4  
+--enable-unicode=ucs4
  make make altinstall
 
 cd /usr/bin/
@@ -181,10 +181,10 @@ ln -sv /usr/local/python2.7/bin/python /usr/bin/python
 修改vim /usr/bin/yum
 把头前!#/usr/bin/python 改为 /usr/bin/python2.6.6
 ------------------
-yum -y install gd libjpeg libjpeg-devel libpng libpng-devel freetype-devel 
+yum -y install gd libjpeg libjpeg-devel libpng libpng-devel freetype-devel
 
-yum groupinstall "Development tools"  
-yum install zlib-devel bzip2-devel pcre-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel python-devel libxml2  libxml2-devel  python-setuptools  zlib-devel wget openssl-devel pcre pcre-devel sudo gcc make autoconf automake 
+yum groupinstall "Development tools"
+yum install zlib-devel bzip2-devel pcre-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel python-devel libxml2  libxml2-devel  python-setuptools  zlib-devel wget openssl-devel pcre pcre-devel sudo gcc make autoconf automake
 -------------------
 http://www.2cto.com/os/201402/279911.html
 http://www.68idc.cn/help/jiabenmake/qita/2014042391351.html
@@ -289,9 +289,9 @@ iptables [-AI 链名] [-io 网络接口] [-p 协议]  [-s 来源 IP/网域] [-d 
 -A INPUT -i eth0 -p tcp -s 192.168.1.0/24 --sport 1024:65534 --dport ssh -j DROP
 
 
--A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT 
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 -A INPUT -m state --state INVALID -j DROP
--A INPUT -p tcp -i eth0 --dport ssh -j ACCEPT 
+-A INPUT -p tcp -i eth0 --dport ssh -j ACCEPT
 
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
@@ -332,26 +332,26 @@ iptables -A INPUT -i eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 # iptables -L
 
 允许所有的web流量
-iptables -A INPUT -p tcp -i eth0 --dport 80 -j ACCEPT 
+iptables -A INPUT -p tcp -i eth0 --dport 80 -j ACCEPT
 阻断流量
-iptables -A INPUT -j DROP 
+iptables -A INPUT -j DROP
 所以除了web和ssh流量外其他任何流量都会被阻断
 
-iptables -I INPUT 4 -i lo -j ACCEPT 
+iptables -I INPUT 4 -i lo -j ACCEPT
 
-iptables-save 和iptables-restore命令来保存配置。 
+iptables-save 和iptables-restore命令来保存配置。
 
 保存您的防火墙股则到一个文件
-iptables-save > /etc/iptables.up.rules 
+iptables-save > /etc/iptables.up.rules
 接着修改 /etc/network/interfaces 脚本自动应用这些规则(末行是添加的)
 auto eth0
 iface eth0 inet dhcp
 pre-up iptables-restore < /etc/iptables.up.rules
-post-down iptables-restore < /etc/iptables.down.rules 
+post-down iptables-restore < /etc/iptables.down.rules
 
 iptables-save > /etc/iptables.test.rules
-gedit /etc/iptables.test.rules 
-iptables-restore < /etc/iptables.test.rules 
+gedit /etc/iptables.test.rules
+iptables-restore < /etc/iptables.test.rules
 
 ------------------------------------------------------------------------
 SSL too long：
@@ -372,9 +372,9 @@ grep processor /proc/cpuinfo | wc -l
 
 sudo systemctl start nginx
 sudo systemctl enable nginx
-sudo firewall-cmd --zone=public --add-port=80/tcp --permanent$ 
+sudo firewall-cmd --zone=public --add-port=80/tcp --permanent$
 sudo firewall-cmd --reload
-     
+
     # nginx passes PHP scripts to FastCGI server via a TCP/9000 socket
     # this setting much be consistent with /etc/php-fpm.d/www.conf
     # try_files prevents nginx from passing bad scripts to FastCGI server
@@ -397,24 +397,24 @@ yum update package 更新指定程序包package
 yum update dhcp
 yum check-update 检查可更新的程序
 
-查找和显示 
+查找和显示
 yum info 显示安装包信息
 yum info dhcp
 yum list 显示所有已经安装和可以安装的程序包
 yum list 显示指定程序包安装情况
 yum search 查找软件包
- 
-删除程序 
+
+删除程序
 yum remove or erase package 删除程序包
 
-注意：yum 把下载的软件包和header存储在cache中，而不会自动删除。如果我们觉得它们占用了磁盘空间，可以使用yum clean指令进行清除. 
- 
+注意：yum 把下载的软件包和header存储在cache中，而不会自动删除。如果我们觉得它们占用了磁盘空间，可以使用yum clean指令进行清除.
+
 yum clean headers  清除header
 yum clean packages  清除下载的rpm包
 yum clean all  清除header与rpm包
 
 .yum高级管理应用技巧
- 
+
 技巧1:加快你的yum的速度.使用yum的扩展插件yum-fastestmirror，个人认为这个插件非常有效，速度真的是明显提高
 
 技巧2:软件组安装有时我们安装完系统，管理有一类软件没有安装，比如用于开发的开发包,我们可以用软件包来安装。
@@ -425,5 +425,5 @@ yum clean all  清除header与rpm包
 比如我们要安装中方支持
 #yum groupinstall "Chinese Support"
 #yum deplist package1  #查看程序package1依赖情况
-以上所有命令参数的使用都可以用man来查看 
+以上所有命令参数的使用都可以用man来查看
 升级内核：#yum install kernel-headers kernel-devel
