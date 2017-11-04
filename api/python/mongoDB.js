@@ -20,6 +20,18 @@ mongod.exe --install --logpath=d:\mongodb\log\mongodb.log --logappend --dbpath=d
 service mongod start
 
 mongod.exe --remove --serviceName "MongoDB"
+----------------------------------------
+mongod.exe --config "e:\mongo\mongod.cfg" --install
+mongod.cfg
+systemLog:
+    destination: file
+    path: e:\mongo\log\mongo.log
+storage:
+    dbPath: e:\mongo\db
+
+sc.exe create MongoDB binPath="C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe --service --config=\"e:\mongo\mongod.cfg\"" DisplayName="MongoDB" start="auto"
+
+PS：删除MongoDB Windows服务的命令是：sc delete MongoDB
 -------------------------------------------
 mongod 启动数据库进程
 --dbpath 指定数据库的目录
@@ -122,13 +134,13 @@ Max key 127
 
 语法：
 db.coll.group(
-{ 
+{
     cond: {filed： conditions}
     , key: {filed: true}
     , initial: {count: 0, total_time:0}
     , reduce: function(doc, out){ }
     , finalize: function(out){}
-    } 
+    }
 );
 参数说明：
 Key： 对那个字段进行 Group

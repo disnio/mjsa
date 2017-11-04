@@ -173,7 +173,7 @@ window.onload=function(){
 		0 equals no auto-scrolling 
 		values: amount of auto-scrolling loops (integer) 
 		default: 0 */
-		autoScrolling:0, 
+		autoScrolling:1, 
 		/* initial auto-scrolling speed 
 		values: milliseconds 
 		default: 8000 */
@@ -189,12 +189,11 @@ window.onload=function(){
 	});
 	$("#tS2").thumbnailScroller({ 
 		scrollerType:"clickButtons", 
-		scrollerOrientation:"horizontal", 
-		scrollSpeed:2, 
+		scrollerOrientation:"horizontal",		
 		scrollEasing:"easeOutCirc", 
 		scrollEasingAmount:600, 
-		acceleration:4, 
-		scrollSpeed:800, 
+		acceleration:2, 
+		scrollSpeed:400, 
 		noScrollCenterSpace:10, 
 		autoScrolling:0, 
 		autoScrollingSpeed:2000, 
