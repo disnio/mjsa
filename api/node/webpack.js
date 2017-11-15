@@ -1,5 +1,31 @@
+东方＃　任何事，原本就是个”悟性“的问题，而”悟性“的背后，离不开客观与认真两个态度。
+
+东方＃　没有这样的态度，所谓”悟性“是无源之水，终究是聪明反被聪明误，国家战略，也是如此，更何况个人？
+
+东方#什么是最高级的战略？就是这种按自己的节奏，以最小的代价，不仅相对顺利渡过最困难，最危险的时间段，还在过程中慢慢取得战略主动
+
 关于打包：就是要把多个js和css合并成一个文件。快速开发时候可以引入html插件直接注入打包后的文件。
 也可以不用注入，通过gulp来分开生成css或进行动态刷新。
+
+https://doc.webpack-china.org/api/compiler/
+// 编译完成之后，注册编译监听事件，获取编译实例。
+compiler.plugin('compilation', function (compilation) {
+    // 在编译阶段模块被加载、封闭、优化、分块、哈希、重建。主要的编译实例。
+    // 监听 html-webpack-plugin 插件的 template changes
+  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
+    // 触发页面热加载，注意不是刷新，是局部渲染或重载，特殊情况下刷新
+    hotMiddleware.publish({ action: 'reload' })
+    cb()
+  })
+})
+// 打包完成或重新打包完成后调用
+devMiddleware.waitUntilValid(function () {
+  console.log('> Listening at ' + uri + '\n')
+})
+
+// 调用默认程序打开路径
+opn(uri)
+
 // 注意里面 jQuery 的书写
 // 引用的组件都应该是 node_modules 里面的。bower 的不行，没有 module.exports
 (function (factory) {
@@ -124,7 +150,7 @@ module.exports = {
 ----------------------------------
 路径问题：解决 window 和 linux 分隔符不同的问题。
 // es6  import 引入的文件没法单独分离出来
-path.resolve(__dirname, "app/folder") 
+path.resolve(__dirname, "app/folder")
 path.join(__dirname, "app", "folder")
 
 
@@ -151,14 +177,14 @@ module.exports = {
     externals: [
         "add",
         // Note: If using umd you can specify an object as external value with property commonjs, commonjs2, amd and root to set different values for each import kind.
-        
+
         "subtract": {
             root: "subtract",
             commonjs2: "./subtract",
             commonjs: ["./math", "subtract"],
             amd: "subtract"
         },
-    
+
         "jquery": {
             root: "jQuery",
             commonjs: "jquery"
@@ -176,7 +202,7 @@ module.exports = {
     // hashnum的做法，基本上弱化了版本号的概念，版本迭代的时候chunk是否更新只取决于chnuk的内容是否发生变化。
     // 总会有一些功能是使用过程中才会用到的，出于性能优化的需要，对于这部分资源我们希望做成异步加载，
     // 所以这部分的代码一般不用打包到入口文件里边。
-    
+
     // 对于这一点，webpack提供了code splitting，即使用require.ensure()作为代码分割的标识。
     // webpack将require.ensure()包裹的部分单独打包了，
     // 即图中看到的[hash].chunk.js，既解决了异步加载的问题，又保证了加载到的是最新的chunk的内容。
@@ -214,7 +240,7 @@ module.exports = {
     context: path.resolve(__dirname, '..'),
     entry:{
         app  :[path.resolve(__dirname,'app/main.js'),],
-        react: ['babel-polyfill','react','react-dom'],        
+        react: ['babel-polyfill','react','react-dom'],
         'font-awesome-webpack!./src/theme/font-awesome.config.prod.js',
         // bootstrap-sass-loader 已废弃，被 bootstrap-loader 和 sass-resources-loader 代替
         bootstrap: "bootstrap-sass!./bootstrap-sass.config.js",
@@ -224,7 +250,7 @@ module.exports = {
         // 打包文件存放的绝对路径
         path: path.resolve(debug ? '__build' : './assets/'),
         path: path.resolve(__dirname, 'public/build'),
-        // publicPath: "http://cdn.example.com/assets/[hash]/"        
+        // publicPath: "http://cdn.example.com/assets/[hash]/"
         // 打包后的文件名
         filename: debug ? '[name].js' : 'js/[chunkhash:8].[name].min.js',
         sourceMapFilename: '[name].map',
@@ -268,7 +294,7 @@ module.exports = {
         ],
         preLoaders: [
             { test: /\.js$/, loader: 'baggage?[file].html' },
-            {test:    /\.js$/, exclude: /node_modules/, loader: 'jscs-loader'}, 
+            {test:    /\.js$/, exclude: /node_modules/, loader: 'jscs-loader'},
             {test: /\.js$/, loader: 'eslint', include: path.resolve('src')}
         ],
 
@@ -283,7 +309,7 @@ module.exports = {
             {
             test: /\.html$/,
             loader: 'file?name=templates/[name]-[hash:6].html'
-            }, 
+            },
             {
                 test: /\.(png|jpg)$/,
                 loader: 'file?name=img/[name].[ext]' // inline base64 URLs for <=10kb images, direct URLs for the rest
@@ -324,8 +350,8 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!less?outputStyle=expanded&sourceMap=true&sourceMapContents=true')
             },
             // /src\/lib/, !babel
-            {test: /\.js$/, exclude: [/node_modules/], loader: 'ng-annotate'}, 
-            {test: /\.html$/, loader: 'raw'}, 
+            {test: /\.js$/, exclude: [/node_modules/], loader: 'ng-annotate'},
+            {test: /\.html$/, loader: 'raw'},
             {
                 test: /\.(png|jpg)$/,
                 loader: 'url-loader?limit=8192'
@@ -335,7 +361,7 @@ module.exports = {
             { test: /\.js$/, loader: 'jsx-loader?harmony' },
             loaders: ["ng-annotate", 'babel?presets[]=es2015,plugins[]=add-module-exports'],
             // http://survivejs.com/webpack/advanced-techniques/configuring-react/
-            { 
+            {
                 test: /\.jsx?$/,
                 loaders: ['react-hot', 'jsx?harmony'],
                 loaders: ['react-hot', 'babel'],
@@ -414,7 +440,7 @@ module.exports = {
                     limit: 10000,
                     mimetype: 'image/svg+xml'
                 }
-            }, 
+            },
             // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
             // var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
             // var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
@@ -463,13 +489,13 @@ module.exports = {
         root: [
             path.resolve('./app/modules'),
             path.resolve('./vendor/modules')
-        ], 
+        ],
         // 构建类似node 的模块查询层次            ，只是目录名。平时不用。
         modulesDirectories: ["mydir", 'node_modules', 'components']
 
         // 没在 rroot 和 modulesDirectories 里找到，则从这里查找。
         fallback: path.join(__dirname, "node_modules") ,
-        // 这个会覆盖默认的，所以要全在项目        
+        // 这个会覆盖默认的，所以要全在项目
         extensions: ['', '.json', '.js', '.jsx','css' , 'less', '.coffee','.scss', '.png', '.jpg', '.jpeg', '.gif']
         //模块别名定义，方便后续直接引用别名，无须多写长长的地址
         alias: {
@@ -500,7 +526,7 @@ module.exports = {
             reload: false
           })
         // 生成html
-    HtmlWebpackPlugin() 
+    HtmlWebpackPlugin()
     // 报错但不退出webpack进程
     new webpack.NoErrorsPlugin(),
         webpackIsomorphicToolsPlugin(),
@@ -544,12 +570,12 @@ module.exports = {
         // 自动加载模块，当配置（$:'jquery'）例如当使用$时，自动加载jquery
         new webpack.ProvidePlugin({ //加载jq
             $: 'jquery',
-            jQuery: "jquery",            
+            jQuery: "jquery",
             "window.jQuery": "jquery",
             React: "react/addons",
             "window.React": "react/addons",
             'angular': 'exports?window.angular!bower/angular',
-    
+
         }),
         // 注意下面的 exports 定义不当，如果没引用在页面，错误很难跟踪
         new webpack.ProvidePlugin({
@@ -578,7 +604,7 @@ module.exports = {
             inject: true, //js插入的位置，true/'head'/'body'/false
             hash: true, //为静态资源生成hash值 vendor.bundle.js?2b2d63597c1b36a1c299
             chunks: ['vendors', 'about'],//需要引入的chunk，不配置就会引入所有页面的资源
-            minify: { //压缩HTML文件    
+            minify: { //压缩HTML文件
                 removeComments: true, //移除HTML中的注释
                 collapseWhitespace: false //删除空白符与换行符
             }
@@ -608,7 +634,7 @@ module.exports = {
         new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
 
         // http://www.zcfy.cc/article/long-term-caching-of-static-assets-with-webpack-1204.html 缓存
-        // 也可以使用 https://www.npmjs.com/package/webpack-manifest-plugin 
+        // 也可以使用 https://www.npmjs.com/package/webpack-manifest-plugin
         // 或者 https://www.npmjs.com/package/assets-webpack-plugin 导出 JSON 文件。
         function() {
             this.plugin("done", function(stats) {
@@ -623,7 +649,7 @@ module.exports = {
           “main.js”: “main.155567618f4367cd1cb8.js”,
           “vendor.js”: “vendor.c2330c22cd2decb5da5a.js”
         }
-        // 或者你的应用不依赖于任何服务端渲染技术，生成一个单独的 index.html 就足够了，那么建议使用下面两个称赞的插件，https://github.com/ampedandwired/html-webpack-plugin 
+        // 或者你的应用不依赖于任何服务端渲染技术，生成一个单独的 index.html 就足够了，那么建议使用下面两个称赞的插件，https://github.com/ampedandwired/html-webpack-plugin
         // 和 https://github.com/szrenwei/inline-manifest-webpack-plugin，它们会显著地简化设置。
         // 问题与之前相同：当我们更改了代码的任何一部分，即使剩下的文件内容没有被修改，
         // 入口也会被更新以放入新的清单。这样反过来也就导致新的哈希值，影响了长期缓存。
@@ -640,7 +666,7 @@ module.exports = {
         new webpack.optimize.OccurenceOrderPlugin()
         // 第二个问题是 webpack 如何获取模块：默认地对于同样的依赖集合，模块在包中的顺序不是确定的。意思是：在两次构建之间，模块可能获取到不同的标识符，导致不同的内容，也就有了不同的哈希值。这是出现在 Github 上的 issue，建议使用 OccurenceOrderPlugin 来解决这个问题。
         // 进度条
-        new NyanProgressPlugin() 
+        new NyanProgressPlugin()
 
         // 匹配resourceRegExp，替换为newResource
         NormalModuleReplacementPlugin(),
@@ -726,7 +752,7 @@ switch (nodeEnvironment) {
     config.plugins.push(new webpack.optimize.DedupePlugin());
     config.plugins.push(new webpack.optimize.OccurenceOrderPlugin());
     config.plugins.push(new webpack.optimize.CommonsChunkPlugin({name: 'vendor', minChunks: Infinity}));
-    
+
     config.output.filename = '[name].js';
 
     config.entry = {
@@ -743,8 +769,8 @@ switch (nodeEnvironment) {
   case 'development':
     config.entry = ['./index.js', 'webpack/hot/dev-server'];
     break;
-    
-  default: 
+
+  default:
     console.warn('Unknown or Undefigned Node Environment. Please refer to package.json for available build commands.');
 }
 -----------------
@@ -785,8 +811,8 @@ expose-loader
 
 This loader exposes the exports to a module to the global context.
 require('expose?$!expose?jQuery!jquery');
-If you are planning to use a lot of global namespaces, 
-consider implementing something like Babel runtime to your project. 
+If you are planning to use a lot of global namespaces,
+consider implementing something like Babel runtime to your project.
 ---------
 If you use "-" or "." in your module names, you may have a problem:
 convert "imports?foo-bar" to "imports?fooBar=foo-bar".
@@ -849,7 +875,7 @@ query: {
 // babel --presets react src --watch --out-dir build
 // 在 packages.json 中的scripts下加上：
 // "pack": "webpack --progress --colors --watch"
-// 输入 npm run-script pack 来执行 
+// 输入 npm run-script pack 来执行
 -----------------------------------------------------
 // app.js
 var http = require('http');
@@ -1006,18 +1032,18 @@ new webpack.DllReferencePlugin({
 })
 sourceType (optional): the type how the dll is exposed (defaults to "var") (see also externals)
 Using dlls via <script> tags
-Dll bundle: output.library = "[name]_[hash]" 
-output.libraryTarget = "var" 
+Dll bundle: output.library = "[name]_[hash]"
+output.libraryTarget = "var"
 DllPlugin.name = "[name]_[hash]"
 Dll consumer: DllReferencePlugin.sourceType = "var"
 ---
 Using dlls via node.js
 Dll bundle: output.libraryTarget = "commonjs2"
-Dll consumer: DllReferencePlugin.sourceType = "commonjs2" 
+Dll consumer: DllReferencePlugin.sourceType = "commonjs2"
 DllReferencePlugin.name = "./path/to/dll.js"
 =-------------------------
 url-loader引入多张图片
-const requireContext = require.context("./images", true, /^\.\/.*\.png$/); 
+const requireContext = require.context("./images", true, /^\.\/.*\.png$/);
 const images = requireContext.keys().map(requireContext);
 --------------------------
 var commonsPlugin = new webpack.optimize.CommonsChunkPlugin({
