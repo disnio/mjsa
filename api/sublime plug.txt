@@ -29,7 +29,7 @@ ctrl + alt + enter 缩写输入框
 ctrl + alt + left 编辑点
 ctrl + alt + down 添加下一行
 
-ctrl + shift + enter 插入行前 
+ctrl + shift + enter 插入行前
 ctrl + shift + m 选择括号内容
 ctrl + ' 选择引号内
 ctrl + shift + ' 选择标签
@@ -40,34 +40,70 @@ ctrl + shift + g 键入包裹标签
 ctrl + shift + u 更改包裹标签
 ctrl + shift + c css排序
 
-webstrom 
+webstrom
 --------------------------------------------------------
 ctrl + y 删除行
 ctrl + j 输出模板
+ctrl + click
 ctrl + b 跳转到变量声明
 ctrl + d 行复制
 ctrl + r 替换
-ctrl + w 选中单词
+ctrl + w 选中单词及一直向外的代码块
 ctrl + e 最近打开
-ctrl + [] 匹配 [] 或 {}
+ctrl + [/] 移动到代码块开始或结束
 ctrl + [+/-] 展开/折叠
 ctrl + tab 标签切换
 ctrl + left 单词为单位跳转
+ctrl + p 参数信息
+ctrl + q 快速文档查询
+ctrl + delete 删除到词尾
+ctrl + backspace 删除到词头
+ctrl + enter 拆分行，鼠标位置不变
+ctrl + mouse over 摘要信息
+ctrl + numpad+ 展开代码块
+ctrl + numpad- 收缩代码块
+ctrl + f4 关闭激活的标签
+ctrl + alt + t 代码环绕
+ctrl + alt + i 格式化行代码
+ctrl + n 转到类
+ctrl + shift + n 转到文件
+ctrl + g 转到行
+ctrl + e 最近打开的文件
+
 
 alt + 1 项目文件结构
 alt + 7 文档结构
+alt + j 添加选择下一个位置
 alt + left/right 标签切换
 alt + insert 新建文件
+alt + enter 显示intention actions 和快速修正
+alt + click 多选切换
+alt + right 到右侧标签
+alt + shift + up 行向上移动
+alt + shift + j unselect occurrence
+alt + f7 找使用位置
 
+ctrl + shift + f7 高亮文件中的使用位置
+ctrl + shift + alt + n  通过一个字符快速查找位置（必记）
+ctrl + shift + alt + j 选择所有出现的位置
+ctrl + shift + ] 选择到块结束
+ctrl + shift + [ 选择到块开始
+ctrl + shift + u  选块大小写切换
+ctrl + shift + j  合并行
 ctrl + shift + up 行移动
-alt + shift + up 块移动
+ctrl + shift + v  缓冲区黏贴
 ctrl + shift + a 快速查找编辑器功能
 ctrl + shift + f12 编辑区域最大化
-ctrl + shift + n    通过文件名快速查找工程内的文件（必记）
-ctrl + shift + alt + n    通过一个字符快速查找位置（必记）
-
+ctrl + shift + n   通过文件名快速查找工程内的文件（必记）
+cltrl + shift + m 移动光标到匹配的括号
 shift + enter 重新开始一行
 
+Ctrl + F12 文件结构
+Ctrl + H 类体系
+f12 高亮的错误位置
 
+ctrl + k commit project to vcs
+ctrl + t update project from vcs
+alt + shift + c view recent changes
 
-
+double shift 全局搜索
