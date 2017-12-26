@@ -7,8 +7,15 @@ http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html
 http://www.theodo.fr/blog/2016/03/getting-started-with-react-redux-and-immutable-a-test-driven-tutorial-part-2/
 https://css-tricks.com/learning-react-redux/
 中间件 让你在每个 action 对象分发出去之前，注入一个自定义的逻辑来解释你的 action 对象。
-http://cn.redux.js.org/docs/recipes/ReducingBoilerplate.html     
+http://cn.redux.js.org/docs/recipes/ReducingBoilerplate.html
 ------------------
+尝试把尽可能多的组件无状态化。
+State 应该包括那些可能被组件的事件处理器改变并触发用户界面更新的数据。
+
+计算所得数据
+React 组件
+基于 props 的重复数据
+--------------------
 aria- 开头的 [网络无障碍] 属性
 <div data-custom-attribute="foo" />
 <div dangerouslySetInnerHTML={{__html: 'First &middot; Second'}} />
@@ -20,7 +27,7 @@ React 把用户界面当作简单状态机。
 React 只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。
 React 来决定如何最高效地更新 DOM
 
-** 尝试把尽可能多的组件无状态化。** 
+** 尝试把尽可能多的组件无状态化。**
 这样做能隔离 state，把它放到最合理的地方，也能减少冗余，同时易于解释程序运作过程。
 
 常用的模式是创建多个只负责渲染数据的无状态（stateless）组件，在它们的上层创建一个有状态（stateful）组件并把它的状态通过 props 传给子级。
@@ -87,7 +94,7 @@ var TickTock = React.createClass({
     this.setInterval(this.tick, 1000); // 调用 mixin 的方法
   },
   tick: function() {
-    if(this.state.seconds < 5){      
+    if(this.state.seconds < 5){
       this.setState({seconds: this.state.seconds + 1});
     }else {
       this.componentWillUnmount();
@@ -206,9 +213,9 @@ ReactDOM.render(
 
 -----------------
 // https://facebook.github.io/react/docs/reusable-components.html
-// PropTypes exports a range of validators 确认你收到的是正确的数据. 
+// PropTypes exports a range of validators 确认你收到的是正确的数据.
 // 性能的原因 propTypes is only checked in development mode.
-// getDefaultProps() will be cached and used to ensure that this.props.value will have a value 
+// getDefaultProps() will be cached and used to ensure that this.props.value will have a value
 
 var ComponentWithDefaultProps = React.createClass({
   getDefaultProps: function() {
@@ -344,7 +351,7 @@ HelloMessage.defaultProps = {
 ReactDOM.render(<HelloMessage name="Mădălina"/>, mountNode);
 ----------------------------
 
-// form: 
+// form:
 getInitialState: function() {
     return {value: 'Hello!'};
 },
@@ -358,36 +365,110 @@ render: function() {
 
 render: function() {
     // defaultChecked
-    return <input type="text" defaultValue="Hello!" />; 
+    return <input type="text" defaultValue="Hello!" />;
 }
 
 <select multiple={true} value={['B', 'C']}>
 ----------------------------------
-// Mounting
+挂载
+getInitialState(): object在组件被挂载之前调用。状态化的组件应该实现这个方法，返回初始的state数据。
+componentWillMount()在挂载发生之前立即被调用。
+componentDidMount()在挂载结束之后马上被调用。需要DOM节点的初始化操作应该放在这里。
 
-//     getInitialState(): object is invoked before a component is mounted. Stateful components should implement this and return the initial state data.
-//     componentWillMount() is invoked immediately before mounting occurs.
-//     componentDidMount() is invoked immediately after mounting occurs. Initialization that requires DOM nodes should go here.
+更新
+componentWillReceiveProps(object nextProps)当一个挂载的组件接收到新的props的时候被调用。该方法应该用于比较this.props和nextProps，然后使用this.setState()来改变state。
+shouldComponentUpdate(object nextProps, object nextState): boolean当组件做出是否要更新DOM的决定的时候被调用。实现该函数，优化this.props和nextProps，以及this.state和nextState的比较，如果不需要React更新DOM，则返回false。
+componentWillUpdate(object nextProps, object nextState)在更新发生之前被调用。你可以在这里调用this.setState()。
+componentDidUpdate(object prevProps, object prevState)在更新发生之后调用。
 
-// Updating
+移除
+componentWillUnmount()在组件移除和销毁之前被调用。清理工作应该放在这里。
+挂载的方法（Mounted Methods）
 
-//     componentWillReceiveProps(object nextProps) is invoked when a mounted component receives new props. This method should be used to compare this.props and nextProps to perform state transitions using this.setState().
-//     shouldComponentUpdate(object nextProps, object nextState): boolean is invoked when a component decides whether any changes warrant an update to the DOM. Implement this as an optimization to compare this.props with nextProps and this.state with nextState and return false if React should skip updating.
-//     componentWillUpdate(object nextProps, object nextState) is invoked immediately before updating occurs. You cannot call this.setState() here.
-//     componentDidUpdate(object prevProps, object prevState) is invoked immediately after updating occurs.
+_挂载的_复合组件也支持如下方法：
+<input ref={ function(component){ React.findDOMNode(component).focus();} } />
+getDOMNode(): DOMElement可以在任何挂载的组件上面调用，用于获取一个指向它的渲染DOM节点的引用。
+forceUpdate()当你知道一些很深的组件state已经改变了的时候，可以在该组件上面调用，而不是使用this.setState()。
+------------------------
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null, errorInfo: null };
+  }
 
-// Unmounting
+  componentDidCatch(error, errorInfo) {
+    // Catch errors in any components below and re-render with error message
+    this.setState({
+      error: error,
+      errorInfo: errorInfo
+    })
+    // You can also log error messages to an error reporting service here
+  }
 
-//     componentWillUnmount() is invoked immediately before a component is unmounted and destroyed. Cleanup should go here.
-// Mounted Methods
+  render() {
+    if (this.state.errorInfo) {
+      // Error path
+      return (
+        <div>
+          <h2>Something went wrong.</h2>
+          <details style={{ whiteSpace: 'pre-wrap' }}>
+            {this.state.error && this.state.error.toString()}
+            <br />
+            {this.state.errorInfo.componentStack}
+          </details>
+        </div>
+      );
+    }
+    // Normally, just render children
+    return this.props.children;
+  }
+}
 
-// Mounted composite components also support the following method:
+class BuggyCounter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { counter: 0 };
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-//     component.forceUpdate() can be invoked on any mounted component when you know that some deeper aspect of the component's state has changed without using this.setState().
+  handleClick() {
+    this.setState(({counter}) => ({
+      counter: counter + 1
+    }));
+  }
 
-// ReactDOM.render() will return a reference to your component's backing instance 
-// https://facebook.github.io/react/docs/more-about-refs.html
-// The ref Callback Attribute The referenced component will be passed in as a parameter, and the callback function may use the component immediately, or save the reference for future use (or both).
+  render() {
+    if (this.state.counter === 5) {
+      // Simulate a JS error
+      throw new Error('I crashed!');
+    }
+    return <h1 onClick={this.handleClick}>{this.state.counter}</h1>;
+  }
+}
+
+function App() {
+  return (
+    <div>
+      <ErrorBoundary>
+        <p>These two counters are inside the same error boundary. If one crashes, the error boundary will replace both of them.</p>
+        <BuggyCounter />
+        <BuggyCounter />
+      </ErrorBoundary>
+      <hr />
+      <p>These two counters are each inside of their own error boundary. So if one crashes, the other is not affected.</p>
+      <ErrorBoundary><BuggyCounter /></ErrorBoundary>
+      <ErrorBoundary><BuggyCounter /></ErrorBoundary>
+    </div>
+  );
+}
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
+
+
+
 
 // https://facebook.github.io/react/docs/create-fragment.html
 if (this.props.swapped) {
@@ -409,7 +490,7 @@ React.Component 是通过 es6 类定义的。用于es6 的组件创建。
 React.createClass 通过指定的格式创建一个组件类。一个组件执行 render 方法 返回单一的子结构。
 这个子类结构可以很深，不同于标准的原型类，调用不需要 new。已经在后方包装好了。
 ----
-React.createElement (string/ReactClass type, object props, children) 创建并返回一个新的 
+React.createElement (string/ReactClass type, object props, children) 创建并返回一个新的
 ReactElement 通过指定的格式创建一个组件类。一个组件执行给定的类型。type 参数可以是 html 标签名
 或一个 ReactClass(通过 React.createClass 创建的)
 ----
@@ -422,7 +503,7 @@ React.createFactory(string/ReactClass type) 返回一个函数，这个函数处
 ----
 React.isValidElement(* object) 验证对象是一个 ReactElement
 
-React.DOM  提供了createElement 比较便利的包装对 DOM组件。仅仅在不使用 jsx 的情况下。 
+React.DOM  提供了createElement 比较便利的包装对 DOM组件。仅仅在不使用 jsx 的情况下。
 例如：React.DOM.div(null, 'hello')
 ----
 React.PropTypes 包含好多类型，组件的 propTypes 对象使用它验证传递到组件的 props 的类型。
@@ -550,7 +631,7 @@ ReactDOM.render(<Component data={mydata} />, container);
 
 ----
 优化：http://taobaofed.org/blog/2016/08/12/optimized-react-components/
-        //  
+        //
 
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 class FooComponent extends React.Component {
@@ -594,9 +675,9 @@ DOMEventTarget target
 number         timeStamp
 string         type
 http://reactjs.cn/react/docs/events.html
-this.setState({eventType: event.type}); 
-If you want to access the event properties in an asynchronous way, 
-you should call event.persist() on the event, which will remove the 
+this.setState({eventType: event.type});
+If you want to access the event properties in an asynchronous way,
+you should call event.persist() on the event, which will remove the
 synthetic event from the pool and allow references to the event to be retained by user code.
 -------------------------------------
 虚拟DOM
@@ -633,7 +714,7 @@ var divStyle = {
 ReactDOM.render(<div style={divStyle}>Hello World!</div>, mountNode);
 ------
 If-Else in JSX
-if-else 语句不能工作在 JSX. 因为JSX 是函数调用和对象构造的语法糖. 
+if-else 语句不能工作在 JSX. 因为JSX 是函数调用和对象构造的语法糖.
 // This JSX:
 ReactDOM.render(<div id="msg">Hello World!</div>, mountNode);
 // 被转换成 this JS:
