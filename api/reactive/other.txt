@@ -1,0 +1,3 @@
+https://github.com/zenparsing/zen-observable
+https://www.npmjs.com/package/symbol-observable
+https://www.npmjs.com/package/observable
