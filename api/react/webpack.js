@@ -1167,3 +1167,30 @@ https://github.com/kenberkeley/react-demo
 
     拓展阅读：解读 UglifyJS
     看看生产环境下编译 if (__PROD__) { ... } => if (true) { ... } 后 UglifyJS 会如何处理
+-------------------------------------------------------
+AggressiveSplittingPlugin
+拆分打包的文件到更多chunks, 每个 chunk 到指定 maxSize。
+
+ZopfliWebpackPlugin
+Node.js 的Zopfli 压缩库绑定.
+
+BannerPlugin
+添加 banner 到生成的 chunk 顶部.
+
+DefinePlugin
+创建全局常量
+
+DllPlugin 和 DllReferencePlugin 用一种比较激烈的方式拆分打包好的代码提高构建效率.
+DllPlugin创建 dll-only-bundle 生成 manifest.json 文件, 供 DllReferencePlugin 映射依赖。
+DllReferencePlugin
+引用 dll-only-bundle(s) 预构建依赖.
+
+
+EnvironmentPlugin
+快捷方式使用 DefinePlugin 在 process.env 的键上.
+DotenvPlugin
+通过 .env 文件在项目中创建环境变量，安全的应用方式
+https://github.com/mrsteele/dotenv-webpack
+
+babel-minify 压缩es6+ 代码，也可以转换到 es5压缩。
+https://github.com/babel/minify

@@ -1,10 +1,10 @@
 接口调用文档，返回值，是否有其他影响返回值的接口。杜绝被动引入后端设置的变量。
 http://web.ucdlsoft.com/
 tweenlitejs
-swiper.js 
-touch.js 
-Iscroll.js 
-charles(抓包工具) 
+swiper.js
+touch.js
+Iscroll.js
+charles(抓包工具)
 pickpick(页面排版校准工具)
 Axure RP网站蓝图
 
@@ -46,7 +46,7 @@ Polymer
 X-Tag
 Bosonic
 
-其实，你需要确保Web组件工作的第一件事是用polyfills来实现该功能，如X-Tag和Polymer。避免那些旧版浏览器不支持的情况。 
+其实，你需要确保Web组件工作的第一件事是用polyfills来实现该功能，如X-Tag和Polymer。避免那些旧版浏览器不支持的情况。
 ------------------------------------------------------------------
 mockjax：
 <script src="{% static "js/jquery.mockjax.js" %}"></script>
@@ -84,11 +84,11 @@ low-dpi -使用mdpi作为目标 dpi。中等像素密度和高像素密度设备相应放大。
     <script src="https://raw.githubusercontent.com/dperini/nwmatcher/master/src/nwmatcher.js"></script>
     <script src="http://cdn.bootcss.com/nwmatcher/1.2.5/nwmatcher.min.js"></script>
     <script src="http://cdn.bootcss.com/selectivizr/1.0.2/selectivizr.js"></script>
-<![endif]--> 
+<![endif]-->
 
 <!--[if lt IE 9]>
-<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> 
-<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
 <script src="http://cdn.bootcss.com/es5-shim/4.0.3/es5-shim.min.js"></script>
 <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="http://cdn.bootcss.com/nwmatcher/1.2.5/nwmatcher.min.js"></script>
@@ -111,7 +111,7 @@ babel:
 <link href="//cdn.bootcss.com/jquery-mobile/1.4.5/jquery.mobile.min.css" rel="stylesheet">
 ---------------------------------------------------------------------------
 百度cdn-jquery：
-    支持的版本： 2.0.3, 2.0.2, 2.0.1, 2.0.0, 1.10.2, 1.10.1, 1.10.0, 1.9.1, 1.9.0, 1.8.3, 1.8.2, 1.8.1, 1.8.0, 1.7.2, 1.7.1, 1.7.0, 1.6.4, 1.6.3, 1.6.2, 1.6.1, 1.6.0, 1.5.2, 1.5.1, 1.5.0, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.6, 1.2.3 
+    支持的版本： 2.0.3, 2.0.2, 2.0.1, 2.0.0, 1.10.2, 1.10.1, 1.10.0, 1.9.1, 1.9.0, 1.8.3, 1.8.2, 1.8.1, 1.8.0, 1.7.2, 1.7.1, 1.7.0, 1.6.4, 1.6.3, 1.6.2, 1.6.1, 1.6.0, 1.5.2, 1.5.1, 1.5.0, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.6, 1.2.3
 
     http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js
 
@@ -122,7 +122,7 @@ jQuery UI：
 支持的版本：1.10.2, 1.10.1, 1.10.0, 1.9.2, 1.9.1, 1.9.0, 1.8.24, 1.8.23, 1.8.22, 1.8.21, 1.8.20, 1.8.19, 1.8.18, 1.8.17, 1.8.16, 1.8.15, 1.8.14, 1.8.13, 1.8.12, 1.8.11, 1.8.10, 1.8.9, 1.8.8, 1.8.7, 1.8.6, 1.8.5, 1.8.4, 1.8.2, 1.8.1, 1.8.0, 1.7.3, 1.7.2, 1.7.1, 1.7.0, 1.6.0, 1.5.3, 1.5.2
 
 angular：
-<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script> 
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
 http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js
 http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.min.js"></script>
@@ -191,7 +191,7 @@ var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
 
 if( jQuery.browser.msie && jQuery.browser.version == '8.0' ){
 
-} 
+}
 ---------------------------------------------------------------------
 
 横向滚动条消失出现在hover元素时，是由于开启了firebug并固定在了浏览器中，影响宽度计算。把火狐浮动出来测试页面效果。
@@ -229,7 +229,7 @@ window: 判断
 function isWin(elem) {
     return !elem.nodeName ||
         $.inArray(elem.nodeName.toLowerCase(), ['iframe','#document','html','body']) !== -1;
-}   
+}
 elem = win ? this.contentWindow || window : this,
 
 --------------------------------------------------------------
@@ -238,7 +238,7 @@ function isArray(vArg) {
 }
 
 中文unicode：
-if (/[\u4E00-\uFA29]/.test(str.charAt(i))) 
+if (/[\u4E00-\uFA29]/.test(str.charAt(i)))
 
 var ESCAPE_KEY = 27;
 var ENTER_KEY = 13;
@@ -262,3 +262,21 @@ function codePointLength(text) {
       return chr ? chr.toLowerCase() : '';
     });
   }
+
+Expires
+Cache-Control no-cache
+服务端在响应请求时，会返回资源的最后修改时间
+Last-Modified If-Modified-Since
+Etag 服务端生成的唯一标识 If-None-Match
+
+xmlHttpRequest.setRequestHeader(“Cache-Control”,”no-cache”);
+xmlHttpRequest.setRequestHeader(“If-Modified-Since”,”0″);
+$.ajaxSetup ({
+           cache: false //close AJAX cache
+});
+"?fresh=" + Math.random();
+"?timestamp=" + new Date().getTime();
+设置html的缓存
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0">
