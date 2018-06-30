@@ -78,9 +78,9 @@ npm install antd babel-plugin-import --save-dev
 在config -> webpack.config.dev.js 和 webpack.config.prod.js 里
 （或者 .babelrc 文件）的babel-loader的options配置里，加入如下代码：
 ```
-plugins: [
-  ['import', { libraryName: 'antd', style: 'css' }]  // `style: true` 会加载 less 文件
-]
+    "plugins": [
+      ["import", { "libraryName": "antd", "style": "css" }]
+    ]
 ```
 或 config-overrides.js 中
 

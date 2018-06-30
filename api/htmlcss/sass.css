@@ -1,6 +1,14 @@
-$ gem sources --remove https://rubygems.org/
-$ gem sources -a https://ruby.taobao.org/
+gem sources --add https://gems.ruby-china.org/ --remove https://rubygems.org/
 $ gem sources –l
+https://gems.ruby-china.org/
+https://rubygems.org/pages/download
+如果遇到 SSL 证书问题，你又无法解决，请修改 ~/.gemrc 文件，
+增加 ssl_verify_mode: 0 配置，以便于 RubyGems 可以忽略 SSL 证书错误。
+
+---
+:sources:
+- https://gems.ruby-china.org
+:ssl_verify_mode: 0
 
 webstrom scss:
 http://w3cboy.com/post/2014/03/%E5%9C%A8webstorm%E4%B8%AD%E9%85%8D%E7%BD%AEcompass/
@@ -39,7 +47,7 @@ at-breakpoint($x) 创建 media queries
 susy:
 gem install susy
 compass install susy
-gem install oily_png 
+gem install oily_png
 gem install sass-globbing
 
 compass stats
@@ -95,16 +103,16 @@ CSS3:
 
 @include font-face("ChunkFiveRegular", font-files("Chunkfive-webfont.woff", woff, "Chunkfive-webfont.ttf", ttf, "Chunkfive-webfont.svg", svg), "Chunkfive-webfont.eot", normal, normal);
 
-h1 {font-family: 'ChunkFiveRegular'; } 
+h1 {font-family: 'ChunkFiveRegular'; }
 
 compass install compass/pie
 @import "compass/css3/pie";
 $pie-behavior: url("/stylesheets/PIE.htc");
 $pie-base-class: pie-element;
-.pie-element {@include pie-element(relative); } 
+.pie-element {@include pie-element(relative); }
 
 .rounded {
-  @include pie; 
+  @include pie;
   @include border-radius(20px);
 }
 
@@ -145,7 +153,7 @@ $<map>-<sprite>-spacing: 0px;
 @import "compass/utilities/sprites";
 $icons-spacing: 4px;
 $icons-arrow-spacing: 12px;
-@import "icons/ *.png"; 
+@import "icons/ *.png";
 
 .next {
   @include icons-sprite(arrow);
@@ -202,11 +210,11 @@ $disable-magic-sprite-selectors: true/false;
 4. 辅助
 $icons: sprite-map("icons/ *.png");
 .next {
-  background: sprite($icons, arrow) no-repeat; 
+  background: sprite($icons, arrow) no-repeat;
 }
 
 .add-button {
-  background: sprite($icons, box-add) no-repeat; 
+  background: sprite($icons, box-add) no-repeat;
 }
 ------------
 $icons: sprite-map("icons/ *.png");
@@ -283,14 +291,14 @@ http_path = '/my-app'
 如果你已经启用了相对资源，你应该禁用它们，因为你不想生成相对于CSS文件的URL，而
 relative_assets设置会优先：relative_assets = false
 再次编译之后， logo的URL变成了：
-#logo {background: url('/my-app/images/logo.png?1240702589'); } 
+#logo {background: url('/my-app/images/logo.png?1240702589'); }
 
 设想一下，在部署时你的图片被复制到了一个相对于站点根目录的叫做imgs的文件夹。这
 种情况下，你需要为你的项目设置http_images_dir：
 http_path = '/my-app'
 relative_assets = false
-images_dir = 'images' 
-http_images_dir = 'imgs' 
+images_dir = 'images'
+http_images_dir = 'imgs'
 再次编译之后， logo的URL变成了：
 #logo {background: url('/my-app/imgs/logo.png?1240702589'); }
 但如果你的网站很奇葩，它决定把它的图片放到一个完全不同于HTML的地方，那么你就要
@@ -327,8 +335,8 @@ compass compile --forec -c staging_config.rb -e production
 -----------------------------------------------
 性能优化：
 许多网站采取的策略是将CSS文件组织为三个层级（参见图8-3）。
- 核心样式表：几乎每个页面都需要的普通样式。 
- 部分样式表：应用或者网站的某个大型部分需要的普通样式。 
+ 核心样式表：几乎每个页面都需要的普通样式。
+ 部分样式表：应用或者网站的某个大型部分需要的普通样式。
  单页样式表：只有某个单独页面需要的样式，经常用于销售页面这样设计复杂而独特的
 页面。
 
@@ -378,7 +386,7 @@ p {
   color: hsl($hue: 0, $saturation: 100%, $lightness: 50%);
 }
 
-Sass 支持所有 CSS3 的 @ 规则， 以及一些 Sass 专属的规则，也被称为 “指令（directives）”。 
+Sass 支持所有 CSS3 的 @ 规则， 以及一些 Sass 专属的规则，也被称为 “指令（directives）”。
 
 .sidebar {
   width: 300px;
@@ -395,7 +403,7 @@ Sass 支持所有 CSS3 的 @ 规则， 以及一些 Sass 专属的规则，也�
   }
 }
 
-@extend-Only Selectors 
+@extend-Only Selectors
 #context a%extreme {
   color: blue;
   font-weight: bold;
@@ -513,7 +521,7 @@ csscomb 排序,sublime
 
 --------------------------------
 http://susydocs.oddbird.net/en/latest/toolkit/#container
-nested : 
+nested :
 $grid: 1 2 3;
 @include span(1 of $grid at 3); // $grid 中的一列，从第三个位置开始 （3）
 @include span(2 of $grid at 1); // $grid 中的2列，从第一个位置开始 (1 2)
@@ -525,7 +533,7 @@ isolate(n of $grid at x) 偏移n列在$grid中，如果有at 直接定位到 at�
 函数参考：
 -----------------------------------------------
 颜色函数：
-rgb, rgba, red, green, blue, 
+rgb, rgba, red, green, blue,
 rgba(#102030, 0.5) => rgba(16, 32, 48, 0.5)
 rgba(blue, 0.2)    => rgba(0, 0, 255, 0.2)
 
