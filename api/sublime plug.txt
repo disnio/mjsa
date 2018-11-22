@@ -107,3 +107,4 @@ ctrl + t update project from vcs
 alt + shift + c view recent changes
 
 double shift 全局搜索
+

@@ -1,4 +1,0 @@
-<!-- Plain box -->
-<div class="ez-wr">
-	<div class="ez-box">.1.</div> 
-</div>

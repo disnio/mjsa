@@ -1,0 +1,41 @@
+src
+dist
+node_modules
+#vscode config
+jsconfig.json
+typings/
+typings.json
+.chrome/
+.vscode/
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+## Other
+/HiClass/*.moved-aside
+/HiClass/*.xcuserstate
+/HiClass/*.DS_Store
+/HiClass/*.hmap
+/HiClass/*.ipa
+#/HiClass/*.dSYM.zip
+#/HiClass/*.dSYM
+#/HiClass/*.png
+#/HiClass/*.jpg
+#/HiClass/*.mp4
+#*.png
+
+#*.mp4
+
+#*.jpg
+
+#*.mov
+
+#.DS_Store
+
+#*.mp3

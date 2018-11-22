@@ -1,3 +1,6 @@
+https://reqres.in/api/users?per_page=10
+http://placehold.it/150/24f355
+
 ajax的同源策略，同一个域名或子域名，并且端口一致。一个ajax请求被发送，所有的请求都会附带主语的cookie信息一起发送。
 跨域策略文件。
 cross-origin resource sharing.
