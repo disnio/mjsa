@@ -1,0 +1,5 @@
+animate.js
+GreenSock.js
+velocity.js
+jquery.easing.1.3.js
+jquery.transit.js

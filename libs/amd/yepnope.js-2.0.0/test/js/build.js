@@ -1,1 +1,0 @@
-../../node_modules/mocha-cloud/build/build.js

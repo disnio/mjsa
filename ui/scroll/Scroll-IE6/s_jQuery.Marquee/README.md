@@ -1,41 +1,40 @@
-jQuery-Marquee with CSS3 Support
+# This plugin/repo is looking for a maintainer. Please email aamirafridi@gmail.com if you are interested.
+
+
+jQuery-Marquee with CSS3 Support [![Known Vulnerabilities](https://snyk.io/test/github/aamirafridi/jquery.marquee/badge.svg?targetFile=package.json)](https://snyk.io/test/github/aamirafridi/jquery.marquee?targetFile=package.json)
 ==============
 
-A **4.3kb** (minified) jQuery plugin to scroll the text like the old traditional marquee
+A **~8 KB** (minified) jQuery plugin to scroll the text like the old traditional marquee.
 
-Update (24 Jan 2014):
---------------------
-
-**Note: people who been asking me how to use this plugin with content being loaded with Ajax, please read notes about this update.**
-
- - New methods added, so now after you start the plugin using ```var $mq = $('.marquee').marquee();```, then you can pause, resume, toggle(pause, resume) and destroy methods e.g to remove the marquee plugin from your element simply use ```$mq.marquee('destroy');```. Similarly you can use pause the marquee any time using ```$mq.marquee('pause');```.
- - If you want to use use **Ajax** with this plugin i.e you want to change the content after you apply this plugin, please see the examples in demo page (link provided below).
-
- - Also made some changes so this plugin works with old versions of jQuery. I have tested it with jQuery 1.3.2 but quite sure it should work with some previous versions of jQuery.
-
-**PLEASE report any bugs you find.**
-
-For details please check the demos at: http://aamirafridi.com/jquery/jquery-marquee-plugin#examples
-
+Install:
 ----
+ - **NPM:** `npm install jquery.marquee --save`
+ - **CDN:** [jsdelivr.com](http://www.jsdelivr.com/#!jquery.marquee)
+```html
+<script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.5.0/jquery.marquee.min.js" type="text/javascript"></script>
+```
+- **Bower**: `bower install jQuery.Marquee`
+- **Download:** [zip](https://github.com/aamirafridi/jQuery.Marquee/archive/master.zip)
 
 Links:
 -----
  - **Demo:** http://aamirafridi.com/jquery/jquery-marquee-plugin#examples
- - **jsFiddle:** http://jsfiddle.net/aamir/jc7F3/105/ to help you explain any issues you might face.
+ - **jsFiddle:** http://jsfiddle.net/aamir/jc7F3/285/ to help you explain any issues you might face.
 
 Options:
 --------
- - **allowCss3Support** If you wish the plugin should animate always using jQuery animate method even if browser supporst CSS3 animations. Default is ```true```
- - **css3easing** Works when ```allowCss3Support``` is set to ```true``` - for full list see: http://www.w3.org/TR/2013/WD-css3-transitions-20131119/#transition-timing-function . Default is ```'linear'```
- - **easing** Requires jQuery easing plugin http://gsgd.co.uk/sandbox/jquery/easing/. Default is ```'linear'```
- - **delayBeforeStart** Time in milliseconds before the marquee starts animating. Default is ```1000```
- - **direction** Direction towards which the marquee will animate ```'left' / 'right' / 'up' / 'down'```. Default is ```'left'```. Todo: need to change this to ```ltr/rtl``` etc
- - **duplicated** Should the marquee be duplicated to show an effect of continuous flow. Use this only with the text is shorter than the container. Default is ```false```
- - **duration** Duration in milliseconds in which you want your element to travel. Default is ```5000```. This option is the old ```speed``` option which still works but duration is the more correct word.
- - **gap** Gap in pixels between the tickers. Will work only when the ```duplicated``` option is set to ```true```. Default is ```20```. Note: ```20``` means ```20px``` so no need to use ```'20px'``` as the value.
- - **pauseOnHover** On hover pause the marquee. If browser supports CSS3 and ```allowCss3Support``` is set to ```true``` than it will be done using CSS3. Otherwise this will be done using jQuery plugin https://github.com/tobia/Pause. Default is ```false```. Check the demo page for a demo.
+ - **allowCss3Support** Force the usage of jQuery's animate method even if the target browser supports CSS3 animations. Default: ```true```
+ - **css3easing** Works when ```allowCss3Support``` is set to ```true```. See [here](http://www.w3.org/TR/2013/WD-css3-transitions-20131119/#transition-timing-function) for full list. Default: ```'linear'```
+ - **easing** Requires the jQuery [easing](http://gsgd.co.uk/sandbox/jquery/easing/) plugin. Default: ```'linear'```
+ - **delayBeforeStart** Time in milliseconds before the marquee starts animating. Default: ```1000```
+ - **direction** Direction towards which the marquee will animate ```'left' / 'right' / 'up' / 'down'```. Default: ```'left'```. Todo: need to change this to ```ltr/rtl``` etc
+ - **duplicated** Should the marquee be duplicated to show an effect of continuous flow. Use this only when the text is shorter than the container. Default: ```false```
+ - **duration** Duration in milliseconds in which you want your element to travel. Default: ```5000```.
+ - **speed** Speed will override duration. Speed allows you to set a relatively constant marquee speed regardless of the width of the containing element. Speed is measured in pixels per second.
+ - **gap** Gap in pixels between the tickers. Will work only when the ```duplicated``` option is set to ```true```. Default: ```20```. Note: ```20``` means ```20px``` so no need to use ```'20px'``` as the value.
+ - **pauseOnHover** Pause the marquee on hover. If the browser supports CSS3 and ```allowCss3Support``` is set to ```true``` this will be done using CSS3. Otherwise this will be done using the jQuery [Pause](https://github.com/tobia/Pause) plugin. Default: ```false```. See demo page for example.
  - **pauseOnCycle** On cycle, pause the marquee for ```delayBeforeStart``` milliseconds.
+ - **startVisible** The marquee will be visible from the start if set to `true`. Thanks to @nuke-ellington 👍
 
 Events:
 ------
@@ -50,34 +49,35 @@ Methods:
 These methods can be used like this:
 
  - First initialize marquee with any options ``` var $mq = $('.marquee').marquee();```
- - Then at any time you can call following methods ```var $mq.marquee('NAME-OF-METHOD-AS-STRING');```
+ - Then at any time you can call the following methods like this: ```var $mq.marquee('NAME-OF-METHOD-AS-STRING');```
 
 Here is the list of all methods:
 
  - **pause**: To pause the marquee at any time.
  - **resume**: To resume the marquee after being paused previously.
  - **toggle**: To toggle between pause and resume methods.
- - **destroy**: To remove marquee plugin from your element. This method is useful if you are loading/changing the data using Ajax or just another string. You can combine this with ```finished``` event so you can let marquee to show some data and soon it finishes showing, you can destroy it, change the html and than apply the plugin again. See the demo page for details (links provided above).
+ - **destroy**: To remove the marquee from your element. This method is useful if you are loading/changing the data using Ajax or just another string. You can combine this with the ```finished``` event so you can have the marquee show some data and as soon as it finishes showing that, you can destroy it, change the html and then apply the plugin again. See the demo page for details (links provided above).
 
 Usage:
 ----
 
-###HTML:
+### HTML:
+
+Usually you assign the marquee class to the desired element. Then you initialize it with an options hash in your code (see below).
 
 ```html
 <div class='marquee'>Lorem ipsum dolor sit amet, consectetur adipiscing elit END.</div>
 ```
 
-or use this if you want to start the plugin with no options but want to use data attributes. You can use all the options listed above as data attributes. This is how you can use them:
+Alternatively you can provide all the options listed above as data attributes:
 
 ```html
-<div class='marquee' data-duration='5000' data-gap='10' data-dupilcated='true' >
+<div class='marquee' data-duration='5000' data-gap='10' data-duplicated='true' >
     Lorem ipsum dolor sit amet, consectetur adipiscing elit END.
 </div>
 ```
 
-
-###CSS:
+### CSS:
 ```css
 .marquee {
   width: 300px; /* the plugin works for responsive layouts so width is not necessary */
@@ -86,7 +86,7 @@ or use this if you want to start the plugin with no options but want to use data
 }
 ```
 
-###How to apply plugin:
+### How to apply plugin:
 ```javascript
 /**
  * Example of starting a plugin with options.
@@ -94,7 +94,7 @@ or use this if you want to start the plugin with no options but want to use data
  * you can also start the plugin using $('.marquee').marquee(); with defaults
 */
 $('.marquee').marquee({
-	//speed in milliseconds of the marquee
+	//duration in milliseconds of the marquee
 	duration: 15000,
 	//gap in pixels between the tickers
 	gap: 50,
@@ -107,7 +107,7 @@ $('.marquee').marquee({
 });
 ```
 
-###How to use methods:
+### How to use methods:
 
 ```javascript
 var $mq = $('.marquee').marquee();
@@ -116,7 +116,7 @@ $('.someLink').click(function(){
 });
 ```
 
-Change content and re-apply the plugin. 
+Change content and re-apply the plugin.
 Check demo page for example: http://aamirafridi.com/jquery/jquery-marquee-plugin#examples
 ```javascript
 $('.marquee')
@@ -132,7 +132,7 @@ $('.marquee')
 
 ```
 
-###How to use events:
+### How to use events:
 
 Check demo page for example: http://aamirafridi.com/jquery/jquery-marquee-plugin#examples
 
@@ -152,8 +152,37 @@ $('.marquee')
 
 ---
 
-Old updates:
+Images:
+------
+If you are using images in marquee, sometimes the plugin cannot calculate accurate widths while images are still loading. You can try this instead of ```$(document).ready(function(){...})```
+
+```javascript
+//if you have images in marquee
+$(window).load(function() {
+    $('.marquee').marquee();
+});
+```
+----
+
+
+Updates:
 -----------
+
+**Update (8 Mar 2016):**
+Now plugin have new option: **startVisible** The marquee will be visible in the start if set to `true`. Thanks to @nuke-ellington 👍
+
+**Update (24 Jan 2014):**
+
+**Note: people who been asking me how to use this plugin with content being loaded with Ajax, please read notes about this update.**
+
+ - New methods added, so now after you start the plugin using ```var $mq = $('.marquee').marquee();```, then you can pause, resume, toggle(pause, resume) and destroy methods e.g to remove the marquee plugin from your element simply use ```$mq.marquee('destroy');```. Similarly you can use pause the marquee any time using ```$mq.marquee('pause');```.
+ - If you want to use use **Ajax** with this plugin i.e you want to change the content after you apply this plugin, please see the examples in demo page (link provided below).
+
+ - Also made some changes so this plugin works with old versions of jQuery. I have tested it with jQuery 1.3.2 but quite sure it should work with some previous versions of jQuery.
+
+**PLEASE report any bugs you find.**
+
+For details please check the demos at: http://aamirafridi.com/jquery/jquery-marquee-plugin#examples
 
 **Update (20 Dec 2013):**
 Now the plugin will detect if browser supports CSS3 animations than it will animate the element using CSS3 which will perform much better than animating using jQuery.
