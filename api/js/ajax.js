@@ -1,6 +1,18 @@
 https://reqres.in/api/users?per_page=10
 http://placehold.it/150/24f355
-
+function LoadJS(id, fileUrl) {
+    return new Promise(function(resolve, reject){
+        var scriptTag = document.getElementById(id);
+        var oHead = document.getElementsByTagName('HEAD').item(0);
+        var oScript= document.createElement("script");
+        if ( scriptTag  ) oHead.removeChild(scriptTag);
+        oScript.id = id;
+        oScript.type = "text/javascript";
+        oScript.src=fileUrl ;
+        oHead.appendChild(oScript);
+        resolve();
+    });
+}
 ajax的同源策略，同一个域名或子域名，并且端口一致。一个ajax请求被发送，所有的请求都会附带主语的cookie信息一起发送。
 跨域策略文件。
 cross-origin resource sharing.
@@ -54,7 +66,7 @@ Backbone.emulateHTTP = true;
 model.save();  // POST 到 "/collection/id", 附带 "_method=PUT" + header.
 
 emulate JSONBackbone.emulateJSON = true
-同样老的浏览器也不支持发送 application/json 编码的请求， 设置 Backbone.emulateJSON = true; 后 JSON 模型会被序列化为 model 参数， 请求会按照 application/x-www-form-urlencoded 的内容类型发送，就像提交表单一样。 
+同样老的浏览器也不支持发送 application/json 编码的请求， 设置 Backbone.emulateJSON = true; 后 JSON 模型会被序列化为 model 参数， 请求会按照 application/x-www-form-urlencoded 的内容类型发送，就像提交表单一样。
 
 ------------------------------------
 AngularJS的$resource相比于$http更加适合于与RESTful数据源交互
@@ -76,7 +88,7 @@ KnockoutJS的view层就是一个简单的html文档，它里面会有关联到vi
 
 ViewModel位于UI层的后面，暴漏数据给View,可以认为是View层的数据和行为的源
 
-KnockoutJS把ViewModel解释为数据的展现和表现在UI上的行为，他不是ui需要持久化的数据模型，但是他可以持有用户存储的数据；Knockout的 ViewModels是采用javascript对象实现的，不用关心html标签，这种抽象的方法可以使它们的实现保持简单。 
+KnockoutJS把ViewModel解释为数据的展现和表现在UI上的行为，他不是ui需要持久化的数据模型，但是他可以持有用户存储的数据；Knockout的 ViewModels是采用javascript对象实现的，不用关心html标签，这种抽象的方法可以使它们的实现保持简单。
 ---------------------------------
 对于企业信息管理系统而言，一个基础服务(比如帐号管理)，简单点的方式是使用页面来管理数据，然后使用服务的方式来发布数据，说简单点，就是建一个项目，其中有两部分：一部分是增删改查页面，一部分是供其他系统调用的数据服务，这种设计可以降低在系统构架初期的复杂度，即：先设计只读式的服务，等到应用扩展到一定程度后，再扩展为读写式的服务。
 
@@ -100,7 +112,7 @@ The other HTTP methods (i.e. other than GET and POST) are not available in HTML 
 在jQuery的文档中说：
 The type of request to make ("POST" or "GET"), default is "GET". Note: Other HTTP request methods, such as PUT and DELETE, can also be used here, but they are not supported by all browsers.（最后一句话：不是所有浏览器支持其它方式）
 ------解决方案--------------------
-可以用POST来代替PUT和DELETE, 比如你可以埋一个hidden field叫 _method, <input type= "hidden " name= "_method " value= "PUT "> . 这样,你在后台可以根据这个字段来识别. 
+可以用POST来代替PUT和DELETE, 比如你可以埋一个hidden field叫 _method, <input type= "hidden " name= "_method " value= "PUT "> . 这样,你在后台可以根据这个字段来识别.
 -------------------------------------------------
 http://www.myexception.cn/operating-system/889647.html
 幂等有以下几种定义： 　　对于单目运算，如果一个运算对于在范围内的所有的一个数多次进行该运算所得的结果和进行一次该运算所得的结果是一样的，那么我们就称该运算是幂等的。
@@ -165,11 +177,11 @@ post用来向服务器提交内容，主要是为了提交，而不是为了请�
 
 记住：拿不准时，就可以把它作为资源。在设计资源的URI时，路径变量被用于分隔一个层次结构或者有向图的元素，如果同一层次的多项数据有次序关系就用逗号（ , ），如果同一层次的多项数据没有先后关系就用分号（ ; ）。表示应当是人类可读的，但同时也应当是面向计算机的。也应当是有用的，应该暴露的是有价值的数据而不是无用的数据。记住，你的服务可能要考虑版本化的问题，如果拿不准就在资源的最前面加上路径变量来表示版本吧。
 ----------------------------------------------
-<a href="/users/1">view</a>  
-<form action="/users/1" method="post" accept="text/html">  
-    <input type="text" name="name" />  
-    <input type="text" name="email" />  
-    <input type="submit" value="create"/>  
+<a href="/users/1">view</a>
+<form action="/users/1" method="post" accept="text/html">
+    <input type="text" name="name" />
+    <input type="text" name="email" />
+    <input type="submit" value="create"/>
 </form>
 
 资源多重表述
@@ -177,5 +189,5 @@ post用来向服务器提交内容，主要是为了提交，而不是为了请�
 Accept: text/json 返回JSON数据
 Accept: text/xml 返回XML数据
 Accept: text/html 返回HTML页面
-Accept: text/wml 返回WML页面 
+Accept: text/wml 返回WML页面
 

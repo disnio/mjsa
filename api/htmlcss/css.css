@@ -1,11 +1,11 @@
 
-/* 
+/*
 * @Author: anchen
 * @Date:   2015-06-05 14:48:23
 * @Last Modified by:   anchen
 * @Last Modified time: 2015-10-08 10:16:44
 */
-
+document.body.insertAdjacentHTML("afterBegin", '');
 缓动算法：
 动画已消耗的时间，原始位置，目标位置，持续的总时间
 var tween = {
@@ -167,7 +167,7 @@ transform: scale(75%);
 /*固定布局*/
 table-layout:fixed;
 /*无内容显示边框ie8+*/
-empty-cell:show; 
+empty-cell:show;
 /*separate 边框独立，collapse:相邻边合并 */
 border-collapse:collapse;
 
@@ -178,10 +178,10 @@ border-collapse:collapse;
 因为标题实际上并未被截字，而是局限于宽度而未被显示而已。
 
 通常的做法是这样的：
-overflow:hidden; 
-white-space:nowrap; 
-text-overflow:ellipsis; 
--o-text-overflow:ellipsis; 
+overflow:hidden;
+white-space:nowrap;
+text-overflow:ellipsis;
+-o-text-overflow:ellipsis;
 -moz-binding:url('ellipsis.xml#ellipsis');
 width:100%;
 
