@@ -1,4 +1,12 @@
 ES6
+// 推荐在循环对象属性的时候，使用for...in,在遍历数组的时候的时候使用for...of。
+
+// for...in循环出的是key，for...of循环出的是value
+
+// 注意，for...of是ES6新引入的特性。修复了ES5引入的for...in的不足
+
+// for...of不能循环普通的对象，需要通过和Object.keys()搭配使用
+
 => 箭头函数内部没有 this
 -------------------------------------------------------------------------------
 只有火狐支持的：
@@ -121,7 +129,7 @@ function add3(obj) {
    for ( let i in obj )
      yield (parseInt(i, 10) + 2);
  }
- 
+
  let it = add3([2, 3, 4]);
  try {
    while (true) {
@@ -163,7 +171,7 @@ for (let [name, value] in Iterator(obj)) {
 
 pulling out fields of interest from each object：
 var people = [
-  {name: "Mike Smith", family: {mother: "Jane Smith", father: "Harry Smith", sister: "Samantha Smith"}, age: 35 }, 
+  {name: "Mike Smith", family: {mother: "Jane Smith", father: "Harry Smith", sister: "Samantha Smith"}, age: 35 },
   {name: "Tom Jones", family: {mother: "Norah Jones", father: "Richard Jones", brother: "Howard Jones"}, age: 25 } ];
 
 for each (let {name: n, family: { father: f } } in people) {
@@ -275,7 +283,7 @@ var done = pending(function () {
   console.log('all is over');
 });
 
-// 执行完后，调用 returnFunc 
+// 执行完后，调用 returnFunc
 fs.readFile('file1.txt', 'utf8', done());
 fs.readFile('file2.txt', 'utf8', done());
 
@@ -337,9 +345,9 @@ var gen = generator();
 
 function driveGenerator() {
   if (gen.next()) {
-    window.setTimeout(driveGenerator, 0);   
+    window.setTimeout(driveGenerator, 0);
   } else {
-    gen.close();    
+    gen.close();
   }
 }
 
@@ -351,7 +359,7 @@ function generator() {
     /** 100 loops per yield **/
     if ((i % 100) == 0) {
       yield true;
-    } 
+    }
   }
   yield false;
 }
@@ -364,10 +372,10 @@ function* Hello() {
 
 var hello = Hello() // hello 是一个generator
 var a = hello.next() // a: Object {value: 1, done: false}
-var b = hello.next() // b: Object {value: 2, done: false} 
+var b = hello.next() // b: Object {value: 2, done: false}
 var c = hello.next() // c: Object {value: undefined, done: true}
 
-yield就是相当于是另一种return, return使用时函数就结束了, 而使用yield的时候, 
+yield就是相当于是另一种return, return使用时函数就结束了, 而使用yield的时候,
 函数会卡在那个yield的地方, 等待下一个next
 
 所有带有 * 前缀的函数都表示这个函数会返回一个 generator 对象。
@@ -500,7 +508,7 @@ function thunkify( fn ){
             args[i] = arguments[i];
         }
         // 正常本来这里应该 fn ( args ) 了
-        // 结果又 return 了，包包再扔出去，generatour.next() 
+        // 结果又 return 了，包包再扔出去，generatour.next()
         // 其实还是要 before 先做些事情，但不在这里做了
         // 把 befone 的部分逻辑放到 done 回调函数里了，
         // 要让别的环境（函数）驱动下
@@ -522,7 +530,7 @@ function thunkify( fn ){
             }
 
         }
-        
+
     }
 }
 function thunkify(fn) {
@@ -593,7 +601,7 @@ var co = function(flow) {
                 ret.value.forEach(function(item, index) {
                     count++;
                     // 下面是 node 的典型回调函数 callback,
-                    // item 的回调 似 readFile 中的 callback， 比如 readFile('file1.txt', 'utf8', callback)                     
+                    // item 的回调 似 readFile 中的 callback， 比如 readFile('file1.txt', 'utf8', callback)
                     // item 的回调函数为 thunkify 中的返回函数，执行 item
                     item(function(err, data) {
                         count--;
@@ -671,7 +679,7 @@ greeting`Hello ${place}`
 // Value1: 'World'
 
 
-react项目在 IE9 10 中上来就报错了。 
+react项目在 IE9 10 中上来就报错了。
 经过一系列排查是因为底层 base 这个模块有问题。
-就算es5在各个浏览器里实现的也不近相同， 所以es2015是标准模块，在IE这个坑爹的浏览器里一些方法不同，导致报错。 
+就算es5在各个浏览器里实现的也不近相同， 所以es2015是标准模块，在IE这个坑爹的浏览器里一些方法不同，导致报错。
 所以 引入babel-preset-es2015-loose 来解决次问题。
