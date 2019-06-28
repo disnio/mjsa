@@ -1,15 +1,68 @@
+更改源：
+https://www.cnblogs.com/muyunren/p/7221505.html
+http://mirrors.aliyun.com/repo/
 
-http://localhost/awstats/awstats.pl?config=hxay2005.net
+git to 2+:
+https://blog.csdn.net/caimengyuan/article/details/80634752
+https://dl.iuscommunity.org/pub/ius/stable/CentOS/7/x86_64/repoview/
+
+ius 可按照其他常用软件:
+https://ius.io/GettingStarted/#install-via-automation
+
+yarn:
+curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+https://www.jianshu.com/p/761fa572af24
+
+xdg code(vscode) 默认编辑器:
+sudo yum search xdg   #搜索并选择
+sudo yum install xdg-desktop-portal.x86_64 xdg-desktop-portal-devel.x86_64
+xdg-mime default code.desktop text/plain
+
+字体：Lucida Console
+https://www.cnblogs.com/hobinly/p/7442658.html
+
+谷歌浏览器：
+https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+https://www.cnblogs.com/iouwenbo/p/10263229.html
+
+redis:
+$ wget http://download.redis.io/releases/redis-5.0.4.tar.gz
+$ tar xzf redis-5.0.4.tar.gz
+$ cd redis-5.0.4
+$ make
+$ cd src
+$ make install
+https://www.cnblogs.com/hankuikui/p/9111210.html
+cp utils/redis_init_script /ect/init.d
+mv redis_init_script redis_6379
+mkdir /etc/redis
+cp redis.conf /etc/redis
+mv redis.conf 6379.conf
+
+Snapd: 安装包管理
+sudo yum install snapd
+https://docs.snapcraft.io/installing-snap-on-centos
+sudo snap install redis-desktop-manager
+
+
+查询包依赖关系：
+repoquery --nvr --whatprovides  libappindicator3.so.1
+yum install -y redhat-lsb
+
+rpmreaper
+
 selinux:
 http://www.cnblogs.com/xiaoluo501395377/archive/2013/05/26/3100444.html
+
 awstats:
 http://cuijunwei.com/1962
 http://blog.chinaunix.net/uid-20076215-id-1978280.html
-配置ubuntu linux中apache2支持perl
+
+配置ubuntu linux中apache2支持perl:
 sudo apt-get install libapache2-mod-perl2
 先前装awstats已经对apache2.conf做了修改,在apache2.conf后面加上如下配置:
 AddHandler cgi-script .cgi .pl  //一定要加上这个
- [root@www ~]# yum -y install mod_perl
+[root@www ~]# yum -y install mod_perl
 [root@www ~]# vi /etc/httpd/conf.d/perl.conf
 # line 17: uncomment
 
@@ -51,43 +104,6 @@ Stopping httpd: [  OK  ]
 
 Starting httpd: [  OK  ]
 
-
-
-
-
-=======
-、+------------------------------------------------------------------------+
-|          LNMP V1.2 for CentOS Linux Server, Written by Licess          |
-+------------------------------------------------------------------------+
-|         For more information please visit http://www.lnmp.org          |
-+------------------------------------------------------------------------+
-|    lnmp status manage: lnmp {start|stop|reload|restart|kill|status}    |
-+------------------------------------------------------------------------+
-|  phpMyAdmin: http://IP/phpmyadmin/                                     |
-|  phpinfo: http://IP/phpinfo.php                                        |
-|  Prober:  http://IP/p.php                                              |
-+------------------------------------------------------------------------+
-|  Add VirtualHost: lnmp vhost add                                       |
-+------------------------------------------------------------------------+
-|  Default directory: /home/wwwroot/default                              |
-+------------------------------------------------------------------------+
-|  MySQL/MariaDB root password: 111111                          |
-+------------------------------------------------------------------------+
-nginx (pid 54797 54796 54795) is running...
-SUCCESS! MySQL running (55254)
-Apache is running.
-Active Internet connections (only servers)
-Proto Recv-Q Send-Q Local Address           Foreign Address         State
-tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN
-tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN
-tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN
-tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
-tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN
-tcp        0      0 127.0.0.1:88            0.0.0.0:*               LISTEN
-tcp6       0      0 :::22                   :::*                    LISTEN
-tcp6       0      0 ::1:631                 :::*                    LISTEN
-Install lnmp V1.2 completed! enjoy it.
--------------------------------------
 CentOS7.0 使用root登录桌面
 编辑/etc/gdm/custom.conf，修改以下两行：
 AutomaticLoginEnable=true 这个修改为 true
@@ -100,7 +116,9 @@ wget http://mirrors.163.com/.help/CentOS7-Base-163.repo
 运行以下命令生成缓存：
 yum clean all
 yum makecache
+
 ---------------------------------------
+中文：
 http://www.zongguofeng.com/html/2013/Tech_0409/639.html
 1、安装中文语言包：
 yum groupinstall "Chinese Support" -y
@@ -108,18 +126,16 @@ yum groupinstall "Chinese Support" -y
 localectl set-locale LANG=zh_CN.UTF-8
 3、重启系统即可：
 reboot
--------------------------------
+
+
 安装LNMP执行：wget -c http://soft.vpser.net/lnmp/lnmp1.2-full.tar.gz && tar zxf lnmp1.2-full.tar.gz && cd lnmp1.2-full && ./install.sh lnmp
 如需要安装LNMPA或LAMP，将./install.sh 后面的参数替换为lnmpa或lamp即可。
--------------------------------
->>>>>>> .theirs
-http://www.kafan.cn/edu/828094.html
-yum remove
+
 ---------------------------------------------------------
 ctrl + alt + f1 -- f6
 内存清理：
 echo 1 > /proc/sys/vm/drop_caches
--------------
+
 SecureFX 乱码：
 c:\Users\Administrator\AppData\Roaming\VanDyke\Config\Sessions
 
@@ -141,6 +157,7 @@ webadmin 中， 直接添加用户，并授权，作为远程账号。主机，�
 /etc/rc.d/init.d/mysqld start
 
 service mariadb start
+
 ---------------------------------------------------------
 vsftpd：
 http://blog.chinaunix.net/uid-18831400-id-151990.html
@@ -160,6 +177,7 @@ ftp_username=hxftp
 user_list里面把不用的用户注释掉，添加建立的ftp用户。
 http://linuxunix.xyz/2015/08/30/CentOS6-5-%E9%85%8D%E7%BD%AEvsftpd/
 -----------------------------------------------------------
+
 python 升级：
 python2.6.6 -> python2.7.8
 wget https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz
@@ -224,9 +242,6 @@ libdb47-4.7.25-3mamba.x86_64 requires libc.so.6(GLIBC_2.14)(64bit)
 easy_install mod_wsgi
 
 ---------------------------------------------------------------------
-centos 6 不联网：
-关闭了 NetworkManager，还得在 /etc/sysconfig/network-scripts/ifcfg-eth0）並把 ONBOOT=no 切換為 ONBOOT=yes
----------------------------------------------------------------------
 防火墙：
 http://www.2cto.com/os/201505/400718.html
 http://www.jb51.net/os/Ubuntu/45291.html
@@ -241,41 +256,6 @@ ufw allow 22/tcp 允许所有的外部IP访问本机的22/tcp (ssh)端口
 ufw deny 22/tcp 禁止所有外部IP访问本机的22/tcp(ssh)端口
 
 我们可以允许建立会话来接受流量：
-p312 鸟
-
-iptables [-AI 链名] [-io 网络接口] [-p 协议]  [-s 来源 IP/网域] [-d 目标 IP/网域] -j [ACCEPT|DROP|REJECT|LOG]
-选项与参数：
--AI 链名：针对某的链进行规则的 "插入" 或 "累加"
--A ：新增加一条规则，该规则增加在原本规则的最后面。例如原本已经有四条规则，使用 -A 就可以加上第五条规则！
--I ：插入一条规则。如果没有指定此规则的顺序，默认是插入变成第一条规则。例如原本有四条规则，使用 -I 则该规则变成第一条，而原本四条变成 2~5 号
-链 ：有 INPUT, OUTPUT, FORWARD 等，此链名称又与 -io 有关，请看底下。
-
--io 网络接口：设定封包进出的接口规范
--i ：封包所进入的那个网络接口，例如 eth0, lo 等接口。需与 INPUT 链配合；
--o ：封包所传出的那个网络接口，需与 OUTPUT 链配合；
--p 协定：设定此规则适用于哪种封包格式， 主要的封包格式有： tcp, udp, icmp 及 all 。
-
--s 来源 IP/网域：设定此规则之封包的来源项目，可指定单纯的 IP 或包括网域，
-    例如：IP ： 192.168.0.100 网域： 192.168.0.0/24, 192.168.0.0/255.255.255.0 均可。
-    若规范为『不许』时，则加上 ! 即可，例如：
-    -s ! 192.168.100.0/24 表示不许 192.168.100.0/24 之封包来源；
-
--d 目标 IP/网域：同 -s ，只不过这里指的是目标的 IP 或网域。
--j ：后面接动作，主要的动作有接受(ACCEPT)、丢弃(DROP)、拒绝(REJECT)及记录(LOG)
-
---sport 埠口范围：限制来源的端口口号码，端口口号码可以是连续的，例如 1024:65535
---dport 埠口范围：限制目标的端口口号码。
-
--m ：一些 iptables 的外挂模块，主要常见的有：
-    state ：状态模块
-    mac ：网络卡硬件地址 (hardware address)
-
---state ：一些封包的状态，主要有：
-    INVALID ：无效的封包，例如数据破损的封包状态
-    ESTABLISHED：已经联机成功的联机状态；
-    NEW ：想要新建立联机的封包状态；
-    RELATED ：这个最常用！表示这个封包是与我们主机发送出去的封包有关
---mac-source ：就是来源主机的 MAC 啦！
 
 --icmp-type ：后面必须要接 ICMP 的封包类型，也可以使用代号，例如 8 代表 echo request 的意思。
 21,22,53,80,110,443,5900:5910

@@ -40,3 +40,91 @@ resizer.on('orientationchange', () => {
 // jsesc 更好的序列化和转义
 
 // fuse.js  lightweight fuzzy-search 轻量模糊搜索
+
+// iconv-lite Pure JS character encoding conversion
+
+// merge-descriptors 合并对象使用描述符，其实就是 express.js p:42 mixin(app, EventEmitter.prototype, false);
+// Object.getOwnPropertyNames Object.getOwnPropertyDescriptor Object.prototype.hasOwnProperty.call
+
+// ms 时间转毫秒 ms('2 days') ms('2h')
+
+// fd-slicer  Safe fs.ReadStream and fs.WriteStream using the same fd.
+
+// buffertools
+
+// pcap capturing, decoding, and analyzing packets.
+// centos7 libpcap-devel libpcap; win10 https://nmap.org/download.html npcap-0.906.exe nmap-7.70
+// https://nmap.org/man/zh/
+// https://www.tcpdump.org/
+
+// nan 插件开发工具----！！！
+
+// default-gateway 获得默认网关
+
+// ipaddr.js ipv4/6 地址操作库
+
+// netcat===!!
+
+// async-each-series
+
+// datagram-stream udp
+
+// hexer stream spy transform chunk 16进制表示与字符串的呈现
+
+// nanoid
+
+// through2 stream.Transform this._transform
+
+// cli-table
+
+// network 工具集合 address
+
+// node-arp 读 mac 地址
+
+// progress-stream 流的进度监控
+
+// speedometer 速度测量
+
+// readable-stream 稳定调用版替换node stream
+
+// batched-stream 零散的数据流 批量打包后发送
+
+// https://wol.aquilatech.com/  网络唤醒远程开机 https://www.iplaysoft.com/wol.html
+
+// Node-RED node.js 物联网开发，树莓派, 安卓等 https://nodered.org/ https://www.jianshu.com/p/be1c98280c71
+
+// yargs 命令行参数操作
+
+// boxen 命令行画盒子
+
+// jsonfile 读写json 文件
+
+// inquirer 交互命令行接口，不同于 commander, vorpal or args.
+
+// ora 终端的 spin
+
+// pkg 命令行打包 node.js 项目成可执行文件
+
+// semver npm 的语义版本号解读
+
+// UPX - the Ultimate Packer(加壳压缩程序) for eXecutables, upx Node cross-platform wrapper for UPX
+
+// cash Cross-platform Linux commands in ES6
+// netrat
+
+// https://github.com/mscdex  node.js c++ 程序转换包
+// SSH2 client and server modules written in pure JavaScript for node.js  !!!
+
+// imap 邮件客户模块
+
+// concat-stream 流合并后回调
+
+// binary-split split buffer
+
+// end-of-stream 流完成回调
+
+// pump 当流中发送错误或发生器关闭时候，可以执行回调。pipe()
+
+// stream-shift next buffer/object in streams readable queue
+
+// duplexify
