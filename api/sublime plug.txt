@@ -66,3 +66,75 @@ alt + shift + c view recent changes
 
 double shift 全局搜索
 
+-------------------------------------------------------
+vscode:
+
+f1/ctrl + shift + p  命令 >
+ctrl + p 快速打开文件
+ctrl + shift + n 新窗口
+ctrl + shift + w 关闭窗口
+ctrl + k + s 快捷键显示
+
+编辑：
+ctrl + x 切行
+ctrl + c 复制行
+alt + 上下箭头  移动行
+shift + alt + 上下箭头  复制行
+ctrl + enter 下面插入行
+shift + ctrl + enter 上面插入行
+ctrl + shift + \ 跳到匹配的括号
+ctrl + [] 缩进行
+ctrl + 上下箭头  滚动行
+alt + pageup/pagedown 标签页切换 alt + 左右箭头
+ctrl + shift + [] 收缩展开代码
+
+ctrl + k + 0 收缩所有代码
+ctrl + k + j 展开所有代码
+ctrl + k + num 折叠级别
+ctrl + k + / 折叠块注释
+ctrl + k + [] 收缩区域代码
+shift + alt + a 块注释
+
+导航：
+ctrl + g  跳行
+ctrl + shift + m 问题面板
+
+搜索替换：
+alt + enter 选择所有的匹配
+ctrl + d 从左到右选择，然后匹配下一个到选择
+ctrl + k + d 最后的选择变为下一个匹配，用于跳过不要的匹配，和上面组合用
+alt + c/r/w 搜索替换时，切换 大小写、正则、全字匹配模式
+
+多光标选择：
+alt + click 插入光标
+ctrl + alt + 上下 插入光标
+ctrl + u 取消最后的插入
+shift + alt + i 插入在选择行的最后
+
+ctrl + l 选择当前行
+ctrl + shift + l /
+ctrl + f2 更改所有匹配项
+shift + alt + 左右  扩大选择
+shift + alt + 鼠标  列选择
+
+shift + alt + f  格式化文档
+ctrl + k  + f 格式化选区
+f12 到定义处
+alt + f12 查看定义
+shift + f12 查看引用
+ctrl + k + x 移除空格
+
+ctrl + \ 拆分窗口
+ctrl + k + s 保存所有
+ctrl + shift + t 重新打开关闭的编辑窗口
+
+ctrl + k + p 复制文件路径
+ctrl + b 侧边栏
+
+调试：
+f9 断点
+f5 开始
+shift + f5 停止
+f11/shifit + f11 step into/out
+f10 step over
+ctrl + k + i show hover

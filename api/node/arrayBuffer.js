@@ -51,3 +51,10 @@ buffer.byteLength === 8;
 
 // Buffer 类以更优化和更适合 Node.js 的方式实现了 Uint8Array API，ArrayBuffer + DataView 的对象封装。
 
+// Stream
+// PassThrough 传输流用于测试
+var through = require('through2');
+var passThrough = through();
+passThrough.write("hello");
+passThrough._transform.name === "noop"; passThrough.readable === passThrough.writable === true;
+// Since node 6.3.0 passThrough._readableState.buffer is a BufferList not an array

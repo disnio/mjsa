@@ -1,0 +1,46 @@
+Svn
+用户名：  wushaochun
+密码：  wyyKEG66cf
+用户名为小写，密码区分大小写
+BFCsystem 1234
+
+6225 8801 6894 2572
+mail.ijiebao.com
+通行证：
+http://192.168.210.2
+wushaochun@ijiebao.com
+Jiebao.222
+Wushaochun124%
+
+考勤填报：工号登录
+http://oa.bluefocusgroup.com:8088/wui/main.jsp?templateId=1
+dio
+Wushaochun_123
+工号： 294318
+加到host文件中
+可以访问新银河
+http://yh.ijiebao.com
+
+报销地址：
+http://oa.bluefocusgroup.com:8088/wui/main.jsp?templateId=1
+di7
+
+测试站点
+管理员账号
+user:  jiebaoadmin  项目管理：wushaochun
+pwd: jiebao123
+
+svn://192.168.208.110:31090/RD/Frontend
+
+大众金融只能客服项目
+svn://192.168.208.110:31090/RD/VWFC.Robot
+
+捷报验票机器人项目
+svn://192.168.208.110:31090/RD/Jiebao.Robot
+
+https://help.shopify.com/en/themes/liquid/filters/html-filters#img_tag
+@ijiebao.com jiebao123
+
+蓝色光标传媒集团 sunyun hr4321
+
+adobeid cat123123CAT

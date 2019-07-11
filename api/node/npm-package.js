@@ -124,7 +124,27 @@ resizer.on('orientationchange', () => {
 // end-of-stream 流完成回调
 
 // pump 当流中发送错误或发生器关闭时候，可以执行回调。pipe()
+// pumpify pipeline()
 
 // stream-shift next buffer/object in streams readable queue
 
+// inherits 浏览器友好的类 node util 的继承。
+
 // duplexify
+// writeable.write(chunk, en, cb)
+// 返回: <boolean> 如果流需要等待 'drain' 事件触发才能继续写入更多数据，则返回 false，否则返回 true。
+Duplexify.prototype._write = function(data, enc, cb) {
+    if (this.destroyed) return
+    if (this._corked) return onuncork(this, this._write.bind(this, data, enc, cb))
+    if (data === SIGNAL_FLUSH) return this._finish(cb)
+    if (!this._writable) return cb()
+    // 如果流需要等待 'drain' 事件触发才能继续写入更多数据，则返回 false，否则返回 true。
+    if (this._writable.write(data) === false) this._ondrain = cb
+    else if (!this.destroyed) cb()
+}
+
+// random
+// tree-model manipulate and traverse tree-like structures
+// array-to-tree (data, options) {parentProperty: parent_id, childrenProperty: children, customID: id}
+// nested-property read, write, a data structure's nested property via a string like "a.b.c.1"
+// merge-sort merge sort 合并排序
