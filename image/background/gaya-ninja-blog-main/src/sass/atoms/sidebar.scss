@@ -1,6 +1,0 @@
-.sidebar {
-    @include media($big-desktop) {
-        @include span-columns(4);
-        @include shift(1);
-    }
-}
