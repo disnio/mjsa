@@ -1,10 +1,10 @@
 // x86体系的计算机都采用小端字节序（little endian），
 // 相对重要的字节排在后面的内存地址，相对不重要字节排在前面的内存地址。
 
-var littleEndian = (function() {
-  var buffer = new ArrayBuffer(2);
-  new DataView(buffer).setInt16(0, 256, true);
-  return new Int16Array(buffer)[0] === 256;
+var littleEndian = (function () {
+    var buffer = new ArrayBuffer(2);
+    new DataView(buffer).setInt16(0, 256, true);
+    return new Int16Array(buffer)[0] === 256;
 })();
 
 // 2的补码表示，将对应的正数值进行否运算，然后加1。
@@ -56,5 +56,28 @@ buffer.byteLength === 8;
 var through = require('through2');
 var passThrough = through();
 passThrough.write("hello");
-passThrough._transform.name === "noop"; passThrough.readable === passThrough.writable === true;
+passThrough._transform.name === "noop";
+passThrough.readable === passThrough.writable === true;
 // Since node 6.3.0 passThrough._readableState.buffer is a BufferList not an array
+
+// stream.Readable 可读流，从数据源（按可定义的规则，暂停模式，流动模式）读数据。 from2
+// readable._read(size): from2
+function Class(override) {
+    if (!(this instanceof Class)) return new Class(override)
+    this._reading = false
+    this._callback = check
+    this.destroyed = false
+    Readable.call(this, override || opts)
+
+    var self = this
+    var hwm = this._readableState.highWaterMark
+
+    function check(err, data) {
+        if (self.destroyed) return
+        if (err) return self.destroy(err)
+        if (data === null) return self.push(null)
+        // 这里实现
+        self._reading = false
+        if (self.push(data)) self._read(hwm)
+    }
+}
