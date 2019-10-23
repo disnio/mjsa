@@ -1,0 +1,74 @@
+scikit-learn
+
+k-nearest neighbor
+
+噪音干扰，增加K值降噪，奇数。根据分类任务设置。
+超参数：人为设定，无法学习。
+数据预处理，变成相同的量纲。
+
+欧式距离，平方求根。
+马氏距离，manhattan distance。维度绝对值之和。切比雪夫距离。只取差异最大的。
+iris distance
+
+分类信息的算法：监督学习
+
+distance-weighted nearest neighbor algorithm
+
+make_blos 生成随机点数据
+
+y 标签 X array of shape
+
+回归是找相关性的。要全体，不要样本，是混杂，而非精确，要相关 correlation，不要因果。
+相关最大好处是预测，商业价值。新样本的预测；线性回归。知道是什么可以创造点击率：洞察力。
+小样本估计整体：数理统计。
+
+大数据特征：体量大，速度快，种类多，密度低
+
+业务问题必须转换为数据可分析的数据思维。
+
+回归分析：数据到价值的变换。 因变量，自变量特征抽取。利用模型依赖数据找出参数（权重）
+
+tensor 张量：高维数据。flow：流动。
+
+conda install tensorflow pandas scikit-learn jupyter
+
+conda env export --file python36_20190106.yml
+conda env create -f  d:\python36_20190106.yml
+
+jupyter notebook --generate-config  
+notebook_dir="文件保存位置"
+
+os.environ["CUDA_VISIBLE_DEVICES"]="-1" 
+
+提升泛化性能：减少误差策略，正则。
+无免费午餐定理：特定环境特定算法，收获高于代价。深度学习狭窄领域：可统计不可推理的领域。
+
+客观新信息（），更新我们最初关于某个事物的信念后，我们就会得到一个新的改进的信念。贝叶斯。
+概率，尝试用数学表达出来。正概率，逆概率。
+
+prior posterrior beliefs 
+后验概率=先验概率*调整因子  先验概率是决定因素。多次迭代向真实收敛。 = 先验概率 *（似然性/标准化向量）
+世界是随机的。
+
+ham 正常 spam 垃圾邮件
+
+平滑意外值，log低精度，log表
+
+可行科学家，可做工程师
+
+类别特征变 one-hot encode
+
+人工神经网络，多层复合函数。逐层抽象，等同思考。维度提升。梯度。通用模拟定理。
+大数据避免过拟合，让网络重复表达。
+世界模型通过可微分函数自动学习特征表达，解决问题。
+分布式表达，在部分缺失时。
+数据是生成资料！！ means of production.
+
+写到基因里，反本能的需要。
+激活函数，转移维度。需要处处可到。sigmoid 函数。
+正向传播信息，反向调整误差权值。BP：链式求导法则。计算量减少。复合函数求导，梯度下降。7层浅层网络。
+
+词向量
+conda install gensim
+
+python eval.py --model_file models/denoised_starry.ckpt-done --image_file img/baiwai2.jpeg

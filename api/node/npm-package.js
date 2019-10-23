@@ -293,3 +293,27 @@ this.deps = Function.toString.call(fn)
 // Pluralize 单复数变化
 
 // raf-schd A throttle function that uses requestAnimationFrame to limit the rate at which a function is called.
+
+// resize-observer-polyfill
+
+// resolve require.resolve 算法，从node_modules 中解析文件地址
+// resolve-from 从给定路径解析
+
+// serialize-error 序列化错误对象到 plain object
+
+// slate 可定制的框架构建富文本编辑器
+
+// spawndamnit 改进的 spawn, await-able
+
+// split 文本流拆分到行
+
+// stack-utils 堆载追踪工具，捕获清除
+
+// terser 分析器，管理压缩美好工具集
+
+// to-pascal-case 转换字符串到 pascal-case
+// camelcase
+
+// unist-util-visit 语法树工具集合
+
+// execa 命令执行器 child_process

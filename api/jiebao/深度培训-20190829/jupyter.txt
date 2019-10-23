@@ -1,0 +1,1 @@
+pip install jupyter_contrib_nbextensions

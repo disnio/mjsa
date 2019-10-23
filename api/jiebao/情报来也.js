@@ -6,7 +6,7 @@
 // svn: wyyKEG66cf
 // 湖南国优智能科技有限公司
 // 株洲天元区株洲大道898号高科总部一号b座901/902/906室
-
+// WIFI：miaobi  PW：miaobi.office
 
 // * 妙笔授权中心:<http://mrt.ijiebao.com>
 // * 妙笔应用管理系统:<http://m.ijiebao.com>
@@ -40,28 +40,10 @@
 // 用户名：jiebao
 // 密码：jiebao123
 
-// Nuget 服务器远程账号密码
-// 192.168.208.99
-// 1Ul#WKtZrKiB
-
 // 写稿机器人：http://wribot.ijiebao.com/
 // 苏秦会：http://wribot.ijiebao.com/suqinhui
 // 写稿后台 http://rwff.ijiebao.com/management
 // 分发后台 http://www.iwribot.com/marketing_ui
-
-// ------------------------------------------------
-// 妙笔官网微调及部署到：192.168.231.17
-// 域名：aimiaobi.com
-
-// umi 解析
-// react hooks
-// rematch
-// immer
-// jest
-// mobx
-// mobx-react
-
-// oicd-client(vue react) socket.io
 
 // 授权系统：
 // http://192.168.188.101/swagger/index.html
@@ -88,7 +70,7 @@
 
 // svn: wyyKEG66cf
 // svn：191.167.20.212
-
+// 妙笔后台管理：http://app.aimiaobi.com 0Tu0pj
 // 大家可以把一些公用的文档统一上传到如下Svn地址
 // svn://svn.aimiaobi.office:31090/RD/妙笔公共文档库
 
@@ -115,11 +97,9 @@
 // 3. Dev资源服务域名说明：
 // auth.aimiaobi.rd 授权系统域名
 // app.aimiaobi.rd 应用管理系统域名
-// cm.aimiaobi.rd 评论维护系统域名
 // rwff.aimiaobi.rd 任务分发系统域名
 // mrt.aimiaobi.rd 名人堂系统域名
 // wribot.aimiaobi.rd 智能写稿系统域名
-
 // dns : 191.167.20.225
 // rwff.aimiaobi.dev
 // administrator
@@ -130,4 +110,39 @@
 // mobile.rwff.aimiaobi.rd | 写手移动端
 // rwff.aimiaobi.rd | 写手pc端
 
+// Github Pages, Netlify，ZEIT，Contentful
+// 使用 algolia 來做搜尋服務， stripe 做付款服務，google analytics 做網站統計服務，travisCI 做自動化測試。
+// https://source.unsplash.com/random/400x200
 
+// 1.内网可以对外被访问，IP是http://49.5.15.186/
+// 2.dns设置为191.167.20.225，host文件以后不用修改了
+
+// umi 解析
+// react hooks
+// rematch
+// immer
+// mobx
+// mobx-react
+
+// 一是发展到3K以上活跃的、有一定质量的自媒体; 二是实现全自动标准化流程管理和无化人销售、运营; 三是建立两个以上内容领域的平行迁移能力，为明年的数万号规模的运营做准备。
+
+
+http://aimiaobi.com/#page7中，
+我的介绍改为：
+
+万小军，北京大学计算机科学技术研究所教授，博士生导师，语言计算与互联网挖掘研究室负责人，在北京大学获得学士、硕士与博士学位。研究方向为自然语言处理与文本挖掘，研究兴趣包括自动文摘与文本生成、情感分析与语义计算等。曾任计算语言学顶级国际期刊CL编委，现任顶级期刊TACL执行编辑，担任自然语言处理领域重要国际会议EMNLP - IJCNLP 2019程序委员会主席，多次担任相关领域重要国际会议领域主席(Area Chair)或高级程序委员(SPC) ，包括ACL、NAACL、EMNLP、IJCAI、AAAI、IJCNLP等。荣获ACL2017 Outstanding Paper Award、IJCAI 2018 Distinguished Paper Award、2017年吴文俊人工智能技术发明奖、CCF NLPCC青年新锐奖等多项荣誉或奖励。与今日头条、南都、三菱综研、科学网等单位合作推出多款AI写作机器人。
+
+北京大学计算机研究所语言计算与互联网挖掘研究室负责人，研究方向为自然语言处理与文本挖掘。现为 ACM、ACL 与 CCF 会员，多个国际一流会议（ACL、WWW、SIGIR、CIKM、COLING、EMNLP等）程序委员会委员，担任
+                                ACL2011 领域共同主席，并担任多个国际权威期刊（T-ALIP、T-KDE、T-ALSP、KAIS、IPM 等）审稿人。以第一发明人申请发明专利 7
+项。曾主导今日头条、南方都市报、腾讯等多家企业中文撰稿机器人的研发工作。
+
+
+registry.cn-beijing.aliyuncs.com/nianwu/vue-cli
+vue 3.0 的环境, 可以在容器内访问, 但是 宿主机不能访问, 猜测可能是 vue ui 命令生成的web 站点不能被外部访问
+
+192.168.8.114:5000/vue-cli
+我把镜像上传到咱们的本地仓库里面了, 下载更快
+
+运行 vue ui - H 0.0.0.0
+
+在京连续缴纳6个月纳税凭证或社保凭证

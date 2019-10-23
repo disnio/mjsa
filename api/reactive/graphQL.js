@@ -63,3 +63,4 @@ import { ApolloProvider } from '@apollo/react-hooks';
 // 更新缓存在mutation 后 https://www.apollographql.com/docs/react/essentials/mutations/
 
 // apollo-link-rest
+// apollo-link-http get graphql results over a network using http fetch.
