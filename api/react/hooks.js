@@ -145,3 +145,20 @@ function useInputValue(initialValue) {
     };
   }
 // 有状态的组件没有渲染，有渲染的组件没有状态
+
+// https://www.npmjs.com/package/react-async-hook 异步 hooks
+// https://www.npmjs.com/package/use-immer
+
+// 包装 hook，持久化到 local storage，可在多标签和窗口同步共享 state
+// https://www.npmjs.com/package/use-persisted-state
+
+// 比 React.Suspense 好到 loading 包装
+// https://www.npmjs.com/package/react-wait
+
+// useOneValueChange, useTimeout, useLazyRef, useMountedRef
+// https://www.npmjs.com/package/@shopify/react-hooks
+
+// https://www.npmjs.com/package/use-image
+// https://www.npmjs.com/package/react-use-localstorage
+
+// git://github.com/pietrzakadrian/bank 实例

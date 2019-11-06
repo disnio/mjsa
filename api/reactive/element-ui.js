@@ -59,6 +59,7 @@ beforeUpload: function (file) {
         reject();
     });
 }
+
 uploadExcel: function (param) {
     var that = this;
     let fileObj = param.file;

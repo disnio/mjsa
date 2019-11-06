@@ -111,3 +111,11 @@
 // sarcastic 类型 shape
 
 // connected-react-router react-router 的 redux 绑定。
+
+
+// canvas 动画 https://konvajs.org/
+// https://www.npmjs.com/package/react-konva
+
+// invariant(someTruthyVal, "This will not throw");
+
+// hoist-non-react-statics 复制静态方法（targetC, sourceC, blackList={myStatic: true}）
