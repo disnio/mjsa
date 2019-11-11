@@ -1,8 +1,0 @@
-MovingBoxes实现汽车图片展示，键盘方向键（ ← → ）也可以操作左右切换，兼容主流浏览器，懒人图库推荐下载！
-
-使用方法：
-1. head区域引用文件 lrtk.css，jquery.js，jquery.movingboxes.js
-2. head区域引用插件设置代码
-3. 在你的文件中加入<!-- 代码 开始 --><!-- 代码 结束 -->区域代码
-
-*更多代码请访问：懒人图库 www.lanrentuku.com/js/

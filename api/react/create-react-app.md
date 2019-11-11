@@ -261,3 +261,12 @@ transform-react-display-name 添加 displayName 到 React.createClass 调用
 
 持续集成：
 https://docs.travis-ci.com/user/getting-started/
+
+装饰器@:
+node_modules => babel-preset-react-app => create.js，
+在plugin数组加上require.resolve('babel-plugin-transform-decorators-legacy')再重新启动项目即可。
+
+作者：lhyt
+链接：https://juejin.im/post/5c06aa196fb9a04a016418ad
+来源：掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。

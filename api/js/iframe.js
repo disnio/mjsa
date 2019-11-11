@@ -4,7 +4,7 @@ IE8's maximum URL length is 2,048 chars and 5165 characters when following a lin
 ie9 4043
 Firefox  65,536 characters
 
-apache 4000, 8,192-byte limit on an individual field in a request. 
+apache 4000, 8,192-byte limit on an individual field in a request.
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Preflighted_requests
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Server-Side_Access_Control
 Cross-Origin Resource Sharing: https://www.w3.org/TR/cors/
@@ -16,8 +16,8 @@ app.all('*', function(req, res, next) {
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
-header('Content-Type:application:json;charset=utf8');  
-header('Content-Type:text/html;charset=utf8');  
+header('Content-Type:application:json;charset=utf8');
+header('Content-Type:text/html;charset=utf8');
 header('Content-Type: application/xml');
 header('Content-Type: text/html');
 header('Content-Type: text/plain');
@@ -25,16 +25,16 @@ header('Content-Type: text/plain');
 Access-Control-Request-Headers
 Access-Control-Request-Method: DELETE
 
-header('Access-Control-Allow-Origin:http://client.ycdl.com');  
+header('Access-Control-Allow-Origin:http://client.ycdl.com');
 header('Access-Control-Allow-Origin: x-requested-with');
 
-header('Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS'); 
+header('Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS');
 
 header('Access-Control-Allow-Credentials:true');
 
-header('Access-Control-Allow-Headers:x-requested-with,content-type');  
+header('Access-Control-Allow-Headers:x-requested-with,content-type');
 header('Access-Control-Allow-Headers:X-PINGARUNER');
-header('Access-Control-Allow-Headers:Content-Type, Authorization, Accept,X-Requested-With');  
+header('Access-Control-Allow-Headers:Content-Type, Authorization, Accept,X-Requested-With');
 
     Cache-Control
     Content-Language
@@ -52,29 +52,29 @@ header('Access-Control-Allow-Credentials: true');
 Access-Control-Expose-Headers
 header("HTTP/1.1 403 Access Forbidden");
 
-    <?php  
-    $ret = array(  
-        'name' => isset($_POST['name'])? $_POST['name'] : '',  
-        'gender' => isset($_POST['gender'])? $_POST['gender'] : ''  
-    );  
-      
-    header('content-type:application:json;charset=utf8');  
-      
-    $origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '';  
-      
-    $allow_origin = array(  
-        'http://www.client.com',  
-        'http://www.client2.com'  
-    );  
-      
-    if(in_array($origin, $allow_origin)){  
-        header('Access-Control-Allow-Origin:'.$origin);  
-        header('Access-Control-Allow-Methods:POST');  
-        header('Access-Control-Allow-Headers:x-requested-with,content-type');  
-    }  
-      
-    echo json_encode($ret);  
-    ?>  
+    <?php
+    $ret = array(
+        'name' => isset($_POST['name'])? $_POST['name'] : '',
+        'gender' => isset($_POST['gender'])? $_POST['gender'] : ''
+    );
+
+    header('content-type:application:json;charset=utf8');
+
+    $origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '';
+
+    $allow_origin = array(
+        'http://www.client.com',
+        'http://www.client2.com'
+    );
+
+    if(in_array($origin, $allow_origin)){
+        header('Access-Control-Allow-Origin:'.$origin);
+        header('Access-Control-Allow-Methods:POST');
+        header('Access-Control-Allow-Headers:x-requested-with,content-type');
+    }
+
+    echo json_encode($ret);
+    ?>
 ----------------FormData--------------------
 var fd = new FormData();
 
@@ -127,7 +127,7 @@ window.open 返回的引用
 ---------
 除了包含:
 
- buy.api.example.com/?sessionId=$sessionId&otherparameters=test 
+ buy.api.example.com/?sessionId=$sessionId&otherparameters=test
 
 and set your webservice to check the query string if cookies are not present.
 ----------
@@ -150,7 +150,7 @@ send(FormData data);
 setRequestHeader(DOMString header, DOMString value);
 
 XMLHttpRequest.onreadystatechange
-XMLHttpRequest.readyState 
+XMLHttpRequest.readyState
 0   UNSENT  open() has not been called yet.
 1   OPENED  send() has been called.
 2   HEADERS_RECEIVED    send() has been called, and headers and status are available.
@@ -162,7 +162,7 @@ XMLHttpRequest.statusText
 XMLHttpRequest.response
 XMLHttpRequest.responseType "json" ie10不支持
 
-XMLHttpRequest.responseXML 
+XMLHttpRequest.responseXML
 XMLHttpRequest.responseText
 "arraybuffer"
 "blob"
@@ -171,7 +171,7 @@ XMLHttpRequest.responseText
 "text"
 
 XMLHttpRequest.withCredentials
-XMLHttpRequest.upload 
+XMLHttpRequest.upload
 XMLHttpRequest.timeout
 
 http://www.telerik.com/blogs/details/using-cors-with-all-modern-browsers
@@ -226,7 +226,7 @@ In IE7/IE8 you'll notice it working. IE7 and IE8 are rather "loose" in that they
 
 ---------------------------------------------------
 The problem was that IE9 does not understand the format of "JSON" in the encoding cp1251,
-even though it is clearly stated in the response header. 
+even though it is clearly stated in the response header.
 Translation of the JSON response in utf-8 solved the problem with IE9.
 
 所有使用JSON的方案都有一个错误，就是无法实现POST。
@@ -244,7 +244,7 @@ Translation of the JSON response in utf-8 solved the problem with IE9.
 5 服务端主动请求B网站，兼容性好而且你客户端的代码还是原来的ajax，缺点是感觉不好。。
 6 类似5 用nginx把B网站的数据url反向代理。
 
-我觉得吧，如果你不能修改B网站的代码老老实实5 6 方案如果能修改B网站 
+我觉得吧，如果你不能修改B网站的代码老老实实5 6 方案如果能修改B网站
 方案2的修改应该是最简单的。就算是B网站你可以修改，还有种需求处理起来比较麻烦的，
 就是有的数据需要登录之后才能取。最直接的方案，B网站提供数据的url 进去先提供用户名密码，走下登录再走取数据，最后返回数据。但是往往最直接的方案都不是好的方案。。。
 （登录请求=》返回令牌=》带令牌请求受限数据）所以最好用是方案2  然后B网站有oauth 功能，
@@ -253,7 +253,7 @@ Translation of the JSON response in utf-8 solved the problem with IE9.
 就是B网站本来没有oauth，要加上一个会略麻烦。所以还可以选择方案2 加上withcredentials=true 这个方案。
 当然登录页面还是需要的这个问题已经是4年前的了，不过跨域请求似乎是个永恒的问题，
 正好最几天刚刚也遇到了类似的需求，就写得多了一点了。最近需要将原来的一个web网站写成手机版本，
-我是用的html5 加cordova 打包成手机程序的， 方案2  cors  然后加withcredentials=true 
+我是用的html5 加cordova 打包成手机程序的， 方案2  cors  然后加withcredentials=true
 然后在登录请求后重写手机客户端的cookie 方案能很好满足我的需求。
 
 ---------
@@ -295,11 +295,11 @@ Google Chrome的启动快键方式加上--allow-running-insecure-content（与�
 // -------------------------------------------------------------------------
 
 / * 高度 * /
-function adjustIFramesHeightOnLoad(iframe) { 
-    var iframeHeight = Math.min(iframe.contentWindow.window.document.documentElement.scrollHeight, 
-        iframe.contentWindow.window.document.body.scrollHeight); 
-    $(iframe).height(iframeHeight); 
-} 
+function adjustIFramesHeightOnLoad(iframe) {
+    var iframeHeight = Math.min(iframe.contentWindow.window.document.documentElement.scrollHeight,
+        iframe.contentWindow.window.document.body.scrollHeight);
+    $(iframe).height(iframeHeight);
+}
 
 <iframe src="init.jsp" id="c-c-iframe" name="c-c-iframe" width="500px;" frameborder="0" scrolling="no" marginwidth="0" marginheight="0">
 </iframe >
@@ -316,7 +316,7 @@ iframe的调用包括以下几个方面：（调用包含html dom，js全局变�
 
 主页面调用iframe；
 iframe页面调用主页面；
-主页面的包含的iframe之间相互调用； 
+主页面的包含的iframe之间相互调用；
 
 跨域是不能获取iframe内节点的。
 
@@ -335,7 +335,7 @@ iframe页面调用主页面；
 
 $(iframe, window.top.document).contents().find('body')[0].scrollHeight
 
-$(iframe.contentWindow.document).height() 
+$(iframe.contentWindow.document).height()
 
 $(iframe.contentWindow.document.body).height()
 
@@ -367,12 +367,12 @@ speed: 500       //动画时长，指撑开IFRAME时的平滑动作
 经测试，循环自适应没有出现CPU或者内存疯长的问题。
 
 实现：
-    
+
 //因为要读取父窗口的ID，所以无法跨域使用。
 var iframe = parent.document.getElementById(param.iframeid);
 if(iframe != null){
 var subWeb = parent.document.frames ? parent.document.frames[param.iframeid].document : iframe.contentDocument;
- 
+
 var autoHeight = function(){
     if (iframe != null && subWeb != null) {
         //获取被嵌套IFRAME内容的高度
@@ -381,7 +381,7 @@ var autoHeight = function(){
         $(iframe).animate({ height: finalHeight }, param.speed);
     }
 };
- 
+
 //循环自适应高度
 if(param.timer > 0){
     setInterval(autoHeight, param.timer);
@@ -391,6 +391,33 @@ bgiframe 插件用来轻松解决 IE6 z-index 的问题，如果网页上有浮�
 
 使用方法：
 
-$(document).ready(function() { 
-  $('#floatingBox').bgiframe(); 
-});  
+$(document).ready(function() {
+  $('#floatingBox').bgiframe();
+});
+
+// 2019-08-06
+X-Frame-Options 响应头
+注意: CSP Level 2 规范中的 frame-ancestors 指令会替代这个非标准的 header。CSP 的 frame-ancestors 会在 Gecko 4.0 中支持，但是并不会被所有浏览器支持。然而 X-Frame-Options 是个已广泛支持的非官方标准，可以和 CSP 结合使用。
+X-Frame-Options HTTP 响应头是用来给浏览器指示允许一个页面可否在 frame , iframe 或者 object 中展现的标记。网站可以使用此功能，来确保自己网站的内容没有被嵌到别人的网站中去，也从而避免了点击劫持 (clickjacking) 的攻击。
+
+X-Frame-Options 有三个值:
+
+DENY
+表示该页面不允许在 frame 中展示，即便是在相同域名的页面中嵌套也不允许。
+SAMEORIGIN
+表示该页面可以在相同域名页面的 frame 中展示。
+ALLOW-FROM uri
+表示该页面可以在指定来源的 frame 中展示。
+换一句话说，如果设置为 DENY，不光在别人的网站 frame 嵌入时会无法加载，在同域名页面中同样会无法加载。另一方面，如果设置为 SAMEORIGIN，那么页面就可以在同域名页面的 frame 中嵌套。
+https://developer.mozilla.org/zh-CN/docs/Web/HTTP/X-Frame-Options这个页面写了通过Nginx和iis和Apache来解决这个问题
+但是在我们平时的开发中可以通过设置header的值来解决这个问题
+
+response.setHeader("X-Frame-Options", "SAMEORIGIN");// 解决IFrame拒绝的问题
+
+https://www.baidu.com/link?url=CcYHVbdrXFUaUTFIxUXsIr_WY9i7cQEk0ewZxAngGzLfv63_W3yHSU848ay-2DuNlfktWiY0mpV8mxUZfKEby0EQT-bM9NnEDYcNbJAiTw3&wd=&eqid=fb4c067a00128a6d000000055d4a4780
+https://www.cnblogs.com/Wayou/p/intro_to_content_security_policy.html
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors
+child-src  与 frame-ancestors  看起来比较像。前者规定的是页面中可加载哪些 iframe，后者规定谁可以以 iframe 加载本页。 比如来自不同站点的两个网页 A 与 B，B，B 中有 iframe 加载了 A。那么
+
+A 的 frame-ancestors 需要包含 B
+B 的 child-src 需要包含 A

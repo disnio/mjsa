@@ -1,4 +1,0 @@
-
-新增：
-js/lgl.js 
-css/img/ 下 lgl-lbg.png, lgl-1.png, lgl-2.png, lgl-li.png

@@ -1,3 +1,18 @@
+https://reqres.in/api/users?per_page=10
+http://placehold.it/150/24f355
+function LoadJS(id, fileUrl) {
+    return new Promise(function(resolve, reject){
+        var scriptTag = document.getElementById(id);
+        var oHead = document.getElementsByTagName('HEAD').item(0);
+        var oScript= document.createElement("script");
+        if ( scriptTag  ) oHead.removeChild(scriptTag);
+        oScript.id = id;
+        oScript.type = "text/javascript";
+        oScript.src=fileUrl ;
+        oHead.appendChild(oScript);
+        resolve();
+    });
+}
 ajax的同源策略，同一个域名或子域名，并且端口一致。一个ajax请求被发送，所有的请求都会附带主语的cookie信息一起发送。
 跨域策略文件。
 cross-origin resource sharing.
@@ -39,46 +54,6 @@ REST 风格的 CRUD 类似下面这样：
     update → PUT   /collection/id
     delete → DELETE   /collection/id
 
-Backbone.sync 的语法为 sync(method, model, [options])。
-    method – CRUD 方法 ("create", "read", "update", 或 "delete")
-    model – 要被保存的模型（或要被读取的集合）
-    options – 成功和失败的回调函数，以及所有 jQuery 请求支持的选项
-
-Backbone.emulateHTTP = true;
-老的浏览器不支持 Backbone 默认的 REST/HTTP，此时可以开启 Backbone.emulateHTTP 。 设置该选项将通过 POST 方法伪造 PUT 和 DELETE 请求，此时该请求会向服务器传入名为 _method 的参数。 设置该选项同时也会向服务器发送 X-HTTP-Method-Override 头。
-
-Backbone.emulateHTTP = true;
-model.save();  // POST 到 "/collection/id", 附带 "_method=PUT" + header.
-
-emulate JSONBackbone.emulateJSON = true
-同样老的浏览器也不支持发送 application/json 编码的请求， 设置 Backbone.emulateJSON = true; 后 JSON 模型会被序列化为 model 参数， 请求会按照 application/x-www-form-urlencoded 的内容类型发送，就像提交表单一样。 
-
-------------------------------------
-AngularJS的$resource相比于$http更加适合于与RESTful数据源交互
-http://www.oschina.net/translate/learning-javascript-design-patterns?cmp&p=17
-MVVM的全称是Model View ViewModel
-对这种模式的实现，大部分都是通过在view层声明数据绑定来和其他层分离的，这样就方便了前端开发人员和后端开发人员 的分工，前端开发人员在html标签中写对viewmodel的绑定数据，model和viewmodel是后端开发人员通过开发应用的逻辑来维护这两层。
-
-Model仅仅关注数据信息，不关心任何行为；她不格式化数据或者影响数据在浏览器中的展现，这些不是他的职责；格式化数据是view层的任务，同时业务逻辑层被封装在viewmodel中，用来和model进行交互。
-
-通过ajax调用服务器服务来进行读写Model数据。
-
-View是指应用中和用户直接交互的部分，他是一个交互式的UI来表示ViewModel的状态，View被认为是主动的，而不是被动的？这句话的意思是说被动的View在应用中不关心model的领域，model的领域在controller中维护；MVVM的主动式的View包含数据绑定，事件和需要理解model和viewmodel的行为，尽管这些行为可以和属性对应，view仍然需要响应viewmodel的事件,同时View不负责控制状态。
-
-KnockoutJS的view层就是一个简单的html文档，它里面会有关联到viewmodel的数据声明，同时KnockoutJS的view层显示从ViewModel中获取的数据，传递命令给viewmodel,并且更新viewmodel改变的状态。
-
-可以认为ViewModel是一个专门用于数据转换的Controller,可以把Model中的信息转换为View中的信息，同时从View专递命令给Model
-
-从这个意义上来说，ViewModel看上去更像一个Model,但是它控制着View的很多显示逻辑，同时ViewModel也暴漏一些方法用来维护view的状态，根据View的行为和事件来更新model
-
-ViewModel位于UI层的后面，暴漏数据给View,可以认为是View层的数据和行为的源
-
-KnockoutJS把ViewModel解释为数据的展现和表现在UI上的行为，他不是ui需要持久化的数据模型，但是他可以持有用户存储的数据；Knockout的 ViewModels是采用javascript对象实现的，不用关心html标签，这种抽象的方法可以使它们的实现保持简单。 
----------------------------------
-对于企业信息管理系统而言，一个基础服务(比如帐号管理)，简单点的方式是使用页面来管理数据，然后使用服务的方式来发布数据，说简单点，就是建一个项目，其中有两部分：一部分是增删改查页面，一部分是供其他系统调用的数据服务，这种设计可以降低在系统构架初期的复杂度，即：先设计只读式的服务，等到应用扩展到一定程度后，再扩展为读写式的服务。
-
-新建MVC项目后第一步当然是考虑访问权限问题，页面部分采用SSO来控管权限肯定是没有错的，服务部分值的思考下，如果仅是自已公司的系统调用，那么使用SSO认证是可行的，只要在以后的Request中加入FormsAuthentication的Ticket即可，如果服务需要做成开放应用，那么使用oauth是个不错的选择，但是这个方案似乎有点太重量级了，次点的方法使用Http Basick认证，当然视情况也可以使用SSO的授权。
-
 访问授权问题越早考虑越好
 http://www.cnblogs.com/think8848/archive/2009/12/01/1614520.html
 如果把Atom10ItemFormatter<TSyndicationItem>做为WCF服务方法的参数类型，再使用HTTP 的PUT方式把数据推到WCF服务的方法上，这个Atom10ItemFormatter<TSyndicationItem>应该会将推进来的XML数据自动转换成SyndicationItem对象吧
@@ -97,7 +72,7 @@ The other HTTP methods (i.e. other than GET and POST) are not available in HTML 
 在jQuery的文档中说：
 The type of request to make ("POST" or "GET"), default is "GET". Note: Other HTTP request methods, such as PUT and DELETE, can also be used here, but they are not supported by all browsers.（最后一句话：不是所有浏览器支持其它方式）
 ------解决方案--------------------
-可以用POST来代替PUT和DELETE, 比如你可以埋一个hidden field叫 _method, <input type= "hidden " name= "_method " value= "PUT "> . 这样,你在后台可以根据这个字段来识别. 
+可以用POST来代替PUT和DELETE, 比如你可以埋一个hidden field叫 _method, <input type= "hidden " name= "_method " value= "PUT "> . 这样,你在后台可以根据这个字段来识别.
 -------------------------------------------------
 http://www.myexception.cn/operating-system/889647.html
 幂等有以下几种定义： 　　对于单目运算，如果一个运算对于在范围内的所有的一个数多次进行该运算所得的结果和进行一次该运算所得的结果是一样的，那么我们就称该运算是幂等的。
@@ -162,11 +137,11 @@ post用来向服务器提交内容，主要是为了提交，而不是为了请�
 
 记住：拿不准时，就可以把它作为资源。在设计资源的URI时，路径变量被用于分隔一个层次结构或者有向图的元素，如果同一层次的多项数据有次序关系就用逗号（ , ），如果同一层次的多项数据没有先后关系就用分号（ ; ）。表示应当是人类可读的，但同时也应当是面向计算机的。也应当是有用的，应该暴露的是有价值的数据而不是无用的数据。记住，你的服务可能要考虑版本化的问题，如果拿不准就在资源的最前面加上路径变量来表示版本吧。
 ----------------------------------------------
-<a href="/users/1">view</a>  
-<form action="/users/1" method="post" accept="text/html">  
-    <input type="text" name="name" />  
-    <input type="text" name="email" />  
-    <input type="submit" value="create"/>  
+<a href="/users/1">view</a>
+<form action="/users/1" method="post" accept="text/html">
+    <input type="text" name="name" />
+    <input type="text" name="email" />
+    <input type="submit" value="create"/>
 </form>
 
 资源多重表述
@@ -174,5 +149,13 @@ post用来向服务器提交内容，主要是为了提交，而不是为了请�
 Accept: text/json 返回JSON数据
 Accept: text/xml 返回XML数据
 Accept: text/html 返回HTML页面
-Accept: text/wml 返回WML页面 
+Accept: text/wml 返回WML页面
 
+// context.Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+this.downloadFileName = response.headers("Content-Disposition").split(";")[1].split("filename=")[1];
+let fileNameUnicode = response.headers("Content-Disposition").split("filename*=")[1];
+
+if (fileNameUnicode) {
+    //当存在 filename* 时，取filename* 并进行解码（为了解决中文乱码问题）
+    this.downloadFileName = decodeURIComponent(fileNameUnicode.split("''")[1]);
+}

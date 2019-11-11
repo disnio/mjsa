@@ -1,5 +1,0 @@
-- Change version in package.json
-- grunt
-- git add and git commit
-- git tag 0.x.x
-- git push origin --tags

@@ -1,4 +1,0 @@
-D:\我的文档\Visual Studio 2010\Projects\flash实现头像上传的两种方式\flash实现头像上传的两种方式\bin\flash实现头像上传的两种方式.dll
-D:\我的文档\Visual Studio 2010\Projects\flash实现头像上传的两种方式\flash实现头像上传的两种方式\bin\flash实现头像上传的两种方式.pdb
-D:\我的文档\Visual Studio 2010\Projects\flash实现头像上传的两种方式\flash实现头像上传的两种方式\obj\Debug\flash实现头像上传的两种方式.dll
-D:\我的文档\Visual Studio 2010\Projects\flash实现头像上传的两种方式\flash实现头像上传的两种方式\obj\Debug\flash实现头像上传的两种方式.pdb
