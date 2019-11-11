@@ -2,6 +2,7 @@
 
 // react-faux-dom d3.js 集成
 
+// react-app-rewired customize-cra
 // @craco/craco create-react-app v2 配置集合
 
 // react-cosmos 组件开发工具
@@ -87,3 +88,34 @@
 // emotion-normalize Normalize file for Emotion CSS-in-JS library.
 // grid-styled 改名为 @rebass/grid 响应式网格系统，
 // styled-system https://styled-system.com/ 快速UI 开发
+
+// react-codemirror2 代码编辑器显示
+// react-color 颜色拾取
+// react-node-resolver 获取组件的dom 节点
+// react-popper 弹窗
+// react-popper-tooltip
+// react-prop-toggle 属性和样式应用到 target
+// react-pseudo-state active focus hover 伪类状态操作
+// react-radios
+// react-scrolllock 阻止滚动 TouchScrollable
+// react-select
+// react-toast-notifications
+
+// react-transition-group https://reactcommunity.org/react-transition-group/
+// react-bootstrap https://react-bootstrap.github.io/
+
+// react-window 渲染大列表和标签化数据，包含下面两个
+// react-virtualized-auto-sizer
+// react-window-infinite-loader 大数据集合列表渲染无限加载列表
+
+// sarcastic 类型 shape
+
+// connected-react-router react-router 的 redux 绑定。
+
+
+// canvas 动画 https://konvajs.org/
+// https://www.npmjs.com/package/react-konva
+
+// invariant(someTruthyVal, "This will not throw");
+
+// hoist-non-react-statics 复制静态方法（targetC, sourceC, blackList={myStatic: true}）

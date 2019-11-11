@@ -1,0 +1,195 @@
+一、建议关闭的服务：
+
+　　1、Computer Browser（默认手动）
+
+　　可以被网络和共享中心的网络发现功能取代，设置为手动。
+
+　　2、Distributed Link Tracking Client
+
+　　个人网友一般用不到，设置为手动。
+
+　　3、Distributed Transaction Coordinator（默认手动）
+
+　　个人网友一般用不到，也容易受到远程拒绝服务攻击，设置为手动。
+
+　　4、Remote Registry
+
+　　这个服务是必停的服务之一，设置为禁止。
+
+　　5、secondary Logon（默认手动）
+
+　　对于多网友，可以给某网友分配临时的管理员权限，一般不会用到，设置为手动。
+
+　　6、superfetch
+
+　　I/o操作频繁的功能，如果不需要这个功能，设置为禁止。
+
+　　7、TCP/IP NetBIos Helper
+
+　　如果网络不使用NetBIos或是wINs，设置为手动。
+
+　　8、windows Defender service
+
+　　I/o操作频繁的功能，如果不需要这个功能，设置为禁止。
+
+　　9、windows search
+
+　　I/o操作频繁的功能，如果不需要这个功能，设置为禁止。
+
+　　二、依据情况可以关闭的服务：
+
+　　1、Netlogon（默认手动）
+
+　　如果不是处在域管理当中，设置为手动。
+
+　　2、Print spooler
+
+　　如果不需要连接打印机设备，设置为手动。
+
+　　3、server
+
+　　如果不会共享文件或打印机，设置为手动。
+
+　　4、smart Card（默认手动）
+
+　　如果不用U盾等智能卡，设置为禁止。
+
+　　5、windows Update
+
+　　如果你不用自动更新，设置为手动
+---------------------------------------
+Connected User Experiences and Telemetry 关于是什么服务为什么可以禁用参考：《Win10 Connected User Experiences and Telemetry服务可以禁用吗》
+
+
+Diagnostic Policy Service 《Diagnostic Policy Service服务是什么》 www.winwin7.com Win7系统之家
+
+
+Diagnostic Service Host  基本和Diagnostic Policy Service/Diagnostic Service Host是同类,可以一起禁用
+
+
+Diagnostic System Host  同上
+
+
+Distributed Link Tracking Client  参考《Distributed Link Tracking Client是什么服务》
+
+
+Downloaded Maps Manager （供应用程序访问已下载地图的 Windows 服务。此服务由访问已下载地图的应用程序按需启动。禁用此服务将阻止应用访问地图。）
+
+
+Function Discovery Provider Host  （当电脑加入域后，共享文件需要的一个服务，非域则禁用）
+
+
+HomeGroup Listener  （家庭组相关服务，不使用家庭组就禁用）
+
+
+HomeGroup Provider  （家庭组相关服务，不使用家庭组就禁用） www.winwin7.com Win7系统之家
+
+
+Human Interface Device Service  （简单的支持一些多媒体功能的键盘，蓝牙耳机上的控制按钮，没啥用）
+
+
+Internet Connection Sharing (ICS)  （无线共享相关服务，如不需要无线共享，AP热点等可关闭否则不要关）
+
+
+IP Helper  （IP V6协议版本相关服务，目关来说应用不多，可以关闭）
+
+
+IPsec Policy Agent  （防火墙相关，是用来协商和配置IPSEC安全策略的，一般用户都用不上，可以禁止掉）
+
+
+Link-Layer Topology Discovery Mapper  （网络映射相关，不使用可禁用）
+
+
+Microsoft App-V Client  （App-V是微软应用程序虚拟化技术客户端，一般用不上，禁用）
+
+
+Microsoft iSCSI Initiator Service （iscsi远程连接服务，禁用吧）
+
+
+Microsoft Software Shadow Copy Provider （卷影服务,貌似和备份还原有点像，但是用不到）
+
+
+Net.Tcp Port Sharing Service  （TCP端口共享服务，一般用户用不上）
+
+
+Offline Files  （Offline Files是什么服务 脱机服务，一般用不上）
+
+
+Performance Logs & Alerts   （搜集计算机性能、日志、报警信息的服务项）
+
+
+Portable Device Enumerator Service  （Portable Device Enumerator Service服务有什么用）
+
+
+Program Compatibility Assistant Service  （Windows兼容性助理，处理程序兼容性（主要是老旧软件），不需要可关闭）
+
+
+Quality Windows Audio Video Experience   《Quality Windows Audio Video Experience是什么服务》
+
+
+Remote Desktop Configuration  （远程桌面相关服务，不使用可关）
+
+
+Remote Desktop Services  （远程桌面相关服务，不使用可关）
+
+
+Remote Desktop Services UserMode Port Redirector  （远程桌面相关服务，不使用可关）
+
+
+Remote Registry   《Remote Registry是什么服务》这个是远程注册表服务，建议禁用。
+
+
+Routing and Remote Access  (软路由服务，可禁用)
+
+
+Secondary Logon  （二次登录服务，建议关闭）
+
+Security Center   （Windows安全中心服务，不需要的话就禁用吧，详细介绍（Win10 Security Center是什么服务可以禁用吗））
+
+Server  （局域网共享相关服务，不使用局域网可以禁用 ）
+
+Shared PC Account Manager  （共享PC帐户管理器，可以禁用）
+
+Shell Hardware Detection  （提供自动播放事件通知，禁用）
+
+Smart Card   （智能卡服务，禁用）
+
+Smart Card Device Enumeration Service   （同上，还是服务于智能卡，禁用）
+
+Smart Card Removal Policy   （智能卡相关服务）
+
+SSDP Discovery  （发现网络上的UPnP设备，网络发现相关服务，不使用局域网可禁用）
+
+Superfetch   （superfetch是什么服务  超级预读取服务 禁用无影响）
+
+SynTPEnh Caller Service   （同步电话呼叫服务 禁用）
+
+TCP/IP NetBIOS Helper  （局域网共享相关服务，不用可禁用）
+
+Telephony  （电话应用程序编程接口 (TAPI) 提供支持 ，拨号用户不要关，其它就禁用）
+
+User Experience Virtualization Service  （用户体验虚拟化服务，不需要禁用）
+
+Windows Biometric Service  （生物识别服务，不使用指纹、不使用人脸识别可以禁用）
+
+Windows Search  （Windows搜索服务，为文件建立索引加快搜索速度）
+
+Windows Update  （自动更新服务，不想自动更新的可以禁用）
+
+Windows 备份  （备份相关服务，一般也不会去用）
+
+Windows 推送通知系统服务  （建议关闭，会狂占内存、CPU）
+
+WinHTTP Web Proxy Auto-Discovery Service  （默认手动，可禁用）
+
+Workstation  (局域网共享相关，不需要可禁用)
+
+Xbox Live 身份验证管理器  （禁用）
+
+Xbox Live 游戏保存   （禁用）
+
+XboxNetApiSvc  （禁用）
+
+零售演示服务  （演示禁用）
+
+自动时区更新程序  （时间同步，不需要可禁用）
