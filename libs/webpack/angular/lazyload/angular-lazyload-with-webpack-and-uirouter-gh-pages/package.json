@@ -16,7 +16,7 @@
   "author": "wandergis",
   "license": "MIT",
   "dependencies": {
-    "angular": "1.2.29",
+    "angular": "1.7.9",
     "angular-animate": "1.2.29",
     "angular-local-storage": "^0.2.7",
     "angular-ui-router": "^0.2.18",
