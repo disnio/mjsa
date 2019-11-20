@@ -10,7 +10,7 @@
   "author": "Shawn McKay <me@shmck.com",
   "license": "ISC",
   "dependencies": {
-    "angular": "1.4.8",
+    "angular": "1.7.9",
     "bourbon": "4.2.6",
     "jquery": "2.2.0",
     "mdi": "1.4.57",
