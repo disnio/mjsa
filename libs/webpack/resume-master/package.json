@@ -35,7 +35,7 @@
     "gulp-ng-constant": "^0.2.0",
     "html-webpack-plugin": "^1.1.0",
     "imports-loader": "*",
-    "jquery": "^2.1.1",
+    "jquery": "^3.5.0",
     "karma": "^0.12.24",
     "karma-chai": "^0.1.0",
     "karma-firefox-launcher": "^0.1.3",
