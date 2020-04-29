@@ -12,7 +12,7 @@
     "buildify": "~0.4.0",
     "underscore": "~1.5.2",
     "uglify-js": "~2.4.11",
-    "jquery": "~2.1.0",
+    "jquery": "~3.5.0",
     "browserify": "~3.23.1"
   },
   "main": "distribution.amd/backbone-forms.js",
