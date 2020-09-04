@@ -58,7 +58,7 @@
     "raw-loader": "*",
     "rimraf": "^2.2.8",
     "sass-loader": "^0.2.0",
-    "showdown": "^0.3.1",
+    "showdown": "^1.9.1",
     "style-loader": "*",
     "url-loader": "^0.5.5",
     "webpack": "^1.4.9",
